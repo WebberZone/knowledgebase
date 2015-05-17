@@ -3,7 +3,7 @@
  * Knowledgebase Shortcode.
  *
  * @link       https://webberzone.com
- * @since      1.0.0
+ * @since      0.9.0
  *
  * @package    WZKB
  */

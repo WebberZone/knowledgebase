@@ -6,14 +6,14 @@
  * or FAQ section on your WordPress website.
  *
  * @link			https://webberzone.com
- * @since			1.0.0
+ * @since			0.9.0
  * @package			WZKB
  *
  * @wordpress-plugin
  * Plugin Name:		Knowledgebase
  * Plugin URI:		https://github.com/WebberZone/knowledgebase
  * Description:		A simple WordPress plugin to create a Knowledgebase.
- * Version:			1.0.0-beta20150516
+ * Version:			0.9.0
  * Author:			WebberZone
  * Author URI:		https://webberzone.com
  * License:			GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Holds the filesystem directory path (with trailing slash) for WZKB
  *
- * @since	1.0.0
+ * @since	0.9.0
  *
  * @var string
  */
@@ -39,7 +39,7 @@ $wzkb_path = plugin_dir_path( __FILE__ );
 /**
  * Holds the URL for WZKB
  *
- * @since	1.0.0
+ * @since	0.9.0
  *
  * @var string
  */
@@ -49,7 +49,7 @@ $wzkb_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
 /**
  * Initialises text domain for l10n.
  *
- * @since 1.0.0
+ * @since 0.9.0
  */
 function wzkb_lang_init() {
 	load_plugin_textdomain( 'wzkb', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -60,7 +60,7 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
 /**
  * Register Knowledgebase Post Type.
  *
- * @since	1.0.0
+ * @since	0.9.0
  */
 function wzkb_register_post_type() {
 
@@ -175,7 +175,7 @@ add_action( 'init', 'wzkb_register_post_type' );
 /**
  * Replace the archive temlate for the knowledgebase. Functions archive_template.
  *
- * @since	1.0.0
+ * @since	0.9.0
  *
  * @param	string	$archive_template	Default Archive Template location
  * @return	string	Modified Archive Template location
@@ -194,7 +194,7 @@ function wzkb_archive_template( $archive_template ) {
 /**
  * Runs on Plugin activation.
  *
- * @since	1.0.0
+ * @since	0.9.0
  */
 function wzkb_plugin_activate() {
 
@@ -210,7 +210,7 @@ register_activation_hook( __FILE__, 'wzkb_plugin_activate');
 /**
  * Runs on Plugin deactivation.
  *
- * @since	1.0.0
+ * @since	0.9.0
  */
 function wzkb_plugin_deactivate() {
 
@@ -222,7 +222,7 @@ register_activation_hook( __FILE__, 'wzkb_plugin_deactivate');
 /**
  * Register Styles and scripts.
  *
- * @since	1.0.0
+ * @since	0.9.0
  */
 function wpkb_enqueue_styles() {
 
