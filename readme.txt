@@ -1,16 +1,16 @@
-# Knowledgebase
-
-__Requires:__ 3.5
-
-__Tested up to:__ 4.3
-
-__License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
-
-__Plugin page:__ [Knowledgebase](https://github.com/WebberZone/knowledgebase)
+=== Knowledgebase ===
+Contributors: Ajay, WebberZone
+Donate link: https://webberzone.com
+Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support
+Requires at least: 3.5
+Tested up to: 4.3
+Stable tag: trunk
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A very simple WordPress plugin to create a Knowledgebase or FAQ.
 
-## Description
+== Description ==
 
 As the name suggests, [Knowledgebase](https://github.com/WebberZone/knowledgebase) will allow you to create a simple Knowledgebase on your WordPress blog.
 
@@ -26,17 +26,34 @@ Main features:
 
 There are still many features that can go into this plugin. Got an idea? Then you can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues).
 
-## Installation
+== Installation ==
 
 1. Upload `knowledgebase` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Create a new page or edit an existing one and add `[knowledgebase]` to make it show on your site
 
 
-## Frequently Asked Questions
+== Frequently Asked Questions ==
 
 If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/knowledgebase">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
 
 Alternatively, [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues)
 
+
+== Screenshots ==
+
+1. Knowledgebase menu
+2. Knowledgebase Output
+
+
+== Changelog ==
+
+= 1.0 =
+* Initial release
+
+
+== Upgrade Notice ==
+
+= 1.0 =
+* Initial release
 
