@@ -16,6 +16,15 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
+/**
+ * Create the shortcode [knowledgebase].
+ *
+ * @since	1.0.0
+ *
+ * @param	array	$att		Shortcode attributes array
+ * @param	string	$content	Content to wrap in the Shortcode
+ * @return	$output	Formatted shortcode output
+ */
 function wzkb_shortcode( $atts, $content = null ) {
 
 	wp_enqueue_style( 'wpkb_styles' );
@@ -171,6 +180,6 @@ function wzkb_shortcode( $atts, $content = null ) {
 	$output .= '<div class="wzkb_clear"></div>';
 	$output .= "</div>";
 
-	return apply_filters( 'wzkb_shortcode', $output );
+	return apply_filters( 'wzkb_shortcode', $output, $a );
 }
 add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
