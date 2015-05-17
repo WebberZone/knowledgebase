@@ -3,7 +3,7 @@
  * Fired when the plugin is uninstalled.
  *
  * @link       https://webberzone.com
- * @since      0.9.0
+ * @since      1.0.0
  *
  * @package    WZKB
  */

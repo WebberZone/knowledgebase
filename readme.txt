@@ -48,12 +48,12 @@ Alternatively, [create an issue on the Github page](https://github.com/WebberZon
 
 == Changelog ==
 
-= 0.9.0 =
+= 1.0.0 =
 * Initial release
 
 
 == Upgrade Notice ==
 
-= 0.9.0 =
+= 1.0.0 =
 * Initial release
 

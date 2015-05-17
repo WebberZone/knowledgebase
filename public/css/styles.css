@@ -56,6 +56,10 @@ ul.wzkb-articles-list {
 	word-wrap: break-word;
 }
 
+p.wzkb-article-footer {
+	margin: 0 10px;
+}
+
 .wzkb_clear {
     clear: both;
 }

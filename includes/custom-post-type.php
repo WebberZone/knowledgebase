@@ -1,66 +1,25 @@
 <?php
 /**
- * Knowledgebase
+ * Knowledgebase Custom Post Type.
  *
- * Knowledgebase is a simple WordPress plugin that let's you create a knowledgebase
- * or FAQ section on your WordPress website.
+ * @link       	https://webberzone.com
+ * @since      	1.0.0
  *
- * @link			https://webberzone.com
- * @since			0.9.0
- * @package			WZKB
- *
- * @wordpress-plugin
- * Plugin Name:		Knowledgebase
- * Plugin URI:		https://github.com/WebberZone/knowledgebase
- * Description:		A simple WordPress plugin to create a Knowledgebase.
- * Version:			0.9.0
- * Author:			WebberZone
- * Author URI:		https://webberzone.com
- * License:			GPL-2.0+
- * License URI:		http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:		wzkb
- * Domain Path:		/languages
+ * @package    	WZKB
+ * @subpackage 	WZKB/CPT
  */
+
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Holds the filesystem directory path (with trailing slash) for WZKB
- *
- * @since	0.9.0
- *
- * @var string
- */
-$wzkb_path = plugin_dir_path( __FILE__ );
-
-/**
- * Holds the URL for WZKB
- *
- * @since	0.9.0
- *
- * @var string
- */
-$wzkb_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
-
-
-/**
- * Initialises text domain for l10n.
- *
- * @since 0.9.0
- */
-function wzkb_lang_init() {
-	load_plugin_textdomain( 'wzkb', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
-add_action( 'plugins_loaded', 'wzkb_lang_init' );
-
 
 /**
  * Register Knowledgebase Post Type.
  *
- * @since	0.9.0
+ * @since	1.0.0
  */
 function wzkb_register_post_type() {
 
@@ -170,88 +129,5 @@ function wzkb_register_post_type() {
 
 }
 add_action( 'init', 'wzkb_register_post_type' );
-
-
-/**
- * Replace the archive temlate for the knowledgebase. Functions archive_template.
- *
- * @since	0.9.0
- *
- * @param	string	$archive_template	Default Archive Template location
- * @return	string	Modified Archive Template location
- */
-function wzkb_archive_template( $archive_template ) {
-	global $post;
-
-	if ( is_post_type_archive ( 'wz_knowledgebase' ) ) {
-		$archive_template = plugin_dir_path( __FILE__ ) . 'templates/archive-template.php';
-	}
-	return $archive_template;
-}
-//add_filter( 'archive_template', 'wzkb_archive_template' ) ;
-
-
-/**
- * Runs on Plugin activation.
- *
- * @since	0.9.0
- */
-function wzkb_plugin_activate() {
-
-    // Register types to register the rewrite rules
-    wzkb_register_post_type();
-
-    // Then flush them
-    flush_rewrite_rules();
-}
-register_activation_hook( __FILE__, 'wzkb_plugin_activate');
-
-
-/**
- * Runs on Plugin deactivation.
- *
- * @since	0.9.0
- */
-function wzkb_plugin_deactivate() {
-
-    flush_rewrite_rules();
-}
-register_activation_hook( __FILE__, 'wzkb_plugin_deactivate');
-
-
-/**
- * Register Styles and scripts.
- *
- * @since	0.9.0
- */
-function wpkb_enqueue_styles() {
-
-	wp_register_style( 'wpkb_styles', plugins_url( 'css/styles.css', __FILE__ ), false, false );
-
-}
-add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
-
-
-/*----------------------------------------------------------------------------*
- * Shortcode
- *----------------------------------------------------------------------------*/
-
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
-
-
-
-
-/*----------------------------------------------------------------------------*
- * Dashboard and Administrative Functionality
- *----------------------------------------------------------------------------*/
-
-if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
-
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
-
-} // End admin.inc
-
-
-
 
 
