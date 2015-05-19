@@ -6,7 +6,7 @@
  * or FAQ section on your WordPress website.
  *
  * @link			https://webberzone.com
- * @since			1.0.0-beta20150517
+ * @since			1.0.0-beta20150518
  * @package			WZKB
  *
  * @wordpress-plugin
@@ -80,6 +80,7 @@ register_activation_hook( __FILE__, 'wzkb_plugin_deactivate');
 
 	require_once( plugin_dir_path( __FILE__ ) . 'public/public.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/custom-post-type.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/main.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
 
 
