@@ -10,7 +10,10 @@
  * @subpackage WZKB/admin
  */
 
-
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 /**
  * Customise the taxonomy columns.
