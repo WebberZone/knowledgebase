@@ -6,7 +6,7 @@
  * or FAQ section on your WordPress website.
  *
  * @link			https://webberzone.com
- * @since			1.0.0-beta20150523
+ * @since			1.0.0
  * @package			WZKB
  *
  * @wordpress-plugin
