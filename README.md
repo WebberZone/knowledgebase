@@ -27,7 +27,7 @@ I felt the need to write up this simple plugin after I tried several free plugin
 There are still many features that can go into this plugin. Got an idea? Then you can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues).
 
 ## Screenshots
-![Knowledgebase Menu in the WordPress Admin](https://raw.github.com/ajaydsouza/knowledgebase/master/assets/screenshot-1.png)
+![Knowledgebase Menu in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/assets/screenshot-1.png)
 
 _Knowledgebase Menu in the WordPress Admin_
 
