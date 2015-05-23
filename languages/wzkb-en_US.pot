@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-17 11:23-0000\n"
+"POT-Creation-Date: 2015-05-23 20:46-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -17,166 +17,183 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: knowledgebase.php:70 knowledgebase.php:71 knowledgebase.php:86
+#: admin/admin.php:26
+msgid "Name"
+msgstr ""
+
+#: admin/admin.php:27
+msgid "Slug"
+msgstr ""
+
+#: admin/admin.php:28
+msgid "Posts"
+msgstr ""
+
+#: includes/custom-post-type.php:29 includes/custom-post-type.php:30
+#: includes/custom-post-type.php:45
 msgid "Knowledgebase"
 msgstr ""
 
-#: knowledgebase.php:72
+#: includes/custom-post-type.php:31
 msgid "Parent Item:"
 msgstr ""
 
-#: knowledgebase.php:73
+#: includes/custom-post-type.php:32
 msgid "All Articles"
 msgstr ""
 
-#: knowledgebase.php:74
+#: includes/custom-post-type.php:33
 msgid "Add New Article"
 msgstr ""
 
-#: knowledgebase.php:75
+#: includes/custom-post-type.php:34
 msgid "Add New"
 msgstr ""
 
-#: knowledgebase.php:76
+#: includes/custom-post-type.php:35
 msgid "New Article"
 msgstr ""
 
-#: knowledgebase.php:77
+#: includes/custom-post-type.php:36
 msgid "Edit Article"
 msgstr ""
 
-#: knowledgebase.php:78
+#: includes/custom-post-type.php:37
 msgid "Update Article"
 msgstr ""
 
-#: knowledgebase.php:79
+#: includes/custom-post-type.php:38
 msgid "View Article"
 msgstr ""
 
-#: knowledgebase.php:80
+#: includes/custom-post-type.php:39
 msgid "Search Article"
 msgstr ""
 
-#: knowledgebase.php:81
+#: includes/custom-post-type.php:40
 msgid "Not found"
 msgstr ""
 
-#: knowledgebase.php:82
+#: includes/custom-post-type.php:41
 msgid "Not found in Trash"
 msgstr ""
 
-#: knowledgebase.php:85
+#: includes/custom-post-type.php:44
 msgid "wz_knowledgebase"
 msgstr ""
 
-#: knowledgebase.php:111
+#: includes/custom-post-type.php:70
 msgid "KB Category"
 msgstr ""
 
-#: knowledgebase.php:112
+#: includes/custom-post-type.php:71
 msgid "All Categories"
 msgstr ""
 
-#: knowledgebase.php:113
+#: includes/custom-post-type.php:72
 msgid "Parent Category"
 msgstr ""
 
-#: knowledgebase.php:114
+#: includes/custom-post-type.php:73
 msgid "Parent Category:"
 msgstr ""
 
-#: knowledgebase.php:115
+#: includes/custom-post-type.php:74
 msgid "New Category Name"
 msgstr ""
 
-#: knowledgebase.php:116
+#: includes/custom-post-type.php:75
 msgid "Add New Category"
 msgstr ""
 
-#: knowledgebase.php:117
+#: includes/custom-post-type.php:76
 msgid "Edit Category"
 msgstr ""
 
-#: knowledgebase.php:118
+#: includes/custom-post-type.php:77
 msgid "Update Category"
 msgstr ""
 
-#: knowledgebase.php:119
+#: includes/custom-post-type.php:78
 msgid "View Category"
 msgstr ""
 
-#: knowledgebase.php:120
+#: includes/custom-post-type.php:79
 msgid "Separate Categories with commas"
 msgstr ""
 
-#: knowledgebase.php:121
+#: includes/custom-post-type.php:80
 msgid "Add or remove categories"
 msgstr ""
 
-#: knowledgebase.php:122 knowledgebase.php:154
+#: includes/custom-post-type.php:81 includes/custom-post-type.php:113
 msgid "Choose from the most used"
 msgstr ""
 
-#: knowledgebase.php:123
+#: includes/custom-post-type.php:82
 msgid "Popular Categories"
 msgstr ""
 
-#: knowledgebase.php:124
+#: includes/custom-post-type.php:83
 msgid "Search Categories"
 msgstr ""
 
-#: knowledgebase.php:125 knowledgebase.php:157
+#: includes/custom-post-type.php:84 includes/custom-post-type.php:116
 msgid "Not Found"
 msgstr ""
 
-#: knowledgebase.php:143
+#: includes/custom-post-type.php:102
 msgid "KB Tag"
 msgstr ""
 
-#: knowledgebase.php:144
+#: includes/custom-post-type.php:103
 msgid "All Tags"
 msgstr ""
 
-#: knowledgebase.php:145
+#: includes/custom-post-type.php:104
 msgid "Parent Tag"
 msgstr ""
 
-#: knowledgebase.php:146
+#: includes/custom-post-type.php:105
 msgid "Parent Tag:"
 msgstr ""
 
-#: knowledgebase.php:147
+#: includes/custom-post-type.php:106
 msgid "New Tag Name"
 msgstr ""
 
-#: knowledgebase.php:148
+#: includes/custom-post-type.php:107
 msgid "Add New Tag"
 msgstr ""
 
-#: knowledgebase.php:149
+#: includes/custom-post-type.php:108
 msgid "Edit Tag"
 msgstr ""
 
-#: knowledgebase.php:150
+#: includes/custom-post-type.php:109
 msgid "Update Tag"
 msgstr ""
 
-#: knowledgebase.php:151
+#: includes/custom-post-type.php:110
 msgid "View Tag"
 msgstr ""
 
-#: knowledgebase.php:152
+#: includes/custom-post-type.php:111
 msgid "Separate Tags with commas"
 msgstr ""
 
-#: knowledgebase.php:153
+#: includes/custom-post-type.php:112
 msgid "Add or remove tags"
 msgstr ""
 
-#: knowledgebase.php:155
+#: includes/custom-post-type.php:114
 msgid "Popular Tags"
 msgstr ""
 
-#: knowledgebase.php:156
+#: includes/custom-post-type.php:115
 msgid "Search Tags"
+msgstr ""
+
+#: includes/main.php:161 includes/main.php:217
+msgid "Read more articles in "
 msgstr ""
