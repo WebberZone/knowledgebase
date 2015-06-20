@@ -30,12 +30,12 @@ function wzkb_shortcode( $atts, $content = null ) {
 	wp_enqueue_style( 'wpkb_styles' );
 	wp_enqueue_style( 'dashicons' );
 
-    $a = shortcode_atts( array(
+    $atts = shortcode_atts( array(
 		'category' => false,		// Create a knowledgebase for subcategories of this parent ID
 	), $atts, 'knowledgebase' );
 
-	$output = wzkb_knowledge( $a );
+	$output = wzkb_knowledge( $atts );
 
-	return apply_filters( 'wzkb_shortcode', $output, $a );
+	return apply_filters( 'wzkb_shortcode', $output, $atts );
 }
 add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
