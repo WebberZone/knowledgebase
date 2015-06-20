@@ -111,17 +111,7 @@ function wzkb_looper( $term, $level, $processed = false ) {
 									<a href="' . get_term_link( $child ) . '" title="' . $child->name . '" >' . $child->name . '</a>
 								</h4>';
 
-					$output .= '<ul class="wzkb-articles-list">';
-
-					while ( $query->have_posts() ) : $query->the_post();
-
-						$output .=  '<li class="wzkb-article-name">';
-						$output .=  '	<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
-						$output .=  '</li>';
-
-					endwhile;
-
-					$output .=  '</ul>';
+					$output .= wzkb_article_loop( $query );
 
 					$output .= wzkb_looper( $child, $level + 1, true );
 
@@ -155,17 +145,7 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 			if ( $query->have_posts() ) :
 
-				$output .= '<ul class="wzkb-articles-list">';
-
-				while ( $query->have_posts() ) : $query->the_post();
-
-					$output .=  '<li class="wzkb-article-name">';
-					$output .=  '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
-					$output .=  '</li>';
-
-				endwhile;
-
-				$output .=  '</ul>';
+				$output .= wzkb_article_loop( $query );
 
 				$output .= '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
 								<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
@@ -249,5 +229,40 @@ function wzkb_query_posts( $term, $is_child = false ) {
 	 * @param	bool	$is_child	Is this a child term?
 	 */
 	return apply_filters( 'wzkb_query_posts', $query, $args, $term, $is_child );
+
+}
+
+
+/**
+ * Creates the list of articles for a particular query results object.
+ *
+ * @since	1.1.0
+ *
+ * @param	object	$query	Query results object
+ * @return	string	$output	Formatted ul loop
+ */
+function wzkb_article_loop( $query ) {
+
+	$output = '<ul class="wzkb-articles-list">';
+
+	while ( $query->have_posts() ) : $query->the_post();
+
+		$output .=  '<li class="wzkb-article-name">';
+		$output .=  '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
+		$output .=  '</li>';
+
+	endwhile;
+
+	$output .=  '</ul>';
+
+	/**
+	 * Filters formatted articles list.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$output	Formatted ul loop
+	 * @param	object	$query	Query results object
+	 */
+	return apply_filters( 'wzkb_article_loop', $output, $query );
 
 }
