@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since	1.0.0
  *
  * @param	array	$args	Parameters array
- * @return	$output	Formatted output
+ * @return	string	Formatted output
  */
 function wzkb_knowledge( $args = array() ) {
 
@@ -126,9 +126,7 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 					if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
 
-						$output .= '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
-										<a href="' . get_term_link( $child ) . '" title="' . $child->name . '" >' . $child->name . '</a> &raquo;
-									</p>';
+						$output .= wzkb_article_footer( $child );
 
 					}
 
@@ -156,9 +154,7 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 				$output .= wzkb_article_loop( $query );
 
-				$output .= '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
-								<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
-							</p>';
+				$output .= wzkb_article_footer( $term );
 
 				wp_reset_postdata();
 
@@ -194,10 +190,9 @@ function wzkb_looper( $term, $level, $processed = false ) {
  *
  * @param	object	$term	The Term
  * @param	bool	$is_child	Is this a child term?
- * @return	object	$query	Query results for the give term
+ * @return	object	Query results for the give term
  */
 function wzkb_query_posts( $term, $is_child = false ) {
-
 
 	$tax_query = array(
 					array(
@@ -258,7 +253,7 @@ function wzkb_query_posts( $term, $is_child = false ) {
  * @since	1.1.0
  *
  * @param	object	$query	Query results object
- * @return	string	$output	Formatted ul loop
+ * @return	string	Formatted ul loop
  */
 function wzkb_article_loop( $query ) {
 
@@ -283,5 +278,32 @@ function wzkb_article_loop( $query ) {
 	 * @param	object	$query	Query results object
 	 */
 	return apply_filters( 'wzkb_article_loop', $output, $query );
+
+}
+
+
+/**
+ * Footer of the articles list.
+ *
+ * @since	1.1.0
+ *
+ * @param	object	$term	Current term
+ * @return	string	Formatted footer output
+ */
+function wzkb_article_footer( $term ) {
+
+	$output = '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
+					<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
+				</p>';
+
+	/**
+	 * Filter the footer of the article list.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$output	Formatted footer output
+	 * @param	object	$term	Current term
+	 */
+	return apply_filters( 'wzkb_article_footer', $output, $term );
 
 }
