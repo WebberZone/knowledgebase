@@ -100,40 +100,9 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 		foreach ( $children as $child ) {
 
-				$immediate_children = get_terms( 'wzkb_category', array(
-				    'orderby'    => 'name',
-				    'hide_empty' => 0,
-					'child_of' => $child->term_id,
-				) );
-
-				$tax_query = array(
-								'relation' => 'AND',
-								array(
-									'taxonomy' => 'wzkb_category',
-									'field'    => 'term_id',
-									'terms'    => $child->term_id,
-									'include_children' => false,
-								),
-								array(
-									'taxonomy' => 'wzkb_category',
-									'field'    => 'term_id',
-									'terms'    => wp_list_pluck( $immediate_children, 'term_id' ),
-									'operator' => 'NOT IN',
-								),
-							);
-
 			$output .= '<li class="wzkb_section wzkb-section-level-' . $level . ' kb-list-item-' . $child->term_id . '">';
 
-				// Fetch posts in the section
-				$kb_args = array(
-					'post_type' => 'wz_knowledgebase',
-					'posts_per_page'=> 5,
-					'tax_query' => $tax_query,
-				);
-
-				$query = new WP_Query( $kb_args );
-
-				$count = count( $query );
+				$query = wzkb_query_posts( $child, true );
 
 				if ( $query->have_posts() ) :
 
@@ -182,23 +151,7 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 		if ( ! $processed ) {
 
-			$tax_query = array(
-							array(
-								'taxonomy' => 'wzkb_category',
-								'field'    => 'term_id',
-								'terms'    => $term->term_id,
-								'include_children' => false,
-							),
-						);
-
-			// Fetch posts in the section
-			$kb_args = array(
-				'post_type' => 'wz_knowledgebase',
-				'posts_per_page'=> 5,
-				'tax_query' => $tax_query,
-			);
-
-			$query = new WP_Query( $kb_args );
+			$query = wzkb_query_posts( $term, false );
 
 			if ( $query->have_posts() ) :
 
@@ -231,5 +184,70 @@ function wzkb_looper( $term, $level, $processed = false ) {
 	}
 
 	return $output;
+
+}
+
+
+/**
+ * Returns query results for a specific term.
+ *
+ * @since	1.1.0
+ *
+ * @param	object	$term	The Term
+ * @param	bool	$is_child	Is this a child term?
+ * @return	object	$query	Query results for the give term
+ */
+function wzkb_query_posts( $term, $is_child = false ) {
+
+
+	$tax_query = array(
+					array(
+						'taxonomy' => 'wzkb_category',
+						'field'    => 'term_id',
+						'terms'    => $term->term_id,
+						'include_children' => false,
+					),
+				);
+
+	/* If this is a child term then we need to mmodify $tax_query to include results only for this term */
+	if ( $is_child ) {
+
+		$immediate_children = get_terms( 'wzkb_category', array(
+		    'orderby'    => 'name',
+		    'hide_empty' => 0,
+			'child_of' => $term->term_id,
+		) );
+
+		$tax_query['relation'] = 'AND';
+
+		$tax_query[] =	array(
+							'taxonomy' => 'wzkb_category',
+							'field'    => 'term_id',
+							'terms'    => wp_list_pluck( $immediate_children, 'term_id' ),
+							'operator' => 'NOT IN',
+						);
+
+	}
+
+	// Fetch posts in the section
+	$args = array(
+		'post_type' => 'wz_knowledgebase',
+		'posts_per_page'=> 5,
+		'tax_query' => $tax_query,
+	);
+
+	$query = new WP_Query( $args );
+
+	/**
+	 * Filters query results of the specific term.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	object	$query	Query results for the give term
+	 * @param	array	$args	Arguments for WP_Query
+	 * @param	object	$term	The Term
+	 * @param	bool	$is_child	Is this a child term?
+	 */
+	return apply_filters( 'wzkb_query_posts', $query, $args, $term, $is_child );
 
 }
