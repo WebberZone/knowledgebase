@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since	1.0.0
  *
  * @param	array	$args	Parameters array
- * @return	$output	Formatted shortcode output
+ * @return	$output	Formatted output
  */
 function wzkb_knowledge( $args = array() ) {
 
@@ -67,9 +67,18 @@ function wzkb_knowledge( $args = array() ) {
 	$output .=  '</div>';	// End wzkb_section
 	$output .= '<div class="wzkb_clear"></div>';
 
+	/**
+	 * Filter the formatted shortcode output.
+	 *
+	 * @since	1.0.0
+	 *
+	 * @param	string	$output	Formatted HTML output
+	 * @param	array	$args	Parameters array
+	 */
 	return apply_filters( 'wzkb_knowledge', $output, $args );
 
 }
+
 
 /**
  * Creates the knowledgebase loop.
@@ -163,7 +172,17 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 	}
 
-	return $output;
+	/**
+	 * Filter the formatted shortcode output.
+	 *
+	 * @since	1.0.0
+	 *
+	 * @param	string	$output	Formatted HTML output
+	 * @param	int		$term_id	Term ID
+	 * @param	int		$level		Level of the loop
+	 * @param	bool	$processed	Flag to indicate current term is processed
+	 */
+	return apply_filters( 'wzkb_looper', $output, $term, $level, $processed );
 
 }
 
