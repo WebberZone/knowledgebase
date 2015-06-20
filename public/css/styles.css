@@ -59,23 +59,27 @@ ul.wzkb_section_wrapper {
 	width: 100%;
 }
 
+ul.wzkb-section-wrapper-level-1 {
+	margin: 0;
+}
+
 .wzkb_section {
-	list-style-type: none;
+	list-style-type: none !important;
 }
 
 ul.wzkb-articles-list {
     list-style-type: none;
-    margin: : 0;
+    margin: 0;
     padding-left: 5px;
 }
 
 li.wzkb-article-name {
-    list-style-type: none;
+    list-style-type: none !important;
     margin: 0;
 }
 
 li.wzkb_section {
-    list-style-type: none;
+    list-style-type: none !important;
     margin-left: 0;
 }
 

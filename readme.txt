@@ -1,5 +1,5 @@
 === Knowledgebase ===
-Contributors: Ajay, WebberZone
+Contributors: Ajay, webberzone
 Donate link: https://webberzone.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
 Requires at least: 3.5
@@ -59,14 +59,18 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 3. Knowledgebase Category view in the WordPress Admin
 
 
-== Changelog ==
-
-= 1.0.0 =
-* Initial release
-
-
 == Upgrade Notice ==
 
 = 1.0.0 =
 * Initial release
+
+
+== Changelog ==
+
+= 1.1.0 =
+* Modified: Duplicate code cleanup
+
+= 1.0.0 - 17 May 2015 =
+* Initial release
+
 
