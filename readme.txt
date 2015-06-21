@@ -45,7 +45,7 @@ Alternatively, [create an issue on the Github page](https://github.com/WebberZon
 
 = Shortcode =
 
-You can display the knowledgebase anywhere in your blog using the `[knowledgebase]` shortcode. The recommended option is to add this to a dedicated page. The plugin takes one optional attribute `category`:
+You can display the knowledgebase anywhere in your blog using the `[knowledgebase]` shortcode. The recommended option is to add this to a dedicated page called *Knowledgebase*. The plugin takes one optional attribute `category`:
 
 `[knowledgebase category="92"]`
 
