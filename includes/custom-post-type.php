@@ -55,6 +55,12 @@ function wzkb_register_post_type() {
 	);
 	register_post_type( 'wz_knowledgebase', $ptargs );
 
+}
+add_action( 'init', 'wzkb_register_post_type' );
+
+
+function wzkb_register_taxonomies() {
+
 	// Now register categories for the Knowledgebase
 	$catlabels = array(
 		'name'                       => _x( 'Knowledgebase Categories', 'Taxonomy General Name', 'wzkb' ),
@@ -86,6 +92,5 @@ function wzkb_register_post_type() {
 	register_taxonomy( 'wzkb_tag', array( 'wz_knowledgebase' ), $tagargs );
 
 }
-add_action( 'init', 'wzkb_register_post_type' );
-
+add_action( 'init', 'wzkb_register_taxonomies' );
 
