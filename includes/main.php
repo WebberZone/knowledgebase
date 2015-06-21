@@ -116,25 +116,15 @@ function wzkb_looper( $term, $level, $processed = false ) {
 				if ( $query->have_posts() ) :
 
 					// Display Section Name
-					$output .= '<h4 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
-									<a href="' . get_term_link( $child ) . '" title="' . $child->name . '" >' . $child->name . '</a>
-								</h4>';
+					$output .= wzkb_article_header( $child , $level, $query );
 
-					$output .= wzkb_article_loop( $query );
+					$output .= wzkb_article_loop( $child , $level, $query );
 
 					$output .= wzkb_looper( $child, $level + 1, true );
 
-					if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
-
-						$output .= wzkb_article_footer( $child );
-
-					}
+					$output .= wzkb_article_footer( $child , $level, $query );
 
 					wp_reset_postdata();
-
-				else :
-
-//					$output .= '<p>No Articles Found</p>';
 
 				endif;
 
@@ -152,15 +142,11 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 			if ( $query->have_posts() ) :
 
-				$output .= wzkb_article_loop( $query );
+				$output .= wzkb_article_loop( $term , $level, $query );
 
-				$output .= wzkb_article_footer( $term );
+				$output .= wzkb_article_footer( $term , $level, $query );
 
 				wp_reset_postdata();
-
-			else :
-
-				$output .= '<p>No Articles Found</p>';
 
 			endif;
 
@@ -248,14 +234,47 @@ function wzkb_query_posts( $term, $is_child = false ) {
 
 
 /**
+ * Header of the articles list.
+ *
+ * @since	1.1.0
+ *
+ * @param	object	$term	Current term
+ * @param	int		$level	Current level in the recursive loop
+ * @param	object	$query	Query results object
+ * @return	string	Formatted footer output
+ */
+function wzkb_article_header( $term, $level, $query ) {
+
+	$output = '<h4 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
+					<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
+				</h4>';
+
+	/**
+	 * Filter the header of the article list.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$output	Formatted footer output
+	 * @param	object	$term	Current term
+	 * @param	int		$level	Current level in the recursive loop
+	 * @param	object	$query	Query results object
+	 */
+	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
+
+}
+
+
+/**
  * Creates the list of articles for a particular query results object.
  *
  * @since	1.1.0
  *
+ * @param	object	$term	Current term
+ * @param	int		$level	Current level in the recursive loop
  * @param	object	$query	Query results object
  * @return	string	Formatted ul loop
  */
-function wzkb_article_loop( $query ) {
+function wzkb_article_loop( $term, $level, $query ) {
 
 	$output = '<ul class="wzkb-articles-list">';
 
@@ -275,9 +294,11 @@ function wzkb_article_loop( $query ) {
 	 * @since	1.1.0
 	 *
 	 * @param	string	$output	Formatted ul loop
+	 * @param	object	$term	Current term
+	 * @param	int		$level	Current level in the recursive loop
 	 * @param	object	$query	Query results object
 	 */
-	return apply_filters( 'wzkb_article_loop', $output, $query );
+	return apply_filters( 'wzkb_article_loop', $output, $term, $level, $query );
 
 }
 
@@ -288,13 +309,21 @@ function wzkb_article_loop( $query ) {
  * @since	1.1.0
  *
  * @param	object	$term	Current term
+ * @param	int		$level	Current level in the recursive loop
+ * @param	object	$query	Query results object
  * @return	string	Formatted footer output
  */
-function wzkb_article_footer( $term ) {
+function wzkb_article_footer( $term, $level, $query ) {
 
-	$output = '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
-					<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
-				</p>';
+	$output = '';
+
+	if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
+
+		$output .= '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
+						<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
+					</p>';
+
+	}
 
 	/**
 	 * Filter the footer of the article list.
@@ -302,8 +331,10 @@ function wzkb_article_footer( $term ) {
 	 * @since	1.1.0
 	 *
 	 * @param	string	$output	Formatted footer output
+	 * @param	string	$output	Formatted ul loop
 	 * @param	object	$term	Current term
+	 * @param	int		$level	Current level in the recursive loop
 	 */
-	return apply_filters( 'wzkb_article_footer', $output, $term );
+	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
 
 }
