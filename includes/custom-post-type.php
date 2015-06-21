@@ -50,7 +50,7 @@ function wzkb_register_post_type() {
 		'hierarchical'        => true,
 		'menu_position'       => 5,
 		'menu_icon'           => 'dashicons-book-alt',
-		'has_archive'         => false,
+		'has_archive'         => 'kb-articles',
 	    'rewrite' 			  => array( 'slug' =>'knowledgebase', 'with_front' => false ),
 	);
 	register_post_type( 'wz_knowledgebase', $ptargs );
@@ -66,7 +66,7 @@ function wzkb_register_post_type() {
 		'hierarchical'               => true,
 		'show_admin_column'          => true,
 		'show_tagcloud'              => false,
-	    'rewrite' 			         => array( 'slug' =>'kbcategory' ),
+	    'rewrite' 			         => array( 'slug' =>'kb-articles', 'with_front' => true, 'hierarchical' => true ),
 	);
 	register_taxonomy( 'wzkb_category', array( 'wz_knowledgebase' ), $catargs );
 
@@ -81,7 +81,7 @@ function wzkb_register_post_type() {
 		'hierarchical'               => false,
 		'show_admin_column'          => true,
 		'show_tagcloud'              => true,
-	    'rewrite' 			         => array( 'slug' =>'kbtag' ),
+	    'rewrite' 			         => array( 'slug' =>'kb-tags', 'with_front' => true, 'hierarchical' => true ),
 	);
 	register_taxonomy( 'wzkb_tag', array( 'wz_knowledgebase' ), $tagargs );
 
