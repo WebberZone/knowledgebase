@@ -134,23 +134,19 @@ function wzkb_looper( $term, $level, $processed = false ) {
 
 		$output .= '</ul>';
 
-	} elseif ( empty( $children ) ) {
+	} elseif ( empty( $children ) && ! $processed ) {
 
-		if ( ! $processed ) {
+		$query = wzkb_query_posts( $term, false );
 
-			$query = wzkb_query_posts( $term, false );
+		if ( $query->have_posts() ) :
 
-			if ( $query->have_posts() ) :
+			$output .= wzkb_article_loop( $term , $level, $query );
 
-				$output .= wzkb_article_loop( $term , $level, $query );
+			$output .= wzkb_article_footer( $term , $level, $query );
 
-				$output .= wzkb_article_footer( $term , $level, $query );
+			wp_reset_postdata();
 
-				wp_reset_postdata();
-
-			endif;
-
-		}
+		endif;
 
 	}
 
