@@ -56,7 +56,7 @@ function wzkb_archive_template( $template ) {
 
 		$template_name = 'archive-wz_knowledgebase.php';
 
-		if ( empty( locate_template( array( $template_name ) ) ) ) {
+		if ( '' == locate_template( array( $template_name ) ) ) {
 
 			$template = $wzkb_path . 'public/templates/' . $template_name;
 		}
