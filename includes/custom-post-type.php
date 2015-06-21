@@ -50,8 +50,8 @@ function wzkb_register_post_type() {
 		'hierarchical'        => true,
 		'menu_position'       => 5,
 		'menu_icon'           => 'dashicons-book-alt',
-		'has_archive'         => true,
-	    'rewrite' 			  => array( 'slug' =>'wzkb' ),
+		'has_archive'         => false,
+	    'rewrite' 			  => array( 'slug' =>'knowledgebase', 'with_front' => false ),
 	);
 	register_post_type( 'wz_knowledgebase', $ptargs );
 
