@@ -61,20 +61,22 @@ add_action( 'init', 'wzkb_register_post_type' );
 
 function wzkb_register_taxonomies() {
 
+	$args = array(
+		'hierarchical'               => true,
+		'show_admin_column'          => true,
+		'show_tagcloud'              => false,
+	    'rewrite' 			         => array( 'slug' =>'kb-articles', 'with_front' => true, 'hierarchical' => true ),
+	);
+
 	// Now register categories for the Knowledgebase
 	$catlabels = array(
 		'name'                       => _x( 'Knowledgebase Categories', 'Taxonomy General Name', 'wzkb' ),
 		'singular_name'              => _x( 'Knowledgebase Category', 'Taxonomy Singular Name', 'wzkb' ),
 		'menu_name'                  => __( 'KB Category', 'wzkb' ),
 	);
-	$catargs = array(
-		'labels'                     => $catlabels,
-		'hierarchical'               => true,
-		'show_admin_column'          => true,
-		'show_tagcloud'              => false,
-	    'rewrite' 			         => array( 'slug' =>'kb-articles', 'with_front' => true, 'hierarchical' => true ),
-	);
-	register_taxonomy( 'wzkb_category', array( 'wz_knowledgebase' ), $catargs );
+	$args['labels'] = $catlabels;
+
+	register_taxonomy( 'wzkb_category', array( 'wz_knowledgebase' ), $args );
 
 	// Now register tags for the Knowledgebase
 	$taglabels = array(
@@ -82,14 +84,13 @@ function wzkb_register_taxonomies() {
 		'singular_name'              => _x( 'Knowledgebase Tag', 'Taxonomy Singular Name', 'wzkb' ),
 		'menu_name'                  => __( 'KB Tag', 'wzkb' ),
 	);
-	$tagargs = array(
-		'labels'                     => $taglabels,
-		'hierarchical'               => false,
-		'show_admin_column'          => true,
-		'show_tagcloud'              => true,
-	    'rewrite' 			         => array( 'slug' =>'kb-tags', 'with_front' => true, 'hierarchical' => true ),
-	);
-	register_taxonomy( 'wzkb_tag', array( 'wz_knowledgebase' ), $tagargs );
+	$args['labels'] = $taglabels;
+
+	$args['hierarchical'] 		= false;
+	$args['show_tagcloud'] 		= true;
+	$args['rewrite']['slug']	= 'kb-tags';
+
+	register_taxonomy( 'wzkb_tag', array( 'wz_knowledgebase' ), $args );
 
 }
 add_action( 'init', 'wzkb_register_taxonomies' );
