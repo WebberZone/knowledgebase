@@ -1,0 +1,29 @@
+.content-area {
+	margin: 0 auto;
+	max-width: 1366px;
+}
+.wzkb-search-form {
+	margin: 0 auto;
+	max-width: 100%;
+	width: 710px;
+}
+input.wzkb-search-field {
+	margin: 0 auto;
+	width: 500px;
+	height: 50px;
+	max-width: 100%;
+}
+input.wzkb-search-submit {
+	margin: 0 auto;
+	width: 100px;
+	height: 50px;
+	max-width: 100%;
+}
+input.wzkb-search-submit:before {
+	content: "\f179";
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+	font: normal 1.2em/1 'dashicons';
+	margin-right: 10px;
+	word-wrap: break-word;
+}

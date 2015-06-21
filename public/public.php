@@ -34,7 +34,8 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
  */
 function wpkb_enqueue_styles() {
 
-	wp_register_style( 'wpkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.css', false, false );
+	wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.css', false, false );
+	wp_register_style( 'wzkb_archive_styles', plugin_dir_url( __FILE__ ) . 'css/archive-styles.css' );
 
 }
 add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
@@ -45,17 +46,26 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  *
  * @since	1.0.0
  *
- * @param	string	$archive_template	Default Archive Template location
+ * @param	string	$template	Default Archive Template location
  * @return	string	Modified Archive Template location
  */
-function wzkb_archive_template( $archive_template ) {
-	global $post;
+function wzkb_archive_template( $template ) {
+	global $post, $wzkb_path;
 
-	if ( is_post_type_archive ( 'wz_knowledgebase' ) ) {
-		$archive_template = plugin_dir_path( __FILE__ ) . 'public/templates/archive-template.php';
+	if ( is_post_type_archive( 'wz_knowledgebase' ) && ! is_search() ) {
+
+		$template_name = 'archive-wz_knowledgebase.php';
+
+		if ( empty( locate_template( array( $template_name ) ) ) ) {
+
+			$template = $wzkb_path . 'public/templates/' . $template_name;
+		}
+
 	}
-	return $archive_template;
+
+	return $template;
+
 }
-//add_filter( 'archive_template', 'wzkb_archive_template' ) ;
+add_filter( 'template_include', 'wzkb_archive_template' ) ;
 
 

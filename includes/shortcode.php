@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_shortcode( $atts, $content = null ) {
 
-	wp_enqueue_style( 'wpkb_styles' );
+	wp_enqueue_style( 'wzkb_styles' );
 	wp_enqueue_style( 'dashicons' );
 
     $atts = shortcode_atts( array(

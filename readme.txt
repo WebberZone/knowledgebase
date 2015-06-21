@@ -69,6 +69,7 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 
 = 1.1.0 =
 * New: Network activate now works on multisite
+* New: Main archive displays the Knowledgebase
 * Modified: Custom post type slug changed to `knowledgebase` from `wzkb`
 * Modified: Custom post type archives and category archives changed to `kb-articles`. Tag archives changed to `kb-tags`
 * Modified: Duplicate code cleanup
