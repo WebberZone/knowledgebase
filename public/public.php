@@ -57,14 +57,20 @@ function wzkb_archive_template( $template ) {
 		$template_name = 'archive-wz_knowledgebase.php';
 
 		if ( '' == locate_template( array( $template_name ) ) ) {
-
 			$template = $wzkb_path . 'public/templates/' . $template_name;
 		}
+	}
 
+	if ( is_tax( 'wzkb_category' ) && ! is_search() ) {
+
+		$template_name = 'taxonomy-wzkb_category.php';
+
+		if ( '' == locate_template( array( $template_name ) ) ) {
+			$template = $wzkb_path . 'public/templates/' . $template_name;
+		}
 	}
 
 	return $template;
-
 }
 add_filter( 'template_include', 'wzkb_archive_template' ) ;
 
