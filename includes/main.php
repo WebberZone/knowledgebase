@@ -37,7 +37,6 @@ function wzkb_knowledge( $args = array() ) {
 	$parent = ( 0 < $args['category'] ) ? ( $args['category'] ) : 0;
 
 	$output = '';
-
 	$output .= '<div class="wzkb">';
 
 	// Get Knowledge Base Sections
@@ -52,7 +51,6 @@ function wzkb_knowledge( $args = array() ) {
 		foreach ( $kb_master_sections as $kb_master_section ) {
 
 			$output .= '<div class="wzkb_master_section">';
-
 			$output .= '<h3 class="wzkb-master-section-name">
 							<a href="' . get_term_link( $kb_master_section ) . '" title="' . $kb_master_section->name . '" >' . $kb_master_section->name . '</a>
 						</h3>';
@@ -62,6 +60,8 @@ function wzkb_knowledge( $args = array() ) {
 			$output .= '</div>';
 
 		}
+	} else {
+		$output .= wzkb_looper( get_term( $parent, 'wzkb_category' ), 1 );
 	}
 
 	$output .=  '</div>';	// End wzkb_section

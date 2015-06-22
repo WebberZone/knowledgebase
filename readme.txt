@@ -73,6 +73,7 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 * Modified: Custom post type slug changed to `knowledgebase` from `wzkb`
 * Modified: Custom post type archives and category archives changed to `kb-articles`. Tag archives changed to `kb-tags`
 * Modified: Duplicate code cleanup
+* Fixed: If term has no children terms, then directly display the articles under it
 
 = 1.0.0 - 17 May 2015 =
 * Initial release
