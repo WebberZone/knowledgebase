@@ -26,14 +26,16 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_get_search_form( $echo = true ) {
 
-    $form = '<form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">
+    $form = '
+    <form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">
         <label>
             <span class="screen-reader-text">' . _x( 'Search for:', 'label', 'wzkb' ) . '</span>
             <input type="search" class="wzkb-search-field" placeholder="' . esc_attr_x( 'Search the knowledgebase &hellip;', 'placeholder', 'wzkb' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'wzkb' ) . '" />
         </label>
         <input type="hidden" name="post_type" value="wz_knowledgebase">
         <input type="submit" class="wzkb-search-submit" value="'. esc_attr_x( 'Search', 'submit button', 'wzkb' ) .'" />
-    </form>';
+    </form>
+    ';
 
     /**
      * Filter the HTML output of the search form.
@@ -52,3 +54,5 @@ function wzkb_get_search_form( $echo = true ) {
     else
         return $result;
 }
+
+

@@ -35,7 +35,7 @@ wp_enqueue_style( 'wzkb_archive_styles' );
 
 		// If no content, include the "No posts found" template.
 		else :
-			get_template_part( 'content', 'none' );
+			_e( 'No results found', 'wzkb' );
 
 		endif;
 		?>

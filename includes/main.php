@@ -33,36 +33,13 @@ function wzkb_knowledge( $args = array() ) {
 	// Parse incomming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
 
-	// Set parent category if defined
-	$parent = ( 0 < $args['category'] ) ? ( $args['category'] ) : 0;
+	$output = '<div class="wzkb">';
 
-	$output = '';
-	$output .= '<div class="wzkb">';
+	// Are we trying to display a category?
+	$level = ( 0 < $args['category'] ) ? 1 : 0;
+	$termID = ( 0 < $args['category'] ) ? $args['category'] : 0;
 
-	// Get Knowledge Base Sections
-	$kb_master_sections = get_terms( 'wzkb_category', array(
-	    'orderby'    => 'name',
-	    'hide_empty' => 0,
-		'parent' => $parent,
-	) );
-
-	if ( ! empty( $kb_master_sections ) && ! is_wp_error( $kb_master_sections ) ) {
-
-		foreach ( $kb_master_sections as $kb_master_section ) {
-
-			$output .= '<div class="wzkb_master_section">';
-			$output .= '<h3 class="wzkb-master-section-name">
-							<a href="' . get_term_link( $kb_master_section ) . '" title="' . $kb_master_section->name . '" >' . $kb_master_section->name . '</a>
-						</h3>';
-
-			$output .= wzkb_looper( $kb_master_section, 1 );
-
-			$output .= '</div>';
-
-		}
-	} else {
-		$output .= wzkb_looper( get_term( $parent, 'wzkb_category' ), 1 );
-	}
+	$output .= wzkb_looper( $termID, $level );
 
 	$output .=  '</div>';	// End wzkb_section
 	$output .= '<div class="wzkb_clear"></div>';
@@ -87,68 +64,56 @@ function wzkb_knowledge( $args = array() ) {
  *
  * @param	int		$term_id	Term ID
  * @param	int		$level		Level of the loop
- * @param	bool	$processed	Flag to indicate current term is processed
  * @return	string	Formatted output
  */
-function wzkb_looper( $term, $level, $processed = false ) {
+function wzkb_looper( $termID, $level ) {
+
+	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level,  );
+	if ( 1 === $level ) {
+		$divclasses[] = "section group";
+	} elseif ( 2 === $level ) {
+		$divclasses[] = "col span_1_of_2";
+	}
+
+	/**
+	 * Filter to add more classes if needed.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	array	$divclasses	Current array of classes
+	 * @param	int		$level		Level of the loop
+	 */
+	$divclasses = apply_filters( 'wzkb_loop_div_class', $divclasses , $level );
+
+	$output = '<div class="' . implode( ' ', $divclasses ) . '">';
+
+	$term = get_term( $termID, 'wzkb_category' );
+
+	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
+		$output .= wzkb_article_header( $term, $level );
+		$output .= wzkb_list_posts_by_term( $term , $level );
+	}
+
+	$output .= '<div class="wzkb_section_wrapper">';
 
 	// Get Knowledge Base Sections
-	$children = get_terms( 'wzkb_category', array(
+	$sections = get_terms( 'wzkb_category', array(
 	    'orderby'    => 'name',
-	    'hide_empty' => 0,
-		'parent' => $term->term_id,
+	    'hide_empty' => 1,
+		'parent' => $termID,
 	) );
 
-	$loop = 0;
+	if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
 
-	$output = '';
+		$level++;
 
-	if ( ! empty( $children ) && ! is_wp_error( $children ) ) {
-
-		$output .= '<ul class="wzkb_section_wrapper wzkb-section-wrapper-level-' . $level . '">';
-
-		foreach ( $children as $child ) {
-
-			$output .= '<li class="wzkb_section wzkb-section-level-' . $level . ' kb-list-item-' . $child->term_id . '">';
-
-				$query = wzkb_query_posts( $child, true );
-
-				if ( $query->have_posts() ) :
-
-					// Display Section Name
-					$output .= wzkb_article_header( $child , $level, $query );
-
-					$output .= wzkb_article_loop( $child , $level, $query );
-
-					$output .= wzkb_looper( $child, $level + 1, true );
-
-					$output .= wzkb_article_footer( $child , $level, $query );
-
-					wp_reset_postdata();
-
-				endif;
-
-			$output .= '</li>';
-
+		foreach ( $sections as $section ) {
+			$output .= wzkb_looper( $section->term_id, $level );
 		}
-
-		$output .= '</ul>';
-
-	} elseif ( empty( $children ) && ! $processed ) {
-
-		$query = wzkb_query_posts( $term, false );
-
-		if ( $query->have_posts() ) :
-
-			$output .= wzkb_article_loop( $term , $level, $query );
-
-			$output .= wzkb_article_footer( $term , $level, $query );
-
-			wp_reset_postdata();
-
-		endif;
-
 	}
+
+	$output .= '</div>';	// End wzkb_section_wrapper
+	$output .= '</div>';	// End wzkb_section
 
 	/**
 	 * Filter the formatted shortcode output.
@@ -158,9 +123,8 @@ function wzkb_looper( $term, $level, $processed = false ) {
 	 * @param	string	$output	Formatted HTML output
 	 * @param	int		$term_id	Term ID
 	 * @param	int		$level		Level of the loop
-	 * @param	bool	$processed	Flag to indicate current term is processed
 	 */
-	return apply_filters( 'wzkb_looper', $output, $term, $level, $processed );
+	return apply_filters( 'wzkb_looper', $output, $term, $level );
 
 }
 
@@ -171,45 +135,30 @@ function wzkb_looper( $term, $level, $processed = false ) {
  * @since	1.1.0
  *
  * @param	object	$term	The Term
- * @param	bool	$is_child	Is this a child term?
  * @return	object	Query results for the give term
  */
-function wzkb_query_posts( $term, $is_child = false ) {
+function wzkb_query_posts( $term ) {
 
-	$tax_query = array(
-					array(
-						'taxonomy' => 'wzkb_category',
-						'field'    => 'term_id',
-						'terms'    => $term->term_id,
-						'include_children' => false,
-					),
-				);
+	// Get the term children for the current term
+	$termchildren = get_term_children( $term->term_id, 'wzkb_category' );
 
-	/* If this is a child term then we need to mmodify $tax_query to include results only for this term */
-	if ( $is_child ) {
-
-		$immediate_children = get_terms( 'wzkb_category', array(
-		    'orderby'    => 'name',
-		    'hide_empty' => 0,
-			'child_of' => $term->term_id,
-		) );
-
-		$tax_query['relation'] = 'AND';
-
-		$tax_query[] =	array(
-							'taxonomy' => 'wzkb_category',
-							'field'    => 'term_id',
-							'terms'    => wp_list_pluck( $immediate_children, 'term_id' ),
-							'operator' => 'NOT IN',
-						);
-
-	}
-
-	// Fetch posts in the section
+	// Get all the posts for the current term excluding posts located in its child terms
 	$args = array(
-		'post_type' => 'wz_knowledgebase',
-		'posts_per_page'=> 5,
-		'tax_query' => $tax_query,
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'wzkb_category',
+				'field' => 'id',
+				'terms' => $term->term_id,
+			),
+			array(
+				'taxonomy' => 'wzkb_category',
+				'field' => 'id',
+				'terms' => $termchildren,
+				'operator' => 'NOT IN',
+			)
+		)
 	);
 
 	$query = new WP_Query( $args );
@@ -222,28 +171,34 @@ function wzkb_query_posts( $term, $is_child = false ) {
 	 * @param	object	$query	Query results for the give term
 	 * @param	array	$args	Arguments for WP_Query
 	 * @param	object	$term	The Term
-	 * @param	bool	$is_child	Is this a child term?
 	 */
-	return apply_filters( 'wzkb_query_posts', $query, $args, $term, $is_child );
+	return apply_filters( 'wzkb_query_posts', $query, $args, $term );
 
 }
 
 
 /**
- * Header of the articles list.
+ * Formatted output of posts for a given term.
  *
  * @since	1.1.0
  *
  * @param	object	$term	Current term
  * @param	int		$level	Current level in the recursive loop
- * @param	object	$query	Query results object
- * @return	string	Formatted footer output
+ * @return	string	Formatted output of posts for a given term
  */
-function wzkb_article_header( $term, $level, $query ) {
+function wzkb_list_posts_by_term( $term , $level ) {
 
-	$output = '<h4 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
-					<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
-				</h4>';
+	$output = '';
+
+	$query = wzkb_query_posts( $term );
+
+	if ( $query->have_posts() ) :
+
+		$output .= wzkb_article_loop( $term , $level, $query );
+
+		wp_reset_postdata();
+
+	endif;
 
 	/**
 	 * Filter the header of the article list.
@@ -255,7 +210,36 @@ function wzkb_article_header( $term, $level, $query ) {
 	 * @param	int		$level	Current level in the recursive loop
 	 * @param	object	$query	Query results object
 	 */
-	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
+	return apply_filters( 'wzkb_list_posts_by_term', $output, $term, $level, $query );
+
+}
+
+/**
+ * Header of the articles list.
+ *
+ * @since	1.1.0
+ *
+ * @param	object	$term	Current term
+ * @param	int		$level	Current level in the recursive loop
+ * @return	string	Formatted footer output
+ */
+function wzkb_article_header( $term, $level ) {
+
+	$output = '<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
+					<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
+				</h3>';
+
+	/**
+	 * Filter the header of the article list.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$output	Formatted footer output
+	 * @param	object	$term	Current term
+	 * @param	int		$level	Current level in the recursive loop
+	 * @param	object	$query	Query results object
+	 */
+	return apply_filters( 'wzkb_article_header', $output, $term, $level );
 
 }
 
@@ -272,11 +256,11 @@ function wzkb_article_header( $term, $level, $query ) {
  */
 function wzkb_article_loop( $term, $level, $query ) {
 
-	$output = '<ul class="wzkb-articles-list">';
+	$output = '<ul class="wzkb-articles-list term-' . $term->term_id . '">';
 
 	while ( $query->have_posts() ) : $query->the_post();
 
-		$output .=  '<li class="wzkb-article-name">';
+		$output .=  '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 		$output .=  '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
 		$output .=  '</li>';
 

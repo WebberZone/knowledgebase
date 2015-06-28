@@ -3,27 +3,33 @@
 	max-width: 1366px;
 }
 .wzkb-search-form {
-	margin: 0 auto;
-	max-width: 100%;
-	width: 710px;
+	border: #ddd 1px solid;
+	padding-left: 10px;
+	position: relative;
+	padding-right: 12px;
+	margin: 20px 0;
+	font-size: 1.3em;
 }
 input.wzkb-search-field {
-	margin: 0 auto;
-	width: 500px;
-	height: 50px;
-	max-width: 100%;
+	border: none;
+	color: #555;
+	font-family: 'Open Sans',sans-serif;
+	font-size: 1em;
+	padding: 10px 6px;
+	width: 100%;
+	background: #fff;
+	outline: none;
 }
 input.wzkb-search-submit {
-	margin: 0 auto;
-	width: 100px;
-	height: 50px;
-	max-width: 100%;
+	display: none;
 }
-input.wzkb-search-submit:before {
-	content: "\f179";
-	display: inline-block;
-	-webkit-font-smoothing: antialiased;
-	font: normal 1.2em/1 'dashicons';
-	margin-right: 10px;
-	word-wrap: break-word;
+.wzkb-search-form .screen-reader-text {
+	position: absolute;
+	clip: rect(0 0 0 0);
+}
+nav.pagination {
+	margin: 15px 0;
+	padding: 15px 0;
+	border-top: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
 }

@@ -52,9 +52,13 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
 function wzkb_archive_template( $template ) {
 	global $post, $wzkb_path;
 
-	if ( is_post_type_archive( 'wz_knowledgebase' ) && ! is_search() ) {
+	if ( is_post_type_archive( 'wz_knowledgebase' ) ) {
 
-		$template_name = 'archive-wz_knowledgebase.php';
+		if ( is_search() ) {
+			$template_name = 'search-wz_knowledgebase.php';
+		} else {
+			$template_name = 'archive-wz_knowledgebase.php';
+		}
 
 		if ( '' == locate_template( array( $template_name ) ) ) {
 			$template = $wzkb_path . 'public/templates/' . $template_name;
@@ -74,4 +78,22 @@ function wzkb_archive_template( $template ) {
 }
 add_filter( 'template_include', 'wzkb_archive_template' ) ;
 
+
+/**
+ * For knowledgebase search results, set posts_per_page 10.
+ *
+ * @since	1.1.0
+ *
+ * @param	object	$query	The search query object
+ * @return	object	$query	Updated search query object
+ */
+function wzkb_posts_per_search_page( $query ) {
+
+	if ( ! is_admin() && is_search() && $query->query_vars['post_type'] == 'wz_knowledgebase' ) {
+		$query->query_vars['posts_per_page'] = 1;
+	}
+
+    return $query;
+}
+add_filter( 'pre_get_posts', 'wzkb_posts_per_search_page' );
 
