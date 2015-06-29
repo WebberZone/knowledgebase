@@ -80,13 +80,14 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* Initial release
+= 1.1.0 =
+* Multisite support, new archive templates, changed KB slugs and more;
+Check out the changelog for detailed information
 
 
 == Changelog ==
 
-= 1.1.0 =
+= 1.1.0 - 29 June 2015 =
 * New: Network activate now works on multisite
 * New: Main archive displays the Knowledgebase. You can override the default template by adding a file `archive-wz_knowledgebase.php` in your theme folder
 * New: Category archive displays the knowledgebase for the specific category. You can override the default template by adding a file `taxonomy-wzkb_category.php` in your theme folder
