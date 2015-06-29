@@ -73,7 +73,7 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 
 *category* : Category ID for which you want to display the knowledge base. You can find the ID in the KB Category listing under Knowledgebase in the WordPress Admin.
 
-= Disabling default styles =
+### Disabling default styles
 
 If you'd like to disable the default styles that come inbuilt with the plugin, just add this to your theme's **functions.php**
 
@@ -82,11 +82,13 @@ wp_deregister_style( 'wzkb_styles' );
 ```
 
 
-### Shortcode
+### Using your own templates for archives and search
 
 Knowledgebase comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder
 
 1. Articles archive: archive-wz_knowledgebase.php
 2. Category archive: taxonomy-wzkb_category.php
 3. Search results: search-wz_knowledgebase.php
+
+
 
