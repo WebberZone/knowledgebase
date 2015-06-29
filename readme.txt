@@ -1,8 +1,8 @@
 === Knowledgebase ===
 Contributors: Ajay, webberzone
-Donate link: https://webberzone.com/donate/
+Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
-Requires at least: 3.5
+Requires at least: 3.8
 Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
@@ -12,7 +12,7 @@ The easiest way to create a Knowledgebase or FAQ on your WordPress blog.
 
 == Description ==
 
-As the name suggests, [Knowledgebase](https://github.com/WebberZone/knowledgebase) will allow you to create a simple Knowledgebase on your WordPress blog.
+As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase on your WordPress blog.
 
 I felt the need to write up this simple plugin after I tried several free plugins out there, but none seemed to fit my purpose. In the spirit of open source, I'm releasing this to everyone who might find it useful.
 
@@ -25,7 +25,11 @@ I felt the need to write up this simple plugin after I tried several free plugin
 * Inbuilt styles to display the knowledgebase beautifully
 * Supports unlimited level of categories
 
-There are still many features that can go into this plugin. Got an idea? Then you can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues). Alternatively, fork the plugin, implement it and send me a pull request.
+= Contribute =
+
+Although, Knowledgebase is fully functional, there are many features that I plan to add to this plugin as it develops. This includes inbuilt templates for articles, live search and also an options page that let's you customise some options.
+
+If you have an idea, I'd love to hear it. Knowledgebase is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
 
 == Installation ==
 
