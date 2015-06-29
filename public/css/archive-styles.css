@@ -28,8 +28,10 @@ input.wzkb-search-submit {
 	clip: rect(0 0 0 0);
 }
 nav.pagination {
+	width: 100%;
 	margin: 15px 0;
 	padding: 15px 0;
 	border-top: 1px dotted #ccc;
 	border-bottom: 1px dotted #ccc;
+	text-align: center;
 }

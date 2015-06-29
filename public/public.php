@@ -34,8 +34,8 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
  */
 function wpkb_enqueue_styles() {
 
-	wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.css', false, false );
-	wp_register_style( 'wzkb_archive_styles', plugin_dir_url( __FILE__ ) . 'css/archive-styles.css' );
+	wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.min.css', false, false );
+	wp_register_style( 'wzkb_archive_styles', plugin_dir_url( __FILE__ ) . 'css/archive-styles.min.css' );
 
 }
 add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
@@ -90,7 +90,7 @@ add_filter( 'template_include', 'wzkb_archive_template' ) ;
 function wzkb_posts_per_search_page( $query ) {
 
 	if ( ! is_admin() && is_search() && $query->query_vars['post_type'] == 'wz_knowledgebase' ) {
-		$query->query_vars['posts_per_page'] = 1;
+		$query->query_vars['posts_per_page'] = 10;
 	}
 
     return $query;

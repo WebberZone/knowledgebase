@@ -56,10 +56,7 @@ wp_enqueue_style( 'wzkb_archive_styles' );
 			<?php endwhile; ?>
 
 		<nav class="pagination">
-
 			<?php
-			$big = 999999999; // need an unlikely integer
-
 			echo paginate_links( array(
 				'format' => '?paged=%#%',
 				'current' => max( 1, get_query_var('paged') ),
