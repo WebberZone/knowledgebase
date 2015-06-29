@@ -63,7 +63,7 @@ If your question isn't listed here, please post a comment at the <a href="http:/
 
 Alternatively, [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues).
 
-= Shortcode =
+### Shortcode
 
 You can display the knowledgebase anywhere in your blog using the `[knowledgebase]` shortcode. The recommended option is to add this to a dedicated page called *Knowledgebase*. The plugin takes one optional attribute `category`:
 
@@ -82,21 +82,11 @@ wp_deregister_style( 'wzkb_styles' );
 ```
 
 
-= Using your own templates for archives and search =
+### Shortcode
 
 Knowledgebase comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder
 
 1. Articles archive: archive-wz_knowledgebase.php
 2. Category archive: taxonomy-wzkb_category.php
 3. Search results: search-wz_knowledgebase.php
-
-
-
-### Shortcode
-
-You can display the knowledgebase anywhere in your blog using the `[knowledgebase]` shortcode. The recommended option is to add this to a dedicated page. The plugin takes one optional attribute `category`:
-
-`[knowledgebase category="92"]`
-
-*category* : Category ID for which you want to display the knowledge base. You can find the ID in the KB Category listing under Knowledgebase in the WordPress Admin.
 
