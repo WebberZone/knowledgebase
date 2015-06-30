@@ -80,12 +80,15 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 
 == Upgrade Notice ==
 
-= 1.1.0 =
-* Multisite support, new archive templates, changed KB slugs and more;
+= 1.1.1 =
+* Bug fixes;
 Check out the changelog for detailed information
 
 
 == Changelog ==
+
+= 1.1.1 =
+* Fixed: Undefined index notice on Search results pages outside of the knowledgebase
 
 = 1.1.0 - 29 June 2015 =
 * New: Network activate now works on multisite

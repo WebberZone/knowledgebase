@@ -89,7 +89,7 @@ add_filter( 'template_include', 'wzkb_archive_template' ) ;
  */
 function wzkb_posts_per_search_page( $query ) {
 
-	if ( ! is_admin() && is_search() && $query->query_vars['post_type'] == 'wz_knowledgebase' ) {
+	if ( ! is_admin() && is_search() && isset( $query->query_vars['post_type'] ) && $query->query_vars['post_type'] == 'wz_knowledgebase' ) {
 		$query->query_vars['posts_per_page'] = 10;
 	}
 
