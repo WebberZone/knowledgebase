@@ -19,9 +19,6 @@ $term = $wp_query->get_queried_object();
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
 
-// Enqueue the archive specific styles
-wp_enqueue_style( 'wzkb_archive_styles' );
-
 // Hide the first level header when displaying the category archives
 $custom_css = "
 	.wzkb-section-name-level-1 {

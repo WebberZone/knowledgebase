@@ -14,7 +14,6 @@
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
 
-wp_enqueue_style( 'wzkb_archive_styles' );
 ?>
 
 	<section id="primary" class="content-area">

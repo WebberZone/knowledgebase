@@ -29,7 +29,6 @@ $query = new WP_Query( $args );
 /* This plugin uses the Archive file of wzkb theme as an example */
 get_header();
 
-wp_enqueue_style( 'wzkb_archive_styles' );
 ?>
 
 	<section id="primary" class="content-area">
