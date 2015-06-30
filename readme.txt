@@ -88,6 +88,7 @@ Check out the changelog for detailed information
 == Changelog ==
 
 = 1.1.1 =
+* New: Shortcode to display the KB search form
 * Modified: Merged archive stylesheet with the main stylesheet
 * Fixed: Undefined index notice on Search results pages outside of the knowledgebase
 

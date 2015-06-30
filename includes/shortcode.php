@@ -1,6 +1,6 @@
 <?php
 /**
- * Knowledgebase Shortcode.
+ * Knowledgebase Shortcodes
  *
  * @link       	https://webberzone.com
  * @since      	1.0.0
@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * Create the shortcode [knowledgebase].
+ * Create the shortcode to display the KB using [knowledgebase].
  *
  * @since	1.0.0
  *
@@ -36,6 +36,48 @@ function wzkb_shortcode( $atts, $content = null ) {
 
 	$output = wzkb_knowledge( $atts );
 
-	return apply_filters( 'wzkb_shortcode', $output, $atts );
+	/**
+	 * Filters knowledgebase shortcode.
+	 *
+	 * @since	1.0.0
+	 *
+	 * @return	string	$output		Formatted shortcode output
+	 * @param	array	$att		Shortcode attributes array
+	 * @param	string	$content	Content to wrap in the Shortcode
+	 */
+	return apply_filters( 'wzkb_shortcode', $output, $atts, $content );
 }
 add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
+
+
+/**
+ * Create the shortcode to display the search form using [kb-search].
+ *
+ * @since	1.1.1
+ *
+ * @param	array	$att		Shortcode attributes array
+ * @param	string	$content	Content to wrap in the Shortcode
+ * @return	$output	Formatted shortcode output
+ */
+function wzkb_shortcode_search( $atts, $content = null ) {
+
+    $atts = shortcode_atts( array(
+		'echo' => false,
+	), $atts, 'kb-search' );
+
+	$output = wzkb_get_search_form( $atts['echo'] );
+
+	/**
+	 * Filters knowledgebase search form shortcode.
+	 *
+	 * @since	1.1.1
+	 *
+	 * @return	string	$output		Formatted shortcode output
+	 * @param	array	$att		Shortcode attributes array
+	 * @param	string	$content	Content to wrap in the Shortcode
+	 */
+	return apply_filters( 'wzkb_shortcode_search', $output, $atts, $content );
+}
+add_shortcode( 'kb-search', 'wzkb_shortcode_search' );
+
+
