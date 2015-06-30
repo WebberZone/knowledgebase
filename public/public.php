@@ -35,7 +35,6 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
 function wpkb_enqueue_styles() {
 
 	wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.min.css', false, false );
-	wp_register_style( 'wzkb_archive_styles', plugin_dir_url( __FILE__ ) . 'css/archive-styles.min.css' );
 
 }
 add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
