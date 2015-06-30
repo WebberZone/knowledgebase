@@ -10,7 +10,7 @@ __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
 __Plugin page:__ [Knowledgebase](https://webberzone.com/plugins/knowledgebase/)
 
-__WordPress.org Plugin page:__ http://wordpress.org/support/plugin/knowledgebase
+__WordPress.org Plugin page:__ https://wordpress.org/plugins/knowledgebase/
 
 The easiest way to create a Knowledgebase or FAQ on your WordPress blog.
 
