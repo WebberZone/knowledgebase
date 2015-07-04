@@ -25,7 +25,7 @@ $custom_css = "
 		display: none;
 	}
 ";
-wp_add_inline_style( 'wzkb_archive_styles', $custom_css );
+wp_add_inline_style( 'wzkb_styles', $custom_css );
 
 
 ?>

@@ -80,16 +80,17 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 
 == Upgrade Notice ==
 
-= 1.1.1 =
-* Bug fixes;
+= 1.2.0 =
+* Bug fixes; Shortcode for search form and more;
 Check out the changelog for detailed information
 
 
 == Changelog ==
 
-= 1.1.1 =
+= 1.2.0 =
 * New: Shortcode to display the KB search form
 * Modified: Merged archive stylesheet with the main stylesheet
+* Modified: Hide the first level header when displaying archives
 * Fixed: Undefined index notice on Search results pages outside of the knowledgebase
 
 = 1.1.0 - 29 June 2015 =

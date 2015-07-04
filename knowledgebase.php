@@ -13,7 +13,7 @@
  * Plugin Name:		Knowledgebase
  * Plugin URI:		https://github.com/WebberZone/knowledgebase
  * Description:		A simple WordPress plugin to create a Knowledgebase.
- * Version:			1.1.1-beta20150630
+ * Version:			1.2.0-beta20150703
  * Author:			WebberZone
  * Author URI:		https://webberzone.com
  * License:			GPL-2.0+
