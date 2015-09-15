@@ -2,8 +2,8 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
-Requires at least: 3.8
-Tested up to: 4.3
+Requires at least: 3.9
+Tested up to: 4.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,17 +12,19 @@ The easiest way to create a Knowledgebase or FAQ on your WordPress blog.
 
 == Description ==
 
-As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase on your WordPress blog.
+As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase / FAQ section on your WordPress blog.
 
-I felt the need to write up this simple plugin after I tried several free plugins out there, but none seemed to fit my purpose. In the spirit of open source, I'm releasing this to everyone who might find it useful.
+The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box and I'll be adding more features into the core and as addons.
+
+The plugin uses a custom post in conjunction with custom taxonomies to create and display your knowledgebase.
 
 = Main features: =
 
 * Uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin
-* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase
-* Additionally, tags ( `kbtags` ) can also be used for each knowledgebase article. This helps to view listings by tag
+* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase.
+* Additionally tags ( `kbtags` ) can also be used for each knowledgebase article
 * Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing. I prefer creating one with the slug `knowledgebase`
-* Inbuilt styles to display the knowledgebase beautifully
+* Inbuilt styles to display the knowledge beautifully
 * Supports unlimited level of categories
 
 = Contribute =
@@ -44,9 +46,8 @@ The plugin supports unlimited levels of category hierarchy, however, the recomme
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/knowledgebase">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
+If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
 
-Alternatively, [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues).
 
 = Shortcode =
 
@@ -78,32 +79,43 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 3. Knowledgebase Category view in the WordPress Admin
 
 
+== Changelog ==
+
+= 1.2.0 =
+
+* Features:
+	* Shortcode to display the KB search form
+
+* Enhancements:
+	* Merged archive stylesheet with the main stylesheet
+	* Hide the first level header when displaying archives
+
+* Bug fixes:
+	* Undefined index notice on Search results pages outside of the knowledgebase
+
+= 1.1.0 - 29 June 2015 =
+* Features:
+	* Network activate now works on multisite
+	* Main archive displays the Knowledgebase. You can override the default template by adding a file `archive-wz_knowledgebase.php` in your theme folder
+	* Category archive displays the knowledgebase for the specific category. You can override the default template by adding a file `taxonomy-wzkb_category.php` in your theme folder
+	* Major rewrite of knowledgebase HTML markup and default styles. If you're using your own custom styles, then you will need to remove
+
+* Enhancements:
+	* Custom post type slug changed to `knowledgebase` from `wzkb`
+	* Custom post type archives and category archives changed to `kb-articles`. Tag archives changed to `kb-tags`
+	* Duplicate code cleanup
+
+* Bug fixes:
+	* If term has no children terms, then directly display the articles under it
+
+= 1.0.0 - 17 May 2015 =
+* Initial release
+
+
 == Upgrade Notice ==
 
 = 1.2.0 =
 * Bug fixes; Shortcode for search form and more;
 Check out the changelog for detailed information
-
-
-== Changelog ==
-
-= 1.2.0 =
-* New: Shortcode to display the KB search form
-* Modified: Merged archive stylesheet with the main stylesheet
-* Modified: Hide the first level header when displaying archives
-* Fixed: Undefined index notice on Search results pages outside of the knowledgebase
-
-= 1.1.0 - 29 June 2015 =
-* New: Network activate now works on multisite
-* New: Main archive displays the Knowledgebase. You can override the default template by adding a file `archive-wz_knowledgebase.php` in your theme folder
-* New: Category archive displays the knowledgebase for the specific category. You can override the default template by adding a file `taxonomy-wzkb_category.php` in your theme folder
-* New: Major rewrite of knowledgebase HTML markup and default styles. If you're using your own custom styles, then you will need to remove
-* Modified: Custom post type slug changed to `knowledgebase` from `wzkb`
-* Modified: Custom post type archives and category archives changed to `kb-articles`. Tag archives changed to `kb-tags`
-* Modified: Duplicate code cleanup
-* Fixed: If term has no children terms, then directly display the articles under it
-
-= 1.0.0 - 17 May 2015 =
-* Initial release
 
 

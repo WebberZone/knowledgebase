@@ -2,31 +2,32 @@
 
 # Knowledgebase
 
-__Requires:__ 3.8
+__Requires:__ 3.9
 
-__Tested up to:__ 4.3
+__Tested up to:__ 4.4
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
-__Plugin page:__ [Knowledgebase](https://webberzone.com/plugins/knowledgebase/)
-
-__WordPress.org Plugin page:__ https://wordpress.org/plugins/knowledgebase/
+__Plugin page:__ [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) | [WordPress.org Plugin page](https://wordpress.org/plugins/knowledgebase/)
 
 The easiest way to create a Knowledgebase or FAQ on your WordPress blog.
 
 ## Description
 
-As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase on your WordPress blog.
+As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase / FAQ section on your WordPress blog.
 
-I felt the need to write up this simple plugin after I tried several free plugins out there, but none seemed to fit my purpose. In the spirit of open source, I'm releasing this to everyone who might find it useful.
+The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box and I'll be adding more features into the core and as addons.
+
+The plugin uses a custom post in conjunction with custom taxonomies to create and display your knowledgebase.
 
 ### Main features:
 
 * Uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin
-* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase
+* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase.
 * Additionally tags ( `kbtags` ) can also be used for each knowledgebase article
 * Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing. I prefer creating one with the slug `knowledgebase`
 * Inbuilt styles to display the knowledge beautifully
+* Supports unlimited level of categories
 
 ## Contribute
 
@@ -40,7 +41,7 @@ If you have an idea, I'd love to hear it. You can [create an issue on the Github
 
 _Knowledgebase Menu in the WordPress Admin_
 
-For more screenshots visit the <a href="http://wordpress.org/plugins/knowledgebase/screenshots/">WordPress plugin page</a>
+For more screenshots visit the [WordPress plugin page](http://wordpress.org/plugins/knowledgebase/screenshots/)
 
 
 ## Installation
@@ -59,9 +60,10 @@ The plugin supports unlimited levels of category hierarchy. However, in order to
 
 ## Frequently Asked Questions
 
-If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/knowledgebase">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
+Check out the [FAQ on the plugin page](http://wordpress.org/plugins/knowledgebase/faq/).
 
-Alternatively, [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues).
+If your question isn't listed there, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
+
 
 ### Shortcode
 
@@ -91,4 +93,8 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 3. Search results: search-wz_knowledgebase.php
 
 
+
+## About this repository
+
+This GitHub repository always holds the latest development version of the plugin. If you're looking for an official WordPress release, you can find this on the [WordPress.org repository](http://wordpress.org/plugins/knowledgebase). In addition to stable releases, latest beta versions are made available under [releases](https://github.com/WebberZone/knowledgebase/releases).
 
