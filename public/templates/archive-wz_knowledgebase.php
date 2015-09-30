@@ -15,11 +15,11 @@
 get_header();
 
 // Hide the first level header when displaying archives
-$custom_css = "
-	.wzkb-section-name-level-1 {
-		display: none;
-	}
-";
+$custom_css = '
+    .wzkb-section-name-level-1 {
+        display: none;
+    }
+';
 wp_add_inline_style( 'wzkb_styles', $custom_css );
 ?>
 
@@ -39,7 +39,7 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 
 				echo do_shortcode( '[knowledgebase]' );
 
-		// If no content, include the "No posts found" template.
+			// If no content, include the "No posts found" template.
 		else :
 			_e( 'No results found', 'wzkb' );
 

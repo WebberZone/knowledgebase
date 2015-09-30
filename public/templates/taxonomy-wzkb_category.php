@@ -20,11 +20,11 @@ $term = $wp_query->get_queried_object();
 get_header();
 
 // Hide the first level header when displaying the category archives
-$custom_css = "
-	.wzkb-section-name-level-1 {
-		display: none;
-	}
-";
+$custom_css = '
+    .wzkb-section-name-level-1 {
+        display: none;
+    }
+';
 wp_add_inline_style( 'wzkb_styles', $custom_css );
 
 
@@ -46,7 +46,7 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 
 				echo do_shortcode( "[knowledgebase category='{$term->term_id}']" );
 
-		// If no content, include the "No posts found" template.
+			// If no content, include the "No posts found" template.
 		else :
 			get_template_part( 'content', 'none' );
 

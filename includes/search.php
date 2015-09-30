@@ -21,12 +21,12 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	1.1.0
  *
- * @param	boolean		$echo	Default to echo and not return the form.
+ * @param	boolean $echo   Default to echo and not return the form.
  * @return	string|null			String when retrieving, null when displaying or if searchform.php exists.
  */
 function wzkb_get_search_form( $echo = true ) {
 
-    $form = '
+	$form = '
     <form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">
         <label>
             <span class="screen-reader-text">' . _x( 'Search for:', 'label', 'wzkb' ) . '</span>
@@ -37,22 +37,21 @@ function wzkb_get_search_form( $echo = true ) {
     </form>
     ';
 
-    /**
-     * Filter the HTML output of the search form.
-     *
-     * @since	1.1.0
-     *
-     * @param	string	$form	The search form HTML output.
-     */
-    $result = apply_filters( 'wzkb_get_search_form', $form );
+	/**
+	 * Filter the HTML output of the search form.
+	 *
+	 * @since	1.1.0
+	 *
+	 * @param	string	$form	The search form HTML output.
+	 */
+	$result = apply_filters( 'wzkb_get_search_form', $form );
 
-    if ( null === $result )
-        $result = $form;
+	if ( null === $result ) {
+		$result = $form; }
 
-    if ( $echo )
-        echo $result;
-    else
-        return $result;
+	if ( $echo ) {
+		echo $result;
+	} else { 		return $result; }
 }
 
 

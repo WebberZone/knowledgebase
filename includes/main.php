@@ -21,13 +21,13 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	1.0.0
  *
- * @param	array	$args	Parameters array
+ * @param	array $args   Parameters array
  * @return	string	Formatted output
  */
 function wzkb_knowledge( $args = array() ) {
 
 	$defaults = array(
-		'category' => FALSE,		// Create a knowledgebase for subcategories of this parent ID
+		'category' => false,		// Create a knowledgebase for subcategories of this parent ID
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults
@@ -41,7 +41,7 @@ function wzkb_knowledge( $args = array() ) {
 
 	$output .= wzkb_looper( $termID, $level );
 
-	$output .=  '</div>';	// End wzkb_section
+	$output .= '</div>';	// End wzkb_section
 	$output .= '<div class="wzkb_clear"></div>';
 
 	/**
@@ -62,17 +62,17 @@ function wzkb_knowledge( $args = array() ) {
  *
  * @since	1.0.0
  *
- * @param	int		$term_id	Term ID
- * @param	int		$level		Level of the loop
+ * @param	int $term_id    Term ID
+ * @param	int $level      Level of the loop
  * @return	string	Formatted output
  */
 function wzkb_looper( $termID, $level ) {
 
-	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level,  );
+	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level );
 	if ( 1 === $level ) {
-		$divclasses[] = "section group";
+		$divclasses[] = 'section group';
 	} elseif ( 2 === $level ) {
-		$divclasses[] = "col span_1_of_2";
+		$divclasses[] = 'col span_1_of_2';
 	}
 
 	/**
@@ -134,7 +134,7 @@ function wzkb_looper( $termID, $level ) {
  *
  * @since	1.1.0
  *
- * @param	object	$term	The Term
+ * @param	object $term   The Term
  * @return	object	Query results for the give term
  */
 function wzkb_query_posts( $term ) {
@@ -158,7 +158,7 @@ function wzkb_query_posts( $term ) {
 				'terms' => $termchildren,
 				'operator' => 'NOT IN',
 			)
-		)
+		),
 	);
 
 	$query = new WP_Query( $args );
@@ -182,11 +182,11 @@ function wzkb_query_posts( $term ) {
  *
  * @since	1.1.0
  *
- * @param	object	$term	Current term
- * @param	int		$level	Current level in the recursive loop
+ * @param	object $term   Current term
+ * @param	int    $level  Current level in the recursive loop
  * @return	string	Formatted output of posts for a given term
  */
-function wzkb_list_posts_by_term( $term , $level ) {
+function wzkb_list_posts_by_term( $term, $level ) {
 
 	$output = '';
 
@@ -219,8 +219,8 @@ function wzkb_list_posts_by_term( $term , $level ) {
  *
  * @since	1.1.0
  *
- * @param	object	$term	Current term
- * @param	int		$level	Current level in the recursive loop
+ * @param	object $term   Current term
+ * @param	int    $level  Current level in the recursive loop
  * @return	string	Formatted footer output
  */
 function wzkb_article_header( $term, $level ) {
@@ -249,9 +249,9 @@ function wzkb_article_header( $term, $level ) {
  *
  * @since	1.1.0
  *
- * @param	object	$term	Current term
- * @param	int		$level	Current level in the recursive loop
- * @param	object	$query	Query results object
+ * @param	object $term   Current term
+ * @param	int    $level  Current level in the recursive loop
+ * @param	object $query  Query results object
  * @return	string	Formatted ul loop
  */
 function wzkb_article_loop( $term, $level, $query ) {
@@ -260,13 +260,13 @@ function wzkb_article_loop( $term, $level, $query ) {
 
 	while ( $query->have_posts() ) : $query->the_post();
 
-		$output .=  '<li class="wzkb-article-name post-' . get_the_ID() . '">';
-		$output .=  '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
-		$output .=  '</li>';
+		$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
+		$output .= '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
+		$output .= '</li>';
 
 	endwhile;
 
-	$output .=  '</ul>';
+	$output .= '</ul>';
 
 	/**
 	 * Filters formatted articles list.
@@ -288,9 +288,9 @@ function wzkb_article_loop( $term, $level, $query ) {
  *
  * @since	1.1.0
  *
- * @param	object	$term	Current term
- * @param	int		$level	Current level in the recursive loop
- * @param	object	$query	Query results object
+ * @param	object $term   Current term
+ * @param	int    $level  Current level in the recursive loop
+ * @param	object $query  Query results object
  * @return	string	Formatted footer output
  */
 function wzkb_article_footer( $term, $level, $query ) {
@@ -299,7 +299,7 @@ function wzkb_article_footer( $term, $level, $query ) {
 
 	if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
 
-		$output .= '<p class="wzkb-article-footer">' . __( "Read more articles in ", 'wzkb' ) . '
+		$output .= '<p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
 						<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
 					</p>';
 

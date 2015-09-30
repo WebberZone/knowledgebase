@@ -21,8 +21,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	1.0.0
  *
- * @param	array	$att		Shortcode attributes array
- * @param	string	$content	Content to wrap in the Shortcode
+ * @param	array  $att        Shortcode attributes array
+ * @param	string $content    Content to wrap in the Shortcode
  * @return	$output	Formatted shortcode output
  */
 function wzkb_shortcode( $atts, $content = null ) {
@@ -30,7 +30,7 @@ function wzkb_shortcode( $atts, $content = null ) {
 	wp_enqueue_style( 'wzkb_styles' );
 	wp_enqueue_style( 'dashicons' );
 
-    $atts = shortcode_atts( array(
+	$atts = shortcode_atts( array(
 		'category' => false,		// Create a knowledgebase for subcategories of this parent ID
 	), $atts, 'knowledgebase' );
 
@@ -55,13 +55,13 @@ add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
  *
  * @since	1.1.1
  *
- * @param	array	$att		Shortcode attributes array
- * @param	string	$content	Content to wrap in the Shortcode
+ * @param	array  $att        Shortcode attributes array
+ * @param	string $content    Content to wrap in the Shortcode
  * @return	$output	Formatted shortcode output
  */
 function wzkb_shortcode_search( $atts, $content = null ) {
 
-    $atts = shortcode_atts( array(
+	$atts = shortcode_atts( array(
 		'echo' => false,
 	), $atts, 'kb-search' );
 

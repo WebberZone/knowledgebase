@@ -45,7 +45,7 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  *
  * @since	1.0.0
  *
- * @param	string	$template	Default Archive Template location
+ * @param	string $template   Default Archive Template location
  * @return	string	Modified Archive Template location
  */
 function wzkb_archive_template( $template ) {
@@ -75,7 +75,7 @@ function wzkb_archive_template( $template ) {
 
 	return $template;
 }
-add_filter( 'template_include', 'wzkb_archive_template' ) ;
+add_filter( 'template_include', 'wzkb_archive_template' );
 
 
 /**
@@ -83,7 +83,7 @@ add_filter( 'template_include', 'wzkb_archive_template' ) ;
  *
  * @since	1.1.0
  *
- * @param	object	$query	The search query object
+ * @param	object $query  The search query object
  * @return	object	$query	Updated search query object
  */
 function wzkb_posts_per_search_page( $query ) {
@@ -92,7 +92,7 @@ function wzkb_posts_per_search_page( $query ) {
 		$query->query_vars['posts_per_page'] = 10;
 	}
 
-    return $query;
+	return $query;
 }
 add_filter( 'pre_get_posts', 'wzkb_posts_per_search_page' );
 

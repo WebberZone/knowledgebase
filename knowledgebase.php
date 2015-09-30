@@ -51,34 +51,34 @@ $wzkb_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
  *
  * @since	1.0.0
  *
- * @param    boolean    $network_wide    True if WPMU superadmin uses
- *                                       "Network Activate" action, false if
- *                                       WPMU is disabled or plugin is
- *                                       activated on an individual blog.
+ * @param    boolean $network_wide    True if WPMU superadmin uses
+ *                                    "Network Activate" action, false if
+ *                                    WPMU is disabled or plugin is
+ *                                    activated on an individual blog.
  */
 function wzkb_plugin_activate( $network_wide ) {
-    global $wpdb;
+	global $wpdb;
 
-    if ( is_multisite() && $network_wide ) {
+	if ( is_multisite() && $network_wide ) {
 
-        // Get all blogs in the network and activate plugin on each one
-        $blog_ids = $wpdb->get_col( "
+		// Get all blogs in the network and activate plugin on each one
+		$blog_ids = $wpdb->get_col( "
         	SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'
 		" );
-        foreach ( $blog_ids as $blog_id ) {
-        	switch_to_blog( $blog_id );
+		foreach ( $blog_ids as $blog_id ) {
+			switch_to_blog( $blog_id );
 			wzkb_single_activate();
-        }
+		}
 
-        // Switch back to the current blog
-        restore_current_blog();
+		// Switch back to the current blog
+		restore_current_blog();
 
-    } else {
-        wzkb_single_activate();
-    }
+	} else {
+		wzkb_single_activate();
+	}
 }
-register_activation_hook( __FILE__, 'wzkb_plugin_activate');
+register_activation_hook( __FILE__, 'wzkb_plugin_activate' );
 
 
 /**
@@ -88,11 +88,11 @@ register_activation_hook( __FILE__, 'wzkb_plugin_activate');
  */
 function wzkb_single_activate() {
 
-    // Register types to register the rewrite rules
-    wzkb_register_post_type();
+	// Register types to register the rewrite rules
+	wzkb_register_post_type();
 
-    // Then flush them
-    global $wp_rewrite;
+	// Then flush them
+	global $wp_rewrite;
 	$wp_rewrite->init();
 	flush_rewrite_rules( false );
 
@@ -104,7 +104,7 @@ function wzkb_single_activate() {
  *
  * @since 2.0.0
  *
- * @param    int    $blog_id    ID of the new blog.
+ * @param    int $blog_id    ID of the new blog.
  */
 function wzkb_activate_new_site( $blog_id ) {
 
@@ -127,33 +127,34 @@ add_action( 'wpmu_new_blog', 'wzkb_activate_new_site' );
  */
 function wzkb_plugin_deactivate( $network_wide ) {
 
-    global $wpdb;
+	global $wpdb;
 
-    if ( is_multisite() && $network_wide ) {
+	if ( is_multisite() && $network_wide ) {
 
-        // Get all blogs in the network and activate plugin on each one
-        $blog_ids = $wpdb->get_col( "
+		// Get all blogs in the network and activate plugin on each one
+		$blog_ids = $wpdb->get_col( "
         	SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'
 		" );
-        foreach ( $blog_ids as $blog_id ) {
-        	switch_to_blog( $blog_id );
-        	global $wp_rewrite;
-        	$wp_rewrite->init();
+		foreach ( $blog_ids as $blog_id ) {
+			switch_to_blog( $blog_id );
+			global $wp_rewrite;
+			$wp_rewrite->init();
 			flush_rewrite_rules();
-        }
+		}
 
-        // Switch back to the current blog
-        restore_current_blog();
+		// Switch back to the current blog
+		restore_current_blog();
 
-    }
+	}
 
-    flush_rewrite_rules();
+	flush_rewrite_rules();
 }
-register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate');
+register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * Include files
  *----------------------------------------------------------------------------*/
 
@@ -164,7 +165,8 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate');
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/search.php' );
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 

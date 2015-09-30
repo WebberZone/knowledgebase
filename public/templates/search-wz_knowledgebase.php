@@ -11,11 +11,11 @@
  */
 
 $paged = 1;
-if ( get_query_var('paged') ) {
-	$paged = get_query_var('paged');
+if ( get_query_var( 'paged' ) ) {
+	$paged = get_query_var( 'paged' );
 }
-if ( get_query_var('page') ) {
-	$paged = get_query_var('page');
+if ( get_query_var( 'page' ) ) {
+	$paged = get_query_var( 'page' );
 }
 
 $args = array(
@@ -60,15 +60,15 @@ wp_enqueue_style( 'wzkb_styles' );
 			<?php
 			echo paginate_links( array(
 				'format' => '?paged=%#%',
-				'current' => max( 1, get_query_var('paged') ),
-				'total' => $query->max_num_pages
+				'current' => max( 1, get_query_var( 'paged' ) ),
+				'total' => $query->max_num_pages,
 			) );
 			?>
 		</nav>
 
 			<?php wp_reset_postdata();
 
-		// If no content, include the "No posts found" template.
+			// If no content, include the "No posts found" template.
 		else :
 			_e( 'No results found', 'wzkb' );
 

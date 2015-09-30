@@ -44,14 +44,14 @@ function wzkb_register_post_type() {
 		'label'               => __( 'wz_knowledgebase', 'wzkb' ),
 		'description'         => __( 'Knowledgebase', 'wzkb' ),
 		'labels'              => $ptlabels,
-		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 		'taxonomies'          => array( 'wzkb_category', 'wzkb_tag' ),
 		'public'              => true,
 		'hierarchical'        => true,
 		'menu_position'       => 5,
 		'menu_icon'           => 'dashicons-book-alt',
 		'has_archive'         => 'kb-articles',
-	    'rewrite' 			  => array( 'slug' =>'knowledgebase', 'with_front' => false ),
+	    'rewrite' 			  => array( 'slug' => 'knowledgebase', 'with_front' => false ),
 	);
 	register_post_type( 'wz_knowledgebase', $ptargs );
 
@@ -65,7 +65,7 @@ function wzkb_register_taxonomies() {
 		'hierarchical'               => true,
 		'show_admin_column'          => true,
 		'show_tagcloud'              => false,
-	    'rewrite' 			         => array( 'slug' =>'kb-articles', 'with_front' => true, 'hierarchical' => true ),
+	    'rewrite' 			         => array( 'slug' => 'kb-articles', 'with_front' => true, 'hierarchical' => true ),
 	);
 
 	// Now register categories for the Knowledgebase
