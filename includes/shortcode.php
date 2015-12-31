@@ -53,7 +53,7 @@ add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
 /**
  * Create the shortcode to display the search form using [kb-search].
  *
- * @since	1.1.1
+ * @since	1.2.0
  *
  * @param	array  $att        Shortcode attributes array
  * @param	string $content    Content to wrap in the Shortcode
@@ -70,7 +70,7 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 	/**
 	 * Filters knowledgebase search form shortcode.
 	 *
-	 * @since	1.1.1
+	 * @since	1.2.0
 	 *
 	 * @return	string	$output		Formatted shortcode output
 	 * @param	array	$att		Shortcode attributes array
