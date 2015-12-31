@@ -32,6 +32,40 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Holds the filesystem directory path (with trailing slash) for WZKB
  *
+ * @since	1.2.0
+ *
+ * @var	string	Plugin folder path
+ */
+if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
+	define( 'WZKB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+/**
+ * Holds the filesystem directory path (with trailing slash) for WZKB
+ *
+ * @since	1.2.0
+ *
+ * @var	string	Plugin folder URL
+ */
+if ( ! defined( 'WZKB_PLUGIN_URL' ) ) {
+	define( 'WZKB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+/**
+ * Holds the filesystem directory path (with trailing slash) for WZKB
+ *
+ * @since	1.2.0
+ *
+ * @var	string	Plugin Root File
+ */
+if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
+	define( 'WZKB_PLUGIN_FILE', __FILE__ );
+}
+
+
+/**
+ * Holds the filesystem directory path (with trailing slash) for WZKB
+ *
  * @since	1.0.0
  *
  * @var string
@@ -160,11 +194,11 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
  * Include files
  *----------------------------------------------------------------------------*/
 
-	require_once( plugin_dir_path( __FILE__ ) . 'public/public.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/custom-post-type.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/main.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/search.php' );
+	require_once( WZKB_PLUGIN_DIR . 'public/public.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/custom-post-type.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/main.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/shortcode.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/search.php' );
 
 
 /*
@@ -174,7 +208,7 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
 
 if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
+	require_once( WZKB_PLUGIN_DIR . 'admin/admin.php' );
 
 } // End admin.inc
 

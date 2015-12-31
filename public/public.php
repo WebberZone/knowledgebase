@@ -60,7 +60,7 @@ function wzkb_archive_template( $template ) {
 		}
 
 		if ( '' == locate_template( array( $template_name ) ) ) {
-			$template = $wzkb_path . 'public/templates/' . $template_name;
+			$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
 		}
 	}
 
@@ -69,7 +69,7 @@ function wzkb_archive_template( $template ) {
 		$template_name = 'taxonomy-wzkb_category.php';
 
 		if ( '' == locate_template( array( $template_name ) ) ) {
-			$template = $wzkb_path . 'public/templates/' . $template_name;
+			$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
 		}
 	}
 
