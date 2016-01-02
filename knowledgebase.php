@@ -15,7 +15,7 @@
  * Plugin Name: Knowledgebase
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: A simple WordPress plugin to create a Knowledgebase.
- * Version: 1.2.0-beta20150703
+ * Version: 1.2.0-beta20160101
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -63,23 +63,32 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 }
 
 
-/**
- * Holds the filesystem directory path (with trailing slash) for WZKB
- *
- * @since	1.0.0
- *
- * @var string
- */
-$wzkb_path = plugin_dir_path( __FILE__ );
+global $wzkb_options;
+$wzkb_options = wzkb_get_settings();
+
 
 /**
- * Holds the URL for WZKB
+ * Get Settings.
  *
- * @since	1.0.0
+ * Retrieves all plugin settings
  *
- * @var string
+ * @since	1.2.0
+ * @return	array	wzkb settings
  */
-$wzkb_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
+function wzkb_get_settings() {
+
+	$settings = get_option( 'wzkb_settings' );
+
+	/**
+	 * Settings array
+	 *
+	 * Retrieves all plugin settings
+	 *
+	 * @since	1.2.0
+	 * @param 	array	$settings	Settings array
+	 */
+	return apply_filters( 'wzkb_get_settings', $settings );
+}
 
 
 /**
@@ -125,6 +134,7 @@ register_activation_hook( __FILE__, 'wzkb_plugin_activate' );
 function wzkb_single_activate() {
 
 	// Register types to register the rewrite rules
+	wzkb_register_settings();
 	wzkb_register_post_type();
 
 	// Then flush them
@@ -194,6 +204,7 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
  * Include files
  *----------------------------------------------------------------------------*/
 
+	require_once( WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php' );
 	require_once( WZKB_PLUGIN_DIR . 'public/public.php' );
 	require_once( WZKB_PLUGIN_DIR . 'includes/custom-post-type.php' );
 	require_once( WZKB_PLUGIN_DIR . 'includes/main.php' );
@@ -208,7 +219,9 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
 
 if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 
-	require_once( WZKB_PLUGIN_DIR . 'admin/admin.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/admin/admin.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/admin/settings-page.php' );
+	require_once( WZKB_PLUGIN_DIR . 'includes/admin/save-settings.php' );
 
 } // End admin.inc
 

@@ -49,7 +49,7 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  * @return	string	Modified Archive Template location
  */
 function wzkb_archive_template( $template ) {
-	global $post, $wzkb_path;
+	global $post;
 
 	if ( is_post_type_archive( 'wz_knowledgebase' ) ) {
 
