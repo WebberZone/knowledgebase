@@ -90,7 +90,7 @@ function wzkb_register_taxonomies() {
 	global $wzkb_options;
 
 	$catslug = wzkb_get_option( 'category_slug', 'section' );
-	$tagslug = wzkb_get_option( 'tag_slug', 'tag' );
+	$tagslug = wzkb_get_option( 'tag_slug', 'kb-tags' );
 
 	$args = array(
 		'hierarchical'      => true,

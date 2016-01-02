@@ -217,7 +217,7 @@ function wzkb_get_registered_settings() {
 					'name'    => __( 'Tag slug', 'knowledgebase' ),
 					'desc'    => __( 'Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives', 'knowledgebase' ),
 					'type'    => 'text',
-					'options' => 'tag',
+					'options' => 'kb-tags',
 				),
 			)
 		),
