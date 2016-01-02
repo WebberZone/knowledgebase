@@ -12,3 +12,7 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 
+activate_plugin( 'knowledgebase/knowledgebase.php' );
+
+echo "Installing Knowledgebase...\n";
+
