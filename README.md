@@ -2,13 +2,12 @@
 [![License](https://img.shields.io/badge/license-GPL_v2%2B-orange.svg?style=flat-square)](http://opensource.org/licenses/GPL-2.0)
 [![WordPress Tested](https://img.shields.io/wordpress/v/knowledgebase.svg?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 [![Build Status](https://travis-ci.org/WebberZone/knowledgebase.svg?branch=master)](https://travis-ci.org/WebberZone/knowledgebase)
-[![Code Climate](https://codeclimate.com/github/WebberZone/knowledgebase/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/knowledgebase) 
 
 # Knowledgebase
 
 __Requires:__ 3.9
 
-__Tested up to:__ 4.4
+__Tested up to:__ 4.5
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -50,16 +49,25 @@ For more screenshots visit the [WordPress plugin page](http://wordpress.org/plug
 
 ## Installation
 
-1. Upload `knowledgebase` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+### WordPress install (The easy way)
+
+1. Navigate to “Plugins” within your WordPress Admin Area
+2. Click “Add new” and in the search box enter “Knowledgebase”
+3. Find the plugin in the list (usually the first result) and click “Install Now”
+4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
+
+### Manual install
+
+Download the plugin
+1. Extract the contents of knowledgebase.zip to wp-content/plugins/ folder. You should get a folder called knowledgebase.
+2. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 3. Create a new page or edit an existing one and add the shortcode `[knowledgebase]` to set up this page to display the knowledgebase
 4. Visit `Knowledgebase &raquo; Add New` to add new Articles to the knowledgebase
 5. Visit `Knowledgebase &raquo; KB Category` to add new categories to the knowledgebase. Alternatively, you can add new categories from the meta box in the Add New page
 
-The plugin supports unlimited levels of category hierarchy. However, in order to take advantage of the inbuilt styles, the recommended setting for creating the knowledgebase is to create a top level category with the name of the knowledgebase and sub-level categories for each section of this knowledgebase. Check out the Category view screenshot as an example.
+The plugin supports unlimited levels of category hierarchy, however, the recommended setting for creating the knowledge base is to create a top level category with the name of the knowledgebase and sub-level categories for each section of this knowledgebase. Check out the Category view screenshot as an example.
 
 ![Knowledgebase Category view in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/assets/screenshot-3.png)
-
 
 
 ## Frequently Asked Questions
@@ -78,14 +86,6 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 ```
 
 *category* : Category ID for which you want to display the knowledge base. You can find the ID in the KB Category listing under Knowledgebase in the WordPress Admin.
-
-### Disabling default styles
-
-If you'd like to disable the default styles that come inbuilt with the plugin, just add this to your theme's **functions.php**
-
-```
-wp_deregister_style( 'wzkb_styles' );
-```
 
 
 ### Using your own templates for archives and search

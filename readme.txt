@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
 Requires at least: 3.9
-Tested up to: 4.4
+Tested up to: 4.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -35,8 +35,18 @@ If you have an idea, I'd love to hear it. Knowledgebase is also available on [Gi
 
 == Installation ==
 
-1. Upload `knowledgebase` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+= WordPress install (The easy way) =
+
+1. Navigate to “Plugins” within your WordPress Admin Area
+2. Click “Add new” and in the search box enter “Knowledgebase”
+3. Find the plugin in the list (usually the first result) and click “Install Now”
+4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
+
+= Manual install =
+
+Download the plugin
+1. Extract the contents of knowledgebase.zip to wp-content/plugins/ folder. You should get a folder called knowledgebase.
+2. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 3. Create a new page or edit an existing one and add the shortcode `[knowledgebase]` to set up this page to display the knowledgebase
 4. Visit `Knowledgebase &raquo; Add New` to add new Articles to the knowledgebase
 5. Visit `Knowledgebase &raquo; KB Category` to add new categories to the knowledgebase. Alternatively, you can add new categories from the meta box in the Add New page
@@ -56,12 +66,6 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 `[knowledgebase category="92"]`
 
 *category* : Category ID for which you want to display the knowledge base. You can find the ID in the KB Category listing under Knowledgebase in the WordPress Admin.
-
-= Disabling default styles =
-
-If you'd like to disable the default styles that come inbuilt with the plugin, just add this to your theme's **functions.php**
-
-`wp_deregister_style( 'wzkb_styles' );`
 
 = Using your own templates for archives and search =
 
@@ -85,6 +89,7 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 
 * Features:
 	* Shortcode to display the KB search form
+	* Settings page: Customize the slugs, disable styles, etc.
 
 * Enhancements:
 	* Merged archive stylesheet with the main stylesheet
@@ -115,7 +120,6 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 == Upgrade Notice ==
 
 = 1.2.0 =
-* Bug fixes; Shortcode for search form and more;
-Check out the changelog for detailed information
-
+* New features. Deprecated functions. Upgrade highly recommended. Please do verify your settings after the upgrade.
+Check the Changelog for more details
 
