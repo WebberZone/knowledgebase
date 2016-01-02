@@ -46,7 +46,13 @@ function wzkb_settings_sanitize( $input = array() ) {
 	if ( $reset ) {
 		wzkb_settings_reset();
 		$wzkb_options = get_option( 'wzkb_settings' );
+
 		add_settings_error( 'wzkb-notices', '', __( 'Settings have been reset to their default values. Reload this page to view the updated settings', 'knowledgebase' ), 'error' );
+
+		// Re-register post type and flush the rewrite rules.
+		wzkb_register_post_type();
+		flush_rewrite_rules();
+
 		return $wzkb_options;
 	}
 
@@ -57,10 +63,10 @@ function wzkb_settings_sanitize( $input = array() ) {
 
 	$input = apply_filters( 'wzkb_settings_' . $tab . '_sanitize', $input );
 
-	// Loop through each setting being saved and pass it through a sanitization filter
+	// Loop through each setting being saved and pass it through a sanitization filter.
 	foreach ( $input as $key => $value ) {
 
-		// Get the setting type (checkbox, select, etc)
+		// Get the setting type (checkbox, select, etc).
 		$type = isset( $settings[ $tab ][ $key ]['type'] ) ? $settings[ $tab ][ $key ]['type'] : false;
 
 		if ( $type ) {
@@ -72,7 +78,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 		$input[ $key ] = apply_filters( 'wzkb_settings_sanitize', $input[ $key ], $key );
 	}
 
-	// Loop through the whitelist and unset any that are empty for the tab being saved
+	// Loop through the whitelist and unset any that are empty for the tab being saved.
 	if ( ! empty( $settings[ $tab ] ) ) {
 		foreach ( $settings[ $tab ] as $key => $value ) {
 			if ( empty( $input[ $key ] ) && ! empty( $wzkb_options[ $key ] ) ) {
@@ -81,12 +87,16 @@ function wzkb_settings_sanitize( $input = array() ) {
 		}
 	}
 
-	// Merge our new settings with the existing. Force (array) in case it is empty
-	$output = array_merge( (array) $wzkb_options, $input );
+	// Merge our new settings with the existing. Force (array) in case it is empty.
+	$wzkb_options = array_merge( (array) $wzkb_options, $input );
 
 	add_settings_error( 'wzkb-notices', '', __( 'Settings updated.', 'knowledgebase' ), 'updated' );
 
-	return $output;
+	// Re-register post type and flush the rewrite rules.
+	wzkb_register_post_type();
+	flush_rewrite_rules();
+
+	return $wzkb_options;
 
 }
 

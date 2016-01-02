@@ -25,6 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_options_page() {
 	$active_tab = isset( $_GET['tab'] ) && array_key_exists( $_GET['tab'], wzkb_get_settings_sections() ) ? $_GET['tab'] : 'general';
+
 	ob_start();
 	?>
 	<div class="wrap">

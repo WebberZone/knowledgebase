@@ -203,7 +203,7 @@ function wzkb_get_registered_settings() {
 					'name'    => __( 'Knowledgebase slug', 'knowledgebase' ),
 					'desc'    => __( 'This will set the opening path of the URL of the knowledgebase and is set when registering the custom post type', 'knowledgebase' ),
 					'type'    => 'text',
-					'options' => 'kb',
+					'options' => 'knowledgebase',
 				),
 				'category_slug' => array(
 					'id'      => 'category_slug',
