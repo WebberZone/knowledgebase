@@ -62,7 +62,7 @@ function wzkb_knowledge( $args = array() ) {
  *
  * @since	1.0.0
  *
- * @param	int $term_id    Term ID
+ * @param	int $termID    Term ID
  * @param	int $level      Level of the loop
  * @return	string	Formatted output
  */

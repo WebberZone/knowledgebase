@@ -21,9 +21,9 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	1.0.0
  *
- * @param	array  $att        Shortcode attributes array
+ * @param	array  $atts       Shortcode attributes array
  * @param	string $content    Content to wrap in the Shortcode
- * @return	$output	Formatted shortcode output
+ * @return	string	$output	Formatted shortcode output
  */
 function wzkb_shortcode( $atts, $content = null ) {
 
@@ -55,9 +55,9 @@ add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
  *
  * @since	1.2.0
  *
- * @param	array  $att        Shortcode attributes array
+ * @param	array  $atts       Shortcode attributes array
  * @param	string $content    Content to wrap in the Shortcode
- * @return	$output	Formatted shortcode output
+ * @return	string	$output	Formatted shortcode output
  */
 function wzkb_shortcode_search( $atts, $content = null ) {
 

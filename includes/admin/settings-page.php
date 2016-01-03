@@ -126,8 +126,8 @@ function wzkb_get_settings_sections() {
  *
  * @return	void
  */
-function wzkb_missing_callback( $args = array() ) {
-
+function wzkb_missing_callback( $args ) {
+	printf( __( 'The callback function used for the <strong>%s</strong> setting is missing.', 'knowledgebase' ), $args['id'] );
 }
 
 

@@ -268,7 +268,7 @@ function wzkb_settings_defaults() {
 
 	// Populate some default values
 	foreach ( wzkb_get_registered_settings() as $tab => $settings ) {
-		foreach ( $settings as $option ) { // var_dump( $option['id'] );
+		foreach ( $settings as $option ) {
 			if ( 'checkbox' == $option['type'] && ! empty( $option['options'] ) ) {
 				$options[ $option['id'] ] = '1';
 			}

@@ -55,6 +55,8 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
 function wzkb_archive_template( $template ) {
 	global $post;
 
+	$template_name = '';
+
 	if ( is_post_type_archive( 'wz_knowledgebase' ) ) {
 
 		if ( is_search() ) {
@@ -62,19 +64,14 @@ function wzkb_archive_template( $template ) {
 		} else {
 			$template_name = 'archive-wz_knowledgebase.php';
 		}
-
-		if ( '' == locate_template( array( $template_name ) ) ) {
-			$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
-		}
 	}
 
 	if ( is_tax( 'wzkb_category' ) && ! is_search() ) {
-
 		$template_name = 'taxonomy-wzkb_category.php';
+	}
 
-		if ( '' == locate_template( array( $template_name ) ) ) {
-			$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
-		}
+	if ( '' != $template_name && '' == locate_template( array( $template_name ) ) ) {
+		$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
 	}
 
 	return $template;

@@ -39,7 +39,7 @@ add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
  *
  * @since	1.0.0
  *
- * @param	array	Admin Columns
+ * @param	array	$new_columns	Admin Columns
  * @return	array	Updated Admin Columns Array
  */
 function wzkb_tax_columns( $new_columns ) {
