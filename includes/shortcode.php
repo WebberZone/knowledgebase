@@ -51,7 +51,7 @@ add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
 
 
 /**
- * Create the shortcode to display the search form using [kb-search].
+ * Create the shortcode to display the search form using [kbsearch].
  *
  * @since	1.2.0
  *
@@ -63,7 +63,7 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 
 	$atts = shortcode_atts( array(
 		'echo' => false,
-	), $atts, 'kb-search' );
+	), $atts, 'kbsearch' );
 
 	$output = wzkb_get_search_form( $atts['echo'] );
 
@@ -78,6 +78,6 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 	 */
 	return apply_filters( 'wzkb_shortcode_search', $output, $atts, $content );
 }
-add_shortcode( 'kb-search', 'wzkb_shortcode_search' );
+add_shortcode( 'kbsearch', 'wzkb_shortcode_search' );
 
 

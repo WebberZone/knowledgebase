@@ -88,7 +88,7 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 = 1.2.0 =
 
 * Features:
-	* Shortcode to display the KB search form
+	* Shortcode to display the KB search form - Use `[kbsearch]` for this purpose
 	* Settings page: Customize the slugs, disable styles, etc.
 
 * Enhancements:
