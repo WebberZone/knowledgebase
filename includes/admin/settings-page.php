@@ -34,7 +34,7 @@ function wzkb_options_page() {
 		<?php settings_errors(); ?>
 
 		<h2 class="nav-tab-wrapper">
-		 <?php
+			<?php
 			foreach ( wzkb_get_settings_sections() as $tab_id => $tab_name ) {
 
 				$tab_url = add_query_arg(
@@ -92,7 +92,7 @@ function wzkb_options_page() {
 
 	</div><!-- /.wrap -->
 
- <?php
+	<?php
 	echo ob_get_clean();
 }
 
