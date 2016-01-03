@@ -248,7 +248,7 @@ function wzkb_get_registered_settings() {
 	 * @since	1.2.0
 	 *
 	 * @param	array	$wzkb_setings	Settings array
-	*/
+	 */
 	return apply_filters( 'wzkb_registered_settings', $wzkb_settings );
 
 }
@@ -281,7 +281,7 @@ function wzkb_settings_defaults() {
 	 * @since	1.2.0
 	 *
 	 * @param	array	$options	Default settings
-	*/
+	 */
 	return apply_filters( 'wzkb_settings_defaults', $options );
 }
 

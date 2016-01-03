@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_knowledge( $args = array() ) {
 
 	$defaults = array(
-		'category' => false,		// Create a knowledgebase for subcategories of this parent ID
+		'category' => false, // Create a knowledgebase for subcategories of this parent ID
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults
@@ -41,7 +41,7 @@ function wzkb_knowledge( $args = array() ) {
 
 	$output .= wzkb_looper( $termID, $level );
 
-	$output .= '</div>';	// End wzkb_section
+	$output .= '</div>'; // End wzkb_section
 	$output .= '<div class="wzkb_clear"></div>';
 
 	/**
@@ -83,7 +83,7 @@ function wzkb_looper( $termID, $level ) {
 	 * @param	array	$divclasses	Current array of classes
 	 * @param	int		$level		Level of the loop
 	 */
-	$divclasses = apply_filters( 'wzkb_loop_div_class', $divclasses , $level );
+	$divclasses = apply_filters( 'wzkb_loop_div_class', $divclasses, $level );
 
 	$output = '<div class="' . implode( ' ', $divclasses ) . '">';
 
@@ -91,15 +91,15 @@ function wzkb_looper( $termID, $level ) {
 
 	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
 		$output .= wzkb_article_header( $term, $level );
-		$output .= wzkb_list_posts_by_term( $term , $level );
+		$output .= wzkb_list_posts_by_term( $term $level );
 	}
 
 	$output .= '<div class="wzkb_section_wrapper">';
 
 	// Get Knowledge Base Sections
 	$sections = get_terms( 'wzkb_category', array(
-	    'orderby'    => 'name',
-	    'hide_empty' => 1,
+		'orderby'    => 'name',
+		'hide_empty' => 1,
 		'parent' => $termID,
 	) );
 
@@ -112,8 +112,8 @@ function wzkb_looper( $termID, $level ) {
 		}
 	}
 
-	$output .= '</div>';	// End wzkb_section_wrapper
-	$output .= '</div>';	// End wzkb_section
+	$output .= '</div>'; // End wzkb_section_wrapper
+	$output .= '</div>'; // End wzkb_section
 
 	/**
 	 * Filter the formatted shortcode output.
@@ -194,7 +194,7 @@ function wzkb_list_posts_by_term( $term, $level ) {
 
 	if ( $query->have_posts() ) :
 
-		$output .= wzkb_article_loop( $term , $level, $query );
+		$output .= wzkb_article_loop( $term $level, $query );
 
 		wp_reset_postdata();
 

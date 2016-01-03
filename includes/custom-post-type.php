@@ -68,7 +68,7 @@ function wzkb_register_post_type() {
 		'capability_type'     => 'knowledgebase',
 		'map_meta_cap'        => true,
 		'has_archive'         => $archives,
-	    'rewrite' 			  => $rewrite,
+		'rewrite' 			  => $rewrite,
 	);
 
 	/**
@@ -96,7 +96,7 @@ function wzkb_register_taxonomies() {
 		'hierarchical'      => true,
 		'show_admin_column' => true,
 		'show_tagcloud'     => false,
-	    'rewrite' 			=> array( 'slug' => $catslug, 'with_front' => true, 'hierarchical' => true ),
+		'rewrite' 			=> array( 'slug' => $catslug, 'with_front' => true, 'hierarchical' => true ),
 	);
 
 	// Now register categories for the Knowledgebase

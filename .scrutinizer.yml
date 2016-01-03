@@ -40,6 +40,7 @@ checks:
         no_error_suppression: false
         return_doc_comments: false
         property_assignments: false
+        no_global_keyword: false
 coding_style:
     php:
         indentation:
@@ -47,8 +48,10 @@ coding_style:
                 use_tabs: true
         spaces:
             around_operators:
+                concatenation: true
                 negation: true
             within:
+                brackets: true
                 array_initializer: true
                 grouping: true
                 function_call: true
