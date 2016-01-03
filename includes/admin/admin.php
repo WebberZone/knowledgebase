@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -38,9 +37,8 @@ add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
  * Customise the taxonomy columns.
  *
  * @since	1.0.0
- *
- * @param	array	$new_columns	Admin Columns
- * @return	array	Updated Admin Columns Array
+ * @param	array $new_columns    Columns in the admin view.
+ * @return	array	Update columns.
  */
 function wzkb_tax_columns( $new_columns ) {
 	$new_columns = array(
@@ -64,10 +62,10 @@ add_filter( 'manage_edit-wzkb_tag_sortable_columns', 'wzkb_tax_columns' );
  *
  * @since	1.0.0
  *
- * @param	string     $value  Deprecated
- * @param	string     $name   Name of the column
- * @param	int|string $id     Category ID
- * @return void
+ * @param	string     $value  Deprecated.
+ * @param	string     $name   Name of the column.
+ * @param	int|string $id     Category ID.
+ * @return	int|string
  */
 function wzkb_tax_id( $value, $name, $id ) {
 	return 'tax_id' === $name ? $id : $value;
