@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-29 12:40-0000\n"
+"POT-Creation-Date: 2016-01-03 23:09+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -11,90 +11,183 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
-"X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 1.8.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/admin.php:29
+#: includes/admin/admin.php:30
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/admin.php:46
 msgid "Name"
 msgstr ""
 
-#: admin/admin.php:30
+#: includes/admin/admin.php:47
 msgid "Slug"
 msgstr ""
 
-#: admin/admin.php:31
+#: includes/admin/admin.php:48
 msgid "Posts"
 msgstr ""
 
-#: includes/custom-post-type.php:29 includes/custom-post-type.php:45
+#: includes/admin/register-settings.php:206
+msgid "Knowledgebase slug"
+msgstr ""
+
+#: includes/admin/register-settings.php:207
+msgid ""
+"This will set the opening path of the URL of the knowledgebase and is set "
+"when registering the custom post type"
+msgstr ""
+
+#: includes/admin/register-settings.php:213
+msgid "Category slug"
+msgstr ""
+
+#: includes/admin/register-settings.php:214
+msgid ""
+"Each category is a section of the knowledgebase. This setting is used when "
+"registering the custom category and forms a part of the URL when browsing "
+"category archives"
+msgstr ""
+
+#: includes/admin/register-settings.php:220
+msgid "Tag slug"
+msgstr ""
+
+#: includes/admin/register-settings.php:221
+msgid ""
+"Each article can have multiple tags. This setting is used when registering "
+"the custom tag and forms a part of the URL when browsing tag archives"
+msgstr ""
+
+#: includes/admin/register-settings.php:232
+msgid "Include plugin inbuilt styles"
+msgstr ""
+
+#: includes/admin/register-settings.php:233
+msgid ""
+"Uncheck this to disable this plugin from adding the inbuilt styles. You will "
+"need to add your own CSS styles if you disable this option"
+msgstr ""
+
+#: includes/admin/register-settings.php:239
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/admin/register-settings.php:240
+msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
+msgstr ""
+
+#: includes/admin/save-settings.php:50
+msgid ""
+"Settings have been reset to their default values. Reload this page to view "
+"the updated settings"
+msgstr ""
+
+#: includes/admin/save-settings.php:93
+msgid "Settings updated."
+msgstr ""
+
+#: includes/admin/settings-page.php:32
+msgid "Knowledgebase Settings"
+msgstr ""
+
+#: includes/admin/settings-page.php:69
+msgid "Submit"
+msgstr ""
+
+#: includes/admin/settings-page.php:78
+msgid "Do you really want to reset all these settings to their default values?"
+msgstr ""
+
+#: includes/admin/settings-page.php:80
+msgid "Reset"
+msgstr ""
+
+#: includes/admin/settings-page.php:108
+msgid "General"
+msgstr ""
+
+#: includes/admin/settings-page.php:109
+msgid "Styles"
+msgstr ""
+
+#: includes/admin/settings-page.php:132
+#, php-format
+msgid ""
+"The callback function used for the <strong>%s</strong> setting is missing."
+msgstr ""
+
+#: includes/custom-post-type.php:34 includes/custom-post-type.php:60
 msgid "Knowledgebase"
 msgstr ""
 
-#: includes/custom-post-type.php:30
+#: includes/custom-post-type.php:35
 msgid "Knowledgebase Article"
 msgstr ""
 
-#: includes/custom-post-type.php:31
+#: includes/custom-post-type.php:36
 msgid "Parent Article"
 msgstr ""
 
-#: includes/custom-post-type.php:32
+#: includes/custom-post-type.php:37
 msgid "All Articles"
 msgstr ""
 
-#: includes/custom-post-type.php:33 includes/custom-post-type.php:34
+#: includes/custom-post-type.php:38 includes/custom-post-type.php:39
 msgid "Add New Article"
 msgstr ""
 
-#: includes/custom-post-type.php:35
+#: includes/custom-post-type.php:40
 msgid "New Article"
 msgstr ""
 
-#: includes/custom-post-type.php:36
+#: includes/custom-post-type.php:41
 msgid "Edit Article"
 msgstr ""
 
-#: includes/custom-post-type.php:37
+#: includes/custom-post-type.php:42
 msgid "Update Article"
 msgstr ""
 
-#: includes/custom-post-type.php:38
+#: includes/custom-post-type.php:43
 msgid "View Article"
 msgstr ""
 
-#: includes/custom-post-type.php:39
+#: includes/custom-post-type.php:44
 msgid "Search Article"
 msgstr ""
 
-#: includes/custom-post-type.php:40
+#: includes/custom-post-type.php:45
 msgid "Not found"
 msgstr ""
 
-#: includes/custom-post-type.php:41
+#: includes/custom-post-type.php:46
 msgid "Not found in Trash"
 msgstr ""
 
-#: includes/custom-post-type.php:44
+#: includes/custom-post-type.php:59
 msgid "wz_knowledgebase"
 msgstr ""
 
-#: includes/custom-post-type.php:75
+#: includes/custom-post-type.php:106
 msgid "KB Category"
 msgstr ""
 
-#: includes/custom-post-type.php:85
+#: includes/custom-post-type.php:135
 msgid "KB Tag"
 msgstr ""
 
-#: includes/main.php:302
+#: includes/main.php:308
 msgid "Read more articles in "
 msgstr ""
 
-#: public/templates/archive-wz_knowledgebase.php:38
-#: public/templates/search-wz_knowledgebase.php:72
+#: public/templates/archive-wz_knowledgebase.php:35
+#: public/templates/search-wz_knowledgebase.php:73
 msgid "No results found"
 msgstr ""
 

@@ -87,6 +87,8 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 1. Knowledgebase Menu in the WordPress Admin
 2. Knowledgebase Viewer Facing with Default styles
 3. Knowledgebase Category view in the WordPress Admin
+4. Settings &raquo; General
+5. Settings &raquo; Styles
 
 
 == Changelog ==
