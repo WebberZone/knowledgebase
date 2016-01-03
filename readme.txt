@@ -59,18 +59,23 @@ The plugin supports unlimited levels of category hierarchy, however, the recomme
 
 If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
 
+= 404 errors on the knowledgebase =
+
+This is usually because of outdated permalinks. To flush the existing permalinks rules simply visit Settings &raquo; Permalinks in your WordPress admin area.
 
 = Shortcode =
 
-You can display the knowledgebase anywhere in your blog using the `[knowledgebase]` shortcode. The recommended option is to add this to a dedicated page called *Knowledgebase*. The plugin takes one optional attribute `category`:
+You can display the knowledgebase anywhere in your blog using the `[knowledgebase]` shortcode. The shortcode takes one optional attribute `category`:
 
 `[knowledgebase category="92"]`
 
 *category* : Category ID for which you want to display the knowledge base. You can find the ID in the KB Category listing under Knowledgebase in the WordPress Admin.
 
+You can also display the search form using `[kbsearch]`
+
 = Using your own templates for archives and search =
 
-Knowledgebase comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder
+Knowledgebase comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder:
 
 1. Articles archive: archive-wz_knowledgebase.php
 2. Category archive: taxonomy-wzkb_category.php
