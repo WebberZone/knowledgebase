@@ -91,7 +91,7 @@ function wzkb_looper( $termID, $level ) {
 
 	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
 		$output .= wzkb_article_header( $term, $level );
-		$output .= wzkb_list_posts_by_term( $term $level );
+		$output .= wzkb_list_posts_by_term( $term, $level );
 	}
 
 	$output .= '<div class="wzkb_section_wrapper">';
@@ -194,7 +194,7 @@ function wzkb_list_posts_by_term( $term, $level ) {
 
 	if ( $query->have_posts() ) :
 
-		$output .= wzkb_article_loop( $term $level, $query );
+		$output .= wzkb_article_loop( $term, $level, $query );
 
 		wp_reset_postdata();
 
