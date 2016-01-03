@@ -4,10 +4,10 @@
  *
  * Used to display custom post type archives if no archive template is found in the theme folder.
  *
- * @link       https://webberzone.com
- * @since      1.1.0
+ * @link  https://webberzone.com
+ * @since 1.1.0
  *
- * @package    WZKB
+ * @package WZKB
  */
 
 $paged = 1;
@@ -26,7 +26,7 @@ $args = array(
 
 $query = new WP_Query( $args );
 
-/* This plugin uses the Archive file of wzkb theme as an example */
+/* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
 
 wp_enqueue_style( 'wzkb_styles' );
@@ -34,10 +34,9 @@ wp_enqueue_style( 'wzkb_styles' );
 ?>
 
 	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
 
 		<header class="page-header">
-			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'wzkb' ), get_search_query() ); ?> </h1>
+			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'knowledgebase' ), get_search_query() ); ?></h1>
 		</header><!-- .page-header -->
 
 		<?php wzkb_get_search_form(); ?>
@@ -53,29 +52,28 @@ wp_enqueue_style( 'wzkb_styles' );
 				<div class="entry-summary">
 					<?php the_excerpt(); ?>
 				</div><!-- .entry-summary -->
-
 			<?php endwhile; ?>
 
-		<nav class="pagination">
-			<?php
-			echo paginate_links( array(
-				'format' => '?paged=%#%',
-				'current' => max( 1, get_query_var( 'paged' ) ),
-				'total' => $query->max_num_pages,
-			) );
-			?>
-		</nav>
+			<nav class="pagination">
+				<?php
+					echo paginate_links(
+						array(
+							'format' => '?paged=%#%',
+							'current' => max( 1, get_query_var( 'paged' ) ),
+							'total' => $query->max_num_pages,
+						)
+					);
+				?>
+			</nav>
 
 			<?php wp_reset_postdata();
 
 			// If no content, include the "No posts found" template.
 		else :
-			_e( 'No results found', 'wzkb' );
+			_e( 'No results found', 'knowledgebase' );
 
 		endif;
-		?>
-
-		</main><!-- .site-main -->
+		?><!-- .site-main -->
 	</section><!-- .content-area -->
 
 <?php get_footer();

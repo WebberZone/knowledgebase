@@ -2,8 +2,8 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://webberzone.com
- * @since      1.0.0
+ * @link  https://webberzone.com
+ * @since 1.0.0
  *
  * @package    WZKB
  * @subpackage Admin
@@ -19,10 +19,10 @@ if ( ! defined( 'WPINC' ) ) {
  * Creates the admin submenu pages under the Downloads menu and assigns their
  * links to global variables
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @global	$wzkb_settings_page
- * @return	void
+ * @global $wzkb_settings_page
+ * @return void
  */
 function wzkb_add_admin_pages_links() {
 	global $wzkb_settings_page;
@@ -36,9 +36,9 @@ add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
 /**
  * Customise the taxonomy columns.
  *
- * @since	1.0.0
- * @param	array $new_columns    Columns in the admin view.
- * @return	array	Update columns.
+ * @since  1.0.0
+ * @param  array $new_columns Columns in the admin view.
+ * @return array Update columns.
  */
 function wzkb_tax_columns( $new_columns ) {
 	$new_columns = array(
@@ -60,12 +60,12 @@ add_filter( 'manage_edit-wzkb_tag_sortable_columns', 'wzkb_tax_columns' );
 /**
  * Add taxonomy ID to the admin column.
  *
- * @since	1.0.0
+ * @since 1.0.0
  *
- * @param	string     $value  Deprecated.
- * @param	string     $name   Name of the column.
- * @param	int|string $id     Category ID.
- * @return	int|string
+ * @param  string     $value Deprecated.
+ * @param  string     $name  Name of the column.
+ * @param  int|string $id    Category ID.
+ * @return int|string
  */
 function wzkb_tax_id( $value, $name, $id ) {
 	return 'tax_id' === $name ? $id : $value;

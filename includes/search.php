@@ -2,11 +2,11 @@
 /**
  * Search for Knowledgebase.
  *
- * @link       	https://webberzone.com
- * @since      	1.0.0
+ * @link  https://webberzone.com
+ * @since 1.0.0
  *
- * @package    	WZKB
- * @subpackage 	WZKB/search
+ * @package    WZKB
+ * @subpackage WZKB/search
  */
 
 
@@ -19,10 +19,10 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Display custom search form for Knowledgebase.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	boolean $echo   Default to echo and not return the form.
- * @return	string|null			String when retrieving, null when displaying or if searchform.php exists.
+ * @param  boolean $echo Default to echo and not return the form.
+ * @return string|null   String when retrieving, null when displaying or if searchform.php exists.
  */
 function wzkb_get_search_form( $echo = true ) {
 
@@ -40,9 +40,9 @@ function wzkb_get_search_form( $echo = true ) {
 	/**
 	 * Filter the HTML output of the search form.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	string	$form	The search form HTML output.
+	 * @param string $form The search form HTML output.
 	 */
 	$result = apply_filters( 'wzkb_get_search_form', $form );
 

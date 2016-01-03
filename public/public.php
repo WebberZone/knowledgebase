@@ -2,11 +2,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       	https://webberzone.com
- * @since      	1.0.0
+ * @link  https://webberzone.com
+ * @since 1.0.0
  *
- * @package    	WZKB
- * @subpackage 	WZKB/public
+ * @package    WZKB
+ * @subpackage WZKB/public
  */
 
 
@@ -30,7 +30,7 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
 /**
  * Register Styles and scripts.
  *
- * @since	1.0.0
+ * @since 1.0.0
  */
 function wpkb_enqueue_styles() {
 
@@ -47,10 +47,10 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
 /**
  * Replace the archive temlate for the knowledgebase. Functions archive_template.
  *
- * @since	1.0.0
+ * @since 1.0.0
  *
- * @param	string $template   Default Archive Template location
- * @return	string	Modified Archive Template location
+ * @param  string $template Default Archive Template location
+ * @return string Modified Archive Template location
  */
 function wzkb_archive_template( $template ) {
 	global $post;
@@ -82,10 +82,10 @@ add_filter( 'template_include', 'wzkb_archive_template' );
 /**
  * For knowledgebase search results, set posts_per_page 10.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	object $query  The search query object
- * @return	object	$query	Updated search query object
+ * @param  object $query The search query object
+ * @return object $query Updated search query object
  */
 function wzkb_posts_per_search_page( $query ) {
 

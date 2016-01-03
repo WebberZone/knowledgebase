@@ -2,10 +2,10 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @link       https://webberzone.com
- * @since      1.0.0
+ * @link  https://webberzone.com
+ * @since 1.0.0
  *
- * @package    WZKB
+ * @package WZKB
  */
 
 // If uninstall not called from WordPress, then exit.

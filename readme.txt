@@ -21,9 +21,10 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 = Main features: =
 
 * Uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin
-* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase.
+* Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page
+* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * Additionally tags ( `kbtags` ) can also be used for each knowledgebase article
-* Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing. I prefer creating one with the slug `knowledgebase`
+* Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing
 * Inbuilt styles to display the knowledge beautifully
 * Supports unlimited level of categories
 
@@ -88,8 +89,8 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 = 1.2.0 =
 
 * Features:
+	* Settings page: Customize the slugs, disable styles, etc. Change in base slug from `kb-articles` to `knowledgebase`. If you're upgrading this plugin, and have previously used `knowledgebase` as the slug for the page you created, then either change the slug for the knowledgebase in the Settings page or delete the page you created.
 	* Shortcode to display the KB search form - Use `[kbsearch]` for this purpose
-	* Settings page: Customize the slugs, disable styles, etc.
 
 * Enhancements:
 	* Merged archive stylesheet with the main stylesheet
@@ -120,6 +121,6 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 == Upgrade Notice ==
 
 = 1.2.0 =
-* New features. Deprecated functions. Upgrade highly recommended. Please do verify your settings after the upgrade.
+* New features. New permalink settings. Upgrade highly recommended. Please verify settings and flush permalinks on upgrade.
 Check the Changelog for more details
 

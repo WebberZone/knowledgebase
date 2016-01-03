@@ -5,11 +5,11 @@
  * Functions to register, read, write and update settings.
  * Portions of this code have been inspired by Easy Digital Downloads, WordPress Settings Sandbox, etc.
  *
- * @link       https://webberzone.com
- * @since      1.2.0
+ * @link  https://webberzone.com
+ * @since 1.2.0
  *
  * @package    WZKB
- * @subpackage Admin/Register_Settings
+ * @subpackage Admin/Save_Settings
  */
 
 // If this file is called directly, abort.
@@ -21,9 +21,9 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Sanitize the form data being submitted.
  *
- * @since	1.2.0
- * @param	array $input  Input unclean array
- * @return	array	Sanitized array
+ * @since  1.2.0
+ * @param  array $input Input unclean array
+ * @return array Sanitized array
  */
 function wzkb_settings_sanitize( $input = array() ) {
 
@@ -104,10 +104,10 @@ function wzkb_settings_sanitize( $input = array() ) {
 /**
  * Sanitize text fields
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $input  The field value
- * @return 	string 	$input 	Sanitizied value
+ * @param  array $input The field value
+ * @return string  $input  Sanitizied value
  */
 function wzkb_sanitize_text_field( $input ) {
 	return sanitize_text_field( $input );

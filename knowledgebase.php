@@ -5,7 +5,7 @@
  * Knowledgebase is a simple WordPress plugin that let's you create a knowledgebase
  * or FAQ section on your WordPress website.
  *
- * @package WZKB
+ * @package   WZKB
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
  * @link      https://webberzone.com
@@ -32,9 +32,9 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Holds the filesystem directory path (with trailing slash) for WZKB
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @var	string	Plugin folder path
+ * @var string Plugin folder path
  */
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
 	define( 'WZKB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -43,9 +43,9 @@ if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
 /**
  * Holds the filesystem directory path (with trailing slash) for WZKB
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @var	string	Plugin folder URL
+ * @var string Plugin folder URL
  */
 if ( ! defined( 'WZKB_PLUGIN_URL' ) ) {
 	define( 'WZKB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -54,9 +54,9 @@ if ( ! defined( 'WZKB_PLUGIN_URL' ) ) {
 /**
  * Holds the filesystem directory path (with trailing slash) for WZKB
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @var	string	Plugin Root File
+ * @var string Plugin Root File
  */
 if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 	define( 'WZKB_PLUGIN_FILE', __FILE__ );
@@ -72,8 +72,8 @@ $wzkb_options = wzkb_get_settings();
  *
  * Retrieves all plugin settings
  *
- * @since	1.2.0
- * @return	array	wzkb settings
+ * @since  1.2.0
+ * @return array wzkb settings
  */
 function wzkb_get_settings() {
 
@@ -84,8 +84,8 @@ function wzkb_get_settings() {
 	 *
 	 * Retrieves all plugin settings
 	 *
-	 * @since	1.2.0
-	 * @param 	array	$settings	Settings array
+	 * @since 1.2.0
+	 * @param array $settings Settings array
 	 */
 	return apply_filters( 'wzkb_get_settings', $settings );
 }
@@ -94,29 +94,30 @@ function wzkb_get_settings() {
 /**
  * Fired for each blog when the plugin is activated.
  *
- * @since	1.0.0
+ * @since 1.0.0
  *
- * @param    boolean $network_wide    True if WPMU superadmin uses
- *                                    "Network Activate" action, false if
- *                                    WPMU is disabled or plugin is
- *                                    activated on an individual blog.
+ * @param boolean $network_wide True if WPMU superadmin uses
+ *                              "Network Activate" action, false if
+ *                              WPMU is disabled or plugin is
+ *                              activated on an individual blog.
  */
 function wzkb_plugin_activate( $network_wide ) {
 	global $wpdb;
 
 	if ( is_multisite() && $network_wide ) {
 
-		// Get all blogs in the network and activate plugin on each one
+		// Get all blogs in the network and activate plugin on each one.
 		$blog_ids = $wpdb->get_col( "
-        	SELECT blog_id FROM $wpdb->blogs
+			SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'
 		" );
+
 		foreach ( $blog_ids as $blog_id ) {
 			switch_to_blog( $blog_id );
 			wzkb_single_activate();
 		}
 
-		// Switch back to the current blog
+		// Switch back to the current blog.
 		restore_current_blog();
 
 	} else {
@@ -129,7 +130,7 @@ register_activation_hook( __FILE__, 'wzkb_plugin_activate' );
 /**
  * Runs on Plugin activation.
  *
- * @since	1.1.0
+ * @since 1.1.0
  */
 function wzkb_single_activate() {
 
@@ -150,7 +151,7 @@ function wzkb_single_activate() {
  *
  * @since 2.0.0
  *
- * @param    int $blog_id    ID of the new blog.
+ * @param int $blog_id ID of the new blog.
  */
 function wzkb_activate_new_site( $blog_id ) {
 
@@ -169,7 +170,7 @@ add_action( 'wpmu_new_blog', 'wzkb_activate_new_site' );
 /**
  * Runs on Plugin deactivation.
  *
- * @since	1.0.0
+ * @since 1.0.0
  */
 function wzkb_plugin_deactivate( $network_wide ) {
 
@@ -179,9 +180,10 @@ function wzkb_plugin_deactivate( $network_wide ) {
 
 		// Get all blogs in the network and activate plugin on each one
 		$blog_ids = $wpdb->get_col( "
-        	SELECT blog_id FROM $wpdb->blogs
+			SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'
 		" );
+
 		foreach ( $blog_ids as $blog_id ) {
 			switch_to_blog( $blog_id );
 			global $wp_rewrite;
@@ -204,12 +206,12 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
  * Include files
  *----------------------------------------------------------------------------*/
 
-	require_once( WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php' );
-	require_once( WZKB_PLUGIN_DIR . 'public/public.php' );
-	require_once( WZKB_PLUGIN_DIR . 'includes/custom-post-type.php' );
-	require_once( WZKB_PLUGIN_DIR . 'includes/main.php' );
-	require_once( WZKB_PLUGIN_DIR . 'includes/shortcode.php' );
-	require_once( WZKB_PLUGIN_DIR . 'includes/search.php' );
+	require_once WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php';
+	require_once WZKB_PLUGIN_DIR . 'public/public.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/custom-post-type.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/main.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/shortcode.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/search.php';
 
 
 /*
@@ -217,11 +219,11 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
+if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
-	require_once( WZKB_PLUGIN_DIR . 'includes/admin/admin.php' );
-	require_once( WZKB_PLUGIN_DIR . 'includes/admin/settings-page.php' );
-	require_once( WZKB_PLUGIN_DIR . 'includes/admin/save-settings.php' );
+	include_once WZKB_PLUGIN_DIR . 'includes/admin/admin.php';
+	include_once WZKB_PLUGIN_DIR . 'includes/admin/settings-page.php';
+	include_once WZKB_PLUGIN_DIR . 'includes/admin/save-settings.php';
 
-} // End admin.inc
+}
 

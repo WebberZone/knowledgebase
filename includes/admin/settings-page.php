@@ -3,10 +3,10 @@
  * Renders the settings page.
  * Portions of this code have been inspired by Easy Digital Downloads, WordPress Settings Sandbox, etc.
  *
- * @link       https://webberzone.com
- * @since      1.2.0
+ * @link https://webberzone.com
+ * @since 1.2.0
  *
- * @package    WZKB
+ * @package WZKB
  * @subpackage Admin/Settings
  */
 
@@ -19,9 +19,9 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Render the settings page.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @return	void
+ * @return void
  */
 function wzkb_options_page() {
 	$active_tab = isset( $_GET['tab'] ) && array_key_exists( $_GET['tab'], wzkb_get_settings_sections() ) ? $_GET['tab'] : 'general';
@@ -34,18 +34,20 @@ function wzkb_options_page() {
 		<?php settings_errors(); ?>
 
 		<h2 class="nav-tab-wrapper">
-			<?php
+		 <?php
 			foreach ( wzkb_get_settings_sections() as $tab_id => $tab_name ) {
 
-				$tab_url = add_query_arg( array(
+				$tab_url = add_query_arg(
+					array(
 					'settings-updated' => false,
 					'tab' => $tab_id,
-				) );
+					)
+				);
 
 				$active = $active_tab == $tab_id ? ' nav-tab-active' : '';
 
 				echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
-					echo esc_html( $tab_name );
+							echo esc_html( $tab_name );
 				echo '</a>';
 
 			}
@@ -90,16 +92,16 @@ function wzkb_options_page() {
 
 	</div><!-- /.wrap -->
 
-	<?php
+ <?php
 	echo ob_get_clean();
 }
 
 /**
  * Array containing the settings' sections.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @return	array	Settings array
+ * @return array Settings array
  */
 function wzkb_get_settings_sections() {
 	$wzkb_settings_sections = array(
@@ -110,9 +112,9 @@ function wzkb_get_settings_sections() {
 	/**
 	 * Filter the array containing the settings' sections.
 	 *
-	 * @since	1.2.0
+	 * @since 1.2.0
 	 *
-	 * @param	array	$wzkb_settings_sections	Settings array
+	 * @param array $wzkb_settings_sections Settings array
 	 */
 	return apply_filters( 'wzkb_settings_sections', $wzkb_settings_sections );
 
@@ -122,9 +124,9 @@ function wzkb_get_settings_sections() {
 /**
  * Miscellaneous callback funcion
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @return	void
+ * @return void
  */
 function wzkb_missing_callback( $args ) {
 	printf( __( 'The callback function used for the <strong>%s</strong> setting is missing.', 'knowledgebase' ), $args['id'] );
@@ -136,9 +138,9 @@ function wzkb_missing_callback( $args ) {
  *
  * Renders the header.
  *
- * @since	1.2.0
- * @param	array $args   Arguments passed by the setting
- * @return	void
+ * @since 1.2.0
+ * @param array $args Arguments passed by the setting
+ * @return void
  */
 function wzkb_header_callback( $args ) {
 	echo '<hr/>';
@@ -148,10 +150,10 @@ function wzkb_header_callback( $args ) {
 /**
  * Display text fields.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_text_callback( $args ) {
 
@@ -164,8 +166,8 @@ function wzkb_text_callback( $args ) {
 		$value = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	$html  = '<input type="text" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '" />';
-	$html .= '<p class="description">'  . $args['desc'] . '</p>';
+	$html = '<input type="text" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '" />';
+	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
 	echo $html;
 }
@@ -174,10 +176,10 @@ function wzkb_text_callback( $args ) {
 /**
  * Display textarea.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_textarea_callback( $args ) {
 
@@ -200,10 +202,10 @@ function wzkb_textarea_callback( $args ) {
 /**
  * Display checboxes.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_checkbox_callback( $args ) {
 
@@ -212,8 +214,8 @@ function wzkb_checkbox_callback( $args ) {
 
 	$checked = isset( $wzkb_options[ $args['id'] ] ) ? checked( 1, $wzkb_options[ $args['id'] ], false ) : '';
 
-	$html  = '<input type="checkbox" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="1" ' . $checked . '/>';
-	$html .= '<p class="description">'  . $args['desc'] . '</p>';
+	$html = '<input type="checkbox" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="1" ' . $checked . '/>';
+	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
 	echo $html;
 }
@@ -224,10 +226,10 @@ function wzkb_checkbox_callback( $args ) {
  *
  * Renders multiple checkboxes.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_multicheck_callback( $args ) {
 	global $wzkb_options;
@@ -255,10 +257,10 @@ function wzkb_multicheck_callback( $args ) {
  *
  * Renders radio boxes.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_radio_callback( $args ) {
 	global $wzkb_options;
@@ -272,8 +274,8 @@ function wzkb_radio_callback( $args ) {
 			$checked = true;
 		}
 
-			echo '<input name="wzkb_settings[' . $args['id'] . ']"" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked( true, $checked, false ) . '/> <br />';
-			echo '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+		echo '<input name="wzkb_settings[' . $args['id'] . ']"" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked( true, $checked, false ) . '/> <br />';
+		echo '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
 	}
 
 	echo '<p class="description">' . $args['desc'] . '</p>';
@@ -285,10 +287,10 @@ function wzkb_radio_callback( $args ) {
  *
  * Renders number fields.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_number_callback( $args ) {
 	global $wzkb_options;
@@ -316,10 +318,10 @@ function wzkb_number_callback( $args ) {
  *
  * Renders select fields.
  *
- * @since	1.2.0
+ * @since 1.2.0
  *
- * @param	array $args   Array of arguments
- * @return	void
+ * @param array $args Array of arguments
+ * @return void
  */
 function wzkb_select_callback( $args ) {
 	global $wzkb_options;

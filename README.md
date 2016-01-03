@@ -26,9 +26,10 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 ### Main features:
 
 * Uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin
-* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase.
+* Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page
+* Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * Additionally tags ( `kbtags` ) can also be used for each knowledgebase article
-* Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing. I prefer creating one with the slug `knowledgebase`
+* Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing
 * Inbuilt styles to display the knowledge beautifully
 * Supports unlimited level of categories
 

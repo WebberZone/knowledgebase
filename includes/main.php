@@ -2,11 +2,11 @@
 /**
  * The file holds the main plugin function.
  *
- * @link       	https://webberzone.com
- * @since      	1.0.0
+ * @link  https://webberzone.com
+ * @since 1.0.0
  *
- * @package    	WZKB
- * @subpackage 	WZKB/main
+ * @package	WZKB
+ * @subpackage WZKB/main
  */
 
 
@@ -19,10 +19,10 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * The main function to generate the output.
  *
- * @since	1.0.0
+ * @since 1.0.0
  *
- * @param	array $args   Parameters array
- * @return	string	Formatted output
+ * @param  array $args Parameters array
+ * @return string Formatted output
  */
 function wzkb_knowledge( $args = array() ) {
 
@@ -47,10 +47,10 @@ function wzkb_knowledge( $args = array() ) {
 	/**
 	 * Filter the formatted shortcode output.
 	 *
-	 * @since	1.0.0
+	 * @since 1.0.0
 	 *
-	 * @param	string	$output	Formatted HTML output
-	 * @param	array	$args	Parameters array
+	 * @param string $output Formatted HTML output
+	 * @param array $args Parameters array
 	 */
 	return apply_filters( 'wzkb_knowledge', $output, $args );
 
@@ -60,15 +60,16 @@ function wzkb_knowledge( $args = array() ) {
 /**
  * Creates the knowledgebase loop.
  *
- * @since	1.0.0
+ * @since 1.0.0
  *
- * @param	int $termID    Term ID
- * @param	int $level      Level of the loop
- * @return	string	Formatted output
+ * @param  int $termID Term ID
+ * @param  int $level  Level of the loop
+ * @return string Formatted output
  */
 function wzkb_looper( $termID, $level ) {
 
 	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level );
+
 	if ( 1 === $level ) {
 		$divclasses[] = 'section group';
 	} elseif ( 2 === $level ) {
@@ -78,10 +79,10 @@ function wzkb_looper( $termID, $level ) {
 	/**
 	 * Filter to add more classes if needed.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	array	$divclasses	Current array of classes
-	 * @param	int		$level		Level of the loop
+	 * @param array $divclasses Current array of classes
+	 * @param int  $level  Level of the loop
 	 */
 	$divclasses = apply_filters( 'wzkb_loop_div_class', $divclasses, $level );
 
@@ -97,11 +98,13 @@ function wzkb_looper( $termID, $level ) {
 	$output .= '<div class="wzkb_section_wrapper">';
 
 	// Get Knowledge Base Sections
-	$sections = get_terms( 'wzkb_category', array(
-		'orderby'    => 'name',
+	$sections = get_terms(
+		'wzkb_category', array(
+		'orderby'	=> 'name',
 		'hide_empty' => 1,
 		'parent' => $termID,
-	) );
+		)
+	);
 
 	if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
 
@@ -118,11 +121,11 @@ function wzkb_looper( $termID, $level ) {
 	/**
 	 * Filter the formatted shortcode output.
 	 *
-	 * @since	1.0.0
+	 * @since 1.0.0
 	 *
-	 * @param	string	$output	Formatted HTML output
-	 * @param	int		$term_id	Term ID
-	 * @param	int		$level		Level of the loop
+	 * @param string $output Formatted HTML output
+	 * @param int  $term_id Term ID
+	 * @param int  $level  Level of the loop
 	 */
 	return apply_filters( 'wzkb_looper', $output, $term, $level );
 
@@ -132,10 +135,10 @@ function wzkb_looper( $termID, $level ) {
 /**
  * Returns query results for a specific term.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	object $term   The Term
- * @return	object	Query results for the give term
+ * @param  object $term The Term
+ * @return object Query results for the give term
  */
 function wzkb_query_posts( $term ) {
 
@@ -166,11 +169,11 @@ function wzkb_query_posts( $term ) {
 	/**
 	 * Filters query results of the specific term.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	object	$query	Query results for the give term
-	 * @param	array	$args	Arguments for WP_Query
-	 * @param	object	$term	The Term
+	 * @param object $query Query results for the give term
+	 * @param array $args Arguments for WP_Query
+	 * @param object $term The Term
 	 */
 	return apply_filters( 'wzkb_query_posts', $query, $args, $term );
 
@@ -180,11 +183,11 @@ function wzkb_query_posts( $term ) {
 /**
  * Formatted output of posts for a given term.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	object $term   Current term
- * @param	int    $level  Current level in the recursive loop
- * @return	string	Formatted output of posts for a given term
+ * @param  object $term  Current term
+ * @param  int    $level Current level in the recursive loop
+ * @return string Formatted output of posts for a given term
  */
 function wzkb_list_posts_by_term( $term, $level ) {
 
@@ -192,23 +195,23 @@ function wzkb_list_posts_by_term( $term, $level ) {
 
 	$query = wzkb_query_posts( $term );
 
-	if ( $query->have_posts() ) :
+	if ( $query->have_posts() ) {
 
 		$output .= wzkb_article_loop( $term, $level, $query );
 
 		wp_reset_postdata();
 
-	endif;
+	}
 
 	/**
 	 * Filter the header of the article list.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	string	$output	Formatted footer output
-	 * @param	object	$term	Current term
-	 * @param	int		$level	Current level in the recursive loop
-	 * @param	object	$query	Query results object
+	 * @param string $output Formatted footer output
+	 * @param object $term Current term
+	 * @param int  $level Current level in the recursive loop
+	 * @param object $query Query results object
 	 */
 	return apply_filters( 'wzkb_list_posts_by_term', $output, $term, $level, $query );
 
@@ -217,29 +220,29 @@ function wzkb_list_posts_by_term( $term, $level ) {
 /**
  * Header of the articles list.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	object $term   Current term
- * @param	int    $level  Current level in the recursive loop
- * @return	string	Formatted footer output
+ * @param  object $term  Current term
+ * @param  int    $level Current level in the recursive loop
+ * @return string Formatted footer output
  */
 function wzkb_article_header( $term, $level ) {
 
 	$output = '
-	<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
-		<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
-	</h3>
-	';
+ <h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
+  <a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
+ </h3>
+ ';
 
 	/**
 	 * Filter the header of the article list.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	string	$output	Formatted footer output
-	 * @param	object	$term	Current term
-	 * @param	int		$level	Current level in the recursive loop
-	 * @param	object	$query	Query results object
+	 * @param string $output Formatted footer output
+	 * @param object $term Current term
+	 * @param int  $level Current level in the recursive loop
+	 * @param object $query Query results object
 	 */
 	return apply_filters( 'wzkb_article_header', $output, $term, $level );
 
@@ -249,12 +252,12 @@ function wzkb_article_header( $term, $level ) {
 /**
  * Creates the list of articles for a particular query results object.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	object $term   Current term
- * @param	int    $level  Current level in the recursive loop
- * @param	object $query  Query results object
- * @return	string	Formatted ul loop
+ * @param  object $term  Current term
+ * @param  int    $level Current level in the recursive loop
+ * @param  object $query Query results object
+ * @return string Formatted ul loop
  */
 function wzkb_article_loop( $term, $level, $query ) {
 
@@ -273,12 +276,12 @@ function wzkb_article_loop( $term, $level, $query ) {
 	/**
 	 * Filters formatted articles list.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	string	$output	Formatted ul loop
-	 * @param	object	$term	Current term
-	 * @param	int		$level	Current level in the recursive loop
-	 * @param	object	$query	Query results object
+	 * @param string $output Formatted ul loop
+	 * @param object $term Current term
+	 * @param int  $level Current level in the recursive loop
+	 * @param object $query Query results object
 	 */
 	return apply_filters( 'wzkb_article_loop', $output, $term, $level, $query );
 
@@ -288,12 +291,12 @@ function wzkb_article_loop( $term, $level, $query ) {
 /**
  * Footer of the articles list.
  *
- * @since	1.1.0
+ * @since 1.1.0
  *
- * @param	object $term   Current term
- * @param	int    $level  Current level in the recursive loop
- * @param	object $query  Query results object
- * @return	string	Formatted footer output
+ * @param  object $term  Current term
+ * @param  int    $level Current level in the recursive loop
+ * @param  object $query Query results object
+ * @return string Formatted footer output
  */
 function wzkb_article_footer( $term, $level, $query ) {
 
@@ -302,22 +305,22 @@ function wzkb_article_footer( $term, $level, $query ) {
 	if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
 
 		$output .= '
-		<p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
-			<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
-		</p>
-		';
+  <p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
+   <a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
+  </p>
+  ';
 
 	}
 
 	/**
 	 * Filter the footer of the article list.
 	 *
-	 * @since	1.1.0
+	 * @since 1.1.0
 	 *
-	 * @param	string	$output	Formatted footer output
-	 * @param	string	$output	Formatted ul loop
-	 * @param	object	$term	Current term
-	 * @param	int		$level	Current level in the recursive loop
+	 * @param string $output Formatted footer output
+	 * @param string $output Formatted ul loop
+	 * @param object $term Current term
+	 * @param int  $level Current level in the recursive loop
 	 */
 	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
 
