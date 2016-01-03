@@ -14,8 +14,6 @@
 global $wp_query;
 $term = $wp_query->get_queried_object();
 
-
-
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
 

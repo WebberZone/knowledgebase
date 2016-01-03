@@ -225,9 +225,11 @@ function wzkb_list_posts_by_term( $term, $level ) {
  */
 function wzkb_article_header( $term, $level ) {
 
-	$output = '<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
-					<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
-				</h3>';
+	$output = '
+	<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
+		<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
+	</h3>
+	';
 
 	/**
 	 * Filter the header of the article list.
@@ -299,9 +301,11 @@ function wzkb_article_footer( $term, $level, $query ) {
 
 	if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
 
-		$output .= '<p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
-						<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
-					</p>';
+		$output .= '
+		<p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
+			<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
+		</p>
+		';
 
 	}
 
