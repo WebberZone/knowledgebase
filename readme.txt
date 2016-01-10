@@ -20,17 +20,17 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 
 = Main features: =
 
-* Uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin
-* Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page
+* Uses a custom post type `wz_knowledgebase` ensuring your data always stays even if you choose to delete this plugin
+* Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page along with the permalinks for viewing cateogories and tags
 * Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
-* Additionally tags ( `kbtags` ) can also be used for each knowledgebase article
-* Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing
-* Inbuilt styles to display the knowledge beautifully
+* You can also use tags ( `kbtags` ) for each knowledgebase article
+* Shortcode `[[knowledgebase]]` will allow you to display the entire knowledgebase or pertaining to a section (category) of your choosing
+* Inbuilt styles that display the knowledge beautifully and are fully responsive
 * Supports unlimited level of categories
 
 = Contribute =
 
-Although, Knowledgebase is fully functional, there are many features that I plan to add to this plugin as it develops. This includes inbuilt templates for articles, live search and also an options page that let's you customise some options.
+Knowledgebase is fully functional and in fact, I use this to power https://webberzone.com/support/knowledgebase. However, there are still many features that I plan to add to this plugin. This includes inbuilt templates for articles, live search amongst others.
 
 If you have an idea, I'd love to hear it. Knowledgebase is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
 
@@ -50,7 +50,7 @@ Download the plugin
 2. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 3. Create a new page or edit an existing one and add the shortcode `[knowledgebase]` to set up this page to display the knowledgebase
 4. Visit `Knowledgebase &raquo; Add New` to add new Articles to the knowledgebase
-5. Visit `Knowledgebase &raquo; KB Category` to add new categories to the knowledgebase. Alternatively, you can add new categories from the meta box in the Add New page
+5. Visit `Knowledgebase &raquo; Sections` to add new categories to the knowledgebase. Alternatively, you can add new categories from the meta box in the Add New page
 
 The plugin supports unlimited levels of category hierarchy, however, the recommended setting for creating the knowledge base is to create a top level category with the name of the knowledgebase and sub-level categories for each section of this knowledgebase. Check out the Category view screenshot as an example.
 
@@ -69,7 +69,7 @@ You can display the knowledgebase anywhere in your blog using the `[knowledgebas
 
 `[knowledgebase category="92"]`
 
-*category* : Category ID for which you want to display the knowledge base. You can find the ID in the KB Category listing under Knowledgebase in the WordPress Admin.
+*category* : Category ID for which you want to display the knowledge base. You can find the ID in the Sections listing under the Knowledgebase menu in the WordPress Admin.
 
 You can also display the search form using `[kbsearch]`
 
@@ -80,6 +80,10 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 1. Articles archive: archive-wz_knowledgebase.php
 2. Category archive: taxonomy-wzkb_category.php
 3. Search results: search-wz_knowledgebase.php
+
+= How do I sort the posts or sections? =
+
+The plugin doesn't have an inbuilt feature to sort posts or sections. You will need an external plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) which allows you to easily drag and drop posts, sections or tags to display them in a custom order.
 
 
 == Screenshots ==
@@ -97,7 +101,7 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 
 * Features:
 	* Settings page: Customize the slugs, disable styles, etc. Change in base slug from `kb-articles` to `knowledgebase`. If you're upgrading this plugin, and have previously used `knowledgebase` as the slug for the page you created, then either change the slug for the knowledgebase in the Settings page or delete the page you created.
-	* Shortcode to display the KB search form - Use `[kbsearch]` for this purpose
+	* Shortcode to display the Knowledgebase search form - Use `[kbsearch]` for this purpose
 
 * Enhancements:
 	* Merged archive stylesheet with the main stylesheet
