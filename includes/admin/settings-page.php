@@ -90,6 +90,12 @@ function wzkb_options_page() {
 			</form>
 		</div><!-- /#tab_container-->
 
+		<div id="dashboard-widgets" class="metabox-holder">
+
+			<?php include_once( 'footer.php' ); ?>
+
+		</div><!-- /#dashboard-widgets -->
+
 	</div><!-- /.wrap -->
 
 	<?php
