@@ -32,7 +32,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 			// If no content, include the "No posts found" template.
 		else :
-			_e( 'No results found', 'wzkb' );
+			_e( 'No results found', 'knowledgebase' );
 
 		endif;
 		?><!-- .site-main -->

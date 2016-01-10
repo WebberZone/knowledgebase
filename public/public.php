@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  */
 function wzkb_lang_init() {
-	load_plugin_textdomain( 'wzkb', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
+	load_plugin_textdomain( 'knowledgebase', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'wzkb_lang_init' );
 
