@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-03 23:09+0000\n"
+"POT-Creation-Date: 2016-01-10 15:44+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -22,16 +22,61 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/admin.php:46
-msgid "Name"
+#: includes/admin/admin.php:89
+#, php-format
+msgid "Thank you for using <a href=\"%1$s\" target=\"_blank\">Knowledgebase</a>! Please <a href=\"%2$s\" target=\"_blank\">rate us</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a>"
 msgstr ""
 
-#: includes/admin/admin.php:47
-msgid "Slug"
+#: includes/admin/footer.php:15
+msgid "Support the development"
 msgstr ""
 
-#: includes/admin/admin.php:48
-msgid "Posts"
+#: includes/admin/footer.php:22
+msgid "Donation for Knowledgebase"
+msgstr ""
+
+#: includes/admin/footer.php:24
+msgid "Enter amount in USD:"
+msgstr ""
+
+#: includes/admin/footer.php:28
+msgid "Send your donation to the author of"
+msgstr ""
+
+#: includes/admin/footer.php:36
+msgid "Quick links"
+msgstr ""
+
+#: includes/admin/footer.php:40
+msgid "Knowledgebase plugin homepage"
+msgstr ""
+
+#: includes/admin/footer.php:41
+msgid "FAQ"
+msgstr ""
+
+#: includes/admin/footer.php:42
+msgid "Support"
+msgstr ""
+
+#: includes/admin/footer.php:43
+msgid "Reviews"
+msgstr ""
+
+#: includes/admin/footer.php:44
+msgid "Github repository"
+msgstr ""
+
+#: includes/admin/footer.php:45
+msgid "Other plugins"
+msgstr ""
+
+#: includes/admin/footer.php:46
+msgid "Ajay's blog"
+msgstr ""
+
+#: includes/admin/footer.php:56
+msgid "Follow me"
 msgstr ""
 
 #: includes/admin/register-settings.php:206
@@ -98,77 +143,77 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/settings-page.php:108
+#: includes/admin/settings-page.php:114
 msgid "General"
 msgstr ""
 
-#: includes/admin/settings-page.php:109
+#: includes/admin/settings-page.php:115
 msgid "Styles"
 msgstr ""
 
-#: includes/admin/settings-page.php:132
+#: includes/admin/settings-page.php:138
 #, php-format
 msgid "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
 
-#: includes/custom-post-type.php:34 includes/custom-post-type.php:60
+#: includes/custom-post-type.php:33 includes/custom-post-type.php:59
 msgid "Knowledgebase"
 msgstr ""
 
-#: includes/custom-post-type.php:35
+#: includes/custom-post-type.php:34
 msgid "Knowledgebase Article"
 msgstr ""
 
-#: includes/custom-post-type.php:36
+#: includes/custom-post-type.php:35
 msgid "Parent Article"
 msgstr ""
 
-#: includes/custom-post-type.php:37
+#: includes/custom-post-type.php:36
 msgid "All Articles"
 msgstr ""
 
-#: includes/custom-post-type.php:38 includes/custom-post-type.php:39
+#: includes/custom-post-type.php:37 includes/custom-post-type.php:38
 msgid "Add New Article"
 msgstr ""
 
-#: includes/custom-post-type.php:40
+#: includes/custom-post-type.php:39
 msgid "New Article"
 msgstr ""
 
-#: includes/custom-post-type.php:41
+#: includes/custom-post-type.php:40
 msgid "Edit Article"
 msgstr ""
 
-#: includes/custom-post-type.php:42
+#: includes/custom-post-type.php:41
 msgid "Update Article"
 msgstr ""
 
-#: includes/custom-post-type.php:43
+#: includes/custom-post-type.php:42
 msgid "View Article"
 msgstr ""
 
-#: includes/custom-post-type.php:44
+#: includes/custom-post-type.php:43
 msgid "Search Article"
 msgstr ""
 
-#: includes/custom-post-type.php:45
+#: includes/custom-post-type.php:44
 msgid "Not found"
 msgstr ""
 
-#: includes/custom-post-type.php:46
+#: includes/custom-post-type.php:45
 msgid "Not found in Trash"
 msgstr ""
 
-#: includes/custom-post-type.php:59
+#: includes/custom-post-type.php:58
 msgid "wz_knowledgebase"
 msgstr ""
 
-#: includes/custom-post-type.php:106
-msgid "KB Category"
+#: includes/custom-post-type.php:109
+msgid "Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:135
-msgid "KB Tag"
+#: includes/custom-post-type.php:138
+msgid "Tags"
 msgstr ""
 
 #: includes/main.php:308
