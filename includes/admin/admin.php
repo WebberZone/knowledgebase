@@ -37,19 +37,19 @@ add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
  * Customise the taxonomy columns.
  *
  * @since  1.0.0
- * @param  array $new_columns Columns in the admin view.
- * @return array Update columns.
+ * @param  array $columns Columns in the admin view.
+ * @return array Updated columns.
  */
-function wzkb_tax_columns( $new_columns ) {
+function wzkb_tax_columns( $columns ) {
+
+	// Remove the description column.
+	unset( $columns['description'] );
+
 	$new_columns = array(
-		'cb' => '<input type="checkbox" />',
-		'name'   => __( 'Name' ),
-		'slug'   => __( 'Slug' ),
-		'posts'  => __( 'Posts' ),
 		'tax_id' => 'ID',
 	);
 
-	return $new_columns;
+	return array_merge( $columns, $new_columns );
 }
 add_filter( 'manage_edit-wzkb_category_columns', 'wzkb_tax_columns' );
 add_filter( 'manage_edit-wzkb_category_sortable_columns', 'wzkb_tax_columns' );
