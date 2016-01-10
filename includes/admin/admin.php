@@ -73,3 +73,30 @@ function wzkb_tax_id( $value, $name, $id ) {
 add_filter( 'manage_wzkb_category_custom_column', 'wzkb_tax_id', 10, 3 );
 add_filter( 'manage_wzkb_tag_custom_column', 'wzkb_tax_id', 10, 3 );
 
+
+/**
+ * Add rating links to the admin dashboard
+ *
+ * @since 1.2.0
+ *
+ * @param string $footer_text The existing footer text
+ * @return string Updated Footer text
+ */
+function wzkb_admin_footer( $footer_text ) {
+
+	if ( get_current_screen()->post_type == 'wz_knowledgebase' ) {
+
+		$text = sprintf( __( 'Thank you for using <a href="%1$s" target="_blank">Knowledgebase</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
+			'https://webberzone.com/knowledgebase',
+			'https://wordpress.org/support/view/plugin-reviews/knowledgebase?filter=5#postform'
+		);
+
+		return str_replace( '</span>', '', $footer_text ) . ' | ' . $text . '</span>';
+
+	} else {
+
+		return $footer_text;
+
+	}
+}
+add_filter( 'admin_footer_text', 'wzkb_admin_footer' );
