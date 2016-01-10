@@ -22,28 +22,27 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  */
 function wzkb_register_post_type() {
-	global $wzkb_options;
 
 	$slug = wzkb_get_option( 'kb_slug', 'knowledgebase' );
 	$archives = defined( 'WZKB_DISABLE_ARCHIVE' ) && WZKB_DISABLE_ARCHIVE ? false : $slug;
 	$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array( 'slug' => $slug, 'with_front' => false );
 
 	$ptlabels = array(
-		'name'               => _x( 'Knowledgebase', 'Post Type General Name', 'wzkb' ),
-		'singular_name'      => _x( 'Knowledgebase', 'Post Type Singular Name', 'wzkb' ),
-		'menu_name'          => __( 'Knowledgebase', 'wzkb' ),
-		'name_admin_bar'     => __( 'Knowledgebase Article', 'wzkb' ),
-		'parent_item_colon'  => __( 'Parent Article', 'wzkb' ),
-		'all_items'          => __( 'All Articles', 'wzkb' ),
-		'add_new_item'       => __( 'Add New Article', 'wzkb' ),
-		'add_new'            => __( 'Add New Article', 'wzkb' ),
-		'new_item'           => __( 'New Article', 'wzkb' ),
-		'edit_item'          => __( 'Edit Article', 'wzkb' ),
-		'update_item'        => __( 'Update Article', 'wzkb' ),
-		'view_item'          => __( 'View Article', 'wzkb' ),
-		'search_items'       => __( 'Search Article', 'wzkb' ),
-		'not_found'          => __( 'Not found', 'wzkb' ),
-		'not_found_in_trash' => __( 'Not found in Trash', 'wzkb' ),
+		'name'               => _x( 'Knowledgebase', 'Post Type General Name', 'knowledgebase' ),
+		'singular_name'      => _x( 'Knowledgebase', 'Post Type Singular Name', 'knowledgebase' ),
+		'menu_name'          => __( 'Knowledgebase', 'knowledgebase' ),
+		'name_admin_bar'     => __( 'Knowledgebase Article', 'knowledgebase' ),
+		'parent_item_colon'  => __( 'Parent Article', 'knowledgebase' ),
+		'all_items'          => __( 'All Articles', 'knowledgebase' ),
+		'add_new_item'       => __( 'Add New Article', 'knowledgebase' ),
+		'add_new'            => __( 'Add New Article', 'knowledgebase' ),
+		'new_item'           => __( 'New Article', 'knowledgebase' ),
+		'edit_item'          => __( 'Edit Article', 'knowledgebase' ),
+		'update_item'        => __( 'Update Article', 'knowledgebase' ),
+		'view_item'          => __( 'View Article', 'knowledgebase' ),
+		'search_items'       => __( 'Search Article', 'knowledgebase' ),
+		'not_found'          => __( 'Not found', 'knowledgebase' ),
+		'not_found_in_trash' => __( 'Not found in Trash', 'knowledgebase' ),
 	);
 
 	/**
@@ -56,8 +55,8 @@ function wzkb_register_post_type() {
 	$ptlabels = apply_filters( 'wzkb_post_type_labels', $ptlabels );
 
 	$ptargs = array(
-		'label'              => __( 'wz_knowledgebase', 'wzkb' ),
-		'description'        => __( 'Knowledgebase', 'wzkb' ),
+		'label'              => __( 'wz_knowledgebase', 'knowledgebase' ),
+		'description'        => __( 'Knowledgebase', 'knowledgebase' ),
 		'labels'             => $ptlabels,
 		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields' ),
 		'taxonomies'         => array( 'wzkb_category', 'wzkb_tag' ),
@@ -86,8 +85,12 @@ function wzkb_register_post_type() {
 add_action( 'init', 'wzkb_register_post_type' );
 
 
+/**
+ * Register Knowledgebase Custom Taxonomies.
+ *
+ * @since 1.0.0
+ */
 function wzkb_register_taxonomies() {
-	global $wzkb_options;
 
 	$catslug = wzkb_get_option( 'category_slug', 'section' );
 	$tagslug = wzkb_get_option( 'tag_slug', 'kb-tags' );
@@ -101,9 +104,9 @@ function wzkb_register_taxonomies() {
 
 	// Now register categories for the Knowledgebase
 	$catlabels = array(
-		'name'              => _x( 'Knowledgebase Categories', 'Taxonomy General Name', 'wzkb' ),
-		'singular_name'     => _x( 'Knowledgebase Category', 'Taxonomy Singular Name', 'wzkb' ),
-		'menu_name'         => __( 'KB Category', 'wzkb' ),
+		'name'              => _x( 'Sections', 'Taxonomy General Name', 'knowledgebase' ),
+		'singular_name'     => _x( 'Section', 'Taxonomy Singular Name', 'knowledgebase' ),
+		'menu_name'         => __( 'Sections', 'knowledgebase' ),
 	);
 
 	/**
@@ -130,9 +133,9 @@ function wzkb_register_taxonomies() {
 
 	// Now register tags for the Knowledgebase
 	$taglabels = array(
-		'name'          => _x( 'Knowledgebase Tags', 'Taxonomy General Name', 'wzkb' ),
-		'singular_name' => _x( 'Knowledgebase Tag', 'Taxonomy Singular Name', 'wzkb' ),
-		'menu_name'     => __( 'KB Tag', 'wzkb' ),
+		'name'          => _x( 'Tags', 'Taxonomy General Name', 'knowledgebase' ),
+		'singular_name' => _x( 'Tag', 'Taxonomy Singular Name', 'knowledgebase' ),
+		'menu_name'     => __( 'Tags', 'knowledgebase' ),
 	);
 
 	/**
