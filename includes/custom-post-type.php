@@ -64,7 +64,6 @@ function wzkb_register_post_type() {
 		'hierarchical'       => true,
 		'menu_position'      => 5,
 		'menu_icon'          => 'dashicons-book-alt',
-		'capability_type'    => 'knowledgebase',
 		'map_meta_cap'       => true,
 		'has_archive'        => $archives,
 		'rewrite'            => $rewrite,
