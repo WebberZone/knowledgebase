@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-10 15:44+0000\n"
+"POT-Creation-Date: 2016-01-16 18:14+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -222,11 +222,11 @@ msgstr ""
 msgid "wz_knowledgebase"
 msgstr ""
 
-#: includes/custom-post-type.php:109
+#: includes/custom-post-type.php:108
 msgid "Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:138
+#: includes/custom-post-type.php:137
 msgid "Tags"
 msgstr ""
 
