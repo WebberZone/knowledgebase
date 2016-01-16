@@ -305,7 +305,7 @@ function wzkb_article_footer( $term, $level, $query ) {
 	if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
 
 		$output .= '
-  <p class="wzkb-article-footer">' . __( 'Read more articles in ', 'knowledgebase' ) . '
+  <p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
    <a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
   </p>
   ';
