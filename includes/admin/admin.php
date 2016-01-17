@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_add_admin_pages_links() {
 	global $wzkb_settings_page;
 
-	$wzkb_settings_page = add_submenu_page( 'edit.php?post_type=wz_knowledgebase', __( 'Settings', 'knowledgebase' ), __( 'Settings', 'knowledgebase' ), 'edit_posts', 'wzkb-settings', 'wzkb_options_page' );
+	$wzkb_settings_page = add_submenu_page( 'edit.php?post_type=wz_knowledgebase', __( 'Settings', 'knowledgebase' ), __( 'Settings', 'knowledgebase' ), 'manage_options', 'wzkb-settings', 'wzkb_options_page' );
 
 }
 add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
@@ -100,3 +100,35 @@ function wzkb_admin_footer( $footer_text ) {
 	}
 }
 add_filter( 'admin_footer_text', 'wzkb_admin_footer' );
+
+
+/**
+ * Filters Admin Notices to add a notice when the settings are not saved.
+ *
+ * @since 1.2.0
+ * @return void
+ */
+function wzkb_admin_notices() {
+
+	$kbslug = wzkb_get_option( 'kb_slug', 'not-set-random-string' );
+	$catslug = wzkb_get_option( 'category_slug', 'not-set-random-string' );
+	$tagslug = wzkb_get_option( 'tag_slug', 'not-set-random-string' );
+
+	// Only add the notice if the user is an admin.
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	// Only add the notice if the settings cannot be found.
+	if ( 'not-set-random-string' === $kbslug || 'not-set-random-string' === $catslug || 'not-set-random-string' === $tagslug ) {
+	?>
+
+	<div class="updated">
+		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> update options.', 'knowledgebase' ), admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ); ?></p>
+	</div>
+
+	<?php
+	}
+}
+add_action( 'admin_notices', 'wzkb_admin_notices' );
+
