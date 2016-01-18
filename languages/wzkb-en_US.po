@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-17 22:56+0000\n"
+"POT-Creation-Date: 2016-01-18 23:31+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/admin.php:89
+#: includes/admin/admin.php:91
 #, php-format
 msgid ""
 "Thank you for using <a href=\"%1$s\" target=\"_blank\">Knowledgebase</a>! "
@@ -29,7 +29,7 @@ msgid ""
 "target=\"_blank\">WordPress.org</a>"
 msgstr ""
 
-#: includes/admin/admin.php:121
+#: includes/admin/admin.php:129
 #, php-format
 msgid ""
 "Knowledgebase settings for the slug have not been registered. Please visit "
@@ -86,6 +86,56 @@ msgstr ""
 
 #: includes/admin/footer.php:56
 msgid "Follow me"
+msgstr ""
+
+#: includes/admin/help-tab.php:30
+#, php-format
+msgid ""
+"For more information or how to get support visit the <a href=\"%s"
+"\">WebberZone support site</a>."
+msgstr ""
+
+#: includes/admin/help-tab.php:31
+#, php-format
+msgid ""
+"Support queries should be posted in the <a href=\"%s\">WordPress.org support "
+"forums</a>."
+msgstr ""
+
+#: includes/admin/help-tab.php:33
+#, php-format
+msgid ""
+"<a href=\"%s\">Post an issue</a> on <a href=\"%s\">GitHub</a> (bug reports "
+"only)."
+msgstr ""
+
+#: includes/admin/help-tab.php:41 includes/admin/settings-page.php:114
+msgid "General"
+msgstr ""
+
+#: includes/admin/help-tab.php:43
+msgid ""
+"This screen provides the basic settings for configuring your knowledgebase."
+msgstr ""
+
+#: includes/admin/help-tab.php:44
+msgid ""
+"Set the knowledgebase slugs which drive what the urls are for the "
+"knowledgebase homepage, articles, categories and tags."
+msgstr ""
+
+#: includes/admin/help-tab.php:49 includes/admin/settings-page.php:115
+msgid "Styles"
+msgstr ""
+
+#: includes/admin/help-tab.php:51
+msgid "This screen provides the look and feel of the knowledgebase with CSS."
+msgstr ""
+
+#: includes/admin/help-tab.php:52
+msgid ""
+"Disable the styles included within the plugin and/or add your own CSS styles "
+"to customize this."
 msgstr ""
 
 #: includes/admin/register-settings.php:206
@@ -161,14 +211,6 @@ msgstr ""
 
 #: includes/admin/settings-page.php:80
 msgid "Reset"
-msgstr ""
-
-#: includes/admin/settings-page.php:114
-msgid "General"
-msgstr ""
-
-#: includes/admin/settings-page.php:115
-msgid "Styles"
 msgstr ""
 
 #: includes/admin/settings-page.php:138

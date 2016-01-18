@@ -29,6 +29,8 @@ function wzkb_add_admin_pages_links() {
 
 	$wzkb_settings_page = add_submenu_page( 'edit.php?post_type=wz_knowledgebase', __( 'Settings', 'knowledgebase' ), __( 'Settings', 'knowledgebase' ), 'manage_options', 'wzkb-settings', 'wzkb_options_page' );
 
+	// Load the settings contextual help.
+	add_action( "load-$wzkb_settings_page", 'wzkb_settings_help' );
 }
 add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
 
