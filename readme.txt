@@ -97,7 +97,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
-= 1.2.0 =
+= 1.2.0 - 24 January 2016 =
 
 * Features:
 	* Settings page: Customize the slugs, disable styles, etc. Change in base slug from `kb-articles` to `knowledgebase`. If you're upgrading this plugin, and have previously used `knowledgebase` as the slug for the page you created, then either change the slug for the knowledgebase in the Settings page or delete the page you created.
