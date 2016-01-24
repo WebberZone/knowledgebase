@@ -126,7 +126,7 @@ function wzkb_admin_notices() {
 	?>
 
 	<div class="updated">
-		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> update options.', 'knowledgebase' ), admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ); ?></p>
+		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ); ?></p>
 	</div>
 
 	<?php

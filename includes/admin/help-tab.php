@@ -48,7 +48,7 @@ function wzkb_settings_help() {
 		'id'	    => 'wzkb-settings-styles',
 		'title'	    => __( 'Styles', 'knowledgebase' ),
 		'content'	=>
-		'<p>' . __( 'This screen provides the look and feel of the knowledgebase with CSS.', 'knowledgebase' ) . '</p>' .
+		'<p>' . __( 'This screen provides options to control the look and feel of the knowledgebase.', 'knowledgebase' ) . '</p>' .
 			'<p>' . __( 'Disable the styles included within the plugin and/or add your own CSS styles to customize this.', 'knowledgebase' ) . '</p>',
 	) );
 

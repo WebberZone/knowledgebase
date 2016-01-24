@@ -6,6 +6,7 @@
  * @since 1.0.0
  *
  * @package WZKB
+ * @subpackage WZKB/Uninstall
  */
 
 // If uninstall not called from WordPress, then exit.
