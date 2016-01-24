@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-18 23:31+0000\n"
+"POT-Creation-Date: 2016-01-24 11:38+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #, php-format
 msgid ""
 "Knowledgebase settings for the slug have not been registered. Please visit "
-"the <a href=\"%s\">admin page</a> update options."
+"the <a href=\"%s\">admin page</a> to update and save the options."
 msgstr ""
 
 #: includes/admin/footer.php:15
@@ -129,7 +129,9 @@ msgid "Styles"
 msgstr ""
 
 #: includes/admin/help-tab.php:51
-msgid "This screen provides the look and feel of the knowledgebase with CSS."
+msgid ""
+"This screen provides options to control the look and feel of the "
+"knowledgebase."
 msgstr ""
 
 #: includes/admin/help-tab.php:52
