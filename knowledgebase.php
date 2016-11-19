@@ -134,11 +134,11 @@ register_activation_hook( __FILE__, 'wzkb_plugin_activate' );
  */
 function wzkb_single_activate() {
 
-	// Register types to register the rewrite rules
+	// Register types to register the rewrite rules.
 	wzkb_register_settings();
 	wzkb_register_post_type();
 
-	// Then flush them
+	// Then flush them.
 	global $wp_rewrite;
 	$wp_rewrite->init();
 	flush_rewrite_rules( false );
@@ -171,6 +171,8 @@ add_action( 'wpmu_new_blog', 'wzkb_activate_new_site' );
  * Runs on Plugin deactivation.
  *
  * @since 1.0.0
+ *
+ * @param bool $network_wide Network wide flag.
  */
 function wzkb_plugin_deactivate( $network_wide ) {
 
@@ -191,7 +193,7 @@ function wzkb_plugin_deactivate( $network_wide ) {
 			flush_rewrite_rules();
 		}
 
-		// Switch back to the current blog
+		// Switch back to the current blog.
 		restore_current_blog();
 
 	}
@@ -204,7 +206,8 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
 /*
  ----------------------------------------------------------------------------*
  * Include files
- *----------------------------------------------------------------------------*/
+ *----------------------------------------------------------------------------
+ */
 
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'public/public.php';
@@ -217,7 +220,8 @@ register_deactivation_hook( __FILE__, 'wzkb_plugin_deactivate' );
 /*
  ----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
- *----------------------------------------------------------------------------*/
+ *----------------------------------------------------------------------------
+ */
 
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
