@@ -41,7 +41,7 @@ If you have an idea, I'd love to hear it. Knowledgebase is also available on [Gi
 
 
 ## Screenshots
-![Knowledgebase Menu in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/assets/screenshot-1.png)
+![Knowledgebase Menu in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/wporg-assets/screenshot-1.png)
 
 _Knowledgebase Menu in the WordPress Admin_
 
@@ -68,7 +68,7 @@ Download the plugin
 
 The plugin supports unlimited levels of category hierarchy, however, the recommended setting for creating the knowledge base is to create a top level category with the name of the knowledgebase and sub-level categories for each section of this knowledgebase. Check out the Category view screenshot as an example.
 
-![Knowledgebase Category view in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/assets/screenshot-3.png)
+![Knowledgebase Category view in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/wporg-assets/screenshot-3.png)
 
 
 ## Frequently Asked Questions
