@@ -99,6 +99,9 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 = 1.3.0 =
 
+* Enhancements:
+	* Articles now support comments
+
 * Bug fixes:
 	* Fixed labels where Section was still called Category
 

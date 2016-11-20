@@ -58,7 +58,7 @@ function wzkb_register_post_type() {
 		'label'              => __( 'wz_knowledgebase', 'knowledgebase' ),
 		'description'        => __( 'Knowledgebase', 'knowledgebase' ),
 		'labels'             => $ptlabels,
-		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields' ),
+		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
 		'taxonomies'         => array( 'wzkb_category', 'wzkb_tag' ),
 		'public'             => true,
 		'hierarchical'       => true,
