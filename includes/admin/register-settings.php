@@ -85,7 +85,14 @@ function wzkb_update_option( $key = '', $value = false ) {
 	// First let's grab the current settings.
 	$options = get_option( 'wzkb_settings' );
 
-	// Let's let devs alter that value coming in.
+	/**
+	 * Filters the value before it is updated
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param  string|bool|int $value The value to set the key to
+	 * @param  string          $key   The Key to update
+	 */
 	$value = apply_filters( 'wzkb_update_option', $value, $key );
 
 	// Next let's try to update the value.
@@ -272,8 +279,13 @@ function wzkb_settings_defaults() {
 	// Populate some default values.
 	foreach ( wzkb_get_registered_settings() as $tab => $settings ) {
 		foreach ( $settings as $option ) {
-			if ( 'checkbox' == $option['type'] && ! empty( $option['options'] ) ) {
+			// When checkbox is set to true, set this to 1.
+			if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
 				$options[ $option['id'] ] = '1';
+			}
+			// If an option is set.
+			if ( in_array( $option['type'], array( 'textarea', 'text', 'csv' ), true ) && ! empty( $option['options'] ) ) {
+				$options[ $option['id'] ] = $option['options'];
 			}
 		}
 	}
