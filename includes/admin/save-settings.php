@@ -35,12 +35,12 @@ function wzkb_settings_sanitize( $input = array() ) {
 		return $input;
 	}
 
-	parse_str( $_POST['_wp_http_referer'], $referrer );
+	parse_str( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) ), $referrer ); // Input var okay.
 
 	// Get the various settings we've registered.
 	$settings = wzkb_get_registered_settings();
 
-	// Check if we need to set to defaults
+	// Check if we need to set to defaults.
 	$reset = isset( $_POST['settings_reset'] );
 
 	if ( $reset ) {
@@ -56,11 +56,17 @@ function wzkb_settings_sanitize( $input = array() ) {
 		return $wzkb_options;
 	}
 
-	// Get the tab. This is also our settings' section
+	// Get the tab. This is also our settings' section.
 	$tab = isset( $referrer['tab'] ) ? $referrer['tab'] : 'general';
 
 	$input = $input ? $input : array();
 
+	/**
+	 * Filter the settings for the tab. e.g. wzkb_settings_general_sanitize.
+	 *
+	 * @since  1.2.0
+	 * @param  array $input Input unclean array
+	 */
 	$input = apply_filters( 'wzkb_settings_' . $tab . '_sanitize', $input );
 
 	// Loop through each setting being saved and pass it through a sanitization filter.
@@ -70,11 +76,23 @@ function wzkb_settings_sanitize( $input = array() ) {
 		$type = isset( $settings[ $tab ][ $key ]['type'] ) ? $settings[ $tab ][ $key ]['type'] : false;
 
 		if ( $type ) {
-			// Field type specific filter
+
+			/**
+			 * Field type specific filter.
+			 *
+			 * @since  1.2.0
+			 * @param  array $value Setting value.
+			 * @paaram array $key Setting key.
+			 */
 			$input[ $key ] = apply_filters( 'wzkb_settings_sanitize_' . $type, $value, $key );
 		}
 
-		// General filter
+		/**
+		 * Field type general filter.
+		 *
+		 * @since  1.2.0
+		 * @paaram array $key Setting key.
+		 */
 		$input[ $key ] = apply_filters( 'wzkb_settings_sanitize', $input[ $key ], $key );
 	}
 
@@ -113,4 +131,20 @@ function wzkb_sanitize_text_field( $input ) {
 	return sanitize_text_field( $input );
 }
 add_filter( 'wzkb_settings_sanitize_text', 'wzkb_sanitize_text_field' );
+
+
+/**
+ * Sanitize CSV fields
+ *
+ * @since 1.2.0
+ *
+ * @param  array $input The field value.
+ * @return string  $input  Sanitizied value
+ */
+function wzkb_sanitize_csv_field( $input ) {
+
+	return implode( ',', array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $input ) ) ) ) );
+}
+add_filter( 'wzkb_settings_sanitize_csv', 'wzkb_sanitize_csv_field' );
+
 
