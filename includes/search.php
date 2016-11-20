@@ -33,7 +33,7 @@ function wzkb_get_search_form( $echo = true ) {
             <input type="search" class="wzkb-search-field" placeholder="' . esc_attr_x( 'Search the knowledgebase &hellip;', 'placeholder', 'knowledgebase' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'knowledgebase' ) . '" />
         </label>
         <input type="hidden" name="post_type" value="wz_knowledgebase">
-        <input type="submit" class="wzkb-search-submit" value="'. esc_attr_x( 'Search', 'submit button', 'knowledgebase' ) .'" />
+        <input type="submit" class="wzkb-search-submit" value="' . esc_attr_x( 'Search', 'submit button', 'knowledgebase' ) . '" />
     </form>
     ';
 

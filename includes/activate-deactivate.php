@@ -41,7 +41,6 @@ function wzkb_plugin_activate( $network_wide ) {
 			wzkb_single_activate();
 			restore_current_blog();
 		}
-
 	} else {
 		wzkb_single_activate();
 	}
