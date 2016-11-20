@@ -39,10 +39,8 @@ function wzkb_plugin_activate( $network_wide ) {
 		foreach ( $blog_ids as $blog_id ) {
 			switch_to_blog( $blog_id );
 			wzkb_single_activate();
+			restore_current_blog();
 		}
-
-		// Switch back to the current blog.
-		restore_current_blog();
 
 	} else {
 		wzkb_single_activate();
