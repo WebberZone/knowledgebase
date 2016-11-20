@@ -101,11 +101,28 @@ function wzkb_register_taxonomies() {
 		'rewrite'           => array( 'slug' => $catslug, 'with_front' => true, 'hierarchical' => true ),
 	);
 
-	// Now register categories for the Knowledgebase
+	// Now register categories for the Knowledgebase.
 	$catlabels = array(
-		'name'              => _x( 'Sections', 'Taxonomy General Name', 'knowledgebase' ),
-		'singular_name'     => _x( 'Section', 'Taxonomy Singular Name', 'knowledgebase' ),
-		'menu_name'         => __( 'Sections', 'knowledgebase' ),
+		'name'                       => _x( 'Sections', 'Taxonomy General Name', 'knowledgebase' ),
+		'singular_name'              => _x( 'Section', 'Taxonomy Singular Name', 'knowledgebase' ),
+		'menu_name'                  => __( 'Sections', 'knowledgebase' ),
+		'all_items'                  => __( 'All Sections', 'knowledgebase' ),
+		'parent_item'                => __( 'Parent Section', 'knowledgebase' ),
+		'parent_item_colon'          => __( 'Parent Section:', 'knowledgebase' ),
+		'new_item_name'              => __( 'New Section Name', 'knowledgebase' ),
+		'add_new_item'               => __( 'Add New Section', 'knowledgebase' ),
+		'edit_item'                  => __( 'Edit Section', 'knowledgebase' ),
+		'update_item'                => __( 'Update Section', 'knowledgebase' ),
+		'view_item'                  => __( 'View Section', 'knowledgebase' ),
+		'separate_items_with_commas' => __( 'Separate sections with commas', 'knowledgebase' ),
+		'add_or_remove_items'        => __( 'Add or remove sections', 'knowledgebase' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'knowledgebase' ),
+		'popular_items'              => __( 'Popular Sections', 'knowledgebase' ),
+		'search_items'               => __( 'Search Sections', 'knowledgebase' ),
+		'not_found'                  => __( 'Not Found', 'knowledgebase' ),
+		'no_terms'                   => __( 'No sections', 'knowledgebase' ),
+		'items_list'                 => __( 'Sections list', 'knowledgebase' ),
+		'items_list_navigation'      => __( 'Sections list navigation', 'knowledgebase' ),
 	);
 
 	/**

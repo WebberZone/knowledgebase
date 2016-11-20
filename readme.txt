@@ -97,6 +97,11 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
+= 1.3.0 =
+
+* Bug fixes:
+	* Fixed labels where Section was still called Category
+
 = 1.2.0 - 24 January 2016 =
 
 * Features:
