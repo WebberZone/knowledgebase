@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @return void
  */
 function wzkb_options_page() {
-	$active_tab = isset( $_GET['tab'] ) && array_key_exists( $_GET['tab'], wzkb_get_settings_sections() ) ? $_GET['tab'] : 'general';
+	$active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), wzkb_get_settings_sections() ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // Input var okay.
 
 	ob_start();
 	?>
@@ -33,73 +33,84 @@ function wzkb_options_page() {
 
 		<?php settings_errors(); ?>
 
-		<h2 class="nav-tab-wrapper">
-			<?php
-			foreach ( wzkb_get_settings_sections() as $tab_id => $tab_name ) {
+		<div id="poststuff">
+		<div id="post-body" class="metabox-holder columns-2">
+		<div id="post-body-content">
 
-				$tab_url = add_query_arg(
-					array(
-					'settings-updated' => false,
-					'tab' => $tab_id,
-					)
-				);
-
-				$active = $active_tab == $tab_id ? ' nav-tab-active' : '';
-
-				echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
-							echo esc_html( $tab_name );
-				echo '</a>';
-
-			}
-			?>
-		</h2>
-
-		<div id="tab_container">
-			<form method="post" action="options.php">
-				<table class="form-table">
+			<h2 class="nav-tab-wrapper" style="padding:0">
 				<?php
-					settings_fields( 'wzkb_settings' );
-					do_settings_fields( 'wzkb_settings_' . $active_tab, 'wzkb_settings_' . $active_tab );
-				?>
-				</table>
-				<p>
-				<?php
-					// Default submit button
-					submit_button(
-						__( 'Submit', 'knowledgebase' ),
-						'primary',
-						'submit',
-						false
-					);
+				foreach ( wzkb_get_settings_sections() as $tab_id => $tab_name ) {
 
-					echo '&nbsp;&nbsp;';
-
-					// Reset button.
-					$confirm = esc_js( __( 'Do you really want to reset all these settings to their default values?', 'knowledgebase' ) );
-					submit_button(
-						__( 'Reset', 'knowledgebase' ),
-						'secondary',
-						'settings_reset',
-						false,
+					$tab_url = esc_url( add_query_arg(
 						array(
-							'onclick' => "return confirm('{$confirm}');",
+						'settings-updated' => false,
+						'tab' => $tab_id,
 						)
-					);
+					) );
+
+					$active = $active_tab == $tab_id ? ' nav-tab-active' : '';
+
+					echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
+								echo esc_html( $tab_name );
+					echo '</a>';
+
+				}
 				?>
-				</p>
-			</form>
-		</div><!-- /#tab_container-->
+			</h2>
 
-		<div id="dashboard-widgets" class="metabox-holder">
+			<div id="tab_container">
+				<form method="post" action="options.php">
+					<table class="form-table">
+					<?php
+						settings_fields( 'wzkb_settings' );
+						do_settings_fields( 'wzkb_settings_' . $active_tab, 'wzkb_settings_' . $active_tab );
+					?>
+					</table>
+					<p>
+					<?php
+						// Default submit button
+						submit_button(
+							__( 'Submit', 'knowledgebase' ),
+							'primary',
+							'submit',
+							false
+						);
 
-			<?php include_once( 'footer.php' ); ?>
+						echo '&nbsp;&nbsp;';
 
-		</div><!-- /#dashboard-widgets -->
+						// Reset button.
+						$confirm = esc_js( __( 'Do you really want to reset all these settings to their default values?', 'knowledgebase' ) );
+						submit_button(
+							__( 'Reset', 'knowledgebase' ),
+							'secondary',
+							'settings_reset',
+							false,
+							array(
+								'onclick' => "return confirm('{$confirm}');",
+							)
+						);
+					?>
+					</p>
+				</form>
+			</div><!-- /#tab_container-->
+
+		</div><!-- /#post-body-content -->
+
+		<div id="postbox-container-1" class="postbox-container">
+
+			<div id="side-sortables" class="meta-box-sortables ui-sortable">
+				<?php include_once( 'sidebar.php' ); ?>
+			</div><!-- /#side-sortables -->
+
+		</div><!-- /#postbox-container-1 -->
+		</div><!-- /#post-body -->
+		<br class="clear" />
+		</div><!-- /#poststuff -->
 
 	</div><!-- /.wrap -->
 
 	<?php
-	echo ob_get_clean();
+	echo ob_get_clean(); // WPCS: XSS OK.
 }
 
 /**
@@ -145,11 +156,20 @@ function wzkb_missing_callback( $args ) {
  * Renders the header.
  *
  * @since 1.2.0
- * @param array $args Arguments passed by the setting
+ *
+ * @param array $args Arguments passed by the setting.
  * @return void
  */
 function wzkb_header_callback( $args ) {
-	echo '<hr/>';
+
+	/**
+	 * After Settings Output filter
+	 *
+	 * @since 1.3.0
+	 * @param string $html HTML string.
+	 * @param array Arguments array.
+	 */
+	echo apply_filters( 'wzkb_after_setting_output', '', $args ); // WPCS: XSS OK.
 }
 
 
@@ -175,7 +195,8 @@ function wzkb_text_callback( $args ) {
 	$html = '<input type="text" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '" />';
 	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
-	echo $html;
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
@@ -201,7 +222,8 @@ function wzkb_textarea_callback( $args ) {
 	$html = '<textarea class="large-text" cols="50" rows="5" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']">' . esc_textarea( stripslashes( $value ) ) . '</textarea>';
 	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
-	echo $html;
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
@@ -223,7 +245,8 @@ function wzkb_checkbox_callback( $args ) {
 	$html = '<input type="checkbox" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="1" ' . $checked . '/>';
 	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
-	echo $html;
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
@@ -239,6 +262,7 @@ function wzkb_checkbox_callback( $args ) {
  */
 function wzkb_multicheck_callback( $args ) {
 	global $wzkb_options;
+	$html = '';
 
 	if ( ! empty( $args['options'] ) ) {
 		foreach ( $args['options'] as $key => $option ) {
@@ -248,13 +272,16 @@ function wzkb_multicheck_callback( $args ) {
 				$enabled = null;
 			}
 
-			echo '<input name="wzkb_settings[' . $args['id'] . '][' . $key . ']" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="checkbox" value="' . $option . '" ' . checked( $option, $enabled, false ) . '/> <br />';
+			$html .= '<input name="wzkb_settings[' . $args['id'] . '][' . $key . ']" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="checkbox" value="' . $option . '" ' . checked( $option, $enabled, false ) . '/> <br />';
 
-			echo '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+			$html .= '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
 		}
 
-		echo '<p class="description">' . $args['desc'] . '</p>';
+		$html .= '<p class="description">' . $args['desc'] . '</p>';
 	}
+
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
@@ -270,6 +297,7 @@ function wzkb_multicheck_callback( $args ) {
  */
 function wzkb_radio_callback( $args ) {
 	global $wzkb_options;
+	$html = '';
 
 	foreach ( $args['options'] as $key => $option ) {
 		$checked = false;
@@ -280,11 +308,14 @@ function wzkb_radio_callback( $args ) {
 			$checked = true;
 		}
 
-		echo '<input name="wzkb_settings[' . $args['id'] . ']"" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked( true, $checked, false ) . '/> <br />';
-		echo '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+		$html .= '<input name="wzkb_settings[' . $args['id'] . ']"" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked( true, $checked, false ) . '/> <br />';
+		$html .= '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
 	}
 
-	echo '<p class="description">' . $args['desc'] . '</p>';
+	$html .= '<p class="description">' . $args['desc'] . '</p>';
+
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
@@ -315,7 +346,8 @@ function wzkb_number_callback( $args ) {
 	$html = '<input type="number" step="' . esc_attr( $step ) . '" max="' . esc_attr( $max ) . '" min="' . esc_attr( $min ) . '" class="' . $size . '-text" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
 	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
-	echo $html;
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
@@ -354,7 +386,8 @@ function wzkb_select_callback( $args ) {
 	$html .= '</select>';
 	$html .= '<p class="description">' . $args['desc'] . '</p>';
 
-	echo $html;
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
 }
 
 
