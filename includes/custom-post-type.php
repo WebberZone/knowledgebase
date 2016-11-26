@@ -9,7 +9,6 @@
  * @subpackage WZKB/CPT
  */
 
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -147,7 +146,7 @@ function wzkb_register_taxonomies() {
 		apply_filters( 'wzkb_cat_args', $args )
 	);
 
-	// Now register tags for the Knowledgebase
+	// Now register tags for the Knowledgebase.
 	$taglabels = array(
 		'name'          => _x( 'Tags', 'Taxonomy General Name', 'knowledgebase' ),
 		'singular_name' => _x( 'Tag', 'Taxonomy Singular Name', 'knowledgebase' ),

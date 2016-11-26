@@ -36,7 +36,7 @@ wp_enqueue_style( 'wzkb_styles' );
 	<section id="primary" class="content-area">
 
 		<header class="page-header">
-			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'knowledgebase' ), get_search_query() ); ?></h1>
+			<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'knowledgebase' ), get_search_query() ); ?></h1>
 		</header><!-- .page-header -->
 
 		<?php wzkb_get_search_form(); ?>
@@ -70,7 +70,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 			// If no content, include the "No posts found" template.
 		else :
-			_e( 'No results found', 'knowledgebase' );
+			esc_html_e( 'No results found', 'knowledgebase' );
 
 		endif;
 		?><!-- .site-main -->

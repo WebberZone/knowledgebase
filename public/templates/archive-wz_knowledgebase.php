@@ -10,7 +10,6 @@
  * @package WZKB
  */
 
-
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
 
@@ -28,11 +27,11 @@ wp_enqueue_style( 'wzkb_styles' );
 			<?php
 			wzkb_get_search_form();
 
-			echo wzkb_knowledge();
+			echo wzkb_knowledge(); // WPCS: XSS OK.
 
 			// If no content, include the "No posts found" template.
 		else :
-			_e( 'No results found', 'wzkb' );
+			esc_html_e( 'No results found', 'wzkb' );
 
 		endif;
 		?><!-- .site-main -->

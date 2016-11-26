@@ -9,7 +9,6 @@
  * @subpackage WZKB/shortcode
  */
 
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -21,8 +20,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 1.0.0
  *
- * @param  array  $atts    Shortcode attributes array
- * @param  string $content Content to wrap in the Shortcode
+ * @param  array  $atts    Shortcode attributes array.
+ * @param  string $content Content to wrap in the Shortcode.
  * @return string $output Formatted shortcode output
  */
 function wzkb_shortcode( $atts, $content = null ) {
@@ -32,7 +31,7 @@ function wzkb_shortcode( $atts, $content = null ) {
 
 	$atts = shortcode_atts(
 		array(
-			'category' => false,  // Create a knowledgebase for subcategories of this parent ID
+			'category' => false,  // Create a knowledgebase for subcategories of this parent ID.
 		), $atts, 'knowledgebase'
 	);
 
@@ -57,8 +56,8 @@ add_shortcode( 'knowledgebase', 'wzkb_shortcode' );
  *
  * @since 1.2.0
  *
- * @param  array  $atts    Shortcode attributes array
- * @param  string $content Content to wrap in the Shortcode
+ * @param  array  $atts    Shortcode attributes array.
+ * @param  string $content Content to wrap in the Shortcode.
  * @return string $output Formatted shortcode output
  */
 function wzkb_shortcode_search( $atts, $content = null ) {

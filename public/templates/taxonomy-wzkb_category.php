@@ -10,7 +10,6 @@
  * @package WZKB
  */
 
-
 global $wp_query;
 $term = $wp_query->get_queried_object();
 

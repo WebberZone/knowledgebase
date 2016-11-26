@@ -9,7 +9,6 @@
  * @subpackage WZKB/search
  */
 
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -51,7 +50,7 @@ function wzkb_get_search_form( $echo = true ) {
 	}
 
 	if ( $echo ) {
-		echo $result;
+		echo $result; // WPCS: XSS okay.
 	} else {
 		return $result;
 	}

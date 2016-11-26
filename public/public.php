@@ -33,7 +33,7 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
  */
 function wpkb_enqueue_styles() {
 
-	if ( true == wzkb_get_option( 'include_styles' ) ) {
+	if ( wzkb_get_option( 'include_styles' ) ) {
 		wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.min.css', false, false );
 	}
 
@@ -48,11 +48,10 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  *
  * @since 1.0.0
  *
- * @param  string $template Default Archive Template location
+ * @param  string $template Default Archive Template location.
  * @return string Modified Archive Template location
  */
 function wzkb_archive_template( $template ) {
-	global $post;
 
 	$template_name = '';
 
@@ -69,7 +68,7 @@ function wzkb_archive_template( $template ) {
 		$template_name = 'taxonomy-wzkb_category.php';
 	}
 
-	if ( '' != $template_name && '' == locate_template( array( $template_name ) ) ) {
+	if ( '' !== $template_name && '' === locate_template( array( $template_name ) ) ) {
 		$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
 	}
 
@@ -83,12 +82,12 @@ add_filter( 'template_include', 'wzkb_archive_template' );
  *
  * @since 1.1.0
  *
- * @param  object $query The search query object
+ * @param  object $query The search query object.
  * @return object $query Updated search query object
  */
 function wzkb_posts_per_search_page( $query ) {
 
-	if ( ! is_admin() && is_search() && isset( $query->query_vars['post_type'] ) && $query->query_vars['post_type'] == 'wz_knowledgebase' ) {
+	if ( ! is_admin() && is_search() && isset( $query->query_vars['post_type'] ) && $query->query_vars['post_type'] === 'wz_knowledgebase' ) {
 		$query->query_vars['posts_per_page'] = 10;
 	}
 
