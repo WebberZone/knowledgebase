@@ -13,3 +13,18 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+$settings = get_option( 'wzkb_settings' );
+
+if ( $settings['uninstall_options'] ) {
+
+	delete_option( 'wzkb_settings' );
+
+}
+
+if ( $settings['uninstall_data'] ) {
+
+
+
+}
+
