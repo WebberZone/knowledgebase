@@ -24,7 +24,10 @@ if ( $settings['uninstall_options'] ) {
 
 if ( $settings['uninstall_data'] ) {
 
+	$wzkbs = get_posts( array( 'post_type' => 'products' ) );
 
-
+	foreach ( $wzkbs as $wzkb ) {
+		wp_delete_post( $wzkb->ID );
+	}
 }
 
