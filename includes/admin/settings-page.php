@@ -48,9 +48,9 @@ function wzkb_options_page() {
 						)
 					) );
 
-					$active = $active_tab == $tab_id ? ' nav-tab-active' : '';
+					$active = $active_tab === $tab_id ? ' nav-tab-active' : '';
 
-					echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
+					echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab ' . sanitize_html_class( $active ) . '">';
 								echo esc_html( $tab_name );
 					echo '</a>';
 
@@ -68,7 +68,7 @@ function wzkb_options_page() {
 					</table>
 					<p>
 					<?php
-						// Default submit button
+						// Default submit button.
 						submit_button(
 							__( 'Submit', 'knowledgebase' ),
 							'primary',
@@ -143,10 +143,11 @@ function wzkb_get_settings_sections() {
  *
  * @since 1.2.0
  *
+ * @param array $args Arguments passed by the setting.
  * @return void
  */
 function wzkb_missing_callback( $args ) {
-	printf( __( 'The callback function used for the <strong>%s</strong> setting is missing.', 'knowledgebase' ), $args['id'] );
+	printf( esc_html__( 'The callback function used for the <strong>%s</strong> setting is missing.', 'knowledgebase' ), esc_html( $args['id'] ) );
 }
 
 
@@ -178,12 +179,12 @@ function wzkb_header_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_text_callback( $args ) {
 
-	// First, we read the options collection
+	// First, we read the options collection.
 	global $wzkb_options;
 
 	if ( isset( $wzkb_options[ $args['id'] ] ) ) {
@@ -205,12 +206,12 @@ function wzkb_text_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_textarea_callback( $args ) {
 
-	// First, we read the options collection
+	// First, we read the options collection.
 	global $wzkb_options;
 
 	if ( isset( $wzkb_options[ $args['id'] ] ) ) {
@@ -232,12 +233,12 @@ function wzkb_textarea_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_checkbox_callback( $args ) {
 
-	// First, we read the options collection
+	// First, we read the options collection.
 	global $wzkb_options;
 
 	$checked = isset( $wzkb_options[ $args['id'] ] ) ? checked( 1, $wzkb_options[ $args['id'] ], false ) : '';
@@ -257,7 +258,7 @@ function wzkb_checkbox_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_multicheck_callback( $args ) {
@@ -292,7 +293,7 @@ function wzkb_multicheck_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_radio_callback( $args ) {
@@ -302,9 +303,9 @@ function wzkb_radio_callback( $args ) {
 	foreach ( $args['options'] as $key => $option ) {
 		$checked = false;
 
-		if ( isset( $wzkb_options[ $args['id'] ] ) && $wzkb_options[ $args['id'] ] == $key ) {
+		if ( isset( $wzkb_options[ $args['id'] ] ) && $wzkb_options[ $args['id'] ] === $key ) {
 			$checked = true;
-		} elseif ( isset( $args['options'] ) && $args['options'] == $key && ! isset( $wzkb_options[ $args['id'] ] ) ) {
+		} elseif ( isset( $args['options'] ) && $args['options'] === $key && ! isset( $wzkb_options[ $args['id'] ] ) ) {
 			$checked = true;
 		}
 
@@ -326,7 +327,7 @@ function wzkb_radio_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_number_callback( $args ) {
@@ -358,7 +359,7 @@ function wzkb_number_callback( $args ) {
  *
  * @since 1.2.0
  *
- * @param array $args Array of arguments
+ * @param array $args Array of arguments.
  * @return void
  */
 function wzkb_select_callback( $args ) {
