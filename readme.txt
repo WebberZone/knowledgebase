@@ -2,8 +2,8 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
-Requires at least: 3.9
-Tested up to: 4.5
+Requires at least: 4.1
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -29,8 +29,6 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Supports unlimited level of categories
 
 = Contribute =
-
-Knowledgebase is fully functional and in fact, I use this to power https://webberzone.com/support/knowledgebase. However, there are still many features that I plan to add to this plugin. This includes inbuilt templates for articles, live search amongst others.
 
 If you have an idea, I'd love to hear it. Knowledgebase is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
 
@@ -140,7 +138,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 1.2.0 =
-* New features. New permalink settings. Upgrade highly recommended. Please verify settings and flush permalinks on upgrade.
+= 1.3.0 =
+* New features and bug fixes. Upgrade highly recommended. Please verify settings and flush permalinks on upgrade.
 Check the Changelog for more details
 

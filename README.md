@@ -5,9 +5,9 @@
 
 # Knowledgebase
 
-__Requires:__ 3.9
+__Requires:__ 4.1
 
-__Tested up to:__ 4.5
+__Tested up to:__ 4.7
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -35,7 +35,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 
 ## Contribute
 
-Knowledgebase is fully functional and in fact, I use this to power https://webberzone.com/support/knowledgebase. However, there are still many features that I plan to add to this plugin. This includes inbuilt templates for articles, live search amongst others.
+Knowledgebase is fully functional and in fact, I use this to power https://webberzone.com/support/knowledgebase. However, there are still many features that I plan to add to this plugin. This includes inbuilt templates for articles, live search, etc.
 
 If you have an idea, I'd love to hear it. Knowledgebase is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
 
@@ -104,9 +104,6 @@ Knowledgebase comes inbuilt with a set of custom templates to display archives o
 ### How do I sort the posts or sections?
 
 The plugin doesn't have an inbuilt feature to sort posts or sections. You will need an external plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) which allows you to easily drag and drop posts, sections or tags to display them in a custom order.
-
-
-
 
 
 ## About this repository
