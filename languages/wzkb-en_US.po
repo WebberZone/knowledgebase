@@ -2,9 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-26 13:44+0100\n"
+"POT-Creation-Date: 2016-12-03 18:53+0000\n"
 "PO-Revision-Date: \n"
+"Last-Translator: \n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,8 +17,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"Last-Translator: \n"
-"Language: en_US\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: includes/admin/admin.php:30
@@ -121,21 +121,45 @@ msgid ""
 "the custom tag and forms a part of the URL when browsing tag archives"
 msgstr ""
 
-#: includes/admin/register-settings.php:239
+#: includes/admin/register-settings.php:234
+msgid "Uninstall options"
+msgstr ""
+
+#: includes/admin/register-settings.php:241
+msgid "Delete options on uninstall"
+msgstr ""
+
+#: includes/admin/register-settings.php:242
+msgid ""
+"Check this box to delete the settings on this page when the plugin is "
+"deleted via the Plugins page in your WordPress Admin"
+msgstr ""
+
+#: includes/admin/register-settings.php:248
+msgid "Delete all knowledgebase posts on uninstall"
+msgstr ""
+
+#: includes/admin/register-settings.php:249
+msgid ""
+"Check this box to delete all the posts, categories and tags created by the "
+"plugin. There is no way to restore the data if you choose this option"
+msgstr ""
+
+#: includes/admin/register-settings.php:260
 msgid "Include plugin inbuilt styles"
 msgstr ""
 
-#: includes/admin/register-settings.php:240
+#: includes/admin/register-settings.php:261
 msgid ""
 "Uncheck this to disable this plugin from adding the inbuilt styles. You will "
 "need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/register-settings.php:246
+#: includes/admin/register-settings.php:267
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/register-settings.php:247
+#: includes/admin/register-settings.php:268
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 

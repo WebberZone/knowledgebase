@@ -232,7 +232,7 @@ function wzkb_get_registered_settings() {
 				'uninstall_header'  => array(
 					'id'               => 'uninstall_header',
 					'name'             => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
-					'desc'             => esc_html__( '', 'knowledgebase' ),
+					'desc'             => '',
 					'type'             => 'header',
 					'options'          => '',
 				),
