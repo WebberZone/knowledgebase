@@ -101,6 +101,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 * Enhancements:
 	* Articles now support comments
+	* Two new settings to uninstall settings and all knowledgebase content
 
 * Bug fixes:
 	* Fixed labels where Section was still called Category

@@ -153,7 +153,7 @@ function wzkb_delete_option( $key = '' ) {
  */
 function wzkb_register_settings() {
 
-	if ( false == get_option( 'wzkb_settings' ) ) {
+	if ( false === get_option( 'wzkb_settings' ) ) {
 		add_option( 'wzkb_settings', wzkb_settings_defaults() );
 	}
 
@@ -206,47 +206,68 @@ function wzkb_get_registered_settings() {
 
 	$wzkb_settings = array(
 		/*** General settings ***/
-		'general' => apply_filters( 'wzkb_settings_general',
+		'general'             => apply_filters( 'wzkb_settings_general',
 			array(
-				'kb_slug'       => array(
-					'id'           => 'kb_slug',
-					'name'         => __( 'Knowledgebase slug', 'knowledgebase' ),
-					'desc'         => __( 'This will set the opening path of the URL of the knowledgebase and is set when registering the custom post type', 'knowledgebase' ),
-					'type'         => 'text',
-					'options'      => 'knowledgebase',
+				'kb_slug'           => array(
+					'id'               => 'kb_slug',
+					'name'             => esc_html__( 'Knowledgebase slug', 'knowledgebase' ),
+					'desc'             => esc_html__( 'This will set the opening path of the URL of the knowledgebase and is set when registering the custom post type', 'knowledgebase' ),
+					'type'             => 'text',
+					'options'          => 'knowledgebase',
 				),
-				'category_slug' => array(
-					'id'           => 'category_slug',
-					'name'         => __( 'Category slug', 'knowledgebase' ),
-					'desc'         => __( 'Each category is a section of the knowledgebase. This setting is used when registering the custom category and forms a part of the URL when browsing category archives', 'knowledgebase' ),
-					'type'         => 'text',
-					'options'      => 'section',
+				'category_slug'     => array(
+					'id'               => 'category_slug',
+					'name'             => esc_html__( 'Category slug', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Each category is a section of the knowledgebase. This setting is used when registering the custom category and forms a part of the URL when browsing category archives', 'knowledgebase' ),
+					'type'             => 'text',
+					'options'          => 'section',
 				),
-				'tag_slug'      => array(
-					'id'           => 'tag_slug',
-					'name'         => __( 'Tag slug', 'knowledgebase' ),
-					'desc'         => __( 'Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives', 'knowledgebase' ),
-					'type'         => 'text',
-					'options'      => 'kb-tags',
+				'tag_slug'          => array(
+					'id'               => 'tag_slug',
+					'name'             => esc_html__( 'Tag slug', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives', 'knowledgebase' ),
+					'type'             => 'text',
+					'options'          => 'kb-tags',
+				),
+				'uninstall_header'  => array(
+					'id'               => 'uninstall_header',
+					'name'             => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
+					'desc'             => esc_html__( '', 'knowledgebase' ),
+					'type'             => 'header',
+					'options'          => '',
+				),
+				'uninstall_options' => array(
+					'id'               => 'uninstall_options',
+					'name'             => esc_html__( 'Delete options on uninstall', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
+				),
+				'uninstall_data'    => array(
+					'id'               => 'uninstall_data',
+					'name'             => esc_html__( 'Delete all knowledgebase posts on uninstall', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => false,
 				),
 			)
 		),
 		/*** Style settings ***/
-		'styles' => apply_filters( 'wzkb_settings_styles',
+		'styles'              => apply_filters( 'wzkb_settings_styles',
 			array(
-				'include_styles' => array(
-					'id'            => 'include_styles',
-					'name'          => __( 'Include plugin inbuilt styles', 'knowledgebase' ),
-					'desc'          => __( 'Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option', 'knowledgebase' ),
-					'type'          => 'checkbox',
-					'options'       => true,
+				'include_styles'    => array(
+					'id'               => 'include_styles',
+					'name'             => esc_html__( 'Include plugin inbuilt styles', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
 				),
-				'custom_css'     => array(
-					'id'            => 'custom_css',
-					'name'          => __( 'Custom CSS', 'knowledgebase' ),
-					'desc'          => __( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
-					'type'          => 'textarea',
-					'options'       => '',
+				'custom_css'        => array(
+					'id'               => 'custom_css',
+					'name'             => esc_html__( 'Custom CSS', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
+					'type'             => 'textarea',
+					'options'          => '',
 				),
 			)
 		),
