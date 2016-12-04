@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Sanitize the form data being submitted.
  *
  * @since  1.2.0
- * @param  array $input Input unclean array
+ * @param  array $input Input unclean array.
  * @return array Sanitized array
  */
 function wzkb_settings_sanitize( $input = array() ) {
@@ -30,7 +30,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 	// First, we read the options collection.
 	global $wzkb_options;
 
-	// This should be set if a form is submitted, so let's save it in the $referrer variable
+	// This should be set if a form is submitted, so let's save it in the $referrer variable.
 	if ( empty( $_POST['_wp_http_referer'] ) ) {
 		return $input;
 	}
@@ -124,7 +124,7 @@ function wzkb_settings_sanitize( $input = array() ) {
  *
  * @since 1.2.0
  *
- * @param  array $input The field value
+ * @param  array $input The field value.
  * @return string  $input  Sanitizied value
  */
 function wzkb_sanitize_text_field( $input ) {

@@ -24,6 +24,9 @@ if ( ! defined( 'WPINC' ) ) {
  * Looks to see if the specified setting exists, returns default if not
  *
  * @since  1.2.0
+ *
+ * @param string $key Key of the option to fetch.
+ * @param mixed  $default Default value to fetch if option is missing.
  * @return mixed
  */
 function wzkb_get_option( $key = '', $default = false ) {
@@ -65,8 +68,8 @@ function wzkb_get_option( $key = '', $default = false ) {
  *
  * @since 1.2.0
  *
- * @param  string          $key   The Key to update
- * @param  string|bool|int $value The value to set the key to
+ * @param  string          $key   The Key to update.
+ * @param  string|bool|int $value The value to set the key to.
  * @return boolean   True if updated, false if not.
  */
 function wzkb_update_option( $key = '', $value = false ) {
@@ -115,7 +118,7 @@ function wzkb_update_option( $key = '', $value = false ) {
  *
  * @since 1.2.0
  *
- * @param  string $key The Key to update
+ * @param  string $key The Key to update.
  * @return boolean   True if updated, false if not.
  */
 function wzkb_delete_option( $key = '' ) {

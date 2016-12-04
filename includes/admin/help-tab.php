@@ -16,13 +16,17 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
+/**
+ * Generates the settings help page.
+ *
+ * @since 1.2.0
+ */
 function wzkb_settings_help() {
 	global $wzkb_settings_page;
 
 	$screen = get_current_screen();
 
-	if ( $screen->id != $wzkb_settings_page ) {
+	if ( $screen->id !== $wzkb_settings_page ) {
 		return;
 	}
 

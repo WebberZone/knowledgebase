@@ -81,12 +81,12 @@ add_filter( 'manage_wzkb_tag_custom_column', 'wzkb_tax_id', 10, 3 );
  *
  * @since 1.2.0
  *
- * @param string $footer_text The existing footer text
+ * @param string $footer_text The existing footer text.
  * @return string Updated Footer text
  */
 function wzkb_admin_footer( $footer_text ) {
 
-	if ( get_current_screen()->post_type == 'wz_knowledgebase' ) {
+	if ( get_current_screen()->post_type === 'wz_knowledgebase' ) {
 
 		$text = sprintf( __( 'Thank you for using <a href="%1$s" target="_blank">Knowledgebase</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
 			'https://webberzone.com/knowledgebase',
@@ -126,7 +126,7 @@ function wzkb_admin_notices() {
 	?>
 
 	<div class="updated">
-		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ); ?></p>
+		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); ?></p>
 	</div>
 
 	<?php

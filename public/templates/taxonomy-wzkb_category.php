@@ -31,7 +31,7 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h1 class="page-title"><?php echo $term->name; ?></h1>
+				<h1 class="page-title"><?php echo esc_html( $term->name ); ?></h1>
 			</header><!-- .page-header -->
 
 			<?php
