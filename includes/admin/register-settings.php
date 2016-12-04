@@ -171,23 +171,25 @@ function wzkb_register_settings() {
 
 		foreach ( $settings as $setting ) {
 
+			$args = wp_parse_args( $setting, array(
+					'section' => $section,
+					'id'      => null,
+					'name'    => '',
+					'desc'    => '',
+					'type'    => null,
+					'options' => '',
+					'max'     => null,
+					'min'     => null,
+					'step'    => null,
+			) );
+
 			add_settings_field(
-				'wzkb_settings[' . $setting['id'] . ']', // ID of the settings field. We save it within the wzkb_settings array.
-				$setting['name'],	   // Label of the setting.
-				function_exists( 'wzkb_' . $setting['type'] . '_callback' ) ? 'wzkb_' . $setting['type'] . '_callback' : 'wzkb_missing_callback', // Function to handle the setting.
+				'wzkb_settings[' . $args['id'] . ']', // ID of the settings field. We save it within the wzkb_settings array.
+				$args['name'],	   // Label of the setting.
+				function_exists( 'wzkb_' . $args['type'] . '_callback' ) ? 'wzkb_' . $args['type'] . '_callback' : 'wzkb_missing_callback', // Function to handle the setting.
 				'wzkb_settings_' . $section,	// Page to display the setting. In our case it is the section as defined above.
 				'wzkb_settings_' . $section,	// Name of the section.
-				array(		  // Array of arguments to pass to the callback function.
-					'section' => $section,
-					'id'      => isset( $setting['id'] ) ? $setting['id'] : null,
-					'name'    => isset( $setting['name'] ) ? $setting['name'] : '',
-					'desc'    => isset( $setting['desc'] ) ? $setting['desc'] : '',
-					'type'    => isset( $setting['type'] ) ? $setting['type'] : null,
-					'options' => isset( $setting['options'] ) ? $setting['options'] : '',
-					'max'     => isset( $setting['max'] ) ? $setting['max'] : 999999,
-					'min'     => isset( $setting['min'] ) ? $setting['min'] : 0,
-					'step'    => isset( $setting['step'] ) ? $setting['step'] : 1,
-				)
+				$args
 			);
 		}
 	}
