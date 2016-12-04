@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-03 18:53+0000\n"
+"POT-Creation-Date: 2016-12-04 12:49+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -38,128 +38,128 @@ msgid ""
 "the <a href=\"%s\">admin page</a> to update and save the options."
 msgstr ""
 
-#: includes/admin/help-tab.php:30
+#: includes/admin/help-tab.php:34
 #, php-format
 msgid ""
 "For more information or how to get support visit the <a href=\"%s"
 "\">WebberZone support site</a>."
 msgstr ""
 
-#: includes/admin/help-tab.php:31
+#: includes/admin/help-tab.php:35
 #, php-format
 msgid ""
 "Support queries should be posted in the <a href=\"%s\">WordPress.org support "
 "forums</a>."
 msgstr ""
 
-#: includes/admin/help-tab.php:33
+#: includes/admin/help-tab.php:37
 #, php-format
 msgid ""
 "<a href=\"%1$s\">Post an issue</a> on <a href=\"%2$s\">GitHub</a> (bug "
 "reports only)."
 msgstr ""
 
-#: includes/admin/help-tab.php:41 includes/admin/settings-page.php:125
+#: includes/admin/help-tab.php:45 includes/admin/settings-page.php:125
 msgid "General"
 msgstr ""
 
-#: includes/admin/help-tab.php:43
+#: includes/admin/help-tab.php:47
 msgid ""
 "This screen provides the basic settings for configuring your knowledgebase."
 msgstr ""
 
-#: includes/admin/help-tab.php:44
+#: includes/admin/help-tab.php:48
 msgid ""
 "Set the knowledgebase slugs which drive what the urls are for the "
 "knowledgebase homepage, articles, categories and tags."
 msgstr ""
 
-#: includes/admin/help-tab.php:49 includes/admin/settings-page.php:126
+#: includes/admin/help-tab.php:53 includes/admin/settings-page.php:126
 msgid "Styles"
 msgstr ""
 
-#: includes/admin/help-tab.php:51
+#: includes/admin/help-tab.php:55
 msgid ""
 "This screen provides options to control the look and feel of the "
 "knowledgebase."
 msgstr ""
 
-#: includes/admin/help-tab.php:52
+#: includes/admin/help-tab.php:56
 msgid ""
 "Disable the styles included within the plugin and/or add your own CSS styles "
 "to customize this."
 msgstr ""
 
-#: includes/admin/register-settings.php:213
+#: includes/admin/register-settings.php:216
 msgid "Knowledgebase slug"
 msgstr ""
 
-#: includes/admin/register-settings.php:214
+#: includes/admin/register-settings.php:217
 msgid ""
 "This will set the opening path of the URL of the knowledgebase and is set "
 "when registering the custom post type"
 msgstr ""
 
-#: includes/admin/register-settings.php:220
+#: includes/admin/register-settings.php:223
 msgid "Category slug"
 msgstr ""
 
-#: includes/admin/register-settings.php:221
+#: includes/admin/register-settings.php:224
 msgid ""
 "Each category is a section of the knowledgebase. This setting is used when "
 "registering the custom category and forms a part of the URL when browsing "
 "category archives"
 msgstr ""
 
-#: includes/admin/register-settings.php:227
+#: includes/admin/register-settings.php:230
 msgid "Tag slug"
 msgstr ""
 
-#: includes/admin/register-settings.php:228
+#: includes/admin/register-settings.php:231
 msgid ""
 "Each article can have multiple tags. This setting is used when registering "
 "the custom tag and forms a part of the URL when browsing tag archives"
 msgstr ""
 
-#: includes/admin/register-settings.php:234
+#: includes/admin/register-settings.php:237
 msgid "Uninstall options"
 msgstr ""
 
-#: includes/admin/register-settings.php:241
+#: includes/admin/register-settings.php:244
 msgid "Delete options on uninstall"
 msgstr ""
 
-#: includes/admin/register-settings.php:242
+#: includes/admin/register-settings.php:245
 msgid ""
 "Check this box to delete the settings on this page when the plugin is "
 "deleted via the Plugins page in your WordPress Admin"
 msgstr ""
 
-#: includes/admin/register-settings.php:248
+#: includes/admin/register-settings.php:251
 msgid "Delete all knowledgebase posts on uninstall"
 msgstr ""
 
-#: includes/admin/register-settings.php:249
+#: includes/admin/register-settings.php:252
 msgid ""
 "Check this box to delete all the posts, categories and tags created by the "
 "plugin. There is no way to restore the data if you choose this option"
 msgstr ""
 
-#: includes/admin/register-settings.php:260
+#: includes/admin/register-settings.php:263
 msgid "Include plugin inbuilt styles"
 msgstr ""
 
-#: includes/admin/register-settings.php:261
+#: includes/admin/register-settings.php:264
 msgid ""
 "Uncheck this to disable this plugin from adding the inbuilt styles. You will "
 "need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/register-settings.php:267
+#: includes/admin/register-settings.php:270
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/register-settings.php:268
+#: includes/admin/register-settings.php:271
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/settings-page.php:149
+#: includes/admin/settings-page.php:150
 #, php-format
 msgid ""
 "The callback function used for the <strong>%s</strong> setting is missing."
@@ -243,7 +243,7 @@ msgstr ""
 msgid "Ajay's blog"
 msgstr ""
 
-#: includes/admin/sidebar.php:56
+#: includes/admin/sidebar.php:55
 msgid "Follow me"
 msgstr ""
 
