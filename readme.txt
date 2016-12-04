@@ -95,11 +95,11 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
-= 1.3.0 =
+= 1.3.0 - 4 December 2016 =
 
 * Enhancements:
 	* Articles now support comments
-	* Two new settings to uninstall settings and all knowledgebase content
+	* Two new settings to delete all settings and Knowledgebase content when deleting the plugin.
 
 * Bug fixes:
 	* Fixed labels where Section was still called Category
