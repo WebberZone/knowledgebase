@@ -60,7 +60,7 @@ function wzkb_register_post_type() {
 		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
 		'taxonomies'         => array( 'wzkb_category', 'wzkb_tag' ),
 		'public'             => true,
-		'hierarchical'       => true,
+		'hierarchical'       => false,
 		'menu_position'      => 5,
 		'menu_icon'          => 'dashicons-book-alt',
 		'map_meta_cap'       => true,
