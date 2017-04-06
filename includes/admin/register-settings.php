@@ -234,6 +234,13 @@ function wzkb_get_registered_settings() {
 					'type'             => 'text',
 					'options'          => 'kb-tags',
 				),
+				'show_exerpt'     => array(
+					'id'               => 'show_exerpt',
+					'name'             => esc_html__( 'Show exerpt', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Show exerpt under article link', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => false,
+				),
 				'uninstall_header'  => array(
 					'id'               => 'uninstall_header',
 					'name'             => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
@@ -337,4 +344,3 @@ function wzkb_settings_defaults() {
 function wzkb_settings_reset() {
 	delete_option( 'wzkb_settings' );
 }
-
