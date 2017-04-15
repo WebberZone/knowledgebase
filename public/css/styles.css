@@ -79,6 +79,10 @@
 	margin-left:0;
 }
 
+.col:nth-child(2n+1) {
+	margin-left: 0 !important;
+}
+
 /*  GROUPING  */
 .group:before,.group:after {
 	content:"";
@@ -91,7 +95,6 @@
 
 .group {
 	zoom:1;
-/* For IE 6/7 */
 }
 
 /*  GRID OF TWO  */
@@ -161,8 +164,4 @@ nav.pagination {
 	border-top:1px dotted #ccc;
 	border-bottom:1px dotted #ccc;
 	text-align:center;
-}
-
-.col:nth-child(2n+1) {
-	margin-left: 0 !important;
 }
