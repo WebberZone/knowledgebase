@@ -127,7 +127,7 @@
 	padding-right:12px;
 	margin:20px 0;
 	font-size:1.3em;
-	width:100%;
+	width:95%;
 }
 
 .wzkb-search-form label {
@@ -161,4 +161,8 @@ nav.pagination {
 	border-top:1px dotted #ccc;
 	border-bottom:1px dotted #ccc;
 	text-align:center;
+}
+
+.col:nth-child(2n+1) {
+	margin-left: 0 !important;
 }
