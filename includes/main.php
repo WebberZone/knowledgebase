@@ -99,7 +99,7 @@ function wzkb_looper( $term_id, $level ) {
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
 		'wzkb_category', array(
-		'orderby'	=> 'name',
+		'orderby'	=> 'slug',
 		'hide_empty' => 1,
 		'parent' => $term_id,
 		)
