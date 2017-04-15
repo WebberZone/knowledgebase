@@ -32,7 +32,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * Additionally tags ( `kbtags` ) can also be used for each knowledgebase article
 * Shortcode `[[knowledgebase]]` will allow you to display the knowledgebase on any page of your choosing
-* Inbuilt styles to display the knowledge beautifully
+* Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited level of categories
 
 ## Contribute

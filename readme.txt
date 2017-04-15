@@ -25,7 +25,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * You can also use tags ( `kbtags` ) for each knowledgebase article
 * Shortcode `[[knowledgebase]]` will allow you to display the entire knowledgebase or pertaining to a section (category) of your choosing
-* Inbuilt styles that display the knowledge beautifully and are fully responsive
+* Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited level of categories
 
 = Contribute =
@@ -94,6 +94,11 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 
 == Changelog ==
+
+= 1.4.0 =
+
+* Enchancements:
+	* Force the two column layout and prevent overlaps
 
 = 1.3.0 - 4 December 2016 =
 
