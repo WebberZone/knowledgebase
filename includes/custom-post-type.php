@@ -24,7 +24,10 @@ function wzkb_register_post_type() {
 
 	$slug = wzkb_get_option( 'kb_slug', 'knowledgebase' );
 	$archives = defined( 'WZKB_DISABLE_ARCHIVE' ) && WZKB_DISABLE_ARCHIVE ? false : $slug;
-	$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array( 'slug' => $slug, 'with_front' => false );
+	$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array(
+		'slug' => $slug,
+		'with_front' => false,
+	);
 
 	$ptlabels = array(
 		'name'               => _x( 'Knowledgebase', 'Post Type General Name', 'knowledgebase' ),
@@ -97,7 +100,11 @@ function wzkb_register_taxonomies() {
 		'hierarchical'      => true,
 		'show_admin_column' => true,
 		'show_tagcloud'     => false,
-		'rewrite'           => array( 'slug' => $catslug, 'with_front' => true, 'hierarchical' => true ),
+		'rewrite'           => array(
+			'slug' => $catslug,
+			'with_front' => true,
+			'hierarchical' => true,
+		),
 	);
 
 	// Now register categories for the Knowledgebase.

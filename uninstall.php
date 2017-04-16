@@ -51,7 +51,9 @@ function wzkb_delete_data() {
 
 	if ( $settings['uninstall_data'] ) {
 
-		$wzkbs = get_posts( array( 'post_type' => 'wz_knowledgebase' ) );
+		$wzkbs = get_posts( array(
+			'post_type' => 'wz_knowledgebase',
+		) );
 
 		foreach ( $wzkbs as $wzkb ) {
 			wp_delete_post( $wzkb->ID );
