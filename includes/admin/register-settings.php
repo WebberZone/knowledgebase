@@ -181,6 +181,7 @@ function wzkb_register_settings() {
 					'max'     => null,
 					'min'     => null,
 					'step'    => null,
+					'size'    => null,
 			) );
 
 			add_settings_field(
@@ -213,6 +214,12 @@ function wzkb_get_registered_settings() {
 		/*** General settings ***/
 		'general'             => apply_filters( 'wzkb_settings_general',
 			array(
+				'slug_header'  => array(
+					'id'               => 'slug_header',
+					'name'             => '<h3>' . esc_html__( 'Slug options', 'knowledgebase' ) . '</h3>',
+					'desc'             => '',
+					'type'             => 'header',
+				),
 				'kb_slug'           => array(
 					'id'               => 'kb_slug',
 					'name'             => esc_html__( 'Knowledgebase slug', 'knowledgebase' ),
