@@ -193,8 +193,10 @@ function wzkb_text_callback( $args ) {
 		$value = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	$html = '<input type="text" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '" />';
-	$html .= '<p class="description">' . $args['desc'] . '</p>';
+	$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
+
+	$html = '<input type="text" id="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" class="' . sanitize_html_class( $size ) . '-text" value="' . esc_attr( stripslashes( $value ) ) . '" />';
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
@@ -220,8 +222,8 @@ function wzkb_textarea_callback( $args ) {
 		$value = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	$html = '<textarea class="large-text" cols="50" rows="5" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']">' . esc_textarea( stripslashes( $value ) ) . '</textarea>';
-	$html .= '<p class="description">' . $args['desc'] . '</p>';
+	$html = '<textarea class="large-text" cols="50" rows="5" id="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']">' . esc_textarea( stripslashes( $value ) ) . '</textarea>';
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
@@ -243,8 +245,8 @@ function wzkb_checkbox_callback( $args ) {
 
 	$checked = isset( $wzkb_options[ $args['id'] ] ) ? checked( 1, $wzkb_options[ $args['id'] ], false ) : '';
 
-	$html = '<input type="checkbox" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="1" ' . $checked . '/>';
-	$html .= '<p class="description">' . $args['desc'] . '</p>';
+	$html = '<input type="checkbox" id="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" value="1" ' . $checked . '/>';
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
@@ -273,12 +275,12 @@ function wzkb_multicheck_callback( $args ) {
 				$enabled = null;
 			}
 
-			$html .= '<input name="wzkb_settings[' . $args['id'] . '][' . $key . ']" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="checkbox" value="' . $option . '" ' . checked( $option, $enabled, false ) . '/> <br />';
+			$html .= '<input name="wzkb_settings[' . sanitize_key( $args['id'] ) . '][' . $key . ']" id="wzkb_settings[' . sanitize_key( $args['id'] ) . '][' . $key . ']" type="checkbox" value="' . $option . '" ' . checked( $option, $enabled, false ) . '/> <br />';
 
-			$html .= '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+			$html .= '<label for="wzkb_settings[' . sanitize_key( $args['id'] ) . '][' . $key . ']">' . $option . '</label><br/>';
 		}
 
-		$html .= '<p class="description">' . $args['desc'] . '</p>';
+		$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 	}
 
 	/** This filter has been defined in settings-page.php */
@@ -309,11 +311,11 @@ function wzkb_radio_callback( $args ) {
 			$checked = true;
 		}
 
-		$html .= '<input name="wzkb_settings[' . $args['id'] . ']"" id="wzkb_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked( true, $checked, false ) . '/> <br />';
-		$html .= '<label for="wzkb_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+		$html .= '<input name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']"" id="wzkb_settings[' . sanitize_key( $args['id'] ) . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked( true, $checked, false ) . '/> <br />';
+		$html .= '<label for="wzkb_settings[' . sanitize_key( $args['id'] ) . '][' . $key . ']">' . $option . '</label><br/>';
 	}
 
-	$html .= '<p class="description">' . $args['desc'] . '</p>';
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
@@ -344,8 +346,9 @@ function wzkb_number_callback( $args ) {
 	$step = isset( $args['step'] ) ? $args['step'] : 1;
 
 	$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
-	$html = '<input type="number" step="' . esc_attr( $step ) . '" max="' . esc_attr( $max ) . '" min="' . esc_attr( $min ) . '" class="' . $size . '-text" id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
-	$html .= '<p class="description">' . $args['desc'] . '</p>';
+
+	$html = '<input type="number" step="' . esc_attr( $step ) . '" max="' . esc_attr( $max ) . '" min="' . esc_attr( $min ) . '" class="' . sanitize_html_class( $size ) . '-text" id="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
@@ -377,7 +380,7 @@ function wzkb_select_callback( $args ) {
 		$chosen = '';
 	}
 
-	$html = '<select id="wzkb_settings[' . $args['id'] . ']" name="wzkb_settings[' . $args['id'] . ']" ' . $chosen . ' />';
+	$html = '<select id="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" ' . $chosen . ' />';
 
 	foreach ( $args['options'] as $option => $name ) {
 		$selected = selected( $option, $value, false );
@@ -385,7 +388,7 @@ function wzkb_select_callback( $args ) {
 	}
 
 	$html .= '</select>';
-	$html .= '<p class="description">' . $args['desc'] . '</p>';
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
