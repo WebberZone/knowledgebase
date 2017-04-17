@@ -262,6 +262,27 @@ function wzkb_get_registered_settings() {
 					'type'             => 'checkbox',
 					'options'          => false,
 				),
+				'feed_header'       => array(
+					'id'               => 'feed_header',
+					'name'             => '<h3>' . esc_html__( 'Feed options', 'knowledgebase' ) . '</h3>',
+					'desc'             => '',
+					'type'             => 'header',
+					'options'          => '',
+				),
+				'include_in_feed'   => array(
+					'id'               => 'include_in_feed',
+					'name'             => esc_html__( 'Include in feed', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Adds the knowledgebase articles to the main RSS feed for your site', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
+				),
+				'disable_kb_feed'       => array(
+					'id'               => 'disable_kb_feed',
+					'name'             => esc_html__( 'Disable KB feed', 'knowledgebase' ),
+					'desc'             => sprintf( esc_html__( 'The knowledgebase articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
+					'type'             => 'checkbox',
+					'options'          => false,
+				),
 			)
 		),
 		/*** Style settings ***/

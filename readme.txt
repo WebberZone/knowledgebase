@@ -97,6 +97,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 = 1.4.0 =
 
+* Features:
+	* New options to disable the KB feeds and include articles in the main feed
 * Enchancements:
 	* Force the two column layout and prevent overlaps
 

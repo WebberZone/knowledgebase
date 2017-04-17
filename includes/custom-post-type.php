@@ -27,6 +27,7 @@ function wzkb_register_post_type() {
 	$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array(
 		'slug' => $slug,
 		'with_front' => false,
+		'feeds' => wzkb_get_option( 'disable_kb_feed' ) ? false : true,
 	);
 
 	$ptlabels = array(
