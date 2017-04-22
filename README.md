@@ -9,7 +9,7 @@
 
 __Requires:__ 4.1
 
-__Tested up to:__ 4.7
+__Tested up to:__ 4.7.4
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 

@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
 Requires at least: 4.1
-Tested up to: 4.7
+Tested up to: 4.7.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -95,7 +95,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
-= 1.4.0 =
+= 1.4.0 - 22 April 2017 =
 
 * Features:
 	* New options to disable the KB feeds and include articles in the main feed
@@ -145,7 +145,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 1.3.0 =
-* New features and bug fixes. Upgrade highly recommended. Please verify settings and flush permalinks on upgrade.
+= 1.4.0 =
+* New options to disable the KB feeds and include articles in the main feed. CSS fixes.
 Check the Changelog for more details
 
