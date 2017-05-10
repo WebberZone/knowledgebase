@@ -260,16 +260,14 @@ function wzkb_article_header( $term, $level ) {
  */
 function wzkb_article_loop( $term, $level, $query ) {
 
-	$wzkb_options = get_option('wzkb_settings',false);
-
 	$output = '<ul class="wzkb-articles-list term-' . $term->term_id . '">';
 
 	while ( $query->have_posts() ) : $query->the_post();
 
 		$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 		$output .= '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
-		if ( $wzkb_options['show_exerpt'] ) {
-			$output .= '<div class="wzkb-article-exerpt post-' . get_the_ID() . '" >'.get_the_excerpt( get_the_ID() ) . '</div>';
+		if ( $wzkb_get_option('show_excerpt',false) ) {
+			$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '" >' . get_the_excerpt( get_the_ID() ) . '</div>';
 		}
 		$output .= '</li>';
 

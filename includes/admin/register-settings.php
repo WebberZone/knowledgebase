@@ -234,10 +234,10 @@ function wzkb_get_registered_settings() {
 					'type'             => 'text',
 					'options'          => 'kb-tags',
 				),
-				'show_exerpt'     => array(
-					'id'               => 'show_exerpt',
-					'name'             => esc_html__( 'Show exerpt', 'knowledgebase' ),
-					'desc'             => esc_html__( 'Show exerpt under article link', 'knowledgebase' ),
+				'show_excerpt'     => array(
+					'id'               => 'show_excerpt',
+					'name'             => esc_html__( 'Show excerpt', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
 					'type'             => 'checkbox',
 					'options'          => false,
 				),
