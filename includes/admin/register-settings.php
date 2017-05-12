@@ -236,8 +236,8 @@ function wzkb_get_registered_settings() {
 				),
 				'clickable_section'     => array(
 					'id'               => 'clickable_section',
-					'name'             => esc_html__( 'Section title clickable', 'knowledgebase' ),
-					'desc'             => esc_html__( 'Allow Section title to be a link to his specific section page.', 'knowledgebase' ),
+					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
+					'desc'             => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
 					'type'             => 'checkbox',
 					'options'          => true,
 				),

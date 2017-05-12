@@ -227,11 +227,9 @@ function wzkb_list_posts_by_term( $term, $level ) {
  */
 function wzkb_article_header( $term, $level ) {
 
-	$wzkb_options = get_option('wzkb_settings',true);
-
 	$output = '<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">';
 
-	if ( $wzkb_options['clickable_section'] ) {
+	if ( wzkb_get_option( 'clickable_section', true ) ) {
 		$output .= '<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>';
 	} else {
 		$output .= $term->name ;
