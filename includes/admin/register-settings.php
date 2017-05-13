@@ -234,6 +234,13 @@ function wzkb_get_registered_settings() {
 					'type'             => 'text',
 					'options'          => 'kb-tags',
 				),
+				'clickable_section'     => array(
+					'id'               => 'clickable_section',
+					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
+					'desc'             => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
+				),
 				'uninstall_header'  => array(
 					'id'               => 'uninstall_header',
 					'name'             => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
@@ -337,4 +344,3 @@ function wzkb_settings_defaults() {
 function wzkb_settings_reset() {
 	delete_option( 'wzkb_settings' );
 }
-
