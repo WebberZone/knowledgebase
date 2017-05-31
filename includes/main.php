@@ -37,8 +37,9 @@ function wzkb_knowledge( $args = array() ) {
 	// Are we trying to display a category?
 	$level = ( 0 < $args['category'] ) ? 1 : 0;
 	$term_id = ( 0 < $args['category'] ) ? $args['category'] : 0;
+	$nested_wrapper = ( ! is_bool($args['nested_wrapper']) ) ? $args['nested_wrapper'] : TRUE ;
 
-	$output .= wzkb_looper( $term_id, $level );
+	$output .= wzkb_looper( $term_id, $level, $nested_wrapper );
 
 	$output .= '</div>'; // End wzkb_section.
 	$output .= '<div class="wzkb_clear"></div>';
@@ -63,9 +64,10 @@ function wzkb_knowledge( $args = array() ) {
  *
  * @param  int $term_id Term ID.
  * @param  int $level  Level of the loop.
+ * @param  bool $nested Run recursive loops before closing HTML wrappers.
  * @return string Formatted output
  */
-function wzkb_looper( $term_id, $level ) {
+function wzkb_looper( $term_id, $level, $nested = true ) {
 
 	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level );
 
@@ -105,6 +107,11 @@ function wzkb_looper( $term_id, $level ) {
 		)
 	);
 
+	if( $nested ) {
+		$output .= '</div>'; // End wzkb_section_wrapper.
+		$output .= '</div>'; // End wzkb_section.
+	}
+
 	if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
 
 		$level++;
@@ -114,8 +121,10 @@ function wzkb_looper( $term_id, $level ) {
 		}
 	}
 
-	$output .= '</div>'; // End wzkb_section_wrapper.
-	$output .= '</div>'; // End wzkb_section.
+	if( ! $nested ) {
+		$output .= '</div>'; // End wzkb_section_wrapper.
+		$output .= '</div>'; // End wzkb_section.
+	}
 
 	/**
 	 * Filter the formatted shortcode output.
@@ -227,11 +236,15 @@ function wzkb_list_posts_by_term( $term, $level ) {
  */
 function wzkb_article_header( $term, $level ) {
 
-	$output = '
- <h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
-  <a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
- </h3>
- ';
+	$output = '<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">';
+
+	if ( wzkb_get_option( 'clickable_section', true ) ) {
+		$output .= '<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>';
+	} else {
+		$output .= $term->name ;
+	}
+
+	$output .= '</h3> ';
 
 	/**
 	 * Filter the header of the article list.

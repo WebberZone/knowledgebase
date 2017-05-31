@@ -234,12 +234,21 @@ function wzkb_get_registered_settings() {
 					'type'             => 'text',
 					'options'          => 'kb-tags',
 				),
+
 				'show_excerpt'     => array(
 					'id'               => 'show_excerpt',
 					'name'             => esc_html__( 'Show excerpt', 'knowledgebase' ),
 					'desc'             => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
 					'type'             => 'checkbox',
 					'options'          => false,
+
+				'clickable_section'     => array(
+					'id'               => 'clickable_section',
+					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
+					'desc'             => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
+
 				),
 				'uninstall_header'  => array(
 					'id'               => 'uninstall_header',
