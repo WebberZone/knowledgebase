@@ -101,7 +101,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
 		'wzkb_category', array(
-		'orderby'	=> 'name',
+		'orderby'	=> 'slug',
 		'hide_empty' => 1,
 		'parent' => $term_id,
 		)

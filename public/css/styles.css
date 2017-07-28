@@ -91,7 +91,6 @@
 
 .group {
 	zoom:1;
-/* For IE 6/7 */
 }
 
 /*  GRID OF TWO  */
@@ -101,6 +100,11 @@
 
 .span_1_of_2 {
 	width:49.2%;
+}
+
+.span_1_of_2:nth-child(2n+1) {
+	clear:left;
+	margin-left: 0;
 }
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
@@ -127,7 +131,7 @@
 	padding-right:12px;
 	margin:20px 0;
 	font-size:1.3em;
-	width:100%;
+	width:95%;
 }
 
 .wzkb-search-form label {
@@ -141,7 +145,7 @@ input.wzkb-search-field {
 	font-size:1em;
 	padding:10px 6px 10px 45px;
 	width:100%;
-	background:url(../images/search-icon.png) no-repeat 0 10px;
+	background:url(../images/search-icon.png) no-repeat 0 5px;
 	outline:none;
 }
 

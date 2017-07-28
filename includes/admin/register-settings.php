@@ -181,6 +181,7 @@ function wzkb_register_settings() {
 					'max'     => null,
 					'min'     => null,
 					'step'    => null,
+					'size'    => null,
 			) );
 
 			add_settings_field(
@@ -213,6 +214,12 @@ function wzkb_get_registered_settings() {
 		/*** General settings ***/
 		'general'             => apply_filters( 'wzkb_settings_general',
 			array(
+				'slug_header'  => array(
+					'id'               => 'slug_header',
+					'name'             => '<h3>' . esc_html__( 'Slug options', 'knowledgebase' ) . '</h3>',
+					'desc'             => '',
+					'type'             => 'header',
+				),
 				'kb_slug'           => array(
 					'id'               => 'kb_slug',
 					'name'             => esc_html__( 'Knowledgebase slug', 'knowledgebase' ),
@@ -268,6 +275,27 @@ function wzkb_get_registered_settings() {
 					'id'               => 'uninstall_data',
 					'name'             => esc_html__( 'Delete all knowledgebase posts on uninstall', 'knowledgebase' ),
 					'desc'             => esc_html__( 'Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => false,
+				),
+				'feed_header'       => array(
+					'id'               => 'feed_header',
+					'name'             => '<h3>' . esc_html__( 'Feed options', 'knowledgebase' ) . '</h3>',
+					'desc'             => '',
+					'type'             => 'header',
+					'options'          => '',
+				),
+				'include_in_feed'   => array(
+					'id'               => 'include_in_feed',
+					'name'             => esc_html__( 'Include in feed', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Adds the knowledgebase articles to the main RSS feed for your site', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
+				),
+				'disable_kb_feed'       => array(
+					'id'               => 'disable_kb_feed',
+					'name'             => esc_html__( 'Disable KB feed', 'knowledgebase' ),
+					'desc'             => sprintf( esc_html__( 'The knowledgebase articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
 					'type'             => 'checkbox',
 					'options'          => false,
 				),

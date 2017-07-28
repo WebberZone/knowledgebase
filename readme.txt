@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
 Requires at least: 4.1
-Tested up to: 4.7
+Tested up to: 4.7.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -25,7 +25,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * You can also use tags ( `kbtags` ) for each knowledgebase article
 * Shortcode `[[knowledgebase]]` will allow you to display the entire knowledgebase or pertaining to a section (category) of your choosing
-* Inbuilt styles that display the knowledge beautifully and are fully responsive
+* Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited level of categories
 
 = Contribute =
@@ -95,6 +95,13 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
+= 1.4.0 - 22 April 2017 =
+
+* Features:
+	* New options to disable the KB feeds and include articles in the main feed
+* Enchancements:
+	* Force the two column layout and prevent overlaps
+
 = 1.3.0 - 4 December 2016 =
 
 * Enhancements:
@@ -138,7 +145,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 1.3.0 =
-* New features and bug fixes. Upgrade highly recommended. Please verify settings and flush permalinks on upgrade.
+= 1.4.0 =
+* New options to disable the KB feeds and include articles in the main feed. CSS fixes.
 Check the Changelog for more details
 
