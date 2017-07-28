@@ -279,6 +279,9 @@ function wzkb_article_loop( $term, $level, $query ) {
 
 		$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 		$output .= '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
+		if ( $wzkb_get_option('show_excerpt',false) ) {
+			$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '" >' . get_the_excerpt( get_the_ID() ) . '</div>';
+		}
 		$output .= '</li>';
 
 	endwhile;
