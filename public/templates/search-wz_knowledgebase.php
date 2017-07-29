@@ -43,7 +43,10 @@ wp_enqueue_style( 'wzkb_styles' );
 
 		<?php if ( $query->have_posts() ) : ?>
 
-			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+			<?php
+			while ( $query->have_posts() ) :
+				$query->the_post();
+			?>
 
 				<header class="entry-header">
 					<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
@@ -66,16 +69,19 @@ wp_enqueue_style( 'wzkb_styles' );
 				?>
 			</nav>
 
-			<?php wp_reset_postdata();
+			<?php
+			wp_reset_postdata();
 
 			// If no content, include the "No posts found" template.
 		else :
 			esc_html_e( 'No results found', 'knowledgebase' );
 
 		endif;
-		?><!-- .site-main -->
+		?>
+		<!-- .site-main -->
 	</section><!-- .content-area -->
 
-<?php get_footer();
+<?php
+get_footer();
 
 

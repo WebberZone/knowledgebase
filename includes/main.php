@@ -5,7 +5,7 @@
  * @link  https://webberzone.com
  * @since 1.0.0
  *
- * @package	WZKB
+ * @package WZKB
  * @subpackage WZKB/main
  */
 
@@ -37,7 +37,7 @@ function wzkb_knowledge( $args = array() ) {
 	// Are we trying to display a category?
 	$level = ( 0 < $args['category'] ) ? 1 : 0;
 	$term_id = ( 0 < $args['category'] ) ? $args['category'] : 0;
-	$nested_wrapper = ( ! is_bool($args['nested_wrapper']) ) ? $args['nested_wrapper'] : TRUE ;
+	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true ;
 
 	$output .= wzkb_looper( $term_id, $level, $nested_wrapper );
 
@@ -62,8 +62,8 @@ function wzkb_knowledge( $args = array() ) {
  *
  * @since 1.0.0
  *
- * @param  int $term_id Term ID.
- * @param  int $level  Level of the loop.
+ * @param  int  $term_id Term ID.
+ * @param  int  $level  Level of the loop.
  * @param  bool $nested Run recursive loops before closing HTML wrappers.
  * @return string Formatted output
  */
@@ -101,13 +101,13 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
 		'wzkb_category', array(
-		'orderby'	=> 'slug',
-		'hide_empty' => 1,
-		'parent' => $term_id,
+			'orderby'   => 'slug',
+			'hide_empty' => 1,
+			'parent' => $term_id,
 		)
 	);
 
-	if( $nested ) {
+	if ( $nested ) {
 		$output .= '</div>'; // End wzkb_section_wrapper.
 		$output .= '</div>'; // End wzkb_section.
 	}
@@ -121,7 +121,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		}
 	}
 
-	if( ! $nested ) {
+	if ( ! $nested ) {
 		$output .= '</div>'; // End wzkb_section_wrapper.
 		$output .= '</div>'; // End wzkb_section.
 	}
@@ -168,7 +168,7 @@ function wzkb_query_posts( $term ) {
 				'field' => 'id',
 				'terms' => $termchildren,
 				'operator' => 'NOT IN',
-			)
+			),
 		),
 	);
 
@@ -275,11 +275,12 @@ function wzkb_article_loop( $term, $level, $query ) {
 
 	$output = '<ul class="wzkb-articles-list term-' . $term->term_id . '">';
 
-	while ( $query->have_posts() ) : $query->the_post();
+	while ( $query->have_posts() ) :
+		$query->the_post();
 
 		$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 		$output .= '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
-		if ( $wzkb_get_option('show_excerpt',false) ) {
+		if ( wzkb_get_option( 'show_excerpt', false ) ) {
 			$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '" >' . get_the_excerpt( get_the_ID() ) . '</div>';
 		}
 		$output .= '</li>';

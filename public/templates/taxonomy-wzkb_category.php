@@ -44,9 +44,11 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 			get_template_part( 'content', 'none' );
 
 		endif;
-		?><!-- .site-main -->
+		?>
+		<!-- .site-main -->
 	</section><!-- .content-area -->
 
-<?php get_footer();
+<?php
+get_footer();
 
 

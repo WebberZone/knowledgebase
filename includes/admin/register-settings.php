@@ -8,7 +8,7 @@
  * @link  https://webberzone.com
  * @since 1.2.0
  *
- * @package	WZKB
+ * @package WZKB
  * @subpackage Admin/Register_Settings
  */
 
@@ -64,7 +64,7 @@ function wzkb_get_option( $key = '', $default = false ) {
  *
  * Updates an wzkb setting value in both the db and the global variable.
  * Warning: Passing in an empty, false or null string value will remove
- *		  the key from the wzkb_options array.
+ *          the key from the wzkb_options array.
  *
  * @since 1.2.0
  *
@@ -164,14 +164,15 @@ function wzkb_register_settings() {
 
 		add_settings_section(
 			'wzkb_settings_' . $section, // ID used to identify this section and with which to register options, e.g. wzkb_settings_general.
-			__return_null(),	// No title, we will handle this via a separate function.
-			'__return_false',	// No callback function needed. We'll process this separately.
+			__return_null(), // No title, we will handle this via a separate function.
+			'__return_false', // No callback function needed. We'll process this separately.
 			'wzkb_settings_' . $section  // Page on which these options will be added.
 		);
 
 		foreach ( $settings as $setting ) {
 
-			$args = wp_parse_args( $setting, array(
+			$args = wp_parse_args(
+				$setting, array(
 					'section' => $section,
 					'id'      => null,
 					'name'    => '',
@@ -182,14 +183,15 @@ function wzkb_register_settings() {
 					'min'     => null,
 					'step'    => null,
 					'size'    => null,
-			) );
+				)
+			);
 
 			add_settings_field(
 				'wzkb_settings[' . $args['id'] . ']', // ID of the settings field. We save it within the wzkb_settings array.
-				$args['name'],	   // Label of the setting.
+				$args['name'],     // Label of the setting.
 				function_exists( 'wzkb_' . $args['type'] . '_callback' ) ? 'wzkb_' . $args['type'] . '_callback' : 'wzkb_missing_callback', // Function to handle the setting.
-				'wzkb_settings_' . $section,	// Page to display the setting. In our case it is the section as defined above.
-				'wzkb_settings_' . $section,	// Name of the section.
+				'wzkb_settings_' . $section,    // Page to display the setting. In our case it is the section as defined above.
+				'wzkb_settings_' . $section,    // Name of the section.
 				$args
 			);
 		}
@@ -212,7 +214,8 @@ function wzkb_get_registered_settings() {
 
 	$wzkb_settings = array(
 		/*** General settings ***/
-		'general'             => apply_filters( 'wzkb_settings_general',
+		'general'             => apply_filters(
+			'wzkb_settings_general',
 			array(
 				'slug_header'  => array(
 					'id'               => 'slug_header',
@@ -248,7 +251,7 @@ function wzkb_get_registered_settings() {
 					'desc'             => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
 					'type'             => 'checkbox',
 					'options'          => false,
-
+				),
 				'clickable_section'     => array(
 					'id'               => 'clickable_section',
 					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
@@ -302,7 +305,8 @@ function wzkb_get_registered_settings() {
 			)
 		),
 		/*** Style settings ***/
-		'styles'              => apply_filters( 'wzkb_settings_styles',
+		'styles'             => apply_filters(
+			'wzkb_settings_styles',
 			array(
 				'include_styles'    => array(
 					'id'               => 'include_styles',

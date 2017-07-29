@@ -29,7 +29,7 @@ function wzkb_options_page() {
 	ob_start();
 	?>
 	<div class="wrap">
-		<h1><?php _e( 'Knowledgebase Settings', 'knowledgebase' ); // WPCS: XSS OK. ?></h1>
+		<h1><?php esc_html_e( 'Knowledgebase Settings', 'knowledgebase' ); ?></h1>
 
 		<?php settings_errors(); ?>
 
@@ -41,12 +41,14 @@ function wzkb_options_page() {
 				<?php
 				foreach ( wzkb_get_settings_sections() as $tab_id => $tab_name ) {
 
-					$tab_url = esc_url( add_query_arg(
-						array(
-						'settings-updated' => false,
-						'tab' => $tab_id,
+					$tab_url = esc_url(
+						add_query_arg(
+							array(
+								'settings-updated' => false,
+								'tab' => $tab_id,
+							)
 						)
-					) );
+					);
 
 					$active = $active_tab === $tab_id ? ' nav-tab-active' : '';
 
