@@ -107,7 +107,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		)
 	);
 
-	if ( $nested ) {
+	if ( ! $nested ) {
 		$output .= '</div>'; // End wzkb_section_wrapper.
 		$output .= '</div>'; // End wzkb_section.
 	}
@@ -121,7 +121,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		}
 	}
 
-	if ( ! $nested ) {
+	if ( $nested ) {
 		$output .= '</div>'; // End wzkb_section_wrapper.
 		$output .= '</div>'; // End wzkb_section.
 	}
