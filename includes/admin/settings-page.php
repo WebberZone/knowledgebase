@@ -123,7 +123,8 @@ function wzkb_options_page() {
 function wzkb_get_settings_sections() {
 	$wzkb_settings_sections = array(
 		'general' => __( 'General', 'knowledgebase' ),
-		'styles' => __( 'Styles', 'knowledgebase' ),
+		'output'  => __( 'Output', 'knowledgebase' ),
+		'styles'  => __( 'Styles', 'knowledgebase' ),
 	);
 
 	/**

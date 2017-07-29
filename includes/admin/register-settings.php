@@ -250,22 +250,6 @@ function wzkb_get_registered_settings() {
 					'type'             => 'text',
 					'options'          => 'kb-tags',
 				),
-
-				'show_excerpt'     => array(
-					'id'               => 'show_excerpt',
-					'name'             => esc_html__( 'Show excerpt', 'knowledgebase' ),
-					'desc'             => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
-					'type'             => 'checkbox',
-					'options'          => false,
-				),
-				'clickable_section'     => array(
-					'id'               => 'clickable_section',
-					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
-					'desc'             => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
-					'type'             => 'checkbox',
-					'options'          => true,
-
-				),
 				'uninstall_header'  => array(
 					'id'               => 'uninstall_header',
 					'name'             => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
@@ -307,6 +291,26 @@ function wzkb_get_registered_settings() {
 					'desc'             => sprintf( esc_html__( 'The knowledgebase articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
 					'type'             => 'checkbox',
 					'options'          => false,
+				),
+			)
+		),
+		/*** Output settings ***/
+		'output'             => apply_filters(
+			'wzkb_settings_output',
+			array(
+				'show_excerpt'     => array(
+					'id'               => 'show_excerpt',
+					'name'             => esc_html__( 'Show excerpt', 'knowledgebase' ),
+					'desc'             => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => false,
+				),
+				'clickable_section'     => array(
+					'id'               => 'clickable_section',
+					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
+					'desc'             => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
+					'type'             => 'checkbox',
+					'options'          => true,
 				),
 			)
 		),
