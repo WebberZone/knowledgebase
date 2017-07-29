@@ -2,8 +2,8 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
-Requires at least: 4.1
-Tested up to: 4.7.4
+Requires at least: 4.3
+Tested up to: 4.9
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,12 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 	
 * Enhancements:
 	* Make nested wrapper. Contributed by [@border0464111](https://github.com/border0464111)
+	* Settings page is now a tabbed interface using jQuery without needing to reload the page
+	* Modified checkbox settings are indicated in the Settings page
+	* New function `wzkb_get_default_option()` to retrieve the default setting
+
+* Bug fixes:
+	* Fixed several settings API functions
 
 = 1.4.0 - 22 April 2017 =
 
