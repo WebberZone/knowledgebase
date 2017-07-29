@@ -63,8 +63,15 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 }
 
 
-global $wzkb_options;
-$wzkb_options = wzkb_get_settings();
+/**
+ * wZKB Settings
+ *
+ * @since 1.5.0
+ *
+ * @var array WZKB Settings
+ */
+global $wzkb_settings;
+$wzkb_settings = wzkb_get_settings();
 
 
 /**
@@ -105,6 +112,7 @@ function wzkb_get_settings() {
 	require_once WZKB_PLUGIN_DIR . 'includes/shortcode.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/search.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/feed.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/deprecated.php';
 
 
 /*

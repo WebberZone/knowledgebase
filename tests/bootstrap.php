@@ -30,5 +30,5 @@ activate_plugin( 'knowledgebase/knowledgebase.php' );
 
 echo "Installing Knowledgebase...\n";
 
-global $wzkb_options, $current_user;
-$wzkb_options = wzkb_get_settings();
+global $wzkb_settings, $current_user;
+$wzkb_settings = wzkb_get_settings();

@@ -31,8 +31,66 @@ function wzkb_add_admin_pages_links() {
 
 	// Load the settings contextual help.
 	add_action( "load-$wzkb_settings_page", 'wzkb_settings_help' );
+
+	// Load the admin head.
+	add_action( "admin_head-$wzkb_settings_page", 'wzkb_adminhead' );
 }
 add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
+
+
+/**
+ * Function to add CSS and JS to the Admin header.
+ *
+ * @since 1.4
+ * @return void
+ */
+function wzkb_adminhead() {
+
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-ui-tabs' );
+?>
+	<script type="text/javascript">
+	//<![CDATA[
+		// Function to add auto suggest.
+		jQuery(document).ready(function($) {
+
+			// Prompt the user when they leave the page without saving the form.
+			formmodified=0;
+
+			$('form *').change(function(){
+				formmodified=1;
+			});
+
+			window.onbeforeunload = confirmExit;
+
+			function confirmExit() {
+				if (formmodified == 1) {
+					return "<?php esc_html__( 'New information not saved. Do you wish to leave the page?', 'knowledgebase' ); ?>";
+				}
+			}
+
+			$( "input[name='submit']" ).click( function() {
+				formmodified = 0;
+			});
+
+			$( function() {
+				$( "#post-body-content" ).tabs({
+					create: function( event, ui ) {
+						$( ui.tab.find("a") ).addClass( "nav-tab-active" );
+					},
+					activate: function( event, ui ) {
+						$( ui.oldTab.find("a") ).removeClass( "nav-tab-active" );
+						$( ui.newTab.find("a") ).addClass( "nav-tab-active" );
+					}
+				});
+			});
+
+		});
+
+	//]]>
+	</script>
+<?php
+}
 
 
 /**

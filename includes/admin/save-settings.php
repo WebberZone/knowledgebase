@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_settings_sanitize( $input = array() ) {
 
 	// First, we read the options collection.
-	global $wzkb_options;
+	global $wzkb_settings;
 
 	// This should be set if a form is submitted, so let's save it in the $referrer variable.
 	if ( empty( $_POST['_wp_http_referer'] ) ) {
@@ -45,7 +45,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 
 	if ( $reset ) {
 		wzkb_settings_reset();
-		$wzkb_options = get_option( 'wzkb_settings' );
+		$wzkb_settings = get_option( 'wzkb_settings' );
 
 		add_settings_error( 'wzkb-notices', '', __( 'Settings have been reset to their default values. Reload this page to view the updated settings', 'knowledgebase' ), 'error' );
 
@@ -53,7 +53,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 		wzkb_register_post_type();
 		flush_rewrite_rules();
 
-		return $wzkb_options;
+		return $wzkb_settings;
 	}
 
 	// Get the tab. This is also our settings' section.
@@ -91,22 +91,23 @@ function wzkb_settings_sanitize( $input = array() ) {
 		 * Field type general filter.
 		 *
 		 * @since  1.2.0
-		 * @paaram array $key Setting key.
+		 * @param array $key Setting key.
+		 * @param array $key Setting key.
 		 */
-		$input[ $key ] = apply_filters( 'wzkb_settings_sanitize', $input[ $key ], $key );
+		$input[ $key ] = apply_filters( 'wzkb_settings_sanitize' . $key, $input[ $key ], $key );
 	}
 
 	// Loop through the whitelist and unset any that are empty for the tab being saved.
 	if ( ! empty( $settings[ $tab ] ) ) {
 		foreach ( $settings[ $tab ] as $key => $value ) {
-			if ( empty( $input[ $key ] ) && ! empty( $wzkb_options[ $key ] ) ) {
-				unset( $wzkb_options[ $key ] );
+			if ( empty( $input[ $key ] ) && ! empty( $wzkb_settings[ $key ] ) ) {
+				unset( $wzkb_settings[ $key ] );
 			}
 		}
 	}
 
 	// Merge our new settings with the existing. Force (array) in case it is empty.
-	$wzkb_options = array_merge( (array) $wzkb_options, $input );
+	$wzkb_settings = array_merge( (array) $wzkb_settings, $input );
 
 	add_settings_error( 'wzkb-notices', '', __( 'Settings updated.', 'knowledgebase' ), 'updated' );
 
@@ -114,7 +115,14 @@ function wzkb_settings_sanitize( $input = array() ) {
 	wzkb_register_post_type();
 	flush_rewrite_rules();
 
-	return $wzkb_options;
+	/**
+	 * Filter the settings array before it is returned.
+	 *
+	 * @since 1.5.0
+	 * @param array $wzkb_settings Settings array.
+	 * @param array $input Input settings array.
+	 */
+	return apply_filters( 'wzkb_settings_sanitize', $wzkb_settings, $input );
 
 }
 
@@ -124,11 +132,11 @@ function wzkb_settings_sanitize( $input = array() ) {
  *
  * @since 1.2.0
  *
- * @param  array $input The field value.
- * @return string  $input  Sanitizied value
+ * @param  array $value The field value.
+ * @return string  $value  Sanitizied value
  */
-function wzkb_sanitize_text_field( $input ) {
-	return sanitize_text_field( $input );
+function wzkb_sanitize_text_field( $value ) {
+	return wzkb_sanitize_textarea_field( $value );
 }
 add_filter( 'wzkb_settings_sanitize_text', 'wzkb_sanitize_text_field' );
 
@@ -136,15 +144,103 @@ add_filter( 'wzkb_settings_sanitize_text', 'wzkb_sanitize_text_field' );
 /**
  * Sanitize CSV fields
  *
- * @since 1.2.0
+ * @since 1.5.0
  *
- * @param  array $input The field value.
- * @return string  $input  Sanitizied value
+ * @param  array $value The field value.
+ * @return string  $value  Sanitizied value
  */
-function wzkb_sanitize_csv_field( $input ) {
+function wzkb_sanitize_csv_field( $value ) {
 
-	return implode( ',', array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $input ) ) ) ) );
+	return implode( ',', array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $value ) ) ) ) );
 }
 add_filter( 'wzkb_settings_sanitize_csv', 'wzkb_sanitize_csv_field' );
+
+
+/**
+ * Sanitize CSV fields which hold numbers e.g. IDs
+ *
+ * @since 1.5.0
+ *
+ * @param  array $value The field value.
+ * @return string  $value  Sanitizied value
+ */
+function wzkb_sanitize_numbercsv_field( $value ) {
+
+	return implode( ',', array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $value ) ) ) ) ) );
+}
+add_filter( 'wzkb_settings_sanitize_numbercsv', 'wzkb_sanitize_numbercsv_field' );
+
+
+/**
+ * Sanitize textarea fields
+ *
+ * @since 1.2.0
+ *
+ * @param  array $value The field value.
+ * @return string  $value  Sanitizied value
+ */
+function wzkb_sanitize_textarea_field( $value ) {
+
+	global $allowedposttags;
+
+	// We need more tags to allow for script and style.
+	$moretags = array(
+		'script'    => array(
+			'type'     => true,
+			'src'      => true,
+			'async'    => true,
+			'defer'    => true,
+			'charset'  => true,
+			'lang'     => true,
+		),
+		'style'     => array(
+			'type'     => true,
+			'media'    => true,
+			'scoped'   => true,
+			'lang'     => true,
+		),
+		'link'      => array(
+			'rel'      => true,
+			'type'     => true,
+			'href'     => true,
+			'media'    => true,
+			'sizes'    => true,
+			'hreflang' => true,
+		),
+	);
+
+	$allowedtags = array_merge( $allowedposttags, $moretags );
+
+	/**
+	 * Filter allowed tags allowed when sanitizing text and textarea fields.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $allowedtags Allowed tags array.
+	 * @param array $value The field value.
+	 */
+	$allowedtags = apply_filters( 'wzkb_sanitize_allowed_tags', $allowedtags, $value );
+
+	return wp_kses( wp_unslash( $value ), $allowedtags );
+
+}
+add_filter( 'wzkb_settings_sanitize_textarea', 'wzkb_sanitize_textarea_field' );
+
+
+/**
+ * Sanitize post_types fields
+ *
+ * @since 1.5.0
+ *
+ * @param  array $value The field value.
+ * @return string  $value  Sanitizied value
+ */
+function wzkb_sanitize_post_types_field( $value ) {
+
+	$post_types = is_array( $value ) ? array_map( 'sanitize_text_field', wp_unslash( $value ) ) : array( 'post', 'page' );
+
+	return implode( ',', $post_types );
+}
+add_filter( 'wzkb_settings_sanitize_post_types', 'wzkb_sanitize_post_types_field' );
 
 
