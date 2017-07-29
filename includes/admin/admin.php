@@ -193,3 +193,51 @@ function wzkb_admin_notices() {
 }
 add_action( 'admin_notices', 'wzkb_admin_notices' );
 
+
+/**
+ * Add number of articles to At a Glance widget
+ *
+ * @since 1.5.0
+ *
+ * @param array $items Array of items
+ * @return array Updated array of items
+ */
+function wzkb_dashboard_glance_items( $items ) {
+	$num_posts = wp_count_posts( 'wz_knowledgebase' );
+
+	if ( $num_posts && $num_posts->publish ) {
+		$text = _n( '%s KB article', '%s KB articles', $num_posts->publish, 'knowledgebase' );
+
+		$text = sprintf( $text, number_format_i18n( $num_posts->publish ) );
+
+		if ( current_user_can( 'edit_posts' ) ) {
+			$text = sprintf( '<a class="wzkb-article-count" href="edit.php?post_type=wz_knowledgebase">%1$s</a>', $text );
+		} else {
+			$text = sprintf( '<span class="wzkb-article-count">%1$s</span>', $text );
+		}
+
+		$items[] = $text;
+	}
+
+	return $items;
+}
+add_filter( 'dashboard_glance_items', 'wzkb_dashboard_glance_items', 1 );
+
+
+/**
+ * Add CSS to Admin head
+ *
+ * @since 1.5.0
+ *
+ * return void
+ */
+function wzkb_admin_head() {
+?>
+	<style type="text/css" media="screen">
+		#dashboard_right_now .wzkb-article-count:before {
+			content: "\f331";
+		}
+	</style>
+<?php
+}
+add_filter( 'admin_head', 'wzkb_admin_head' );

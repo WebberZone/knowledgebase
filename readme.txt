@@ -101,12 +101,13 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 	* New option to show excerpt below the link. Contributed by [@border0464111](https://github.com/border0464111)
 	* New option to turn off the section link. Contributed by [@border0464111](https://github.com/border0464111)
 	* New option to show the number of articles in an orange circle next to the header. You can override the color by styling `wzkb_section_count`
+	* New function `wzkb_get_default_option()` to retrieve the default setting
 
 * Enhancements:
 	* Make nested wrapper. Contributed by [@border0464111](https://github.com/border0464111)
 	* Settings page is now a tabbed interface using jQuery without needing to reload the page
 	* Modified checkbox settings are indicated in the Settings page
-	* New function `wzkb_get_default_option()` to retrieve the default setting
+	* Added the number of articles in "At a Glance" widget in the WordPress Dashboard
 
 * Bug fixes:
 	* Fixed several settings API functions
