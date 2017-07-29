@@ -244,6 +244,10 @@ function wzkb_article_header( $term, $level ) {
 		$output .= $term->name ;
 	}
 
+	if ( $level > 1 && wzkb_get_option( 'show_article_count', false ) ) {
+		$output .= '<div class="wzkb_section_count">' . $term->count . '</div>';
+	}
+
 	$output .= '</h3> ';
 
 	/**

@@ -285,7 +285,7 @@ function wzkb_get_registered_settings() {
 					'type'             => 'checkbox',
 					'options'          => true,
 				),
-				'disable_kb_feed'       => array(
+				'disable_kb_feed'   => array(
 					'id'               => 'disable_kb_feed',
 					'name'             => esc_html__( 'Disable KB feed', 'knowledgebase' ),
 					'desc'             => sprintf( esc_html__( 'The knowledgebase articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
@@ -298,19 +298,26 @@ function wzkb_get_registered_settings() {
 		'output'             => apply_filters(
 			'wzkb_settings_output',
 			array(
-				'show_excerpt'     => array(
-					'id'               => 'show_excerpt',
-					'name'             => esc_html__( 'Show excerpt', 'knowledgebase' ),
-					'desc'             => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
-					'type'             => 'checkbox',
-					'options'          => false,
+				'show_article_count' => array(
+					'id'                => 'show_article_count',
+					'name'              => esc_html__( 'Show article count', 'knowledgebase' ),
+					'desc'              => esc_html__( 'If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count', 'knowledgebase' ),
+					'type'              => 'checkbox',
+					'options'           => false,
 				),
-				'clickable_section'     => array(
-					'id'               => 'clickable_section',
-					'name'             => esc_html__( 'Link section title', 'knowledgebase' ),
-					'desc'             => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
-					'type'             => 'checkbox',
-					'options'          => true,
+				'show_excerpt'       => array(
+					'id'                => 'show_excerpt',
+					'name'              => esc_html__( 'Show excerpt', 'knowledgebase' ),
+					'desc'              => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
+					'type'              => 'checkbox',
+					'options'           => false,
+				),
+				'clickable_section'  => array(
+					'id'                => 'clickable_section',
+					'name'              => esc_html__( 'Link section title', 'knowledgebase' ),
+					'desc'              => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
+					'type'              => 'checkbox',
+					'options'           => true,
 				),
 			)
 		),
