@@ -14,3 +14,5 @@ ratings:
   - "**.php"
 exclude_paths:
 - tests/
+- bin/
+- vendor/
