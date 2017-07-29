@@ -5,7 +5,7 @@
  * @link  https://webberzone.com
  * @since 1.0.0
  *
- * @package	WZKB
+ * @package WZKB
  * @subpackage WZKB/main
  */
 
@@ -37,8 +37,9 @@ function wzkb_knowledge( $args = array() ) {
 	// Are we trying to display a category?
 	$level = ( 0 < $args['category'] ) ? 1 : 0;
 	$term_id = ( 0 < $args['category'] ) ? $args['category'] : 0;
+	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true ;
 
-	$output .= wzkb_looper( $term_id, $level );
+	$output .= wzkb_looper( $term_id, $level, $nested_wrapper );
 
 	$output .= '</div>'; // End wzkb_section.
 	$output .= '<div class="wzkb_clear"></div>';
@@ -61,11 +62,12 @@ function wzkb_knowledge( $args = array() ) {
  *
  * @since 1.0.0
  *
- * @param  int $term_id Term ID.
- * @param  int $level  Level of the loop.
+ * @param  int  $term_id Term ID.
+ * @param  int  $level  Level of the loop.
+ * @param  bool $nested Run recursive loops before closing HTML wrappers.
  * @return string Formatted output
  */
-function wzkb_looper( $term_id, $level ) {
+function wzkb_looper( $term_id, $level, $nested = true ) {
 
 	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level );
 
@@ -99,11 +101,16 @@ function wzkb_looper( $term_id, $level ) {
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
 		'wzkb_category', array(
-		'orderby'	=> 'slug',
-		'hide_empty' => 1,
-		'parent' => $term_id,
+			'orderby'   => 'slug',
+			'hide_empty' => 1,
+			'parent' => $term_id,
 		)
 	);
+
+	if ( $nested ) {
+		$output .= '</div>'; // End wzkb_section_wrapper.
+		$output .= '</div>'; // End wzkb_section.
+	}
 
 	if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
 
@@ -114,8 +121,10 @@ function wzkb_looper( $term_id, $level ) {
 		}
 	}
 
-	$output .= '</div>'; // End wzkb_section_wrapper.
-	$output .= '</div>'; // End wzkb_section.
+	if ( ! $nested ) {
+		$output .= '</div>'; // End wzkb_section_wrapper.
+		$output .= '</div>'; // End wzkb_section.
+	}
 
 	/**
 	 * Filter the formatted shortcode output.
@@ -159,7 +168,7 @@ function wzkb_query_posts( $term ) {
 				'field' => 'id',
 				'terms' => $termchildren,
 				'operator' => 'NOT IN',
-			)
+			),
 		),
 	);
 
@@ -227,11 +236,15 @@ function wzkb_list_posts_by_term( $term, $level ) {
  */
 function wzkb_article_header( $term, $level ) {
 
-	$output = '
- <h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">
-  <a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>
- </h3>
- ';
+	$output = '<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">';
+
+	if ( wzkb_get_option( 'clickable_section', true ) ) {
+		$output .= '<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>';
+	} else {
+		$output .= $term->name ;
+	}
+
+	$output .= '</h3> ';
 
 	/**
 	 * Filter the header of the article list.
@@ -262,10 +275,14 @@ function wzkb_article_loop( $term, $level, $query ) {
 
 	$output = '<ul class="wzkb-articles-list term-' . $term->term_id . '">';
 
-	while ( $query->have_posts() ) : $query->the_post();
+	while ( $query->have_posts() ) :
+		$query->the_post();
 
 		$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 		$output .= '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
+		if ( wzkb_get_option( 'show_excerpt', false ) ) {
+			$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '" >' . get_the_excerpt( get_the_ID() ) . '</div>';
+		}
 		$output .= '</li>';
 
 	endwhile;

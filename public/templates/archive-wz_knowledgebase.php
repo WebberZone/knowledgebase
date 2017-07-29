@@ -34,9 +34,11 @@ wp_enqueue_style( 'wzkb_styles' );
 			esc_html_e( 'No results found', 'wzkb' );
 
 		endif;
-		?><!-- .site-main -->
+		?>
+		<!-- .site-main -->
 	</section><!-- .content-area -->
 
-<?php get_footer();
+<?php
+get_footer();
 
 

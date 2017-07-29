@@ -88,7 +88,8 @@ function wzkb_admin_footer( $footer_text ) {
 
 	if ( get_current_screen()->post_type === 'wz_knowledgebase' ) {
 
-		$text = sprintf( __( 'Thank you for using <a href="%1$s" target="_blank">Knowledgebase</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
+		$text = sprintf(
+			__( 'Thank you for using <a href="%1$s" target="_blank">Knowledgebase</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
 			'https://webberzone.com/knowledgebase',
 			'https://wordpress.org/support/view/plugin-reviews/knowledgebase?filter=5#postform'
 		);

@@ -35,7 +35,7 @@
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
 	  <h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'knowledgebase' ); ?></span></h3>
 	  <div class="inside">
-	    <div id="quick-links">
+		<div id="quick-links">
 			<ul>
 				<li><a href="https://webberzone.com/plugins/knowledgebase/"><?php esc_html_e( 'Knowledgebase plugin homepage', 'knowledgebase' ); ?></a></li>
 				<li><a href="https://wordpress.org/plugins/knowledgebase/faq/"><?php esc_html_e( 'FAQ', 'knowledgebase' ); ?></a></li>
@@ -45,7 +45,7 @@
 				<li><a href="https://webberzone.com/plugins/"><?php esc_html_e( 'Other plugins', 'knowledgebase' ); ?></a></li>
 				<li><a href="https://ajaydsouza.com/"><?php esc_html_e( "Ajay's blog", 'knowledgebase' ); ?></a></li>
 			</ul>
-	    </div>
+		</div>
 	  </div><!-- /.inside -->
 	</div><!-- /.postbox -->
 </div>
