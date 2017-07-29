@@ -29,11 +29,15 @@ if ( ! defined( 'WPINC' ) ) {
  * @param mixed  $default Default value to fetch if option is missing.
  * @return mixed
  */
-function wzkb_get_option( $key = '', $default = false ) {
+function wzkb_get_option( $key = '', $default = null ) {
 
-	global $wzkb_options;
+	global $wzkb_settings;
 
-	$value = ! empty( $wzkb_options[ $key ] ) ? $wzkb_options[ $key ] : $default;
+	if ( is_null( $default ) ) {
+		$default = wzkb_get_default_option( $key );
+	}
+
+	$value = ! empty( $wzkb_settings[ $key ] ) ? $wzkb_settings[ $key ] : $default;
 
 	/**
 	 * Filter the value for the option being fetched.
@@ -104,8 +108,8 @@ function wzkb_update_option( $key = '', $value = false ) {
 
 	// If it updated, let's update the global variable.
 	if ( $did_update ) {
-		global $wzkb_options;
-		$wzkb_options[ $key ] = $value;
+		global $wzkb_settings;
+		$wzkb_settings[ $key ] = $value;
 	}
 	return $did_update;
 }
@@ -140,8 +144,8 @@ function wzkb_delete_option( $key = '' ) {
 
 	// If it updated, let's update the global variable.
 	if ( $did_update ) {
-		global $wzkb_options;
-		$wzkb_options = $options;
+		global $wzkb_settings;
+		$wzkb_settings = $options;
 	}
 	return $did_update;
 }
@@ -173,16 +177,18 @@ function wzkb_register_settings() {
 
 			$args = wp_parse_args(
 				$setting, array(
-					'section' => $section,
-					'id'      => null,
-					'name'    => '',
-					'desc'    => '',
-					'type'    => null,
-					'options' => '',
-					'max'     => null,
-					'min'     => null,
-					'step'    => null,
-					'size'    => null,
+					'section'          => $section,
+					'id'               => null,
+					'name'             => '',
+					'desc'             => '',
+					'type'             => null,
+					'options'          => '',
+					'max'              => null,
+					'min'              => null,
+					'step'             => null,
+					'size'             => null,
+					'field_class'      => '',
+					'field_attributes' => '',
 				)
 			);
 
@@ -358,8 +364,11 @@ function wzkb_settings_defaults() {
 				$options[ $option['id'] ] = '1';
 			}
 			// If an option is set.
-			if ( in_array( $option['type'], array( 'textarea', 'text', 'csv' ), true ) && ! empty( $option['options'] ) ) {
+			if ( in_array( $option['type'], array( 'textarea', 'text', 'csv', 'numbercsv', 'posttypes', 'number' ), true ) && isset( $option['options'] ) ) {
 				$options[ $option['id'] ] = $option['options'];
+			}
+			if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select' ), true ) && isset( $option['default'] ) ) {
+				$options[ $option['id'] ] = $option['default'];
 			}
 		}
 	}
@@ -372,6 +381,27 @@ function wzkb_settings_defaults() {
 	 * @param array $options Default settings.
 	 */
 	return apply_filters( 'wzkb_settings_defaults', $options );
+}
+
+
+/**
+ * Get the default option for a specific key
+ *
+ * @since 2.1.0
+ *
+ * @param string $key Key of the option to fetch.
+ * @return mixed
+ */
+function wzkb_get_default_option( $key = '' ) {
+
+	$default_settings = wzkb_settings_defaults();
+
+	if ( array_key_exists( $key, $default_settings ) ) {
+		return $default_settings[ $key ];
+	} else {
+		return false;
+	}
+
 }
 
 

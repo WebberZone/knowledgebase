@@ -45,13 +45,13 @@ function wzkb_delete_data() {
 
 	$settings = get_option( 'wzkb_settings' );
 
-	if ( $settings['uninstall_options'] ) {
+	if ( ! empty( $settings['uninstall_options'] ) ) {
 
 		delete_option( 'wzkb_settings' );
 
 	}
 
-	if ( $settings['uninstall_data'] ) {
+	if ( ! empty( $settings['uninstall_data'] ) ) {
 
 		$wzkbs = get_posts(
 			array(
