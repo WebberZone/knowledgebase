@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package WHEREGO
+ * @package WZKB
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
@@ -24,11 +24,11 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
 
-echo dirname( dirname( __FILE__ ) ) . '/knowledgebase.php';
+echo dirname( dirname( __FILE__ ) ) . '/knowledgebase.php\n';
 
 activate_plugin( 'knowledgebase/knowledgebase.php' );
 
 echo "Installing Knowledgebase...\n";
 
-global  $wherego_settings, $current_user;
-$wherego_settings = wherego_get_settings();
+global $wzkb_options, $current_user;
+$wzkb_options = wzkb_get_settings();
