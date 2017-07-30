@@ -298,6 +298,16 @@ function wzkb_get_registered_settings() {
 		'output'             => apply_filters(
 			'wzkb_settings_output',
 			array(
+				'category_level'     => array(
+					'id'                => 'category_level',
+					'name'              => esc_html__( 'First section level', 'knowledgebase' ),
+					'desc'              => esc_html__( 'This option allows you to create multi-level knowledgebases. This works in conjunction with the inbuilt styles. Set to 1 to lay out the top level sections in a grid. Set to 2 to lay out the second level categories in the grid. This is great if you have multiple products and want to create separate knowledgebases for each of them. The default option is 2 and was the behaviour of this plugin before v1.5.0.', 'knowledgebase' ),
+					'type'                   => 'number',
+					'options'                => '2',
+					'size'                   => 'small',
+					'min'                    => '1',
+					'max'                    => '5',
+				),
 				'show_article_count' => array(
 					'id'                => 'show_article_count',
 					'name'              => esc_html__( 'Show article count', 'knowledgebase' ),

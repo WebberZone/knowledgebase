@@ -98,6 +98,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 = 1.5.0 =
 
 * Features:
+	* New option to set what section level should the knowledgebase start from. Ideal if you want to have separate knowledgebases for multiple products
 	* New option to show excerpt below the link. Contributed by [@border0464111](https://github.com/border0464111)
 	* New option to turn off the section link. Contributed by [@border0464111](https://github.com/border0464111)
 	* New option to show the number of articles in an orange circle next to the header. You can override the color by styling `wzkb_section_count`

@@ -71,9 +71,9 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 
 	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level );
 
-	if ( 1 === $level ) {
+	if ( (int) wzkb_get_option( 'category_level' ) - 1 === $level ) {
 		$divclasses[] = 'section group';
-	} elseif ( 2 === $level ) {
+	} elseif ( (int) wzkb_get_option( 'category_level' ) === $level ) {
 		$divclasses[] = 'col span_1_of_2';
 	}
 
@@ -84,8 +84,9 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 	 *
 	 * @param array $divclasses Current array of classes
 	 * @param int  $level  Level of the loop
+	 * @param int  $term_id  Term ID
 	 */
-	$divclasses = apply_filters( 'wzkb_loop_div_class', $divclasses, $level );
+	$divclasses = apply_filters( 'wzkb_loop_div_class', $divclasses, $level, $term_id );
 
 	$output = '<div class="' . implode( ' ', $divclasses ) . '">';
 
