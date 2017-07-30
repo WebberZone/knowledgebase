@@ -394,7 +394,7 @@ function wzkb_number_callback( $args ) {
 
 	$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
 
-	$html = '<input type="number" step="' . esc_attr( $step ) . '" max="' . esc_attr( $max ) . '" min="' . esc_attr( $min ) . '" class="' . sanitize_html_class( $size ) . '-text" id="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" name="wzkb_settings[' . sanitize_key( $args['id'] ) . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
+	$html = sprintf( '<input type="number" step="%1$s" max="%2$s" min="%3$s" class="%4$s" id="wzkb_settings[%5$s]" name="wzkb_settings[%5$s]" value="%6$s"/>', esc_attr( $step ), esc_attr( $max ), esc_attr( $min ), sanitize_html_class( $size ) . '-text', sanitize_key( $args['id'] ), esc_attr( stripslashes( $value ) ) );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
