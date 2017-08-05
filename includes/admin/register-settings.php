@@ -288,6 +288,7 @@ function wzkb_get_registered_settings() {
 				'disable_kb_feed'   => array(
 					'id'               => 'disable_kb_feed',
 					'name'             => esc_html__( 'Disable KB feed', 'knowledgebase' ),
+					/* translators: 1: Opening link tag, 2: Closing link tag. */
 					'desc'             => sprintf( esc_html__( 'The knowledgebase articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
 					'type'             => 'checkbox',
 					'options'          => false,

@@ -31,9 +31,12 @@ function wzkb_settings_help() {
 	}
 
 	$screen->set_help_sidebar(
-		'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s">WebberZone support site</a>.', 'knowledgebase' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
-		'<p>' . sprintf( __( 'Support queries should be posted in the <a href="%s">WordPress.org support forums</a>.', 'knowledgebase' ), esc_url( 'https://wordpress.org/support/plugin/knowledgebase' ) ) . '</p>' .
+		/* translators: 1: Support link. */
+		'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%1$s">WebberZone support site</a>.', 'knowledgebase' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
+		/* translators: 1: Forum link. */
+		'<p>' . sprintf( __( 'Support queries should be posted in the <a href="%1$s">WordPress.org support forums</a>.', 'knowledgebase' ), esc_url( 'https://wordpress.org/support/plugin/knowledgebase' ) ) . '</p>' .
 		'<p>' . sprintf(
+			/* translators: 1: Github Issues link, 2: Github page. */
 			__( '<a href="%1$s">Post an issue</a> on <a href="%2$s">GitHub</a> (bug reports only).', 'knowledgebase' ),
 			esc_url( 'https://github.com/WebberZone/knowledgebase/issues' ),
 			esc_url( 'https://github.com/WebberZone/knowledgebase' )

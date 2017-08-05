@@ -84,7 +84,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 		 */
 		$non_setting_types = apply_filters( 'wzkb_non_setting_types', array( 'header', 'descriptive_text' ) );
 
-		if ( in_array( $type, $non_setting_types ) ) {
+		if ( in_array( $type, $non_setting_types, true ) ) {
 			continue;
 		}
 
@@ -244,7 +244,7 @@ add_filter( 'wzkb_settings_sanitize_textarea', 'wzkb_sanitize_textarea_field' );
  * @since 1.5.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @return string|int  $value  Sanitized value
  */
 function wzkb_sanitize_checkbox_field( $value ) {
 

@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * wZKB Settings
+ * WZKB Settings
  *
  * @since 1.2.0
  * @deprecated 1.5.0

@@ -147,9 +147,10 @@ function wzkb_admin_footer( $footer_text ) {
 	if ( get_current_screen()->post_type === 'wz_knowledgebase' ) {
 
 		$text = sprintf(
+			/* translators: 1: Knowledgebase website, 2: Plugin reviews link. */
 			__( 'Thank you for using <a href="%1$s" target="_blank">Knowledgebase</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
 			'https://webberzone.com/knowledgebase',
-			'https://wordpress.org/support/view/plugin-reviews/knowledgebase?filter=5#postform'
+			'https://wordpress.org/support/plugin/knowledgebase/reviews/#new-post'
 		);
 
 		return str_replace( '</span>', '', $footer_text ) . ' | ' . $text . '</span>';
@@ -199,7 +200,7 @@ add_action( 'admin_notices', 'wzkb_admin_notices' );
  *
  * @since 1.5.0
  *
- * @param array $items Array of items
+ * @param array $items Array of items.
  * @return array Updated array of items
  */
 function wzkb_dashboard_glance_items( $items ) {

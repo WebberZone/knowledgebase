@@ -64,7 +64,7 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 
 
 /**
- * wZKB Settings
+ * WZKB Settings
  *
  * @since 1.5.0
  *
