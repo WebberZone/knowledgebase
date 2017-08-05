@@ -290,7 +290,8 @@ function wzkb_checkbox_callback( $args ) {
 	$default = isset( $args['options'] ) ? $args['options'] : '';
 	$set = isset( $wzkb_settings[ $args['id'] ] ) ? $wzkb_settings[ $args['id'] ] : '';
 
-	$html = sprintf( '<input type="checkbox" id="wzkb_settings[%1$s]" name="wzkb_settings[%2$s]" value="1" %3$s />', sanitize_key( $args['id'] ), sanitize_key( $args['id'] ), $checked );
+	$html = sprintf( '<input type="hidden" name="wzkb_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
+	$html .= sprintf( '<input type="checkbox" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]" value="1" %2$s />', sanitize_key( $args['id'] ), $checked );
 	$html .= ( $set <> $default ) ? '<em style="color:orange"> ' . esc_html__( 'Modified from default setting', 'knowledgebase' ) . '</em>' : '';
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
