@@ -337,10 +337,20 @@ function wzkb_get_registered_settings() {
 			array(
 				'include_styles'    => array(
 					'id'               => 'include_styles',
-					'name'             => esc_html__( 'Include plugin inbuilt styles', 'knowledgebase' ),
+					'name'             => esc_html__( 'Include inbuilt styles', 'knowledgebase' ),
 					'desc'             => esc_html__( 'Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option', 'knowledgebase' ),
 					'type'             => 'checkbox',
 					'options'          => true,
+				),
+				'columns'            => array(
+					'id'                => 'columns',
+					'name'              => esc_html__( 'Number of columns', 'knowledgebase' ),
+					'desc'              => esc_html__( 'Set number of columns to display the knowledgebase archives. This is only works if the above option is selected.', 'knowledgebase' ),
+					'type'                   => 'number',
+					'options'                => '2',
+					'size'                   => 'small',
+					'min'                    => '1',
+					'max'                    => '5',
 				),
 				'custom_css'        => array(
 					'id'               => 'custom_css',

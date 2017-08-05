@@ -1,7 +1,7 @@
 === Knowledgebase ===
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
-Tags: knowledgebase, FAQ, frequently asked questions, knowledge base, support, documentation
+Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 4.3
 Tested up to: 4.9
 Stable tag: trunk
@@ -98,6 +98,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 = 1.5.0 =
 
 * Features:
+	* New option to set the number of columns to display the knowledgebase archives
 	* New option to set what section level should the knowledgebase start from. Ideal if you want to have separate knowledgebases for multiple products
 	* New option to show excerpt below the link. Contributed by [@border0464111](https://github.com/border0464111)
 	* New option to turn off the section link. Contributed by [@border0464111](https://github.com/border0464111)

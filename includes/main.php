@@ -74,7 +74,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 	if ( (int) wzkb_get_option( 'category_level' ) - 1 === $level ) {
 		$divclasses[] = 'section group';
 	} elseif ( (int) wzkb_get_option( 'category_level' ) === $level ) {
-		$divclasses[] = 'col span_1_of_2';
+		$divclasses[] = 'col span_1_of_' . wzkb_get_option( 'columns', 2 );
 	}
 
 	/**
