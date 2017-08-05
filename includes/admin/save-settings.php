@@ -39,6 +39,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 
 	// Get the various settings we've registered.
 	$settings = wzkb_get_registered_settings();
+	$settings_types = wzkb_get_registered_settings_types();
 
 	// Check if we need to set to defaults.
 	$reset = isset( $_POST['settings_reset'] );
@@ -69,45 +70,55 @@ function wzkb_settings_sanitize( $input = array() ) {
 	 */
 	$input = apply_filters( 'wzkb_settings_' . $tab . '_sanitize', $input );
 
+	// Create out output array by merging the existing settings with the ones submitted.
+	$output = array_merge( $wzkb_settings, $input );
+
 	// Loop through each setting being saved and pass it through a sanitization filter.
-	foreach ( $input as $key => $value ) {
+	foreach ( $settings_types as $key => $type ) {
 
-		// Get the setting type (checkbox, select, etc).
-		$type = isset( $settings[ $tab ][ $key ]['type'] ) ? $settings[ $tab ][ $key ]['type'] : false;
+		/**
+		 * Skip settings that are not really settings.
+		 *
+		 * @since  1.5.0
+		 * @param  array $non_setting_types Array of types which are not settings.
+		 */
+		$non_setting_types = apply_filters( 'wzkb_non_setting_types', array( 'header', 'descriptive_text' ) );
 
-		if ( $type ) {
+		if ( in_array( $type, $non_setting_types ) ) {
+			continue;
+		}
+
+		if ( array_key_exists( $key, $output ) ) {
 
 			/**
-			 * Field type specific filter.
+			 * Field type filter.
 			 *
-			 * @since  1.2.0
-			 * @param  array $value Setting value.
-			 * @paaram array $key Setting key.
+			 * @since 1.2.0
+			 * @param array $output[$key] Setting value.
+			 * @param array $key Setting key.
 			 */
-			$input[ $key ] = apply_filters( 'wzkb_settings_sanitize_' . $type, $value, $key );
+			$output[ $key ] = apply_filters( 'wzkb_settings_sanitize_' . $type, $output[ $key ], $key );
 		}
 
 		/**
-		 * Field type general filter.
+		 * Field type filter for a specific key.
 		 *
-		 * @since  1.2.0
-		 * @param array $key Setting key.
+		 * @since 1.2.0
+		 * @param array $output[$key] Setting value.
 		 * @param array $key Setting key.
 		 */
-		$input[ $key ] = apply_filters( 'wzkb_settings_sanitize' . $key, $input[ $key ], $key );
-	}
+		$output[ $key ] = apply_filters( 'wzkb_settings_sanitize' . $key, $output[ $key ], $key );
 
-	// Loop through the whitelist and unset any that are empty for the tab being saved.
-	if ( ! empty( $settings[ $tab ] ) ) {
-		foreach ( $settings[ $tab ] as $key => $value ) {
-			if ( empty( $input[ $key ] ) && ! empty( $wzkb_settings[ $key ] ) ) {
-				unset( $wzkb_settings[ $key ] );
-			}
+		// Delete any key that is not present when we submit the input array.
+		if ( empty( $input[ $key ] ) ) {
+			unset( $output[ $key ] );
 		}
 	}
 
-	// Merge our new settings with the existing. Force (array) in case it is empty.
-	$wzkb_settings = array_merge( (array) $wzkb_settings, $input );
+	// Delete any settings that are no longer part of our registered settings.
+	if ( array_key_exists( $key, $output ) && ! array_key_exists( $key, $settings_types ) ) {
+		unset( $output[ $key ] );
+	}
 
 	add_settings_error( 'wzkb-notices', '', __( 'Settings updated.', 'knowledgebase' ), 'updated' );
 
@@ -119,10 +130,10 @@ function wzkb_settings_sanitize( $input = array() ) {
 	 * Filter the settings array before it is returned.
 	 *
 	 * @since 1.5.0
-	 * @param array $wzkb_settings Settings array.
+	 * @param array $output Settings array.
 	 * @param array $input Input settings array.
 	 */
-	return apply_filters( 'wzkb_settings_sanitize', $wzkb_settings, $input );
+	return apply_filters( 'wzkb_settings_sanitize', $output, $input );
 
 }
 
@@ -133,7 +144,7 @@ function wzkb_settings_sanitize( $input = array() ) {
  * @since 1.2.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitizied value
+ * @return string  $value  Sanitized value
  */
 function wzkb_sanitize_text_field( $value ) {
 	return wzkb_sanitize_textarea_field( $value );
@@ -147,7 +158,7 @@ add_filter( 'wzkb_settings_sanitize_text', 'wzkb_sanitize_text_field' );
  * @since 1.5.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitizied value
+ * @return string  $value  Sanitized value
  */
 function wzkb_sanitize_csv_field( $value ) {
 
@@ -162,7 +173,7 @@ add_filter( 'wzkb_settings_sanitize_csv', 'wzkb_sanitize_csv_field' );
  * @since 1.5.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitizied value
+ * @return string  $value  Sanitized value
  */
 function wzkb_sanitize_numbercsv_field( $value ) {
 
@@ -177,7 +188,7 @@ add_filter( 'wzkb_settings_sanitize_numbercsv', 'wzkb_sanitize_numbercsv_field' 
  * @since 1.2.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitizied value
+ * @return string  $value  Sanitized value
  */
 function wzkb_sanitize_textarea_field( $value ) {
 
@@ -228,12 +239,29 @@ add_filter( 'wzkb_settings_sanitize_textarea', 'wzkb_sanitize_textarea_field' );
 
 
 /**
+ * Sanitize checkbox fields
+ *
+ * @since 1.5.0
+ *
+ * @param  array $value The field value.
+ * @return string  $value  Sanitized value
+ */
+function wzkb_sanitize_checkbox_field( $value ) {
+
+	$value = ( -1 === (int) $value ) ? 0 : 1;
+
+	return $value;
+}
+add_filter( 'wzkb_settings_sanitize_checkbox', 'wzkb_sanitize_checkbox_field' );
+
+
+/**
  * Sanitize post_types fields
  *
  * @since 1.5.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitizied value
+ * @return string  $value  Sanitized value
  */
 function wzkb_sanitize_post_types_field( $value ) {
 

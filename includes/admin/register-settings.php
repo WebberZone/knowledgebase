@@ -367,6 +367,35 @@ function wzkb_get_registered_settings() {
 
 
 /**
+ * Flattens wzkb_get_registered_settings() into $setting[id] => $setting[type] format.
+ *
+ * @since 1.5.0
+ *
+ * @return array Default settings
+ */
+function wzkb_get_registered_settings_types() {
+
+	$options = array();
+
+	// Populate some default values.
+	foreach ( wzkb_get_registered_settings() as $tab => $settings ) {
+		foreach ( $settings as $option ) {
+			$options[ $option['id'] ] = $option['type'];
+		}
+	}
+
+	/**
+	 * Filters the settings array.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $options Default settings.
+	 */
+	return apply_filters( 'wzkb_get_settings_types', $options );
+}
+
+
+/**
  * Default settings.
  *
  * @since 1.2.0
