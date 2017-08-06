@@ -1,4 +1,4 @@
-=== Knowledgebase ===
+=== Knowledge Base ===
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
@@ -12,7 +12,7 @@ The easiest way to create a Knowledgebase or FAQ on your WordPress blog.
 
 == Description ==
 
-As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase / FAQ section on your WordPress blog.
+As the name suggests, [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase / FAQ section on your WordPress blog.
 
 The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box and I'll be adding more features into the core and as addons.
 
@@ -37,7 +37,7 @@ If you have an idea, I'd love to hear it. Knowledgebase is also available on [Gi
 = WordPress install (The easy way) =
 
 1. Navigate to “Plugins” within your WordPress Admin Area
-2. Click “Add new” and in the search box enter “Knowledgebase”
+2. Click “Add new” and in the search box enter “Knowledgebase” or "Knowledge Base"
 3. Find the plugin in the list (usually the first result) and click “Install Now”
 4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
@@ -93,9 +93,16 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 5. Settings &raquo; Styles
 
 
-== Changelog ==
+== Upgrade Notice ==
 
 = 1.5.0 =
+* New features: Set no. of columns and display no. of articles, display section linking and more.
+Check the Changelog for more details
+
+
+== Changelog ==
+
+= 1.5.0 - 6 August 2017 =
 
 * Features:
 	* New option to set the number of columns to display the knowledgebase archives
@@ -160,11 +167,4 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 = 1.0.0 - 17 May 2015 =
 * Initial release
-
-
-== Upgrade Notice ==
-
-= 1.4.0 =
-* New options to disable the KB feeds and include articles in the main feed. CSS fixes.
-Check the Changelog for more details
 

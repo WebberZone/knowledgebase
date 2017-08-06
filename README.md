@@ -13,13 +13,13 @@ __Tested up to:__ 4.9
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
-__Plugin page:__ [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) | [WordPress.org Plugin page](https://wordpress.org/plugins/knowledgebase/)
+__Plugin page:__ [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) | [WordPress.org Plugin page](https://wordpress.org/plugins/knowledgebase/)
 
 The easiest way to create a Knowledgebase or FAQ on your WordPress blog.
 
 ## Description
 
-As the name suggests, [Knowledgebase](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase / FAQ section on your WordPress blog.
+As the name suggests, [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) will allow you to create a simple Knowledgebase / FAQ section on your WordPress blog.
 
 The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box and I'll be adding more features into the core and as addons.
 
@@ -55,7 +55,7 @@ For more screenshots visit the [WordPress plugin page](http://wordpress.org/plug
 ### WordPress install (The easy way)
 
 1. Navigate to “Plugins” within your WordPress Admin Area
-2. Click “Add new” and in the search box enter “Knowledgebase”
+2. Click “Add new” and in the search box enter “Knowledgebase” or "Knowledge Base"
 3. Find the plugin in the list (usually the first result) and click “Install Now”
 4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
