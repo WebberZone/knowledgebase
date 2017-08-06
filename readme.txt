@@ -90,7 +90,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 2. Knowledgebase Viewer Facing with Default styles
 3. Knowledgebase Category view in the WordPress Admin
 4. Settings &raquo; General
-5. Settings &raquo; Styles
+5. Settings &raquo; Output
+6. Settings &raquo; Styles
 
 
 == Upgrade Notice ==
