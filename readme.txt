@@ -21,7 +21,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 = Main features: =
 
 * Uses a custom post type `wz_knowledgebase` ensuring your data always stays even if you choose to delete this plugin
-* Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page along with the permalinks for viewing cateogories and tags
+* Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page along with the permalinks for viewing categories and tags
 * Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * You can also use tags ( `kbtags` ) for each knowledgebase article
 * Shortcode `[[knowledgebase]]` will allow you to display the entire knowledgebase or pertaining to a section (category) of your choosing
