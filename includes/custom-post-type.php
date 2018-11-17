@@ -22,12 +22,12 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_register_post_type() {
 
-	$slug = wzkb_get_option( 'kb_slug', 'knowledgebase' );
+	$slug     = wzkb_get_option( 'kb_slug', 'knowledgebase' );
 	$archives = defined( 'WZKB_DISABLE_ARCHIVE' ) && WZKB_DISABLE_ARCHIVE ? false : $slug;
 	$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array(
-		'slug' => $slug,
+		'slug'       => $slug,
 		'with_front' => false,
-		'feeds' => wzkb_get_option( 'disable_kb_feed' ) ? false : true,
+		'feeds'      => wzkb_get_option( 'disable_kb_feed' ) ? false : true,
 	);
 
 	$ptlabels = array(
@@ -58,18 +58,18 @@ function wzkb_register_post_type() {
 	$ptlabels = apply_filters( 'wzkb_post_type_labels', $ptlabels );
 
 	$ptargs = array(
-		'label'              => __( 'wz_knowledgebase', 'knowledgebase' ),
-		'description'        => __( 'Knowledgebase', 'knowledgebase' ),
-		'labels'             => $ptlabels,
-		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
-		'taxonomies'         => array( 'wzkb_category', 'wzkb_tag' ),
-		'public'             => true,
-		'hierarchical'       => false,
-		'menu_position'      => 5,
-		'menu_icon'          => 'dashicons-book-alt',
-		'map_meta_cap'       => true,
-		'has_archive'        => $archives,
-		'rewrite'            => $rewrite,
+		'label'         => __( 'wz_knowledgebase', 'knowledgebase' ),
+		'description'   => __( 'Knowledgebase', 'knowledgebase' ),
+		'labels'        => $ptlabels,
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
+		'taxonomies'    => array( 'wzkb_category', 'wzkb_tag' ),
+		'public'        => true,
+		'hierarchical'  => false,
+		'menu_position' => 5,
+		'menu_icon'     => 'dashicons-book-alt',
+		'map_meta_cap'  => true,
+		'has_archive'   => $archives,
+		'rewrite'       => $rewrite,
 	);
 
 	/**
@@ -102,8 +102,8 @@ function wzkb_register_taxonomies() {
 		'show_admin_column' => true,
 		'show_tagcloud'     => false,
 		'rewrite'           => array(
-			'slug' => $catslug,
-			'with_front' => true,
+			'slug'         => $catslug,
+			'with_front'   => true,
 			'hierarchical' => true,
 		),
 	);

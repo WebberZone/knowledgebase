@@ -99,7 +99,7 @@ function wzkb_options_page() {
 		<div id="postbox-container-1" class="postbox-container">
 
 			<div id="side-sortables" class="meta-box-sortables ui-sortable">
-				<?php include_once( 'sidebar.php' ); ?>
+				<?php include_once 'sidebar.php'; ?>
 			</div><!-- /#side-sortables -->
 
 		</div><!-- /#postbox-container-1 -->
@@ -210,7 +210,7 @@ function wzkb_text_callback( $args ) {
 		$attributes .= sprintf( ' %1$s="%2$s"', $attribute, esc_attr( $val ) );
 	}
 
-	$html = sprintf( '<input type="text" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]" class="%2$s" value="%3$s" %4$s />', sanitize_key( $args['id'] ), $class . ' ' . $size . '-text', esc_attr( stripslashes( $value ) ), $attributes );
+	$html  = sprintf( '<input type="text" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]" class="%2$s" value="%3$s" %4$s />', sanitize_key( $args['id'] ), $class . ' ' . $size . '-text', esc_attr( stripslashes( $value ) ), $attributes );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
@@ -265,7 +265,7 @@ function wzkb_textarea_callback( $args ) {
 		$value = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	$html = sprintf( '<textarea class="large-text" cols="50" rows="5" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]">%2$s</textarea>', sanitize_key( $args['id'] ), esc_textarea( stripslashes( $value ) ) );
+	$html  = sprintf( '<textarea class="large-text" cols="50" rows="5" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]">%2$s</textarea>', sanitize_key( $args['id'] ), esc_textarea( stripslashes( $value ) ) );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
@@ -288,9 +288,9 @@ function wzkb_checkbox_callback( $args ) {
 
 	$checked = ! empty( $wzkb_settings[ $args['id'] ] ) ? checked( 1, $wzkb_settings[ $args['id'] ], false ) : '';
 	$default = isset( $args['options'] ) ? $args['options'] : '';
-	$set = isset( $wzkb_settings[ $args['id'] ] ) ? $wzkb_settings[ $args['id'] ] : '';
+	$set     = isset( $wzkb_settings[ $args['id'] ] ) ? $wzkb_settings[ $args['id'] ] : '';
 
-	$html = sprintf( '<input type="hidden" name="wzkb_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
+	$html  = sprintf( '<input type="hidden" name="wzkb_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
 	$html .= sprintf( '<input type="checkbox" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]" value="1" %2$s />', sanitize_key( $args['id'] ), $checked );
 	$html .= ( $set <> $default ) ? '<em style="color:orange"> ' . esc_html__( 'Modified from default setting', 'knowledgebase' ) . '</em>' : '';
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
@@ -395,7 +395,7 @@ function wzkb_number_callback( $args ) {
 
 	$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
 
-	$html = sprintf( '<input type="number" step="%1$s" max="%2$s" min="%3$s" class="%4$s" id="wzkb_settings[%5$s]" name="wzkb_settings[%5$s]" value="%6$s"/>', esc_attr( $step ), esc_attr( $max ), esc_attr( $min ), sanitize_html_class( $size ) . '-text', sanitize_key( $args['id'] ), esc_attr( stripslashes( $value ) ) );
+	$html  = sprintf( '<input type="number" step="%1$s" max="%2$s" min="%3$s" class="%4$s" id="wzkb_settings[%5$s]" name="wzkb_settings[%5$s]" value="%6$s"/>', esc_attr( $step ), esc_attr( $max ), esc_attr( $min ), sanitize_html_class( $size ) . '-text', sanitize_key( $args['id'] ), esc_attr( stripslashes( $value ) ) );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
@@ -486,9 +486,9 @@ function wzkb_posttypes_callback( $args ) {
 		parse_str( $options, $post_types );
 	}
 
-	$wp_post_types  = get_post_types(
+	$wp_post_types   = get_post_types(
 		array(
-			'public'    => true,
+			'public' => true,
 		)
 	);
 	$posts_types_inc = array_intersect( $wp_post_types, $post_types );

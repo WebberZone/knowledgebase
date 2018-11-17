@@ -48,7 +48,7 @@ function wzkb_adminhead() {
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
-?>
+	?>
 	<script type="text/javascript">
 	//<![CDATA[
 		// Function to add auto suggest.
@@ -89,7 +89,7 @@ function wzkb_adminhead() {
 
 	//]]>
 	</script>
-<?php
+	<?php
 }
 
 
@@ -172,7 +172,7 @@ add_filter( 'admin_footer_text', 'wzkb_admin_footer' );
  */
 function wzkb_admin_notices() {
 
-	$kbslug = wzkb_get_option( 'kb_slug', 'not-set-random-string' );
+	$kbslug  = wzkb_get_option( 'kb_slug', 'not-set-random-string' );
 	$catslug = wzkb_get_option( 'category_slug', 'not-set-random-string' );
 	$tagslug = wzkb_get_option( 'tag_slug', 'not-set-random-string' );
 
@@ -183,13 +183,13 @@ function wzkb_admin_notices() {
 
 	// Only add the notice if the settings cannot be found.
 	if ( 'not-set-random-string' === $kbslug || 'not-set-random-string' === $catslug || 'not-set-random-string' === $tagslug ) {
-	?>
+		?>
 
 	<div class="updated">
 		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); ?></p>
 	</div>
 
-	<?php
+		<?php
 	}
 }
 add_action( 'admin_notices', 'wzkb_admin_notices' );
@@ -233,12 +233,12 @@ add_filter( 'dashboard_glance_items', 'wzkb_dashboard_glance_items', 1 );
  * return void
  */
 function wzkb_admin_head() {
-?>
+	?>
 	<style type="text/css" media="screen">
 		#dashboard_right_now .wzkb-article-count:before {
 			content: "\f331";
 		}
 	</style>
-<?php
+	<?php
 }
 add_filter( 'admin_head', 'wzkb_admin_head' );

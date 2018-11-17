@@ -20,8 +20,8 @@ if ( get_query_var( 'page' ) ) {
 
 $args = array(
 	'post_type' => 'wz_knowledgebase',
-	's' => get_search_query(),
-	'paged' => $paged,
+	's'         => get_search_query(),
+	'paged'     => $paged,
 );
 
 $query = new WP_Query( $args );
@@ -46,7 +46,7 @@ wp_enqueue_style( 'wzkb_styles' );
 			<?php
 			while ( $query->have_posts() ) :
 				$query->the_post();
-			?>
+				?>
 
 				<header class="entry-header">
 					<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
@@ -61,9 +61,9 @@ wp_enqueue_style( 'wzkb_styles' );
 				<?php
 					echo paginate_links(
 						array(
-							'format' => '?paged=%#%',
+							'format'  => '?paged=%#%',
 							'current' => max( 1, get_query_var( 'paged' ) ),
-							'total' => $query->max_num_pages,
+							'total'   => $query->max_num_pages,
 						)
 					);
 				?>

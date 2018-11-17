@@ -38,7 +38,7 @@ function wzkb_settings_sanitize( $input = array() ) {
 	parse_str( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) ), $referrer ); // Input var okay.
 
 	// Get the various settings we've registered.
-	$settings = wzkb_get_registered_settings();
+	$settings       = wzkb_get_registered_settings();
 	$settings_types = wzkb_get_registered_settings_types();
 
 	// Check if we need to set to defaults.
@@ -196,21 +196,21 @@ function wzkb_sanitize_textarea_field( $value ) {
 
 	// We need more tags to allow for script and style.
 	$moretags = array(
-		'script'    => array(
-			'type'     => true,
-			'src'      => true,
-			'async'    => true,
-			'defer'    => true,
-			'charset'  => true,
-			'lang'     => true,
+		'script' => array(
+			'type'    => true,
+			'src'     => true,
+			'async'   => true,
+			'defer'   => true,
+			'charset' => true,
+			'lang'    => true,
 		),
-		'style'     => array(
-			'type'     => true,
-			'media'    => true,
-			'scoped'   => true,
-			'lang'     => true,
+		'style'  => array(
+			'type'   => true,
+			'media'  => true,
+			'scoped' => true,
+			'lang'   => true,
 		),
-		'link'      => array(
+		'link'   => array(
 			'rel'      => true,
 			'type'     => true,
 			'href'     => true,

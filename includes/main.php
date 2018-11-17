@@ -35,9 +35,9 @@ function wzkb_knowledge( $args = array() ) {
 	$output = '<div class="wzkb">';
 
 	// Are we trying to display a category?
-	$level = ( 0 < $args['category'] ) ? 1 : 0;
-	$term_id = ( 0 < $args['category'] ) ? $args['category'] : 0;
-	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true ;
+	$level          = ( 0 < $args['category'] ) ? 1 : 0;
+	$term_id        = ( 0 < $args['category'] ) ? $args['category'] : 0;
+	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true;
 
 	$output .= wzkb_looper( $term_id, $level, $nested_wrapper );
 
@@ -101,10 +101,11 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
-		'wzkb_category', array(
-			'orderby'   => 'slug',
+		'wzkb_category',
+		array(
+			'orderby'    => 'slug',
 			'hide_empty' => 1,
-			'parent' => $term_id,
+			'parent'     => $term_id,
 		)
 	);
 
@@ -157,17 +158,17 @@ function wzkb_query_posts( $term ) {
 	// Get all the posts for the current term excluding posts located in its child terms.
 	$args = array(
 		'posts_per_page' => -1,
-		'tax_query' => array(
+		'tax_query'      => array(
 			'relation' => 'AND',
 			array(
 				'taxonomy' => 'wzkb_category',
-				'field' => 'id',
-				'terms' => $term->term_id,
+				'field'    => 'id',
+				'terms'    => $term->term_id,
 			),
 			array(
 				'taxonomy' => 'wzkb_category',
-				'field' => 'id',
-				'terms' => $termchildren,
+				'field'    => 'id',
+				'terms'    => $termchildren,
 				'operator' => 'NOT IN',
 			),
 		),
@@ -242,7 +243,7 @@ function wzkb_article_header( $term, $level ) {
 	if ( wzkb_get_option( 'clickable_section', true ) ) {
 		$output .= '<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>';
 	} else {
-		$output .= $term->name ;
+		$output .= $term->name;
 	}
 
 	if ( $level > 1 && wzkb_get_option( 'show_article_count', false ) ) {

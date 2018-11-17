@@ -32,7 +32,9 @@ function wzkb_shortcode( $atts, $content = null ) {
 	$atts = shortcode_atts(
 		array(
 			'category' => false,  // Create a knowledgebase for subcategories of this parent ID.
-		), $atts, 'knowledgebase'
+		),
+		$atts,
+		'knowledgebase'
 	);
 
 	$output = wzkb_knowledge( $atts );
@@ -65,7 +67,9 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 	$atts = shortcode_atts(
 		array(
 			'echo' => false,
-		), $atts, 'kbsearch'
+		),
+		$atts,
+		'kbsearch'
 	);
 
 	$output = wzkb_get_search_form( $atts['echo'] );

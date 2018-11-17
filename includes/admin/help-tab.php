@@ -45,9 +45,9 @@ function wzkb_settings_help() {
 
 	$screen->add_help_tab(
 		array(
-			'id'        => 'wzkb-settings-general',
-			'title'     => __( 'General', 'knowledgebase' ),
-			'content'   =>
+			'id'      => 'wzkb-settings-general',
+			'title'   => __( 'General', 'knowledgebase' ),
+			'content' =>
 			'<p>' . __( 'This screen provides the basic settings for configuring your knowledgebase.', 'knowledgebase' ) . '</p>' .
 				'<p>' . __( 'Set the knowledgebase slugs which drive what the urls are for the knowledgebase homepage, articles, categories and tags.', 'knowledgebase' ) . '</p>',
 		)
@@ -55,9 +55,9 @@ function wzkb_settings_help() {
 
 	$screen->add_help_tab(
 		array(
-			'id'        => 'wzkb-settings-styles',
-			'title'     => __( 'Styles', 'knowledgebase' ),
-			'content'   =>
+			'id'      => 'wzkb-settings-styles',
+			'title'   => __( 'Styles', 'knowledgebase' ),
+			'content' =>
 			'<p>' . __( 'This screen provides options to control the look and feel of the knowledgebase.', 'knowledgebase' ) . '</p>' .
 				'<p>' . __( 'Disable the styles included within the plugin and/or add your own CSS styles to customize this.', 'knowledgebase' ) . '</p>',
 		)
