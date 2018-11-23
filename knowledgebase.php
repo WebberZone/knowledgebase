@@ -104,6 +104,7 @@ function wzkb_get_settings() {
  *----------------------------------------------------------------------------
  */
 
+	require_once WZKB_PLUGIN_DIR . 'includes/admin/default-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'public/public.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/activate-deactivate.php';
