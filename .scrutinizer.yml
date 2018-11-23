@@ -4,7 +4,7 @@ build:
       tests:
         override:
           - php-scrutinizer-run
-          - phpcs-run --config phpcs.ruleset.xml
+          - phpcs-run --standard=phpcs.ruleset.xml
 filter:
     excluded_paths: [vendor/*, tests/*, .tx/*, languages/*, includes/libraries/*, bin/*, assets/*, templates/* ]
 checks:
