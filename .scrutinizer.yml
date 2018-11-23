@@ -1,8 +1,12 @@
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+          - phpcs-run --config phpcs.ruleset.xml
 filter:
     excluded_paths: [vendor/*, tests/*, .tx/*, languages/*, includes/libraries/*, bin/*, assets/*, templates/* ]
 checks:
     php:
         code_rating: true
-tools:
-    php_code_sniffer:
-        config: { standard: WordPress }
