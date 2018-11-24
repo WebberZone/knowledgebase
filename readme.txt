@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 4.3
-Tested up to: 4.9
+Tested up to: 5.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -102,6 +102,11 @@ Check the Changelog for more details
 
 
 == Changelog ==
+
+= 1.6.0 =
+
+* Enhancements:
+	* Support for Gutenberg/Block Editor in WordPress 5.0
 
 = 1.5.0 - 6 August 2017 =
 

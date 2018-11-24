@@ -62,6 +62,7 @@ function wzkb_register_post_type() {
 		'description'   => __( 'Knowledgebase', 'knowledgebase' ),
 		'labels'        => $ptlabels,
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
+		'show_in_rest'  => true,
 		'taxonomies'    => array( 'wzkb_category', 'wzkb_tag' ),
 		'public'        => true,
 		'hierarchical'  => false,
@@ -101,6 +102,7 @@ function wzkb_register_taxonomies() {
 		'hierarchical'      => true,
 		'show_admin_column' => true,
 		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
 		'rewrite'           => array(
 			'slug'         => $catslug,
 			'with_front'   => true,
