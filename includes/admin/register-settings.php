@@ -37,7 +37,7 @@ function wzkb_get_option( $key = '', $default = null ) {
 		$default = wzkb_get_default_option( $key );
 	}
 
-	$value = ! empty( $wzkb_settings[ $key ] ) ? $wzkb_settings[ $key ] : $default;
+	$value = isset( $wzkb_settings[ $key ] ) ? $wzkb_settings[ $key ] : $default;
 
 	/**
 	 * Filter the value for the option being fetched.
@@ -67,7 +67,7 @@ function wzkb_get_option( $key = '', $default = null ) {
  * Update an option
  *
  * Updates an wzkb setting value in both the db and the global variable.
- * Warning: Passing in an empty, false or null string value will remove
+ * Warning: Passing a null value will remove
  *          the key from the wzkb_options array.
  *
  * @since 1.2.0
@@ -76,15 +76,15 @@ function wzkb_get_option( $key = '', $default = null ) {
  * @param  string|bool|int $value The value to set the key to.
  * @return boolean   True if updated, false if not.
  */
-function wzkb_update_option( $key = '', $value = false ) {
+function wzkb_update_option( $key = '', $value = null ) {
 
 	// If no key, exit.
 	if ( empty( $key ) ) {
 		return false;
 	}
 
-	// If no value, delete.
-	if ( empty( $value ) ) {
+	// If null value, delete.
+	if ( is_null( $value ) ) {
 		$remove_option = wzkb_delete_option( $key );
 		return $remove_option;
 	}
@@ -190,6 +190,7 @@ function wzkb_register_settings() {
 					'size'             => null,
 					'field_class'      => '',
 					'field_attributes' => '',
+					'placeholder'      => '',
 				)
 			);
 
@@ -253,15 +254,17 @@ function wzkb_settings_defaults() {
 	// Populate some default values.
 	foreach ( wzkb_get_registered_settings() as $tab => $settings ) {
 		foreach ( $settings as $option ) {
-			// When checkbox is set to true, set this to 1.
+			// When checkbox is set to true, set this to 1 else set to 0.
 			if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
-				$options[ $option['id'] ] = '1';
+				$options[ $option['id'] ] = 1;
+			} else {
+				$options[ $option['id'] ] = 0;
 			}
 			// If an option is set.
 			if ( in_array( $option['type'], array( 'textarea', 'text', 'csv', 'numbercsv', 'posttypes', 'number' ), true ) && isset( $option['options'] ) ) {
 				$options[ $option['id'] ] = $option['options'];
 			}
-			if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select' ), true ) && isset( $option['default'] ) ) {
+			if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes' ), true ) && isset( $option['default'] ) ) {
 				$options[ $option['id'] ] = $option['default'];
 			}
 		}

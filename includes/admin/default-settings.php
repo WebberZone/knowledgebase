@@ -164,7 +164,7 @@ function wzkb_get_registered_settings() {
 					'id'      => 'custom_css',
 					'name'    => esc_html__( 'Custom CSS', 'knowledgebase' ),
 					'desc'    => esc_html__( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
-					'type'    => 'textarea',
+					'type'    => 'css',
 					'options' => '',
 				),
 			)

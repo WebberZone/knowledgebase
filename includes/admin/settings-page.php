@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @return void
  */
 function wzkb_options_page() {
-	$active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), wzkb_get_settings_sections() ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // Input var okay.
+	$active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), wzkb_get_settings_sections() ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // WPCS: CSRF ok.
 
 	ob_start();
 	?>
@@ -274,6 +274,20 @@ function wzkb_textarea_callback( $args ) {
 
 
 /**
+ * Display CSS fields.
+ *
+ * @since 1.6.0
+ *
+ * @param array $args Array of arguments.
+ * @return void
+ */
+function wzkb_css_callback( $args ) {
+
+	wzkb_textarea_callback( $args );
+}
+
+
+/**
  * Display checboxes.
  *
  * @since 1.2.0
@@ -371,6 +385,41 @@ function wzkb_radio_callback( $args ) {
 
 
 /**
+ * Radio callback with description.
+ *
+ * Renders radio boxes with each item having it separate description.
+ *
+ * @since 1.6.0
+ *
+ * @param array $args Array of arguments.
+ * @return void
+ */
+function wzkb_radiodesc_callback( $args ) {
+	global $wzkb_settings;
+	$html = '';
+
+	foreach ( $args['options'] as $option ) {
+		$checked = false;
+
+		if ( isset( $wzkb_settings[ $args['id'] ] ) && $wzkb_settings[ $args['id'] ] === $option['id'] ) {
+			$checked = true;
+		} elseif ( isset( $args['default'] ) && $args['default'] === $option['id'] && ! isset( $wzkb_settings[ $args['id'] ] ) ) {
+			$checked = true;
+		}
+
+		$html .= sprintf( '<input name="wzkb_settings[%1$s]" id="wzkb_settings[%1$s][%2$s]" type="radio" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), $option['id'], checked( true, $checked, false ) );
+		$html .= sprintf( '<label for="wzkb_settings[%1$s][%2$s]">%3$s</label>', sanitize_key( $args['id'] ), $option['id'], $option['name'] );
+		$html .= ': <em>' . wp_kses_post( $option['description'] ) . '</em> <br />';
+	}
+
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
+
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
+}
+
+
+/**
  * Number Callback
  *
  * Renders number fields.
@@ -453,7 +502,7 @@ function wzkb_select_callback( $args ) {
  * @return void
  */
 function wzkb_descriptive_text_callback( $args ) {
-	$html = wp_kses_post( $args['desc'] );
+	$html = '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
 	echo apply_filters( 'wzkb_after_setting_output', $html, $args ); // WPCS: XSS OK.
