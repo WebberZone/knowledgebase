@@ -34,7 +34,7 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
 function wpkb_enqueue_styles() {
 
 	if ( wzkb_get_option( 'include_styles' ) ) {
-		wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.min.css', false, false );
+		wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.min.css', false, '1.0' );
 	}
 
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );
