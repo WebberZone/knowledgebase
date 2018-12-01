@@ -99,7 +99,7 @@ function wzkb_get_settings() {
 
 
 /*
- ----------------------------------------------------------------------------*
+ *----------------------------------------------------------------------------
  * Include files
  *----------------------------------------------------------------------------
  */
@@ -113,11 +113,12 @@ function wzkb_get_settings() {
 	require_once WZKB_PLUGIN_DIR . 'includes/shortcode.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/search.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/feed.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/breadcrumbs.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/deprecated.php';
 
 
 /*
- ----------------------------------------------------------------------------*
+ *----------------------------------------------------------------------------
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------
  */

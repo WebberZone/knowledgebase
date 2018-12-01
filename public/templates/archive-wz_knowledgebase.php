@@ -27,6 +27,8 @@ wp_enqueue_style( 'wzkb_styles' );
 			<?php
 			wzkb_get_search_form();
 
+			wzkb_breadcrumb();
+
 			echo wzkb_knowledge(); // WPCS: XSS OK.
 
 			// If no content, include the "No posts found" template.

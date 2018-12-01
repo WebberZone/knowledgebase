@@ -24,13 +24,14 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Customizable permalinks: Archives are enabled so your knowledgebase can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page along with the permalinks for viewing categories and tags
 * Uses Categories ( `kbcategory` ) to automatically draw up the knowledgebase. You will need at least one category in order to display the knowledgebase
 * You can also use tags ( `kbtags` ) for each knowledgebase article
-* Shortcode `[[knowledgebase]]` will allow you to display the entire knowledgebase or pertaining to a section (category) of your choosing
+* Shortcode `[knowledgebase]` will allow you to display the entire knowledgebase or pertaining to a section (category) of your choosing
+* Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited level of categories
 
 = Contribute =
 
-If you have an idea, I'd love to hear it. Knowledgebase is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
+If you have an idea, I'd love to hear it. Knowledge Base is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
 
 == Installation ==
 
@@ -104,6 +105,10 @@ Check the Changelog for more details
 == Changelog ==
 
 = 1.6.0 =
+
+* Features:
+	* New functions to add breadcrumbs - Use `wzkb_breadcrumb` to display the breadcrumb. `wzkb_get_breadcrumb` _returns_ the breadcrumb and `[kbbreadcrumb]` is the corresponding shortcode
+	* The default category and archive templates now display the breadcrumb below the search bar
 
 * Enhancements:
 	* Support for Gutenberg/Block Editor in WordPress 5.0

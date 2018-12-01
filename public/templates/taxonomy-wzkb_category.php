@@ -11,7 +11,7 @@
  */
 
 global $wp_query;
-$term = $wp_query->get_queried_object();
+$this_tax = $wp_query->get_queried_object();
 
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
@@ -31,13 +31,15 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h1 class="page-title"><?php echo esc_html( $term->name ); ?></h1>
+				<h1 class="page-title"><?php echo esc_html( $this_tax->name ); ?></h1>
 			</header><!-- .page-header -->
 
 			<?php
 			wzkb_get_search_form();
 
-			echo do_shortcode( "[knowledgebase category='{$term->term_id}']" );
+			wzkb_breadcrumb();
+
+			echo do_shortcode( "[knowledgebase category='{$this_tax->term_id}']" );
 
 			// If no content, include the "No posts found" template.
 		else :

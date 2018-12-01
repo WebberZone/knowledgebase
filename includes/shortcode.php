@@ -88,3 +88,38 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 add_shortcode( 'kbsearch', 'wzkb_shortcode_search' );
 
 
+/**
+ * Create the shortcode to display the breadcrumb using [kbbreadcrumb].
+ *
+ * @since 1.6.0
+ *
+ * @param  array  $atts    Shortcode attributes array.
+ * @param  string $content Content to wrap in the Shortcode.
+ * @return string $output Formatted shortcode output
+ */
+function wzkb_shortcode_breadcrumb( $atts, $content = null ) {
+
+	$atts = shortcode_atts(
+		array(
+			'separator' => ' &raquo; ', // Separator.
+		),
+		$atts,
+		'kbbreadcrumb'
+	);
+
+	$output = wzkb_get_breadcrumb( $atts );
+
+	/**
+	 * Filters knowledgebase breadcrumb shortcode.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @return string $output  Formatted shortcode output
+	 * @param  array $att  Shortcode attributes array
+	 * @param  string $content Content to wrap in the Shortcode
+	 */
+	return apply_filters( 'wzkb_shortcode_breadcrumb', $output, $atts, $content );
+}
+add_shortcode( 'kbbreadcrumb', 'wzkb_shortcode_breadcrumb' );
+
+
