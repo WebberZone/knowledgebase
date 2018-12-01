@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.6.0
  *
  * @param  array $args Parameters array.
- * @return string $output Formatted shortcode output
+ * @return string|bool Formatted shortcode output. False if not a WZKB post type archive or post.
  */
 function wzkb_get_breadcrumb( $args = array() ) {
 
