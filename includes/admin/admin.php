@@ -186,7 +186,12 @@ function wzkb_admin_notices() {
 		?>
 
 	<div class="updated">
-		<p><?php printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); ?></p>
+		<p>
+			<?php
+				/* translators: 1. Link to admin page. */
+				printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); // WPCS: XSS ok.
+			?>
+		</p>
 	</div>
 
 		<?php
@@ -207,6 +212,7 @@ function wzkb_dashboard_glance_items( $items ) {
 	$num_posts = wp_count_posts( 'wz_knowledgebase' );
 
 	if ( $num_posts && $num_posts->publish ) {
+		/* translators: 1. Number of articles */
 		$text = _n( '%s KB article', '%s KB articles', $num_posts->publish, 'knowledgebase' );
 
 		$text = sprintf( $text, number_format_i18n( $num_posts->publish ) );

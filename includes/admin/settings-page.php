@@ -306,7 +306,7 @@ function wzkb_checkbox_callback( $args ) {
 
 	$html  = sprintf( '<input type="hidden" name="wzkb_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
 	$html .= sprintf( '<input type="checkbox" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]" value="1" %2$s />', sanitize_key( $args['id'] ), $checked );
-	$html .= ( $set <> $default ) ? '<em style="color:orange"> ' . esc_html__( 'Modified from default setting', 'knowledgebase' ) . '</em>' : '';
+	$html .= ( $set <> $default ) ? '<em style="color:orange"> ' . esc_html__( 'Modified from default setting', 'knowledgebase' ) . '</em>' : ''; // WPCS: loose comparison ok.
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */

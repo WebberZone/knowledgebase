@@ -10,18 +10,18 @@
  * @package WZKB
  */
 
-$paged = 1;
+$this_page = 1;
 if ( get_query_var( 'paged' ) ) {
-	$paged = get_query_var( 'paged' );
+	$this_page = get_query_var( 'paged' );
 }
 if ( get_query_var( 'page' ) ) {
-	$paged = get_query_var( 'page' );
+	$this_page = get_query_var( 'page' );
 }
 
 $args = array(
 	'post_type' => 'wz_knowledgebase',
 	's'         => get_search_query(),
-	'paged'     => $paged,
+	'paged'     => $this_page,
 );
 
 $query = new WP_Query( $args );
@@ -36,7 +36,12 @@ wp_enqueue_style( 'wzkb_styles' );
 	<section id="primary" class="content-area">
 
 		<header class="page-header">
-			<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'knowledgebase' ), get_search_query() ); ?></h1>
+			<h1 class="page-title">
+				<?php
+					/* translators: 1: Search term. */
+					printf( esc_html__( 'Search Results for: %s', 'knowledgebase' ), get_search_query() );
+				?>
+			</h1>
 		</header><!-- .page-header -->
 
 		<?php wzkb_get_search_form(); ?>
@@ -59,7 +64,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 			<nav class="pagination">
 				<?php
-					echo paginate_links(
+					echo paginate_links( // WPCS: XSS ok.
 						array(
 							'format'  => '?paged=%#%',
 							'current' => max( 1, get_query_var( 'paged' ) ),

@@ -58,14 +58,14 @@ function wzkb_archive_template( $template ) {
 	if ( is_post_type_archive( 'wz_knowledgebase' ) ) {
 
 		if ( is_search() ) {
-			$template_name = 'search-wz_knowledgebase.php';
+			$template_name = 'wzkb-search.php';
 		} else {
-			$template_name = 'archive-wz_knowledgebase.php';
+			$template_name = 'wzkb-archive.php';
 		}
 	}
 
 	if ( is_tax( 'wzkb_category' ) && ! is_search() ) {
-		$template_name = 'taxonomy-wzkb_category.php';
+		$template_name = 'wzkb-category.php';
 	}
 
 	if ( '' !== $template_name && '' === locate_template( array( $template_name ) ) ) {
