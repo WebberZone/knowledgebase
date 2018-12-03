@@ -7,7 +7,7 @@
 
 # Knowledgebase
 
-__Requires:__ 4.3
+__Requires:__ 4.5
 
 __Tested up to:__ 5.0
 

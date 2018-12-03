@@ -46,10 +46,7 @@ function wzkb_get_breadcrumb( $args = array() ) {
 	$output .= $args['separator'];
 
 	// Link to the knowledgebase.
-	$post_type_obj = get_post_type_object( 'wz_knowledgebase' );
-	$archive_title = $post_type_obj->labels->name;
-
-	$output .= '<a href="' . get_post_type_archive_link( 'wz_knowledgebase' ) . '" >' . $archive_title . '</a>';
+	$output .= '<a href="' . get_post_type_archive_link( 'wz_knowledgebase' ) . '" >' . wzkb_get_option( 'kb_title' ) . '</a>';
 
 	// Output the category or tag.
 	if ( is_tax( 'wzkb_category' ) || is_tax( 'wzkb_tag' ) ) {

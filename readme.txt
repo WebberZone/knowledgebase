@@ -2,7 +2,7 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
-Requires at least: 4.3
+Requires at least: 4.5
 Tested up to: 5.0
 Stable tag: trunk
 License: GPLv2 or later
@@ -109,6 +109,7 @@ Check the Changelog for more details
 * Features:
 	* New functions to add breadcrumbs - Use `wzkb_breadcrumb` to display the breadcrumb. `wzkb_get_breadcrumb` _returns_ the breadcrumb and `[kbbreadcrumb]` is the corresponding shortcode
 	* The default category and archive templates now display the breadcrumb below the search bar
+	* New option to set the title of the knowledgebase. Find it under the Options tab under Settings
 
 * Enhancements:
 	* Support for Gutenberg/Block Editor in WordPress 5.0

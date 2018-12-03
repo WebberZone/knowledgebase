@@ -106,6 +106,14 @@ function wzkb_get_registered_settings() {
 		'output'  => apply_filters(
 			'wzkb_settings_output',
 			array(
+				'kb_title'           => array(
+					'id'          => 'kb_title',
+					'name'        => esc_html__( 'Knowledgebase title', 'knowledgebase' ),
+					'desc'        => esc_html__( 'This will be displayed as the title of the archive title as well as on other relevant places.', 'knowledgebase' ),
+					'type'        => 'text',
+					'options'     => 'Knowledge Base',
+					'field_class' => 'large-text',
+				),
 				'category_level'     => array(
 					'id'      => 'category_level',
 					'name'    => esc_html__( 'First section level', 'knowledgebase' ),

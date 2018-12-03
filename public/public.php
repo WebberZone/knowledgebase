@@ -95,3 +95,21 @@ function wzkb_posts_per_search_page( $query ) {
 }
 add_filter( 'pre_get_posts', 'wzkb_posts_per_search_page' );
 
+/**
+ * Update the title on WZKB archive.
+ *
+ * @since 1.6.0
+ *
+ * @param array $title Title of the page.
+ * @return array Updated title
+ */
+function wzkb_update_title( $title ) {
+
+	if ( is_post_type_archive( 'wz_knowledgebase' ) && ! is_search() ) {
+
+		$title['title'] = wzkb_get_option( 'kb_title' );
+	}
+
+	return $title;
+}
+add_filter( 'document_title_parts', 'wzkb_update_title', 99999 );
