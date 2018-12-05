@@ -96,14 +96,14 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 1.5.0 =
-* New features: Set no. of columns and display no. of articles, display section linking and more.
+= 1.6.0 =
+* New features: Breadcrumbs, WP 5.0 support, Give your knowledge base a title.
 Check the Changelog for more details
 
 
 == Changelog ==
 
-= 1.6.0 =
+= 1.6.0 - 5 December 2018 =
 
 * Features:
 	* New functions to add breadcrumbs - Use `wzkb_breadcrumb` to display the breadcrumb. `wzkb_get_breadcrumb` _returns_ the breadcrumb and `[kbbreadcrumb]` is the corresponding shortcode
