@@ -33,7 +33,7 @@ matrix:
 
   allow_failures:
     # Allow failures for unstable builds.
-    - php: nightly
+    - php: 7.2
     - env: WP_VERSION=master
     - env: SNIFF=1
 
@@ -43,8 +43,14 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PHPCS_DIR/bin:$PATH"
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      composer global require "phpunit/phpunit=4.8.*|5.7.*"
+		bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+
+	    if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
+	      composer global require "phpunit/phpunit:^6"
+	    elif [[ ${TRAVIS_PHP_VERSION:0:3} != "5.2" ]]; then
+	      composer global require "phpunit/phpunit:^4"
+	    fi
+
     fi
   # Install WordPress Coding Standards.
   - if [[ "$SNIFF" == "1" ]]; then composer global require wp-coding-standards/wpcs; fi
