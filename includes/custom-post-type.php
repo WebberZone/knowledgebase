@@ -1,6 +1,6 @@
 <?php
 /**
- * Knowledgebase Custom Post Type.
+ * Knowledge Base Custom Post Type.
  *
  * @link  https://webberzone.com
  * @since 1.0.0
@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * Register Knowledgebase Post Type.
+ * Register Knowledge Base Post Type.
  *
  * @since 1.0.0
  */
@@ -31,10 +31,10 @@ function wzkb_register_post_type() {
 	);
 
 	$ptlabels = array(
-		'name'               => _x( 'Knowledgebase', 'Post Type General Name', 'knowledgebase' ),
-		'singular_name'      => _x( 'Knowledgebase', 'Post Type Singular Name', 'knowledgebase' ),
-		'menu_name'          => __( 'Knowledgebase', 'knowledgebase' ),
-		'name_admin_bar'     => __( 'Knowledgebase Article', 'knowledgebase' ),
+		'name'               => _x( 'Knowledge Base', 'Post Type General Name', 'knowledgebase' ),
+		'singular_name'      => _x( 'Knowledge Base', 'Post Type Singular Name', 'knowledgebase' ),
+		'menu_name'          => __( 'Knowledge Base', 'knowledgebase' ),
+		'name_admin_bar'     => __( 'Knowledge Base Article', 'knowledgebase' ),
 		'parent_item_colon'  => __( 'Parent Article', 'knowledgebase' ),
 		'all_items'          => __( 'All Articles', 'knowledgebase' ),
 		'add_new_item'       => __( 'Add New Article', 'knowledgebase' ),
@@ -59,7 +59,7 @@ function wzkb_register_post_type() {
 
 	$ptargs = array(
 		'label'         => __( 'wz_knowledgebase', 'knowledgebase' ),
-		'description'   => __( 'Knowledgebase', 'knowledgebase' ),
+		'description'   => __( 'Knowledge Base', 'knowledgebase' ),
 		'labels'        => $ptlabels,
 		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
 		'show_in_rest'  => true,
@@ -110,7 +110,7 @@ function wzkb_register_taxonomies() {
 		),
 	);
 
-	// Now register categories for the Knowledgebase.
+	// Now register categories for the Knowledge Base.
 	$catlabels = array(
 		'name'                       => _x( 'Sections', 'Taxonomy General Name', 'knowledgebase' ),
 		'singular_name'              => _x( 'Section', 'Taxonomy Singular Name', 'knowledgebase' ),
@@ -156,7 +156,7 @@ function wzkb_register_taxonomies() {
 		apply_filters( 'wzkb_cat_args', $args )
 	);
 
-	// Now register tags for the Knowledgebase.
+	// Now register tags for the Knowledge Base.
 	$taglabels = array(
 		'name'          => _x( 'Tags', 'Taxonomy General Name', 'knowledgebase' ),
 		'singular_name' => _x( 'Tag', 'Taxonomy Singular Name', 'knowledgebase' ),

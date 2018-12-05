@@ -1,6 +1,6 @@
 <?php
 /**
- * Knowledgebase Shortcodes
+ * Knowledge Base Shortcodes
  *
  * @link  https://webberzone.com
  * @since 1.0.0
@@ -31,7 +31,7 @@ function wzkb_shortcode( $atts, $content = null ) {
 
 	$atts = shortcode_atts(
 		array(
-			'category' => false,  // Create a knowledgebase for subcategories of this parent ID.
+			'category' => false,
 		),
 		$atts,
 		'knowledgebase'
@@ -75,7 +75,7 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 	$output = wzkb_get_search_form( $atts['echo'] );
 
 	/**
-	 * Filters knowledgebase search form shortcode.
+	 * Filters knowledge base search form shortcode.
 	 *
 	 * @since 1.2.0
 	 *
@@ -110,7 +110,7 @@ function wzkb_shortcode_breadcrumb( $atts, $content = null ) {
 	$output = wzkb_get_breadcrumb( $atts );
 
 	/**
-	 * Filters knowledgebase breadcrumb shortcode.
+	 * Filters knowledge base breadcrumb shortcode.
 	 *
 	 * @since 1.6.0
 	 *

@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_knowledge( $args = array() ) {
 
 	$defaults = array(
-		'category' => false, // Create a knowledgebase for subcategories of this parent ID.
+		'category' => false, // Create a knowledge base for subcategories of this parent ID.
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults.
@@ -58,7 +58,7 @@ function wzkb_knowledge( $args = array() ) {
 
 
 /**
- * Creates the knowledgebase loop.
+ * Creates the knowledge base loop.
  *
  * @since 1.0.0
  *

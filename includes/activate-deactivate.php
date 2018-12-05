@@ -1,6 +1,6 @@
 <?php
 /**
- * Knowledgebase Activation/Deactivation function.
+ * Knowledge Base Activation/Deactivation function.
  *
  * @link  https://webberzone.com
  * @since 1.0.0

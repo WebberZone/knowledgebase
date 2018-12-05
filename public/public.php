@@ -44,7 +44,7 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
 
 
 /**
- * Replace the archive temlate for the knowledgebase. Functions archive_template.
+ * Replace the archive temlate for the knowledge base. Functions archive_template.
  *
  * @since 1.0.0
  *
@@ -78,7 +78,7 @@ add_filter( 'template_include', 'wzkb_archive_template' );
 
 
 /**
- * For knowledgebase search results, set posts_per_page 10.
+ * For knowledge base search results, set posts_per_page 10.
  *
  * @since 1.1.0
  *

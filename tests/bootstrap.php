@@ -28,7 +28,7 @@ echo dirname( dirname( __FILE__ ) ) . '/knowledgebase.php\n';
 
 activate_plugin( 'knowledgebase/knowledgebase.php' );
 
-echo "Installing Knowledgebase...\n";
+echo "Installing WebberZone Knowledge Base...\n";
 
 global $wzkb_settings, $current_user;
 $wzkb_settings = wzkb_get_settings();

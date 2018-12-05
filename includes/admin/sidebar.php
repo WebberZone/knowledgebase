@@ -31,7 +31,7 @@
 			<div id="quick-links">
 				<ul>
 					<li>
-						<a href="https://webberzone.com/plugins/knowledgebase/"><?php esc_html_e( 'Knowledgebase plugin homepage', 'knowledgebase' ); ?></a>
+						<a href="https://webberzone.com/plugins/knowledgebase/"><?php esc_html_e( 'WebberZone Knowledge Base homepage', 'knowledgebase' ); ?></a>
 					</li>
 
 					<li>

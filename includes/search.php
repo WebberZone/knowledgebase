@@ -1,6 +1,6 @@
 <?php
 /**
- * Search for Knowledgebase.
+ * Search for Knowledge Base articles.
  *
  * @link  https://webberzone.com
  * @since 1.0.0
@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * Display custom search form for Knowledgebase.
+ * Display custom search form for WZKB.
  *
  * @since 1.1.0
  *

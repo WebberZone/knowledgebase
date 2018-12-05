@@ -48,8 +48,8 @@ function wzkb_settings_help() {
 			'id'      => 'wzkb-settings-general',
 			'title'   => __( 'General', 'knowledgebase' ),
 			'content' =>
-			'<p>' . __( 'This screen provides the basic settings for configuring your knowledgebase.', 'knowledgebase' ) . '</p>' .
-				'<p>' . __( 'Set the knowledgebase slugs which drive what the urls are for the knowledgebase homepage, articles, categories and tags.', 'knowledgebase' ) . '</p>',
+			'<p>' . __( 'This screen provides the basic settings for configuring your knowledge base.', 'knowledgebase' ) . '</p>' .
+				'<p>' . __( 'Set the knowledge base slugs which drive what the urls are for the knowledge base homepage, articles, categories and tags.', 'knowledgebase' ) . '</p>',
 		)
 	);
 
@@ -58,7 +58,7 @@ function wzkb_settings_help() {
 			'id'      => 'wzkb-settings-styles',
 			'title'   => __( 'Styles', 'knowledgebase' ),
 			'content' =>
-			'<p>' . __( 'This screen provides options to control the look and feel of the knowledgebase.', 'knowledgebase' ) . '</p>' .
+			'<p>' . __( 'This screen provides options to control the look and feel of the knowledge base.', 'knowledgebase' ) . '</p>' .
 				'<p>' . __( 'Disable the styles included within the plugin and/or add your own CSS styles to customize this.', 'knowledgebase' ) . '</p>',
 		)
 	);

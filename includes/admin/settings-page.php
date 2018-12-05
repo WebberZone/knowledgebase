@@ -29,7 +29,7 @@ function wzkb_options_page() {
 	ob_start();
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Knowledgebase Settings', 'knowledgebase' ); ?></h1>
+		<h1><?php esc_html_e( 'Knowledge Base Settings', 'knowledgebase' ); ?></h1>
 
 		<?php settings_errors(); ?>
 

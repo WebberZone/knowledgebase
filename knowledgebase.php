@@ -1,21 +1,21 @@
 <?php
 /**
- * Knowledge Base
+ * WebberZone Knowledge Base
  *
- * Knowledge Base is a simple WordPress plugin that let's you create a knowledgebase
+ * WebberZone Knowledge Base let's you create a knowledge base
  * or FAQ section on your WordPress website.
  *
  * @package   WZKB
- * @author    Ajay D'Souza <me@ajaydsouza.com>
+ * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2009-2016 Ajay D'Souza
+ * @copyright 2015-2018 Ajay D'Souza
  *
  * @wordpress-plugin
- * Plugin Name: Knowledge Base
+ * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
- * Description: A simple WordPress plugin to create a knowledgebase or FAQ.
- * Version: 1.6.0-beta1
+ * Description: Fastest way to create a highly-flexible knowledge base or FAQ.
+ * Version: 1.6.0-beta2
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+

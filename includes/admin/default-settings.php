@@ -38,15 +38,15 @@ function wzkb_get_registered_settings() {
 				),
 				'kb_slug'           => array(
 					'id'      => 'kb_slug',
-					'name'    => esc_html__( 'Knowledgebase slug', 'knowledgebase' ),
-					'desc'    => esc_html__( 'This will set the opening path of the URL of the knowledgebase and is set when registering the custom post type', 'knowledgebase' ),
+					'name'    => esc_html__( 'Knowledge Base slug', 'knowledgebase' ),
+					'desc'    => esc_html__( 'This will set the opening path of the URL of the knowledge base and is set when registering the custom post type', 'knowledgebase' ),
 					'type'    => 'text',
 					'options' => 'knowledgebase',
 				),
 				'category_slug'     => array(
 					'id'      => 'category_slug',
 					'name'    => esc_html__( 'Category slug', 'knowledgebase' ),
-					'desc'    => esc_html__( 'Each category is a section of the knowledgebase. This setting is used when registering the custom category and forms a part of the URL when browsing category archives', 'knowledgebase' ),
+					'desc'    => esc_html__( 'Each category is a section of the knowledge base. This setting is used when registering the custom category and forms a part of the URL when browsing category archives', 'knowledgebase' ),
 					'type'    => 'text',
 					'options' => 'section',
 				),
@@ -73,7 +73,7 @@ function wzkb_get_registered_settings() {
 				),
 				'uninstall_data'    => array(
 					'id'      => 'uninstall_data',
-					'name'    => esc_html__( 'Delete all knowledgebase posts on uninstall', 'knowledgebase' ),
+					'name'    => esc_html__( 'Delete all knowledge base posts on uninstall', 'knowledgebase' ),
 					'desc'    => esc_html__( 'Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option', 'knowledgebase' ),
 					'type'    => 'checkbox',
 					'options' => false,
@@ -88,7 +88,7 @@ function wzkb_get_registered_settings() {
 				'include_in_feed'   => array(
 					'id'      => 'include_in_feed',
 					'name'    => esc_html__( 'Include in feed', 'knowledgebase' ),
-					'desc'    => esc_html__( 'Adds the knowledgebase articles to the main RSS feed for your site', 'knowledgebase' ),
+					'desc'    => esc_html__( 'Adds the knowledge base articles to the main RSS feed for your site', 'knowledgebase' ),
 					'type'    => 'checkbox',
 					'options' => true,
 				),
@@ -96,7 +96,7 @@ function wzkb_get_registered_settings() {
 					'id'      => 'disable_kb_feed',
 					'name'    => esc_html__( 'Disable KB feed', 'knowledgebase' ),
 					/* translators: 1: Opening link tag, 2: Closing link tag. */
-					'desc'    => sprintf( esc_html__( 'The knowledgebase articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
+					'desc'    => sprintf( esc_html__( 'The knowledge base articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
 					'type'    => 'checkbox',
 					'options' => false,
 				),
@@ -108,7 +108,7 @@ function wzkb_get_registered_settings() {
 			array(
 				'kb_title'           => array(
 					'id'          => 'kb_title',
-					'name'        => esc_html__( 'Knowledgebase title', 'knowledgebase' ),
+					'name'        => esc_html__( 'Knowledge base title', 'knowledgebase' ),
 					'desc'        => esc_html__( 'This will be displayed as the title of the archive title as well as on other relevant places.', 'knowledgebase' ),
 					'type'        => 'text',
 					'options'     => 'Knowledge Base',
@@ -117,7 +117,7 @@ function wzkb_get_registered_settings() {
 				'category_level'     => array(
 					'id'      => 'category_level',
 					'name'    => esc_html__( 'First section level', 'knowledgebase' ),
-					'desc'    => esc_html__( 'This option allows you to create multi-level knowledgebases. This works in conjunction with the inbuilt styles. Set to 1 to lay out the top level sections in a grid. Set to 2 to lay out the second level categories in the grid. This is great if you have multiple products and want to create separate knowledgebases for each of them. The default option is 2 and was the behaviour of this plugin before v1.5.0.', 'knowledgebase' ),
+					'desc'    => esc_html__( 'This option allows you to create multi-level knowledge bases. This works in conjunction with the inbuilt styles. Set to 1 to lay out the top level sections in a grid. Set to 2 to lay out the second level categories in the grid. This is great if you have multiple products and want to create separate knowledge bases for each of them. The default option is 2 and was the behaviour of this plugin before v1.5.0.', 'knowledgebase' ),
 					'type'    => 'number',
 					'options' => '2',
 					'size'    => 'small',
@@ -161,7 +161,7 @@ function wzkb_get_registered_settings() {
 				'columns'        => array(
 					'id'      => 'columns',
 					'name'    => esc_html__( 'Number of columns', 'knowledgebase' ),
-					'desc'    => esc_html__( 'Set number of columns to display the knowledgebase archives. This is only works if the above option is selected.', 'knowledgebase' ),
+					'desc'    => esc_html__( 'Set number of columns to display the knowledge base archives. This is only works if the above option is selected.', 'knowledgebase' ),
 					'type'    => 'number',
 					'options' => '2',
 					'size'    => 'small',

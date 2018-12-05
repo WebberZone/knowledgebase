@@ -147,8 +147,8 @@ function wzkb_admin_footer( $footer_text ) {
 	if ( get_current_screen()->post_type === 'wz_knowledgebase' ) {
 
 		$text = sprintf(
-			/* translators: 1: Knowledgebase website, 2: Plugin reviews link. */
-			__( 'Thank you for using <a href="%1$s" target="_blank">Knowledgebase</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
+			/* translators: 1: Knowledge Base website, 2: Plugin reviews link. */
+			__( 'Thank you for using <a href="%1$s" target="_blank">WebberZone Knowledge Base</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
 			'https://webberzone.com/knowledgebase',
 			'https://wordpress.org/support/plugin/knowledgebase/reviews/#new-post'
 		);
@@ -189,7 +189,7 @@ function wzkb_admin_notices() {
 		<p>
 			<?php
 				/* translators: 1. Link to admin page. */
-				printf( __( 'Knowledgebase settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); // WPCS: XSS ok.
+				printf( __( 'Knowledge Base settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); // WPCS: XSS ok.
 			?>
 		</p>
 	</div>

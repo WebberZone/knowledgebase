@@ -1,6 +1,6 @@
 <?php
 /**
- * Knowledgebase Breadcrumbs
+ * Knowledge Base Breadcrumbs
  *
  * @link  https://webberzone.com
  * @since 1.6.0
@@ -45,7 +45,7 @@ function wzkb_get_breadcrumb( $args = array() ) {
 	$output .= '</a>';
 	$output .= $args['separator'];
 
-	// Link to the knowledgebase.
+	// Link to the knowledge base.
 	$output .= '<a href="' . get_post_type_archive_link( 'wz_knowledgebase' ) . '" >' . wzkb_get_option( 'kb_title' ) . '</a>';
 
 	// Output the category or tag.

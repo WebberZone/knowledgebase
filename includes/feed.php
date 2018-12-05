@@ -1,6 +1,6 @@
 <?php
 /**
- * Knowledgebase Feed functions
+ * Knowledge Base Feed functions
  *
  * @link  https://webberzone.com
  * @since 1.4.0
