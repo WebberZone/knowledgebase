@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since  1.2.0
  * @param  array $input Input unclean array.
- * @return array Sanitized array
+ * @return array|bool Sanitized array. False if error.
  */
 function wzkb_settings_sanitize( $input = array() ) {
 
@@ -38,7 +38,6 @@ function wzkb_settings_sanitize( $input = array() ) {
 	parse_str( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) ), $referrer ); // WPCS: CSRF ok.
 
 	// Get the various settings we've registered.
-	$settings       = wzkb_get_registered_settings();
 	$settings_types = wzkb_get_registered_settings_types();
 
 	// Check if we need to set to defaults.
