@@ -52,8 +52,8 @@ before_script:
         echo "Using latest PHPUnit 4.x branch"
         composer global require "phpunit/phpunit=^4"
       fi
+      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit --version
     fi
-  - $HOME/.config/composer/vendor/phpunit/phpunit/phpunit --version
 
   # Install WordPress Coding Standards.
   - if [[ "$SNIFF" == "1" ]]; then composer global require wp-coding-standards/wpcs; fi
