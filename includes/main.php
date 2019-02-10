@@ -104,7 +104,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		'wzkb_category',
 		array(
 			'orderby'    => 'slug',
-			'hide_empty' => 1,
+			'hide_empty' => wzkb_get_option( 'show_empty_sections' ) ? 0 : 1,
 			'parent'     => $term_id,
 		)
 	);

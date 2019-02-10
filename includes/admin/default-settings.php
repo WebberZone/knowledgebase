@@ -106,7 +106,7 @@ function wzkb_get_registered_settings() {
 		'output'  => apply_filters(
 			'wzkb_settings_output',
 			array(
-				'kb_title'           => array(
+				'kb_title'            => array(
 					'id'          => 'kb_title',
 					'name'        => esc_html__( 'Knowledge base title', 'knowledgebase' ),
 					'desc'        => esc_html__( 'This will be displayed as the title of the archive title as well as on other relevant places.', 'knowledgebase' ),
@@ -114,7 +114,7 @@ function wzkb_get_registered_settings() {
 					'options'     => 'Knowledge Base',
 					'field_class' => 'large-text',
 				),
-				'category_level'     => array(
+				'category_level'      => array(
 					'id'      => 'category_level',
 					'name'    => esc_html__( 'First section level', 'knowledgebase' ),
 					'desc'    => esc_html__( 'This option allows you to create multi-level knowledge bases. This works in conjunction with the inbuilt styles. Set to 1 to lay out the top level sections in a grid. Set to 2 to lay out the second level categories in the grid. This is great if you have multiple products and want to create separate knowledge bases for each of them. The default option is 2 and was the behaviour of this plugin before v1.5.0.', 'knowledgebase' ),
@@ -124,26 +124,33 @@ function wzkb_get_registered_settings() {
 					'min'     => '1',
 					'max'     => '5',
 				),
-				'show_article_count' => array(
+				'show_article_count'  => array(
 					'id'      => 'show_article_count',
 					'name'    => esc_html__( 'Show article count', 'knowledgebase' ),
 					'desc'    => esc_html__( 'If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count', 'knowledgebase' ),
 					'type'    => 'checkbox',
 					'options' => false,
 				),
-				'show_excerpt'       => array(
+				'show_excerpt'        => array(
 					'id'      => 'show_excerpt',
 					'name'    => esc_html__( 'Show excerpt', 'knowledgebase' ),
 					'desc'    => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
 					'type'    => 'checkbox',
 					'options' => false,
 				),
-				'clickable_section'  => array(
+				'clickable_section'   => array(
 					'id'      => 'clickable_section',
 					'name'    => esc_html__( 'Link section title', 'knowledgebase' ),
 					'desc'    => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
 					'type'    => 'checkbox',
 					'options' => true,
+				),
+				'show_empty_sections' => array(
+					'id'      => 'show_empty_sections',
+					'name'    => esc_html__( 'Show empty sections', 'knowledgebase' ),
+					'desc'    => esc_html__( 'If selected, sections with no articles will also be displayed', 'knowledgebase' ),
+					'type'    => 'checkbox',
+					'options' => false,
 				),
 			)
 		),
