@@ -15,7 +15,7 @@
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Fastest way to create a highly-flexible knowledge base or FAQ.
- * Version: 1.6.0
+ * Version: 1.7.0-beta1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -106,7 +106,7 @@ function wzkb_get_settings() {
 
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/default-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php';
-	require_once WZKB_PLUGIN_DIR . 'public/public.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/public/public.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/activate-deactivate.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/custom-post-type.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/main.php';
