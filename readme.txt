@@ -103,6 +103,11 @@ Check the Changelog for more details
 
 == Changelog ==
 
+= 1.7.0 =
+
+* Features:
+	* New Output option to display empty sections
+
 = 1.6.0 - 5 December 2018 =
 
 * Features:
