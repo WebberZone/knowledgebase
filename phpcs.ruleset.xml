@@ -7,22 +7,11 @@
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/index.php</exclude-pattern>
 
-	<rule ref="WordPress-Extra">
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
-		<exclude name="WordPress.XSS.EscapeOutput"/>
-	</rule>
-
-	<rule ref="WordPress-Docs" />
+	<rule ref="WordPress" />
 
 	<!-- Add in some extra rules from other standards. -->
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 	<rule ref="Generic.Commenting.Todo"/>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
-
-	<rule ref="WordPress.WP.DeprecatedFunctions">
-		<properties>
-			<property name="minimum_supported_version" value="4.5"/>
-		</properties>
-	</rule>
 
 </ruleset>
