@@ -153,19 +153,19 @@
 }
 
 .span_4_of_5 {
-  	width: 79.68%;
+	width: 79.68%;
 }
 
 .span_3_of_5 {
-  	width: 59.36%;
+	width: 59.36%;
 }
 
 .span_2_of_5 {
-  	width: 39.04%;
+	width: 39.04%;
 }
 
 .span_1_of_5 {
-  	width: 18.72%;
+	width: 18.72%;
 }
 
 .span_1_of_5:nth-child(5n+1) {
@@ -234,12 +234,12 @@ nav.pagination {
 }
 
 .wzkb_section_count {
-    display: block;
-    float: right;
-    margin: 0;
-    padding: 2px;
-    border: 0;
-    background: orange;
+	display: block;
+	float: right;
+	margin: 0;
+	padding: 2px;
+	border: 0;
+	background: orange;
 	border-radius: 45%;
 	text-align: center;
 	font-size: 70%;
