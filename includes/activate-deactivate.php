@@ -30,7 +30,7 @@ function wzkb_plugin_activate( $network_wide ) {
 	if ( is_multisite() && $network_wide ) {
 
 		// Get all blogs in the network and activate plugin on each one.
-		$blog_ids = $wpdb->get_col(
+		$blog_ids = $wpdb->get_col( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			"
 			SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'
@@ -103,7 +103,7 @@ function wzkb_plugin_deactivate( $network_wide ) {
 	if ( is_multisite() && $network_wide ) {
 
 		// Get all blogs in the network and activate plugin on each one.
-		$blog_ids = $wpdb->get_col(
+		$blog_ids = $wpdb->get_col( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			"
 			SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'

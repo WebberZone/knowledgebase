@@ -50,7 +50,7 @@ function wzkb_get_search_form( $echo = true ) {
 	}
 
 	if ( $echo ) {
-		echo $result; // WPCS: XSS okay.
+		echo $result; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} else {
 		return $result;
 	}
