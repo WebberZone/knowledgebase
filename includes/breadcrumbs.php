@@ -93,7 +93,7 @@ function wzkb_get_breadcrumb( $args = array() ) {
  * @param  array $args Parameters array.
  */
 function wzkb_breadcrumb( $args = array() ) {
-	echo wzkb_get_breadcrumb( $args ); // WPCS: XSS ok.
+	echo wzkb_get_breadcrumb( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**

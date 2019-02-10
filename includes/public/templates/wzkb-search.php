@@ -64,7 +64,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 			<nav class="pagination">
 				<?php
-					echo paginate_links( // WPCS: XSS ok.
+					echo paginate_links( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						array(
 							'format'  => '?paged=%#%',
 							'current' => max( 1, get_query_var( 'paged' ) ),
