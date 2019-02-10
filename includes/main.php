@@ -158,7 +158,7 @@ function wzkb_query_posts( $term ) {
 	// Get all the posts for the current term excluding posts located in its child terms.
 	$args = array(
 		'posts_per_page' => -1,
-		'tax_query'      => array(
+		'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			'relation' => 'AND',
 			array(
 				'taxonomy' => 'wzkb_category',

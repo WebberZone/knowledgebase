@@ -27,7 +27,7 @@ function wzkb_in_feed( $query ) {
 	if ( isset( $query['feed'] ) && wzkb_get_option( 'include_in_feed', false ) ) {
 		if ( isset( $query['post_type'] ) ) {
 
-			if ( isset( $_SERVER['REQUEST_URI'] ) && false !== strpos( esc_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), wzkb_get_option( 'kb_slug' ) ) ) {  // Input var okay; sanitization okay.
+			if ( isset( $_SERVER['REQUEST_URI'] ) && false !== strpos( esc_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), wzkb_get_option( 'kb_slug' ) ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$query['post_type'] = array( 'wz_knowledgebase' );
 			} else {
 				$query['post_type'] = array_merge( (array) $query['post_type'], array( 'wz_knowledgebase' ) );
