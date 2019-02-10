@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  */
 function wzkb_lang_init() {
-	load_plugin_textdomain( 'wzkb', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
+	load_plugin_textdomain( 'wzkb', false, dirname( plugin_basename( WZKB_PLUGIN_FILE ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'wzkb_lang_init' );
 
@@ -34,7 +34,7 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
 function wpkb_enqueue_styles() {
 
 	if ( wzkb_get_option( 'include_styles' ) ) {
-		wp_register_style( 'wzkb_styles', plugin_dir_url( __FILE__ ) . 'css/styles.min.css', false, '1.0' );
+		wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/styles.min.css', false, '1.0' );
 	}
 
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );
@@ -69,7 +69,7 @@ function wzkb_archive_template( $template ) {
 	}
 
 	if ( '' !== $template_name && '' === locate_template( array( $template_name ) ) ) {
-		$template = WZKB_PLUGIN_DIR . 'public/templates/' . $template_name;
+		$template = WZKB_PLUGIN_DIR . 'includes/public/templates/' . $template_name;
 	}
 
 	return $template;
