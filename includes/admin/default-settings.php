@@ -152,6 +152,13 @@ function wzkb_get_registered_settings() {
 					'type'    => 'checkbox',
 					'options' => false,
 				),
+				'show_sidebar'        => array(
+					'id'      => 'show_sidebar',
+					'name'    => esc_html__( 'Show sidebar', 'knowledgebase' ),
+					'desc'    => esc_html__( 'Add the sidebar of your theme into the inbuilt templates for archive, sections and search. Activate this option if your theme does not already include this.', 'knowledgebase' ),
+					'type'    => 'checkbox',
+					'options' => false,
+				),
 			)
 		),
 		/*** Style settings */

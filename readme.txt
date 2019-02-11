@@ -107,6 +107,7 @@ Check the Changelog for more details
 
 * Features:
 	* New Output option to display empty sections
+	* New option to display sidebar with the default templates
 
 = 1.6.0 - 5 December 2018 =
 
