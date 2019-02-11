@@ -26,29 +26,37 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 
 
 ?>
+<div class="wrap">
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+			<?php if ( have_posts() ) : ?>
 
-	<section id="primary" class="content-area">
-		<?php if ( have_posts() ) : ?>
+				<header class="page-header">
+					<h1 class="page-title"><?php echo esc_html( $this_tax->name ); ?></h1>
+				</header><!-- .page-header -->
 
-			<header class="page-header">
-				<h1 class="page-title"><?php echo esc_html( $this_tax->name ); ?></h1>
-			</header><!-- .page-header -->
+				<?php
+				wzkb_get_search_form();
 
-			<?php
-			wzkb_get_search_form();
+				wzkb_breadcrumb();
 
-			wzkb_breadcrumb();
+				echo do_shortcode( "[knowledgebase category='{$this_tax->term_id}']" );
 
-			echo do_shortcode( "[knowledgebase category='{$this_tax->term_id}']" );
+				// If no content, include the "No posts found" template.
+			else :
+				get_template_part( 'content', 'none' );
 
-			// If no content, include the "No posts found" template.
-		else :
-			get_template_part( 'content', 'none' );
+			endif;
+			?>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
 
-		endif;
-		?>
-		<!-- .site-main -->
-	</section><!-- .content-area -->
+	<?php
+	if ( wzkb_get_option( 'show_sidebar' ) ) {
+		get_sidebar();
+	}
+	?>
+</div><!-- .wrap -->
 
 <?php
 get_footer();

@@ -32,59 +32,67 @@ get_header();
 wp_enqueue_style( 'wzkb_styles' );
 
 ?>
+<div class="wrap">
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
 
-	<section id="primary" class="content-area">
+			<header class="page-header">
+				<h1 class="page-title">
+					<?php
+						/* translators: 1: Search term. */
+						printf( esc_html__( 'Search Results for: %s', 'knowledgebase' ), get_search_query() );
+					?>
+				</h1>
+			</header><!-- .page-header -->
 
-		<header class="page-header">
-			<h1 class="page-title">
+			<?php wzkb_get_search_form(); ?>
+
+			<?php if ( $query->have_posts() ) : ?>
+
 				<?php
-					/* translators: 1: Search term. */
-					printf( esc_html__( 'Search Results for: %s', 'knowledgebase' ), get_search_query() );
-				?>
-			</h1>
-		</header><!-- .page-header -->
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					?>
 
-		<?php wzkb_get_search_form(); ?>
+					<header class="entry-header">
+						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+					</header><!-- .entry-header -->
 
-		<?php if ( $query->have_posts() ) : ?>
+					<div class="entry-summary">
+						<?php the_excerpt(); ?>
+					</div><!-- .entry-summary -->
+				<?php endwhile; ?>
 
-			<?php
-			while ( $query->have_posts() ) :
-				$query->the_post();
-				?>
+				<nav class="pagination">
+					<?php
+						echo paginate_links( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							array(
+								'format'  => '?paged=%#%',
+								'current' => max( 1, get_query_var( 'paged' ) ),
+								'total'   => $query->max_num_pages,
+							)
+						);
+					?>
+				</nav>
 
-				<header class="entry-header">
-					<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-				</header><!-- .entry-header -->
-
-				<div class="entry-summary">
-					<?php the_excerpt(); ?>
-				</div><!-- .entry-summary -->
-			<?php endwhile; ?>
-
-			<nav class="pagination">
 				<?php
-					echo paginate_links( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						array(
-							'format'  => '?paged=%#%',
-							'current' => max( 1, get_query_var( 'paged' ) ),
-							'total'   => $query->max_num_pages,
-						)
-					);
-				?>
-			</nav>
+				wp_reset_postdata();
 
-			<?php
-			wp_reset_postdata();
+				// If no content, include the "No posts found" template.
+			else :
+				esc_html_e( 'No results found', 'knowledgebase' );
 
-			// If no content, include the "No posts found" template.
-		else :
-			esc_html_e( 'No results found', 'knowledgebase' );
+			endif;
+			?>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
 
-		endif;
-		?>
-		<!-- .site-main -->
-	</section><!-- .content-area -->
+	<?php
+	if ( wzkb_get_option( 'show_sidebar' ) ) {
+		get_sidebar();
+	}
+	?>
+</div><!-- .wrap -->
 
 <?php
 get_footer();
