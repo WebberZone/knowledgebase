@@ -2,7 +2,12 @@
 /**
  * The template for displaying search results
  *
- * Used to display custom post type archives if no archive template is found in the theme folder.
+ * Used to display the KB search results page if no archive template is found in the theme folder.
+ *
+ * If you'd like to further customize these archive views, you may create a
+ * new template file for each one in your theme's folder:
+ * wzkb-archive.php (Main KB archives), wzkb-category.php (Category/Section archives),
+ * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
  *
  * @link  https://webberzone.com
  * @since 1.1.0

@@ -2,7 +2,12 @@
 /**
  * The template for displaying taxonomy archives
  *
- * Used to display custom taxonomy archives if no archive template is found in the theme folder.
+ * Used to display KB section archives if no archive template is found in the theme folder.
+ *
+ * If you'd like to further customize these archive views, you may create a
+ * new template file for each one in your theme's folder:
+ * wzkb-archive.php (Main KB archives), wzkb-category.php (Category/Section archives),
+ * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
  *
  * @link  https://webberzone.com
  * @since 1.1.0

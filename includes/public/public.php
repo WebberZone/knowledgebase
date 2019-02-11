@@ -44,7 +44,12 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
 
 
 /**
- * Replace the archive temlate for the knowledge base. Functions archive_template.
+ * Replace the archive temlate for the knowledge base. Filters template_include.
+ *
+ * To further customize these archive views, you may create a
+ * new template file for each one in your theme's folder:
+ * wzkb-archive.php (Main KB archives), wzkb-category.php (Category/Section archives),
+ * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
  *
  * @since 1.0.0
  *
