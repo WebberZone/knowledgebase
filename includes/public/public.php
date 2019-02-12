@@ -118,3 +118,56 @@ function wzkb_update_title( $title ) {
 	return $title;
 }
 add_filter( 'document_title_parts', 'wzkb_update_title', 99999 );
+
+
+/**
+ * Get the HTML for alert messages
+ *
+ * @since 2.7.0
+ *
+ * @param  array  $args Arguments array.
+ * @param  string $content Content to wrap in the alert divs.
+ * @return string HTML output.
+ */
+function wzkb_get_alert( $args = array(), $content ) {
+
+	$defaults = array(
+		'type'  => 'primary',
+		'class' => 'alert',
+		'text'  => '',
+	);
+
+	// Parse incomming $args into an array and merge it with $defaults.
+	$args = wp_parse_args( $args, $defaults );
+
+	$type = 'wzkb-alert-' . $args['type'];
+
+	$class = implode( ' ', explode( ',', $args['class'] ) );
+	$class = $type . ' ' . $class;
+
+	ob_start();
+	?>
+
+	<div class="wzkb-alert <?php echo $class; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" role="alert">
+	<?php
+		echo $args['text']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo do_shortcode( $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	?>
+	</div>
+
+	<?php
+
+	$html = ob_get_clean();
+
+	/**
+	 * Filter the HTML for alert messages
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param  string $html HTML for alert messages.
+	 * @param  array  $args Arguments array.
+	 * @param  string $content Content to wrap in the alert divs.
+	 */
+	return apply_filters( 'wzkb_get_alert', $html, $args, $content );
+}
+
