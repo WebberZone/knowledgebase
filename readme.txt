@@ -106,6 +106,7 @@ Check the Changelog for more details
 = 1.7.0 =
 
 * Features:
+	* New shortcode `[kbalert]` to display alerts / informative messages similar to [Bootstrap](https://getbootstrap.com/docs/4.3/components/alerts/). The types of alerts are primary, secondary, success, danger, warning, info, light and dark
 	* New Output option to display empty sections
 	* New option to display sidebar with the default templates
 

@@ -123,3 +123,42 @@ function wzkb_shortcode_breadcrumb( $atts, $content = null ) {
 add_shortcode( 'kbbreadcrumb', 'wzkb_shortcode_breadcrumb' );
 
 
+/**
+ * Create the shortcode to display alerts using [kbalert].
+ *
+ * @since 1.7.0
+ *
+ * @param  array  $atts    Shortcode attributes array.
+ * @param  string $content Content to wrap in the Shortcode.
+ * @return string $output Formatted shortcode output
+ */
+function wzkb_shortcode_alert( $atts, $content = null ) {
+
+	wp_enqueue_style( 'wzkb_styles' );
+
+	$atts = shortcode_atts(
+		array(
+			'type'  => 'primary',
+			'class' => 'alert',
+			'text'  => '',
+		),
+		$atts,
+		'kbalert'
+	);
+
+	$output = wzkb_get_alert( $atts, $content );
+
+	/**
+	 * Filters knowledge base breadcrumb shortcode.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return string $output  Formatted shortcode output
+	 * @param  array $att  Shortcode attributes array
+	 * @param  string $content Content to wrap in the Shortcode
+	 */
+	return apply_filters( 'wzkb_shortcode_alert', $output, $atts, $content );
+}
+add_shortcode( 'kbalert', 'wzkb_shortcode_alert' );
+
+
