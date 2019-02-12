@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-05 21:37+0000\n"
+"POT-Creation-Date: 2019-02-12 19:13+0530\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -184,31 +184,50 @@ msgid ""
 "to its own page"
 msgstr ""
 
-#: includes/admin/default-settings.php:156
-msgid "Include inbuilt styles"
+#: includes/admin/default-settings.php:150
+msgid "Show empty sections"
+msgstr ""
+
+#: includes/admin/default-settings.php:151
+msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
 #: includes/admin/default-settings.php:157
+msgid "Show sidebar"
+msgstr ""
+
+#: includes/admin/default-settings.php:158
+msgid ""
+"Add the sidebar of your theme into the inbuilt templates for archive, "
+"sections and search. Activate this option if your theme does not already "
+"include this."
+msgstr ""
+
+#: includes/admin/default-settings.php:170
+msgid "Include inbuilt styles"
+msgstr ""
+
+#: includes/admin/default-settings.php:171
 msgid ""
 "Uncheck this to disable this plugin from adding the inbuilt styles. You will "
 "need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/default-settings.php:163
+#: includes/admin/default-settings.php:177
 msgid "Number of columns"
 msgstr ""
 
-#: includes/admin/default-settings.php:164
+#: includes/admin/default-settings.php:178
 msgid ""
 "Set number of columns to display the knowledge base archives. This is only "
 "works if the above option is selected."
 msgstr ""
 
-#: includes/admin/default-settings.php:173
+#: includes/admin/default-settings.php:187
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/default-settings.php:174
+#: includes/admin/default-settings.php:188
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
@@ -522,6 +541,16 @@ msgstr ""
 msgid "Read more articles in "
 msgstr ""
 
+#: includes/public/templates/wzkb-archive.php:42
+#: includes/public/templates/wzkb-search.php:88
+msgid "No results found"
+msgstr ""
+
+#: includes/public/templates/wzkb-search.php:48
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
 #: includes/search.php:31 includes/search.php:32
 msgctxt "label"
 msgid "Search for:"
@@ -535,13 +564,4 @@ msgstr ""
 #: includes/search.php:35
 msgctxt "submit button"
 msgid "Search"
-msgstr ""
-
-#: public/templates/wzkb-archive.php:36 public/templates/wzkb-search.php:82
-msgid "No results found"
-msgstr ""
-
-#: public/templates/wzkb-search.php:42
-#, php-format
-msgid "Search Results for: %s"
 msgstr ""
