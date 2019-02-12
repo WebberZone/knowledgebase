@@ -300,9 +300,9 @@ function wzkb_checkbox_callback( $args ) {
 	// First, we read the options collection.
 	global $wzkb_settings;
 
-	$checked = ! empty( $wzkb_settings[ $args['id'] ] ) ? checked( 1, $wzkb_settings[ $args['id'] ], false ) : '';
 	$default = isset( $args['options'] ) ? $args['options'] : '';
-	$set     = isset( $wzkb_settings[ $args['id'] ] ) ? $wzkb_settings[ $args['id'] ] : '';
+	$set     = isset( $wzkb_settings[ $args['id'] ] ) ? $wzkb_settings[ $args['id'] ] : wzkb_get_default_option( $args['id'] );
+	$checked = ! empty( $set ) ? checked( 1, (int) $set, false ) : '';
 
 	$html  = sprintf( '<input type="hidden" name="wzkb_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
 	$html .= sprintf( '<input type="checkbox" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]" value="1" %2$s />', sanitize_key( $args['id'] ), $checked );

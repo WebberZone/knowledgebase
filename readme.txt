@@ -110,6 +110,9 @@ Check the Changelog for more details
 	* New Output option to display empty sections
 	* New option to display sidebar with the default templates
 
+* Bug fixes:
+	* Checkboxes on the admin page will now properly indicate their status for new options that aren't saved yet
+
 = 1.6.0 - 5 December 2018 =
 
 * Features:
