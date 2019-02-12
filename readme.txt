@@ -103,7 +103,7 @@ Check the Changelog for more details
 
 == Changelog ==
 
-= 1.7.0 =
+= 1.7.0 - 12 February 2019 =
 
 * Features:
 	* New shortcode `[kbalert]` to display alerts / informative messages similar to [Bootstrap](https://getbootstrap.com/docs/4.3/components/alerts/). The types of alerts are primary, secondary, success, danger, warning, info, light and dark
