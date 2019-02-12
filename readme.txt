@@ -92,7 +92,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 4. Settings &raquo; General
 5. Settings &raquo; Output
 6. Settings &raquo; Styles
-
+7. Shortcode for informative messages / alerts
 
 == Upgrade Notice ==
 
