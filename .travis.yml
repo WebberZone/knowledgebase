@@ -1,5 +1,5 @@
 sudo: false
-
+dist: trusty
 language: php
 
 notifications:
@@ -28,6 +28,8 @@ matrix:
       env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=4.1
+    - php: 7.2
+      env: WP_VERSION=trunk
 
   allow_failures:
     # Allow failures for unstable builds.
@@ -38,20 +40,42 @@ matrix:
 before_script:
   - export PHPCS_DIR=/tmp/phpcs
   - export SNIFFS_DIR=/tmp/sniffs
-  - export PATH="$HOME/.composer/vendor/bin:$PHPCS_DIR/bin:$PATH"
-  - phpunit --version
+
+  - |
+    # Export Composer's global bin dir to PATH, but not on PHP 5.2:
+    composer config --list --global
+    export PATH=`composer config --list --global | grep '\[home\]' | { read a; echo "${a#* }/vendor/bin:$PHPCS_DIR/bin:$PATH"; }`
+
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
-        echo "Using latest PHPUnit 6.x branch"
-        composer global require "phpunit/phpunit=^6"
-      else
-        echo "Using latest PHPUnit 4.x branch"
-        composer global require "phpunit/phpunit=^4"
-      fi
-      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit --version
+
+    case "$TRAVIS_PHP_VERSION" in
+      7.4snapshot|7.3|7.2|7.1|nightly)
+        echo "Using PHPUnit 7.x"
+        travis_retry composer global require "phpunit/phpunit:^7"
+        ;;
+      7.0)
+        echo "Using PHPUnit 6.x"
+        travis_retry composer global require "phpunit/phpunit:^6"
+        ;;
+      5.6)
+        echo "Using PHPUnit 4.x"
+        travis_retry composer global require "phpunit/phpunit:^4"
+        ;;
+      *)
+        echo "No PHPUnit version handling for PHP version $TRAVIS_PHP_VERSION"
+        exit 1
+        ;;
+    esac
+
     fi
+
+  - which phpunit
+  - phpunit --version
+  - mysql --version
+  - phpenv versions
+  - php --version
 
   # Install PHP_CodeSniffer.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
@@ -66,10 +90,9 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit
+      phpunit
     fi
   - |
     if [[ "$SNIFF" == "1" ]] ; then
       $PHPCS_DIR/bin/phpcs -p -v -s --standard=phpcs.ruleset.xml $(find . -name '*.php')
     fi
-

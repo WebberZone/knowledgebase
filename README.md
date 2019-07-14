@@ -7,9 +7,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/?branch=master)
 [![Code Climate](https://codeclimate.com/github/WebberZone/knowledgebase/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/knowledgebase)
 
-__Requires:__ 4.5
+__Requires:__ 4.7
 
-__Tested up to:__ 5.0
+__Tested up to:__ 5.2
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
