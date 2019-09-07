@@ -285,3 +285,19 @@ function wzkb_sanitize_posttypes_field( $value ) {
 add_filter( 'wzkb_settings_sanitize_posttypes', 'wzkb_sanitize_posttypes_field' );
 
 
+/**
+ * Modify settings when they are being saved.
+ *
+ * @since 1.8.0
+ *
+ * @param  array $settings Settings array.
+ * @return string  $settings  Sanitized settings array.
+ */
+function wzkb_change_settings_on_save( $settings ) {
+
+	// Delete the cache.
+	wzkb_cache_delete();
+
+	return $settings;
+}
+add_filter( 'wzkb_settings_sanitize', 'wzkb_change_settings_on_save' );
