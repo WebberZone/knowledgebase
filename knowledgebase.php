@@ -129,6 +129,7 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/settings-page.php';
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/save-settings.php';
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/help-tab.php';
+	include_once WZKB_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 }
 
