@@ -79,6 +79,13 @@ function wzkb_settings_general() {
 			'type'    => 'text',
 			'options' => 'kb-tags',
 		),
+		'cache'             => array(
+			'id'      => 'cache',
+			'name'    => esc_html__( 'Enable cache', 'knowledgebase' ),
+			'desc'    => esc_html__( 'Cache the output of the WP_Query lookups to speed up retrieval of the knowledgebase. Recommended for large knowledge bases', 'knowledgebase' ),
+			'type'    => 'checkbox',
+			'options' => false,
+		),
 		'uninstall_header'  => array(
 			'id'      => 'uninstall_header',
 			'name'    => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
