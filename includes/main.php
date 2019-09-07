@@ -174,7 +174,22 @@ function wzkb_query_posts( $term ) {
 		),
 	);
 
-	$query = new WP_Query( $args );
+	// Support caching to speed up retrieval.
+	if ( ! empty( wzkb_get_option( 'cache' ) ) ) {
+
+		$meta_key = wzkb_cache_get_key( $args );
+
+		$query = get_term_meta( $term->term_id, $meta_key, true );
+	}
+
+	if ( empty( $query ) ) {
+		$query = new WP_Query( $args );
+	}
+
+	// Support caching to speed up retrieval.
+	if ( ! empty( wzkb_get_option( 'cache' ) ) ) {
+		add_term_meta( $term->term_id, $meta_key, $query, true );
+	}
 
 	/**
 	 * Filters query results of the specific term.
@@ -346,4 +361,19 @@ function wzkb_article_footer( $term, $level, $query ) {
 	 */
 	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
 
+}
+
+/**
+ * Get the meta key based on a list of parameters.
+ *
+ * @since 1.8.0
+ *
+ * @param array $attr   Array of attributes.
+ * @return string Cache meta key
+ */
+function wzkb_cache_get_key( $attr ) {
+
+	$meta_key = '_wzkb_cache_' . md5( wp_json_encode( $attr ) );
+
+	return $meta_key;
 }
