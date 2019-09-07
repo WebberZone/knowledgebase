@@ -96,12 +96,17 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 1.6.0 =
-* New features: Breadcrumbs, WP 5.0 support, Give your knowledge base a title.
+= 1.8.0 =
+* New features: Caching system.
 Check the Changelog for more details
 
 
 == Changelog ==
+
+= 1.8.0 =
+
+* Features:
+	* New option to enable the internal cache. Saving the settings page will delete the cache
 
 = 1.7.0 - 12 February 2019 =
 
