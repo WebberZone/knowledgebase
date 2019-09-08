@@ -67,6 +67,9 @@ function wzkb_delete_data() {
 		wzkb_delete_taxonomy( 'wzkb_tag' );
 	}
 
+	// Delete the cache.
+	wzkb_delete_cache();
+
 }
 
 
@@ -91,4 +94,21 @@ function wzkb_delete_taxonomy( $taxonomy ) {
 	foreach ( $terms as $term ) {
 		wp_delete_term( $term->term_id, $taxonomy );
 	}
+}
+
+/**
+ * Delete Cache.
+ *
+ * @since 1.8.0
+ */
+function wzkb_delete_cache() {
+	global $wpdb;
+
+	$sql = "
+		DELETE FROM {$wpdb->termmeta}
+		WHERE `meta_key` LIKE '_wzkb_cache_%'
+	";
+
+	$wpdb->query( $sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+
 }
