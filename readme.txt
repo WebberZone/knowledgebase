@@ -28,6 +28,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited nested of categories
+* Inbuilt cache to speed up the display of your knowledge base articles
 
 = Contribute =
 
@@ -103,12 +104,16 @@ Check the Changelog for more details
 
 == Changelog ==
 
-= 1.8.0 =
+= 1.8.0 - 14 September 2019 =
+
+Release post: [https://wzn.io/31oZf84](https://wzn.io/31oZf84)
 
 * Features:
 	* New option to enable the internal cache. Saving the settings page will delete the cache
 
 = 1.7.0 - 12 February 2019 =
+
+Release post: [https://wzn.io/2DwRbre](https://wzn.io/2DwRbre)
 
 * Features:
 	* New shortcode `[kbalert]` to display alerts / informative messages similar to [Bootstrap](https://getbootstrap.com/docs/4.3/components/alerts/). The types of alerts are primary, secondary, success, danger, warning, info, light and dark
@@ -120,6 +125,8 @@ Check the Changelog for more details
 
 = 1.6.0 - 5 December 2018 =
 
+Release post: [https://wzn.io/2RDdiCe](https://wzn.io/2RDdiCe)
+
 * Features:
 	* New functions to add breadcrumbs - Use `wzkb_breadcrumb` to display the breadcrumb. `wzkb_get_breadcrumb` _returns_ the breadcrumb and `[kbbreadcrumb]` is the corresponding shortcode
 	* The default category and archive templates now display the breadcrumb below the search bar
@@ -129,6 +136,8 @@ Check the Changelog for more details
 	* Support for Gutenberg/Block Editor in WordPress 5.0
 
 = 1.5.0 - 6 August 2017 =
+
+Release post: [https://wzn.io/2vbHZUt](https://wzn.io/2vbHZUt)
 
 * Features:
 	* New option to set the number of columns to display the knowledge base archives
@@ -147,50 +156,7 @@ Check the Changelog for more details
 * Bug fixes:
 	* Fixed several settings API functions
 
-= 1.4.0 - 22 April 2017 =
+= Earlier versions =
 
-* Features:
-	* New options to disable the KB feeds and include articles in the main feed
-* Enchancements:
-	* Force the two column layout and prevent overlaps
-
-= 1.3.0 - 4 December 2016 =
-
-* Enhancements:
-	* Articles now support comments
-	* Two new settings to delete all settings and Knowledge base content when deleting the plugin.
-
-* Bug fixes:
-	* Fixed labels where Section was still called Category
-
-= 1.2.0 - 24 January 2016 =
-
-* Features:
-	* Settings page: Customize the slugs, disable styles, etc. Change in base slug from `kb-articles` to `knowledgebase`. If you're upgrading this plugin, and have previously used `knowledgebase` as the slug for the page you created, then either change the slug for the knowledge base in the Settings page or delete the page you created.
-	* Shortcode to display the Knowledge base search form - Use `[kbsearch]` for this purpose
-
-* Enhancements:
-	* Merged archive stylesheet with the main stylesheet
-	* Hide the first level header when displaying archives
-
-* Bug fixes:
-	* Undefined index notice on Search results pages outside of the knowledge base
-
-= 1.1.0 - 29 June 2015 =
-* Features:
-	* Network activate now works on multisite
-	* Main archive displays the knowledge base. You can override the default template by adding a file `archive-wz_knowledgebase.php` in your theme folder
-	* Category archive displays the knowledge base for the specific category. You can override the default template by adding a file `taxonomy-wzkb_category.php` in your theme folder
-	* Major rewrite of knowledge base HTML markup and default styles. If you're using your own custom styles, then you will need to remove
-
-* Enhancements:
-	* Custom post type slug changed to `knowledgebase` from `wzkb`
-	* Custom post type archives and category archives changed to `kb-articles`. Tag archives changed to `kb-tags`
-	* Duplicate code cleanup
-
-* Bug fixes:
-	* If term has no children terms, then directly display the articles under it
-
-= 1.0.0 - 17 May 2015 =
-* Initial release
+For the changelog of earlier versions, please refer to the separate changelog.txt file or the [Github releases page](https://github.com/WebberZone/knowledgebase/releases)
 

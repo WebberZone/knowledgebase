@@ -35,6 +35,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited nested of categories
+* Inbuilt cache to speed up the display of your knowledge base articles
 
 ## Contribute
 
