@@ -86,7 +86,7 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 		$instance              = $old_instance;
 		$instance              = array();
 		$instance['title']     = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
-		$instance['separator'] = ( ! empty( $new_instance['separator'] ) ) ? intval( $new_instance['separator'] ) : '';
+		$instance['separator'] = ( ! empty( $new_instance['separator'] ) ) ? $new_instance['separator'] : '';
 
 		/**
 		 * Filters Update widget options array.
