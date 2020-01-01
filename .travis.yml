@@ -28,8 +28,8 @@ matrix:
       env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=4.1
-    - php: 7.2
-      env: WP_VERSION=trunk
+    - php: 7.3
+      env: WP_VERSION=latest
 
   allow_failures:
     # Allow failures for unstable builds.
