@@ -11,7 +11,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Create a WordPress Widget for WZ Knowledge Base.
+ * Create a WordPress Sections Widget for WZ Knowledge Base.
  *
  * @since 1.9.0
  *
