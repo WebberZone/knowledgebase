@@ -171,5 +171,6 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
  */
 function register_wzkb_widgets() {
 	register_widget( 'WZKB_Breadcrumb_Widget' );
+	register_widget( 'WZKB_Sections_Widget' );
 }
 add_action( 'widgets_init', 'register_wzkb_widgets' );
