@@ -1,6 +1,6 @@
 <?php
 /**
- * WZ Knowledge Base Breadcrumb Widget class.
+ * WZ Knowledge Base Articles Widget class.
  *
  * @package WZKB
  */
@@ -11,23 +11,23 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Create a WordPress Breadcrumb Widget for WZ Knowledge Base.
+ * Create a WordPress Articles Widget for WZ Knowledge Base.
  *
  * @since 1.9.0
  *
  * @extends WP_Widget
  */
-class WZKB_Breadcrumb_Widget extends WP_Widget {
+class WZKB_Articles_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
 	 */
 	public function __construct() {
 		parent::__construct(
-			'widget_wzkb_breadcrumb',
-			__( 'WZKB Breadcrumb', 'knowledgebase' ),
+			'widget_wzkb_articles',
+			__( 'WZKB Articles', 'knowledgebase' ),
 			array(
-				'description'                 => __( 'Display the breadcrumb when viewing a knowledge base article or category', 'knowledgebase' ),
+				'description'                 => __( 'Display the list of articles for a section when browsing a knowledge base page', 'knowledgebase' ),
 				'customize_selective_refresh' => true,
 			)
 		);
@@ -41,8 +41,8 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title     = isset( $instance['title'] ) ? $instance['title'] : '';
-		$separator = isset( $instance['separator'] ) ? $instance['separator'] : '';
+		$title   = isset( $instance['title'] ) ? $instance['title'] : '';
+		$term_id = isset( $instance['term_id'] ) ? $instance['term_id'] : '';
 
 		?>
 		<p>
@@ -51,8 +51,8 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'separator' ) ); ?>">
-			<?php esc_html_e( 'Separator', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'separator' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'separator' ) ); ?>" type="text" value="<?php echo esc_attr( $separator ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'term_id' ) ); ?>">
+			<?php esc_html_e( 'Term ID (enter a number)', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'term_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'term_id' ) ); ?>" type="text" value="<?php echo esc_attr( $term_id ); ?>" />
 			</label>
 		</p>
 
@@ -83,10 +83,10 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance              = $old_instance;
-		$instance              = array();
-		$instance['title']     = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
-		$instance['separator'] = ( ! empty( $new_instance['separator'] ) ) ? $new_instance['separator'] : '';
+		$instance            = $old_instance;
+		$instance            = array();
+		$instance['title']   = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
+		$instance['term_id'] = ( ! empty( $new_instance['term_id'] ) ) ? intval( $new_instance['term_id'] ) : '';
 
 		/**
 		 * Filters Update widget options array.
@@ -113,11 +113,6 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		global $post;
 
-		// Return if not a WZKB post type archive or single page.
-		if ( ! is_post_type_archive( 'wz_knowledgebase' ) && ! is_singular( 'wz_knowledgebase' ) && ! is_tax( 'wzkb_category' ) && ! is_tax( 'wzkb_tag' ) ) {
-			return;
-		}
-
 		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 
 		/**
@@ -131,30 +126,26 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		$separator = ! empty( $instance['separator'] ) ? $instance['separator'] : ' &raquo; ';
+		if ( empty( $instance['term_id'] ) ) {
+			return;
+		}
 
-		$arguments = array(
-			'is_widget'   => 1,
-			'instance_id' => $this->number,
-			'separator'   => $separator,
-		);
+		$term = get_term( $instance['term_id'], 'wzkb_category' );
 
-		/**
-		 * Filters arguments passed to wzkb_get_breadcrumb for the widget.
-		 *
-		 * @since 1.9.0
-		 *
-		 * @param array $arguments WZ Knowledge Base widget options array.
-		 * @param array $args      Widget arguments.
-		 * @param array $instance  Saved values from database.
-		 * @param mixed $id_base   The widget ID.
-		 * @param mixed $number    Unique widget number.
-		 */
-		$arguments = apply_filters( 'wzkb_widget_options', $arguments, $args, $instance, $this->id_base, $this->number );
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			return;
+		}
+
+		$list_of_posts = wzkb_list_posts_by_term( $term, 0 );
+
+		if ( empty( $list_of_posts ) ) {
+			return;
+		}
 
 		$output  = $args['before_widget'];
 		$output .= $args['before_title'] . $title . $args['after_title'];
-		$output .= wzkb_get_breadcrumb( $arguments );
+
+		$output .= $list_of_posts;
 
 		$output .= $args['after_widget'];
 
@@ -162,16 +153,3 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 
 	} // Ending function widget.
 }
-
-
-/**
- * Initialise the widget.
- *
- * @since 1.9.0
- */
-function register_wzkb_widgets() {
-	register_widget( 'WZKB_Breadcrumb_Widget' );
-	register_widget( 'WZKB_Sections_Widget' );
-	register_widget( 'WZKB_Articles_Widget' );
-}
-add_action( 'widgets_init', 'register_wzkb_widgets' );
