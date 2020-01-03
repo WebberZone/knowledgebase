@@ -2,8 +2,8 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
-Requires at least: 4.7
-Tested up to: 5.2
+Requires at least: 4.8
+Tested up to: 5.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -26,6 +26,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Additionally tags ( `kbtags` ) can also be used for each knowledge base article
 * Shortcode `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
+* Widgets: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited nested of categories
 * Inbuilt cache to speed up the display of your knowledge base articles
@@ -97,64 +98,24 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 1.8.0 =
-* New features: Caching system.
+= 1.9.0 =
+* Three new widgets added to display the sections, articles and breadcrumbs.
 Check the Changelog for more details
 
 
 == Changelog ==
 
+= 1.9.0 =
+
+* Features:
+	* Three new widgets added: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
+
 = 1.8.0 - 14 September 2019 =
 
-Release post: [https://wzn.io/31oZf84](https://wzn.io/31oZf84)
+Release post: [https://webberzone.com/blog/knowledge-base-v1-8-0-introducing-caching/](https://webberzone.com/blog/knowledge-base-v1-8-0-introducing-caching/)
 
 * Features:
 	* New option to enable the internal cache. Saving the settings page will delete the cache
-
-= 1.7.0 - 12 February 2019 =
-
-Release post: [https://wzn.io/2DwRbre](https://wzn.io/2DwRbre)
-
-* Features:
-	* New shortcode `[kbalert]` to display alerts / informative messages similar to [Bootstrap](https://getbootstrap.com/docs/4.3/components/alerts/). The types of alerts are primary, secondary, success, danger, warning, info, light and dark
-	* New Output option to display empty sections
-	* New option to display sidebar with the default templates
-
-* Bug fixes:
-	* Checkboxes on the admin page will now properly indicate their status for new options that aren't saved yet
-
-= 1.6.0 - 5 December 2018 =
-
-Release post: [https://wzn.io/2RDdiCe](https://wzn.io/2RDdiCe)
-
-* Features:
-	* New functions to add breadcrumbs - Use `wzkb_breadcrumb` to display the breadcrumb. `wzkb_get_breadcrumb` _returns_ the breadcrumb and `[kbbreadcrumb]` is the corresponding shortcode
-	* The default category and archive templates now display the breadcrumb below the search bar
-	* New option to set the title of the knowledge base. Find it under the Options tab under Settings
-
-* Enhancements:
-	* Support for Gutenberg/Block Editor in WordPress 5.0
-
-= 1.5.0 - 6 August 2017 =
-
-Release post: [https://wzn.io/2vbHZUt](https://wzn.io/2vbHZUt)
-
-* Features:
-	* New option to set the number of columns to display the knowledge base archives
-	* New option to set what section level should the knowledge base start from. Ideal if you want to have separate knowledge bases for multiple products
-	* New option to show excerpt below the link. Contributed by [@border0464111](https://github.com/border0464111)
-	* New option to turn off the section link. Contributed by [@border0464111](https://github.com/border0464111)
-	* New option to show the number of articles in an orange circle next to the header. You can override the color by styling `wzkb_section_count`
-	* New function `wzkb_get_default_option()` to retrieve the default setting
-
-* Enhancements:
-	* Make nested wrapper. Contributed by [@border0464111](https://github.com/border0464111)
-	* Settings page is now a tabbed interface using jQuery without needing to reload the page
-	* Modified checkbox settings are indicated in the Settings page
-	* Added the number of articles in "At a Glance" widget in the WordPress Dashboard
-
-* Bug fixes:
-	* Fixed several settings API functions
 
 = Earlier versions =
 
