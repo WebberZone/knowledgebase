@@ -2,6 +2,45 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 1.7.0 - 12 February 2019 =
+
+* Features:
+	* New shortcode `[kbalert]` to display alerts / informative messages similar to [Bootstrap](https://getbootstrap.com/docs/4.3/components/alerts/). The types of alerts are primary, secondary, success, danger, warning, info, light and dark
+	* New Output option to display empty sections
+	* New option to display sidebar with the default templates
+
+* Bug fixes:
+	* Checkboxes on the admin page will now properly indicate their status for new options that aren't saved yet
+
+= 1.6.0 - 5 December 2018 =
+
+* Features:
+	* New functions to add breadcrumbs - Use `wzkb_breadcrumb` to display the breadcrumb. `wzkb_get_breadcrumb` _returns_ the breadcrumb and `[kbbreadcrumb]` is the corresponding shortcode
+	* The default category and archive templates now display the breadcrumb below the search bar
+	* New option to set the title of the knowledge base. Find it under the Options tab under Settings
+
+* Enhancements:
+	* Support for Gutenberg/Block Editor in WordPress 5.0
+
+= 1.5.0 - 6 August 2017 =
+
+* Features:
+	* New option to set the number of columns to display the knowledge base archives
+	* New option to set what section level should the knowledge base start from. Ideal if you want to have separate knowledge bases for multiple products
+	* New option to show excerpt below the link. Contributed by [@border0464111](https://github.com/border0464111)
+	* New option to turn off the section link. Contributed by [@border0464111](https://github.com/border0464111)
+	* New option to show the number of articles in an orange circle next to the header. You can override the color by styling `wzkb_section_count`
+	* New function `wzkb_get_default_option()` to retrieve the default setting
+
+* Enhancements:
+	* Make nested wrapper. Contributed by [@border0464111](https://github.com/border0464111)
+	* Settings page is now a tabbed interface using jQuery without needing to reload the page
+	* Modified checkbox settings are indicated in the Settings page
+	* Added the number of articles in "At a Glance" widget in the WordPress Dashboard
+
+* Bug fixes:
+	* Fixed several settings API functions
+
 = 1.4.0 - 22 April 2017 =
 
 * Features:

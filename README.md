@@ -7,9 +7,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/?branch=master)
 [![Code Climate](https://codeclimate.com/github/WebberZone/knowledgebase/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/knowledgebase)
 
-__Requires:__ 4.7
+__Requires:__ 4.8
 
-__Tested up to:__ 5.2
+__Tested up to:__ 5.3
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -33,6 +33,7 @@ The plugin uses a custom post in conjunction with custom taxonomies to create an
 * Additionally tags ( `kbtags` ) can also be used for each knowledge base article
 * Shortcode `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
+* Widgets: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Supports unlimited nested of categories
 * Inbuilt cache to speed up the display of your knowledge base articles
