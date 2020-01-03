@@ -25,7 +25,7 @@ class WZKB_Sections_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'widget_wzkb_sections',
-			__( 'WZ Knowledgebase Sections', 'knowledgebase' ),
+			__( 'WZKB Sections', 'knowledgebase' ),
 			array(
 				'description'                 => __( 'Display the list of sections when browsing a knowledge base page', 'knowledgebase' ),
 				'customize_selective_refresh' => true,

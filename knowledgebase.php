@@ -116,6 +116,7 @@ function wzkb_get_settings() {
 	require_once WZKB_PLUGIN_DIR . 'includes/breadcrumbs.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/widgets/class-wzkb-breadcrumb-widget.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/widgets/class-wzkb-sections-widget.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/widgets/class-wzkb-articles-widget.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/deprecated.php';
 
 

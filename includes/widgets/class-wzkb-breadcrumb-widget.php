@@ -25,7 +25,7 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'widget_wzkb_breadcrumb',
-			__( 'WZ Knowledgebase Breadcrumb', 'knowledgebase' ),
+			__( 'WZKB Breadcrumb', 'knowledgebase' ),
 			array(
 				'description'                 => __( 'Display the breadcrumb when viewing a knowledge base article or category', 'knowledgebase' ),
 				'customize_selective_refresh' => true,
@@ -172,5 +172,6 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 function register_wzkb_widgets() {
 	register_widget( 'WZKB_Breadcrumb_Widget' );
 	register_widget( 'WZKB_Sections_Widget' );
+	register_widget( 'WZKB_Articles_Widget' );
 }
 add_action( 'widgets_init', 'register_wzkb_widgets' );
