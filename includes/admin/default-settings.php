@@ -197,6 +197,16 @@ function wzkb_settings_output() {
 			'type'    => 'checkbox',
 			'options' => false,
 		),
+		'limit'               => array(
+			'id'      => 'limit',
+			'name'    => esc_html__( 'Max articles per section to display', 'knowledgebase' ),
+			'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. After this limit is reached, the footer is displayed with the more link to view the category.', 'knowledgebase' ),
+			'type'    => 'number',
+			'options' => '5',
+			'size'    => 'small',
+			'min'     => '1',
+			'max'     => '500',
+		),
 		'show_sidebar'        => array(
 			'id'      => 'show_sidebar',
 			'name'    => esc_html__( 'Show sidebar', 'knowledgebase' ),

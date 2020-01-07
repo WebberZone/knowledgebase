@@ -223,6 +223,7 @@ function wzkb_list_posts_by_term( $term, $level ) {
 	if ( $query->have_posts() ) {
 
 		$output .= wzkb_article_loop( $term, $level, $query );
+		$output .= wzkb_article_footer( $term, $level, $query );
 
 		wp_reset_postdata();
 
@@ -294,6 +295,8 @@ function wzkb_article_header( $term, $level ) {
  */
 function wzkb_article_loop( $term, $level, $query ) {
 
+	$limit = 0;
+
 	$output = '<ul class="wzkb-articles-list term-' . $term->term_id . '">';
 
 	while ( $query->have_posts() ) :
@@ -305,6 +308,12 @@ function wzkb_article_loop( $term, $level, $query ) {
 			$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '" >' . get_the_excerpt( get_the_ID() ) . '</div>';
 		}
 		$output .= '</li>';
+
+		$limit++;
+
+		if ( $limit >= wzkb_get_option( 'limit' ) && ! is_tax( 'wzkb_category', $term->term_id ) ) {
+			break;
+		}
 
 	endwhile;
 
@@ -339,18 +348,28 @@ function wzkb_article_footer( $term, $level, $query ) {
 
 	$output = '';
 
-	if ( ( $level < 2 ) && ( $query->found_posts > 5 ) ) {
+	if ( $query->found_posts > wzkb_get_option( 'limit' ) && ! is_tax( 'wzkb_category', $term->term_id ) ) {
+
+		$excerpt_more = __( 'Read more articles in ', 'wzkb' );
+
+		/**
+		 * Filters the string in the "more" link displayed in the trimmed articles list.
+		 *
+		 * @since 1.9.0
+		 *
+		 * @param string $excerpt_more The string shown before the more link.
+		 */
+		$excerpt_more = apply_filters( 'wzkb_excerpt_more', $excerpt_more );
 
 		$output .= '
-  <p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
-   <a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
-  </p>
-  ';
-
+		<p class="wzkb-article-footer">' . __( 'Read more articles in ', 'wzkb' ) . '
+			<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a> &raquo;
+		</p>
+		';
 	}
 
 	/**
-	 * Filter the footer of the article list.
+	 * Filter the footer of the article footer.
 	 *
 	 * @since 1.1.0
 	 *
