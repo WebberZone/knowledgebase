@@ -109,6 +109,7 @@ Check the Changelog for more details
 
 * Features:
 	* Three new widgets added: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
+	* New option to limit the number of posts being displayed in each category before a "Read more" link is displayed. Customize the read more by filtering `wzkb_excerpt_more`
 
 = 1.8.0 - 14 September 2019 =
 
