@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-12 19:13+0530\n"
+"POT-Creation-Date: 2020-01-19 15:34+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -49,82 +49,92 @@ msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/default-settings.php:35
+#: includes/admin/default-settings.php:57
 msgid "Slug options"
 msgstr ""
 
-#: includes/admin/default-settings.php:41
+#: includes/admin/default-settings.php:63
 msgid "Knowledge Base slug"
 msgstr ""
 
-#: includes/admin/default-settings.php:42
+#: includes/admin/default-settings.php:64
 msgid ""
 "This will set the opening path of the URL of the knowledge base and is set "
 "when registering the custom post type"
 msgstr ""
 
-#: includes/admin/default-settings.php:48
+#: includes/admin/default-settings.php:70
 msgid "Category slug"
 msgstr ""
 
-#: includes/admin/default-settings.php:49
+#: includes/admin/default-settings.php:71
 msgid ""
 "Each category is a section of the knowledge base. This setting is used when "
 "registering the custom category and forms a part of the URL when browsing "
 "category archives"
 msgstr ""
 
-#: includes/admin/default-settings.php:55
+#: includes/admin/default-settings.php:77
 msgid "Tag slug"
 msgstr ""
 
-#: includes/admin/default-settings.php:56
+#: includes/admin/default-settings.php:78
 msgid ""
 "Each article can have multiple tags. This setting is used when registering "
 "the custom tag and forms a part of the URL when browsing tag archives"
 msgstr ""
 
-#: includes/admin/default-settings.php:62
+#: includes/admin/default-settings.php:84
+msgid "Enable cache"
+msgstr ""
+
+#: includes/admin/default-settings.php:85
+msgid ""
+"Cache the output of the WP_Query lookups to speed up retrieval of the "
+"knowledgebase. Recommended for large knowledge bases"
+msgstr ""
+
+#: includes/admin/default-settings.php:91
 msgid "Uninstall options"
 msgstr ""
 
-#: includes/admin/default-settings.php:69
+#: includes/admin/default-settings.php:98
 msgid "Delete options on uninstall"
 msgstr ""
 
-#: includes/admin/default-settings.php:70
+#: includes/admin/default-settings.php:99
 msgid ""
 "Check this box to delete the settings on this page when the plugin is "
 "deleted via the Plugins page in your WordPress Admin"
 msgstr ""
 
-#: includes/admin/default-settings.php:76
+#: includes/admin/default-settings.php:105
 msgid "Delete all knowledge base posts on uninstall"
 msgstr ""
 
-#: includes/admin/default-settings.php:77
+#: includes/admin/default-settings.php:106
 msgid ""
 "Check this box to delete all the posts, categories and tags created by the "
 "plugin. There is no way to restore the data if you choose this option"
 msgstr ""
 
-#: includes/admin/default-settings.php:83
+#: includes/admin/default-settings.php:112
 msgid "Feed options"
 msgstr ""
 
-#: includes/admin/default-settings.php:90
+#: includes/admin/default-settings.php:119
 msgid "Include in feed"
 msgstr ""
 
-#: includes/admin/default-settings.php:91
+#: includes/admin/default-settings.php:120
 msgid "Adds the knowledge base articles to the main RSS feed for your site"
 msgstr ""
 
-#: includes/admin/default-settings.php:97
+#: includes/admin/default-settings.php:126
 msgid "Disable KB feed"
 msgstr ""
 
-#: includes/admin/default-settings.php:99
+#: includes/admin/default-settings.php:128
 #, php-format
 msgid ""
 "The knowledge base articles have a default feed. This option will disable "
@@ -132,21 +142,21 @@ msgid ""
 "this option."
 msgstr ""
 
-#: includes/admin/default-settings.php:111
+#: includes/admin/default-settings.php:156
 msgid "Knowledge base title"
 msgstr ""
 
-#: includes/admin/default-settings.php:112
+#: includes/admin/default-settings.php:157
 msgid ""
 "This will be displayed as the title of the archive title as well as on other "
 "relevant places."
 msgstr ""
 
-#: includes/admin/default-settings.php:119
+#: includes/admin/default-settings.php:164
 msgid "First section level"
 msgstr ""
 
-#: includes/admin/default-settings.php:120
+#: includes/admin/default-settings.php:165
 msgid ""
 "This option allows you to create multi-level knowledge bases. This works in "
 "conjunction with the inbuilt styles. Set to 1 to lay out the top level "
@@ -156,78 +166,89 @@ msgid ""
 "the behaviour of this plugin before v1.5.0."
 msgstr ""
 
-#: includes/admin/default-settings.php:129
+#: includes/admin/default-settings.php:174
 msgid "Show article count"
 msgstr ""
 
-#: includes/admin/default-settings.php:130
+#: includes/admin/default-settings.php:175
 msgid ""
 "If selected, the number of articles will be displayed in an orange circle "
 "next to the header. You can override the color by styling wzkb_section_count"
 msgstr ""
 
-#: includes/admin/default-settings.php:136
+#: includes/admin/default-settings.php:181
 msgid "Show excerpt"
 msgstr ""
 
-#: includes/admin/default-settings.php:137
+#: includes/admin/default-settings.php:182
 msgid "Select to include the post excerpt after the article link"
 msgstr ""
 
-#: includes/admin/default-settings.php:143
+#: includes/admin/default-settings.php:188
 msgid "Link section title"
 msgstr ""
 
-#: includes/admin/default-settings.php:144
+#: includes/admin/default-settings.php:189
 msgid ""
 "If selected, the title of each section of the knowledgebase will be linked "
 "to its own page"
 msgstr ""
 
-#: includes/admin/default-settings.php:150
+#: includes/admin/default-settings.php:195
 msgid "Show empty sections"
 msgstr ""
 
-#: includes/admin/default-settings.php:151
+#: includes/admin/default-settings.php:196
 msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
-#: includes/admin/default-settings.php:157
+#: includes/admin/default-settings.php:202
+msgid "Max articles per section to display"
+msgstr ""
+
+#: includes/admin/default-settings.php:203
+msgid ""
+"Enter the number of articles that should be displayed in each section when "
+"viewing the knowledge base. After this limit is reached, the footer is "
+"displayed with the more link to view the category."
+msgstr ""
+
+#: includes/admin/default-settings.php:212
 msgid "Show sidebar"
 msgstr ""
 
-#: includes/admin/default-settings.php:158
+#: includes/admin/default-settings.php:213
 msgid ""
 "Add the sidebar of your theme into the inbuilt templates for archive, "
 "sections and search. Activate this option if your theme does not already "
 "include this."
 msgstr ""
 
-#: includes/admin/default-settings.php:170
+#: includes/admin/default-settings.php:241
 msgid "Include inbuilt styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:171
+#: includes/admin/default-settings.php:242
 msgid ""
 "Uncheck this to disable this plugin from adding the inbuilt styles. You will "
 "need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/default-settings.php:177
+#: includes/admin/default-settings.php:248
 msgid "Number of columns"
 msgstr ""
 
-#: includes/admin/default-settings.php:178
+#: includes/admin/default-settings.php:249
 msgid ""
 "Set number of columns to display the knowledge base archives. This is only "
 "works if the above option is selected."
 msgstr ""
 
-#: includes/admin/default-settings.php:187
+#: includes/admin/default-settings.php:258
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/default-settings.php:188
+#: includes/admin/default-settings.php:259
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
@@ -537,16 +558,58 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: includes/main.php:330
+#: includes/main.php:353 includes/main.php:365
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/public/templates/wzkb-archive.php:42
-#: includes/public/templates/wzkb-search.php:88
+#: includes/public/public.php:194
+msgid "WZ Knowledge Base Sidebar"
+msgstr ""
+
+#: includes/public/public.php:195
+msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
+msgstr ""
+
+#: includes/public/templates/archive-wz_knowledgebase.php:39
+#: includes/public/templates/wzkb-search.php:86
 msgid "No results found"
 msgstr ""
 
-#: includes/public/templates/wzkb-search.php:48
+#: includes/public/templates/sidebar-primary.php:18
+msgid "Meta"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:45
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:57
+msgid "Pages:"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:71
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:93
+msgid "Next Post"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:94
+msgid "Next post:"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:96
+msgid "Previous Post"
+msgstr ""
+
+#: includes/public/templates/single-wz_knowledgebase.php:97
+msgid "Previous post:"
+msgstr ""
+
+#: includes/public/templates/wzkb-search.php:46
 #, php-format
 msgid "Search Results for: %s"
 msgstr ""
@@ -564,4 +627,58 @@ msgstr ""
 #: includes/search.php:35
 msgctxt "submit button"
 msgid "Search"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:28
+msgid "WZKB Articles"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:30
+msgid ""
+"Display the list of articles for a section when browsing a knowledge base "
+"page"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:50
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:50
+#: includes/widgets/class-wzkb-sections-widget.php:53
+msgid "Title"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:55
+#: includes/widgets/class-wzkb-sections-widget.php:58
+msgid "Term ID (enter a number)"
+msgstr ""
+
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:28
+msgid "WZKB Breadcrumb"
+msgstr ""
+
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:30
+msgid ""
+"Display the breadcrumb when viewing a knowledge base article or category"
+msgstr ""
+
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:55
+msgid "Separator"
+msgstr ""
+
+#: includes/widgets/class-wzkb-sections-widget.php:28
+msgid "WZKB Sections"
+msgstr ""
+
+#: includes/widgets/class-wzkb-sections-widget.php:30
+msgid "Display the list of sections when browsing a knowledge base page"
+msgstr ""
+
+#: includes/widgets/class-wzkb-sections-widget.php:63
+msgid "Depth"
+msgstr ""
+
+#: includes/widgets/class-wzkb-sections-widget.php:68
+msgid "Before list item"
+msgstr ""
+
+#: includes/widgets/class-wzkb-sections-widget.php:73
+msgid "After list item"
 msgstr ""
