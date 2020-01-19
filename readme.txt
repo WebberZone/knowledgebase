@@ -95,11 +95,12 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 5. Settings &raquo; Output
 6. Settings &raquo; Styles
 7. Shortcode for informative messages / alerts
+8. Knowledge Base widgets
 
 == Upgrade Notice ==
 
 = 1.9.0 =
-* Three new widgets added to display the sections, articles and breadcrumbs.
+* Three new widgets; Template enhancements; New options.
 Check the Changelog for more details
 
 
