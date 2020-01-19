@@ -5,9 +5,7 @@
  * Used to display the KB search results page if no archive template is found in the theme folder.
  *
  * If you'd like to further customize these archive views, you may create a
- * new template file for each one in your theme's folder:
- * wzkb-archive.php (Main KB archives), wzkb-category.php (Category/Section archives),
- * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
+ * wzkb-search.php (Search results page) in your theme's folder
  *
  * @link  https://webberzone.com
  * @since 1.1.0
@@ -94,7 +92,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 	<?php
 	if ( wzkb_get_option( 'show_sidebar' ) ) {
-		get_sidebar();
+		include_once 'sidebar-primary.php';
 	}
 	?>
 </div><!-- .wrap -->

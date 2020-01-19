@@ -1,16 +1,14 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase.
 /**
  * The template for displaying archive pages
  *
  * Used to display the KB archives if no archive template is found in the theme folder.
  *
  * If you'd like to further customize these archive views, you may create a
- * new template file for each one in your theme's folder:
- * wzkb-archive.php (Main KB archives), wzkb-category.php (Category/Section archives),
- * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
+ * archive-wz_knowledgebase.php file in your theme's folder
  *
  * @link  https://webberzone.com
- * @since 1.1.0
+ * @since 1.9.0
  *
  * @package WZKB
  */
@@ -24,6 +22,7 @@ wp_enqueue_style( 'wzkb_styles' );
 <div class="wrap">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+			<?php wzkb_get_search_form(); ?>
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
@@ -31,8 +30,6 @@ wp_enqueue_style( 'wzkb_styles' );
 				</header><!-- .page-header -->
 
 				<?php
-				wzkb_get_search_form();
-
 				wzkb_breadcrumb();
 
 				echo wzkb_knowledge(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -48,7 +45,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 	<?php
 	if ( wzkb_get_option( 'show_sidebar' ) ) {
-		get_sidebar();
+		include_once 'sidebar-primary.php';
 	}
 	?>
 </div><!-- .wrap -->

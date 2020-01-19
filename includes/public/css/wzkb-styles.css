@@ -188,6 +188,36 @@
 .content-area {
 	margin:0 auto;
 	max-width:1366px;
+	display: block;
+}
+
+.sidebar {
+	float: right;
+	margin-left: -100%;
+	max-width: 413px;
+	position: relative;
+}
+
+.sidebar .widget {
+	padding: 20px;
+	margin-top: 10px;
+}
+
+.sidebar .widget ul {
+	margin-left: 10px;
+}
+
+.sidebar .widget ul li {
+	margin-left: 10px;
+	list-style-type: disc;
+}
+
+.nav-previous {
+	float: left;
+}
+
+.nav-previous {
+	float: right;
 }
 
 .wzkb-search-form {
