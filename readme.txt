@@ -109,7 +109,13 @@ Check the Changelog for more details
 
 * Features:
 	* Three new widgets added: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
+	* New template to display single articles that fits with the rest of the knowledge base views. You can override this by creating a `single-wz_knowledgebase.php` file in your theme's folder
+	* New sidebar registered by the plugin which can be used to display widgets with the included templates. You can enable the sidebar in the Settings page
 	* New option to limit the number of posts being displayed in each category before a "Read more" link is displayed. Customize the read more by filtering `wzkb_excerpt_more`
+
+* Enhancements:
+	* Renamed the archive and taxonomy templates to `archive-wz_knowledgebase.php` and `taxonomy-wzkb_category.php` respectively in line with the WordPress template standards. If you were already using `wzkb-archive.php` or `wzkb-category.php` then please rename these
+	* Stylesheet file renamed to wzkb-styles.min.css
 
 = 1.8.0 - 14 September 2019 =
 

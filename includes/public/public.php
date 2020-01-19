@@ -34,10 +34,15 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
 function wpkb_enqueue_styles() {
 
 	if ( wzkb_get_option( 'include_styles' ) ) {
-		wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/styles.min.css', false, '1.0' );
+		wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/wzkb-styles.min.css', false, '1.0' );
 	}
 
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );
+
+	if ( wzkb_get_option( 'show_sidebar' ) ) {
+		$extra_styles = '.sidebar{width:25%;}.content-area{width:75%;float:left;}';
+		wp_add_inline_style( 'wzkb_styles', $extra_styles );
+	}
 
 }
 add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
@@ -48,7 +53,7 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  *
  * To further customize these archive views, you may create a
  * new template file for each one in your theme's folder:
- * wzkb-archive.php (Main KB archives), wzkb-category.php (Category/Section archives),
+ * archive-wz_knowledgebase.php (Main KB archives), wzkb-category.php (Category/Section archives),
  * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
  *
  * @since 1.0.0
@@ -60,17 +65,21 @@ function wzkb_archive_template( $template ) {
 
 	$template_name = '';
 
+	if ( is_singular( 'wz_knowledgebase' ) ) {
+		$template_name = 'single-wz_knowledgebase.php';
+	}
+
 	if ( is_post_type_archive( 'wz_knowledgebase' ) ) {
 
 		if ( is_search() ) {
 			$template_name = 'wzkb-search.php';
 		} else {
-			$template_name = 'wzkb-archive.php';
+			$template_name = 'archive-wz_knowledgebase.php';
 		}
 	}
 
 	if ( is_tax( 'wzkb_category' ) && ! is_search() ) {
-		$template_name = 'wzkb-category.php';
+		$template_name = 'taxonomy-wzkb_category.php';
 	}
 
 	if ( '' !== $template_name && '' === locate_template( array( $template_name ) ) ) {
@@ -171,3 +180,25 @@ function wzkb_get_alert( $args = array(), $content ) {
 	return apply_filters( 'wzkb_get_alert', $html, $args, $content );
 }
 
+
+/**
+ * Register the WZ Knowledge Base sidebars.
+ *
+ * @since 1.9.0
+ */
+function wzkb_register_sidebars() {
+	/* Register the 'wzkb-primary' sidebar. */
+	register_sidebar(
+		array(
+			'id'            => 'wzkb-primary',
+			'name'          => __( 'WZ Knowledge Base Sidebar', 'knowledgebase' ),
+			'description'   => __( 'Displays on WZ Knowledge Base templates displayed by the plugin', 'knowledgebase' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
+	/* Repeat register_sidebar() code for additional sidebars. */
+}
+add_action( 'widgets_init', 'wzkb_register_sidebars' );
