@@ -77,9 +77,10 @@ You can also display the search form using `[kbsearch]`
 
 WebberZone Knowledge Base comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder
 
-1. Articles archive: archive-wz_knowledgebase.php
-2. Category archive: taxonomy-wzkb_category.php
-3. Search results: search-wz_knowledgebase.php
+1. Article view: single-wz_knowledgebase.php
+2. Articles archive: archive-wz_knowledgebase.php
+3. Category archive: taxonomy-wzkb_category.php
+4. Search results: search-wz_knowledgebase.php
 
 = How do I sort the posts or sections? =
 
@@ -106,7 +107,9 @@ Check the Changelog for more details
 
 == Changelog ==
 
-= 1.9.0 =
+= 1.9.0 - 25 January 2019 =
+
+Release post: [https://webberzone.com/blog/knowledge-base-v1-9-0/](https://webberzone.com/blog/knowledge-base-v1-9-0/)
 
 * Features:
 	* Three new widgets added: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
