@@ -265,7 +265,9 @@ function wzkb_textarea_callback( $args ) {
 		$value = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	$html  = sprintf( '<textarea class="large-text" cols="50" rows="5" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]">%2$s</textarea>', sanitize_key( $args['id'] ), esc_textarea( stripslashes( $value ) ) );
+	$class = sanitize_html_class( $args['field_class'] );
+
+	$html  = sprintf( '<textarea class="%3$s" cols="50" rows="20" id="wzkb_settings[%1$s]" name="wzkb_settings[%1$s]">%2$s</textarea>', sanitize_key( $args['id'] ), esc_textarea( stripslashes( $value ) ), 'large-text ' . $class );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
