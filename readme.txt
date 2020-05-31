@@ -107,6 +107,14 @@ Check the Changelog for more details
 
 == Changelog ==
 
+= 2.0.0 =
+
+* Enhancements:
+	* Implemented CodeMirror to format custom styles box
+
+* Bug fixes:
+	* CSS navigation classes for navigation was wrong
+
 = 1.9.0 - 25 January 2019 =
 
 Release post: [https://webberzone.com/blog/knowledge-base-v1-9-0/](https://webberzone.com/blog/knowledge-base-v1-9-0/)

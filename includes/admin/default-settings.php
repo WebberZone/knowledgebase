@@ -259,6 +259,7 @@ function wzkb_settings_styles() {
 			'desc'    => esc_html__( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
 			'type'    => 'css',
 			'options' => '',
+			'field_class' => 'codemirror_css',
 		),
 	);
 

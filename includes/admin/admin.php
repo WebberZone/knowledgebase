@@ -32,65 +32,40 @@ function wzkb_add_admin_pages_links() {
 	// Load the settings contextual help.
 	add_action( "load-$wzkb_settings_page", 'wzkb_settings_help' );
 
-	// Load the admin head.
-	add_action( "admin_head-$wzkb_settings_page", 'wzkb_adminhead' );
 }
 add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
 
 
 /**
- * Function to add CSS and JS to the Admin header.
+ * Enqueue Admin JS
  *
- * @since 1.4
- * @return void
+ * @since 2.0.0
+ *
+ * @param string $hook The current admin page.
  */
-function wzkb_adminhead() {
+function wzkb_load_admin_scripts( $hook ) {
 
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'jquery-ui-tabs' );
-	?>
-	<script type="text/javascript">
-	//<![CDATA[
-		// Function to add auto suggest.
-		jQuery(document).ready(function($) {
+	global $wzkb_settings_page;
 
-			// Prompt the user when they leave the page without saving the form.
-			formmodified=0;
+	wp_register_script( 'wzkb-admin-js', WZKB_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js', array( 'jquery', 'jquery-ui-tabs' ), '1.0', true );
 
-			$('form *').change(function(){
-				formmodified=1;
-			});
+	if ( $hook === $wzkb_settings_page ) {
 
-			window.onbeforeunload = confirmExit;
+		wp_enqueue_script( 'wzkb-admin-js' );
 
-			function confirmExit() {
-				if (formmodified == 1) {
-					return "<?php esc_html__( 'New information not saved. Do you wish to leave the page?', 'knowledgebase' ); ?>";
-				}
-			}
+		wp_enqueue_code_editor(
+			array(
+				'type'       => 'text/html',
+				'codemirror' => array(
+					'indentUnit' => 2,
+					'tabSize'    => 2,
+				),
+			)
+		);
 
-			$( "input[name='submit']" ).click( function() {
-				formmodified = 0;
-			});
-
-			$( function() {
-				$( "#post-body-content" ).tabs({
-					create: function( event, ui ) {
-						$( ui.tab.find("a") ).addClass( "nav-tab-active" );
-					},
-					activate: function( event, ui ) {
-						$( ui.oldTab.find("a") ).removeClass( "nav-tab-active" );
-						$( ui.newTab.find("a") ).addClass( "nav-tab-active" );
-					}
-				});
-			});
-
-		});
-
-	//]]>
-	</script>
-	<?php
+	}
 }
+add_action( 'admin_enqueue_scripts', 'wzkb_load_admin_scripts' );
 
 
 /**
