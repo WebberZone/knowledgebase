@@ -20,7 +20,7 @@ wp_enqueue_style( 'wzkb_styles' );
 
 ?>
 <div class="wrap">
-	<div id="primary" class="content-area">
+	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 		<?php wzkb_get_search_form(); ?>
 		<?php
