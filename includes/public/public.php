@@ -40,8 +40,15 @@ function wpkb_enqueue_styles() {
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );
 
 	if ( wzkb_get_option( 'show_sidebar' ) ) {
-		$extra_styles = '.sidebar{width:25%;}.content-area{width:75%;float:left;}';
+		$extra_styles = '#wzkb-sidebar-primary{width:25%;}#wzkb-content-primary{width:75%;float:left;}';
 		wp_add_inline_style( 'wzkb_styles', $extra_styles );
+	}
+
+	if ( is_singular() ) {
+		$id = get_the_ID();
+		if ( has_block( 'knowledgebase/knowledgebase', $id ) ) {
+			wp_enqueue_style( 'wzkb_styles' );
+		}
 	}
 
 }
