@@ -51,8 +51,9 @@ function wzkb_knowledge( $args = array() ) {
 	$output = '<div class="wzkb ' . $div_classes . '">';
 
 	// Are we trying to display a category?
-	$level          = ( 0 < $args['category'] ) ? 1 : 0;
-	$term_id        = ( 0 < $args['category'] ) ? $args['category'] : 0;
+	$category       = absint( $args['category'] );
+	$level          = ( 0 < $category ) ? 1 : 0;
+	$term_id        = ( 0 < $category ) ? $category : 0;
 	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true;
 
 	$output .= wzkb_looper( $term_id, $level, $nested_wrapper );
@@ -111,6 +112,8 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
 		$output .= wzkb_article_header( $term, $level );
 		$output .= wzkb_list_posts_by_term( $term, $level );
+	} else {
+		return __( 'Please enter a valid section ID', 'knowledgebase' );
 	}
 
 	$output .= '<div class="wzkb_section_wrapper">';
