@@ -26,13 +26,29 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_knowledge( $args = array() ) {
 
 	$defaults = array(
-		'category' => false, // Create a knowledge base for subcategories of this parent ID.
+		'category'     => false, // Create a knowledge base for subcategories of this parent ID.
+		'is_shortcode' => 0,
+		'is_block'     => 0,
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
 
-	$output = '<div class="wzkb">';
+	$shortcode_class = $args['is_shortcode'] ? 'wzkb_shortcode ' : '';
+	$block_class     = $args['is_block'] ? 'wzkb_block ' : '';
+
+	$div_classes = $shortcode_class . $block_class . ' ' . $args['extra_class'];
+
+	/**
+	 * Filter the classes added to the div wrapper of the Knowledge Base.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $div_classes String with the classes of the div wrapper.
+	 */
+	$div_classes = apply_filters( 'wzkb_div_class', $div_classes );
+
+	$output = '<div class="wzkb ' . $div_classes . '">';
 
 	// Are we trying to display a category?
 	$level          = ( 0 < $args['category'] ) ? 1 : 0;
