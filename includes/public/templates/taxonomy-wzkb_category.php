@@ -30,7 +30,7 @@ wp_add_inline_style( 'wzkb_styles', $custom_css );
 
 ?>
 <div class="wrap">
-	<div id="primary" class="content-area">
+	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			<?php wzkb_get_search_form(); ?>
 			<?php if ( have_posts() ) : ?>
