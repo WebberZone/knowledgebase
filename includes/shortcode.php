@@ -31,7 +31,8 @@ function wzkb_shortcode( $atts, $content = null ) {
 
 	$atts = shortcode_atts(
 		array(
-			'category' => false,
+			'category'     => false,
+			'is_shortcode' => 1,
 		),
 		$atts,
 		'knowledgebase'
