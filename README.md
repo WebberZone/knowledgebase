@@ -7,9 +7,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/?branch=master)
 [![Code Climate](https://codeclimate.com/github/WebberZone/knowledgebase/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/knowledgebase)
 
-__Requires:__ 4.8
+__Requires:__ 4.9
 
-__Tested up to:__ 5.3
+__Tested up to:__ 5.4
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -23,19 +23,21 @@ As the name suggests, [Knowledge Base](https://webberzone.com/plugins/knowledgeb
 
 The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box and I'll be adding more features into the core and as addons.
 
-The plugin uses a custom post in conjunction with custom taxonomies to create and display your knowledge base.
+### Terminology
+
+**Articles**: The plugin uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin (but why would you?!)
+**Sections**: It also uses a custom taxonomy ( `kbcategory` ) to automatically draw up the knowledge base. You will need at least one category in order to display the knowledge base. These categories can be added under *Knowledge Base > Sections*
+**Tags**: Additionally you can use tags ( `kbtags` ) can also be used for each knowledge base article.
 
 ### Main features
 
-* Uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin
+* Supports unlimited knowledge bases using different sections with unlimited nested levels
+* Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Customizable permalinks: Archives are enabled so your knowledge base can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page
-* Uses Categories ( `kbcategory` ) to automatically draw up the knowledge base. You will need at least one category in order to display the knowledge base
-* Additionally tags ( `kbtags` ) can also be used for each knowledge base article
-* Shortcode `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing
+* Shortcode: `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing
+* Gutenberg block: You can display the knowledge base using a block. Find it by typing `kb` or `knowledge base` or `faq` when adding a new block
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
 * Widgets: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
-* Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
-* Supports unlimited nested of categories
 * Inbuilt cache to speed up the display of your knowledge base articles
 
 ## Contribute
@@ -47,7 +49,7 @@ If you have an idea, I'd love to hear it. WebberZone Knowledge Base is also avai
 ## Screenshots
 
 ![Knowledge Base Menu in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/wporg-assets/screenshot-1.png)
-_Knowledge Base Menu in the WordPress Admin_
+Knowledge Base Menu in the WordPress Admin
 
 For more screenshots visit the [WordPress plugin page](http://wordpress.org/plugins/knowledgebase/screenshots/)
 
@@ -62,15 +64,17 @@ For more screenshots visit the [WordPress plugin page](http://wordpress.org/plug
 
 ### Manual install
 
-Download the plugin
+1. Download the plugin
+2. Extract the contents of knowledgebase.zip to wp-content/plugins/ folder. You should get a folder called knowledgebase.
+3. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
-1. Extract the contents of knowledgebase.zip to wp-content/plugins/ folder. You should get a folder called knowledgebase.
-2. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
+### Usage
+
+1. Visit `Knowledge Base &raquo; Sections` to add new categories to the knowledge base. Alternatively, you can add new categories from the meta box
+2. Visit `Knowledge Base &raquo; Add New` to add new Articles to the knowledge base. You can select a section from there while adding
 3. Create a new page or edit an existing one and add the shortcode `[knowledgebase]` to set up this page to display the knowledgebase
-4. Visit `Knowledge Base &raquo; Add New` to add new Articles to the knowledge base
-5. Visit `Knowledge Base &raquo; Sections` to add new categories to the knowledge base. Alternatively, you can add new categories from the meta box in the Add New page
 
-The plugin supports unlimited levels of category hierarchy, however, the recommended setting for creating the knowledge base is to create a top level category with the name of the knowledge base and sub-level categories for each section of this knowledge base. Check out the Category view screenshot as an example.
+The plugin supports unlimited levels of category hierarchy. However, the recommended setting for creating the knowledge base is to create a top level category with the name of the knowledge base and sub-level categories for each section of this knowledge base. Check out the Category view screenshot as an example.
 
 ![Knowledge Base Category view in the WordPress Admin](https://raw.githubusercontent.com/WebberZone/knowledgebase/master/wporg-assets/screenshot-3.png)
 
@@ -84,17 +88,9 @@ If your question isn't listed there, please create a new post at the [WordPress.
 
 This is usually because of outdated permalinks. To flush the existing permalinks rules simply visit Settings &raquo; Permalinks in your WordPress admin area.
 
-### Shortcode
+### Shortcodes
 
-You can display the knowledge base anywhere in your blog using the `[knowledgebase]` shortcode. The shortcode takes one optional attribute `category`:
-
-```php
-[knowledgebase category="92"]
-```
-
-*category* : Category ID for which you want to display the knowledge base. You can find the ID in the Sections listing under the Knowledge Base menu in the WordPress Admin.
-
-You can also display the search form using `[kbsearch]`
+Refer to [this Knowledge Base article](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/) to details of all the shortcodes included in the plugin.
 
 ### Using your own templates for archives and search
 
