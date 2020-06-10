@@ -4,11 +4,24 @@ engines:
     config:
       standard: "WordPress"
       ignore_warnings: true
-    checks:
-      Squiz Commenting InlineComment InvalidEndChar:
-        enabled: false
-      Squiz Commenting InlineComment SpacingBefore:
-        enabled: false
+      file_extensions: "php"
+checks:
+  argument-count:
+    enabled: false
+  complex-logic:
+    enabled: false
+  file-lines:
+    enabled: false
+  method-complexity:
+    enabled: false
+  method-count:
+    enabled: false
+  method-lines:
+    enabled: false
+  nested-control-flow:
+    enabled: false
+  return-statements:
+    enabled: false
 ratings:
   paths:
   - "**.php"
