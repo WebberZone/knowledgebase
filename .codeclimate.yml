@@ -5,6 +5,23 @@ engines:
       standard: "WordPress"
       ignore_warnings: true
       file_extensions: "php"
+  csslint:
+    enabled: true
+    checks:
+      fallback-colors:
+        enabled: false
+      qualified-headings:
+        enabled: false
+      important:
+        enabled: false
+      universal-selector:
+        enabled: false
+      compatible-vendor-prefixes:
+        enabled: false
+      box-sizing:
+        enabled: false
+      star-property-hack:
+        enabled: false
 checks:
   argument-count:
     enabled: false
@@ -25,6 +42,8 @@ checks:
 ratings:
   paths:
   - "**.php"
+  - "**.css"
+  - "**.js"
 exclude_paths:
 - tests/
 - bin/
