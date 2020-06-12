@@ -83,7 +83,7 @@
 						} ),
 						el( TextareaControl, {
 							label: __( 'Other attributes', 'knowledgebase' ),
-							help: __( 'Enter other attributes in a URL-style string-query. e.g. post_types=post,page&link_nofollow=1&exclude_post_ids=5,6', 'knowledgebase' ),
+							help: __( 'Enter other attributes in a URL-style string-query.', 'knowledgebase' ),
 							value: attributes.other_attributes,
 							onChange: changeOtherAttributes
 						} )
