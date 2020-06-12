@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-19 15:34+0000\n"
+"POT-Creation-Date: 2020-06-12 15:27+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -23,11 +23,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/admin.php:68
-msgid "New information not saved. Do you wish to leave the page?"
-msgstr ""
-
-#: includes/admin/admin.php:151
+#: includes/admin/admin.php:126
 #, php-format
 msgid ""
 "Thank you for using <a href=\"%1$s\" target=\"_blank\">WebberZone Knowledge "
@@ -35,19 +31,70 @@ msgid ""
 "\"%2$s\" target=\"_blank\">WordPress.org</a>"
 msgstr ""
 
-#: includes/admin/admin.php:192
+#: includes/admin/admin.php:167
 #, php-format
 msgid ""
 "Knowledge Base settings for the slug have not been registered. Please visit "
 "the <a href=\"%s\">admin page</a> to update and save the options."
 msgstr ""
 
-#: includes/admin/admin.php:216
+#: includes/admin/admin.php:191
 #, php-format
 msgid "%s KB article"
 msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
+
+#: includes/admin/blocks/wkzb/block.js:22
+#: includes/admin/blocks/wkzb/block.min.js:1 includes/custom-post-type.php:36
+#: includes/custom-post-type.php:62
+msgid "Knowledge Base"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:23
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid "Display the Knowledge Base"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:26
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid "knowledgebase"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:26
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid "kb"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:26
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid "faq"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:79
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid "Category ID"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:80
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid ""
+"Enter a single category/section ID to display its knowledge base or leave "
+"back to display the full knowledge base. You can find this under Knowledge "
+"Base > Sections"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:85
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid "Other attributes"
+msgstr ""
+
+#: includes/admin/blocks/wkzb/block.js:86
+#: includes/admin/blocks/wkzb/block.min.js:1
+msgid ""
+"Enter other attributes in a URL-style string-query. e.g. post_types=post,"
+"page&link_nofollow=1&exclude_post_ids=5,6"
+msgstr ""
 
 #: includes/admin/default-settings.php:57
 msgid "Slug options"
@@ -340,7 +387,7 @@ msgid ""
 "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
 
-#: includes/admin/settings-page.php:309
+#: includes/admin/settings-page.php:311
 msgid "Modified from default setting"
 msgstr ""
 
@@ -407,10 +454,6 @@ msgstr ""
 
 #: includes/custom-post-type.php:35
 msgctxt "Post Type Singular Name"
-msgid "Knowledge Base"
-msgstr ""
-
-#: includes/custom-post-type.php:36 includes/custom-post-type.php:62
 msgid "Knowledge Base"
 msgstr ""
 
@@ -558,15 +601,19 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: includes/main.php:353 includes/main.php:365
+#: includes/main.php:116
+msgid "Please enter a valid section ID"
+msgstr ""
+
+#: includes/main.php:372 includes/main.php:384
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/public/public.php:194
+#: includes/public/public.php:201
 msgid "WZ Knowledge Base Sidebar"
 msgstr ""
 
-#: includes/public/public.php:195
+#: includes/public/public.php:202
 msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
 msgstr ""
 
