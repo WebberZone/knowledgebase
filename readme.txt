@@ -105,7 +105,9 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
-= 2.0.0 =
+= 2.0.0 - 12 June 2020 =
+
+Release post: [https://webberzone.com/blog/knowledge-base-v2-0-0/](https://webberzone.com/blog/knowledge-base-v2-0-0/)
 
 * Enhancements:
 	* New Gutenberg block - search for Knowledgebase or KB
@@ -114,7 +116,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 * Bug fixes:
 	* CSS navigation classes for navigation was wrong
 
-= 1.9.0 - 25 January 2019 =
+= 1.9.0 - 25 January 2020 =
 
 Release post: [https://webberzone.com/blog/knowledge-base-v1-9-0/](https://webberzone.com/blog/knowledge-base-v1-9-0/)
 
