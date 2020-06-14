@@ -99,11 +99,19 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 2.0.0 =
+= 2.0.1 =
 * Gutenberg block, CodeMirror formatting, bug fixes and code cleanup. Check the Changelog for more details.
 
 
 == Changelog ==
+
+= 2.0.0 - 12 June 2020 =
+
+Release post: [https://webberzone.com/blog/knowledge-base-v2-0-0/](https://webberzone.com/blog/knowledge-base-v2-0-0/)
+
+Bug fixes:
+	* PHP notice when not using the Gutenberg block
+	* Invalid ID error when browsing the Knowledge archives
 
 = 2.0.0 - 12 June 2020 =
 

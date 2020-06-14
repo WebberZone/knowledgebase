@@ -29,6 +29,7 @@ function wzkb_knowledge( $args = array() ) {
 		'category'     => false, // Create a knowledge base for subcategories of this parent ID.
 		'is_shortcode' => 0,
 		'is_block'     => 0,
+		'extra_class'  => '',
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults.
@@ -113,7 +114,10 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		$output .= wzkb_article_header( $term, $level );
 		$output .= wzkb_list_posts_by_term( $term, $level );
 	} else {
-		return __( 'Please enter a valid section ID', 'knowledgebase' );
+		if ( $level > 0 ) {
+			/* translators: Section ID. */
+			return sprintf( __( '%s is not enter a valid section ID', 'knowledgebase' ), $term_id );
+		}
 	}
 
 	$output .= '<div class="wzkb_section_wrapper">';
