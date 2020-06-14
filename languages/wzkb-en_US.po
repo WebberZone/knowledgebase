@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-12 15:27+0100\n"
+"POT-Creation-Date: 2020-06-14 21:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: WebberZone <plugins@webberzone.com>\n"
+"Language-Team: WebberZone\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,9 +91,7 @@ msgstr ""
 
 #: includes/admin/blocks/wkzb/block.js:86
 #: includes/admin/blocks/wkzb/block.min.js:1
-msgid ""
-"Enter other attributes in a URL-style string-query. e.g. post_types=post,"
-"page&link_nofollow=1&exclude_post_ids=5,6"
+msgid "Enter other attributes in a URL-style string-query."
 msgstr ""
 
 #: includes/admin/default-settings.php:57
@@ -601,11 +599,12 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: includes/main.php:116
-msgid "Please enter a valid section ID"
+#: includes/main.php:119
+#, php-format
+msgid "%s is not enter a valid section ID"
 msgstr ""
 
-#: includes/main.php:372 includes/main.php:384
+#: includes/main.php:376 includes/main.php:388
 msgid "Read more articles in "
 msgstr ""
 
