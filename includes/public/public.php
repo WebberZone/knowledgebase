@@ -145,7 +145,7 @@ add_filter( 'document_title_parts', 'wzkb_update_title', 99999 );
  * @param  string $content Content to wrap in the alert divs.
  * @return string HTML output.
  */
-function wzkb_get_alert( $args = array(), $content ) {
+function wzkb_get_alert( $args = array(), $content = '' ) {
 
 	$defaults = array(
 		'type'  => 'primary',
