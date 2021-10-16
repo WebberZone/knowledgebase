@@ -9,13 +9,13 @@
  * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2015-2020 Ajay D'Souza
+ * @copyright 2015-2021 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Fastest way to create a highly-flexible knowledge base or FAQ.
- * Version: 2.0.1
+ * Version: 2.1.0-beta1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -136,4 +136,3 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 }
-
