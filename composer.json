@@ -1,0 +1,24 @@
+{
+    "name": "webberzone/knowledgebase",
+    "description": "Quickly and efficiently create a highly-flexible knowledge base or FAQ on your WordPress blog.",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "knowledge base",
+        "knowledgebase",
+        "FAQ",
+        "frequently asked questions",
+        "support",
+        "documentation"
+    ],
+    "license": "gpl-2.0-or-later",
+    "authors": [
+        {
+            "name": "WebberZone",
+            "email": "plugins@webberzone.com",
+            "role": "Developer"
+        }
+    ],
+    "requires": {
+        "php": ">=7"
+    }
+}
