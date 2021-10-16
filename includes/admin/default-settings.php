@@ -254,11 +254,11 @@ function wzkb_settings_styles() {
 			'max'     => '5',
 		),
 		'custom_css'     => array(
-			'id'      => 'custom_css',
-			'name'    => esc_html__( 'Custom CSS', 'knowledgebase' ),
-			'desc'    => esc_html__( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
-			'type'    => 'css',
-			'options' => '',
+			'id'          => 'custom_css',
+			'name'        => esc_html__( 'Custom CSS', 'knowledgebase' ),
+			'desc'        => esc_html__( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
+			'type'        => 'css',
+			'options'     => '',
 			'field_class' => 'codemirror_css',
 		),
 	);
