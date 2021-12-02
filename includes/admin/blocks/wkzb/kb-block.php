@@ -13,24 +13,28 @@
  * @since 2.0.0
  */
 function wzkb_block_init() {
+	global $pagenow;
 	// Skip block registration if Gutenberg is not enabled/merged.
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
 	}
+	$dir         = dirname( __FILE__ );
+	$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-	$block_js = 'block.min.js';
+	$dependencies = array( 'wp-element', 'wp-blocks', 'wp-components', 'wp-i18n' );
+
+	if ( in_array( $pagenow, array( 'post.php', 'post-new.php' ), true ) ) {
+		array_push( $dependencies, 'wp-editor', 'wp-edit-post', 'wp-block-editor' );
+	} elseif ( 'widgets.php' === $pagenow ) {
+		array_push( $dependencies, 'wp-edit-widgets' );
+	}
+
+	$index_js = "block{$file_prefix}.js";
 	wp_register_script( // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter
 		'wzkb-block-editor',
-		plugins_url( $block_js, __FILE__ ),
-		array(
-			'wp-blocks',
-			'wp-i18n',
-			'wp-element',
-			'wp-components',
-			'wp-block-editor',
-			'wp-editor',
-		),
-		filemtime( plugin_dir_path( __FILE__ ) . $block_js )
+		plugins_url( $index_js, __FILE__ ),
+		$dependencies,
+		filemtime( "$dir/$index_js" )
 	);
 
 	wp_register_style(
