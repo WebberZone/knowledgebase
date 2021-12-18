@@ -2,8 +2,8 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
-Requires at least: 5.0
-Tested up to: 5.8
+Requires at least: 5.1
+Tested up to: 5.9
 Requires PHP: 7.0
 Stable tag: 2.0.1
 License: GPLv2 or later
@@ -105,6 +105,11 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Features:
+	* New related articles module. Enable/disable in the settings page.
 
 = 2.0.1 - 14 June 2020 =
 

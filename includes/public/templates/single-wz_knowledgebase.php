@@ -58,6 +58,19 @@ wp_enqueue_style( 'wzkb_styles' );
 							'after'  => '</div>',
 						)
 					);
+
+					if ( wzkb_get_option( 'show_related_articles' ) ) {
+						/**
+						 * Filters the arguments array before being sent to wzkb_related_articles().
+						 *
+						 * @since 2.1.0
+						 *
+						 * @param array $args Arguments array.
+						 * @param int   $id   Post ID.
+						 */
+						$related_articles_args = apply_filters( 'wzkb_related_articles_args', array(), get_the_ID() );
+						wzkb_related_articles( $related_articles_args );
+					}
 					?>
 				</div><!-- .page-content -->
 				<div class="page-meta">

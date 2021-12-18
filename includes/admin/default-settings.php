@@ -151,7 +151,7 @@ function wzkb_settings_general() {
 function wzkb_settings_output() {
 
 	$settings = array(
-		'kb_title'            => array(
+		'kb_title'              => array(
 			'id'          => 'kb_title',
 			'name'        => esc_html__( 'Knowledge base title', 'knowledgebase' ),
 			'desc'        => esc_html__( 'This will be displayed as the title of the archive title as well as on other relevant places.', 'knowledgebase' ),
@@ -159,7 +159,7 @@ function wzkb_settings_output() {
 			'options'     => 'Knowledge Base',
 			'field_class' => 'large-text',
 		),
-		'category_level'      => array(
+		'category_level'        => array(
 			'id'      => 'category_level',
 			'name'    => esc_html__( 'First section level', 'knowledgebase' ),
 			'desc'    => esc_html__( 'This option allows you to create multi-level knowledge bases. This works in conjunction with the inbuilt styles. Set to 1 to lay out the top level sections in a grid. Set to 2 to lay out the second level categories in the grid. This is great if you have multiple products and want to create separate knowledge bases for each of them. The default option is 2 and was the behaviour of this plugin before v1.5.0.', 'knowledgebase' ),
@@ -169,35 +169,35 @@ function wzkb_settings_output() {
 			'min'     => '1',
 			'max'     => '5',
 		),
-		'show_article_count'  => array(
+		'show_article_count'    => array(
 			'id'      => 'show_article_count',
 			'name'    => esc_html__( 'Show article count', 'knowledgebase' ),
 			'desc'    => esc_html__( 'If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count', 'knowledgebase' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'show_excerpt'        => array(
+		'show_excerpt'          => array(
 			'id'      => 'show_excerpt',
 			'name'    => esc_html__( 'Show excerpt', 'knowledgebase' ),
 			'desc'    => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'clickable_section'   => array(
+		'clickable_section'     => array(
 			'id'      => 'clickable_section',
 			'name'    => esc_html__( 'Link section title', 'knowledgebase' ),
 			'desc'    => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
 			'type'    => 'checkbox',
 			'options' => true,
 		),
-		'show_empty_sections' => array(
+		'show_empty_sections'   => array(
 			'id'      => 'show_empty_sections',
 			'name'    => esc_html__( 'Show empty sections', 'knowledgebase' ),
 			'desc'    => esc_html__( 'If selected, sections with no articles will also be displayed', 'knowledgebase' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'limit'               => array(
+		'limit'                 => array(
 			'id'      => 'limit',
 			'name'    => esc_html__( 'Max articles per section to display', 'knowledgebase' ),
 			'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. After this limit is reached, the footer is displayed with the more link to view the category.', 'knowledgebase' ),
@@ -207,12 +207,19 @@ function wzkb_settings_output() {
 			'min'     => '1',
 			'max'     => '500',
 		),
-		'show_sidebar'        => array(
+		'show_sidebar'          => array(
 			'id'      => 'show_sidebar',
 			'name'    => esc_html__( 'Show sidebar', 'knowledgebase' ),
 			'desc'    => esc_html__( 'Add the sidebar of your theme into the inbuilt templates for archive, sections and search. Activate this option if your theme does not already include this.', 'knowledgebase' ),
 			'type'    => 'checkbox',
 			'options' => false,
+		),
+		'show_related_articles' => array(
+			'id'      => 'show_related_articles',
+			'name'    => esc_html__( 'Show related articles', 'knowledgebase' ),
+			'desc'    => esc_html__( 'Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template.', 'knowledgebase' ),
+			'type'    => 'checkbox',
+			'options' => true,
 		),
 	);
 

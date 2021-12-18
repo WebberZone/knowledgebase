@@ -9,7 +9,7 @@
  * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2015-2021 Ajay D'Souza
+ * @copyright 2015-2022 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name: WebberZone Knowledge Base
@@ -107,6 +107,7 @@ function wzkb_get_settings() {
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/default-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/public/public.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/public/related.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/activate-deactivate.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/custom-post-type.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/main.php';
@@ -136,3 +137,4 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 }
+
