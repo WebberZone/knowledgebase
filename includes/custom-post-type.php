@@ -191,4 +191,3 @@ function wzkb_register_taxonomies() {
 
 }
 add_action( 'init', 'wzkb_register_taxonomies' );
-

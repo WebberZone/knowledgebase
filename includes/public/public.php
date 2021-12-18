@@ -209,3 +209,55 @@ function wzkb_register_sidebars() {
 	/* Repeat register_sidebar() code for additional sidebars. */
 }
 add_action( 'widgets_init', 'wzkb_register_sidebars' );
+
+
+/**
+ * Get the post thumbnail.
+ *
+ * @since 2.1.0
+ *
+ * @param string|array $args {
+ *     Optional. Array or string of parameters.
+ *
+ *     @type WP_Post $post          Post ID or WP_Post object. Default current post.
+ *     @type string  $thumb_default Default thumbnail.
+ *     @type string  $class         Thumbnail class.
+ *     @type string  $thumb_size    Thumbnail size.
+ * }
+ * @return string Image tag.
+ */
+function wzkb_get_the_post_thumbnail( $args = array() ) {
+
+	$defaults = array(
+		'post'          => get_post(),
+		'thumb_default' => WZKB_PLUGIN_URL . 'includes/public/images/default-thumb.png',
+		'class'         => 'wzkb-relatd-article-thumb',
+		'size'          => 'thumbnail',
+	);
+
+	// Parse incomming $args into an array and merge it with $defaults.
+	$args = wp_parse_args( $args, $defaults );
+
+	$post   = get_post( $args['post'] );
+	$output = '';
+
+	if ( empty( $post ) ) {
+		return '';
+	}
+
+	if ( has_post_thumbnail( $post->ID ) ) {
+		$output .= get_the_post_thumbnail( $post->ID, $args['size'], array( 'class' => $args['class'] ) );
+	} else {
+		$output .= sprintf( '<img src="%1$s" class="%2$s" />', $args['thumb_default'], $args['class'] );
+	}
+
+	/**
+	 * Filters post thumbnail image tag.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $output Image tag or empty string if no image found.
+	 * @param array  $args   Argument array.
+	 */
+	return apply_filters( 'wzkb_get_the_post_thumbnail', $output, $args );
+}

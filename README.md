@@ -1,15 +1,14 @@
 # WebberZone Knowledge Base
 
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/knowledgebase.svg?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
-[![License](https://img.shields.io/badge/license-GPL_v2%2B-orange.svg?style=flat-square)](http://opensource.org/licenses/GPL-2.0)
+[![License](https://img.shields.io/badge/license-GPL_v2%2B-orange.svg?style=flat-square)](https://opensource.org/licenses/GPL-2.0)
 [![WordPress Tested](https://img.shields.io/wordpress/v/knowledgebase.svg?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
-[![Build Status](https://travis-ci.org/WebberZone/knowledgebase.svg?branch=master)](https://travis-ci.org/WebberZone/knowledgebase)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/WebberZone/knowledgebase/?branch=master)
-[![Code Climate](https://codeclimate.com/github/WebberZone/knowledgebase/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/knowledgebase)
+[![Required PHP](https://img.shields.io/wordpress/plugin/required-php/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
+[![Active installs](https://img.shields.io/wordpress/plugin/installs/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 
-__Requires:__ 4.9
+__Requires:__ 5.1
 
-__Tested up to:__ 5.4
+__Tested up to:__ 5.9
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
