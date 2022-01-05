@@ -2,7 +2,7 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
-Requires at least: 5.1
+Requires at least: 5.6
 Tested up to: 5.9
 Requires PHP: 7.0
 Stable tag: 2.0.1
@@ -28,8 +28,8 @@ The plugin was born after I tried several free plugins and themes out there and 
 * Supports unlimited knowledge bases using different sections with unlimited nested levels
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Customizable permalinks: Archives are enabled so your knowledge base can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page
-* Shortcode: `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing
-* Gutenberg block: You can display the knowledge base using a block. Find it by typing `kb` or `knowledge base` or `faq` when adding a new block
+* Shortcodes: `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing. For other shortcodes check the FAQ below
+* Gutenberg blocks: The knowledge base and the alerts are available as blocks. Find them by typing `kb` or `knowledge base`
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
 * Widgets: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
 * Inbuilt cache to speed up the display of your knowledge base articles
@@ -109,7 +109,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 = 2.1.0 =
 
 * Features:
-	* New related articles module. Enable/disable in the settings page.
+	* New related articles module. Enable/disable in the settings page
+	* New Gutenberg block for alerts. Original knowledge base block has been upgraded to use block.json
 
 = 2.0.1 - 14 June 2020 =
 
