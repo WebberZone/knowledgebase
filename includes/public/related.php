@@ -40,7 +40,7 @@ function wzkb_related_articles( $args = array() ) {
 		'post'        => get_post(),
 		'exclude'     => array(),
 		'show_thumb'  => true,
-		'show_date'  => true,
+		'show_date'   => true,
 		'title'       => '<h3>' . __( 'Related Articles', 'knowledgebase' ) . '</h3>',
 		'thumb_size'  => 'thumbnail',
 	);
