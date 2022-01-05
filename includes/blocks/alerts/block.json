@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "knowledgebase/alerts",
+	"version": "1.0.0",
+	"title": "Knowledge Base Alerts",
+	"category": "design",
+	"icon": "book",
+	"keywords": [
+		"knowledgbase",
+		"alerts",
+		"kb"
+	],
+	"description": "Display alerts for WZ Knowledge Base",
+	"supports": {
+		"html": false
+	},
+	"styles": [
+		{
+			"name": "primary",
+			"label": "Primary",
+			"isDefault": true
+		},
+		{
+			"name": "secondary",
+			"label": "Secondary"
+		},
+		{
+			"name": "success",
+			"label": "Success"
+		},
+		{
+			"name": "info",
+			"label": "Info"
+		},
+		{
+			"name": "warning",
+			"label": "Warning"
+		},
+		{
+			"name": "danger",
+			"label": "Danger"
+		},
+		{
+			"name": "light",
+			"label": "Light"
+		},
+		{
+			"name": "dark",
+			"label": "Dark"
+		}
+	],
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": "div"
+		},
+		"align": {
+			"type": "string",
+			"default": "none"
+		}
+	},
+	"textdomain": "knowledgebase",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

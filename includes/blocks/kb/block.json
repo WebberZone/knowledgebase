@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "knowledgebase/knowledgebase",
+	"version": "2.0.0",
+	"title": "Knowledge Base",
+	"category": "design",
+	"icon": "book",
+	"keywords": ["knowledgbase", "kb", "faq"],
+	"description": "Display the Knowledge Base",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"className": {
+			"type": "string",
+			"default": ""
+		},
+		"category": {
+			"type": "string",
+			"default": ""
+		},
+		"other_attributes": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"textdomain": "knowledgebase",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css"
+}

@@ -33,8 +33,9 @@ add_action( 'plugins_loaded', 'wzkb_lang_init' );
  */
 function wpkb_enqueue_styles() {
 
+	wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/wzkb-styles.min.css', false, '1.0' );
 	if ( wzkb_get_option( 'include_styles' ) ) {
-		wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/wzkb-styles.min.css', false, '1.0' );
+		wp_enqueue_style( 'wzkb_styles' );
 	}
 
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );

@@ -60,6 +60,19 @@
 	color: #666;
 }
 
+.wzkb_section_count {
+	display: block;
+	float: right;
+	margin: 0;
+	padding: 2px;
+	border: 0;
+	background: orange;
+	border-radius: 45%;
+	text-align: center;
+	font-size: 70%;
+	min-width: 36px;
+}
+
 /* Set up the responsive grid based on http://www.responsivegridsystem.com/ /*
 /*  SECTIONS  */
 .section {
@@ -270,19 +283,6 @@ nav.pagination {
 	border-top: 1px dotted #ccc;
 	border-bottom: 1px dotted #ccc;
 	text-align: center;
-}
-
-.wzkb_section_count {
-	display: block;
-	float: right;
-	margin: 0;
-	padding: 2px;
-	border: 0;
-	background: orange;
-	border-radius: 45%;
-	text-align: center;
-	font-size: 70%;
-	min-width: 36px;
 }
 
 /* Alert CSS */
