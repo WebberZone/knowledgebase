@@ -19,17 +19,36 @@ if ( ! defined( 'WPINC' ) ) {
  * The main function to generate the output.
  *
  * @since 1.0.0
+ * @since 2.1.0 Added additional parameters that can be passed.
  *
- * @param  array $args Parameters array.
- * @return string Formatted output
+ * @param string|array $args {
+ *     Optional. Array or string of parameters.
+ *
+ *     @type int    $category            Create a knowledge base for this category.
+ *     @type bool   $is_shortcode        Is this created using the shortcode?
+ *     @type bool   $is_block            Is this created using the block?
+ *     @type string $extra_class         Space separated list of classes for the wrapping `div`.
+ *     @type bool   $show_article_count  Show article count?
+ *     @type bool   $show_excerpt        Show excerpt?
+ *     @type bool   $show_empty_sections Show empty sections?
+ *     @type int    $limit               Number of articles to display in each group.
+ *     @type int    $columns             Number of columns to display the knowledge base.
+ * }
+ * @return string Knowledge Base output.
  */
 function wzkb_knowledge( $args = array() ) {
 
 	$defaults = array(
-		'category'     => false, // Create a knowledge base for subcategories of this parent ID.
-		'is_shortcode' => 0,
-		'is_block'     => 0,
-		'extra_class'  => '',
+		'category'            => 0,
+		'is_shortcode'        => 0,
+		'is_block'            => 0,
+		'extra_class'         => '',
+		'show_article_count'  => wzkb_get_option( 'show_article_count' ),
+		'show_excerpt'        => wzkb_get_option( 'show_excerpt' ),
+		'clickable_section'   => wzkb_get_option( 'clickable_section' ),
+		'show_empty_sections' => wzkb_get_option( 'show_empty_sections' ),
+		'limit'               => wzkb_get_option( 'limit' ),
+		'columns'             => wzkb_get_option( 'columns' ),
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults.
@@ -57,7 +76,7 @@ function wzkb_knowledge( $args = array() ) {
 	$term_id        = ( 0 < $category ) ? $category : 0;
 	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true;
 
-	$output .= wzkb_looper( $term_id, $level, $nested_wrapper );
+	$output .= wzkb_looper( $term_id, $level, $nested_wrapper, $args );
 
 	$output .= '</div>'; // End wzkb_section.
 	$output .= '<div class="wzkb_clear"></div>';
@@ -71,7 +90,6 @@ function wzkb_knowledge( $args = array() ) {
 	 * @param array $args Parameters array
 	 */
 	return apply_filters( 'wzkb_knowledge', $output, $args );
-
 }
 
 
@@ -79,20 +97,23 @@ function wzkb_knowledge( $args = array() ) {
  * Creates the knowledge base loop.
  *
  * @since 1.0.0
+ * @since 2.1.0 Added new arguments $args.
  *
- * @param  int  $term_id Term ID.
- * @param  int  $level  Level of the loop.
- * @param  bool $nested Run recursive loops before closing HTML wrappers.
+ * @param  int   $term_id Term ID.
+ * @param  int   $level   Level of the loop.
+ * @param  bool  $nested  Run recursive loops before closing HTML wrappers.
+ * @param  array $args    Parameters array.
  * @return string Formatted output
  */
-function wzkb_looper( $term_id, $level, $nested = true ) {
+function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 
-	$divclasses = array( 'wzkb_section', 'wzkb-section-level-' . $level );
+	$divclasses     = array( 'wzkb_section', 'wzkb-section-level-' . $level );
+	$category_level = (int) wzkb_get_option( 'category_level' );
 
-	if ( (int) wzkb_get_option( 'category_level' ) - 1 === $level ) {
+	if ( $category_level - 1 === $level ) {
 		$divclasses[] = 'section group';
-	} elseif ( (int) wzkb_get_option( 'category_level' ) === $level ) {
-		$divclasses[] = 'col span_1_of_' . wzkb_get_option( 'columns', 2 );
+	} elseif ( $category_level === $level ) {
+		$divclasses[] = 'col span_1_of_' . $args['columns'];
 	}
 
 	/**
@@ -111,8 +132,8 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 	$term = get_term( $term_id, 'wzkb_category' );
 
 	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
-		$output .= wzkb_article_header( $term, $level );
-		$output .= wzkb_list_posts_by_term( $term, $level );
+		$output .= wzkb_article_header( $term, $level, $args );
+		$output .= wzkb_list_posts_by_term( $term, $level, $args );
 	} else {
 		if ( $level > 0 ) {
 			/* translators: Section ID. */
@@ -127,7 +148,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		'wzkb_category',
 		array(
 			'orderby'    => 'slug',
-			'hide_empty' => wzkb_get_option( 'show_empty_sections' ) ? 0 : 1,
+			'hide_empty' => $args['show_empty_sections'] ? 0 : 1,
 			'parent'     => $term_id,
 		)
 	);
@@ -142,7 +163,7 @@ function wzkb_looper( $term_id, $level, $nested = true ) {
 		$level++;
 
 		foreach ( $sections as $section ) {
-			$output .= wzkb_looper( $section->term_id, $level );
+			$output .= wzkb_looper( $section->term_id, $level, $nested, $args );
 		}
 	}
 
@@ -232,12 +253,14 @@ function wzkb_query_posts( $term ) {
  * Formatted output of posts for a given term.
  *
  * @since 1.1.0
+ * @since 2.1.0 Added new arguments $args.
  *
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
+ * @param  array  $args  Parameters array.
  * @return string Formatted output of posts for a given term
  */
-function wzkb_list_posts_by_term( $term, $level ) {
+function wzkb_list_posts_by_term( $term, $level, $args = array() ) {
 
 	$output = '';
 
@@ -245,8 +268,8 @@ function wzkb_list_posts_by_term( $term, $level ) {
 
 	if ( $query->have_posts() ) {
 
-		$output .= wzkb_article_loop( $term, $level, $query );
-		$output .= wzkb_article_footer( $term, $level, $query );
+		$output .= wzkb_article_loop( $term, $level, $query, $args );
+		$output .= wzkb_article_footer( $term, $level, $query, $args );
 
 		wp_reset_postdata();
 
@@ -270,22 +293,24 @@ function wzkb_list_posts_by_term( $term, $level ) {
  * Header of the articles list.
  *
  * @since 1.1.0
+ * @since 2.1.0 Added new arguments $args.
  *
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
+ * @param  array  $args  Parameters array.
  * @return string Formatted footer output
  */
-function wzkb_article_header( $term, $level ) {
+function wzkb_article_header( $term, $level, $args = array() ) {
 
 	$output = '<h3 class="wzkb_section_name wzkb-section-name-level-' . $level . '">';
 
-	if ( wzkb_get_option( 'clickable_section', true ) ) {
+	if ( $args['clickable_section'] ) {
 		$output .= '<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>';
 	} else {
 		$output .= $term->name;
 	}
 
-	if ( $level > 1 && wzkb_get_option( 'show_article_count', false ) ) {
+	if ( $level > 1 && $args['show_article_count'] ) {
 		$output .= '<div class="wzkb_section_count">' . $term->count . '</div>';
 	}
 
@@ -310,13 +335,15 @@ function wzkb_article_header( $term, $level ) {
  * Creates the list of articles for a particular query results object.
  *
  * @since 1.1.0
+ * @since 2.1.0 Added new arguments $args.
  *
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
  * @param  object $query Query results object.
+ * @param  array  $args  Parameters array.
  * @return string Formatted ul loop
  */
-function wzkb_article_loop( $term, $level, $query ) {
+function wzkb_article_loop( $term, $level, $query, $args = array() ) {
 
 	$limit = 0;
 
@@ -327,14 +354,14 @@ function wzkb_article_loop( $term, $level, $query ) {
 
 		$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 		$output .= '<a href="' . get_permalink( get_the_ID() ) . '" rel="bookmark" title="' . get_the_title( get_the_ID() ) . '">' . get_the_title( get_the_ID() ) . '</a>';
-		if ( wzkb_get_option( 'show_excerpt', false ) ) {
+		if ( $args['show_excerpt'] ) {
 			$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '" >' . get_the_excerpt( get_the_ID() ) . '</div>';
 		}
 		$output .= '</li>';
 
 		$limit++;
 
-		if ( $limit >= wzkb_get_option( 'limit' ) && ! is_tax( 'wzkb_category', $term->term_id ) ) {
+		if ( $limit >= $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
 			break;
 		}
 
@@ -361,17 +388,19 @@ function wzkb_article_loop( $term, $level, $query ) {
  * Footer of the articles list.
  *
  * @since 1.1.0
+ * @since 2.1.0 Added new arguments $args.
  *
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
  * @param  object $query Query results object.
+ * @param  array  $args  Parameters array.
  * @return string Formatted footer output
  */
-function wzkb_article_footer( $term, $level, $query ) {
+function wzkb_article_footer( $term, $level, $query, $args = array() ) {
 
 	$output = '';
 
-	if ( $query->found_posts > wzkb_get_option( 'limit' ) && ! is_tax( 'wzkb_category', $term->term_id ) ) {
+	if ( $query->found_posts > $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
 
 		$excerpt_more = __( 'Read more articles in ', 'wzkb' );
 
@@ -410,7 +439,7 @@ function wzkb_article_footer( $term, $level, $query ) {
  *
  * @since 1.8.0
  *
- * @param array $attr   Array of attributes.
+ * @param mixed $attr Data used to create the meta key. Array of attributes preferred.
  * @return string Cache meta key
  */
 function wzkb_cache_get_key( $attr ) {
