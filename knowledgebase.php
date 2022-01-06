@@ -63,25 +63,14 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 }
 
 
-/**
- * WZKB Settings
- *
- * @since 1.5.0
- *
- * @var array WZKB Settings
- */
-global $wzkb_settings;
-$wzkb_settings = wzkb_get_settings();
-
-
 /*
  *----------------------------------------------------------------------------
  * Include files
  *----------------------------------------------------------------------------
  */
 
-	require_once WZKB_PLUGIN_DIR . 'includes/admin/default-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/admin/register-settings.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/admin/default-settings.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/public/public.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/public/related.php';
 	require_once WZKB_PLUGIN_DIR . 'includes/activate-deactivate.php';
@@ -113,6 +102,17 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 }
+
+/**
+ * WZKB Settings
+ *
+ * @since 1.5.0
+ *
+ * @var array WZKB Settings
+ */
+global $wzkb_settings;
+$wzkb_settings = wzkb_get_settings();
+
 
 /**
  * Get Settings.
