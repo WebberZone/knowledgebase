@@ -117,6 +117,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 * Bug fixes:
 	* Fixed Custom CSS loaded incorrectly with a 0 on install/reset
+	* Dashicons were not properly loaded on frontend
 
 = 2.0.1 - 14 June 2020 =
 
