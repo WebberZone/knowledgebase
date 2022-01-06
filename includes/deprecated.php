@@ -24,5 +24,5 @@ if ( ! defined( 'WPINC' ) ) {
  * @var array WZKB Settings
  */
 global $wzkb_options;
-$wzkb_options = $wzkb_settings;
+$wzkb_options = wzkb_get_settings();
 

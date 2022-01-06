@@ -44,8 +44,9 @@ function wzkb_settings_sanitize( $input = array() ) {
 	$reset = isset( $_POST['settings_reset'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 	if ( $reset ) {
+		$_POST['settings_reset'] = null;
 		wzkb_settings_reset();
-		$wzkb_settings = get_option( 'wzkb_settings' );
+		$wzkb_settings = wzkb_get_settings();
 
 		add_settings_error( 'wzkb-notices', '', __( 'Settings have been reset to their default values. Reload this page to view the updated settings', 'knowledgebase' ), 'error' );
 
