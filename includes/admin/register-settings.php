@@ -33,6 +33,10 @@ function wzkb_get_option( $key = '', $default = null ) {
 
 	global $wzkb_settings;
 
+	if ( empty( $wzkb_settings ) ) {
+		$wzkb_settings = wzkb_get_settings();
+	}
+
 	if ( is_null( $default ) ) {
 		$default = wzkb_get_default_option( $key );
 	}
