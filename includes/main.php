@@ -110,7 +110,7 @@ function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 	$divclasses     = array( 'wzkb_section', 'wzkb-section-level-' . $level );
 	$category_level = (int) wzkb_get_option( 'category_level' );
 
-	if ( $category_level - 1 === $level ) {
+	if ( ( $category_level - 1 ) === $level ) {
 		$divclasses[] = 'section group';
 	} elseif ( $category_level === $level ) {
 		$divclasses[] = 'col span_1_of_' . $args['columns'];
