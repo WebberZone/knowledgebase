@@ -112,6 +112,9 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 	* New related articles module. Enable/disable in the settings page
 	* New Gutenberg block for alerts. Original knowledge base block has been upgraded to use block.json
 
+* Enhancements:
+	* `wzkb_knowledge` function takes additional parameters that override global settings if passed
+
 = 2.0.1 - 14 June 2020 =
 
 Release post: [https://webberzone.com/blog/knowledge-base-v2-0-0/](https://webberzone.com/blog/knowledge-base-v2-0-0/)
