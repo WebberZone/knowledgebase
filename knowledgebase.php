@@ -86,6 +86,11 @@ function wzkb_get_settings() {
 
 	$settings = get_option( 'wzkb_settings' );
 
+	if ( empty( $settings ) ) {
+		add_option( 'wzkb_settings', wzkb_settings_defaults() );
+		$settings = get_option( 'wzkb_settings' );
+	}
+
 	/**
 	 * Settings array
 	 *
@@ -137,4 +142,3 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once WZKB_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 }
-
