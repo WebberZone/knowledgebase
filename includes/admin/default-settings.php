@@ -199,7 +199,7 @@ function wzkb_settings_output() {
 		),
 		'limit'                 => array(
 			'id'      => 'limit',
-			'name'    => esc_html__( 'Max articles per section to display', 'knowledgebase' ),
+			'name'    => esc_html__( 'Max articles per section', 'knowledgebase' ),
 			'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. After this limit is reached, the footer is displayed with the more link to view the category.', 'knowledgebase' ),
 			'type'    => 'number',
 			'options' => '5',

@@ -20,6 +20,30 @@
 			"type": "string",
 			"default": ""
 		},
+		"limit": {
+			"type": "string",
+			"default": ""
+		},
+		"showArticleCount": {
+			"type": "boolean",
+			"default": false
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": false
+		},
+		"hasClickableSection": {
+			"type": "boolean",
+			"default": true
+		},
+		"showEmptySections": {
+			"type": "boolean",
+			"default": false
+		},
+		"columns": {
+			"type": "string",
+			"default": ""
+		},
 		"other_attributes": {
 			"type": "string",
 			"default": ""

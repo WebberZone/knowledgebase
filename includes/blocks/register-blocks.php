@@ -43,7 +43,20 @@ add_action( 'init', 'wzkb_register_blocks' );
  */
 function render_wzkb_block( $attributes ) {
 
-	$attributes['extra_class'] = $attributes['className'];
+	// Remap selected attributes from JS to PHP.
+	$mappings = array(
+		'show_article_count'  => 'showArticleCount',
+		'show_excerpt'        => 'showExcerpt',
+		'clickable_section'   => 'hasClickableSection',
+		'show_empty_sections' => 'showEmptySections',
+		'extra_class'         => 'className',
+	);
+
+	foreach ( $mappings as $php_attr => $js_attr ) {
+		if ( isset( $attributes[ $js_attr ] ) ) {
+			$attributes[ $php_attr ] = $attributes[ $js_attr ];
+		}
+	}
 
 	$arguments = array_merge(
 		$attributes,
