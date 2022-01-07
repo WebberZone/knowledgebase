@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
  *     @type string|int[] $exclude     Post IDs to exclude. Can be in CSV format or an array.
  *     @type bool         $show_thumb  Show thumbnail?
  *     @type bool         $show_date   Show date?
- *     @type string       $title       Title of the related posts.
+ *     @type string       $title       Title of the related articles. Default is Related Articles wrapped in an H3 header tag.
  *     @type string       $thumb_size  Thumbnail size.
  * }
  * @return void|string Void if 'echo' argument is true, the post excerpt if 'echo' is false.
