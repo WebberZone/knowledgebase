@@ -4,32 +4,36 @@ Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 5.6
 Tested up to: 5.9
-Requires PHP: 7.0
-Stable tag: 2.0.1
+Requires PHP: 7.1
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Quickly and efficiently create a highly-flexible knowledge base or FAQ on your WordPress blog.
+Fastest way to create a highly-flexible multi-product knowledge base on you WordPress site.
 
 == Description ==
 
-As the name suggests, [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) will allow you to create a knowledge base / FAQ section on your WordPress blog.
+[Knowledge Base](https://webberzone.com/plugins/knowledgebase/) is an easy to use WordPress plugin that allows you to create a knowledge base / FAQ section on your WordPress blog.
 
-The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box and I'll be adding more features into the core and as addons.
+This is perfect if you have single or multiple products and want a single knowledge base with little effort.
+
+The plugin was born after I tried several free plugins and themes out there and that couldn't fit my purpose. It's designed to be very easy to install and use out of the box.
+
+You can view a [live demo of my own knowledge base](https://webberzone.com/support/knowledgebase/).
 
 = Terminology =
 
-**Articles**: The plugin uses a custom post type `wz_knowledgebase` with a slug of `wzkb` ensuring your data always stays even if you choose to delete this plugin (but why would you?!)
-**Sections**: It also uses a custom taxonomy ( `kbcategory` ) to automatically draw up the knowledge base. You will need at least one category in order to display the knowledge base. These categories can be added under *Knowledge Base > Sections*
-**Tags**: Additionally you can use tags ( `kbtags` ) can also be used for each knowledge base article.
+* **Articles**: A custom post type `wz_knowledgebase` is used to store all the knowledge base articles
+* **Sections**: A custom taxonomy ( `kbcategory` ) used to create the knowledge base. You will need *at least one category* in order to display the knowledge base. These categories can be added under *Knowledge Base > Sections*
+* **Tags**: Additionally you can use tags ( `kbtags` ) can also be used for each knowledge base article.
 
 = Main features =
 
 * Supports unlimited knowledge bases using different sections with unlimited nested levels
 * Inbuilt styles that display the knowledge beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
 * Customizable permalinks: Archives are enabled so your knowledge base can be viewed at `/knowledgebase/` automatically on activation. You can change this in the Settings page
-* Shortcodes: `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing. For other shortcodes check the FAQ below
-* Gutenberg blocks: The knowledge base and the alerts are available as blocks. Find them by typing `kb` or `knowledge base`
+* Shortcode: `[knowledgebase]` will allow you to display the knowledge base on any page of your choosing. For other shortcodes, check the FAQ
+* Gutenberg block: You can display the knowledge base using a block. Find it by typing `kb` or `knowledge base` when adding a new block
 * Breadcrumbs: Default templates include breadcrumbs. Alternatively, use functions or shortcode to display this where you want
 * Widgets: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
 * Inbuilt cache to speed up the display of your knowledge base articles
@@ -55,15 +59,21 @@ If you have an idea, I'd love to hear it. WebberZone Knowledge Base is also avai
 
 = Usage =
 
-1. Visit `Knowledge Base &raquo; Sections` to add new categories to the knowledge base. Alternatively, you can add new categories from the meta box
+1. Visit `Knowledge Base &raquo; Sections` to add new categories to the knowledge base
 2. Visit `Knowledge Base &raquo; Add New` to add new Articles to the knowledge base. You can select a section from there while adding
-3. Create a new page or edit an existing one and add the shortcode `[knowledgebase]` to set up this page to display the knowledgebase
+3. Optionally, create a new page or edit an existing one and add the shortcode `[knowledgebase]` or use the block to set up this page to display the knowledgebase
 
-The plugin supports unlimited levels of category hierarchy. However, the recommended setting for creating the knowledge base is to create a top level category with the name of the knowledge base and sub-level categories for each section of this knowledge base. Check out the Category view screenshot as an example.
+The plugin supports unlimited levels of category hierarchy. To build a multiple product knowledge base:
+
+1. Set the *First section level* under the Output tab to 2
+2. Create a set of top level sections for each product
+3. Create sub-sections for each of the products
+
+[This live demo](https://webberzone.com/support/knowledgebase/) is a working example of a multi-product knowledge base.
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
+If your answer to your question isn't listed here or the [Knowledge Base](https://webberzone.com/support/section/knowledgebase/), please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
 
 = 404 errors on the knowledge base =
 
@@ -91,22 +101,23 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 1. Knowledge Base Menu in the WordPress Admin
 2. Knowledge Base Viewer Facing with Default styles
-3. Knowledge Base Category view in the WordPress Admin
+3. Knowledge Base alerts
 4. Settings &raquo; General
 5. Settings &raquo; Output
 6. Settings &raquo; Styles
-7. Shortcode for informative messages / alerts
-8. Knowledge Base widgets
+7. Knowledge Base widgets
 
 == Upgrade Notice ==
 
-= 2.0.1 =
-* Gutenberg block, CodeMirror formatting, bug fixes and code cleanup. Check the Changelog for more details.
+= 2.1.0 =
+* Related articles, updated blocks. Check the Changelog for more details.
 
 
 == Changelog ==
 
 = 2.1.0 =
+
+Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webberzone.com/blog/knowledge-base-v2-1-0/)
 
 * Features:
 	* New related articles module. Enable/disable in the settings page
