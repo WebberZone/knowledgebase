@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-14 21:18+0100\n"
+"POT-Creation-Date: 2022-01-07 20:25+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone\n"
@@ -15,10 +15,15 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: includes/admin/admin.php:30 includes/admin/settings-page.php:32
+#: includes/blocks/kb/src/edit.js:97
+msgid "Knowledge Base Settings"
+msgstr ""
 
 #: includes/admin/admin.php:30
 msgid "Settings"
@@ -45,55 +50,6 @@ msgid "%s KB article"
 msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
-
-#: includes/admin/blocks/wkzb/block.js:22
-#: includes/admin/blocks/wkzb/block.min.js:1 includes/custom-post-type.php:36
-#: includes/custom-post-type.php:62
-msgid "Knowledge Base"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:23
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "Display the Knowledge Base"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:26
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "knowledgebase"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:26
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "kb"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:26
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "faq"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:79
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "Category ID"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:80
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid ""
-"Enter a single category/section ID to display its knowledge base or leave "
-"back to display the full knowledge base. You can find this under Knowledge "
-"Base > Sections"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:85
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "Other attributes"
-msgstr ""
-
-#: includes/admin/blocks/wkzb/block.js:86
-#: includes/admin/blocks/wkzb/block.min.js:1
-msgid "Enter other attributes in a URL-style string-query."
-msgstr ""
 
 #: includes/admin/default-settings.php:57
 msgid "Slug options"
@@ -212,7 +168,7 @@ msgid ""
 "the behaviour of this plugin before v1.5.0."
 msgstr ""
 
-#: includes/admin/default-settings.php:174
+#: includes/admin/default-settings.php:174 includes/blocks/kb/src/edit.js:129
 msgid "Show article count"
 msgstr ""
 
@@ -222,7 +178,7 @@ msgid ""
 "next to the header. You can override the color by styling wzkb_section_count"
 msgstr ""
 
-#: includes/admin/default-settings.php:181
+#: includes/admin/default-settings.php:181 includes/blocks/kb/src/edit.js:143
 msgid "Show excerpt"
 msgstr ""
 
@@ -240,7 +196,7 @@ msgid ""
 "to its own page"
 msgstr ""
 
-#: includes/admin/default-settings.php:195
+#: includes/admin/default-settings.php:195 includes/blocks/kb/src/edit.js:171
 msgid "Show empty sections"
 msgstr ""
 
@@ -248,8 +204,8 @@ msgstr ""
 msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
-#: includes/admin/default-settings.php:202
-msgid "Max articles per section to display"
+#: includes/admin/default-settings.php:202 includes/blocks/kb/src/edit.js:116
+msgid "Max articles per section"
 msgstr ""
 
 #: includes/admin/default-settings.php:203
@@ -270,31 +226,41 @@ msgid ""
 "include this."
 msgstr ""
 
-#: includes/admin/default-settings.php:241
+#: includes/admin/default-settings.php:219
+msgid "Show related articles"
+msgstr ""
+
+#: includes/admin/default-settings.php:220
+msgid ""
+"Add related articles at the bottom of the knowledge base article. Only works "
+"when using the inbuilt template."
+msgstr ""
+
+#: includes/admin/default-settings.php:248
 msgid "Include inbuilt styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:242
+#: includes/admin/default-settings.php:249
 msgid ""
 "Uncheck this to disable this plugin from adding the inbuilt styles. You will "
 "need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/default-settings.php:248
+#: includes/admin/default-settings.php:255 includes/blocks/kb/src/edit.js:185
 msgid "Number of columns"
 msgstr ""
 
-#: includes/admin/default-settings.php:249
+#: includes/admin/default-settings.php:256
 msgid ""
 "Set number of columns to display the knowledge base archives. This is only "
 "works if the above option is selected."
 msgstr ""
 
-#: includes/admin/default-settings.php:258
+#: includes/admin/default-settings.php:265
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/default-settings.php:259
+#: includes/admin/default-settings.php:266
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
@@ -350,18 +316,14 @@ msgid ""
 "to customize this."
 msgstr ""
 
-#: includes/admin/save-settings.php:50
+#: includes/admin/save-settings.php:51
 msgid ""
 "Settings have been reset to their default values. Reload this page to view "
 "the updated settings"
 msgstr ""
 
-#: includes/admin/save-settings.php:122
+#: includes/admin/save-settings.php:123
 msgid "Settings updated."
-msgstr ""
-
-#: includes/admin/settings-page.php:32
-msgid "Knowledge Base Settings"
 msgstr ""
 
 #: includes/admin/settings-page.php:70
@@ -442,6 +404,75 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
+#: includes/blocks/alerts/src/edit.js:61
+msgid "Enter the alert text..."
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:103
+msgid "Category ID"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:107
+msgid ""
+"Enter a single category/section ID to display its knowledge base or leave "
+"back to display the full knowledge base. You can find this under Knowledge "
+"Base > Sections."
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:120
+msgid ""
+"After this limit is reached, the footer is displayed with the more link to "
+"view the category."
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:132
+msgid "Article count displayed"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:133
+msgid "No article count displayed"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:146
+msgid "Excerpt displayed"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:147
+msgid "No excerpt"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:157
+msgid "Show clickable section"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:160
+msgid "Section headers are linked"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:161
+msgid "Section headers not linked"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:174
+msgid "Empty sections displayed"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:175
+msgid "Empty sections hidden"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:189
+msgid "Only works when inbuilt styles are enabled in the Settings page"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:198
+msgid "Other attributes"
+msgstr ""
+
+#: includes/blocks/kb/src/edit.js:202
+msgid "Enter other attributes in a URL-style string-query."
+msgstr ""
+
 #: includes/breadcrumbs.php:44
 msgid "Home"
 msgstr ""
@@ -453,6 +484,10 @@ msgstr ""
 
 #: includes/custom-post-type.php:35
 msgctxt "Post Type Singular Name"
+msgid "Knowledge Base"
+msgstr ""
+
+#: includes/custom-post-type.php:36 includes/custom-post-type.php:62
 msgid "Knowledge Base"
 msgstr ""
 
@@ -600,21 +635,25 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: includes/main.php:119
+#: includes/main.php:145
 #, php-format
 msgid "%s is not enter a valid section ID"
 msgstr ""
 
-#: includes/main.php:376 includes/main.php:388
+#: includes/main.php:410 includes/main.php:422
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/public/public.php:201
+#: includes/public/public.php:202
 msgid "WZ Knowledge Base Sidebar"
 msgstr ""
 
-#: includes/public/public.php:202
+#: includes/public/public.php:203
 msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
+msgstr ""
+
+#: includes/public/related.php:44
+msgid "Related Articles"
 msgstr ""
 
 #: includes/public/templates/archive-wz_knowledgebase.php:39
@@ -635,24 +674,24 @@ msgstr ""
 msgid "Pages:"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:71
+#: includes/public/templates/single-wz_knowledgebase.php:84
 #, php-format
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:93
+#: includes/public/templates/single-wz_knowledgebase.php:106
 msgid "Next Post"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:94
+#: includes/public/templates/single-wz_knowledgebase.php:107
 msgid "Next post:"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:96
+#: includes/public/templates/single-wz_knowledgebase.php:109
 msgid "Previous Post"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:97
+#: includes/public/templates/single-wz_knowledgebase.php:110
 msgid "Previous post:"
 msgstr ""
 
