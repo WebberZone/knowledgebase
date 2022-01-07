@@ -114,6 +114,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 * Enhancements:
 	* `wzkb_knowledge` function takes additional parameters that override global settings if passed
+	* Additional settings added for Knowledge Base block
 
 * Bug fixes:
 	* Fixed Custom CSS loaded incorrectly with a 0 on install/reset

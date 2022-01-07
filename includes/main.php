@@ -54,6 +54,11 @@ function wzkb_knowledge( $args = array() ) {
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
 
+	// Set defaults if variables are empty.
+	$args['limit']   = ( ! empty( absint( $args['limit'] ) ) ) ? absint( $args['limit'] ) : wzkb_get_option( 'limit' );
+	$args['columns'] = ( ! empty( absint( $args['columns'] ) ) ) ? absint( $args['columns'] ) : wzkb_get_option( 'columns' );
+
+	// Set default classes.
 	$shortcode_class = $args['is_shortcode'] ? 'wzkb_shortcode ' : '';
 	$block_class     = $args['is_block'] ? 'wzkb_block ' : '';
 
@@ -310,7 +315,7 @@ function wzkb_article_header( $term, $level, $args = array() ) {
 		$output .= $term->name;
 	}
 
-	if ( $level > 1 && $args['show_article_count'] ) {
+	if ( $level >= (int) wzkb_get_option( 'category_level' ) && $args['show_article_count'] ) {
 		$output .= '<div class="wzkb_section_count">' . $term->count . '</div>';
 	}
 

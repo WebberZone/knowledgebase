@@ -18,6 +18,7 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import {
 	TextControl,
 	TextareaControl,
+	ToggleControl,
 	PanelBody,
 	PanelRow,
 } from '@wordpress/components';
@@ -39,17 +40,53 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { category, other_attributes } = attributes;
+	function processNumber(input) {
+		const output =
+			undefined === input || 0 === input || '' === input || isNaN(input)
+				? ''
+				: parseInt(input);
+		return output;
+	}
+
+	const {
+		category,
+		limit,
+		showArticleCount,
+		showExcerpt,
+		hasClickableSection,
+		showEmptySections,
+		columns,
+		other_attributes,
+	} = attributes;
+	console.log(attributes);
 	const blockProps = useBlockProps();
 	const onChangeCategory = (newCategory) => {
 		setAttributes({
-			category: newCategory === undefined ? '' : newCategory,
+			category: undefined === newCategory ? '' : newCategory,
 		});
+	};
+	const onChangeLimit = (newLimit) => {
+		setAttributes({ limit: processNumber(newLimit) });
+	};
+	const toggleShowArticleCount = () => {
+		setAttributes({ showArticleCount: !showArticleCount });
+	};
+	const toggleShowExcerpt = () => {
+		setAttributes({ showExcerpt: !showExcerpt });
+	};
+	const toggleClickableSection = () => {
+		setAttributes({ hasClickableSection: !hasClickableSection });
+	};
+	const toggleShowEmptySections = () => {
+		setAttributes({ showEmptySections: !showEmptySections });
+	};
+	const onChangeColumns = (newColumns) => {
+		setAttributes({ columns: processNumber(newColumns) });
 	};
 	const onChangeOtherAttributes = (newOtherAttributes) => {
 		setAttributes({
 			other_attributes:
-				newOtherAttributes === undefined ? '' : newOtherAttributes,
+				undefined === newOtherAttributes ? '' : newOtherAttributes,
 		});
 	};
 
@@ -68,6 +105,88 @@ export default function Edit({ attributes, setAttributes }) {
 								onChange={onChangeCategory}
 								help={__(
 									'Enter a single category/section ID to display its knowledge base or leave back to display the full knowledge base. You can find this under Knowledge Base > Sections.',
+									'knowledgebase'
+								)}
+							/>
+						</fieldset>
+					</PanelRow>
+					<PanelRow>
+						<fieldset>
+							<TextControl
+								label={__('Max articles per section', 'knowledgebase')}
+								value={limit}
+								onChange={onChangeLimit}
+								help={__(
+									'After this limit is reached, the footer is displayed with the more link to view the category.',
+									'knowledgebase'
+								)}
+							/>
+						</fieldset>
+					</PanelRow>
+					<PanelRow>
+						<fieldset>
+							<ToggleControl
+								label={__('Show article count', 'knowledgebase')}
+								help={
+									showArticleCount
+										? __('Article count displayed', 'knowledgebase')
+										: __('No article count displayed', 'knowledgebase')
+								}
+								checked={showArticleCount}
+								onChange={toggleShowArticleCount}
+							/>
+						</fieldset>
+					</PanelRow>
+					<PanelRow>
+						<fieldset>
+							<ToggleControl
+								label={__('Show excerpt', 'knowledgebase')}
+								help={
+									showExcerpt
+										? __('Excerpt displayed', 'knowledgebase')
+										: __('No excerpt', 'knowledgebase')
+								}
+								checked={showExcerpt}
+								onChange={toggleShowExcerpt}
+							/>
+						</fieldset>
+					</PanelRow>
+					<PanelRow>
+						<fieldset>
+							<ToggleControl
+								label={__('Show clickable section', 'knowledgebase')}
+								help={
+									hasClickableSection
+										? __('Section headers are linked', 'knowledgebase')
+										: __('Section headers not linked', 'knowledgebase')
+								}
+								checked={hasClickableSection}
+								onChange={toggleClickableSection}
+							/>
+						</fieldset>
+					</PanelRow>
+					<PanelRow>
+						<fieldset>
+							<ToggleControl
+								label={__('Show empty sections', 'knowledgebase')}
+								help={
+									showEmptySections
+										? __('Empty sections displayed', 'knowledgebase')
+										: __('Empty sections hidden', 'knowledgebase')
+								}
+								checked={showEmptySections}
+								onChange={toggleShowEmptySections}
+							/>
+						</fieldset>
+					</PanelRow>
+					<PanelRow>
+						<fieldset>
+							<TextControl
+								label={__('Number of columns', 'knowledgebase')}
+								value={columns}
+								onChange={onChangeColumns}
+								help={__(
+									'Only works when inbuilt styles are enabled in the Settings page',
 									'knowledgebase'
 								)}
 							/>
