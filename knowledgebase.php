@@ -14,13 +14,13 @@
  * @wordpress-plugin
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
- * Description: Fastest way to create a highly-flexible knowledge base or FAQ.
- * Version: 2.1.0-beta1
+ * Description: Fastest way to create a highly-flexible multi-product knowledge base.
+ * Version: 2.1.0
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: wzkb
+ * Text Domain: knowledgebase
  * Domain Path: /languages
  */
 

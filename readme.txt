@@ -115,7 +115,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
-= 2.1.0 =
+= 2.1.0 - 8 January 2022 =
 
 Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webberzone.com/blog/knowledge-base-v2-1-0/)
 
