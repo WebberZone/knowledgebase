@@ -20,14 +20,14 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_register_blocks() {
 	// Register Knowledge Base block.
-	register_block_type(
+	register_block_type_from_metadata(
 		WZKB_PLUGIN_DIR . 'includes/blocks/kb/',
 		array(
 			'render_callback' => 'render_wzkb_block',
 		)
 	);
 	// Register Knowledge Base Alerts block.
-	register_block_type( WZKB_PLUGIN_DIR . 'includes/blocks/alerts/' );
+	register_block_type_from_metadata( WZKB_PLUGIN_DIR . 'includes/blocks/alerts/' );
 }
 add_action( 'init', 'wzkb_register_blocks' );
 
