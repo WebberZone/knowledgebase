@@ -27,6 +27,7 @@ class WZKB_Articles_Widget extends WP_Widget {
 			'widget_wzkb_articles',
 			__( 'WZKB Articles', 'knowledgebase' ),
 			array(
+				'classname'                   => 'widget_wzkb_articles',
 				'description'                 => __( 'Display the list of articles for a section when browsing a knowledge base page', 'knowledgebase' ),
 				'customize_selective_refresh' => true,
 			)
@@ -41,8 +42,10 @@ class WZKB_Articles_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title   = isset( $instance['title'] ) ? $instance['title'] : '';
-		$term_id = isset( $instance['term_id'] ) ? $instance['term_id'] : '';
+		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
+		$term_id      = isset( $instance['term_id'] ) ? $instance['term_id'] : '';
+		$limit        = isset( $instance['limit'] ) ? $instance['limit'] : '';
+		$show_excerpt = isset( $instance['show_excerpt'] ) ? $instance['show_excerpt'] : '';
 
 		?>
 		<p>
@@ -53,6 +56,16 @@ class WZKB_Articles_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'term_id' ) ); ?>">
 			<?php esc_html_e( 'Term ID (enter a number)', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'term_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'term_id' ) ); ?>" type="text" value="<?php echo esc_attr( $term_id ); ?>" />
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
+			<?php esc_html_e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php checked( true, $show_excerpt, true ); ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 
@@ -83,10 +96,11 @@ class WZKB_Articles_Widget extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance            = $old_instance;
-		$instance            = array();
-		$instance['title']   = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
-		$instance['term_id'] = ( ! empty( $new_instance['term_id'] ) ) ? intval( $new_instance['term_id'] ) : '';
+		$instance                 = $old_instance;
+		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
+		$instance['term_id']      = ( ! empty( $new_instance['term_id'] ) ) ? intval( $new_instance['term_id'] ) : '';
+		$instance['limit']        = ( ! empty( $new_instance['limit'] ) ) ? intval( $new_instance['limit'] ) : '';
+		$instance['show_excerpt'] = isset( $new_instance['show_excerpt'] ) ? true : false;
 
 		/**
 		 * Filters Update widget options array.
@@ -111,9 +125,8 @@ class WZKB_Articles_Widget extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		global $post;
-
-		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$default_title = __( 'Knowledge Base Articles', 'knowledgebase' );
+		$title         = ( ! empty( $instance['title'] ) ) ? $instance['title'] : $default_title;
 
 		/**
 		 * Filters the widget title.
@@ -126,6 +139,12 @@ class WZKB_Articles_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
+		$limit = ( ! empty( $instance['limit'] ) ) ? absint( $instance['limit'] ) : wzkb_get_option( 'limit' );
+		if ( ! $limit ) {
+			$limit = wzkb_get_option( 'limit' );
+		}
+		$show_excerpt = isset( $instance['show_excerpt'] ) ? $instance['show_excerpt'] : false;
+
 		if ( empty( $instance['term_id'] ) ) {
 			return;
 		}
@@ -136,7 +155,14 @@ class WZKB_Articles_Widget extends WP_Widget {
 			return;
 		}
 
-		$list_of_posts = wzkb_list_posts_by_term( $term, 0 );
+		$list_of_posts = wzkb_list_posts_by_term(
+			$term,
+			0,
+			array(
+				'show_excerpt' => $show_excerpt,
+				'limit'        => $limit,
+			)
+		);
 
 		if ( empty( $list_of_posts ) ) {
 			return;

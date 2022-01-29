@@ -119,8 +119,12 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webberzone.com/blog/knowledge-base-v2-1-0/)
 
+* Enhancements:
+	* New options to set number of articles and to show excerpt in the widget
+
 * Bug fixes:
 	* Update activation on multisite when a new blog is added
+	* PHP errors when using the widget
 
 = 2.1.0 - 8 January 2022 =
 
