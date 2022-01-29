@@ -31,7 +31,7 @@ jobs:
           # Complement the builds run via the matrix with high/low WP builds for PHP 7.4 and 8.0.
           # PHP 8.0 is sort of supported since WP 5.6.
           # PHP 7.4 is supported since WP 5.3.
-          - php: '8.0'
+          - php: '8.1'
             wp: 'latest'
             experimental: true
           - php: '8.0'
@@ -44,7 +44,7 @@ jobs:
             wp: 'nightly'
             experimental: true
 
-    name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }}"
+    name: 'PHP ${{ matrix.php }} - WP ${{ matrix.wp }}'
 
     continue-on-error: ${{ matrix.experimental }}
 
@@ -84,8 +84,8 @@ jobs:
       - name: Determine supported PHPUnit version
         id: set_phpunit
         run: |
-          if [[ "${{ matrix.php }}" > "7.4" ]]; then
-            echo '::set-output name=PHPUNIT::7.5.*'
+          if [[ "${{ matrix.php }}" > "8.0" ]]; then
+            echo '::set-output name=PHPUNIT::9.*'
           else
             echo '::set-output name=PHPUNIT::5.7.*||6.*||7.5.*'
           fi
@@ -97,12 +97,12 @@ jobs:
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies for PHP < 8.0
         if: ${{ matrix.php < 8.0 }}
-        uses: "ramsey/composer-install@v1"
+        uses: 'ramsey/composer-install@v1'
 
       # For the PHP 8.0 and above, we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies for PHP >= 8.0
         if: ${{ matrix.php >= 8.0 }}
-        uses: "ramsey/composer-install@v1"
+        uses: 'ramsey/composer-install@v1'
         with:
           composer-options: --ignore-platform-reqs
 
