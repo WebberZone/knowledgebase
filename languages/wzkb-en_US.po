@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-07 20:25+0000\n"
+"POT-Creation-Date: 2022-01-29 20:51+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: WebberZone\n"
@@ -718,21 +718,33 @@ msgstr ""
 msgid "WZKB Articles"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:30
+#: includes/widgets/class-wzkb-articles-widget.php:31
 msgid ""
 "Display the list of articles for a section when browsing a knowledge base "
 "page"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:50
+#: includes/widgets/class-wzkb-articles-widget.php:53
 #: includes/widgets/class-wzkb-breadcrumb-widget.php:50
 #: includes/widgets/class-wzkb-sections-widget.php:53
 msgid "Title"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:55
+#: includes/widgets/class-wzkb-articles-widget.php:58
 #: includes/widgets/class-wzkb-sections-widget.php:58
 msgid "Term ID (enter a number)"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:63
+msgid "No. of posts"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:68
+msgid " Show excerpt?"
+msgstr ""
+
+#: includes/widgets/class-wzkb-articles-widget.php:128
+msgid "Knowledge Base Articles"
 msgstr ""
 
 #: includes/widgets/class-wzkb-breadcrumb-widget.php:28
