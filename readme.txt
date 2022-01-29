@@ -115,9 +115,14 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Changelog ==
 
-= 2.1.0 - 8 January 2022 =
+= 2.1.1 - 30 January 2022 =
 
 Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webberzone.com/blog/knowledge-base-v2-1-0/)
+
+* Bug fixes:
+	* Update activation on multisite when a new blog is added
+
+= 2.1.0 - 8 January 2022 =
 
 * Features:
 	* New related articles module. Enable/disable in the settings page
