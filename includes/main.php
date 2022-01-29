@@ -107,7 +107,7 @@ function wzkb_knowledge( $args = array() ) {
  * @param  int   $term_id Term ID.
  * @param  int   $level   Level of the loop.
  * @param  bool  $nested  Run recursive loops before closing HTML wrappers.
- * @param  array $args    Parameters array.
+ * @param  array $args    Parameters array. See wzkb_knowledge() for list of accepted args.
  * @return string Formatted output
  */
 function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
@@ -262,7 +262,7 @@ function wzkb_query_posts( $term ) {
  *
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
- * @param  array  $args  Parameters array.
+ * @param  array  $args  Parameters array. See wzkb_knowledge() for list of accepted args.
  * @return string Formatted output of posts for a given term
  */
 function wzkb_list_posts_by_term( $term, $level, $args = array() ) {
@@ -302,7 +302,7 @@ function wzkb_list_posts_by_term( $term, $level, $args = array() ) {
  *
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
- * @param  array  $args  Parameters array.
+ * @param  array  $args  Parameters array. See wzkb_knowledge() for list of accepted args.
  * @return string Formatted footer output
  */
 function wzkb_article_header( $term, $level, $args = array() ) {
@@ -345,7 +345,7 @@ function wzkb_article_header( $term, $level, $args = array() ) {
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
  * @param  object $query Query results object.
- * @param  array  $args  Parameters array.
+ * @param  array  $args  Parameters array. See wzkb_knowledge() for list of accepted args.
  * @return string Formatted ul loop
  */
 function wzkb_article_loop( $term, $level, $query, $args = array() ) {
@@ -398,7 +398,7 @@ function wzkb_article_loop( $term, $level, $query, $args = array() ) {
  * @param  object $term  Current term.
  * @param  int    $level Current level in the recursive loop.
  * @param  object $query Query results object.
- * @param  array  $args  Parameters array.
+ * @param  array  $args  Parameters array. See wzkb_knowledge() for list of accepted args.
  * @return string Formatted footer output
  */
 function wzkb_article_footer( $term, $level, $query, $args = array() ) {
