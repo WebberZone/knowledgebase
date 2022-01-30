@@ -5,7 +5,7 @@ Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, d
 Requires at least: 5.6
 Tested up to: 5.9
 Requires PHP: 7.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,8 +109,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 2.1.0 =
-* Related articles, updated blocks. Check the Changelog for more details.
+= 2.1.1 =
+* Related articles, updated blocks, bug fixes. Check the Changelog for more details.
 
 
 == Changelog ==
@@ -139,46 +139,6 @@ Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webbe
 * Bug fixes:
 	* Fixed Custom CSS loaded incorrectly with a 0 on install/reset
 	* Dashicons were not properly loaded on frontend
-
-= 2.0.1 - 14 June 2020 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-0-0/](https://webberzone.com/blog/knowledge-base-v2-0-0/)
-
-Bug fixes:
-	* PHP notice when not using the Gutenberg block
-	* Invalid ID error when browsing the Knowledge archives
-
-= 2.0.0 - 12 June 2020 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-0-0/](https://webberzone.com/blog/knowledge-base-v2-0-0/)
-
-* Enhancements:
-	* New Gutenberg block - search for Knowledgebase or KB
-	* Implemented CodeMirror to format custom styles box
-
-* Bug fixes:
-	* CSS navigation classes for navigation was wrong
-
-= 1.9.0 - 25 January 2020 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v1-9-0/](https://webberzone.com/blog/knowledge-base-v1-9-0/)
-
-* Features:
-	* Three new widgets added: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
-	* New template to display single articles that fits with the rest of the knowledge base views. You can override this by creating a `single-wz_knowledgebase.php` file in your theme's folder
-	* New sidebar registered by the plugin which can be used to display widgets with the included templates. You can enable the sidebar in the Settings page
-	* New option to limit the number of posts being displayed in each category before a "Read more" link is displayed. Customize the read more by filtering `wzkb_excerpt_more`
-
-* Enhancements:
-	* Renamed the archive and taxonomy templates to `archive-wz_knowledgebase.php` and `taxonomy-wzkb_category.php` respectively in line with the WordPress template standards. If you were already using `wzkb-archive.php` or `wzkb-category.php` then please rename these
-	* Stylesheet file renamed to wzkb-styles.min.css
-
-= 1.8.0 - 14 September 2019 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v1-8-0-introducing-caching/](https://webberzone.com/blog/knowledge-base-v1-8-0-introducing-caching/)
-
-* Features:
-	* New option to enable the internal cache. Saving the settings page will delete the cache
 
 = Earlier versions =
 

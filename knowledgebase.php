@@ -15,7 +15,7 @@
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Fastest way to create a highly-flexible multi-product knowledge base.
- * Version: 2.1.1-beta1
+ * Version: 2.1.1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
