@@ -9,13 +9,13 @@
  * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2015-2022 Ajay D'Souza
+ * @copyright 2015-2023 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Fastest way to create a highly-flexible multi-product knowledge base.
- * Version: 2.1.1
+ * Version: 2.1.2-beta1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+

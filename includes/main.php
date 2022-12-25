@@ -73,7 +73,7 @@ function wzkb_knowledge( $args = array() ) {
 	 */
 	$div_classes = apply_filters( 'wzkb_div_class', $div_classes );
 
-	$output = '<div class="wzkb ' . $div_classes . '">';
+	$output = '<div class="wzkb ' . esc_attr( $div_classes ) . '">';
 
 	// Are we trying to display a category?
 	$category       = absint( $args['category'] );
