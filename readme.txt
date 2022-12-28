@@ -3,9 +3,9 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 5.6
-Tested up to: 5.9
+Tested up to: 6.1
 Requires PHP: 7.1
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,8 +109,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 2.1.1 =
-* Related articles, updated blocks, bug fixes. Check the Changelog for more details.
+= 2.1.2 =
+* Security fix
 
 
 == Changelog ==
