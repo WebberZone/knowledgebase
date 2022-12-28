@@ -10,7 +10,7 @@
 
 __Requires:__ 5.6
 
-__Tested up to:__ 5.9
+__Tested up to:__ 6.1
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -30,9 +30,9 @@ You can view a [live demo of my own knowledge base](https://webberzone.com/suppo
 
 ### Terminology
 
-* **Articles**: A custom post type `wz_knowledgebase` is used to store all the knowledge base articles
-* **Sections**: A custom taxonomy ( `kbcategory` ) used to create the knowledge base. You will need *at least one category* in order to display the knowledge base. These categories can be added under *Knowledge Base > Sections*
-* **Tags**: Additionally you can use tags ( `kbtags` ) can also be used for each knowledge base article.
+* __Articles__: A custom post type `wz_knowledgebase` is used to store all the knowledge base articles
+* __Sections__: A custom taxonomy ( `kbcategory` ) used to create the knowledge base. You will need *at least one category* in order to display the knowledge base. These categories can be added under *Knowledge Base > Sections*
+* __Tags__: Additionally you can use tags ( `kbtags` ) can also be used for each knowledge base article.
 
 ### Main features
 
