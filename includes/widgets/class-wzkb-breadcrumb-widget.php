@@ -159,7 +159,6 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 		$output .= $args['after_widget'];
 
 		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	} // Ending function widget.
 }
 

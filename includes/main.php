@@ -139,11 +139,9 @@ function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 	if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
 		$output .= wzkb_article_header( $term, $level, $args );
 		$output .= wzkb_list_posts_by_term( $term, $level, $args );
-	} else {
-		if ( $level > 0 ) {
+	} elseif ( $level > 0 ) {
 			/* translators: Section ID. */
 			return sprintf( __( '%s is not enter a valid section ID', 'knowledgebase' ), $term_id );
-		}
 	}
 
 	$output .= '<div class="wzkb_section_wrapper">';
@@ -165,7 +163,7 @@ function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 
 	if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
 
-		$level++;
+		++$level;
 
 		foreach ( $sections as $section ) {
 			$output .= wzkb_looper( $section->term_id, $level, $nested, $args );
@@ -187,7 +185,6 @@ function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 	 * @param int  $level  Level of the loop
 	 */
 	return apply_filters( 'wzkb_looper', $output, $term, $level );
-
 }
 
 
@@ -250,7 +247,6 @@ function wzkb_query_posts( $term ) {
 	 * @param object $term The Term
 	 */
 	return apply_filters( 'wzkb_query_posts', $query, $args, $term );
-
 }
 
 
@@ -291,7 +287,6 @@ function wzkb_list_posts_by_term( $term, $level, $args = array() ) {
 	 * @param object $query Query results object
 	 */
 	return apply_filters( 'wzkb_list_posts_by_term', $output, $term, $level, $query );
-
 }
 
 /**
@@ -332,7 +327,6 @@ function wzkb_article_header( $term, $level, $args = array() ) {
 	 * @param object $query Query results object
 	 */
 	return apply_filters( 'wzkb_article_header', $output, $term, $level );
-
 }
 
 
@@ -364,7 +358,7 @@ function wzkb_article_loop( $term, $level, $query, $args = array() ) {
 		}
 		$output .= '</li>';
 
-		$limit++;
+		++$limit;
 
 		if ( $limit >= $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
 			break;
@@ -385,7 +379,6 @@ function wzkb_article_loop( $term, $level, $query, $args = array() ) {
 	 * @param object $query Query results object
 	 */
 	return apply_filters( 'wzkb_article_loop', $output, $term, $level, $query );
-
 }
 
 
@@ -436,7 +429,6 @@ function wzkb_article_footer( $term, $level, $query, $args = array() ) {
 	 * @param int  $level Current level in the recursive loop
 	 */
 	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
-
 }
 
 /**

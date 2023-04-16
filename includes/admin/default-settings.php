@@ -39,7 +39,6 @@ function wzkb_get_registered_settings() {
 	 * @param array $wzkb_setings Settings array
 	 */
 	return apply_filters( 'wzkb_registered_settings', $wzkb_settings );
-
 }
 
 /**

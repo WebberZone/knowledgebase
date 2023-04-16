@@ -31,7 +31,6 @@ function wzkb_add_admin_pages_links() {
 
 	// Load the settings contextual help.
 	add_action( "load-$wzkb_settings_page", 'wzkb_settings_help' );
-
 }
 add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
 

@@ -182,7 +182,6 @@ class WZKB_Sections_Widget extends WP_Widget {
 		$output .= $args['after_widget'];
 
 		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	} // Ending function widget.
 }
 
@@ -221,7 +220,7 @@ function wzkb_categories_list( $term_id, $level = 0, $args = array() ) {
 
 		$output .= '<ul class="wzkb_terms_widget wzkb_term_' . $term_id . ' wzkb_ul_level_' . $level . '">';
 
-		$level++;
+		++$level;
 
 		foreach ( $sections as $term ) {
 

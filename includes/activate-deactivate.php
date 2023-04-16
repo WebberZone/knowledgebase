@@ -64,7 +64,6 @@ function wzkb_single_activate() {
 	global $wp_rewrite;
 	$wp_rewrite->init();
 	flush_rewrite_rules( false );
-
 }
 
 
