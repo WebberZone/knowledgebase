@@ -83,7 +83,6 @@ function wzkb_register_post_type() {
 	$ptargs = apply_filters( 'wzkb_post_type_args', $ptargs );
 
 	register_post_type( 'wz_knowledgebase', $ptargs );
-
 }
 add_action( 'init', 'wzkb_register_post_type' );
 
@@ -188,6 +187,5 @@ function wzkb_register_taxonomies() {
 		 */
 		apply_filters( 'wzkb_tag_args', $args )
 	);
-
 }
 add_action( 'init', 'wzkb_register_taxonomies' );

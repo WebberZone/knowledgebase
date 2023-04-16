@@ -69,7 +69,6 @@ function wzkb_delete_data() {
 
 	// Delete the cache.
 	wzkb_delete_cache();
-
 }
 
 
@@ -110,5 +109,4 @@ function wzkb_delete_cache() {
 	";
 
 	$wpdb->query( $sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-
 }

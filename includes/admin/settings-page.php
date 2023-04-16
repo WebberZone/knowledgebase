@@ -135,7 +135,6 @@ function wzkb_get_settings_sections() {
 	 * @param array $wzkb_settings_sections Settings array
 	 */
 	return apply_filters( 'wzkb_settings_sections', $wzkb_settings_sections );
-
 }
 
 

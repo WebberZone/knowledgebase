@@ -302,7 +302,6 @@ function wzkb_get_default_option( $key = '' ) {
 	} else {
 		return false;
 	}
-
 }
 
 

@@ -64,5 +64,4 @@ function wzkb_settings_help() {
 	);
 
 	do_action( 'wzkb_settings_help', $screen );
-
 }
