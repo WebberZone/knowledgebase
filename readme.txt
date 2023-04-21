@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 5.6
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.1
 Stable tag: 2.1.2
 License: GPLv2 or later
@@ -114,6 +114,11 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 
 == Changelog ==
+
+= 2.2.0 =
+
+* Enhancements:
+	* Alerts block now shows a preview and the Default style is inserted correctly
 
 = 2.1.2 =
 
