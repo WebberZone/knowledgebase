@@ -11,52 +11,86 @@
 	margin-bottom: 1rem;
 	border: 1px solid transparent;
 	border-radius: 0.25rem;
+	color: #004085;
+	background-color: #cce5ff;
+	border-color: #b8daff;
 
 	&.is-style-primary {
 		color: #004085;
 		background-color: #cce5ff;
 		border-color: #b8daff;
 	}
+
 	&.is-style-primary hr {
 		border-top-color: #9fcdff;
 	}
+
 	&.is-style-secondary {
 		color: #383d41;
 		background-color: #e2e3e5;
 		border-color: #d6d8db;
 	}
+
 	&.is-style-secondary hr {
 		border-top-color: #c8cbcf;
 	}
+
+	&.is-style-success {
+		color: #155724;
+		background-color: #d4edda;
+		border-color: #c3e6cb;
+	}
+
+	&.is-style-success hr {
+		border-top-color: #b1dfbb;
+	}
+
+	&.is-style-info {
+		color: #0c5460;
+		background-color: #d1ecf1;
+		border-color: #bee5eb;
+	}
+
+	&.is-style-info hr {
+		border-top-color: #abdde5;
+	}
+
 	&.is-style-warning {
 		color: #856404;
 		background-color: #fff3cd;
 		border-color: #ffeeba;
 	}
+
 	&.is-style-warning hr {
 		border-top-color: #ffe8a1;
 	}
+
 	&.is-style-danger {
 		color: #721c24;
 		background-color: #f8d7da;
 		border-color: #f5c6cb;
 	}
+
 	&.is-style-danger hr {
 		border-top-color: #f1b0b7;
 	}
+
 	&.is-style-light {
 		color: #818182;
 		background-color: #fefefe;
 		border-color: #fdfdfe;
 	}
+
 	&.is-style-light hr {
 		border-top-color: #ececf6;
 	}
+
 	&.is-style-dark {
 		color: #1b1e21;
 		background-color: #d6d8d9;
 		border-color: #c6c8ca;
 	}
+
 	&.is-style-dark hr {
 		border-top-color: #b9bbbe;
 	}
