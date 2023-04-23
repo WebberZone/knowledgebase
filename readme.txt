@@ -118,6 +118,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 = 2.2.0 =
 
 * Enhancements:
+	* The plugin will now look for templates within `wp-content/knowledgebase/templates` folder if it is not found within the existing theme before using the plugin's included templates
 	* Alerts block now shows a preview and the Default style is inserted correctly
 
 = 2.1.2 =
