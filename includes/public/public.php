@@ -69,28 +69,30 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  * @return string Modified Archive Template location
  */
 function wzkb_archive_template( $template ) {
-
-	$template_name = '';
+	$template_name = null;
 
 	if ( is_singular( 'wz_knowledgebase' ) ) {
 		$template_name = 'single-wz_knowledgebase.php';
-	}
-
-	if ( is_post_type_archive( 'wz_knowledgebase' ) ) {
-
-		if ( is_search() ) {
-			$template_name = 'wzkb-search.php';
-		} else {
-			$template_name = 'archive-wz_knowledgebase.php';
-		}
-	}
-
-	if ( is_tax( 'wzkb_category' ) && ! is_search() ) {
+	} elseif ( is_post_type_archive( 'wz_knowledgebase' ) ) {
+		$template_name = is_search() ? 'wzkb-search.php' : 'archive-wz_knowledgebase.php';
+	} elseif ( is_tax( 'wzkb_category' ) && ! is_search() ) {
 		$template_name = 'taxonomy-wzkb_category.php';
 	}
 
-	if ( '' !== $template_name && '' === locate_template( array( $template_name ) ) ) {
-		$template = WZKB_PLUGIN_DIR . 'includes/public/templates/' . $template_name;
+	if ( $template_name ) {
+		$new_template = locate_template( array( $template_name ) );
+		if ( $new_template ) {
+			return $new_template;
+		}
+
+		$new_template = WP_CONTENT_DIR . '/knowledgebase/templates/' . $template_name;
+		if ( file_exists( $new_template ) ) {
+			return $new_template;
+		}
+		$new_template = WZKB_PLUGIN_DIR . 'includes/public/templates/' . $template_name;
+		if ( file_exists( $new_template ) ) {
+			return $new_template;
+		}
 	}
 
 	return $template;
