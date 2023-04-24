@@ -57,7 +57,6 @@ register_activation_hook( WZKB_PLUGIN_FILE, 'wzkb_plugin_activate' );
 function wzkb_single_activate() {
 
 	// Register types to register the rewrite rules.
-	wzkb_register_settings();
 	wzkb_register_post_type();
 
 	// Then flush them.
