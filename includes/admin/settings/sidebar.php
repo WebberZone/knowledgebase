@@ -18,7 +18,7 @@
 			<div id="donate-form">
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 					<input type="hidden" name="cmd" value="_xclick"> <input type="hidden" name="business" value="donate@ajaydsouza.com"> <input type="hidden" name="lc" value="IN"> <input type="hidden" name="item_name" value="<?php esc_html_e( 'Donation for Knowledgebase', 'knowledgebase' ); ?>"> <input type="hidden" name="item_number" value="wzkb_plugin_settings"> <strong><?php esc_html_e( 'Enter amount in USD:', 'knowledgebase' ); ?></strong> <input name="amount" value="10.00" size="6" type="text"><br>
-					<input type="hidden" name="currency_code" value="USD"> <input type="hidden" name="button_subtype" value="services"> <input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted"> <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php esc_html_e( 'Send your donation to the author of', 'knowledgebase' ); ?> Knowledgebase?"> <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+					<input type="hidden" name="currency_code" value="USD"> <input type="hidden" name="button_subtype" value="services"> <input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted"> <input type="image" src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/settings/images/btn_donate_LG.gif' ); ?>" border="0" name="submit" alt="<?php esc_html_e( 'Send your donation to the author of', 'knowledgebase' ); ?> Knowledgebase?">
 				</form>
 			</div><!-- /#donate-form -->
 		</div><!-- /.inside -->
@@ -68,7 +68,7 @@
 		<h2 class='hndle'><span><?php esc_html_e( 'Follow me', 'add-to-all' ); ?></span></h2>
 
 		<div class="inside" style="text-align: center">
-			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/fb.png' ); ?>" width="100" height="100"></a> <a href="https://twitter.com/webberzonewp/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/twitter.jpg' ); ?>" width="100" height="100"></a>
+			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/settings/images/fb.png' ); ?>" width="100" height="100"></a> <a href="https://twitter.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/settings/images/twitter.jpg' ); ?>" width="100" height="100"></a>
 		</div><!-- /.inside -->
 	</div><!-- /.postbox -->
 </div>

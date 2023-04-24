@@ -14,59 +14,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
-/**
- * Creates the admin submenu pages under the Downloads menu and assigns their
- * links to global variables
- *
- * @since 1.2.0
- *
- * @global $wzkb_settings_page
- * @return void
- */
-function wzkb_add_admin_pages_links() {
-	global $wzkb_settings_page;
-
-	$wzkb_settings_page = add_submenu_page( 'edit.php?post_type=wz_knowledgebase', __( 'Knowledge Base Settings', 'knowledgebase' ), __( 'Settings', 'knowledgebase' ), 'manage_options', 'wzkb-settings', 'wzkb_options_page' );
-
-	// Load the settings contextual help.
-	add_action( "load-$wzkb_settings_page", 'wzkb_settings_help' );
-}
-add_action( 'admin_menu', 'wzkb_add_admin_pages_links' );
-
-
-/**
- * Enqueue Admin JS
- *
- * @since 2.0.0
- *
- * @param string $hook The current admin page.
- */
-function wzkb_load_admin_scripts( $hook ) {
-
-	global $wzkb_settings_page;
-
-	wp_register_script( 'wzkb-admin-js', WZKB_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js', array( 'jquery', 'jquery-ui-tabs' ), '1.0', true );
-
-	if ( $hook === $wzkb_settings_page ) {
-
-		wp_enqueue_script( 'wzkb-admin-js' );
-
-		wp_enqueue_code_editor(
-			array(
-				'type'       => 'text/html',
-				'codemirror' => array(
-					'indentUnit' => 2,
-					'tabSize'    => 2,
-				),
-			)
-		);
-
-	}
-}
-add_action( 'admin_enqueue_scripts', 'wzkb_load_admin_scripts' );
-
-
 /**
  * Customise the taxonomy columns.
  *
@@ -106,37 +53,6 @@ function wzkb_tax_id( $value, $name, $id ) {
 }
 add_filter( 'manage_wzkb_category_custom_column', 'wzkb_tax_id', 10, 3 );
 add_filter( 'manage_wzkb_tag_custom_column', 'wzkb_tax_id', 10, 3 );
-
-
-/**
- * Add rating links to the admin dashboard
- *
- * @since 1.2.0
- *
- * @param string $footer_text The existing footer text.
- * @return string Updated Footer text
- */
-function wzkb_admin_footer( $footer_text ) {
-
-	if ( get_current_screen()->post_type === 'wz_knowledgebase' ) {
-
-		$text = sprintf(
-			/* translators: 1: Knowledge Base website, 2: Plugin reviews link. */
-			__( 'Thank you for using <a href="%1$s" target="_blank">WebberZone Knowledge Base</a>! Please <a href="%2$s" target="_blank">rate us</a> on <a href="%2$s" target="_blank">WordPress.org</a>', 'knowledgebase' ),
-			'https://webberzone.com/knowledgebase',
-			'https://wordpress.org/support/plugin/knowledgebase/reviews/#new-post'
-		);
-
-		return str_replace( '</span>', '', $footer_text ) . ' | ' . $text . '</span>';
-
-	} else {
-
-		return $footer_text;
-
-	}
-}
-add_filter( 'admin_footer_text', 'wzkb_admin_footer' );
-
 
 /**
  * Filters Admin Notices to add a notice when the settings are not saved.
