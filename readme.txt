@@ -5,7 +5,7 @@ Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, d
 Requires at least: 5.6
 Tested up to: 6.2
 Requires PHP: 7.1
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,7 +85,7 @@ Refer to [this Knowledge Base article](https://webberzone.com/support/knowledgeb
 
 = Using your own templates for archives and search =
 
-WebberZone Knowledge Base comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder
+WebberZone Knowledge Base comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder or in `wp-content/knowledgebase/templates`
 
 1. Article view: single-wz_knowledgebase.php
 2. Articles archive: archive-wz_knowledgebase.php
@@ -109,8 +109,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 2.1.2 =
-* Security fix
+= 2.2.0 =
+* Multiple Enhancements. Refer to the changelog
 
 
 == Changelog ==
@@ -120,6 +120,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 * Enhancements:
 	* The plugin will now look for templates within `wp-content/knowledgebase/templates` folder if it is not found within the existing theme before using the plugin's included templates
 	* Alerts block now shows a preview and the Default style is inserted correctly
+	* Upgrade settings handling to use the WebberZone Settings_API class
 
 = 2.1.2 =
 
