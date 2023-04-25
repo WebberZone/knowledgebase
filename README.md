@@ -10,7 +10,7 @@
 
 __Requires:__ 5.6
 
-__Tested up to:__ 6.1
+__Tested up to:__ 6.2
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -101,7 +101,7 @@ Refer to [this Knowledge Base article](https://webberzone.com/support/knowledgeb
 
 ### Using your own templates for archives and search
 
-WebberZone Knowledge Base comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder
+WebberZone Knowledge Base comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder or in `wp-content/knowledgebase/templates`
 
 1. Articles archive: archive-wz_knowledgebase.php
 2. Category archive: taxonomy-wzkb_category.php
