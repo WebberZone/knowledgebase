@@ -210,7 +210,7 @@ function wzkb_register_sidebars() {
 	);
 	/* Repeat register_sidebar() code for additional sidebars. */
 }
-add_action( 'widgets_init', 'wzkb_register_sidebars' );
+add_action( 'widgets_init', 'wzkb_register_sidebars', 11 );
 
 
 /**
