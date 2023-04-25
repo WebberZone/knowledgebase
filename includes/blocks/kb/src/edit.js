@@ -16,6 +16,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
 import {
+	Disabled,
 	TextControl,
 	TextareaControl,
 	ToggleControl,
@@ -58,7 +59,7 @@ export default function Edit({ attributes, setAttributes }) {
 		columns,
 		other_attributes,
 	} = attributes;
-	console.log(attributes);
+
 	const blockProps = useBlockProps();
 	const onChangeCategory = (newCategory) => {
 		setAttributes({
@@ -113,7 +114,10 @@ export default function Edit({ attributes, setAttributes }) {
 					<PanelRow>
 						<fieldset>
 							<TextControl
-								label={__('Max articles per section', 'knowledgebase')}
+								label={__(
+									'Max articles per section',
+									'knowledgebase'
+								)}
 								value={limit}
 								onChange={onChangeLimit}
 								help={__(
@@ -126,11 +130,20 @@ export default function Edit({ attributes, setAttributes }) {
 					<PanelRow>
 						<fieldset>
 							<ToggleControl
-								label={__('Show article count', 'knowledgebase')}
+								label={__(
+									'Show article count',
+									'knowledgebase'
+								)}
 								help={
 									showArticleCount
-										? __('Article count displayed', 'knowledgebase')
-										: __('No article count displayed', 'knowledgebase')
+										? __(
+												'Article count displayed',
+												'knowledgebase'
+										  )
+										: __(
+												'No article count displayed',
+												'knowledgebase'
+										  )
 								}
 								checked={showArticleCount}
 								onChange={toggleShowArticleCount}
@@ -143,7 +156,10 @@ export default function Edit({ attributes, setAttributes }) {
 								label={__('Show excerpt', 'knowledgebase')}
 								help={
 									showExcerpt
-										? __('Excerpt displayed', 'knowledgebase')
+										? __(
+												'Excerpt displayed',
+												'knowledgebase'
+										  )
 										: __('No excerpt', 'knowledgebase')
 								}
 								checked={showExcerpt}
@@ -154,11 +170,20 @@ export default function Edit({ attributes, setAttributes }) {
 					<PanelRow>
 						<fieldset>
 							<ToggleControl
-								label={__('Show clickable section', 'knowledgebase')}
+								label={__(
+									'Show clickable section',
+									'knowledgebase'
+								)}
 								help={
 									hasClickableSection
-										? __('Section headers are linked', 'knowledgebase')
-										: __('Section headers not linked', 'knowledgebase')
+										? __(
+												'Section headers are linked',
+												'knowledgebase'
+										  )
+										: __(
+												'Section headers not linked',
+												'knowledgebase'
+										  )
 								}
 								checked={hasClickableSection}
 								onChange={toggleClickableSection}
@@ -168,11 +193,20 @@ export default function Edit({ attributes, setAttributes }) {
 					<PanelRow>
 						<fieldset>
 							<ToggleControl
-								label={__('Show empty sections', 'knowledgebase')}
+								label={__(
+									'Show empty sections',
+									'knowledgebase'
+								)}
 								help={
 									showEmptySections
-										? __('Empty sections displayed', 'knowledgebase')
-										: __('Empty sections hidden', 'knowledgebase')
+										? __(
+												'Empty sections displayed',
+												'knowledgebase'
+										  )
+										: __(
+												'Empty sections hidden',
+												'knowledgebase'
+										  )
 								}
 								checked={showEmptySections}
 								onChange={toggleShowEmptySections}
@@ -209,10 +243,12 @@ export default function Edit({ attributes, setAttributes }) {
 			</InspectorControls>
 
 			<div {...blockProps}>
-				<ServerSideRender
-					block="knowledgebase/knowledgebase"
-					attributes={attributes}
-				/>
+				<Disabled>
+					<ServerSideRender
+						block="knowledgebase/knowledgebase"
+						attributes={attributes}
+					/>
+				</Disabled>
 			</div>
 		</>
 	);
