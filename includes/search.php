@@ -20,10 +20,10 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 1.1.0
  *
- * @param  boolean $echo Default to echo and not return the form.
+ * @param  boolean $echo_output Default to echo and not return the form.
  * @return string|null   String when retrieving, null when displaying or if searchform.php exists.
  */
-function wzkb_get_search_form( $echo = true ) {
+function wzkb_get_search_form( $echo_output = true ) {
 
 	$form = '
     <form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">
@@ -49,7 +49,7 @@ function wzkb_get_search_form( $echo = true ) {
 		$result = $form;
 	}
 
-	if ( $echo ) {
+	if ( $echo_output ) {
 		echo $result; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} else {
 		return $result;

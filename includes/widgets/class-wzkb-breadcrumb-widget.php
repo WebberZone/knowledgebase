@@ -161,16 +161,3 @@ class WZKB_Breadcrumb_Widget extends WP_Widget {
 		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} // Ending function widget.
 }
-
-
-/**
- * Initialise the widget.
- *
- * @since 1.9.0
- */
-function register_wzkb_widgets() {
-	register_widget( 'WZKB_Breadcrumb_Widget' );
-	register_widget( 'WZKB_Sections_Widget' );
-	register_widget( 'WZKB_Articles_Widget' );
-}
-add_action( 'widgets_init', 'register_wzkb_widgets' );
