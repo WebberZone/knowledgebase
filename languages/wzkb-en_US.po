@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-29 20:51+0000\n"
+"POT-Creation-Date: 2023-04-25 20:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: WebberZone\n"
@@ -10,132 +10,172 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.0\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/admin/admin.php:30 includes/admin/settings-page.php:32
-#: includes/blocks/kb/src/edit.js:97
-msgid "Knowledge Base Settings"
-msgstr ""
-
-#: includes/admin/admin.php:30
-msgid "Settings"
-msgstr ""
-
-#: includes/admin/admin.php:126
-#, php-format
-msgid ""
-"Thank you for using <a href=\"%1$s\" target=\"_blank\">WebberZone Knowledge "
-"Base</a>! Please <a href=\"%2$s\" target=\"_blank\">rate us</a> on <a href="
-"\"%2$s\" target=\"_blank\">WordPress.org</a>"
-msgstr ""
-
-#: includes/admin/admin.php:167
+#: includes/admin/admin.php:82
 #, php-format
 msgid ""
 "Knowledge Base settings for the slug have not been registered. Please visit "
 "the <a href=\"%s\">admin page</a> to update and save the options."
 msgstr ""
 
-#: includes/admin/admin.php:191
+#: includes/admin/admin.php:106
 #, php-format
 msgid "%s KB article"
 msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/default-settings.php:57
+#: includes/admin/settings/class-knowledgebase-settings.php:136
+#: includes/admin/settings/class-knowledgebase-settings.php:138
+#: includes/blocks/kb/src/edit.js:97
+msgid "Knowledge Base Settings"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:137
+#: includes/admin/settings/class-knowledgebase-settings.php:457
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:139
+#: includes/admin/settings/class-settings-api.php:246
+msgid ""
+"Settings have been reset to their default values. Reload this page to view "
+"the updated settings."
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:140
+#: includes/admin/settings/class-settings-api.php:247
+msgid "Settings updated."
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:141
+#: includes/admin/settings/class-settings-api.php:248
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:142
+#: includes/admin/settings/class-settings-api.php:249
+msgid "Reset all settings"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:143
+#: includes/admin/settings/class-settings-api.php:250
+msgid "Do you really want to reset all these settings to their default values?"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:144
+#: includes/admin/settings/class-settings-api.php:251
+msgid "Modified from default setting"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:166
+#: includes/admin/settings/class-knowledgebase-settings.php:523
+msgid "General"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:167
+msgid "Output"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:168
+#: includes/admin/settings/class-knowledgebase-settings.php:530
+msgid "Styles"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:219
 msgid "Slug options"
 msgstr ""
 
-#: includes/admin/default-settings.php:63
+#: includes/admin/settings/class-knowledgebase-settings.php:225
 msgid "Knowledge Base slug"
 msgstr ""
 
-#: includes/admin/default-settings.php:64
+#: includes/admin/settings/class-knowledgebase-settings.php:226
 msgid ""
 "This will set the opening path of the URL of the knowledge base and is set "
 "when registering the custom post type"
 msgstr ""
 
-#: includes/admin/default-settings.php:70
+#: includes/admin/settings/class-knowledgebase-settings.php:232
 msgid "Category slug"
 msgstr ""
 
-#: includes/admin/default-settings.php:71
+#: includes/admin/settings/class-knowledgebase-settings.php:233
 msgid ""
 "Each category is a section of the knowledge base. This setting is used when "
 "registering the custom category and forms a part of the URL when browsing "
 "category archives"
 msgstr ""
 
-#: includes/admin/default-settings.php:77
+#: includes/admin/settings/class-knowledgebase-settings.php:239
 msgid "Tag slug"
 msgstr ""
 
-#: includes/admin/default-settings.php:78
+#: includes/admin/settings/class-knowledgebase-settings.php:240
 msgid ""
 "Each article can have multiple tags. This setting is used when registering "
 "the custom tag and forms a part of the URL when browsing tag archives"
 msgstr ""
 
-#: includes/admin/default-settings.php:84
+#: includes/admin/settings/class-knowledgebase-settings.php:246
 msgid "Enable cache"
 msgstr ""
 
-#: includes/admin/default-settings.php:85
+#: includes/admin/settings/class-knowledgebase-settings.php:247
 msgid ""
 "Cache the output of the WP_Query lookups to speed up retrieval of the "
 "knowledgebase. Recommended for large knowledge bases"
 msgstr ""
 
-#: includes/admin/default-settings.php:91
+#: includes/admin/settings/class-knowledgebase-settings.php:253
 msgid "Uninstall options"
 msgstr ""
 
-#: includes/admin/default-settings.php:98
+#: includes/admin/settings/class-knowledgebase-settings.php:260
 msgid "Delete options on uninstall"
 msgstr ""
 
-#: includes/admin/default-settings.php:99
+#: includes/admin/settings/class-knowledgebase-settings.php:261
 msgid ""
 "Check this box to delete the settings on this page when the plugin is "
 "deleted via the Plugins page in your WordPress Admin"
 msgstr ""
 
-#: includes/admin/default-settings.php:105
+#: includes/admin/settings/class-knowledgebase-settings.php:267
 msgid "Delete all knowledge base posts on uninstall"
 msgstr ""
 
-#: includes/admin/default-settings.php:106
+#: includes/admin/settings/class-knowledgebase-settings.php:268
 msgid ""
 "Check this box to delete all the posts, categories and tags created by the "
 "plugin. There is no way to restore the data if you choose this option"
 msgstr ""
 
-#: includes/admin/default-settings.php:112
+#: includes/admin/settings/class-knowledgebase-settings.php:274
 msgid "Feed options"
 msgstr ""
 
-#: includes/admin/default-settings.php:119
+#: includes/admin/settings/class-knowledgebase-settings.php:281
 msgid "Include in feed"
 msgstr ""
 
-#: includes/admin/default-settings.php:120
+#: includes/admin/settings/class-knowledgebase-settings.php:282
 msgid "Adds the knowledge base articles to the main RSS feed for your site"
 msgstr ""
 
-#: includes/admin/default-settings.php:126
+#: includes/admin/settings/class-knowledgebase-settings.php:288
 msgid "Disable KB feed"
 msgstr ""
 
-#: includes/admin/default-settings.php:128
+#: includes/admin/settings/class-knowledgebase-settings.php:290
 #, php-format
 msgid ""
 "The knowledge base articles have a default feed. This option will disable "
@@ -143,21 +183,21 @@ msgid ""
 "this option."
 msgstr ""
 
-#: includes/admin/default-settings.php:156
+#: includes/admin/settings/class-knowledgebase-settings.php:318
 msgid "Knowledge base title"
 msgstr ""
 
-#: includes/admin/default-settings.php:157
+#: includes/admin/settings/class-knowledgebase-settings.php:319
 msgid ""
 "This will be displayed as the title of the archive title as well as on other "
 "relevant places."
 msgstr ""
 
-#: includes/admin/default-settings.php:164
+#: includes/admin/settings/class-knowledgebase-settings.php:326
 msgid "First section level"
 msgstr ""
 
-#: includes/admin/default-settings.php:165
+#: includes/admin/settings/class-knowledgebase-settings.php:327
 msgid ""
 "This option allows you to create multi-level knowledge bases. This works in "
 "conjunction with the inbuilt styles. Set to 1 to lay out the top level "
@@ -167,239 +207,244 @@ msgid ""
 "the behaviour of this plugin before v1.5.0."
 msgstr ""
 
-#: includes/admin/default-settings.php:174 includes/blocks/kb/src/edit.js:129
+#: includes/admin/settings/class-knowledgebase-settings.php:336
+#: includes/blocks/kb/src/edit.js:129
 msgid "Show article count"
 msgstr ""
 
-#: includes/admin/default-settings.php:175
+#: includes/admin/settings/class-knowledgebase-settings.php:337
 msgid ""
 "If selected, the number of articles will be displayed in an orange circle "
 "next to the header. You can override the color by styling wzkb_section_count"
 msgstr ""
 
-#: includes/admin/default-settings.php:181 includes/blocks/kb/src/edit.js:143
+#: includes/admin/settings/class-knowledgebase-settings.php:343
+#: includes/blocks/kb/src/edit.js:143
 msgid "Show excerpt"
 msgstr ""
 
-#: includes/admin/default-settings.php:182
+#: includes/admin/settings/class-knowledgebase-settings.php:344
 msgid "Select to include the post excerpt after the article link"
 msgstr ""
 
-#: includes/admin/default-settings.php:188
+#: includes/admin/settings/class-knowledgebase-settings.php:350
 msgid "Link section title"
 msgstr ""
 
-#: includes/admin/default-settings.php:189
+#: includes/admin/settings/class-knowledgebase-settings.php:351
 msgid ""
 "If selected, the title of each section of the knowledgebase will be linked "
 "to its own page"
 msgstr ""
 
-#: includes/admin/default-settings.php:195 includes/blocks/kb/src/edit.js:171
+#: includes/admin/settings/class-knowledgebase-settings.php:357
+#: includes/blocks/kb/src/edit.js:171
 msgid "Show empty sections"
 msgstr ""
 
-#: includes/admin/default-settings.php:196
+#: includes/admin/settings/class-knowledgebase-settings.php:358
 msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
-#: includes/admin/default-settings.php:202 includes/blocks/kb/src/edit.js:116
+#: includes/admin/settings/class-knowledgebase-settings.php:364
+#: includes/blocks/kb/src/edit.js:116
 msgid "Max articles per section"
 msgstr ""
 
-#: includes/admin/default-settings.php:203
+#: includes/admin/settings/class-knowledgebase-settings.php:365
 msgid ""
 "Enter the number of articles that should be displayed in each section when "
 "viewing the knowledge base. After this limit is reached, the footer is "
 "displayed with the more link to view the category."
 msgstr ""
 
-#: includes/admin/default-settings.php:212
+#: includes/admin/settings/class-knowledgebase-settings.php:374
 msgid "Show sidebar"
 msgstr ""
 
-#: includes/admin/default-settings.php:213
+#: includes/admin/settings/class-knowledgebase-settings.php:375
 msgid ""
 "Add the sidebar of your theme into the inbuilt templates for archive, "
 "sections and search. Activate this option if your theme does not already "
 "include this."
 msgstr ""
 
-#: includes/admin/default-settings.php:219
+#: includes/admin/settings/class-knowledgebase-settings.php:381
 msgid "Show related articles"
 msgstr ""
 
-#: includes/admin/default-settings.php:220
+#: includes/admin/settings/class-knowledgebase-settings.php:382
 msgid ""
 "Add related articles at the bottom of the knowledge base article. Only works "
 "when using the inbuilt template."
 msgstr ""
 
-#: includes/admin/default-settings.php:248
+#: includes/admin/settings/class-knowledgebase-settings.php:410
 msgid "Include inbuilt styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:249
+#: includes/admin/settings/class-knowledgebase-settings.php:411
 msgid ""
 "Uncheck this to disable this plugin from adding the inbuilt styles. You will "
 "need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/default-settings.php:255 includes/blocks/kb/src/edit.js:185
+#: includes/admin/settings/class-knowledgebase-settings.php:417
+#: includes/blocks/kb/src/edit.js:185
 msgid "Number of columns"
 msgstr ""
 
-#: includes/admin/default-settings.php:256
+#: includes/admin/settings/class-knowledgebase-settings.php:418
 msgid ""
 "Set number of columns to display the knowledge base archives. This is only "
 "works if the above option is selected."
 msgstr ""
 
-#: includes/admin/default-settings.php:265
+#: includes/admin/settings/class-knowledgebase-settings.php:427
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/default-settings.php:266
+#: includes/admin/settings/class-knowledgebase-settings.php:428
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
-#: includes/admin/help-tab.php:35
-#, php-format
-msgid ""
-"For more information or how to get support visit the <a href=\"%1$s"
-"\">WebberZone support site</a>."
+#: includes/admin/settings/class-knowledgebase-settings.php:476
+#: includes/admin/settings/sidebar.php:42
+msgid "Support"
 msgstr ""
 
-#: includes/admin/help-tab.php:37
+#: includes/admin/settings/class-knowledgebase-settings.php:493
 #, php-format
 msgid ""
-"Support queries should be posted in the <a href=\"%1$s\">WordPress.org "
-"support forums</a>."
+"For more information or how to get support visit the <a href=\"%s\">support "
+"site</a>."
 msgstr ""
 
-#: includes/admin/help-tab.php:40
+#: includes/admin/settings/class-knowledgebase-settings.php:495
+#, php-format
+msgid ""
+"Support queries should be posted in the <a href=\"%s\">WordPress.org support "
+"forums</a>."
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:498
 #, php-format
 msgid ""
 "<a href=\"%1$s\">Post an issue</a> on <a href=\"%2$s\">GitHub</a> (bug "
 "reports only)."
 msgstr ""
 
-#: includes/admin/help-tab.php:49 includes/admin/settings-page.php:125
-msgid "General"
-msgstr ""
-
-#: includes/admin/help-tab.php:51
+#: includes/admin/settings/class-knowledgebase-settings.php:525
 msgid ""
 "This screen provides the basic settings for configuring your knowledge base."
 msgstr ""
 
-#: includes/admin/help-tab.php:52
+#: includes/admin/settings/class-knowledgebase-settings.php:526
 msgid ""
 "Set the knowledge base slugs which drive what the urls are for the knowledge "
 "base homepage, articles, categories and tags."
 msgstr ""
 
-#: includes/admin/help-tab.php:59 includes/admin/settings-page.php:127
-msgid "Styles"
-msgstr ""
-
-#: includes/admin/help-tab.php:61
+#: includes/admin/settings/class-knowledgebase-settings.php:532
 msgid ""
 "This screen provides options to control the look and feel of the knowledge "
 "base."
 msgstr ""
 
-#: includes/admin/help-tab.php:62
+#: includes/admin/settings/class-knowledgebase-settings.php:533
 msgid ""
 "Disable the styles included within the plugin and/or add your own CSS styles "
 "to customize this."
 msgstr ""
 
-#: includes/admin/save-settings.php:51
+#: includes/admin/settings/class-knowledgebase-settings.php:562
+msgid "Tools"
+msgstr ""
+
+#: includes/admin/settings/class-knowledgebase-settings.php:564
 msgid ""
-"Settings have been reset to their default values. Reload this page to view "
-"the updated settings"
+"This screen gives you a few tools namely one click buttons to run the "
+"closing algorithm or open comments, pingbacks/trackbacks."
 msgstr ""
 
-#: includes/admin/save-settings.php:123
-msgid "Settings updated."
+#: includes/admin/settings/class-knowledgebase-settings.php:565
+msgid "You can also delete the old settings from prior to v2.0.0"
 msgstr ""
 
-#: includes/admin/settings-page.php:70
-msgid "Save Changes"
+#: includes/admin/settings/class-knowledgebase-settings.php:608
+msgid "Visit the Knowledge Base"
 msgstr ""
 
-#: includes/admin/settings-page.php:79
-msgid "Do you really want to reset all these settings to their default values?"
-msgstr ""
-
-#: includes/admin/settings-page.php:81
-msgid "Reset all settings"
-msgstr ""
-
-#: includes/admin/settings-page.php:126
-msgid "Output"
-msgstr ""
-
-#: includes/admin/settings-page.php:152
+#: includes/admin/settings/class-knowledgebase-settings.php:622
 #, php-format
 msgid ""
-"The callback function used for the <strong>%s</strong> setting is missing."
+"Thank you for using %1$sKnowledgebase%2$s! Please %3$srate us%2$s on "
+"%3$sWordPress.org%2$s"
 msgstr ""
 
-#: includes/admin/settings-page.php:311
-msgid "Modified from default setting"
+#: includes/admin/settings/class-settings-api.php:674
+#, php-format
+msgid "The callback function used for the %1$s setting is missing."
 msgstr ""
 
-#: includes/admin/sidebar.php:15
+#: includes/admin/settings/class-settings-api.php:1002
+msgid "cropped"
+msgstr ""
+
+#: includes/admin/settings/class-settings-api.php:1213
+msgid "Choose File"
+msgstr ""
+
+#: includes/admin/settings/options-api.php:268
+msgctxt "tag delimiter"
+msgid ","
+msgstr ""
+
+#: includes/admin/settings/sidebar.php:15
 msgid "Support the development"
 msgstr ""
 
-#: includes/admin/sidebar.php:20
+#: includes/admin/settings/sidebar.php:20
 msgid "Donation for Knowledgebase"
 msgstr ""
 
-#: includes/admin/sidebar.php:20
+#: includes/admin/settings/sidebar.php:20
 msgid "Enter amount in USD:"
 msgstr ""
 
-#: includes/admin/sidebar.php:21
+#: includes/admin/settings/sidebar.php:21
 msgid "Send your donation to the author of"
 msgstr ""
 
-#: includes/admin/sidebar.php:28
+#: includes/admin/settings/sidebar.php:28
 msgid "Quick links"
 msgstr ""
 
-#: includes/admin/sidebar.php:34
+#: includes/admin/settings/sidebar.php:34
 msgid "WebberZone Knowledge Base homepage"
 msgstr ""
 
-#: includes/admin/sidebar.php:38
+#: includes/admin/settings/sidebar.php:38
 msgid "FAQ"
 msgstr ""
 
-#: includes/admin/sidebar.php:42
-msgid "Support"
-msgstr ""
-
-#: includes/admin/sidebar.php:46
+#: includes/admin/settings/sidebar.php:46
 msgid "Reviews"
 msgstr ""
 
-#: includes/admin/sidebar.php:50
+#: includes/admin/settings/sidebar.php:50
 msgid "Github repository"
 msgstr ""
 
-#: includes/admin/sidebar.php:54
+#: includes/admin/settings/sidebar.php:54
 msgid "Other plugins"
 msgstr ""
 
-#: includes/admin/sidebar.php:58
+#: includes/admin/settings/sidebar.php:58
 msgid "Ajay's blog"
 msgstr ""
 
-#: includes/admin/sidebar.php:68
+#: includes/admin/settings/sidebar.php:68
 msgid "Follow me"
 msgstr ""
 
@@ -538,116 +583,116 @@ msgstr ""
 msgid "wz_knowledgebase"
 msgstr ""
 
-#: includes/custom-post-type.php:115
+#: includes/custom-post-type.php:114
 msgctxt "Taxonomy General Name"
 msgid "Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:116
+#: includes/custom-post-type.php:115
 msgctxt "Taxonomy Singular Name"
 msgid "Section"
 msgstr ""
 
-#: includes/custom-post-type.php:117
+#: includes/custom-post-type.php:116
 msgid "Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:118
+#: includes/custom-post-type.php:117
 msgid "All Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:119
+#: includes/custom-post-type.php:118
 msgid "Parent Section"
 msgstr ""
 
-#: includes/custom-post-type.php:120
+#: includes/custom-post-type.php:119
 msgid "Parent Section:"
 msgstr ""
 
-#: includes/custom-post-type.php:121
+#: includes/custom-post-type.php:120
 msgid "New Section Name"
 msgstr ""
 
-#: includes/custom-post-type.php:122
+#: includes/custom-post-type.php:121
 msgid "Add New Section"
 msgstr ""
 
-#: includes/custom-post-type.php:123
+#: includes/custom-post-type.php:122
 msgid "Edit Section"
 msgstr ""
 
-#: includes/custom-post-type.php:124
+#: includes/custom-post-type.php:123
 msgid "Update Section"
 msgstr ""
 
-#: includes/custom-post-type.php:125
+#: includes/custom-post-type.php:124
 msgid "View Section"
 msgstr ""
 
-#: includes/custom-post-type.php:126
+#: includes/custom-post-type.php:125
 msgid "Separate sections with commas"
 msgstr ""
 
-#: includes/custom-post-type.php:127
+#: includes/custom-post-type.php:126
 msgid "Add or remove sections"
 msgstr ""
 
-#: includes/custom-post-type.php:128
+#: includes/custom-post-type.php:127
 msgid "Choose from the most used"
 msgstr ""
 
-#: includes/custom-post-type.php:129
+#: includes/custom-post-type.php:128
 msgid "Popular Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:130
+#: includes/custom-post-type.php:129
 msgid "Search Sections"
 msgstr ""
 
-#: includes/custom-post-type.php:131
+#: includes/custom-post-type.php:130
 msgid "Not Found"
 msgstr ""
 
-#: includes/custom-post-type.php:132
+#: includes/custom-post-type.php:131
 msgid "No sections"
 msgstr ""
 
-#: includes/custom-post-type.php:133
+#: includes/custom-post-type.php:132
 msgid "Sections list"
 msgstr ""
 
-#: includes/custom-post-type.php:134
+#: includes/custom-post-type.php:133
 msgid "Sections list navigation"
 msgstr ""
 
-#: includes/custom-post-type.php:161
+#: includes/custom-post-type.php:160
 msgctxt "Taxonomy General Name"
 msgid "Tags"
 msgstr ""
 
-#: includes/custom-post-type.php:162
+#: includes/custom-post-type.php:161
 msgctxt "Taxonomy Singular Name"
 msgid "Tag"
 msgstr ""
 
-#: includes/custom-post-type.php:163
+#: includes/custom-post-type.php:162
 msgid "Tags"
 msgstr ""
 
-#: includes/main.php:145
+#: includes/main.php:144
 #, php-format
 msgid "%s is not enter a valid section ID"
 msgstr ""
 
-#: includes/main.php:410 includes/main.php:422
+#: includes/main.php:403 includes/main.php:415
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/public/public.php:202
+#: includes/public/public.php:203
 msgid "WZ Knowledge Base Sidebar"
 msgstr ""
 
-#: includes/public/public.php:203
+#: includes/public/public.php:204
 msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
 msgstr ""
 
