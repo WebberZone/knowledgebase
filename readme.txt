@@ -117,6 +117,8 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 = 2.2.0 =
 
+Release post: [https://webberzone.com/blog/knowledge-base-v2-2-0/](https://webberzone.com/blog/knowledge-base-v2-2-0/)
+
 * Enhancements:
 	* The plugin will now look for templates within `wp-content/knowledgebase/templates` folder if it is not found within the existing theme before using the plugin's included templates
 	* Alerts block now shows a preview and the Default style is inserted correctly
@@ -126,7 +128,7 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 * Security fix in block
 
-= 2.1.1 - 30 January 2022 =
+= 2.1.1 =
 
 Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webberzone.com/blog/knowledge-base-v2-1-0/)
 
@@ -137,7 +139,7 @@ Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webbe
 	* Update activation on multisite when a new blog is added
 	* PHP errors when using the widget
 
-= 2.1.0 - 8 January 2022 =
+= 2.1.0 =
 
 * Features:
 	* New related articles module. Enable/disable in the settings page
