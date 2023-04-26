@@ -123,6 +123,7 @@ Release post: [https://webberzone.com/blog/knowledge-base-v2-2-0/](https://webbe
 	* The plugin will now look for templates within `wp-content/knowledgebase/templates` folder if it is not found within the existing theme before using the plugin's included templates
 	* Alerts block now shows a preview and the Default style is inserted correctly
 	* Upgrade settings handling to use the WebberZone Settings_API class
+	* Knowledge Base block is wrapped in <Disabled> components which prevent any accidental clicking when you're using it in the block editor (Gutenberg)
 
 = 2.1.2 =
 
