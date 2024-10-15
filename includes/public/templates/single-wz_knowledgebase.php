@@ -16,8 +16,9 @@
 /* This plugin uses the Archive file of TwentySeventeen theme as an example */
 get_header();
 
-wp_enqueue_style( 'wzkb_styles' );
-
+if ( wzkb_get_option( 'include_styles' ) ) {
+	wp_enqueue_style( 'wzkb_styles' );
+}
 ?>
 <div class="wrap">
 	<div id="wzkb-content-primary" class="content-area">
