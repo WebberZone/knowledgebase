@@ -21,13 +21,18 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_register_blocks() {
 	// Register Knowledge Base block.
 	register_block_type_from_metadata(
-		WZKB_PLUGIN_DIR . 'includes/blocks/kb/',
+		__DIR__ . '/build/kb/',
 		array(
 			'render_callback' => 'render_wzkb_block',
 		)
 	);
 	// Register Knowledge Base Alerts block.
-	register_block_type_from_metadata( WZKB_PLUGIN_DIR . 'includes/blocks/alerts/' );
+	register_block_type_from_metadata(
+		__DIR__ . '/build/alerts/',
+		array(
+			'render_callback' => 'render_wzkb_alerts_block',
+		)
+	);
 }
 add_action( 'init', 'wzkb_register_blocks' );
 
@@ -78,4 +83,19 @@ function render_wzkb_block( $attributes ) {
 	$arguments = apply_filters( 'wzkb_block_options', $arguments, $attributes );
 
 	return wzkb_knowledge( $arguments );
+}
+
+/**
+ * Renders the `knowledgebase/alerts` block on server.
+ *
+ * @since 2.2.1
+ *
+ * @param array  $attributes The block attributes.
+ * @param string $content The block content.
+ * @param array  $block The block object.
+ *
+ * @return string Returns the post content with latest posts added.
+ */
+function render_wzkb_alerts_block( $attributes, $content, $block ) {
+	return wp_kses_post( $content );
 }

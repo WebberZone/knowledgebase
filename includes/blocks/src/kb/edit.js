@@ -139,11 +139,11 @@ export default function Edit({ attributes, setAttributes }) {
 										? __(
 												'Article count displayed',
 												'knowledgebase'
-										  )
+											)
 										: __(
 												'No article count displayed',
 												'knowledgebase'
-										  )
+											)
 								}
 								checked={showArticleCount}
 								onChange={toggleShowArticleCount}
@@ -159,7 +159,7 @@ export default function Edit({ attributes, setAttributes }) {
 										? __(
 												'Excerpt displayed',
 												'knowledgebase'
-										  )
+											)
 										: __('No excerpt', 'knowledgebase')
 								}
 								checked={showExcerpt}
@@ -179,11 +179,11 @@ export default function Edit({ attributes, setAttributes }) {
 										? __(
 												'Section headers are linked',
 												'knowledgebase'
-										  )
+											)
 										: __(
 												'Section headers not linked',
 												'knowledgebase'
-										  )
+											)
 								}
 								checked={hasClickableSection}
 								onChange={toggleClickableSection}
@@ -202,11 +202,11 @@ export default function Edit({ attributes, setAttributes }) {
 										? __(
 												'Empty sections displayed',
 												'knowledgebase'
-										  )
+											)
 										: __(
 												'Empty sections hidden',
 												'knowledgebase'
-										  )
+											)
 								}
 								checked={showEmptySections}
 								onChange={toggleShowEmptySections}
