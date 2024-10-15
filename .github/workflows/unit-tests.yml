@@ -23,7 +23,7 @@ jobs:
       matrix:
         # Notes regarding supported versions in WP:
         # The base matrix only contains the PHP versions which are supported on all supported WP versions.
-        php: ['7.2', '7.3', '7.4','8.0']
+        php: ['8.0', '7.3', '7.4']
         wp: ['latest']
         experimental: [false]
 
@@ -31,20 +31,20 @@ jobs:
           # Complement the builds run via the matrix with high/low WP builds for PHP 7.4 and 8.0.
           # PHP 8.0 is sort of supported since WP 5.6.
           # PHP 7.4 is supported since WP 5.3.
+          - php: '8.3'
+            wp: 'latest'
+            experimental: true
+          - php: '8.2'
+            wp: 'latest'
+            experimental: true
           - php: '8.1'
             wp: 'latest'
             experimental: true
           - php: '8.0'
-            wp: '5.6'
-            experimental: true
-          - php: '7.4'
-            wp: '5.5'
-            experimental: true
-          - php: '7.4'
-            wp: 'nightly'
+            wp: '5.9'
             experimental: true
 
-    name: 'PHP ${{ matrix.php }} - WP ${{ matrix.wp }}'
+    name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }}"
 
     continue-on-error: ${{ matrix.experimental }}
 
@@ -65,7 +65,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -84,25 +84,27 @@ jobs:
       - name: Determine supported PHPUnit version
         id: set_phpunit
         run: |
-          if [[ "${{ matrix.php }}" > "8.0" ]]; then
-            echo '::set-output name=PHPUNIT::9.*'
+          if [[ "${{ matrix.php }}" > "7.4" ]]; then
+            echo "PHPUNIT=8.5.*" >> $GITHUB_ENV
           else
-            echo '::set-output name=PHPUNIT::5.7.*||6.*||7.5.*'
+            echo "PHPUNIT=5.7.*||6.*||7.5.*" >> $GITHUB_ENV
           fi
 
       - name: 'Composer: set up PHPUnit'
-        run: composer require --no-update phpunit/phpunit:"${{ steps.set_phpunit.outputs.PHPUNIT }}"
+        env:
+          PHPUNIT: ${{ env.PHPUNIT }}
+        run: composer require --no-update phpunit/phpunit:"${{ env.PHPUNIT }}"
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies for PHP < 8.0
         if: ${{ matrix.php < 8.0 }}
-        uses: 'ramsey/composer-install@v2'
+        uses: "ramsey/composer-install@v3"
 
       # For the PHP 8.0 and above, we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies for PHP >= 8.0
         if: ${{ matrix.php >= 8.0 }}
-        uses: 'ramsey/composer-install@v2'
+        uses: "ramsey/composer-install@v3"
         with:
           composer-options: --ignore-platform-reqs
 
