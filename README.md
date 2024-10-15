@@ -8,9 +8,9 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 
-__Requires:__ 5.6
+__Requires:__ 6.3
 
-__Tested up to:__ 6.2
+__Tested up to:__ 6.6
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -110,6 +110,10 @@ WebberZone Knowledge Base comes inbuilt with a set of custom templates to displa
 ### How do I sort the posts or sections
 
 The plugin doesn't have an inbuilt feature to sort posts or sections. You will need an external plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) which allows you to easily drag and drop posts, sections or tags to display them in a custom order.
+
+### How can I report security bugs?
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/knowledgebase)
 
 ## About this repository
 

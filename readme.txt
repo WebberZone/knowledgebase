@@ -2,10 +2,10 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
-Requires at least: 5.6
-Tested up to: 6.2
-Requires PHP: 7.1
-Stable tag: 2.2.0
+Requires at least: 6.3
+Tested up to: 6.6
+Requires PHP: 7.4
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,10 @@ WebberZone Knowledge Base comes inbuilt with a set of custom templates to displa
 
 The plugin doesn't have an inbuilt feature to sort posts or sections. You will need an external plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) which allows you to easily drag and drop posts, sections or tags to display them in a custom order.
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/knowledgebase)
+
 
 == Screenshots ==
 
@@ -109,11 +113,21 @@ The plugin doesn't have an inbuilt feature to sort posts or sections. You will n
 
 == Upgrade Notice ==
 
-= 2.2.0 =
-* Multiple Enhancements. Refer to the changelog
+= 2.2.1 =
+* Bug and security fixes. Please upgrade immediately.
 
 
 == Changelog ==
+
+= 2.2.1 =
+
+* Enhancements:
+	* The plugin will now load RTL styles if your site is in RTL mode.
+	* Only load CSS on the frontend if the option is enabled in the Settings page.
+
+* Bug fixes:
+	* Fixed a security issue in the alerts block that impacted edge cases of stored data from contributors. Now the alert block content is passed through `wp_kses_post` before being displayed.
+	* Fixed a bug where the block would not render correctly in the editor
 
 = 2.2.0 =
 
