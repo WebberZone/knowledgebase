@@ -1,0 +1,13 @@
+includes:
+	- phpstan-baseline.neon
+parameters:
+    level: 5
+    scanFiles:
+        - knowledgebase.php
+    scanDirectories:
+        - includes
+    paths:
+        - knowledgebase.php
+        - uninstall.php
+        - includes/
+    ignoreErrors:
