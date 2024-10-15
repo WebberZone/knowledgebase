@@ -179,7 +179,7 @@ if ( ! class_exists( 'Settings_API' ) ) :
 		public function hooks() {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
-			add_action( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
+			add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		}
 
@@ -639,7 +639,7 @@ if ( ! class_exists( 'Settings_API' ) ) :
 			 * After Settings Output filter
 			 *
 			 * @param string $desc Description of the field.
-			 * @param array Arguments array.
+			 * @param array  $args Arguments array.
 			 */
 			$desc = apply_filters( $this->prefix . '_setting_field_description', $desc, $args );
 			return $desc;
@@ -689,7 +689,7 @@ if ( ! class_exists( 'Settings_API' ) ) :
 			 * After Settings Output filter
 			 *
 			 * @param string $html HTML string.
-			 * @param array Arguments array.
+			 * @param array  $args Arguments array.
 			 */
 			echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
@@ -1027,9 +1027,9 @@ if ( ! class_exists( 'Settings_API' ) ) :
 
 			$html  = sprintf(
 				'<input type="number" step="%1$s" max="%2$s" min="%3$s" class="%4$s" id="%8$s[%5$s]" name="%8$s[%5$s]" value="%6$s" %7$s />',
-				esc_attr( $step ),
-				esc_attr( $max ),
-				esc_attr( $min ),
+				esc_attr( (string) $step ),
+				esc_attr( (string) $max ),
+				esc_attr( (string) $min ),
 				sanitize_html_class( $size ) . '-text',
 				sanitize_key( $args['id'] ),
 				esc_attr( stripslashes( $value ) ),
@@ -1059,7 +1059,7 @@ if ( ! class_exists( 'Settings_API' ) ) :
 				$chosen = '';
 			}
 
-			$html = sprintf( '<select id="%1$s[%2$s]" name="%1$s[%2$s]" %2$s />', $this->settings_key, sanitize_key( $args['id'] ), $chosen );
+			$html = sprintf( '<select id="%1$s[%2$s]" name="%1$s[%2$s]" %3$s />', $this->settings_key, sanitize_key( $args['id'] ), $chosen );
 
 			foreach ( $args['options'] as $option => $name ) {
 				$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', sanitize_key( $option ), selected( $option, $value, false ), $name );
@@ -1325,13 +1325,12 @@ if ( ! class_exists( 'Settings_API' ) ) :
 				if ( ! isset( $input[ $key ] ) ) {
 					unset( $output[ $key ] );
 				}
-			}
 
-			// Delete any settings that are no longer part of our registered settings.
-			if ( array_key_exists( $key, $output ) && ! array_key_exists( $key, $settings_types ) ) {
-				unset( $output[ $key ] );
+				// Delete any settings that are no longer part of our registered settings.
+				if ( array_key_exists( $key, $output ) && ! array_key_exists( $key, $settings_types ) ) {
+					unset( $output[ $key ] );
+				}
 			}
-
 			add_settings_error( $this->prefix . '-notices', '', $this->translation_strings['success_message'], 'updated' );
 
 			/**
@@ -1395,7 +1394,7 @@ if ( ! class_exists( 'Settings_API' ) ) :
 		/**
 		 * Sanitize number fields
 		 *
-		 * @param  array $value The field value.
+		 * @param  string $value The field value.
 		 * @return string  $value  Sanitized value
 		 */
 		public function sanitize_number_field( $value ) {
@@ -1579,7 +1578,7 @@ if ( ! class_exists( 'Settings_API' ) ) :
 
 				$active = $active_tab === $tab_id ? ' ' : '';
 
-				$html .= '<li><a href="#' . esc_attr( $tab_id ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab ' . sanitize_html_class( $active ) . '">';
+				$html .= '<li style="margin-bottom:0;"><a href="#' . esc_attr( $tab_id ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab ' . sanitize_html_class( $active ) . '">';
 				$html .= esc_html( $tab_name );
 				$html .= '</a></li>';
 
@@ -1691,7 +1690,6 @@ if ( ! class_exists( 'Settings_API' ) ) :
 				$screen->add_help_tab( $tab );
 			}
 		}
-
 	}
 
 endif;

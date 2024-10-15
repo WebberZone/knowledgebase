@@ -39,4 +39,3 @@ function wzkb_in_feed( $query ) {
 	return $query;
 }
 add_filter( 'request', 'wzkb_in_feed', 11 );
-

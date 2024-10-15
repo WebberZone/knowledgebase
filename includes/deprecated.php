@@ -25,4 +25,3 @@ if ( ! defined( 'WPINC' ) ) {
  */
 global $wzkb_options;
 $wzkb_options = wzkb_get_settings();
-

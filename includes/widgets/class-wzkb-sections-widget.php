@@ -14,8 +14,6 @@ if ( ! defined( 'WPINC' ) ) {
  * Create a WordPress Sections Widget for WZ Knowledge Base.
  *
  * @since 1.9.0
- *
- * @extends WP_Widget
  */
 class WZKB_Sections_Widget extends WP_Widget {
 

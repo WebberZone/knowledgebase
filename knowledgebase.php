@@ -15,7 +15,7 @@
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Fastest way to create a highly-flexible multi-product knowledge base.
- * Version: 2.2.0-beta1
+ * Version: 2.2.1-beta1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 1.2.0
  *
- * @var string Plugin folder path
+ * @var string $wzkb_plugin_dir Plugin folder path
  */
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
 	define( 'WZKB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -45,7 +45,7 @@ if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
  *
  * @since 1.2.0
  *
- * @var string Plugin folder URL
+ * @var string $wzkb_plugin_url Plugin folder URL
  */
 if ( ! defined( 'WZKB_PLUGIN_URL' ) ) {
 	define( 'WZKB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -56,7 +56,7 @@ if ( ! defined( 'WZKB_PLUGIN_URL' ) ) {
  *
  * @since 1.2.0
  *
- * @var string Plugin Root File
+ * @var string $wzkb_plugin_file Plugin Root File
  */
 if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 	define( 'WZKB_PLUGIN_FILE', __FILE__ );
