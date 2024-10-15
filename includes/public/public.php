@@ -34,8 +34,12 @@ add_action( 'init', 'wzkb_lang_init' );
 function wpkb_enqueue_styles() {
 
 	wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/wzkb-styles.min.css', array( 'dashicons' ), '1.0' );
-	if ( wzkb_get_option( 'include_styles' ) ) {
-		wp_enqueue_style( 'wzkb_styles' );
+
+	if ( is_singular() ) {
+		$id = get_the_ID();
+		if ( has_block( 'knowledgebase/knowledgebase', $id ) && wzkb_get_option( 'include_styles' ) ) {
+			wp_enqueue_style( 'wzkb_styles' );
+		}
 	}
 
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );
@@ -43,13 +47,6 @@ function wpkb_enqueue_styles() {
 	if ( wzkb_get_option( 'show_sidebar' ) ) {
 		$extra_styles = '#wzkb-sidebar-primary{width:25%;}#wzkb-content-primary{width:75%;float:left;}';
 		wp_add_inline_style( 'wzkb_styles', $extra_styles );
-	}
-
-	if ( is_singular() ) {
-		$id = get_the_ID();
-		if ( has_block( 'knowledgebase/knowledgebase', $id ) ) {
-			wp_enqueue_style( 'wzkb_styles' );
-		}
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );

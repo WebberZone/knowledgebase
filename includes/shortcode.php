@@ -26,9 +26,9 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_shortcode( $atts, $content = null ) {
 
-	wp_enqueue_style( 'wzkb_styles' );
-	wp_enqueue_style( 'dashicons' );
-
+	if ( wzkb_get_option( 'include_styles' ) ) {
+		wp_enqueue_style( 'wzkb_styles' );
+	}
 	$atts = shortcode_atts(
 		array(
 			'category'     => false,
@@ -135,7 +135,9 @@ add_shortcode( 'kbbreadcrumb', 'wzkb_shortcode_breadcrumb' );
  */
 function wzkb_shortcode_alert( $atts, $content = null ) {
 
-	wp_enqueue_style( 'wzkb_styles' );
+	if ( wzkb_get_option( 'include_styles' ) ) {
+		wp_enqueue_style( 'wzkb_styles' );
+	}
 
 	$atts = shortcode_atts(
 		array(
