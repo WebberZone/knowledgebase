@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-25 20:10+0100\n"
+"POT-Creation-Date: 2024-10-15 19:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -16,9 +16,11 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
 
 #: includes/admin/admin.php:82
 #, php-format
@@ -36,7 +38,7 @@ msgstr[1] ""
 
 #: includes/admin/settings/class-knowledgebase-settings.php:136
 #: includes/admin/settings/class-knowledgebase-settings.php:138
-#: includes/blocks/kb/src/edit.js:97
+#: includes/blocks/src/kb/edit.js:98
 msgid "Knowledge Base Settings"
 msgstr ""
 
@@ -209,7 +211,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-knowledgebase-settings.php:336
-#: includes/blocks/kb/src/edit.js:129
+#: includes/blocks/src/kb/edit.js:134
 msgid "Show article count"
 msgstr ""
 
@@ -220,7 +222,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-knowledgebase-settings.php:343
-#: includes/blocks/kb/src/edit.js:143
+#: includes/blocks/src/kb/edit.js:156
 msgid "Show excerpt"
 msgstr ""
 
@@ -239,7 +241,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-knowledgebase-settings.php:357
-#: includes/blocks/kb/src/edit.js:171
+#: includes/blocks/src/kb/edit.js:197
 msgid "Show empty sections"
 msgstr ""
 
@@ -248,7 +250,7 @@ msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
 #: includes/admin/settings/class-knowledgebase-settings.php:364
-#: includes/blocks/kb/src/edit.js:116
+#: includes/blocks/src/kb/edit.js:118
 msgid "Max articles per section"
 msgstr ""
 
@@ -291,7 +293,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-knowledgebase-settings.php:417
-#: includes/blocks/kb/src/edit.js:185
+#: includes/blocks/src/kb/edit.js:219
 msgid "Number of columns"
 msgstr ""
 
@@ -449,72 +451,72 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
-#: includes/blocks/alerts/src/edit.js:61
+#: includes/blocks/src/alerts/edit.js:61
 msgid "Enter the alert text..."
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:103
+#: includes/blocks/src/kb/edit.js:104
 msgid "Category ID"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:107
+#: includes/blocks/src/kb/edit.js:108
 msgid ""
 "Enter a single category/section ID to display its knowledge base or leave "
 "back to display the full knowledge base. You can find this under Knowledge "
 "Base > Sections."
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:120
+#: includes/blocks/src/kb/edit.js:124
 msgid ""
 "After this limit is reached, the footer is displayed with the more link to "
 "view the category."
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:132
+#: includes/blocks/src/kb/edit.js:140
 msgid "Article count displayed"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:133
+#: includes/blocks/src/kb/edit.js:144
 msgid "No article count displayed"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:146
+#: includes/blocks/src/kb/edit.js:160
 msgid "Excerpt displayed"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:147
+#: includes/blocks/src/kb/edit.js:163
 msgid "No excerpt"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:157
+#: includes/blocks/src/kb/edit.js:174
 msgid "Show clickable section"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:160
+#: includes/blocks/src/kb/edit.js:180
 msgid "Section headers are linked"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:161
+#: includes/blocks/src/kb/edit.js:184
 msgid "Section headers not linked"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:174
+#: includes/blocks/src/kb/edit.js:203
 msgid "Empty sections displayed"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:175
+#: includes/blocks/src/kb/edit.js:207
 msgid "Empty sections hidden"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:189
+#: includes/blocks/src/kb/edit.js:223
 msgid "Only works when inbuilt styles are enabled in the Settings page"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:198
+#: includes/blocks/src/kb/edit.js:232
 msgid "Other attributes"
 msgstr ""
 
-#: includes/blocks/kb/src/edit.js:202
+#: includes/blocks/src/kb/edit.js:236
 msgid "Enter other attributes in a URL-style string-query."
 msgstr ""
 
@@ -689,11 +691,11 @@ msgstr ""
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/public/public.php:203
+#: includes/public/public.php:208
 msgid "WZ Knowledge Base Sidebar"
 msgstr ""
 
-#: includes/public/public.php:204
+#: includes/public/public.php:209
 msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
 msgstr ""
 
@@ -701,8 +703,8 @@ msgstr ""
 msgid "Related Articles"
 msgstr ""
 
-#: includes/public/templates/archive-wz_knowledgebase.php:39
-#: includes/public/templates/wzkb-search.php:86
+#: includes/public/templates/archive-wz_knowledgebase.php:40
+#: includes/public/templates/wzkb-search.php:87
 msgid "No results found"
 msgstr ""
 
@@ -710,37 +712,37 @@ msgstr ""
 msgid "Meta"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:45
+#: includes/public/templates/single-wz_knowledgebase.php:46
 #, php-format
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:57
+#: includes/public/templates/single-wz_knowledgebase.php:58
 msgid "Pages:"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:84
+#: includes/public/templates/single-wz_knowledgebase.php:85
 #, php-format
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:106
+#: includes/public/templates/single-wz_knowledgebase.php:107
 msgid "Next Post"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:107
+#: includes/public/templates/single-wz_knowledgebase.php:108
 msgid "Next post:"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:109
+#: includes/public/templates/single-wz_knowledgebase.php:110
 msgid "Previous Post"
 msgstr ""
 
-#: includes/public/templates/single-wz_knowledgebase.php:110
+#: includes/public/templates/single-wz_knowledgebase.php:111
 msgid "Previous post:"
 msgstr ""
 
-#: includes/public/templates/wzkb-search.php:46
+#: includes/public/templates/wzkb-search.php:47
 #, php-format
 msgid "Search Results for: %s"
 msgstr ""
@@ -760,68 +762,68 @@ msgctxt "submit button"
 msgid "Search"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:28
+#: includes/widgets/class-wzkb-articles-widget.php:26
 msgid "WZKB Articles"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:31
+#: includes/widgets/class-wzkb-articles-widget.php:29
 msgid ""
 "Display the list of articles for a section when browsing a knowledge base "
 "page"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:53
-#: includes/widgets/class-wzkb-breadcrumb-widget.php:50
-#: includes/widgets/class-wzkb-sections-widget.php:53
+#: includes/widgets/class-wzkb-articles-widget.php:51
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:48
+#: includes/widgets/class-wzkb-sections-widget.php:51
 msgid "Title"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:58
-#: includes/widgets/class-wzkb-sections-widget.php:58
+#: includes/widgets/class-wzkb-articles-widget.php:56
+#: includes/widgets/class-wzkb-sections-widget.php:56
 msgid "Term ID (enter a number)"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:63
+#: includes/widgets/class-wzkb-articles-widget.php:61
 msgid "No. of posts"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:68
+#: includes/widgets/class-wzkb-articles-widget.php:66
 msgid " Show excerpt?"
 msgstr ""
 
-#: includes/widgets/class-wzkb-articles-widget.php:128
+#: includes/widgets/class-wzkb-articles-widget.php:126
 msgid "Knowledge Base Articles"
 msgstr ""
 
-#: includes/widgets/class-wzkb-breadcrumb-widget.php:28
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:26
 msgid "WZKB Breadcrumb"
 msgstr ""
 
-#: includes/widgets/class-wzkb-breadcrumb-widget.php:30
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:28
 msgid ""
 "Display the breadcrumb when viewing a knowledge base article or category"
 msgstr ""
 
-#: includes/widgets/class-wzkb-breadcrumb-widget.php:55
+#: includes/widgets/class-wzkb-breadcrumb-widget.php:53
 msgid "Separator"
 msgstr ""
 
-#: includes/widgets/class-wzkb-sections-widget.php:28
+#: includes/widgets/class-wzkb-sections-widget.php:26
 msgid "WZKB Sections"
 msgstr ""
 
-#: includes/widgets/class-wzkb-sections-widget.php:30
+#: includes/widgets/class-wzkb-sections-widget.php:28
 msgid "Display the list of sections when browsing a knowledge base page"
 msgstr ""
 
-#: includes/widgets/class-wzkb-sections-widget.php:63
+#: includes/widgets/class-wzkb-sections-widget.php:61
 msgid "Depth"
 msgstr ""
 
-#: includes/widgets/class-wzkb-sections-widget.php:68
+#: includes/widgets/class-wzkb-sections-widget.php:66
 msgid "Before list item"
 msgstr ""
 
-#: includes/widgets/class-wzkb-sections-widget.php:73
+#: includes/widgets/class-wzkb-sections-widget.php:71
 msgid "After list item"
 msgstr ""
