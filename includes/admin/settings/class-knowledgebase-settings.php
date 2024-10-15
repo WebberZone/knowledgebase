@@ -26,7 +26,7 @@ if ( ! class_exists( 'Knowledgebase_Settings' ) ) :
 		/**
 		 * Class instance.
 		 *
-		 * @var class Class instance.
+		 * @var Knowledgebase_Settings Class instance.
 		 */
 		public static $instance;
 
@@ -106,10 +106,10 @@ if ( ! class_exists( 'Knowledgebase_Settings' ) ) :
 			$this->settings_api = new Knowledgebase_Admin\Settings_API( $this->settings_key, self::$prefix, $args );
 
 			add_action( 'admin_head', array( $this, 'admin_head' ), 11 );
-			add_action( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 			add_filter( 'plugin_action_links_' . plugin_basename( WZKB_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
 			add_action( 'wzkb_settings_page_header', array( $this, 'settings_page_header' ), 11 );
-			add_action( 'wzkb_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
+			add_filter( 'wzkb_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
 		}
 
 		/**
@@ -505,7 +505,7 @@ if ( ! class_exists( 'Knowledgebase_Settings' ) ) :
 			 *
 			 * @since 2.2.0
 			 *
-			 * @param array $help_sidebar Help sidebar content.
+			 * @param string $help_sidebar Help sidebar content.
 			 */
 			return apply_filters( self::$prefix . '_settings_help_sidebar', $help_sidebar );
 		}
@@ -632,7 +632,7 @@ if ( ! class_exists( 'Knowledgebase_Settings' ) ) :
 		 * @since 2.2.0
 		 *
 		 * @param  array $settings Settings array.
-		 * @return string  $settings  Sanitized settings array.
+		 * @return array $settings  Sanitized settings array.
 		 */
 		public function change_settings_on_save( $settings ) {
 
@@ -641,7 +641,6 @@ if ( ! class_exists( 'Knowledgebase_Settings' ) ) :
 
 			return $settings;
 		}
-
 	}
 
 	/** Initiate the class */

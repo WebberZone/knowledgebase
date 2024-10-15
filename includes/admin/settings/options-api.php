@@ -250,17 +250,17 @@ if ( ! function_exists( 'wz_tag_search' ) ) :
 	function wz_tag_search() {
 
 		if ( ! isset( $_REQUEST['tax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			wp_die( 0 );
+			wp_die();
 		}
 
 		$taxonomy = sanitize_key( $_REQUEST['tax'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$tax      = get_taxonomy( $taxonomy );
 		if ( ! $tax ) {
-			wp_die( 0 );
+			wp_die();
 		}
 
 		if ( ! current_user_can( $tax->cap->assign_terms ) ) {
-			wp_die( -1 );
+			wp_die();
 		}
 
 		$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended

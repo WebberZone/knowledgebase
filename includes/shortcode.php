@@ -45,7 +45,7 @@ function wzkb_shortcode( $atts, $content = null ) {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return string $output  Formatted shortcode output
+	 * @param  string $output  Formatted shortcode output
 	 * @param  array $att  Shortcode attributes array
 	 * @param  string $content Content to wrap in the Shortcode
 	 */
@@ -80,7 +80,7 @@ function wzkb_shortcode_search( $atts, $content = null ) {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @return string $output  Formatted shortcode output
+	 * @param  string $output  Formatted shortcode output
 	 * @param  array $att  Shortcode attributes array
 	 * @param  string $content Content to wrap in the Shortcode
 	 */
@@ -115,7 +115,7 @@ function wzkb_shortcode_breadcrumb( $atts, $content = null ) {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return string $output  Formatted shortcode output
+	 * @param  string $output  Formatted shortcode output
 	 * @param  array $att  Shortcode attributes array
 	 * @param  string $content Content to wrap in the Shortcode
 	 */
@@ -154,12 +154,10 @@ function wzkb_shortcode_alert( $atts, $content = null ) {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return string $output  Formatted shortcode output
+	 * @param  string $output  Formatted shortcode output
 	 * @param  array $att  Shortcode attributes array
 	 * @param  string $content Content to wrap in the Shortcode
 	 */
 	return apply_filters( 'wzkb_shortcode_alert', $output, $atts, $content );
 }
 add_shortcode( 'kbalert', 'wzkb_shortcode_alert' );
-
-

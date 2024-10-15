@@ -148,8 +148,8 @@ function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
-		'wzkb_category',
 		array(
+			'taxonomy'   => 'wzkb_category',
 			'orderby'    => 'slug',
 			'hide_empty' => $args['show_empty_sections'] ? 0 : 1,
 			'parent'     => $term_id,
@@ -180,9 +180,9 @@ function wzkb_looper( $term_id, $level, $nested = true, $args = array() ) {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $output Formatted HTML output
-	 * @param int  $term_id Term ID
-	 * @param int  $level  Level of the loop
+	 * @param string   $output Formatted HTML output
+	 * @param \WP_Term $term   Term ID
+	 * @param int      $level  Level of the loop
 	 */
 	return apply_filters( 'wzkb_looper', $output, $term, $level );
 }
@@ -321,12 +321,12 @@ function wzkb_article_header( $term, $level, $args = array() ) {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param string $output Formatted footer output
-	 * @param object $term Current term
-	 * @param int  $level Current level in the recursive loop
-	 * @param object $query Query results object
+	 * @param string $output Formatted footer output.
+	 * @param object $term Current term.
+	 * @param int  $level Current level in the recursive loop.
+	 * @param array $args Parameters array.
 	 */
-	return apply_filters( 'wzkb_article_header', $output, $term, $level );
+	return apply_filters( 'wzkb_article_header', $output, $term, $level, $args );
 }
 
 
@@ -423,10 +423,10 @@ function wzkb_article_footer( $term, $level, $query, $args = array() ) {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param string $output Formatted footer output
-	 * @param string $output Formatted ul loop
-	 * @param object $term Current term
-	 * @param int  $level Current level in the recursive loop
+	 * @param string $output Formatted footer output.
+	 * @param object $term Current term.
+	 * @param int    $level Current level in the recursive loop.
+	 * @param object $query Query results object.
 	 */
 	return apply_filters( 'wzkb_article_footer', $output, $term, $level, $query );
 }
@@ -467,8 +467,8 @@ function wzkb_categories_list( $term_id, $level = 0, $args = array() ) {
 
 	// Get Knowledge Base Sections.
 	$sections = get_terms(
-		'wzkb_category',
 		array(
+			'taxonomy'   => 'wzkb_category',
 			'orderby'    => 'slug',
 			'hide_empty' => wzkb_get_option( 'show_empty_sections' ) ? 0 : 1,
 			'parent'     => $term_id,

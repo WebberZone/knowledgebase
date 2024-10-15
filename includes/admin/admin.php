@@ -101,7 +101,7 @@ add_action( 'admin_notices', 'wzkb_admin_notices' );
 function wzkb_dashboard_glance_items( $items ) {
 	$num_posts = wp_count_posts( 'wz_knowledgebase' );
 
-	if ( $num_posts && $num_posts->publish ) {
+	if ( ! empty( $num_posts->publish ) ) {
 		/* translators: 1. Number of articles */
 		$text = _n( '%s KB article', '%s KB articles', $num_posts->publish, 'knowledgebase' );
 

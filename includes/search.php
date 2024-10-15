@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.1.0
  *
  * @param  boolean $echo_output Default to echo and not return the form.
- * @return string|null   String when retrieving, null when displaying or if searchform.php exists.
+ * @return void|string|null   String when retrieving, null when displaying or if searchform.php exists.
  */
 function wzkb_get_search_form( $echo_output = true ) {
 
@@ -41,7 +41,7 @@ function wzkb_get_search_form( $echo_output = true ) {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param string $form The search form HTML output.
+	 * @param string|null $form The search form HTML output.
 	 */
 	$result = apply_filters( 'wzkb_get_search_form', $form );
 
@@ -55,5 +55,3 @@ function wzkb_get_search_form( $echo_output = true ) {
 		return $result;
 	}
 }
-
-

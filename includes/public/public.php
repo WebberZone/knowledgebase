@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 function wzkb_lang_init() {
 	load_plugin_textdomain( 'wzkb', false, dirname( plugin_basename( WZKB_PLUGIN_FILE ) ) . '/languages/' );
 }
-add_action( 'plugins_loaded', 'wzkb_lang_init' );
+add_action( 'init', 'wzkb_lang_init' );
 
 
 /**
