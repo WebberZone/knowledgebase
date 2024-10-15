@@ -19,6 +19,14 @@
 	font-size: 20px;
 }
 
+.wzkb-section-name-level-1 {
+	border-bottom: 1px black dotted;
+	border-top: 1px black dotted;
+	padding: 5px 1px;
+	background-color: ghostwhite;
+	margin-top: 30px;
+}
+
 .wzkb h3.wzkb-section-name-level-0, .wzkb h3.wzkb-section-name-level-1 {
 	font-size: 28px;
 }
@@ -443,6 +451,7 @@ nav.pagination {
 .wzkb-related-articles ul li {
 	width: auto;
 }
+
 .wzkb-related-articles img, .wzkb-related-articles a {
 	display: block;
 }

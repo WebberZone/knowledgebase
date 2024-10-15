@@ -33,7 +33,15 @@ add_action( 'init', 'wzkb_lang_init' );
  */
 function wpkb_enqueue_styles() {
 
-	wp_register_style( 'wzkb_styles', WZKB_PLUGIN_URL . 'includes/public/css/wzkb-styles.min.css', array( 'dashicons' ), '1.0' );
+	$rtl_suffix = is_rtl() ? '-rtl' : '';
+	$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+	wp_register_style(
+		'wzkb_styles',
+		WZKB_PLUGIN_URL . 'includes/public/css/wzkb-styles' . $rtl_suffix . $min_suffix . '.css',
+		array( 'dashicons' ),
+		'1.0'
+	);
 
 	if ( is_singular() ) {
 		$id = get_the_ID();
