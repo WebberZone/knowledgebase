@@ -139,35 +139,6 @@ Release post: [https://webberzone.com/blog/knowledge-base-v2-2-0/](https://webbe
 	* Upgrade settings handling to use the WebberZone Settings_API class
 	* Knowledge Base block is wrapped in the `<Disabled>` component which prevent any accidental clicking when you're using it in the block editor (Gutenberg)
 
-= 2.1.2 =
-
-* Security fix in block
-
-= 2.1.1 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-1-0/](https://webberzone.com/blog/knowledge-base-v2-1-0/)
-
-* Enhancements:
-	* New options to set number of articles and to show excerpt in the widget
-
-* Bug fixes:
-	* Update activation on multisite when a new blog is added
-	* PHP errors when using the widget
-
-= 2.1.0 =
-
-* Features:
-	* New related articles module. Enable/disable in the settings page
-	* New Gutenberg block for alerts. Original knowledge base block has been upgraded to use block.json
-
-* Enhancements:
-	* `wzkb_knowledge` function takes additional parameters that override global settings if passed
-	* Additional settings added for Knowledge Base block
-
-* Bug fixes:
-	* Fixed Custom CSS loaded incorrectly with a 0 on install/reset
-	* Dashicons were not properly loaded on frontend
-
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the separate changelog.txt file or the [Github releases page](https://github.com/WebberZone/knowledgebase/releases)
