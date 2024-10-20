@@ -76,7 +76,16 @@ function wzkb_knowledge( $args = array() ) {
 	$output = '<div class="wzkb ' . esc_attr( $div_classes ) . '">';
 
 	// Are we trying to display a category?
-	$category       = absint( $args['category'] );
+	$category = intval( $args['category'] );
+
+	// if $category = -1, then get the current term object and set the category to the term ID.
+	if ( -1 === $category ) {
+		$term = get_queried_object();
+		if ( isset( $term->term_id ) ) {
+			$category = $term->term_id;
+		}
+	}
+
 	$level          = ( 0 < $category ) ? 1 : 0;
 	$term_id        = ( 0 < $category ) ? $category : 0;
 	$nested_wrapper = ( isset( $args['nested_wrapper'] ) ) ? $args['nested_wrapper'] : true;
