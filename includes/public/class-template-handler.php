@@ -5,7 +5,7 @@
  * @package WebberZone\KnowledgeBase
  */
 
-namespace WebberZone\KnowledgeBase\Public;
+namespace WebberZone\KnowledgeBase\Frontend;
 
 /**
  * Class Template_Handler
