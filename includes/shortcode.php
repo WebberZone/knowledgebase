@@ -163,3 +163,49 @@ function wzkb_shortcode_alert( $atts, $content = null ) {
 	return apply_filters( 'wzkb_shortcode_alert', $output, $atts, $content );
 }
 add_shortcode( 'kbalert', 'wzkb_shortcode_alert' );
+
+
+/**
+ * Create the shortcode to display alerts using [kbalert].
+ *
+ * @since 2.2.2
+ *
+ * @param  array  $atts    Shortcode attributes array.
+ * @param  string $content Content to wrap in the Shortcode.
+ * @return string $output Formatted shortcode output
+ */
+function wzkb_shortcode_related_articles( $atts, $content = null ) {
+
+	if ( wzkb_get_option( 'include_styles' ) ) {
+		wp_enqueue_style( 'wzkb_styles' );
+	}
+
+	$atts = shortcode_atts(
+		array(
+			'numberposts' => 5,
+			'echo'        => false,
+			'post'        => get_post(),
+			'exclude'     => array(),
+			'show_thumb'  => true,
+			'show_date'   => true,
+			'title'       => '<h3>' . __( 'Related Articles', 'knowledgebase' ) . '</h3>',
+			'thumb_size'  => 'thumbnail',
+		),
+		$atts,
+		'kb_related_articles'
+	);
+
+	$output = wzkb_related_articles( $atts );
+
+	/**
+	 * Filters knowledge base breadcrumb shortcode.
+	 *
+	 * @since 2.2.2
+	 *
+	 * @param  string $output  Formatted shortcode output
+	 * @param  array $att  Shortcode attributes array
+	 * @param  string $content Content to wrap in the Shortcode
+	 */
+	return apply_filters( 'wzkb_shortcode_related_articles', $output, $atts, $content );
+}
+add_shortcode( 'kb_related_articles', 'wzkb_shortcode_related_articles' );

@@ -1,0 +1,20 @@
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
+    <!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+    <div class="wp-block-group alignwide">
+        <!-- Search placeholder -->
+        {{kbsearch}}
+
+        <!-- Breadcrumb placeholder -->
+        {{kbbreadcrumb}}
+
+        <!-- Knowledge base content placeholder (this will display only once) -->
+        {{knowledgebase category="-1"}}
+    </div>
+    <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"footer"} /-->

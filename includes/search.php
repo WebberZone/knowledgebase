@@ -25,16 +25,14 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function wzkb_get_search_form( $echo_output = true ) {
 
-	$form = '
-    <form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">
-        <label>
-            <span class="screen-reader-text">' . _x( 'Search for:', 'label', 'knowledgebase' ) . '</span>
-            <input type="search" class="wzkb-search-field" placeholder="' . esc_attr_x( 'Search the knowledgebase &hellip;', 'placeholder', 'knowledgebase' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'knowledgebase' ) . '" />
-        </label>
-        <input type="hidden" name="post_type" value="wz_knowledgebase">
-        <input type="submit" class="wzkb-search-submit" value="' . esc_attr_x( 'Search', 'submit button', 'knowledgebase' ) . '" />
-    </form>
-    ';
+	$form = '<form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">'
+		. '<label>'
+		. '<span class="screen-reader-text">' . _x( 'Search for:', 'label', 'knowledgebase' ) . '</span>'
+		. '<input type="search" class="wzkb-search-field" placeholder="' . esc_attr_x( 'Search the knowledgebase &hellip;', 'placeholder', 'knowledgebase' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'knowledgebase' ) . '" />'
+		. '</label>'
+		. '<input type="hidden" name="post_type" value="wz_knowledgebase">'
+		. '<input type="submit" class="wzkb-search-submit" value="' . esc_attr_x( 'Search', 'submit button', 'knowledgebase' ) . '" />'
+		. '</form>';
 
 	/**
 	 * Filter the HTML output of the search form.
@@ -50,8 +48,8 @@ function wzkb_get_search_form( $echo_output = true ) {
 	}
 
 	if ( $echo_output ) {
-		echo $result; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo trim( $result ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} else {
-		return $result;
+		return trim( $result );
 	}
 }

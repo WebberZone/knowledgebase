@@ -49,8 +49,23 @@ function wpkb_enqueue_styles() {
 			wp_enqueue_style( 'wzkb_styles' );
 		}
 	}
+	if ( wzkb_get_option( 'include_styles' ) ) {
+		if ( is_singular( 'wz_knowledgebase' ) || is_post_type_archive( 'wz_knowledgebase' ) || ( is_tax( 'wzkb_category' ) && ! is_search() ) ) {
+			wp_enqueue_style( 'wzkb_styles' );
+		}
+	}
 
 	wp_add_inline_style( 'wzkb_styles', esc_html( wzkb_get_option( 'custom_css' ) ) );
+
+	// Add custom styles for taxonomy archives.
+	if ( is_tax( 'wzkb_category' ) ) {
+		$custom_css = '
+			.wzkb-section-name-level-1 {
+				display: none;
+			}
+		';
+		wp_add_inline_style( 'wzkb_styles', $custom_css );
+	}
 
 	if ( wzkb_get_option( 'show_sidebar' ) ) {
 		$extra_styles = '#wzkb-sidebar-primary{width:25%;}#wzkb-content-primary{width:75%;float:left;}';
@@ -74,6 +89,10 @@ add_action( 'wp_enqueue_scripts', 'wpkb_enqueue_styles' );
  * @return string Modified Archive Template location
  */
 function wzkb_archive_template( $template ) {
+	if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+		return $template;
+	}
+
 	$template_name = null;
 
 	if ( is_singular( 'wz_knowledgebase' ) ) {
@@ -106,17 +125,57 @@ add_filter( 'template_include', 'wzkb_archive_template' );
 
 
 /**
+ * Helper function to build a WP_Block_Template object.
+ *
+ * @param string $theme         The source of the template (plugin name in this case).
+ * @param string $template_slug Template slug for the block template.
+ * @param string $template_file Path to the template file.
+ * @param string $template_type Template type (either 'wp_template' or 'wp_template_part').
+ *
+ * @return WP_Block_Template|WP_Error The block template object or WP_Error on failure.
+ */
+function wzkb_build_block_template_result( $theme, $template_slug, $template_file, $template_type ) {
+	// Use wp_remote_get to retrieve the content of the template file.
+	$response = wp_remote_get( $template_file );
+
+	// Check for errors in the response.
+	if ( is_wp_error( $response ) ) {
+		return $response; // Return the error if there's an issue.
+	}
+
+	$content = wp_remote_retrieve_body( $response ); // Get the body content of the response.
+
+	// Create a new WP_Block_Template object.
+	$template                 = new WP_Block_Template();
+	$template->id             = $theme . '//' . $template_slug;
+	$template->theme          = $theme;
+	$template->content        = $content;
+	$template->slug           = $template_slug;
+	$template->source         = 'plugin';
+	$template->type           = $template_type;
+	$template->title          = ucfirst( str_replace( '-', ' ', $template_slug ) );
+	$template->status         = 'publish';
+	$template->has_theme_file = true;
+	$template->is_custom      = true;
+	$template->modified       = null; // Adjust as necessary.
+
+	return $template;
+}
+
+
+/**
  * For knowledge base search results, set posts_per_page 10.
  *
  * @since 1.1.0
  *
- * @param  object $query The search query object.
- * @return object $query Updated search query object
+ * @param  \WP_Query $query The search query object.
+ * @return \WP_Query $query Updated search query object
  */
 function wzkb_posts_per_search_page( $query ) {
 
 	if ( ! is_admin() && $query->is_search() && isset( $query->query_vars['post_type'] ) && 'wz_knowledgebase' === $query->query_vars['post_type'] ) {
-		$query->query_vars['posts_per_page'] = 10;
+		$query->set( 'posts_per_page', 12 );
+		$query->set( 'post_type', 'wz_knowledgebase' );
 	}
 
 	return $query;
