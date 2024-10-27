@@ -123,46 +123,6 @@ function wzkb_archive_template( $template ) {
 }
 add_filter( 'template_include', 'wzkb_archive_template' );
 
-
-/**
- * Helper function to build a WP_Block_Template object.
- *
- * @param string $theme         The source of the template (plugin name in this case).
- * @param string $template_slug Template slug for the block template.
- * @param string $template_file Path to the template file.
- * @param string $template_type Template type (either 'wp_template' or 'wp_template_part').
- *
- * @return WP_Block_Template|WP_Error The block template object or WP_Error on failure.
- */
-function wzkb_build_block_template_result( $theme, $template_slug, $template_file, $template_type ) {
-	// Use wp_remote_get to retrieve the content of the template file.
-	$response = wp_remote_get( $template_file );
-
-	// Check for errors in the response.
-	if ( is_wp_error( $response ) ) {
-		return $response; // Return the error if there's an issue.
-	}
-
-	$content = wp_remote_retrieve_body( $response ); // Get the body content of the response.
-
-	// Create a new WP_Block_Template object.
-	$template                 = new WP_Block_Template();
-	$template->id             = $theme . '//' . $template_slug;
-	$template->theme          = $theme;
-	$template->content        = $content;
-	$template->slug           = $template_slug;
-	$template->source         = 'plugin';
-	$template->type           = $template_type;
-	$template->title          = ucfirst( str_replace( '-', ' ', $template_slug ) );
-	$template->status         = 'publish';
-	$template->has_theme_file = true;
-	$template->is_custom      = true;
-	$template->modified       = null; // Adjust as necessary.
-
-	return $template;
-}
-
-
 /**
  * For knowledge base search results, set posts_per_page 10.
  *
