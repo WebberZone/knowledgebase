@@ -3,13 +3,13 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 6.3
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Fastest way to create a highly-flexible multi-product knowledge base on you WordPress site.
+Quickly create a highly-flexible multi-product knowledge base on you WordPress site.
 
 == Description ==
 
@@ -87,10 +87,10 @@ Refer to [this Knowledge Base article](https://webberzone.com/support/knowledgeb
 
 WebberZone Knowledge Base comes inbuilt with a set of custom templates to display archives of the articles, category archives as well as search results. You can easily override any of these templates by creating your own template in your theme's folder or in `wp-content/knowledgebase/templates`
 
-1. Article view: single-wz_knowledgebase.php
-2. Articles archive: archive-wz_knowledgebase.php
-3. Category archive: taxonomy-wzkb_category.php
-4. Search results: search-wz_knowledgebase.php
+1. Article view: single-wz_knowledgebase.php or single-wz_knowledgebase.html
+2. Articles archive: archive-wz_knowledgebase.php or archive-wz_knowledgebase.html
+3. Category archive: taxonomy-wzkb_category.php or taxonomy-wzkb_category.html
+4. Search results: wzkb-search.php or wzkb-search.html
 
 = How do I sort the posts or sections? =
 
@@ -112,6 +112,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Knowledge Base widgets
 
 == Upgrade Notice ==
+
+= 2.2.2 =
+* Fixed header and footer issues with Block Themes. You can now override the block templates by including single-wz_knowledgebase.html, archive-wz_knowledgebase.html, taxonomy-wzkb_category.html and wzkb-search.html in your theme's templates folder.
 
 = 2.2.1 =
 * Bug and security fixes. Please upgrade immediately.
