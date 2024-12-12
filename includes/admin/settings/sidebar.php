@@ -2,73 +2,75 @@
 /**
  * Sidebar
  *
- * @link  https://webberzone.com
- * @since 1.0.0
- *
- * @package    WZKB
- * @subpackage Admin/Footer
+ * @package WebberZone\Knowledge_Base
  */
 
 ?>
 <div class="postbox-container">
-	<div id="donatediv" class="postbox meta-box-sortables">
-		<h2 class='hndle'><span><?php esc_html_e( 'Support the development', 'knowledgebase' ); ?></span></h2>
-
-		<div class="inside" style="text-align: center">
-			<div id="donate-form">
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-					<input type="hidden" name="cmd" value="_xclick"> <input type="hidden" name="business" value="donate@ajaydsouza.com"> <input type="hidden" name="lc" value="IN"> <input type="hidden" name="item_name" value="<?php esc_html_e( 'Donation for Knowledgebase', 'knowledgebase' ); ?>"> <input type="hidden" name="item_number" value="wzkb_plugin_settings"> <strong><?php esc_html_e( 'Enter amount in USD:', 'knowledgebase' ); ?></strong> <input name="amount" value="10.00" size="6" type="text"><br>
-					<input type="hidden" name="currency_code" value="USD"> <input type="hidden" name="button_subtype" value="services"> <input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted"> <input type="image" src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/settings/images/btn_donate_LG.gif' ); ?>" border="0" name="submit" alt="<?php esc_html_e( 'Send your donation to the author of', 'knowledgebase' ); ?> Knowledgebase?">
-				</form>
-			</div><!-- /#donate-form -->
-		</div><!-- /.inside -->
-	</div><!-- /.postbox -->
+	<div id="pro-upgrade-banner">
+		<div class="inside">
+			<p><a href="https://wzn.io/donate-bs" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/support.webp' ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
+		</div>
+	</div>
 
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
 		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'knowledgebase' ); ?></span></h2>
 
 		<div class="inside">
 			<div id="quick-links">
-				<ul>
+				<ul class="subsub">
 					<li>
-						<a href="https://webberzone.com/plugins/knowledgebase/"><?php esc_html_e( 'WebberZone Knowledge Base homepage', 'knowledgebase' ); ?></a>
+						<a href="https://webberzone.com/plugins/knowledgebase/" target="_blank"><?php esc_html_e( 'Better Search plugin homepage', 'knowledgebase' ); ?></a>
 					</li>
-
 					<li>
-						<a href="https://wordpress.org/plugins/knowledgebase/faq/"><?php esc_html_e( 'FAQ', 'knowledgebase' ); ?></a>
+						<a href="https://webberzone.com/support/product/knowledgebase/" target="_blank"><?php esc_html_e( 'Knowledge Base', 'knowledgebase' ); ?></a>
 					</li>
-
 					<li>
-						<a href="http://wordpress.org/support/plugin/knowledgebase"><?php esc_html_e( 'Support', 'knowledgebase' ); ?></a>
+						<a href="https://wordpress.org/plugins/knowledgebase/faq/" target="_blank"><?php esc_html_e( 'FAQ', 'knowledgebase' ); ?></a>
 					</li>
-
 					<li>
-						<a href="https://wordpress.org/support/view/plugin-reviews/knowledgebase"><?php esc_html_e( 'Reviews', 'knowledgebase' ); ?></a>
+						<a href="https://webberzone.com/support/" target="_blank"><?php esc_html_e( 'Support', 'knowledgebase' ); ?></a>
 					</li>
-
 					<li>
-						<a href="https://github.com/WebberZone/knowledgebase"><?php esc_html_e( 'Github repository', 'knowledgebase' ); ?></a>
+						<a href="https://wordpress.org/support/plugin/knowledgebase/reviews/" target="_blank"><?php esc_html_e( 'Reviews', 'knowledgebase' ); ?></a>
 					</li>
-
 					<li>
-						<a href="https://webberzone.com/plugins/"><?php esc_html_e( 'Other plugins', 'knowledgebase' ); ?></a>
+						<a href="https://github.com/webberzone/knowledgebase" target="_blank"><?php esc_html_e( 'Github repository', 'knowledgebase' ); ?></a>
 					</li>
-
 					<li>
-						<a href="https://ajaydsouza.com/"><?php esc_html_e( "Ajay's blog", 'knowledgebase' ); ?></a>
+						<a href="https://ajaydsouza.com/" target="_blank"><?php esc_html_e( "Ajay's blog", 'knowledgebase' ); ?></a>
 					</li>
 				</ul>
 			</div>
 		</div><!-- /.inside -->
 	</div><!-- /.postbox -->
+	<div id="pluginsdiv" class="postbox meta-box-sortables">
+		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'WebberZone plugins', 'knowledgebase' ); ?></span></h2>
+
+		<div class="inside">
+			<div id="quick-links">
+				<ul class="subsub">
+					<li><a href="https://webberzone.com/plugins/contextual-related-posts/" target="_blank"><?php esc_html_e( 'Contextual Related Posts', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/top-10/" target="_blank"><?php esc_html_e( 'Top 10', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/better-search/" target="_blank"><?php esc_html_e( 'Better Search', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/add-to-all/" target="_blank"><?php esc_html_e( 'Snippetz', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/webberzone-followed-posts/" target="_blank"><?php esc_html_e( 'Followed Posts', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/popular-authors/" target="_blank"><?php esc_html_e( 'Popular Authors', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/autoclose/" target="_blank"><?php esc_html_e( 'Auto Close', 'knowledgebase' ); ?></a></li>
+				</ul>
+			</div>
+		</div><!-- /.inside -->
+	</div><!-- /.postbox -->	
+
 </div>
 
 <div class="postbox-container">
 	<div id="followdiv" class="postbox meta-box-sortables">
-		<h2 class='hndle'><span><?php esc_html_e( 'Follow me', 'add-to-all' ); ?></span></h2>
+		<h2 class='hndle'><span><?php esc_html_e( 'Follow me', 'knowledgebase' ); ?></span></h2>
 
 		<div class="inside" style="text-align: center">
-			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/settings/images/fb.png' ); ?>" width="100" height="100"></a> <a href="https://twitter.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/settings/images/twitter.jpg' ); ?>" width="100" height="100"></a>
+		<a href="https://x.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/x.png' ); ?>" width="100" height="100"></a>
+			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/fb.png' ); ?>" width="100" height="100"></a>
 		</div><!-- /.inside -->
 	</div><!-- /.postbox -->
 </div>
