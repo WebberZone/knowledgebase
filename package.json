@@ -29,12 +29,12 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.9.0",
+        "@wordpress/prettier-config": "^4.13.0",
         "@wordpress/scripts": "^27"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.9.0",
+        "@wordpress/icons": "^10.13.0",
         "clsx": "^2.1.1",
-        "uuid": "^10.0.0"
+        "uuid": "^11.0.3"
     }
 }
