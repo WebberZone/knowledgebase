@@ -1,10 +1,13 @@
 <?php
 /**
- * PHPUnit bootstrap file.
+ * PHPUnit bootstrap file for WebberZone Knowledge Base.
  *
- * @package Better_Search_Plugin
+ * This file sets up the testing environment for PHPUnit.
+ *
+ * @package WebberZone\Knowledge_Base
  */
-require_once dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/.composer/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
+
+require_once dirname( dirname( dirname( dirname( __DIR__ ) ) ) ) . '/.composer/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
@@ -27,19 +30,9 @@ if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
 require_once $_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/knowledgebase.php';
+	require dirname( __DIR__ ) . '/knowledgebase.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
-
-activate_plugin( 'knowledgebase/knowledgebase.php' );
-
-echo "Installing Knowledge Base...\n";
-
-global $wzkb_settings, $current_user;
-
-wzkb_plugin_activate( true );
-
-$wzkb_settings = wzkb_get_settings();
