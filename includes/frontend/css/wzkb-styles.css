@@ -456,3 +456,29 @@ nav.pagination {
 .wzkb-related-articles img, .wzkb-related-articles a {
 	display: block;
 }
+
+/* Breadcrumb */
+.wzkb_breadcrumb {
+	margin-bottom: 1em;
+}
+
+.wzkb_breadcrumb-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.wzkb_breadcrumb-item {
+	display: flex;
+	align-items: center;
+}
+
+.wzkb_breadcrumb-item:not(:last-child)::after {
+	content: "\00BB";
+	content: attr(data-separator);
+	margin: 0 0.5em;
+	color: var(--wzkb-breadcrumb-separator-color, #666);
+}
