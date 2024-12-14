@@ -41,10 +41,10 @@ class Blocks {
 	 */
 	public function register_blocks() {
 		$blocks = array(
-			'kb'          => 'render_kb_block',
-			'alerts'      => 'render_alerts_block',
-			'kb-articles' => 'render_articles_block',
-			'breadcrumb'  => 'render_breadcrumb_block',
+			'kb'         => 'render_kb_block',
+			'alerts'     => 'render_alerts_block',
+			'articles'   => 'render_articles_block',
+			'breadcrumb' => 'render_breadcrumb_block',
 		);
 
 		foreach ( $blocks as $block_name => $render_callback ) {
