@@ -122,6 +122,9 @@ Completely rewritten. Several new features and enhancements.
 
 The plugin has been completely rewritten to use classes and autolaading.
 
+* Features:
+	* New block: Knowledge Base Articles.
+
 = 2.2.1 =
 
 * Enhancements:

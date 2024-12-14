@@ -8,6 +8,8 @@
 
 namespace WebberZone\Knowledge_Base\Blocks;
 
+use WebberZone\Knowledge_Base\Frontend\Display;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -38,8 +40,9 @@ class Blocks {
 	 */
 	public function register_blocks() {
 		$blocks = array(
-			'kb'     => 'render_kb_block',
-			'alerts' => 'render_alerts_block',
+			'kb'          => 'render_kb_block',
+			'alerts'      => 'render_alerts_block',
+			'kb-articles' => 'render_articles_block',
 		);
 
 		foreach ( $blocks as $block_name => $render_callback ) {
@@ -50,6 +53,24 @@ class Blocks {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Maps JavaScript attribute names to PHP attribute names.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $attributes   The block attributes.
+	 * @param array $mappings     Array of mappings with PHP attributes as keys and JS attributes as values.
+	 * @return array             Modified attributes array with mapped values.
+	 */
+	private function map_attributes( $attributes, $mappings ) {
+		foreach ( $mappings as $php_attr => $js_attr ) {
+			if ( isset( $attributes[ $js_attr ] ) ) {
+				$attributes[ $php_attr ] = $attributes[ $js_attr ];
+			}
+		}
+		return $attributes;
 	}
 
 	/**
@@ -71,11 +92,7 @@ class Blocks {
 			'extra_class'         => 'className',
 		);
 
-		foreach ( $mappings as $php_attr => $js_attr ) {
-			if ( isset( $attributes[ $js_attr ] ) ) {
-				$attributes[ $php_attr ] = $attributes[ $js_attr ];
-			}
-		}
+		$attributes = $this->map_attributes( $attributes, $mappings );
 
 		$arguments = array_merge(
 			$attributes,
@@ -112,5 +129,52 @@ class Blocks {
 	 */
 	public function render_alerts_block( $attributes, $content, $block ) {
 		return wp_kses_post( $content );
+	}
+
+	/**
+	 * Renders the `knowledgebase/articles` block on server.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the post content with latest posts added.
+	 */
+	public function render_articles_block( $attributes ) {
+		$mappings = array(
+			'term_id'      => 'termID',
+			'show_excerpt' => 'showExcerpt',
+		);
+
+		$attributes = $this->map_attributes( $attributes, $mappings );
+
+		$limit = (int) ( ! empty( $attributes['limit'] ) ? $attributes['limit'] : wzkb_get_option( 'limit', 5 ) );
+
+		$show_excerpt = isset( $attributes['show_excerpt'] ) ? (bool) $attributes['show_excerpt'] : false;
+
+		if ( empty( $attributes['term_id'] ) ) {
+			return '';
+		}
+
+		$term = get_term( (int) $attributes['term_id'], 'wzkb_category' );
+
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			return '';
+		}
+
+		$list_of_posts = Display::get_posts_by_term(
+			$term,
+			0,
+			array(
+				'show_excerpt' => $show_excerpt,
+				'limit'        => $limit,
+			)
+		);
+
+		if ( empty( $list_of_posts ) ) {
+			return __( 'No articles found.', 'knowledgebase' );
+		}
+
+		return $list_of_posts;
 	}
 }

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "knowledgebase/articles",
+  "version": "2.3.0",
+  "title": "Knowledge Base Articles",
+  "category": "design",
+  "icon": "book",
+  "keywords": [
+    "knowledgbase",
+    "articles",
+    "kb"
+  ],
+  "description": "Display the Knowledge Base Articles",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "className": {
+      "type": "string",
+      "default": ""
+    },
+    "limit": {
+      "type": "string",
+      "default": ""
+    },
+    "showExcerpt": {
+      "type": "boolean",
+      "default": false
+    },
+    "termID": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "example": {},
+  "textdomain": "knowledgebase",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css"
+}

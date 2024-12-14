@@ -7,15 +7,17 @@
     "main": "index.js",
     "scripts": {
         "build": "wp-scripts build --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
-        "build:alerts": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/alerts/ --output-path=includes/pro/blocks/build/alerts/",
-        "build:kb": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/kb/ --output-path=includes/pro/blocks/build/kb/",
+        "build:alerts": "wp-scripts build --webpack-src-dir=includes/blocks/src/alerts/ --output-path=includes/blocks/build/alerts/",
+        "build:kb": "wp-scripts build --webpack-src-dir=includes/blocks/src/kb/ --output-path=includes/blocks/build/kb/",
+        "build:articles": "wp-scripts build --webpack-src-dir=includes/blocks/src/kb-articles/ --output-path=includes/blocks/build/kb-articles/",
         "format": "wp-scripts format ./includes/blocks/src/",
         "lint:css": "wp-scripts lint-style ./includes/blocks/src/",
         "lint:js": "wp-scripts lint-js ./includes/blocks/src/",
         "packages-update": "wp-scripts packages-update",
         "start": "wp-scripts start --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
-        "start:alerts": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/alerts/ --output-path=includes/pro/blocks/build/alerts/",
-        "start:kb": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/kb/ --output-path=includes/pro/blocks/build/kb/",
+        "start:alerts": "wp-scripts start --webpack-src-dir=includes/blocks/src/alerts/ --output-path=includes/blocks/build/alerts/",
+        "start:kb": "wp-scripts start --webpack-src-dir=includes/blocks/src/kb/ --output-path=includes/blocks/build/kb/",
+        "start:articles": "wp-scripts start --webpack-src-dir=includes/blocks/src/kb-articles/ --output-path=includes/blocks/build/kb-articles/",
         "zip": "wp-scripts plugin-zip"
     },
     "files": [
