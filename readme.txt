@@ -120,10 +120,16 @@ Completely rewritten. Several new features and enhancements.
 
 = 2.3.0 =
 
-The plugin has been completely rewritten to use classes and autolaading.
+The plugin has been completely rewritten to use classes and autoloading.
 
 * Features:
 	* New block: Knowledge Base Articles.
+	* New block: Knowledge Base Breadcrumbs.
+
+* Modifications:
+	* Enhanced breadcrumb navigation with semantic HTML5 markup and improved accessibility
+	* Added Schema.org BreadcrumbList markup for better SEO
+	* Added support for custom Unicode separators in breadcrumbs
 
 = 2.2.1 =
 
@@ -148,4 +154,3 @@ Release post: [https://webberzone.com/blog/knowledge-base-v2-2-0/](https://webbe
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the separate changelog.txt file or the [Github releases page](https://github.com/WebberZone/knowledgebase/releases)
-

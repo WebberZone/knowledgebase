@@ -9,6 +9,7 @@
 namespace WebberZone\Knowledge_Base\Blocks;
 
 use WebberZone\Knowledge_Base\Frontend\Display;
+use WebberZone\Knowledge_Base\Frontend\Breadcrumbs;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -43,6 +44,7 @@ class Blocks {
 			'kb'          => 'render_kb_block',
 			'alerts'      => 'render_alerts_block',
 			'kb-articles' => 'render_articles_block',
+			'breadcrumb'  => 'render_breadcrumb_block',
 		);
 
 		foreach ( $blocks as $block_name => $render_callback ) {
@@ -123,11 +125,10 @@ class Blocks {
 	 *
 	 * @param array  $attributes The block attributes.
 	 * @param string $content The block content.
-	 * @param array  $block The block object.
 	 *
 	 * @return string Returns the post content with latest posts added.
 	 */
-	public function render_alerts_block( $attributes, $content, $block ) {
+	public function render_alerts_block( $attributes, $content ) {
 		return wp_kses_post( $content );
 	}
 
@@ -176,5 +177,26 @@ class Blocks {
 		}
 
 		return $list_of_posts;
+	}
+
+	/**
+	 * Render the block.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $attributes Block attributes.
+	 *
+	 * @return string Rendered block output.
+	 */
+	public static function render_breadcrumb_block( $attributes ) {
+		$wrapper_attributes = get_block_wrapper_attributes();
+
+		$output = sprintf(
+			'<div %1$s>%2$s</div>',
+			$wrapper_attributes,
+			wzkb_get_breadcrumb( $attributes )
+		);
+
+		return $output;
 	}
 }
