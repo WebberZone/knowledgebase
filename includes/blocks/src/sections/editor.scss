@@ -1,0 +1,61 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wzkb-articles-list {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.wzkb-articles-list li {
+	margin: 5px 0;
+	list-style-type: none !important;
+}
+
+.wzkb-articles-list li:before {
+	content: "\f123";
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 1;
+	font-family: dashicons;
+	text-decoration: inherit;
+	font-weight: 400;
+	font-style: normal;
+	vertical-align: top;
+	text-align: center;
+	-webkit-transition: color .1s ease-in 0;
+	transition: color .1s ease-in 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	margin-right: 10px;
+	word-wrap: break-word;
+	color: #666;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+@media only screen and (max-width: 480px) {
+	.col {
+		margin: 1% 0;
+	}
+
+	.span_2_of_2,
+	.span_1_of_2,
+	.span_1_of_3,
+	.span_2_of_3,
+	.span_3_of_3,
+	.span_1_of_4,
+	.span_2_of_4,
+	.span_3_of_4,
+	.span_4_of_4,
+	.span_1_of_5,
+	.span_2_of_5,
+	.span_3_of_5,
+	.span_4_of_5,
+	.span_5_of_5 {
+		width: 100%;
+	}
+}

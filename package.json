@@ -1,6 +1,6 @@
 {
     "name": "@webberzone/knowledgebase",
-    "version": "2.2.1",
+    "version": "2.3.0",
     "description": "Fastest way to create a highly-flexible multi-product knowledge base.",
     "author": "WebberZone",
     "license": "GPL-2.0-or-later",
@@ -11,6 +11,7 @@
         "build:kb": "wp-scripts build --webpack-src-dir=includes/blocks/src/kb/ --output-path=includes/blocks/build/kb/",
         "build:articles": "wp-scripts build --webpack-src-dir=includes/blocks/src/articles/ --output-path=includes/blocks/build/articles/",
         "build:breadcrumb": "wp-scripts build --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
+        "build:sections": "wp-scripts build --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
         "format": "wp-scripts format ./includes/blocks/src/",
         "lint:css": "wp-scripts lint-style ./includes/blocks/src/",
         "lint:js": "wp-scripts lint-js ./includes/blocks/src/",
@@ -20,6 +21,7 @@
         "start:kb": "wp-scripts start --webpack-src-dir=includes/blocks/src/kb/ --output-path=includes/blocks/build/kb/",
         "start:articles": "wp-scripts start --webpack-src-dir=includes/blocks/src/articles/ --output-path=includes/blocks/build/articles/",
         "start:breadcrumb": "wp-scripts start --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
+        "start:sections": "wp-scripts start --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
         "zip": "wp-scripts plugin-zip"
     },
     "files": [

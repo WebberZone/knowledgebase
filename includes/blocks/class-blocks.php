@@ -45,6 +45,7 @@ class Blocks {
 			'alerts'     => 'render_alerts_block',
 			'articles'   => 'render_articles_block',
 			'breadcrumb' => 'render_breadcrumb_block',
+			'sections'   => 'render_sections_block',
 		);
 
 		foreach ( $blocks as $block_name => $render_callback ) {
@@ -195,6 +196,55 @@ class Blocks {
 			'<div %1$s>%2$s</div>',
 			$wrapper_attributes,
 			wzkb_get_breadcrumb( $attributes )
+		);
+
+		return $output;
+	}
+
+	/**
+	 * Renders the `knowledgebase/sections` block on server.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the sections list.
+	 */
+	public function render_sections_block( $attributes ) {
+		$mappings = array(
+			'term_id'        => 'termID',
+			'before_li_item' => 'beforeLiItem',
+			'after_li_item'  => 'afterLiItem',
+		);
+
+		$attributes = $this->map_attributes( $attributes, $mappings );
+
+		$arguments = array(
+			'is_block'       => 1,
+			'depth'          => ( ! empty( $attributes['depth'] ) ) ? (int) $attributes['depth'] : 0,
+			'before_li_item' => ( ! empty( $attributes['before_li_item'] ) ) ? $attributes['before_li_item'] : '',
+			'after_li_item'  => ( ! empty( $attributes['after_li_item'] ) ) ? $attributes['after_li_item'] : '',
+		);
+
+		$term_id = ! empty( $attributes['term_id'] ) ? (int) $attributes['term_id'] : 0;
+
+		/**
+		 * Filters arguments passed to wzkb_categories_list for the block.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $arguments  Knowledge Base block options array.
+		 * @param array $attributes Block attributes array.
+		 */
+		$arguments = apply_filters( 'wzkb_sections_block_options', $arguments, $attributes );
+
+		$wrapper_attributes = get_block_wrapper_attributes();
+
+		$output = sprintf(
+			'<div %1$s>%2$s%3$s</div>',
+			$wrapper_attributes,
+			! empty( $attributes['title'] ) ? '<h2>' . esc_html( $attributes['title'] ) . '</h2>' : '',
+			wzkb_categories_list( $term_id, 0, $arguments )
 		);
 
 		return $output;
