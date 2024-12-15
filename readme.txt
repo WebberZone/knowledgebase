@@ -125,6 +125,7 @@ The plugin has been completely rewritten to use classes and autoloading.
 * Features:
 	* New block: Knowledge Base Articles.
 	* New block: Knowledge Base Breadcrumbs.
+	* New block: Knowledge Base Sections.
 
 * Modifications:
 	* Enhanced breadcrumb navigation with semantic HTML5 markup and improved accessibility

@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "knowledgebase/sections",
+	"version": "2.3.0",
+	"title": "Knowledge Base Sections",
+	"category": "design",
+	"icon": "book",
+	"keywords": ["knowledgbase", "sections", "kb"],
+	"description": "Display the list of sections when browsing a knowledge base page",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"className": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"termID": {
+			"type": "string",
+			"default": ""
+		},
+		"depth": {
+			"type": "string",
+			"default": ""
+		},
+		"beforeLiItem": {
+			"type": "string",
+			"default": ""
+		},
+		"afterLiItem": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"example": {},
+	"textdomain": "knowledgebase",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}
