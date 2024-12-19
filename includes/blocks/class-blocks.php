@@ -155,13 +155,13 @@ class Blocks {
 		$show_excerpt = isset( $attributes['show_excerpt'] ) ? (bool) $attributes['show_excerpt'] : false;
 
 		if ( empty( $attributes['term_id'] ) ) {
-			return '';
+			return __( 'Enter a section ID.', 'knowledgebase' );
 		}
 
 		$term = get_term( (int) $attributes['term_id'], 'wzkb_category' );
 
 		if ( empty( $term ) || is_wp_error( $term ) ) {
-			return '';
+			return __( 'Section not found.', 'knowledgebase' );
 		}
 
 		$list_of_posts = Display::get_posts_by_term(

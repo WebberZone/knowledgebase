@@ -22,7 +22,10 @@ export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
 
 	const { terms, hasResolved, error } = useSelect((select) => {
-		const query = { per_page: -1 };
+		const query = {
+			per_page: -1,
+			hide_empty: 1,
+		};
 		const selectorArgs = ['taxonomy', 'wzkb_category', query];
 
 		try {
