@@ -1,8 +1,8 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "knowledgebase/alerts",
-  "version": "1.0.0",
+  "version": "2.3.0",
   "title": "Knowledge Base Alerts",
   "category": "design",
   "icon": "book",
