@@ -5,7 +5,7 @@ Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, d
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.2.2
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,8 @@ Completely rewritten. Several new features and enhancements.
 == Changelog ==
 
 = 2.3.0 =
+
+Release post: [https://webberzone.com/blog/knowledge-base-v2-3-0/](https://webberzone.com/blog/knowledge-base-v2-3-0/)
 
 The plugin has been completely rewritten to use classes and autoloading.
 
