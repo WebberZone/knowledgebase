@@ -5,7 +5,7 @@ Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, d
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,10 +113,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.0 =
+= 2.3.1 =
 Completely rewritten. Several new features and enhancements.
 
 == Changelog ==
+
+= 2.3.1
+
+* Bug fix:
+	* Default thumbnail didn't work properly in the related posts.
 
 = 2.3.0 =
 

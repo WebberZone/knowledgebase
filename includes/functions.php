@@ -153,7 +153,7 @@ function wzkb_get_the_post_thumbnail( $args = array() ) {
 
 	$defaults = array(
 		'post'          => get_post(),
-		'thumb_default' => __DIR__ . '/frontend/images/default-thumb.png',
+		'thumb_default' => plugins_url( 'frontend/images/default-thumb.png', __FILE__ ),
 		'class'         => 'wzkb-relatd-article-thumb',
 		'size'          => 'thumbnail',
 		'scan_images'   => true,
