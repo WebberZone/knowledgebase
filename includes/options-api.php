@@ -10,6 +10,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Include the Options_API class if not already loaded.
+if ( ! class_exists( 'WebberZone\Knowledge_Base\Options_API' ) ) {
+	require_once __DIR__ . '/class-options-api.php';
+}
 
 /**
  * Get Settings.
@@ -17,21 +21,10 @@ if ( ! defined( 'WPINC' ) ) {
  * Retrieves all plugin settings
  *
  * @since 1.2.0
- * @return array AutoClose settings
+ * @return array Settings
  */
 function wzkb_get_settings() {
-
-	$settings = get_option( 'wzkb_settings', wzkb_settings_defaults() );
-
-	/**
-	 * Settings array
-	 *
-	 * Retrieves all plugin settings
-	 *
-	 * @since 1.2.0
-	 * @param array $settings Settings array
-	 */
-	return apply_filters( 'wzkb_get_settings', $settings );
+	return WebberZone\Knowledge_Base\Options_API::get_settings();
 }
 
 /**
@@ -47,39 +40,7 @@ function wzkb_get_settings() {
  * @return mixed The option value or the default value if the option does not exist.
  */
 function wzkb_get_option( $key = '', $default_value = null ) {
-	global $wzkb_settings;
-
-	if ( empty( $wzkb_settings ) ) {
-		$wzkb_settings = wzkb_get_settings();
-	}
-
-	if ( is_null( $default_value ) ) {
-		$default_value = wzkb_get_default_option( $key );
-	}
-
-	$value = isset( $wzkb_settings[ $key ] ) ? $wzkb_settings[ $key ] : $default_value;
-
-	/**
-	 * Filter the value for the option being fetched.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param mixed $value  Value of the option
-	 * @param mixed $key    Name of the option
-	 * @param mixed $default_value Default value
-	 */
-	$value = apply_filters( 'wzkb_get_option', $value, $key, $default_value );
-
-	/**
-	 * Key specific filter for the value of the option being fetched.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param mixed $value  Value of the option
-	 * @param mixed $key    Name of the option
-	 * @param mixed $default_value Default value
-	 */
-	return apply_filters( 'wzkb_get_option_' . $key, $value, $key, $default_value );
+	return WebberZone\Knowledge_Base\Options_API::get_option( $key, $default_value );
 }
 
 /**
@@ -96,36 +57,8 @@ function wzkb_get_option( $key = '', $default_value = null ) {
  * @return boolean   True if updated, false if not.
  */
 function wzkb_update_option( $key = '', $value = false ) {
-
-	// If no key, exit.
-	if ( empty( $key ) ) {
-		return false;
-	}
-
-	// If no value, delete.
-	if ( empty( $value ) ) {
-		$remove_option = wzkb_delete_option( $key );
-		return $remove_option;
-	}
-
-	// First let's grab the current settings.
-	$options = get_option( 'wzkb_settings' );
-
-	// Let's let devs alter that value coming in.
-	$value = apply_filters( 'wzkb_update_option', $value, $key );
-
-	// Next let's try to update the value.
-	$options[ $key ] = $value;
-	$did_update      = update_option( 'wzkb_settings', $options );
-
-	// If it updated, let's update the global variable.
-	if ( $did_update ) {
-		global $wzkb_settings;
-		$wzkb_settings[ $key ] = $value;
-	}
-	return $did_update;
+	return WebberZone\Knowledge_Base\Options_API::update_option( $key, $value );
 }
-
 
 /**
  * Remove an option
@@ -138,30 +71,8 @@ function wzkb_update_option( $key = '', $value = false ) {
  * @return boolean   True if updated, false if not.
  */
 function wzkb_delete_option( $key = '' ) {
-
-	// If no key, exit.
-	if ( empty( $key ) ) {
-		return false;
-	}
-
-	// First let's grab the current settings.
-	$options = get_option( 'wzkb_settings' );
-
-	// Next let's try to update the value.
-	if ( isset( $options[ $key ] ) ) {
-		unset( $options[ $key ] );
-	}
-
-	$did_update = update_option( 'wzkb_settings', $options );
-
-	// If it updated, let's update the global variable.
-	if ( $did_update ) {
-		global $wzkb_settings;
-		$wzkb_settings = $options;
-	}
-	return $did_update;
+	return WebberZone\Knowledge_Base\Options_API::delete_option( $key );
 }
-
 
 /**
  * Default settings.
@@ -171,38 +82,8 @@ function wzkb_delete_option( $key = '' ) {
  * @return array Default settings
  */
 function wzkb_settings_defaults() {
-
-	$options = array();
-
-	// Populate some default values.
-	foreach ( \WebberZone\Knowledge_Base\Admin\Settings\Settings::get_registered_settings() as $tab => $settings ) {
-		foreach ( $settings as $option ) {
-			// When checkbox is set to true, set this to 1.
-			if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
-				$options[ $option['id'] ] = 1;
-			} else {
-				$options[ $option['id'] ] = 0;
-			}
-			// If an option is set.
-			if ( in_array( $option['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $option['options'] ) ) {
-				$options[ $option['id'] ] = $option['options'];
-			}
-			if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes' ), true ) && isset( $option['default'] ) ) {
-				$options[ $option['id'] ] = $option['default'];
-			}
-		}
-	}
-
-	/**
-	 * Filters the default settings array.
-	 *
-	 * @since 1.2.0
-	 *
-	 * @param array   $options Default settings.
-	 */
-	return apply_filters( 'wzkb_settings_defaults', $options );
+	return WebberZone\Knowledge_Base\Options_API::get_settings_defaults();
 }
-
 
 /**
  * Get the default option for a specific key
@@ -213,28 +94,18 @@ function wzkb_settings_defaults() {
  * @return mixed
  */
 function wzkb_get_default_option( $key = '' ) {
-
-	$default_settings = wzkb_settings_defaults();
-
-	if ( array_key_exists( $key, $default_settings ) ) {
-		return $default_settings[ $key ];
-	} else {
-		return false;
-	}
+	return WebberZone\Knowledge_Base\Options_API::get_default_option( $key );
 }
-
 
 /**
  * Reset settings.
  *
- * @since 1.2.0
- *
- * @return void
+ * @since 1.0.0
+ * @return bool Success status.
  */
 function wzkb_settings_reset() {
-	delete_option( 'wzkb_settings' );
+	return WebberZone\Knowledge_Base\Options_API::reset_settings();
 }
-
 
 if ( ! function_exists( 'wz_tag_search' ) ) :
 	/**

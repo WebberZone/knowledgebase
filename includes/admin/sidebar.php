@@ -9,7 +9,7 @@
 <div class="postbox-container">
 	<div id="pro-upgrade-banner">
 		<div class="inside">
-			<p><a href="https://wzn.io/donate-bs" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/support.webp' ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
+			<p><a href="https://wzn.io/donate-bs" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
 		</div>
 	</div>
 
@@ -20,7 +20,7 @@
 			<div id="quick-links">
 				<ul class="subsub">
 					<li>
-						<a href="https://webberzone.com/plugins/knowledgebase/" target="_blank"><?php esc_html_e( 'Better Search plugin homepage', 'knowledgebase' ); ?></a>
+						<a href="https://webberzone.com/plugins/knowledgebase/" target="_blank"><?php esc_html_e( 'Knowledge Base plugin homepage', 'knowledgebase' ); ?></a>
 					</li>
 					<li>
 						<a href="https://webberzone.com/support/product/knowledgebase/" target="_blank"><?php esc_html_e( 'Knowledge Base', 'knowledgebase' ); ?></a>
@@ -69,8 +69,8 @@
 		<h2 class='hndle'><span><?php esc_html_e( 'Follow me', 'knowledgebase' ); ?></span></h2>
 
 		<div class="inside" style="text-align: center">
-		<a href="https://x.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/x.png' ); ?>" width="100" height="100"></a>
-			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( WZKB_PLUGIN_URL . 'includes/admin/images/fb.png' ); ?>" width="100" height="100"></a>
+		<a href="https://x.com/webberzone/" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/x.png', __FILE__ ) ); ?>" width="100" height="100"></a>
+			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/fb.png', __FILE__ ) ); ?>" width="100" height="100"></a>
 		</div><!-- /.inside -->
 	</div><!-- /.postbox -->
 </div>

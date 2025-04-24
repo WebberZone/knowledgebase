@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	// Initialise ColorPicker.
+	// Initialize ColorPicker.
 	$('.color-field').each(function (i, element) {
 		$(element).wpColorPicker();
 	});
