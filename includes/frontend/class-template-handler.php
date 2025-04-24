@@ -64,6 +64,8 @@ class Template_Handler {
 			$template_name = is_search() ? 'wzkb-search.php' : 'archive-wz_knowledgebase.php';
 		} elseif ( is_tax( 'wzkb_category' ) && ! is_search() ) {
 			$template_name = 'taxonomy-wzkb_category.php';
+		} elseif ( is_tax( 'wzkb_product' ) && ! is_search() ) {
+			$template_name = 'taxonomy-wzkb_product.php';
 		}
 
 		if ( $template_name ) {
@@ -111,6 +113,9 @@ class Template_Handler {
 	public function add_custom_archive_template( $templates ) {
 		if ( is_tax( 'wzkb_category' ) ) {
 			return $this->add_custom_template( $templates, 'archive', 'wzkb_category', 'taxonomy-wzkb_category' );
+		}
+		if ( is_tax( 'wzkb_product' ) ) {
+			return $this->add_custom_template( $templates, 'archive', 'wzkb_product', 'taxonomy-wzkb_product' );
 		}
 		if ( is_singular( 'wz_knowledgebase' ) ) {
 			return $this->add_custom_template( $templates, 'single', 'wz_knowledgebase', 'single-wz_knowledgebase' );
@@ -190,6 +195,8 @@ class Template_Handler {
 			$template_name = is_search() ? 'wzkb-search' : 'archive-wz_knowledgebase';
 		} elseif ( is_tax( 'wzkb_category' ) && ! is_search() ) {
 			$template_name = 'taxonomy-wzkb_category';
+		} elseif ( is_tax( 'wzkb_product' ) && ! is_search() ) {
+			$template_name = 'taxonomy-wzkb_product';
 		}
 
 		if ( $template_name ) {
@@ -200,24 +207,34 @@ class Template_Handler {
 				$template_file_path = __DIR__ . '/templates/' . $template_name . '.html';
 			}
 
-			$template_contents = self::get_template_content( $template_file_path );
-			$template_contents = self::replace_placeholders_with_shortcodes( $template_contents );
+			if ( file_exists( $template_file_path ) ) {
+				$template_contents = self::get_template_content( $template_file_path );
+				$template_contents = self::replace_placeholders_with_shortcodes( $template_contents );
 
-			$new_block                 = new \WP_Block_Template();
-			$new_block->type           = 'wp_template';
-			$new_block->theme          = $theme->stylesheet;
-			$new_block->slug           = $template_name;
-			$new_block->id             = 'wzkb//' . $template_name;
-			$new_block->title          = 'Knowledge Base Template - ' . $template_name;
-			$new_block->description    = '';
-			$new_block->source         = $block_source;
-			$new_block->status         = 'publish';
-			$new_block->has_theme_file = true;
-			$new_block->is_custom      = true;
-			$new_block->content        = $template_contents;
-			$new_block->post_types     = array( 'wz_knowledgebase' );
+				$new_block                 = new \WP_Block_Template();
+				$new_block->type           = 'wp_template';
+				$new_block->theme          = $theme->stylesheet;
+				$new_block->slug           = $template_name;
+				$new_block->id             = 'wzkb//' . $template_name;
+				$new_block->title          = 'Knowledge Base Template - ' . $template_name;
+				$new_block->description    = '';
+				$new_block->source         = $block_source;
+				$new_block->status         = 'publish';
+				$new_block->has_theme_file = true;
+				$new_block->is_custom      = true;
+				$new_block->content        = $template_contents;
+				$new_block->post_types     = array( 'wz_knowledgebase' );
 
-			$query_result[] = $new_block;
+				// Add taxonomy support for block template.
+				if ( 'taxonomy-wzkb_category' === $template_name ) {
+					$new_block->description = 'Knowledge Base Section (taxonomy) block template.';
+				}
+				if ( 'taxonomy-wzkb_product' === $template_name ) {
+					$new_block->description = 'Knowledge Base Product (taxonomy) block template.';
+				}
+
+				$query_result[] = $new_block;
+			}
 		}
 
 		return $query_result;

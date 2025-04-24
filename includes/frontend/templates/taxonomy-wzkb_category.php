@@ -39,7 +39,12 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $custom_css );
 				<?php
 				wzkb_breadcrumb();
 
-				echo do_shortcode( "[knowledgebase category='{$this_tax->term_id}']" );
+				// Display knowledge base content for this category.
+				$args = array(
+					'category'    => $this_tax->term_id,
+					'extra_class' => 'wzkb-category-archive',
+				);
+				echo wzkb_knowledge( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				// If no content, include the "No posts found" template.
 			else :
@@ -59,5 +64,3 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $custom_css );
 
 <?php
 get_footer();
-
-

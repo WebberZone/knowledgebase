@@ -61,6 +61,7 @@ function wzkb_delete_data() {
 
 		wzkb_delete_taxonomy( 'wzkb_category' );
 		wzkb_delete_taxonomy( 'wzkb_tag' );
+		wzkb_delete_taxonomy( 'wzkb_product' );
 	}
 
 	// Delete the cache.
