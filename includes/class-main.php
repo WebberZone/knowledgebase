@@ -7,7 +7,8 @@
 
 namespace WebberZone\Knowledge_Base;
 
-use WebberZone\Knowledge_Base\Admin\Activator;
+use WebberZone\Knowledge_Base\Admin\Admin;
+use WebberZone\Knowledge_Base\Pro\Pro;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit;
@@ -31,99 +32,108 @@ final class Main {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Admin.
+	 * @var Admin|null Admin instance.
 	 */
-	public $admin;
+	public ?Admin $admin = null;
+
+	/**
+	 * Pro features class.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var Pro|null Pro instance.
+	 */
+	public ?Pro $pro = null;
 
 	/**
 	 * Shortcodes.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Shortcodes.
+	 * @var Frontend\Shortcodes Shortcodes handler.
 	 */
-	public $shortcodes;
+	public Frontend\Shortcodes $shortcodes;
 
 	/**
 	 * Styles.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Styles.
+	 * @var Frontend\Styles_Handler Styles handler.
 	 */
-	public $styles;
+	public Frontend\Styles_Handler $styles;
 
 	/**
 	 * Language Handler.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Language Handler.
+	 * @var Frontend\Language_Handler Language handler.
 	 */
-	public $language;
+	public Frontend\Language_Handler $language;
 
 	/**
 	 * Display.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Display.
+	 * @var Frontend\Display Display handler.
 	 */
-	public $display;
+	public Frontend\Display $display;
 
 	/**
 	 * Template Handler.
 	 *
 	 * @since 4.0.0
 	 *
-	 * @var object Template Handler.
+	 * @var Frontend\Template_Handler Template handler.
 	 */
-	public $template_handler;
+	public Frontend\Template_Handler $template_handler;
 
 	/**
 	 * CPT.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object CPT.
+	 * @var CPT CPT handler.
 	 */
-	public $cpt;
+	public CPT $cpt;
 
 	/**
 	 * Feed.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Feed.
+	 * @var Frontend\Feed Feed handler.
 	 */
-	public $feed;
+	public Frontend\Feed $feed;
 
 	/**
 	 * Search.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Search.
+	 * @var Frontend\Search Search handler.
 	 */
-	public $search;
+	public Frontend\Search $search;
 
 	/**
 	 * Blocks.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Blocks.
+	 * @var Blocks\Blocks Blocks handler.
 	 */
-	public $blocks;
+	public Blocks\Blocks $blocks;
 
 	/**
 	 * Related articles.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Related articles.
+	 * @var Frontend\Related Related articles handler.
 	 */
-	public $related_articles;
+	public Frontend\Related $related_articles;
 
 	/**
 	 * Gets the instance of the class.
@@ -169,8 +179,13 @@ final class Main {
 
 		$this->hooks();
 
+		// Conditionally load Pro if available.
+		if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) {
+			$this->pro = new Pro();
+		}
+
 		if ( is_admin() ) {
-			$this->admin = new Admin\Admin();
+			$this->admin = new Admin();
 		}
 	}
 

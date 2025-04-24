@@ -1,31 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Constant WZKB_PLUGIN_URL not found\\.$#"
-			count: 3
-			path: includes/admin/settings/sidebar.php
-
-		-
-			message: "#^Constant WZKB_PLUGIN_DIR not found\\.$#"
-			count: 1
-			path: includes/autoloader.php
-
-		-
 			message: "#^Constant WZKB_PLUGIN_DIR not found\\.$#"
 			count: 1
 			path: includes/frontend/class-language-handler.php
-
-		-
-			message: "#^Method WebberZone\\\\Knowledge_Base\\\\Widgets\\\\Articles_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: includes/widgets/class-articles-widget.php
-
-		-
-			message: "#^Method WebberZone\\\\Knowledge_Base\\\\Widgets\\\\Breadcrumb_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: includes/widgets/class-breadcrumb-widget.php
-
-		-
-			message: "#^Method WebberZone\\\\Knowledge_Base\\\\Widgets\\\\Sections_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: includes/widgets/class-sections-widget.php

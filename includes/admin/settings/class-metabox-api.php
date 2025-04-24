@@ -16,8 +16,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * ATA Metabox class to register the metabox for ata_snippets post type.
- *
- * @since 3.5.0
  */
 #[\AllowDynamicProperties]
 class Metabox_API {
@@ -126,14 +124,14 @@ class Metabox_API {
 	 */
 	public function admin_enqueue_scripts( $hook ) {
 		if ( in_array( $hook, array( 'post.php', 'post-new.php' ), true ) || get_current_screen()->post_type === $this->post_type ) {
-			self::enqueue_scripts_styles();
+			$this->enqueue_scripts_styles();
 		}
 	}
 
 	/**
 	 * Enqueues all scripts, styles, settings, and templates necessary to use the Settings API.
 	 */
-	public static function enqueue_scripts_styles() {
+	public function enqueue_scripts_styles() {
 
 		$minimize = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
@@ -156,10 +154,10 @@ class Metabox_API {
 		);
 
 		// Enqueue WZ Admin JS.
-		wp_enqueue_script( 'wz-admin-js' );
-		wp_enqueue_script( 'wz-codemirror-js' );
-		wp_enqueue_script( 'wz-taxonomy-suggest-js' );
-		wp_enqueue_script( 'wz-media-selector-js' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-admin' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-codemirror' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-taxonomy-suggest' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-media-selector' );
 	}
 
 	/**
@@ -190,7 +188,12 @@ class Metabox_API {
 			return;
 		}
 
-		$settings_sanitize = new Settings_Sanitize();
+		$settings_sanitize = new Settings_Sanitize(
+			array(
+				'settings_key' => $this->settings_key,
+				'prefix'       => $this->prefix,
+			)
+		);
 
 		$posted = $_POST[ $this->settings_key ]; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
@@ -298,7 +301,7 @@ class Metabox_API {
 		echo '</table>';
 
 		/**
-		 * Action triggered when displaying Better Search meta box.
+		 * Action triggered when displaying the metabox.
 		 *
 		 * @param object $post  Post object.
 		 */
