@@ -7,9 +7,7 @@
  * @package WebberZone\Knowledge_Base
  */
 
-namespace WebberZone\Knowledge_Base\Admin\Settings;
-
-use WebberZone\Knowledge_Base\Util\Helpers;
+namespace WebberZone\Knowledge_Base\Admin;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -19,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Class to register the settings.
  *
- * @since   2.3.0
+ * @since 2.3.0
  */
 class Settings {
 
@@ -173,7 +171,49 @@ class Settings {
 			'upgraded_settings'   => array(),
 		);
 
-		$this->settings_api = new Settings_API( $this->settings_key, self::$prefix, $args );
+		$this->settings_api = new Settings\Settings_API( $this->settings_key, self::$prefix, $args );
+	}
+
+	/**
+	 * Get settings defaults.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array Default settings.
+	 */
+	public static function settings_defaults() {
+		$defaults = array();
+
+		// Get all registered settings.
+		$settings = self::get_registered_settings();
+
+		// Loop through each section.
+		foreach ( $settings as $section => $section_settings ) {
+			// Loop through each setting in the section.
+			foreach ( $section_settings as $setting ) {
+				if ( isset( $setting['id'] ) ) {
+					// When checkbox is set to true, set this to 1.
+					if ( 'checkbox' === $setting['type'] && ! empty( $setting['options'] ) ) {
+						$defaults[ $setting['id'] ] = 1;
+					} elseif ( in_array( $setting['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $setting['default'] ) ) {
+						$defaults[ $setting['id'] ] = $setting['default'];
+					} elseif ( in_array( $setting['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes', 'repeater' ), true ) && isset( $setting['default'] ) ) {
+						$defaults[ $setting['id'] ] = $setting['default'];
+					} else {
+						$defaults[ $setting['id'] ] = '';
+					}
+				}
+			}
+		}
+
+		/**
+		 * Filter the default settings array.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $defaults Default settings.
+		 */
+		return apply_filters( self::$prefix . '_settings_defaults', $defaults );
 	}
 
 	/**
@@ -289,76 +329,100 @@ class Settings {
 	 */
 	public static function settings_general() {
 		$settings = array(
-			'slug_header'       => array(
+			'multi_product_header' => array(
+				'id'      => 'multi_product_header',
+				'name'    => '<h3>' . esc_html__( 'Multi-Product Mode', 'knowledgebase' ) . '</h3>',
+				'desc'    => '',
+				'type'    => 'header',
+				'options' => '',
+			),
+			'multi_product'        => array(
+				'id'      => 'multi_product',
+				'name'    => esc_html__( 'Enable Multi-Product Mode', 'knowledgebase' ),
+				'desc'    => esc_html__(
+					'Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled. This is a transitional feature for advanced organization and future compatibility.',
+					'knowledgebase'
+				),
+				'type'    => 'checkbox',
+				'options' => false,
+			),
+			'slug_header'          => array(
 				'id'   => 'slug_header',
-				'name' => '<h3>' . esc_html__( 'Slug options', 'knowledgebase' ) . '</h3>',
+				'name' => '<h3>' . esc_html__( 'Knowledge Base Permalink', 'knowledgebase' ) . '</h3>',
 				'desc' => '',
 				'type' => 'header',
 			),
-			'kb_slug'           => array(
+			'kb_slug'              => array(
 				'id'      => 'kb_slug',
 				'name'    => esc_html__( 'Knowledge Base slug', 'knowledgebase' ),
 				'desc'    => esc_html__( 'This will set the opening path of the URL of the knowledge base and is set when registering the custom post type', 'knowledgebase' ),
 				'type'    => 'text',
 				'options' => 'knowledgebase',
 			),
-			'category_slug'     => array(
-				'id'      => 'category_slug',
-				'name'    => esc_html__( 'Category slug', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Each category is a section of the knowledge base. This setting is used when registering the custom category and forms a part of the URL when browsing category archives', 'knowledgebase' ),
+			'product_slug'         => array(
+				'id'      => 'product_slug',
+				'name'    => esc_html__( 'Product slug', 'knowledgebase' ),
+				'desc'    => esc_html__( 'This slug forms part of the URL for product pages when Multi-Product Mode is enabled. The value is used when registering the custom taxonomy.', 'knowledgebase' ),
 				'type'    => 'text',
-				'options' => 'section',
+				'options' => 'kb/product',
 			),
-			'tag_slug'          => array(
+			'category_slug'        => array(
+				'id'      => 'category_slug',
+				'name'    => esc_html__( 'Section slug', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Each section is a section of the knowledge base. This setting is used when registering the custom section and forms a part of the URL when browsing section archives', 'knowledgebase' ),
+				'type'    => 'text',
+				'options' => 'kb/section',
+			),
+			'tag_slug'             => array(
 				'id'      => 'tag_slug',
-				'name'    => esc_html__( 'Tag slug', 'knowledgebase' ),
+				'name'    => esc_html__( 'Tags slug', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives', 'knowledgebase' ),
 				'type'    => 'text',
-				'options' => 'kb-tags',
+				'options' => 'kb/tags',
 			),
-			'cache'             => array(
+			'cache'                => array(
 				'id'      => 'cache',
 				'name'    => esc_html__( 'Enable cache', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Cache the output of the WP_Query lookups to speed up retrieval of the knowledgebase. Recommended for large knowledge bases', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'options' => false,
 			),
-			'uninstall_header'  => array(
+			'uninstall_header'     => array(
 				'id'      => 'uninstall_header',
 				'name'    => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
 				'desc'    => '',
 				'type'    => 'header',
 				'options' => '',
 			),
-			'uninstall_options' => array(
+			'uninstall_options'    => array(
 				'id'      => 'uninstall_options',
 				'name'    => esc_html__( 'Delete options on uninstall', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'options' => true,
 			),
-			'uninstall_data'    => array(
+			'uninstall_data'       => array(
 				'id'      => 'uninstall_data',
-				'name'    => esc_html__( 'Delete all knowledge base posts on uninstall', 'knowledgebase' ),
+				'name'    => esc_html__( 'Delete all content on uninstall', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'options' => false,
 			),
-			'feed_header'       => array(
+			'feed_header'          => array(
 				'id'      => 'feed_header',
 				'name'    => '<h3>' . esc_html__( 'Feed options', 'knowledgebase' ) . '</h3>',
 				'desc'    => '',
 				'type'    => 'header',
 				'options' => '',
 			),
-			'include_in_feed'   => array(
+			'include_in_feed'      => array(
 				'id'      => 'include_in_feed',
 				'name'    => esc_html__( 'Include in feed', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Adds the knowledge base articles to the main RSS feed for your site', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'options' => true,
 			),
-			'disable_kb_feed'   => array(
+			'disable_kb_feed'      => array(
 				'id'      => 'disable_kb_feed',
 				'name'    => esc_html__( 'Disable KB feed', 'knowledgebase' ),
 				/* translators: 1: Opening link tag, 2: Closing link tag. */
@@ -674,26 +738,8 @@ class Settings {
 		if ( ! isset( $this->settings_api->settings_page ) || $hook !== $this->settings_api->settings_page ) {
 			return;
 		}
-		wp_localize_script(
-			'wz-admin-js',
-			'wzkb_admin',
-			array()
-		);
-		wp_enqueue_script( 'knowledgebase-admin-js' );
-		wp_enqueue_style( 'knowledgebase-admin-ui-css' );
-		wp_enqueue_style( 'wp-spinner' );
-		wp_localize_script(
-			'knowledgebase-admin-js',
-			'wzkb_admin_data',
-			array(
-				'ajax_url'             => admin_url( 'admin-ajax.php' ),
-				'security'             => wp_create_nonce( 'wzkb-admin' ),
-				'confirm_message'      => esc_html__( 'Are you sure you want to clear the cache?', 'knowledgebase' ),
-				'success_message'      => esc_html__( 'Cache cleared successfully!', 'knowledgebase' ),
-				'fail_message'         => esc_html__( 'Failed to clear cache. Please try again.', 'knowledgebase' ),
-				'request_fail_message' => esc_html__( 'Request failed: ', 'knowledgebase' ),
-			)
-		);
+		wp_enqueue_script( 'wzkb-admin' );
+		wp_enqueue_style( 'wzkb-admin-ui' );
 	}
 
 	/**
@@ -708,6 +754,8 @@ class Settings {
 
 		// Delete the cache.
 		\WebberZone\Knowledge_Base\Util\Cache::delete();
+
+		flush_rewrite_rules( true );
 
 		return $settings;
 	}

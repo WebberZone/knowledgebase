@@ -10,7 +10,6 @@
 namespace WebberZone\Knowledge_Base\Admin;
 
 use WebberZone\Knowledge_Base\Util\Cache;
-use WebberZone\Knowledge_Base\Admin\Activator;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -61,6 +60,15 @@ class Admin {
 	public $admin_columns;
 
 	/**
+	 * Product Migrator class.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var object Product Migrator class.
+	 */
+	public $product_migrator;
+
+	/**
 	 * Main constructor class.
 	 *
 	 * @since 2.3.0
@@ -69,10 +77,11 @@ class Admin {
 		$this->hooks();
 
 		// Initialise admin classes.
-		$this->settings      = new Settings\Settings();
-		$this->activator     = new Activator();
-		$this->cache         = new Cache();
-		$this->admin_columns = new Admin_Columns();
+		$this->settings         = new Settings();
+		$this->activator        = new Activator();
+		$this->cache            = new Cache();
+		$this->admin_columns    = new Admin_Columns();
+		$this->product_migrator = new Product_Migrator();
 	}
 
 	/**
@@ -98,28 +107,36 @@ class Admin {
 		$minimize = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		wp_register_script(
-			'wzkb-admin-js',
-			plugins_url( 'js/admin-scripts' . $minimize . '.js', __FILE__ ),
+			'wzkb-admin',
+			plugins_url( "js/admin-scripts{$minimize}.js", __FILE__ ),
 			array( 'jquery', 'jquery-ui-tabs' ),
 			WZKB_VERSION,
 			true
 		);
 		wp_localize_script(
-			'wzkb-admin-js',
-			'wzkb_admin',
+			'wzkb-admin',
+			'WZKBAdminData',
 			array(
-				'nonce' => wp_create_nonce( 'wzkb_admin_nonce' ),
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'security' => wp_create_nonce( 'wzkb-admin' ),
+				'strings'  => array(
+					'confirm_message'      => esc_html__( 'Are you sure you want to clear the cache?', 'knowledgebase' ),
+					'success_message'      => esc_html__( 'Cache cleared successfully!', 'knowledgebase' ),
+					'fail_message'         => esc_html__( 'Failed to clear cache. Please try again.', 'knowledgebase' ),
+					'request_fail_message' => esc_html__( 'Request failed: ', 'knowledgebase' ),
+				),
 			)
 		);
+
 		wp_register_style(
-			'wzkb-admin-ui-css',
-			plugins_url( 'css/admin' . $minimize . '.css', __FILE__ ),
+			'wzkb-admin-ui',
+			plugins_url( "css/admin{$minimize}.css", __FILE__ ),
 			array(),
 			WZKB_VERSION
 		);
 
 		if ( isset( $_GET['post_type'] ) && 'wz_knowledgebase' === $_GET['post_type'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
-			wp_enqueue_style( 'wzkb-admin-ui-css' );
+			wp_enqueue_style( 'wzkb-admin-ui' );
 		}
 	}
 
@@ -129,9 +146,10 @@ class Admin {
 	 * @since 2.3.0
 	 */
 	public function admin_notices() {
-		$kbslug  = \wzkb_get_option( 'kb_slug', 'not-set-random-string' );
-		$catslug = \wzkb_get_option( 'category_slug', 'not-set-random-string' );
-		$tagslug = \wzkb_get_option( 'tag_slug', 'not-set-random-string' );
+		$kb_slug      = \wzkb_get_option( 'kb_slug', 'not-set-random-string' );
+		$product_slug = \wzkb_get_option( 'product_slug', 'not-set-random-string' );
+		$cat_slug     = \wzkb_get_option( 'category_slug', 'not-set-random-string' );
+		$tag_slug     = \wzkb_get_option( 'tag_slug', 'not-set-random-string' );
 
 		// Only add the notice if the user is an admin.
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -139,13 +157,16 @@ class Admin {
 		}
 
 		// Only add the notice if the settings cannot be found.
-		if ( 'not-set-random-string' === $kbslug || 'not-set-random-string' === $catslug || 'not-set-random-string' === $tagslug ) {
+		if ( 'not-set-random-string' === $kb_slug || 'not-set-random-string' === $product_slug || 'not-set-random-string' === $cat_slug || 'not-set-random-string' === $tag_slug ) {
 			?>		
 			<div class="updated">
 				<p>
 					<?php
-						/* translators: 1. Link to admin page. */
-						printf( __( 'Knowledge Base settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ), esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						printf(
+							/* translators: 1. Link to admin page. */
+							esc_html__( 'Knowledge Base settings for the slug have not been registered. Please visit the <a href="%s">admin page</a> to update and save the options.', 'knowledgebase' ),
+							esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) )
+						);
 					?>
 				</p>
 			</div>

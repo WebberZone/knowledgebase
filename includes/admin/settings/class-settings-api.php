@@ -18,9 +18,8 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.5.2
+ * @version 2.7.0
  */
-#[\AllowDynamicProperties]
 class Settings_API {
 
 	/**
@@ -28,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	const VERSION = '2.5.2';
+	public const VERSION = '2.7.0';
 
 	/**
 	 * Settings Key.
@@ -180,22 +179,6 @@ class Settings_API {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
-	}
-
-	/**
-	 * Filters the CSS classes for the body tag in the admin.
-	 *
-	 * @param string $classes Space-separated list of CSS classes.
-	 * @return string Space-separated list of CSS classes.
-	 */
-	public function admin_body_class( $classes ) {
-		$current_screen = get_current_screen();
-
-		if ( in_array( $current_screen->id, $this->menu_pages, true ) ) {
-			$classes .= ' ' . $this->prefix . '-dashboard-page';
-		}
-		return $classes;
 	}
 
 	/**
@@ -335,6 +318,8 @@ class Settings_API {
 	 * Add a menu page to the WordPress admin area.
 	 *
 	 * @param array $menu Array of settings for the menu page.
+	 *
+	 * @return string|false The resulting page’s hook_suffix, or false if the user does not have the capability required.
 	 */
 	public function add_custom_menu_page( $menu ) {
 		$defaults = array(
@@ -356,6 +341,8 @@ class Settings_API {
 
 		);
 		$menu = wp_parse_args( $menu, $defaults );
+
+		$menu_page = false;
 
 		switch ( $menu['type'] ) {
 			case 'submenu':
@@ -381,8 +368,6 @@ class Settings_API {
 			case 'pages':
 			case 'comments':
 				$f = 'add_' . $menu['type'] . '_page';
-
-				$menu_page = null;
 				if ( function_exists( $f ) ) {
 					$menu_page = $f(
 						$menu['page_title'],
@@ -478,43 +463,71 @@ class Settings_API {
 
 		// Settings API scripts.
 		wp_register_script(
-			'wz-admin-js',
+			'wz-' . $this->prefix . '-admin',
 			plugins_url( 'js/settings-admin-scripts' . $minimize . '.js', __FILE__ ),
 			array( 'jquery' ),
 			self::VERSION,
 			true
 		);
 		wp_register_script(
-			'wz-codemirror-js',
+			'wz-' . $this->prefix . '-codemirror',
 			plugins_url( 'js/apply-codemirror' . $minimize . '.js', __FILE__ ),
 			array( 'jquery' ),
 			self::VERSION,
 			true
 		);
 		wp_register_script(
-			'wz-taxonomy-suggest-js',
+			'wz-' . $this->prefix . '-taxonomy-suggest',
 			plugins_url( 'js/taxonomy-suggest' . $minimize . '.js', __FILE__ ),
 			array( 'jquery' ),
 			self::VERSION,
 			true
 		);
 		wp_register_script(
-			'wz-media-selector-js',
+			'wz-' . $this->prefix . '-media-selector',
 			plugins_url( 'js/media-selector' . $minimize . '.js', __FILE__ ),
 			array( 'jquery' ),
 			self::VERSION,
 			true
 		);
+		wp_register_style(
+			'wz-' . $this->prefix . '-admin',
+			plugins_url( 'css/admin-style' . $minimize . '.css', __FILE__ ),
+			array(),
+			self::VERSION
+		);
+
+		// Top Select scripts and styles.
+		wp_register_style(
+			'wz-' . $this->prefix . '-tom-select',
+			'https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css',
+			array(),
+			'2.3.1'
+		);
+		wp_register_script(
+			'wz-' . $this->prefix . '-tom-select',
+			'https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js',
+			array( 'jquery' ),
+			'2.3.1',
+			true
+		);
+		wp_register_script(
+			'wz-' . $this->prefix . '-tom-select-init',
+			plugin_dir_url( __FILE__ ) . 'js/tom-select-init' . $minimize . '.js',
+			array( 'jquery', 'wz-' . $this->prefix . '-tom-select' ),
+			self::VERSION,
+			true
+		);
 
 		if ( $hook === $this->settings_page ) {
-			self::enqueue_scripts_styles();
+			$this->enqueue_scripts_styles();
 		}
 	}
 
 	/**
 	 * Enqueues all scripts, styles, settings, and templates necessary to use the Settings API.
 	 */
-	public static function enqueue_scripts_styles() {
+	public function enqueue_scripts_styles() {
 
 		wp_enqueue_style( 'wp-color-picker' );
 
@@ -534,9 +547,28 @@ class Settings_API {
 			)
 		);
 
-		wp_enqueue_script( 'wz-admin-js' );
-		wp_enqueue_script( 'wz-codemirror-js' );
-		wp_enqueue_script( 'wz-taxonomy-suggest-js' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-admin' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-codemirror' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-taxonomy-suggest' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-media-selector' );
+
+		// Enqueue Tom Select.
+		wp_enqueue_style( 'wz-' . $this->prefix . '-tom-select' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-tom-select' );
+
+		// Localize Tom Select settings.
+		wp_localize_script(
+			'wz-' . $this->prefix . '-tom-select-init',
+			'WZTomSelectSettings',
+			array(
+				'action'   => $this->prefix . '_kit_search',
+				'nonce'    => wp_create_nonce( $this->prefix . '_kit_search' ),
+				'endpoint' => 'forms',
+			)
+		);
+		wp_enqueue_script( 'wz-' . $this->prefix . '-tom-select-init' );
+
+		wp_enqueue_style( 'wz-' . $this->prefix . '-admin' );
 	}
 
 	/**
@@ -574,26 +606,7 @@ class Settings_API {
 
 			foreach ( $settings as $setting ) {
 
-				$args = wp_parse_args(
-					$setting,
-					array(
-						'section'          => $section,
-						'id'               => null,
-						'name'             => '',
-						'desc'             => '',
-						'type'             => null,
-						'default'          => '',
-						'options'          => '',
-						'max'              => null,
-						'min'              => null,
-						'step'             => null,
-						'size'             => null,
-						'field_class'      => '',
-						'field_attributes' => '',
-						'placeholder'      => '',
-						'pro'              => false,
-					)
-				);
+				$args = self::parse_field_args( $setting, $section );
 
 				$id       = $args['id'];
 				$name     = $args['name'];
@@ -666,8 +679,12 @@ class Settings_API {
 					$options[ $option['id'] ] = 0;
 				}
 				// If an option is set.
-				if ( in_array( $option['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $option['options'] ) ) {
-					$options[ $option['id'] ] = $option['options'];
+				if ( in_array( $option['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) ) {
+					if ( isset( $option['default'] ) ) {
+						$options[ $option['id'] ] = $option['default'];
+					} elseif ( isset( $option['options'] ) ) {
+						$options[ $option['id'] ] = $option['options'];
+					}
 				}
 				if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes' ), true ) && isset( $option['default'] ) ) {
 					$options[ $option['id'] ] = $option['default'];
@@ -718,13 +735,64 @@ class Settings_API {
 	}
 
 	/**
+	 * Get sanitization callback for given Settings key.
+	 *
+	 * @param string $key Settings key.
+	 *
+	 * @return mixed Callback function or false if callback isn't found.
+	 */
+	public function get_sanitize_callback( $key = '' ) {
+		if ( empty( $key ) ) {
+			return false;
+		}
+
+		$settings_sanitize = new Settings_Sanitize(
+			array(
+				'settings_key' => $this->settings_key,
+				'prefix'       => $this->prefix,
+			)
+		);
+
+		// Iterate over registered fields and see if we can find proper callback.
+		foreach ( $this->registered_settings as $section => $settings ) {
+			foreach ( $settings as $setting ) {
+				if ( $setting['id'] !== $key ) {
+					continue;
+				}
+
+				// Return the callback name.
+				$sanitize_callback = false;
+
+				if ( isset( $setting['sanitize_callback'] ) && is_callable( $setting['sanitize_callback'] ) ) {
+					$sanitize_callback = $setting['sanitize_callback'];
+					return $sanitize_callback;
+				}
+
+				if ( is_callable( array( $settings_sanitize, 'sanitize_' . $setting['type'] . '_field' ) ) ) {
+					// For repeater fields, create a closure to pass the field configuration.
+					if ( 'repeater' === $setting['type'] ) {
+						return function ( $value ) use ( $settings_sanitize, $setting ) {
+							return $settings_sanitize->sanitize_repeater_field( $value, $setting );
+						};
+					}
+					$sanitize_callback = array( $settings_sanitize, 'sanitize_' . $setting['type'] . '_field' );
+					return $sanitize_callback;
+				}
+
+				return $sanitize_callback;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Sanitize the form data being submitted.
 	 *
 	 * @param  array $input Input unclean array.
 	 * @return array Sanitized array
 	 */
 	public function settings_sanitize( $input ) {
-
 		// This should be set if a form is submitted, so let's save it in the $referrer variable.
 		if ( empty( $_POST['_wp_http_referer'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			return $input;
@@ -765,7 +833,6 @@ class Settings_API {
 
 		// Loop through each setting being saved and pass it through a sanitization filter.
 		foreach ( $settings_types as $key => $type ) {
-
 			/**
 			 * Skip settings that are not really settings.
 			 *
@@ -778,12 +845,18 @@ class Settings_API {
 			}
 
 			if ( array_key_exists( $key, $output ) ) {
-
 				$sanitize_callback = $this->get_sanitize_callback( $key );
 
 				// If callback is set, call it.
 				if ( $sanitize_callback ) {
-					$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ] );
+					// Pass the field configuration for repeater fields.
+					if ( 'repeater' === $type && isset( $this->registered_settings[ $key ] ) ) {
+						$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ], $this->registered_settings[ $key ] );
+					} elseif ( 'sensitive' === $type ) {
+						$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ], $key );
+					} else {
+						$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ] );
+					}
 					continue;
 				}
 			}
@@ -805,50 +878,9 @@ class Settings_API {
 		 * Filter the settings array before it is returned.
 		 *
 		 * @param array $output Settings array.
-		 * @param array $input Input settings array.
+		 * @param array $input  Input settings array.
 		 */
 		return apply_filters( $this->prefix . '_settings_sanitize', $output, $input );
-	}
-
-	/**
-	 * Get sanitization callback for given Settings key.
-	 *
-	 * @param string $key Settings key.
-	 *
-	 * @return mixed Callback function or false if callback isn't found.
-	 */
-	public function get_sanitize_callback( $key = '' ) {
-		if ( empty( $key ) ) {
-			return false;
-		}
-
-		$settings_sanitize = new Settings_Sanitize();
-
-		// Iterate over registered fields and see if we can find proper callback.
-		foreach ( $this->registered_settings as $section => $settings ) {
-			foreach ( $settings as $setting ) {
-				if ( $setting['id'] !== $key ) {
-					continue;
-				}
-
-				// Return the callback name.
-				$sanitize_callback = false;
-
-				if ( isset( $setting['sanitize_callback'] ) && is_callable( $setting['sanitize_callback'] ) ) {
-					$sanitize_callback = $setting['sanitize_callback'];
-					return $sanitize_callback;
-				}
-
-				if ( is_callable( array( $settings_sanitize, 'sanitize_' . $setting['type'] . '_field' ) ) ) {
-					$sanitize_callback = array( $settings_sanitize, 'sanitize_' . $setting['type'] . '_field' );
-					return $sanitize_callback;
-				}
-
-				return $sanitize_callback;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -858,7 +890,6 @@ class Settings_API {
 		ob_start();
 		?>
 			<div class="wrap">
-				<?php do_action( $this->prefix . '_settings_page_header_before' ); ?>
 				<h1><?php echo esc_html( $this->translation_strings['page_header'] ); ?></h1>
 				<?php do_action( $this->prefix . '_settings_page_header' ); ?>
 
@@ -874,7 +905,12 @@ class Settings_API {
 				<div id="postbox-container-1" class="postbox-container">
 
 					<div id="side-sortables" class="meta-box-sortables ui-sortable">
-					<?php include_once 'sidebar.php'; ?>
+					<?php
+					$sidebar_file = dirname( __DIR__ ) . '/sidebar.php';
+					if ( file_exists( $sidebar_file ) ) {
+						include_once $sidebar_file;
+					}
+					?>
 					</div><!-- /#side-sortables -->
 
 				</div><!-- /#postbox-container-1 -->
@@ -1020,5 +1056,142 @@ class Settings_API {
 		foreach ( $this->help_tabs as $tab ) {
 			$screen->add_help_tab( $tab );
 		}
+	}
+
+	/**
+	 * Parse field arguments with defaults.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array  $field   Field arguments.
+	 * @param string $section Section name.
+	 *
+	 * @return array Parsed field arguments.
+	 */
+	public static function parse_field_args( $field, $section = '' ) {
+		$defaults = array(
+			'id'               => null,
+			'name'             => '',
+			'desc'             => '',
+			'type'             => 'text',
+			'size'             => null,
+			'options'          => '',
+			'default'          => '',
+			'min'              => 0,
+			'max'              => 999999,
+			'step'             => 1,
+			'field_class'      => '',
+			'field_attributes' => array(),
+			'placeholder'      => '',
+			'readonly'         => false,
+			'required'         => false,
+			'disabled'         => false,
+			'pro'              => false,
+			'section'          => $section,
+		);
+
+		$field = wp_parse_args( $field, $defaults );
+
+		// Add required indicator to field name if the field is required.
+		if ( ! empty( $field['required'] ) && true === $field['required'] ) {
+			$field['name'] = sprintf( '%s <span class="required" title="%s">*</span>', $field['name'], esc_attr__( 'Required', 'glue-link' ) );
+		}
+
+		return $field;
+	}
+
+	/**
+	 * Get the encryption key for API key encryption/decryption.
+	 *
+	 * @return string The encryption key.
+	 */
+	private static function get_encryption_key() {
+		return defined( 'AUTH_SALT' ) ? AUTH_SALT : ( defined( 'SECURE_AUTH_SALT' ) ? SECURE_AUTH_SALT : hash( 'sha256', __NAMESPACE__ . 'knowledgebase_encryption_fallback' ) );
+	}
+
+	/**
+	 * Encrypts an API key using either OpenSSL or Sodium, if available.
+	 *
+	 * @param string $key The API key to encrypt.
+	 * @return string The encrypted API key, or the plain text key if no secure method is available.
+	 */
+	public static function encrypt_api_key( $key ) {
+		if ( empty( $key ) ) {
+			return '';
+		}
+
+		// Use OpenSSL if available.
+		if ( extension_loaded( 'openssl' ) ) {
+			$iv_length = openssl_cipher_iv_length( 'aes-256-cbc' );
+			$iv        = openssl_random_pseudo_bytes( $iv_length );
+			$encrypted = openssl_encrypt( $key, 'aes-256-cbc', self::get_encryption_key(), 0, $iv );
+
+			// Store IV + ciphertext in hex format.
+			return 'enc:' . bin2hex( $iv . $encrypted );
+		}
+
+		// Use Sodium (libsodium) if OpenSSL is unavailable.
+		if ( extension_loaded( 'sodium' ) ) {
+			$sodium_key = substr( hash( 'sha256', self::get_encryption_key(), true ), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
+			$nonce      = random_bytes( SODIUM_CRYPTO_SECRETBOX_NONCEBYTES );
+			$encrypted  = sodium_crypto_secretbox( $key, $nonce, $sodium_key );
+
+			return 'enc:' . sodium_bin2hex( $nonce . $encrypted );
+		}
+
+		return $key;
+	}
+
+	/**
+	 * Decrypts an API key using either OpenSSL or Sodium, if available.
+	 *
+	 * @param string $encrypted_key The encrypted API key to decrypt.
+	 * @return string The decrypted API key, or the encrypted key if no secure method is available.
+	 */
+	public static function decrypt_api_key( $encrypted_key ) {
+		if ( empty( $encrypted_key ) ) {
+			return '';
+		}
+
+		// If the key doesn't start with 'enc:', it's not encrypted.
+		if ( strpos( $encrypted_key, 'enc:' ) !== 0 ) {
+			return $encrypted_key;
+		}
+
+		// Remove the 'enc:' prefix.
+		$encrypted_key = substr( $encrypted_key, 4 );
+
+		// Try OpenSSL decryption.
+		if ( extension_loaded( 'openssl' ) ) {
+			$data = hex2bin( $encrypted_key );
+			if ( false === $data ) {
+				return '';
+			}
+
+			$iv_length  = openssl_cipher_iv_length( 'aes-256-cbc' );
+			$iv         = mb_substr( $data, 0, $iv_length, '8bit' );
+			$ciphertext = mb_substr( $data, $iv_length, null, '8bit' );
+
+			$decrypted = openssl_decrypt( $ciphertext, 'aes-256-cbc', self::get_encryption_key(), 0, $iv );
+			return false === $decrypted ? '' : $decrypted;
+		}
+
+		// Try Sodium (libsodium) decryption.
+		if ( extension_loaded( 'sodium' ) ) {
+			$sodium_key = substr( hash( 'sha256', self::get_encryption_key(), true ), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
+			$decoded    = sodium_hex2bin( $encrypted_key );
+
+			if ( ! $decoded ) {
+				return '';
+			}
+
+			$nonce      = mb_substr( $decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit' );
+			$ciphertext = mb_substr( $decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit' );
+			$decrypted  = sodium_crypto_secretbox_open( $ciphertext, $nonce, $sodium_key );
+
+			return false === $decrypted ? '' : $decrypted;
+		}
+
+		return $encrypted_key;
 	}
 }

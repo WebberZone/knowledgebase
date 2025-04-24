@@ -48,6 +48,7 @@ class Shortcodes {
 		$atts = shortcode_atts(
 			array(
 				'category'     => false,
+				'product'      => false,
 				'is_shortcode' => 1,
 			),
 			$atts,

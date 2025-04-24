@@ -13,7 +13,7 @@
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Create a multi-product knowledge base on your WordPress site.
- * Version: 2.3.1-beta1
+ * Version: 3.0.0-beta1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WZKB_VERSION' ) ) {
 	 *
 	 * @var string $wzkb_version Plugin version
 	 */
-	define( 'WZKB_VERSION', '2.3.0' );
+	define( 'WZKB_VERSION', '3.0.0-beta1' );
 }
 
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
@@ -78,14 +78,26 @@ require_once WZKB_PLUGIN_DIR . 'includes/autoloader.php';
 
 if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
 	/**
-	 * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
+	 * The main function responsible for returning the one true WebberZone Knowledge Base instance to functions everywhere.
 	 *
 	 * @since 2.3.0
 	 */
 	function load() {
-		Main::get_instance();
+		wzkb();
 	}
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
+}
+
+if ( ! function_exists( 'wzkb' ) ) {
+	/**
+	 * Get the main WebberZone Knowledge Base instance.
+	 *
+	 * @since 3.0.0
+	 * @return Main Main instance.
+	 */
+	function wzkb() {
+		return Main::get_instance();
+	}
 }
 
 // Register the activation hook.
@@ -110,4 +122,4 @@ require_once WZKB_PLUGIN_DIR . 'includes/functions.php';
  * @var array WZKB Settings
  */
 global $wzkb_settings;
-$wzkb_settings = wzkb_get_settings();
+$wzkb_settings = Options_API::get_settings();

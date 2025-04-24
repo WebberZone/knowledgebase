@@ -5,7 +5,7 @@ Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, d
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.3.1
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,15 +113,32 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.1 =
+= 2.3.0 =
 Completely rewritten. Several new features and enhancements.
 
 == Changelog ==
 
-= 2.3.1
+= 3.0.0 =
 
-* Bug fix:
-	* Default thumbnail didn't work properly in the related posts.
+* Features:
+	* Introduced a new hierarchical Products taxonomy (`wzkb_product`) enabling multi-product support for articles and sections.
+	* Migration wizard to map existing sections and articles to products, with dry-run and batch processing.
+	* Product-based frontend templates that preserve section hierarchy.
+	* Admin UI enhancements for managing products, sections, and migration.
+
+* Modifications:
+	* Standardized CSS class names to use consistent hyphenation (e.g., `wzkb_section` is now `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
+
+* Breaking Changes:
+	* CSS classes have been renamed for consistency:
+		* `wzkb_section` → `wzkb-section`
+		* `wzkb_section_wrapper` → `wzkb-section-wrapper`
+		* `wzkb_section_name` → `wzkb-section-name`
+		* `wzkb_section_count` → `wzkb-section-count`
+		* `wzkb_shortcode` → `wzkb-shortcode`
+		* `wzkb_block` → `wzkb-block`
+		* And other similar class name changes
+	* If you have custom CSS targeting these classes, you'll need to update your selectors
 
 = 2.3.0 =
 
