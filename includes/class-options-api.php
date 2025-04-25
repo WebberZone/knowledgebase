@@ -9,6 +9,8 @@
 
 namespace WebberZone\Knowledge_Base;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -50,7 +52,7 @@ class Options_API {
 	 * @since 3.0.0
 	 */
 	public static function init() {
-		add_action( 'wp_ajax_' . self::FILTER_PREFIX . '_tags_search', array( __CLASS__, 'tags_search' ) );
+		Hook_Registry::add_action( 'wp_ajax_' . self::FILTER_PREFIX . '_tags_search', array( __CLASS__, 'tags_search' ) );
 	}
 
 	/**

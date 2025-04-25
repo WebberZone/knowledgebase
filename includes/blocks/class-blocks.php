@@ -8,8 +8,8 @@
 
 namespace WebberZone\Knowledge_Base\Blocks;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
 use WebberZone\Knowledge_Base\Frontend\Display;
-use WebberZone\Knowledge_Base\Frontend\Breadcrumbs;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -29,7 +29,7 @@ class Blocks {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_blocks' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'register_blocks' ) );
 	}
 
 	/**

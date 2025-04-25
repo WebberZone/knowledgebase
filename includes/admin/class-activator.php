@@ -12,6 +12,7 @@
 namespace WebberZone\Knowledge_Base\Admin;
 
 use WebberZone\Knowledge_Base\CPT;
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 /**
  * Class Activator
@@ -26,7 +27,7 @@ class Activator {
 	 * @since 3.3.0
 	 */
 	public function __construct() {
-		add_action( 'wp_initialize_site', array( $this, 'activate_new_site' ) );
+		Hook_Registry::add_action( 'wp_initialize_site', array( $this, 'activate_new_site' ) );
 	}
 
 	/**

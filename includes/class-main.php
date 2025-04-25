@@ -9,6 +9,7 @@ namespace WebberZone\Knowledge_Base;
 
 use WebberZone\Knowledge_Base\Admin\Admin;
 use WebberZone\Knowledge_Base\Pro\Pro;
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit;
@@ -195,8 +196,8 @@ final class Main {
 	 * @since 2.3.0
 	 */
 	public function hooks() {
-		add_action( 'init', array( $this, 'initiate_plugin' ) );
-		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'initiate_plugin' ) );
+		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 	}
 
 	/**

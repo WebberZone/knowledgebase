@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -21,7 +23,7 @@ class Feed {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'request', array( $this, 'in_feed' ), 11 );
+		Hook_Registry::add_filter( 'request', array( $this, 'in_feed' ), 11 );
 	}
 
 	/**
