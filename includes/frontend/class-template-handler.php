@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 /**
  * Class Template_Handler
  *
@@ -17,9 +19,9 @@ class Template_Handler {
 	 * Constructor for the Template_Handler class.
 	 */
 	public function __construct() {
-		add_filter( 'template_include', array( $this, 'archive_template' ) );
+		Hook_Registry::add_filter( 'template_include', array( $this, 'archive_template' ) );
 
-		add_filter( 'get_block_templates', array( $this, 'manage_block_templates' ), 10, 3 );
+		Hook_Registry::add_filter( 'get_block_templates', array( $this, 'manage_block_templates' ), 10, 3 );
 
 		$template_types = array(
 			'archive'  => 'add_custom_archive_template',
@@ -30,12 +32,12 @@ class Template_Handler {
 		);
 
 		foreach ( $template_types as $type => $callback ) {
-			add_filter( "{$type}_template_hierarchy", array( $this, $callback ) );
+			Hook_Registry::add_filter( "{$type}_template_hierarchy", array( $this, $callback ) );
 		}
 
-		add_filter( 'pre_get_posts', array( $this, 'posts_per_search_page' ) );
-		add_filter( 'document_title_parts', array( $this, 'update_title' ), 99999 );
-		add_action( 'widgets_init', array( $this, 'register_sidebars' ), 11 );
+		Hook_Registry::add_filter( 'pre_get_posts', array( $this, 'posts_per_search_page' ) );
+		Hook_Registry::add_filter( 'document_title_parts', array( $this, 'update_title' ), 99999 );
+		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_sidebars' ), 11 );
 	}
 
 	/**

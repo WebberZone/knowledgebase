@@ -9,6 +9,8 @@
 
 namespace WebberZone\Knowledge_Base\Admin;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -140,13 +142,13 @@ class Settings {
 		self::$prefix       = 'wzkb';
 		$this->menu_slug    = 'wzkb-settings';
 
-		add_action( 'admin_menu', array( $this, 'initialise_settings' ) );
-		add_action( 'admin_head', array( $this, 'admin_head' ), 11 );
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
-		add_filter( 'plugin_action_links_' . plugin_basename( WZKB_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
-		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
+		Hook_Registry::add_action( 'admin_menu', array( $this, 'initialise_settings' ) );
+		Hook_Registry::add_action( 'admin_head', array( $this, 'admin_head' ), 11 );
+		Hook_Registry::add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
+		Hook_Registry::add_filter( 'plugin_action_links_' . plugin_basename( WZKB_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
+		Hook_Registry::add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
 
-		add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
+		Hook_Registry::add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
 	}
 
 	/**

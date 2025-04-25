@@ -9,6 +9,8 @@
 
 namespace WebberZone\Knowledge_Base\Util;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -26,7 +28,7 @@ class Cache {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_wzkb_clear_cache', array( $this, 'ajax_clearcache' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_clear_cache', array( $this, 'ajax_clearcache' ) );
 	}
 
 	/**

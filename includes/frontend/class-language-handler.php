@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -25,7 +27,7 @@ class Language_Handler {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 	}
 
 	/**

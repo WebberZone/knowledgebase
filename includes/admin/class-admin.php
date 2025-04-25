@@ -10,6 +10,7 @@
 namespace WebberZone\Knowledge_Base\Admin;
 
 use WebberZone\Knowledge_Base\Util\Cache;
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -90,11 +91,11 @@ class Admin {
 	 * @since 2.3.0
 	 */
 	public function hooks() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-		add_filter( 'dashboard_glance_items', array( $this, 'dashboard_glance_items' ), 10, 1 );
-		add_filter( 'admin_head', array( $this, 'admin_head' ) );
-		add_action( 'admin_footer', array( $this, 'maybe_add_button_to_post_list' ) );
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		Hook_Registry::add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		Hook_Registry::add_filter( 'dashboard_glance_items', array( $this, 'dashboard_glance_items' ), 10, 1 );
+		Hook_Registry::add_filter( 'admin_head', array( $this, 'admin_head' ) );
+		Hook_Registry::add_action( 'admin_footer', array( $this, 'maybe_add_button_to_post_list' ) );
 	}
 
 	/**

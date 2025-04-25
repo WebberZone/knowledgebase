@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Admin;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -25,20 +27,20 @@ class Admin_Columns {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		add_filter( 'manage_edit-wzkb_category_columns', array( $this, 'tax_columns' ) );
-		add_filter( 'manage_edit-wzkb_category_sortable_columns', array( $this, 'tax_sortable_columns' ) );
-		add_filter( 'manage_edit-wzkb_tag_columns', array( $this, 'tax_columns' ) );
-		add_filter( 'manage_edit-wzkb_tag_sortable_columns', array( $this, 'tax_sortable_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_category_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_category_sortable_columns', array( $this, 'tax_sortable_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_tag_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_tag_sortable_columns', array( $this, 'tax_sortable_columns' ) );
 
-		add_filter( 'manage_wzkb_category_custom_column', array( $this, 'tax_id' ), 10, 3 );
-		add_filter( 'manage_wzkb_tag_custom_column', array( $this, 'tax_id' ), 10, 3 );
+		Hook_Registry::add_filter( 'manage_wzkb_category_custom_column', array( $this, 'tax_id' ), 10, 3 );
+		Hook_Registry::add_filter( 'manage_wzkb_tag_custom_column', array( $this, 'tax_id' ), 10, 3 );
 
 		// Register Product filter for Articles admin screen.
-		add_action( 'restrict_manage_posts', array( $this, 'add_product_filter_dropdown' ) );
-		add_action( 'pre_get_posts', array( $this, 'filter_articles_by_product' ) );
+		Hook_Registry::add_action( 'restrict_manage_posts', array( $this, 'add_product_filter_dropdown' ) );
+		Hook_Registry::add_action( 'pre_get_posts', array( $this, 'filter_articles_by_product' ) );
 
 		// Add sorting.
-		add_filter( 'terms_clauses', array( $this, 'sort_terms_by_product' ), 10, 2 );
+		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'sort_terms_by_product' ), 10, 2 );
 	}
 
 	/**

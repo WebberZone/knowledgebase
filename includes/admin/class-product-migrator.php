@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Admin;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -49,10 +51,10 @@ class Product_Migrator {
 	 * Constructor: Hook admin notices and menu.
 	 */
 	public function __construct() {
-		add_action( 'admin_notices', array( $this, 'maybe_show_enable_notice' ) );
-		add_action( 'admin_menu', array( $this, 'register_migration_wizard_page' ) );
-		add_action( 'wp_ajax_wzkb_dismiss_product_notice', array( $this, 'dismiss_product_notice' ) );
-		add_action( 'wp_ajax_wzkb_product_migration_batch', array( $this, 'handle_migration_batch' ) );
+		Hook_Registry::add_action( 'admin_notices', array( $this, 'maybe_show_enable_notice' ) );
+		Hook_Registry::add_action( 'admin_menu', array( $this, 'register_migration_wizard_page' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_dismiss_product_notice', array( $this, 'dismiss_product_notice' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_product_migration_batch', array( $this, 'handle_migration_batch' ) );
 	}
 
 	/**
@@ -111,7 +113,7 @@ class Product_Migrator {
 			'wzkb-product-migration',
 			array( $this, 'render_migration_wizard' ),
 		);
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**

@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base;
 
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -25,8 +27,8 @@ class CPT {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_post_type' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'register_post_type' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'register_taxonomies' ) );
 	}
 
 	/**
