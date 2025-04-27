@@ -39,6 +39,10 @@ class Admin_Columns {
 		Hook_Registry::add_action( 'restrict_manage_posts', array( $this, 'add_product_filter_dropdown' ) );
 		Hook_Registry::add_action( 'pre_get_posts', array( $this, 'filter_articles_by_product' ) );
 
+		// Register Product filter for Sections taxonomy screen.
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sections_filter_script' ) );
+		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'filter_sections_by_product' ), 10, 2 );
+
 		// Add sorting.
 		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'sort_terms_by_product' ), 10, 2 );
 	}
@@ -203,7 +207,7 @@ class Admin_Columns {
 	}
 
 	/**
-	 * Apply Product filter to Articles admin query.
+	 * Filter articles by the product in the admin.
 	 *
 	 * @since 3.0.0
 	 *
@@ -243,5 +247,153 @@ class Admin_Columns {
 		);
 
 		$query->set( 'tax_query', $tax_query );
+	}
+
+	/**
+	 * Enqueue script for product filter on Sections taxonomy screen.
+	 *
+	 * @since 3.0.0
+	 */
+	public function enqueue_sections_filter_script() {
+		$screen = get_current_screen();
+		if ( ! $screen || 'edit-tags' !== $screen->base || 'wzkb_category' !== $screen->taxonomy ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return;
+		}
+
+		$products = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_product',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+
+		if ( empty( $products ) || is_wp_error( $products ) ) {
+			return;
+		}
+
+		// Format products data for JS.
+		$products_data = array();
+		foreach ( $products as $product ) {
+			$products_data[] = array(
+				'term_id' => $product->term_id,
+				'name'    => $product->name,
+			);
+		}
+
+		// Get current query parameters to preserve them.
+		$query_params = array();
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_GET ) ) {
+			foreach ( $_GET as $key => $value ) {
+				if ( 'wzkb_product' !== $key ) {
+					// Properly sanitize GET parameters based on expected types.
+					$sanitized_key = sanitize_key( $key );
+
+					// Handle common WordPress admin parameters appropriately.
+					switch ( $sanitized_key ) {
+						case 'taxonomy':
+						case 'post_type':
+						case 'orderby':
+						case 'order':
+							$query_params[ $sanitized_key ] = sanitize_text_field( $value );
+							break;
+
+						case 'page':
+						case 'paged':
+							$query_params[ $sanitized_key ] = absint( $value );
+							break;
+
+						case 's': // Search term.
+							$query_params[ $sanitized_key ] = sanitize_text_field( $value );
+							break;
+
+						default:
+							// For any other parameters, apply general sanitization.
+							if ( is_array( $value ) ) {
+								$query_params[ $sanitized_key ] = array_map( 'sanitize_text_field', $value );
+							} else {
+								$query_params[ $sanitized_key ] = sanitize_text_field( $value );
+							}
+							break;
+					}
+				}
+			}
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+		$selected = isset( $_GET['wzkb_product'] ) ? absint( $_GET['wzkb_product'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		// Register and enqueue script.
+		$minimize = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		wp_register_script(
+			'wzkb-sections-product-filter',
+			plugins_url( 'js/sections-product-filter' . $minimize . '.js', __FILE__ ),
+			array( 'jquery' ),
+			WZKB_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'wzkb-sections-product-filter',
+			'knowledgebaseProductFilter',
+			array(
+				'products'        => $products_data,
+				'selectedProduct' => $selected,
+				'queryParams'     => $query_params,
+				'strings'         => array(
+					'allProducts'       => __( 'All Products', 'knowledgebase' ),
+					'filter'            => __( 'Filter', 'knowledgebase' ),
+					'productLabel'      => __( 'Product:', 'knowledgebase' ),
+					'searchPlaceholder' => __( 'Search sections...', 'knowledgebase' ),
+				),
+			)
+		);
+
+		wp_enqueue_script( 'wzkb-sections-product-filter' );
+	}
+
+	/**
+	 * Filter Sections by selected Product.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $pieces     Array of query SQL clauses.
+	 * @param array $taxonomies Array of taxonomy names.
+	 * @return array Modified query SQL clauses.
+	 */
+	public function filter_sections_by_product( $pieces, $taxonomies ) {
+		global $wpdb;
+
+		// Only run for wzkb_category taxonomy queries.
+		if ( ! in_array( 'wzkb_category', $taxonomies, true ) ) {
+			return $pieces;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || 'edit-tags' !== $screen->base || 'wzkb_category' !== $screen->taxonomy ) {
+			return $pieces;
+		}
+
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return $pieces;
+		}
+
+		if ( empty( $_GET['wzkb_product'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return $pieces;
+		}
+
+		$product_id = absint( $_GET['wzkb_product'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $product_id ) {
+			$pieces['join']  .= " INNER JOIN {$wpdb->termmeta} AS tm ON t.term_id = tm.term_id ";
+			$pieces['where'] .= $wpdb->prepare( " AND tm.meta_key = 'product_id' AND tm.meta_value = %d ", $product_id );
+		}
+
+		return $pieces;
 	}
 }

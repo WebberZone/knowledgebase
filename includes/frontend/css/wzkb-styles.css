@@ -82,6 +82,10 @@
 	min-width: 36px;
 }
 
+.wzkb-product {
+	clear: both;
+}
+
 /* Set up the responsive grid based on http://www.responsivegridsystem.com/ /*
 /*  SECTIONS  */
 .section {
