@@ -41,6 +41,11 @@ class Shortcodes {
 	 * @return string $output Formatted shortcode output
 	 */
 	public static function knowledgebase( $atts, $content = null ) {
+		static $kb_rendering = false;
+		if ( true === $kb_rendering ) {
+			return '';
+		}
+		$kb_rendering = true;
 
 		if ( wzkb_get_option( 'include_styles' ) ) {
 			wp_enqueue_style( 'wz-knowledgebase-styles' );
@@ -56,6 +61,8 @@ class Shortcodes {
 		);
 
 		$output = wzkb_knowledge( $atts );
+
+		$kb_rendering = false;
 
 		/**
 		 * Filters knowledgebase shortcode.
