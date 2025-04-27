@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.7.0
+ * @version 2.7.1
  */
 class Settings_API {
 
@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.7.0';
+	public const VERSION = '2.7.1';
 
 	/**
 	 * Settings Key.
@@ -518,6 +518,14 @@ class Settings_API {
 			self::VERSION,
 			true
 		);
+		wp_localize_script(
+			"wz-{$this->prefix}-admin",
+			'WZSettingsAdmin',
+			array(
+				'prefix'       => $this->prefix,
+				'settings_key' => $this->settings_key,
+			)
+		);
 
 		if ( $hook === $this->settings_page ) {
 			$this->enqueue_scripts_styles();
@@ -965,7 +973,7 @@ class Settings_API {
 		ob_start();
 		?>
 
-			<form method="post" action="options.php">
+			<form method="post" action="options.php" id="<?php echo esc_attr( "{$this->prefix}-settings-form" ); ?>">
 
 			<?php settings_fields( $this->settings_key ); ?>
 

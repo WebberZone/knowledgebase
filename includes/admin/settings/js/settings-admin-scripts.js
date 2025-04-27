@@ -1,4 +1,7 @@
 jQuery(document).ready(function ($) {
+
+	const prefix = WZSettingsAdmin.prefix || 'wz';
+
 	// File browser.
 	$('.file-browser').on('click', function (event) {
 		event.preventDefault();
@@ -40,9 +43,13 @@ jQuery(document).ready(function ($) {
 		formmodified = 0;
 	}
 
-	$('form').on('change', 'input, textarea, select', confirmFormChange);
+	// Only apply form change detection to settings form, not wizard or other forms
+	$('#' + prefix + '-settings-form').on('change', 'input, textarea, select', confirmFormChange);
 
-	window.onbeforeunload = confirmExit;
+	// Only set window.onbeforeunload if we're on the settings page
+	if ($('#' + prefix + '-settings-form').length) {
+		window.onbeforeunload = confirmExit;
+	}
 
 	$('input[name="submit"], input#search-submit, input#doaction, input#doaction2, input[name="filter_action"]').on('click', formNotModified);
 

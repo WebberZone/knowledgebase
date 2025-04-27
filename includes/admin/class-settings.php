@@ -385,7 +385,7 @@ class Settings {
 			'cache'                => array(
 				'id'      => 'cache',
 				'name'    => esc_html__( 'Enable cache', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Cache the output of the WP_Query lookups to speed up retrieval of the knowledgebase. Recommended for large knowledge bases', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'options' => false,
 			),
@@ -478,7 +478,7 @@ class Settings {
 				'name'    => esc_html__( 'Show article count', 'knowledgebase' ),
 				'desc'    => esc_html__( 'If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'options' => false,
+				'options' => true,
 			),
 			'show_excerpt'          => array(
 				'id'      => 'show_excerpt',
