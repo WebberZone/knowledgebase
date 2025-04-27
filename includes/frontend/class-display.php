@@ -225,6 +225,16 @@ class Display {
 	 * @return string Formatted output.
 	 */
 	public static function get_knowledge_base_loop( $term_id, $level, $nested = true, $args = array() ) {
+		// Recursion guard: skip if this term_id has already been rendered.
+		if ( isset( $args['visited_term_ids'] ) && in_array( $term_id, $args['visited_term_ids'], true ) ) {
+			return '';
+		}
+		// Add this term_id to visited_term_ids for recursion tracking.
+		if ( ! isset( $args['visited_term_ids'] ) ) {
+			$args['visited_term_ids'] = array();
+		}
+		$args['visited_term_ids'][] = $term_id;
+
 		// Special handling for root level (term_id = 0) in single product mode.
 		if ( 0 === $term_id && 0 === $level ) {
 			$output = '';
