@@ -107,6 +107,20 @@ function wzkb_settings_reset() {
 	return WebberZone\Knowledge_Base\Options_API::reset_settings();
 }
 
+/**
+ * Update all settings at once.
+ *
+ * @since 3.0.0
+ *
+ * @param array $settings Settings array to save.
+ * @param bool  $merge    Whether to merge with existing settings. Default true.
+ * @param bool  $autoload Whether to autoload the option. Default true.
+ * @return bool True if settings were updated, false otherwise.
+ */
+function wzkb_update_settings( array $settings, bool $merge = true, bool $autoload = true ) {
+	return WebberZone\Knowledge_Base\Options_API::update_settings( $settings, $merge, $autoload );
+}
+
 if ( ! function_exists( 'wz_tag_search' ) ) :
 	/**
 	 * Function to add an action to search for tags using Ajax.

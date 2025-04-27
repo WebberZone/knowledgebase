@@ -193,7 +193,7 @@ class Settings_Sanitize {
 	 * @return int  Sanitized value
 	 */
 	public function sanitize_checkbox_field( $value ) {
-		$value = ( -1 === (int) $value ) ? 0 : 1;
+		$value = in_array( (int) $value, array( 0, -1 ), true ) ? 0 : 1;
 
 		return $value;
 	}

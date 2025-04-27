@@ -144,13 +144,8 @@ class Options_API {
 			return false;
 		}
 
-		// If no value, delete.
-		if ( empty( $value ) ) {
-			return self::delete_option( $key );
-		}
-
 		// First let's grab the current settings.
-		$options = self::get_settings();
+		$options = get_option( self::SETTINGS_OPTION, array() );
 
 		// Let's let devs alter that value coming in.
 		$value = apply_filters( self::FILTER_PREFIX . '_update_option', $value, $key );
@@ -161,9 +156,32 @@ class Options_API {
 
 		// If it updated, let's update the static variable.
 		if ( $did_update ) {
-			self::$settings[ $key ] = $value;
+			self::$settings = $options;
 		}
 
+		return $did_update;
+	}
+
+	/**
+	 * Update all settings at once.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $settings  Settings array to save.
+	 * @param bool  $merge     Whether to merge with existing settings. Default true.
+	 * @param bool  $autoload  Whether to autoload the option. Default true.
+	 * @return bool True if updated, false otherwise.
+	 */
+	public static function update_settings( array $settings, bool $merge = true, bool $autoload = true ): bool {
+		// Merge incoming array into existing settings if requested.
+		if ( $merge ) {
+			$existing = self::get_settings();
+			$settings = array_merge( $existing, $settings );
+		}
+		$did_update = update_option( self::SETTINGS_OPTION, $settings, $autoload );
+		if ( $did_update ) {
+			self::$settings = $settings;
+		}
 		return $did_update;
 	}
 
@@ -184,7 +202,7 @@ class Options_API {
 		}
 
 		// First let's grab the current settings.
-		$options = self::get_settings();
+		$options = get_option( self::SETTINGS_OPTION, array() );
 
 		// Next let's try to update the value.
 		if ( isset( $options[ $key ] ) ) {
