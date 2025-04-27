@@ -80,6 +80,15 @@ class Admin {
 	public $product_migrator;
 
 	/**
+	 * Section Product Meta class.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var object Section Product Meta class.
+	 */
+	public $section_product_meta;
+
+	/**
 	 * Main constructor class.
 	 *
 	 * @since 2.3.0
@@ -88,12 +97,13 @@ class Admin {
 		$this->hooks();
 
 		// Initialise admin classes.
-		$this->settings         = new Settings();
-		$this->activator        = new Activator();
-		$this->cache            = new Cache();
-		$this->admin_columns    = new Admin_Columns();
-		$this->product_migrator = new Product_Migrator();
-		$this->setup_wizard     = new Setup_Wizard();
+		$this->settings             = new Settings();
+		$this->activator            = new Activator();
+		$this->cache                = new Cache();
+		$this->admin_columns        = new Admin_Columns();
+		$this->section_product_meta = new Section_Product_Meta();
+		$this->product_migrator     = new Product_Migrator();
+		$this->setup_wizard         = new Setup_Wizard();
 	}
 
 	/**
