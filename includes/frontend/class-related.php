@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Util\Helpers;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -59,6 +61,7 @@ class Related {
 
 		// Parse incomming $args into an array and merge it with $defaults.
 		$args = wp_parse_args( $args, $defaults );
+		$args = Helpers::sanitize_args( $args );
 
 		// Assign post to a separate variable for easy processing.
 		$post = $args['post'];
