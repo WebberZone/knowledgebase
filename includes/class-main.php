@@ -218,5 +218,6 @@ final class Main {
 		register_widget( '\WebberZone\Knowledge_Base\Widgets\Articles_Widget' );
 		register_widget( '\WebberZone\Knowledge_Base\Widgets\Sections_Widget' );
 		register_widget( '\WebberZone\Knowledge_Base\Widgets\Breadcrumb_Widget' );
+		register_widget( '\WebberZone\Knowledge_Base\Widgets\Products_Widget' );
 	}
 }

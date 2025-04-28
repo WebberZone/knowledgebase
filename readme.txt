@@ -2,7 +2,7 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
-Requires at least: 6.3
+Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 2.3.0
@@ -130,10 +130,11 @@ Completely rewritten. Several new features and enhancements.
 
 * Features:
 	* Introduced a new hierarchical Products taxonomy (`wzkb_product`) enabling multi-product support for articles and sections.
-	* Migration wizard to map existing sections and articles to products, with dry-run and batch processing.
-	* Product-based frontend templates that preserve section hierarchy.
-	* Admin UI enhancements for managing products, sections, and migration.
+		* Migration wizard to map existing sections and articles to products, with dry-run and batch processing.
+		* Product-based frontend templates that preserve section hierarchy.
+		* Admin UI enhancements for managing products, sections, and migration.
 	* Setup Wizard to guide users through the initial setup process.
+	* New Product widget to display the Sections for a specific Product.
 
 * Modifications:
 	* Standardized CSS class names to use consistent hyphenation (e.g., `wzkb_section` is now `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
