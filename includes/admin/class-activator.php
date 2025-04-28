@@ -97,7 +97,10 @@ class Activator {
 		// Then flush them.
 		global $wp_rewrite;
 		$wp_rewrite->init();
-		flush_rewrite_rules( false );
+		flush_rewrite_rules();
+
+		// Set a transient to trigger wizard redirect (30-second expiry).
+		set_transient( 'wzkb_activation_redirect', true, 30 );
 	}
 
 	/**

@@ -48,6 +48,7 @@ class Setup_Wizard {
 	public function __construct() {
 		Hook_Registry::add_action( 'admin_menu', array( $this, 'admin_menus' ), PHP_INT_MAX );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'setup_wizard' ), PHP_INT_MAX );
+		Hook_Registry::add_action( 'admin_init', array( $this, 'redirect_on_activation' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), PHP_INT_MAX );
 	}
 
@@ -720,5 +721,36 @@ class Setup_Wizard {
 			)
 		);
 		wp_enqueue_script( 'wzkb-wizard' );
+	}
+
+	/**
+	 * Redirect to wizard on plugin activation.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function redirect_on_activation() {
+		// Check if transient is set (plugin was just activated).
+		if ( ! get_transient( 'wzkb_activation_redirect' ) ) {
+			return;
+		}
+
+		// Delete transient to prevent repeated redirects.
+		delete_transient( 'wzkb_activation_redirect' );
+
+		// Only redirect for users with manage_options and if wizard not completed.
+		if ( ! current_user_can( 'manage_options' ) || get_option( 'wzkb_setup_completed' ) ) {
+			return;
+		}
+
+		// Avoid redirecting during bulk activations or AJAX requests.
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || isset( $_GET['activate-multi'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		// Redirect to wizard page.
+		wp_safe_redirect( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-setup' ) );
+		exit;
 	}
 }
