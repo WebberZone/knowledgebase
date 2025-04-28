@@ -8,6 +8,9 @@
 use WebberZone\Knowledge_Base\Frontend\Media_Handler;
 use WebberZone\Knowledge_Base\Frontend\Related;
 use WebberZone\Knowledge_Base\Util\Helpers;
+use WebberZone\Knowledge_Base\Frontend\Display;
+use WebberZone\Knowledge_Base\Frontend\Breadcrumbs;
+use WebberZone\Knowledge_Base\Frontend\Search;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -25,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @return string Knowledge Base output.
  */
 function wzkb_knowledge( $args = array() ) {
-	return \WebberZone\Knowledge_Base\Frontend\Display::get_knowledge_base( $args );
+	return Display::get_knowledge_base( $args );
 }
 
 /**
@@ -37,7 +40,7 @@ function wzkb_knowledge( $args = array() ) {
  * @return string HTML output with the categories.
  */
 function wzkb_categories_list( $term_id, $level = 0, $args = array() ) {
-	return \WebberZone\Knowledge_Base\Frontend\Display::get_categories_list( $term_id, $level, $args );
+	return Display::get_categories_list( $term_id, $level, $args );
 }
 
 
@@ -50,7 +53,7 @@ function wzkb_categories_list( $term_id, $level = 0, $args = array() ) {
  * @return string|bool Formatted shortcode output. False if not a WZKB post type archive or post.
  */
 function wzkb_get_breadcrumb( $args = array() ) {
-	return \WebberZone\Knowledge_Base\Frontend\Breadcrumbs::get_breadcrumb( $args );
+	return Breadcrumbs::get_breadcrumb( $args );
 }
 
 /**
@@ -72,7 +75,7 @@ function wzkb_breadcrumb( $args = array() ) {
  * @return string   String when retrieving, null when displaying or if searchform.php exists.
  */
 function wzkb_get_search_form() {
-	return \WebberZone\Knowledge_Base\Frontend\Search::get_search_form();
+	return Search::get_search_form();
 }
 
 /**
@@ -210,4 +213,28 @@ function wzkb_get_kb_url() {
  */
 function wzkb_the_kb_url() {
 	echo wzkb_get_kb_url(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
+ * Get a hierarchical list of KB sections for a given product.
+ *
+ * @param int   $product_id Product term ID.
+ * @param array $args       Display arguments.
+ * @return string           HTML output.
+ */
+function wzkb_get_product_sections_list( $product_id, $args = array() ) {
+	if ( empty( $product_id ) ) {
+		return '';
+	}
+	return Display::get_product_sections_list( $product_id, $args );
+}
+
+/**
+ * Echo a hierarchical list of KB sections for a given product.
+ *
+ * @param int   $product_id Product term ID.
+ * @param array $args       Display arguments.
+ */
+function wzkb_the_product_sections_list( $product_id, $args = array() ) {
+	echo wzkb_get_product_sections_list( $product_id, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }

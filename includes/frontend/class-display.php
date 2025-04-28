@@ -506,6 +506,7 @@ class Display {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
+		$args = Helpers::sanitize_args( $args );
 
 		// Get Knowledge Base Sections.
 		$sections = self::fetch_terms(
@@ -542,6 +543,74 @@ class Display {
 				}
 			}
 
+			$output .= '</ul>';
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Get top-level sections for a given product.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param int $product_id Product term ID.
+	 * @return array Array of section term objects.
+	 */
+	public static function get_sections_by_product( $product_id ) {
+		global $wpdb;
+
+		if ( empty( $product_id ) ) {
+			return array();
+		}
+
+		$section_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare(
+				"SELECT term_id FROM $wpdb->termmeta WHERE meta_key = %s AND meta_value = %d",
+				'product_id',
+				$product_id
+			)
+		);
+
+		if ( empty( $section_ids ) ) {
+			return array();
+		}
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_category',
+				'hide_empty' => false,
+				'parent'     => 0,
+				'include'    => $section_ids,
+			)
+		);
+
+		return is_array( $terms ) ? $terms : array();
+	}
+
+	/**
+	 * Get a hierarchical list of sections for a given product.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param int   $product_id Product term ID.
+	 * @param array $args       Arguments for display.
+	 * @param int   $level      Level of the loop (for indentation/nesting).
+	 * @return string           HTML output.
+	 */
+	public static function get_product_sections_list( $product_id, $args = array(), $level = 0 ) {
+		$sections = self::get_sections_by_product( $product_id );
+		$output   = '';
+
+		if ( ! empty( $sections ) ) {
+			$output .= '<ul class="wzkb_product_sections wzkb_ul_level_' . (int) $level . '">';
+			++$level;
+			foreach ( $sections as $section ) {
+				$output .= '<li>';
+				$output .= '<a href="' . esc_url( get_term_link( $section ) ) . '">' . esc_html( $section->name ) . '</a>';
+				$output .= self::get_categories_list( $section->term_id, $level, $args );
+				$output .= '</li>';
+			}
 			$output .= '</ul>';
 		}
 
