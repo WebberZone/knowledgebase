@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Util\Helpers;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -88,6 +90,7 @@ class Breadcrumbs {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
+		$args = Helpers::sanitize_args( $args );
 
 		if ( strpos( $args['separator'], '\\' ) === 0 ) {
 			$args['separator'] = self::unicode_to_char( $args['separator'] );

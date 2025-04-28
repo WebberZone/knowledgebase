@@ -44,4 +44,21 @@ class Helpers {
 
 		return $output;
 	}
+
+	/**
+	 * Sanitize args.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $args Array of arguments.
+	 * @return array Sanitized array of arguments.
+	 */
+	public static function sanitize_args( $args ): array {
+		foreach ( $args as $key => $value ) {
+			if ( is_string( $value ) ) {
+				$args[ $key ] = wp_kses_post( $value );
+			}
+		}
+		return $args;
+	}
 }

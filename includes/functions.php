@@ -7,6 +7,7 @@
 
 use WebberZone\Knowledge_Base\Frontend\Media_Handler;
 use WebberZone\Knowledge_Base\Frontend\Related;
+use WebberZone\Knowledge_Base\Util\Helpers;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -102,6 +103,7 @@ function wzkb_get_alert( $args = array(), $content = '' ) {
 
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
+	$args = Helpers::sanitize_args( $args );
 
 	$type = 'wzkb-alert-' . $args['type'];
 
