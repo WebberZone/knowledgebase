@@ -599,6 +599,15 @@ class Display {
 	 * @return string           HTML output.
 	 */
 	public static function get_product_sections_list( $product_id, $args = array(), $level = 0 ) {
+		$defaults = array(
+			'depth'          => 0,  // Depth of nesting.
+			'before_li_item' => '', // Before list item - just after <li>.
+			'after_li_item'  => '', // Before list item - just before </li>.
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+		$args = Helpers::sanitize_args( $args );
+
 		$sections = self::get_sections_by_product( $product_id );
 		$output   = '';
 
@@ -606,10 +615,15 @@ class Display {
 			$output .= '<ul class="wzkb_product_sections wzkb_ul_level_' . (int) $level . '">';
 			++$level;
 			foreach ( $sections as $section ) {
-				$output .= '<li>';
+				$output .= '<li class="wzkb_cat_' . $section->term_id . '">' . $args['before_li_item'];
 				$output .= '<a href="' . esc_url( get_term_link( $section ) ) . '">' . esc_html( $section->name ) . '</a>';
 				$output .= self::get_categories_list( $section->term_id, $level, $args );
-				$output .= '</li>';
+				$output .= $args['after_li_item'] . '</li>';
+
+				// Exit the loop if we are at the depth.
+				if ( 0 < $args['depth'] && $level >= $args['depth'] ) {
+					break;
+				}
 			}
 			$output .= '</ul>';
 		}
