@@ -46,6 +46,7 @@ class Blocks {
 			'articles'   => 'render_articles_block',
 			'breadcrumb' => 'render_breadcrumb_block',
 			'sections'   => 'render_sections_block',
+			'products'   => 'render_products_block',
 		);
 
 		foreach ( $blocks as $block_name => $render_callback ) {
@@ -107,7 +108,7 @@ class Blocks {
 		$arguments = wp_parse_args( $attributes['other_attributes'], $arguments );
 
 		/**
-		 * Filters arguments passed to get_wzkb for the block.
+		 * Filters arguments passed to wzkb_knowledge for the block.
 		 *
 		 * @since 2.0.0
 		 *
@@ -245,6 +246,56 @@ class Blocks {
 			$wrapper_attributes,
 			! empty( $attributes['title'] ) ? '<h2>' . esc_html( $attributes['title'] ) . '</h2>' : '',
 			wzkb_categories_list( $term_id, 0, $arguments )
+		);
+
+		return $output;
+	}
+
+	/**
+	 * Renders the `knowledgebase/products` block on server.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the rendered product sections list.
+	 */
+	public function render_products_block( $attributes ) {
+		$mappings = array(
+			'product_id'     => 'productId',
+			'depth'          => 'depth',
+			'before_li_item' => 'beforeLiItem',
+			'after_li_item'  => 'afterLiItem',
+		);
+
+		$attributes = $this->map_attributes( $attributes, $mappings );
+
+		$arguments = array(
+			'is_block'       => 1,
+			'depth'          => ( ! empty( $attributes['depth'] ) ) ? (int) $attributes['depth'] : 0,
+			'before_li_item' => ( ! empty( $attributes['before_li_item'] ) ) ? $attributes['before_li_item'] : '',
+			'after_li_item'  => ( ! empty( $attributes['after_li_item'] ) ) ? $attributes['after_li_item'] : '',
+		);
+
+		$product_id = ! empty( $attributes['product_id'] ) ? (int) $attributes['product_id'] : 0;
+
+		/**
+		 * Filters arguments passed to wzkb_get_product_sections_list for the block.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $arguments  Knowledge Base block options array.
+		 * @param array $attributes Block attributes array.
+		 */
+		$arguments = apply_filters( 'wzkb_products_block_options', $arguments, $attributes );
+
+		$wrapper_attributes = get_block_wrapper_attributes();
+
+		$output = sprintf(
+			'<div %1$s>%2$s%3$s</div>',
+			$wrapper_attributes,
+			! empty( $attributes['title'] ) ? '<h2 class="wzkb-products-title">' . esc_html( $attributes['title'] ) . '</h2>' : '',
+			wzkb_get_product_sections_list( $product_id, $arguments )
 		);
 
 		return $output;

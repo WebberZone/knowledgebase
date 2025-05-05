@@ -41,7 +41,7 @@ class Styles_Handler {
 			'wz-knowledgebase-styles',
 			plugins_url( 'css/wzkb-styles' . $rtl_suffix . $min_suffix . '.css', __FILE__ ),
 			array( 'dashicons' ),
-			'1.0'
+			WZKB_VERSION
 		);
 
 		if ( is_singular() ) {

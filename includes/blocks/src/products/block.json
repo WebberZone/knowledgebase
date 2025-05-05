@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "knowledgebase/products",
+	"version": "3.0.0",
+	"title": "Knowledge Base Products",
+	"category": "design",
+	"icon": "products",
+	"keywords": ["knowledgebase", "kb", "products"],
+	"description": "Display sections under a selected product for the Knowledge Base",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"productId": {
+			"type": "number",
+			"default": 0
+		},
+		"depth": {
+			"type": "number",
+			"default": 0
+		},
+		"beforeLiItem": {
+			"type": "string",
+			"default": ""
+		},
+		"afterLiItem": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"example": {},
+	"textdomain": "knowledgebase",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}
