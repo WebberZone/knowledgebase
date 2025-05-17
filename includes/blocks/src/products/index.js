@@ -6,6 +6,7 @@ import { registerBlockType } from '@wordpress/blocks';
 /**
  * Internal dependencies
  */
+import { bookIcon } from '../components/icons';
 import Edit from './edit';
 import metadata from './block.json';
 
@@ -14,5 +15,6 @@ import metadata from './block.json';
  */
 registerBlockType(metadata.name, {
 	...metadata,
+	icon: bookIcon,
 	edit: Edit,
 });

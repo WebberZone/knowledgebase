@@ -9,11 +9,11 @@ import {
 	SelectControl,
 	RangeControl,
 	Placeholder,
-	Button,
+	Disabled,
 } from '@wordpress/components';
+import { bookIcon } from '../components/icons';
 import { useSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
-import { Disabled } from '@wordpress/components';
 
 /**
  * Edit function for the Knowledge Base Products block.
@@ -49,7 +49,7 @@ export default function Edit({ attributes, setAttributes }) {
 					label: product.name,
 				})),
 			]
-		: [{ value: 0, label: __('Loading...', 'knowledgebase') }];
+		: [{ value: 0, label: __('Loading…', 'knowledgebase') }];
 
 	// If no product is selected, show the placeholder
 	if (!productId) {
@@ -77,7 +77,7 @@ export default function Edit({ attributes, setAttributes }) {
 
 				<div {...blockProps}>
 					<Placeholder
-						icon="products"
+						icon={bookIcon}
 						label={__('Knowledge Base Products', 'knowledgebase')}
 						instructions={__(
 							'Select a product to display its sections.',

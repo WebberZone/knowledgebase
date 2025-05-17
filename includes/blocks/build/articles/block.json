@@ -35,6 +35,14 @@
     "title": {
       "type": "string",
       "default": ""
+    },
+    "showHeading": {
+      "type": "boolean",
+      "default": true
+    },
+    "headingLevel": {
+      "type": "string",
+      "default": "h2"
     }
   },
   "example": {},
