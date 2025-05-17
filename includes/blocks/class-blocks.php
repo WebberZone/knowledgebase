@@ -72,6 +72,7 @@ class Blocks {
 		foreach ( $mappings as $php_attr => $js_attr ) {
 			if ( isset( $attributes[ $js_attr ] ) ) {
 				$attributes[ $php_attr ] = $attributes[ $js_attr ];
+				unset( $attributes[ $js_attr ] );
 			}
 		}
 		return $attributes;
@@ -145,8 +146,10 @@ class Blocks {
 	 */
 	public function render_articles_block( $attributes ) {
 		$mappings = array(
-			'term_id'      => 'termID',
-			'show_excerpt' => 'showExcerpt',
+			'term_id'       => 'termID',
+			'show_excerpt'  => 'showExcerpt',
+			'show_heading'  => 'showHeading',
+			'heading_level' => 'headingLevel',
 		);
 
 		$attributes = $this->map_attributes( $attributes, $mappings );
@@ -178,6 +181,13 @@ class Blocks {
 			return __( 'No articles found.', 'knowledgebase' );
 		}
 
+		$show_heading  = isset( $attributes['show_heading'] ) ? (bool) $attributes['show_heading'] : true;
+		$heading_level = isset( $attributes['heading_level'] ) ? sanitize_html_class( $attributes['heading_level'] ) : 'h2';
+
+		if ( $show_heading ) {
+			$heading       = $term->name;
+			$list_of_posts = '<' . $heading_level . '>' . esc_html( $heading ) . '</' . $heading_level . '>' . $list_of_posts;
+		}
 		return $list_of_posts;
 	}
 
@@ -241,11 +251,17 @@ class Blocks {
 
 		$wrapper_attributes = get_block_wrapper_attributes();
 
+		$categories_list = wzkb_categories_list( $term_id, 0, $arguments );
+
+		if ( empty( $categories_list ) && wp_is_serving_rest_request() ) {
+			return __( 'No sections found. This message is only displayed in the editor and not on the frontend.', 'knowledgebase' );
+		}
+
 		$output = sprintf(
 			'<div %1$s>%2$s%3$s</div>',
 			$wrapper_attributes,
 			! empty( $attributes['title'] ) ? '<h2>' . esc_html( $attributes['title'] ) . '</h2>' : '',
-			wzkb_categories_list( $term_id, 0, $arguments )
+			$categories_list
 		);
 
 		return $output;

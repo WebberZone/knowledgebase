@@ -12,8 +12,10 @@ import {
 	Spinner,
 	TextControl,
 	Notice,
+	Placeholder,
 } from '@wordpress/components';
 
+import { bookIcon } from '../components/icons';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
@@ -52,89 +54,121 @@ export default function Edit({ attributes, setAttributes }) {
 			value: term.id.toString(),
 		})) || [];
 
-	return (
-		<>
-			<InspectorControls>
-				{error && (
-					<Notice status="error" isDismissible={false}>
-						{__(
-							'Error loading categories. Please try again.',
-							'knowledgebase'
-						)}
-					</Notice>
-				)}
-
-				<PanelBody
-					title={__(
-						'Knowledge Base Sections Settings',
+	// Function to render Inspector Controls
+	const renderInspectorControls = () => (
+		<InspectorControls>
+			{error && (
+				<Notice status="error" isDismissible={false}>
+					{__(
+						'Error loading categories. Please try again.',
 						'knowledgebase'
 					)}
-					initialOpen={true}
-				>
-					<PanelRow>
+				</Notice>
+			)}
+
+			<PanelBody
+				title={__('Knowledge Base Sections Settings', 'knowledgebase')}
+				initialOpen={true}
+			>
+				<PanelRow>
+					{!hasResolved ? (
+						<Spinner />
+					) : (
+						<ComboboxControl
+							label={__(
+								'Select Knowledge Base Section',
+								'knowledgebase'
+							)}
+							value={termID}
+							onChange={(value) =>
+								setAttributes({ termID: value })
+							}
+							options={termOptions}
+							help={__(
+								'Search and select a knowledge base section',
+								'knowledgebase'
+							)}
+						/>
+					)}
+				</PanelRow>
+				<PanelRow>
+					<TextControl
+						label={__('Depth', 'knowledgebase')}
+						value={depth}
+						type="number"
+						min="0"
+						onChange={(value) => setAttributes({ depth: value })}
+						help={__(
+							'Enter the depth of sections to display (0 for all)',
+							'knowledgebase'
+						)}
+					/>
+				</PanelRow>
+				<PanelRow>
+					<TextControl
+						label={__('Before list item', 'knowledgebase')}
+						value={beforeLiItem}
+						onChange={(value) =>
+							setAttributes({ beforeLiItem: value })
+						}
+						help={__(
+							'HTML/text to add before each list item',
+							'knowledgebase'
+						)}
+					/>
+				</PanelRow>
+				<PanelRow>
+					<TextControl
+						label={__('After list item', 'knowledgebase')}
+						value={afterLiItem}
+						onChange={(value) =>
+							setAttributes({ afterLiItem: value })
+						}
+						help={__(
+							'HTML/text to add after each list item',
+							'knowledgebase'
+						)}
+					/>
+				</PanelRow>
+			</PanelBody>
+		</InspectorControls>
+	);
+
+	// If no term is selected, show the placeholder
+	if (!termID) {
+		return (
+			<>
+				{renderInspectorControls()}
+
+				<div {...blockProps}>
+					<Placeholder
+						icon={bookIcon}
+						label={__('Knowledge Base Sections', 'knowledgebase')}
+						instructions={__(
+							'Select a section to display its subsections.',
+							'knowledgebase'
+						)}
+					>
 						{!hasResolved ? (
 							<Spinner />
 						) : (
 							<ComboboxControl
-								label={__(
-									'Select Knowledge Base Section',
-									'knowledgebase'
-								)}
 								value={termID}
 								onChange={(value) =>
 									setAttributes({ termID: value })
 								}
 								options={termOptions}
-								help={__(
-									'Search and select a knowledge base section',
-									'knowledgebase'
-								)}
 							/>
 						)}
-					</PanelRow>
-					<PanelRow>
-						<TextControl
-							label={__('Depth', 'knowledgebase')}
-							value={depth}
-							type="number"
-							min="0"
-							onChange={(value) =>
-								setAttributes({ depth: value })
-							}
-							help={__(
-								'Enter the depth of sections to display (0 for all)',
-								'knowledgebase'
-							)}
-						/>
-					</PanelRow>
-					<PanelRow>
-						<TextControl
-							label={__('Before list item', 'knowledgebase')}
-							value={beforeLiItem}
-							onChange={(value) =>
-								setAttributes({ beforeLiItem: value })
-							}
-							help={__(
-								'HTML/text to add before each list item',
-								'knowledgebase'
-							)}
-						/>
-					</PanelRow>
-					<PanelRow>
-						<TextControl
-							label={__('After list item', 'knowledgebase')}
-							value={afterLiItem}
-							onChange={(value) =>
-								setAttributes({ afterLiItem: value })
-							}
-							help={__(
-								'HTML/text to add after each list item',
-								'knowledgebase'
-							)}
-						/>
-					</PanelRow>
-				</PanelBody>
-			</InspectorControls>
+					</Placeholder>
+				</div>
+			</>
+		);
+	}
+
+	return (
+		<>
+			{renderInspectorControls()}
 
 			<div {...blockProps}>
 				<Disabled>

@@ -13,12 +13,16 @@ import {
 	Spinner,
 	TextControl,
 	Notice,
+	Placeholder,
+	SelectControl,
 } from '@wordpress/components';
 
+import { bookIcon } from '../components/icons';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { termID, limit, showExcerpt } = attributes;
+	const { termID, limit, showExcerpt, showHeading, headingLevel } =
+		attributes;
 
 	const blockProps = useBlockProps();
 
@@ -50,87 +54,153 @@ export default function Edit({ attributes, setAttributes }) {
 			value: term.id.toString(),
 		})) || [];
 
-	const handleLimitChange = (newLimit) => {
-		const parsedLimit = parseInt(newLimit, 10);
-		setAttributes({
-			limit: isNaN(parsedLimit) || parsedLimit <= 0 ? 5 : parsedLimit,
-		});
-	};
-
-	return (
-		<>
-			<InspectorControls>
-				{error && (
-					<Notice status="error" isDismissible={false}>
-						{__(
-							'Error loading categories. Please try again.',
-							'knowledgebase'
-						)}
-					</Notice>
-				)}
-
-				<PanelBody
-					title={__(
-						'Knowledge Base Articles Settings',
+	// Function to render Inspector Controls
+	const renderInspectorControls = () => (
+		<InspectorControls>
+			{error && (
+				<Notice status="error" isDismissible={false}>
+					{__(
+						'Error loading categories. Please try again.',
 						'knowledgebase'
 					)}
-					initialOpen={true}
-				>
+				</Notice>
+			)}
+
+			<PanelBody
+				title={__('Knowledge Base Articles Settings', 'knowledgebase')}
+				initialOpen={true}
+			>
+				<PanelRow>
+					{!hasResolved ? (
+						<Spinner />
+					) : (
+						<ComboboxControl
+							label={__(
+								'Select Knowledge Base Section',
+								'knowledgebase'
+							)}
+							value={termID}
+							onChange={(value) =>
+								setAttributes({ termID: value })
+							}
+							options={termOptions}
+							help={__(
+								'Search and select a knowledge base section',
+								'knowledgebase'
+							)}
+						/>
+					)}
+				</PanelRow>
+				<PanelRow>
+					<TextControl
+						label={__('Limit', 'knowledgebase')}
+						value={limit}
+						type="number"
+						min="1"
+						onChange={(value) => setAttributes({ limit: value })}
+						help={__(
+							'Enter the maximum number of articles to display',
+							'knowledgebase'
+						)}
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ToggleControl
+						label={__('Show Excerpt', 'knowledgebase')}
+						checked={showExcerpt}
+						onChange={() =>
+							setAttributes({ showExcerpt: !showExcerpt })
+						}
+						help={
+							showExcerpt
+								? __('Excerpt will be shown', 'knowledgebase')
+								: __('Excerpt will be hidden', 'knowledgebase')
+						}
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ToggleControl
+						label={__('Show Heading', 'knowledgebase')}
+						checked={showHeading}
+						onChange={() =>
+							setAttributes({ showHeading: !showHeading })
+						}
+						help={
+							showHeading
+								? __(
+										'Section heading will be shown',
+										'knowledgebase'
+									)
+								: __(
+										'Section heading will be hidden',
+										'knowledgebase'
+									)
+						}
+					/>
+				</PanelRow>
+				{showHeading && (
 					<PanelRow>
+						<SelectControl
+							label={__('Heading Level', 'knowledgebase')}
+							value={headingLevel}
+							onChange={(value) =>
+								setAttributes({ headingLevel: value })
+							}
+							options={[
+								{ label: 'H1', value: 'h1' },
+								{ label: 'H2', value: 'h2' },
+								{ label: 'H3', value: 'h3' },
+								{ label: 'H4', value: 'h4' },
+								{ label: 'H5', value: 'h5' },
+								{ label: 'H6', value: 'h6' },
+								{ label: 'Paragraph', value: 'p' },
+							]}
+							help={__(
+								'Select the heading level or paragraph for the section title.',
+								'knowledgebase'
+							)}
+						/>
+					</PanelRow>
+				)}
+			</PanelBody>
+		</InspectorControls>
+	);
+
+	// If no term is selected, show the placeholder
+	if (!termID) {
+		return (
+			<>
+				{renderInspectorControls()}
+
+				<div {...blockProps}>
+					<Placeholder
+						icon={bookIcon}
+						label={__('Knowledge Base Articles', 'knowledgebase')}
+						instructions={__(
+							'Select a section to display its articles.',
+							'knowledgebase'
+						)}
+					>
 						{!hasResolved ? (
 							<Spinner />
 						) : (
 							<ComboboxControl
-								label={__(
-									'Select Knowledge Base Section',
-									'knowledgebase'
-								)}
 								value={termID}
 								onChange={(value) =>
 									setAttributes({ termID: value })
 								}
 								options={termOptions}
-								help={__(
-									'Search and select a knowledge base section',
-									'knowledgebase'
-								)}
 							/>
 						)}
-					</PanelRow>
-					<PanelRow>
-						<TextControl
-							label={__('Number of posts', 'knowledgebase')}
-							value={limit}
-							type="number"
-							min="1"
-							onChange={handleLimitChange}
-							help={__(
-								'Enter the number of posts to display (default: 5)',
-								'knowledgebase'
-							)}
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ToggleControl
-							label={__('Show excerpt', 'knowledgebase')}
-							help={
-								showExcerpt
-									? __(
-											'Excerpt is displayed',
-											'knowledgebase'
-										)
-									: __('No excerpt shown', 'knowledgebase')
-							}
-							checked={showExcerpt}
-							onChange={() =>
-								setAttributes({
-									showExcerpt: !showExcerpt,
-								})
-							}
-						/>
-					</PanelRow>
-				</PanelBody>
-			</InspectorControls>
+					</Placeholder>
+				</div>
+			</>
+		);
+	}
+
+	return (
+		<>
+			{renderInspectorControls()}
 
 			<div {...blockProps}>
 				<Disabled>
