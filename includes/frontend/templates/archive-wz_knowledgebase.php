@@ -34,7 +34,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 
 				// If no content, include the "No posts found" template.
 			else :
-				esc_html_e( 'No results found', 'wzkb' );
+				esc_html_e( 'No results found', 'knowledgebase' );
 
 			endif;
 			?>
@@ -50,5 +50,3 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 
 <?php
 get_footer();
-
-

@@ -1,7 +1,7 @@
 === Knowledge Base ===
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
-Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
+Tags: knowledge base, knowledgebase, FAQ, support, documentation
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4

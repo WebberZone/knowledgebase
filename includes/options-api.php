@@ -262,7 +262,7 @@ if ( ! function_exists( 'wz_tag_search' ) ) :
 
 		$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$comma = _x( ',', 'tag delimiter' );
+		$comma = _x( ',', 'tag delimiter', 'knowledgebase' );
 		if ( ',' !== $comma ) {
 			$s = str_replace( $comma, ',', $s );
 		}
