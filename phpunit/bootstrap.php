@@ -1,13 +1,7 @@
 <?php
 /**
- * PHPUnit bootstrap file for WebberZone Knowledge Base.
- *
- * This file sets up the testing environment for PHPUnit.
- *
- * @package WebberZone\Knowledge_Base
+ * PHPUnit bootstrap file.
  */
-
-require_once dirname( dirname( dirname( dirname( __DIR__ ) ) ) ) . '/.composer/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
@@ -33,6 +27,9 @@ function _manually_load_plugin() {
 	require dirname( __DIR__ ) . '/knowledgebase.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
+
+// Include the PHPUnit Polyfills autoloader.
+require dirname( __DIR__ ) . '/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
 
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
