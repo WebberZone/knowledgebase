@@ -1,7 +1,6 @@
 {
     "name": "webberzone/knowledgebase",
     "description": "Fastest way to create a highly-flexible multi-product knowledge base.",
-    "version": "2.3.0",
     "type": "wordpress-plugin",
     "keywords": [
         "knowledge base",
@@ -30,12 +29,18 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
         "phpcompatibility/phpcompatibility-wp": "^2",
         "yoast/phpunit-polyfills": "^3",
-        "phpunit/phpunit": "^5.7.21 || ^6.5 || ^7.5"
+        "phpunit/phpunit": "^7.5 || ^8 || ^9 || ^10 || ^11 || ^12"
     },
     "config": {
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
+        "phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline --memory-limit=2048M",
+        "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
+        "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')"
     }
 }
