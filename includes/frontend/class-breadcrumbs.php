@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Util\Helpers;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -50,6 +52,7 @@ class Breadcrumbs {
 
 		// Parse incoming $args into an array and merge it with $defaults.
 		$args = wp_parse_args( $args, $defaults );
+		$args = Helpers::sanitize_args( $args );
 
 		// Convert Unicode sequence if provided.
 		if ( strpos( $args['separator'], '\\' ) === 0 ) {
@@ -139,6 +142,7 @@ class Breadcrumbs {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
+		$args = Helpers::sanitize_args( $args );
 
 		$output  = '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
 		$output .= '<a href="' . esc_url( get_term_link( $taxonomy ) ) . '" itemprop="item" title="' . esc_attr( $taxonomy->name ) . '">';
