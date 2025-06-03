@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
 Requires at least: 6.3
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 2.3.0
 License: GPLv2 or later
@@ -117,6 +117,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 Completely rewritten. Several new features and enhancements.
 
 == Changelog ==
+
+= 2.3.1 =
+
+* Bug fixes:
+	* Fixed security issue where arguments passed to the shortcodes were not properly sanitized.
 
 = 2.3.0 =
 
