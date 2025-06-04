@@ -193,7 +193,8 @@ class Breadcrumbs {
 			'separator' => '»',
 		);
 
-		$args = wp_parse_args( $args, $defaults );
+		$args  = wp_parse_args( $args, $defaults );
+		$trail = array();
 
 		$output  = '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
 		$output .= '<a href="' . esc_url( get_term_link( $taxonomy ) ) . '" itemprop="item" title="' . esc_attr( $taxonomy->name ) . '">';
