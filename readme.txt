@@ -1,11 +1,11 @@
 === Knowledge Base ===
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
-Tags: knowledge base, knowledgebase, FAQ, frequently asked questions, support, documentation
+Tags: knowledge base, knowledgebase, FAQ, support, documentation
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,8 +121,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.0 =
-Completely rewritten. Several new features and enhancements.
+= 2.3.1 =
+Fixed security issue where arguments passed to the shortcodes were not properly sanitized.
 
 == Changelog ==
 
@@ -150,6 +150,11 @@ Completely rewritten. Several new features and enhancements.
 		* `wzkb_block` → `wzkb-block`
 		* And other similar class name changes
 	* If you have custom CSS targeting these classes, you'll need to update your selectors
+
+= 2.3.1 =
+
+* Bug fixes:
+	* Fixed security issue where arguments passed to the shortcodes were not properly sanitized.
 
 = 2.3.0 =
 

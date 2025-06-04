@@ -192,8 +192,16 @@ class Breadcrumbs {
 		$defaults = array(
 			'separator' => '»',
 		);
-		$args     = wp_parse_args( $args, $defaults );
-		$trail    = array();
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$output  = '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+		$output .= '<a href="' . esc_url( get_term_link( $taxonomy ) ) . '" itemprop="item" title="' . esc_attr( $taxonomy->name ) . '">';
+		$output .= '<span itemprop="name">' . esc_html( $taxonomy->name ) . '</span>';
+		$output .= '</a>';
+		$output .= '<meta itemprop="position" content="' . intval( $position ) . '" />';
+		$output .= '</li>';
+
 		if ( ! empty( $taxonomy->parent ) ) {
 			$trail     = array_merge(
 				self::get_hierarchical_term_trail_array(

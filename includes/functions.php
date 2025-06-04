@@ -108,7 +108,7 @@ function wzkb_get_alert( $args = array(), $content = '' ) {
 	$args = wp_parse_args( $args, $defaults );
 	$args = Helpers::sanitize_args( $args );
 
-	$type = 'wzkb-alert-' . $args['type'];
+	$type = 'wzkb-alert-' . sanitize_html_class( $args['type'] );
 
 	$class = implode( ' ', explode( ',', $args['class'] ) );
 	$class = $type . ' ' . $class;
@@ -166,6 +166,7 @@ function wzkb_get_the_post_thumbnail( $args = array() ) {
 
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
+	$args = Helpers::sanitize_args( $args );
 
 	return Media_Handler::get_the_post_thumbnail( $args );
 }
@@ -185,6 +186,7 @@ function wzkb_related_articles( $args = array() ) {
 	);
 
 	$args = wp_parse_args( $args, $defaults );
+	$args = Helpers::sanitize_args( $args );
 
 	$related = Related::get_related_articles( $args );
 

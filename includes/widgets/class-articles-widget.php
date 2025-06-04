@@ -63,12 +63,12 @@ class Articles_Widget extends \WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
-			<?php esc_html_e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
+			<?php esc_html_e( 'No. of posts', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php checked( true, $show_excerpt, true ); ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php checked( true, $show_excerpt, true ); ?> /> <?php esc_html_e( ' Show excerpt?', 'knowledgebase' ); ?>
 			</label>
 		</p>
 
