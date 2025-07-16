@@ -197,9 +197,9 @@ class CPT {
 	 */
 	public static function register_taxonomies() {
 		// Get taxonomy slugs from options.
-		$catslug     = \wzkb_get_option( 'category_slug', 'kb/section' );
-		$tagslug     = \wzkb_get_option( 'tag_slug', 'kb/tags' );
-		$productslug = \wzkb_get_option( 'product_slug', 'kb/products' );
+		$catslug     = sanitize_title( \wzkb_get_option( 'category_slug', 'kb/section' ) );
+		$tagslug     = sanitize_title( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
+		$productslug = sanitize_title( \wzkb_get_option( 'product_slug', 'kb/products' ) );
 
 		// Register products taxonomy first.
 		$product_args           = self::get_taxonomy_base_args( $productslug, false );
