@@ -37,7 +37,7 @@ class CPT {
 	 * @since 2.3.0
 	 */
 	public static function register_post_type() {
-		$slug     = \wzkb_get_option( 'kb_slug', 'knowledgebase' );
+		$slug     = sanitize_title( \wzkb_get_option( 'kb_slug', 'knowledgebase' ) );
 		$archives = defined( 'WZKB_DISABLE_ARCHIVE' ) && WZKB_DISABLE_ARCHIVE ? false : $slug;
 		$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array(
 			'slug'       => $slug,

@@ -121,8 +121,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.1 =
-Fixed security issue where arguments passed to the shortcodes were not properly sanitized.
+= 2.3.2 =
+Fixed security issue where Knowledge Base slug in settings was not sanitized.
 
 == Changelog ==
 
@@ -150,6 +150,11 @@ Fixed security issue where arguments passed to the shortcodes were not properly 
 		* `wzkb_block` → `wzkb-block`
 		* And other similar class name changes
 	* If you have custom CSS targeting these classes, you'll need to update your selectors
+
+= 2.3.2 =
+
+* Bug fixes:
+	* Fixed security issue where Knowledge Base slug in settings was not sanitized.
 
 = 2.3.1 =
 
