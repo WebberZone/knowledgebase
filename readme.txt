@@ -113,10 +113,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.2 =
-Fixed security issue where Knowledge Base slug in settings was not sanitized.
+= 2.3.3 =
+Fixed issue where slugs in settings no longer supported a forward slash.
 
 == Changelog ==
+
+= 2.3.3 =
+
+* Bug fixes:
+	* Fixed issue where slugs in settings no longer supported a forward slash.
 
 = 2.3.2 =
 
