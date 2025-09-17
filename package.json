@@ -12,6 +12,7 @@
         "build:articles": "wp-scripts build --webpack-src-dir=includes/blocks/src/articles/ --output-path=includes/blocks/build/articles/",
         "build:breadcrumb": "wp-scripts build --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
         "build:sections": "wp-scripts build --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
+        "build:products": "wp-scripts build --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
         "format": "wp-scripts format ./includes/blocks/src/",
         "lint:css": "wp-scripts lint-style ./includes/blocks/src/",
         "lint:js": "wp-scripts lint-js ./includes/blocks/src/",
@@ -22,6 +23,7 @@
         "start:articles": "wp-scripts start --webpack-src-dir=includes/blocks/src/articles/ --output-path=includes/blocks/build/articles/",
         "start:breadcrumb": "wp-scripts start --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
         "start:sections": "wp-scripts start --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
+        "start:products": "wp-scripts start --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
         "zip": "wp-scripts plugin-zip"
     },
     "files": [
@@ -35,12 +37,12 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.22.0",
+        "@wordpress/prettier-config": "^4.31.0",
         "@wordpress/scripts": "^30"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.22.0",
+        "@wordpress/icons": "^10.31.0",
         "clsx": "^2.1.1",
-        "uuid": "^11.1.0"
+        "uuid": "^13.0.0"
     }
 }
