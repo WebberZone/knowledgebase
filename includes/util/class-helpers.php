@@ -29,7 +29,7 @@ class Helpers {
 	}
 
 	/**
-	 * Get the link to Better Search homepage.
+	 * Get the link to Knowledge Base homepage.
 	 *
 	 * @since 2.3.0
 	 *
@@ -39,7 +39,7 @@ class Helpers {
 
 		$output = '<div class="wzkb_credit" style="text-align:center;border-top:1px dotted #000;display:block;margin-top:5px;"><small>';
 
-		/* translators: 1: Opening a tag and Better Search, 2: Closing a tag. */
+		/* translators: 1: Opening a tag and Knowledge Base, 2: Closing a tag. */
 		$output .= sprintf( __( 'Powered by %1$s plugin%2$s', 'knowledgebase' ), '<a href="https://webberzone.com/plugins/knowledgebase/" rel="nofollow">Knowledge Base', '</a></small></div>' );
 
 		return $output;

@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Class to register the Better Search Admin Area.
+ * Class to register the Knowledge Base Admin Area.
  *
  * @since 2.3.0
  */
