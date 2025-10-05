@@ -135,10 +135,13 @@ Fixed security issue where Knowledge Base slug in settings was not sanitized.
 		* Admin UI enhancements for managing products, sections, and migration.
 	* Setup Wizard to guide users through the initial setup process.
 	* New Product widget to display the Sections for a specific Product.
+	* (Pro) Custom Permalinks for Products, Sections, Tags and Articles.
+	* (Pro) Added Clear cache button and Cache expiry option in the settings page.
 
 * Modifications:
 	* Standardized CSS class names to use consistent hyphenation (e.g., `wzkb_section` is now `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
 	* New Hooks_Registry class added to handle hooks in a more organized way and prevents accidental duplicate hooks.
+	* Upgraded WebberZone Settings API.
 
 * Breaking Changes:
 	* CSS classes have been renamed for consistency:

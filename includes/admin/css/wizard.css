@@ -120,7 +120,14 @@
 	margin: 20px 0 0;
 	padding-top: 10px;
 	border-top: 1px solid #f0f0f1;
-	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.wzkb-setup .wzkb-setup-actions .button-next {
+	margin-left: auto;
 }
 
 .wzkb-return-to-dashboard {
@@ -158,10 +165,52 @@
 }
 
 .wzkb-setup-warning {
-	background-color: #fff599;
-	padding: 10px;
-	border: 1px solid #f7dc6f;
-	border-radius: 5px;
-	margin-bottom: 20px;
-	color: #0a0a0a;
+	background: #fff3cd;
+	border-left: 4px solid #dc9814;
+	padding: 15px 20px;
+	margin: 15px 0;
+	border-radius: 4px;
+}
+
+/* Pro Tip and Pro Enabled Messages */
+.wzkb-setup-pro-tip {
+	background: #fff9e6;
+	border-left: 4px solid #996800;
+	padding: 15px 20px;
+	margin: 15px 0;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.wzkb-setup-pro-tip .dashicons {
+	color: #996800;
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+}
+
+.wzkb-setup-pro-tip strong {
+	color: #996800;
+}
+
+.wzkb-setup-pro-enabled {
+	background: #f0fff0;
+	border-left: 4px solid #46b450;
+	padding: 15px 20px;
+	margin: 15px 0;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.wzkb-setup-pro-enabled .dashicons {
+	color: #46b450;
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
 }
