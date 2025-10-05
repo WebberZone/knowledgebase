@@ -8,7 +8,6 @@
 namespace WebberZone\Knowledge_Base;
 
 use WebberZone\Knowledge_Base\Admin\Admin;
-use WebberZone\Knowledge_Base\Pro\Pro;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -42,9 +41,9 @@ final class Main {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @var Pro|null Pro instance.
+	 * @var Pro\Pro|null Pro instance.
 	 */
-	public ?Pro $pro = null;
+	public ?Pro\Pro $pro = null;
 
 	/**
 	 * Shortcodes.
@@ -182,7 +181,7 @@ final class Main {
 
 		// Conditionally load Pro if available.
 		if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) {
-			$this->pro = new Pro();
+			$this->pro = new Pro\Pro();
 		}
 
 		if ( is_admin() ) {
@@ -210,7 +209,7 @@ final class Main {
 	}
 
 	/**
-	 * Initialise the Better Search widgets.
+	 * Initialise the Knowledge Base widgets.
 	 *
 	 * @since 2.3.0
 	 */
