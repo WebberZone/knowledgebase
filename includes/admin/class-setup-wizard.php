@@ -299,8 +299,8 @@ class Setup_Wizard {
 			</table>
 			<p class="wzkb-setup-actions step">
 				<?php wp_nonce_field( 'wzkb-setup' ); ?>
+				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
 				<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
-				<a href="<?php echo esc_url( add_query_arg( 'wzkb_nonce', wp_create_nonce( 'wzkb-setup' ), $this->get_next_step_link() ) ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'knowledgebase' ); ?></a>
 			</p>
 		</form>
 		<?php
@@ -351,16 +351,46 @@ class Setup_Wizard {
 			);
 		?>
 		</p>
+		<?php if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) : ?>
+		<p class="wzkb-setup-pro-enabled">
+			<span class="dashicons dashicons-yes-alt"></span>
+			<span>
+			<?php
+				printf(
+					/* translators: %s is wrapped in <code> */
+					wp_kses_post( __( '<strong>Pro active:</strong> You can use nested structures and advanced placeholders like %s for complete control over your URLs.', 'knowledgebase' ) ),
+					'<code>%product_name%</code>, <code>%section_name%</code>, <code>%postname%</code>'
+				);
+			?>
+			</span>
+		</p>
+		<?php else : ?>
 		<p class="wzkb-setup-warning">
-		<?php
+			<?php
 			printf(
-				/* translators: %1$s, %2$s, and %3$s are wrapped in <code> */
-				esc_html__( 'All the below slugs must be unique and not nested within each other. e.g. %1$s (Knowledge Base) and %2$s (Product) are NOT valid as the product slug is nested below the knowledgebase slug. This also applies to Sections and Tags.', 'knowledgebase' ),
+				/* translators: %1$s, %2$s are wrapped in <code> */
+				esc_html__( 'All the below slugs must be unique and not nested within each other. e.g. %1$s and %2$s are NOT valid as the product slug is nested below the KB slug.', 'knowledgebase' ),
 				'<code>kb</code>',
 				'<code>kb/product</code>'
 			);
-		?>
+			?>
 		</p>
+		<p class="wzkb-setup-pro-tip">
+			<span class="dashicons dashicons-star-filled"></span>
+			<span class="wzkb-pro-tip-content">
+				<span>
+				<?php
+					printf(
+						/* translators: %s is the product name */
+						esc_html__( 'Want advanced permalink flexibility? Upgrade to %s for nested structures, intelligent routing, custom placeholders, and automatic conflict resolution. %s', 'knowledgebase' ),
+						'<strong>' . esc_html__( 'Knowledge Base Pro', 'knowledgebase' ) . '</strong>',
+						'<a href="https://webberzone.com/plugins/knowledgebase/pro/" target="_blank" class="button button-secondary button-small">' . esc_html__( 'Learn More', 'knowledgebase' ) . '</a>'
+					);
+				?>
+				</span>
+			</span>
+		</p>
+		<?php endif; ?>
 		<form method="post">
 			<table class="form-table">
 				<tr>
@@ -406,8 +436,8 @@ class Setup_Wizard {
 			</table>
 			<p class="wzkb-setup-actions step">
 				<?php wp_nonce_field( 'wzkb-setup' ); ?>
+				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
 				<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
-				<a href="<?php echo esc_url( add_query_arg( 'wzkb_nonce', wp_create_nonce( 'wzkb-setup' ), $this->get_next_step_link() ) ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'knowledgebase' ); ?></a>
 			</p>
 		</form>
 		<?php
@@ -568,8 +598,8 @@ class Setup_Wizard {
 
 			<p class="wzkb-setup-actions step">
 				<?php wp_nonce_field( 'wzkb-setup' ); ?>
+				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
 				<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
-				<a href="<?php echo esc_url( add_query_arg( 'wzkb_nonce', wp_create_nonce( 'wzkb-setup' ), $this->get_next_step_link() ) ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'knowledgebase' ); ?></a>
 			</p>
 		</form>
 		<?php
@@ -686,6 +716,31 @@ class Setup_Wizard {
 	}
 
 	/**
+	 * Get the previous step link.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $step Optional. Current step slug.
+	 * @return string Previous step URL.
+	 *                Empty string if it's the first step or on failure.
+	 */
+	public function get_previous_step_link( $step = '' ) {
+		if ( empty( $step ) ) {
+			$step = $this->current_step;
+		}
+
+		$keys       = array_keys( $this->steps );
+		$step_index = array_search( $step, $keys, true );
+
+		// Return empty if first step or not found.
+		if ( false === $step_index || 0 === $step_index ) {
+			return '';
+		}
+
+		return add_query_arg( 'step', $keys[ $step_index - 1 ], remove_query_arg( 'activate_error' ) );
+	}
+
+	/**
 	 * Enqueue scripts and styles.
 	 *
 	 * @since 3.0.0
@@ -697,9 +752,11 @@ class Setup_Wizard {
 			return;
 		}
 
+		$min = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 		wp_register_style(
 			'wzkb-wizard',
-			plugins_url( 'css/wizard.css', __FILE__ ),
+			plugins_url( "css/wizard{$min}.css", __FILE__ ),
 			array( 'dashicons' ),
 			WZKB_VERSION
 		);
@@ -707,7 +764,7 @@ class Setup_Wizard {
 
 		wp_register_script(
 			'wzkb-wizard',
-			plugins_url( 'js/wizard.js', __FILE__ ),
+			plugins_url( "js/wizard{$min}.js", __FILE__ ),
 			array( 'jquery' ),
 			WZKB_VERSION,
 			true
