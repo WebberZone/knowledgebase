@@ -179,6 +179,22 @@ class Settings_API {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+	}
+
+	/**
+	 * Filters the CSS classes for the body tag in the admin.
+	 *
+	 * @param string $classes Space-separated list of CSS classes.
+	 * @return string Space-separated list of CSS classes.
+	 */
+	public function admin_body_class( $classes ) {
+		$current_screen = get_current_screen();
+
+		if ( in_array( $current_screen->id, $this->menu_pages, true ) ) {
+			$classes .= " {$this->prefix}-dashboard-page";
+		}
+		return $classes;
 	}
 
 	/**
@@ -241,6 +257,8 @@ class Settings_API {
 			'reset_settings'       => 'Reset all settings',
 			'reset_button_confirm' => 'Do you really want to reset all these settings to their default values?',
 			'checkbox_modified'    => 'Modified from default setting',
+			'button_label'         => 'Choose File',
+			'previous_saved'       => 'Previously saved',
 		);
 
 		$strings = wp_parse_args( $strings, $defaults );
@@ -597,9 +615,9 @@ class Settings_API {
 
 		$this->settings_form = new Settings_Form(
 			array(
-				'settings_key'           => $settings_key,
-				'prefix'                 => $this->prefix,
-				'checkbox_modified_text' => $this->translation_strings['checkbox_modified'],
+				'settings_key'        => $settings_key,
+				'prefix'              => $this->prefix,
+				'translation_strings' => $this->translation_strings,
 			)
 		);
 
@@ -632,15 +650,15 @@ class Settings_API {
 			}
 		}
 
-		// Register the settings into the options table.
-		register_setting(
-			$settings_key,
-			$settings_key,
-			array(
-				'sanitize_callback' => array( $this, 'settings_sanitize' ),
-				'show_in_rest'      => true,
-			)
-		);
+			// Register the settings into the options table.
+			register_setting(
+				$settings_key,
+				$settings_key,
+				array(
+					'sanitize_callback' => array( $this, 'settings_sanitize' ),
+					'show_in_rest'      => true,
+				)
+			);
 	}
 
 	/**
@@ -680,22 +698,33 @@ class Settings_API {
 		// Populate some default values.
 		foreach ( $this->registered_settings as $tab => $settings ) {
 			foreach ( $settings as $option ) {
-				// When checkbox is set to true, set this to 1.
-				if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
-					$options[ $option['id'] ] = 1;
-				} else {
-					$options[ $option['id'] ] = 0;
+				/**
+				 * Skip settings that are not really settings.
+				 *
+				 * @param  array $non_setting_types Array of types which are not settings.
+				 */
+				$non_setting_types = apply_filters( $this->prefix . '_non_setting_types', array( 'header', 'descriptive_text' ) );
+
+				if ( in_array( $option['type'], $non_setting_types, true ) ) {
+					continue;
 				}
-				// If an option is set.
-				if ( in_array( $option['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) ) {
-					if ( isset( $option['default'] ) ) {
-						$options[ $option['id'] ] = $option['default'];
-					} elseif ( isset( $option['options'] ) ) {
+
+				// Base default per type.
+				$options[ $option['id'] ] = ( 'checkbox' === $option['type'] ) ? 0 : '';
+
+				// Prefer the explicit 'default' key when provided.
+				if ( isset( $option['default'] ) ) {
+					$options[ $option['id'] ] = $option['default'];
+				} else {
+					// Back-compat for legacy configs that used 'options' to store default values for text-like fields.
+					if ( in_array( $option['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $option['options'] ) ) {
 						$options[ $option['id'] ] = $option['options'];
 					}
-				}
-				if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes' ), true ) && isset( $option['default'] ) ) {
-					$options[ $option['id'] ] = $option['default'];
+
+					// Back-compat: when checkbox used 'options' truthy to indicate checked by default.
+					if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
+						$options[ $option['id'] ] = 1;
+					}
 				}
 			}
 		}
@@ -825,7 +854,7 @@ class Settings_API {
 		$settings_types = $this->get_registered_settings_types();
 
 		// Get the tab. This is also our settings' section.
-		$tab = isset( $referrer['tab'] ) ? $referrer['tab'] : $this->default_tab;
+		$tab = $referrer['tab'] ?? $this->default_tab;
 
 		$input = $input ? $input : array();
 
@@ -1068,8 +1097,6 @@ class Settings_API {
 
 	/**
 	 * Parse field arguments with defaults.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @param array  $field   Field arguments.
 	 * @param string $section Section name.
