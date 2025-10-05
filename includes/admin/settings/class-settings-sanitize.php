@@ -3,7 +3,6 @@
  * Functions to sanitize settings.
  *
  * @link  https://webberzone.com
- * @since 2.3.0
  *
  * @package WebberZone\Knowledge_Base
  */
