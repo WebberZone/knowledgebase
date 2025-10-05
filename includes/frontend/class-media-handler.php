@@ -307,7 +307,7 @@ class Media_Handler {
 		}
 
 		/**
-		 * Filters post thumbnail created for Better Search.
+		 * Filters post thumbnail created for Knowledge Base.
 		 *
 		 * @since 2.3.0
 		 *

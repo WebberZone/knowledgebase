@@ -353,19 +353,23 @@ class Display {
 			),
 		);
 
+		$query         = null;
+		$cache_enabled = ! empty( \wzkb_get_option( 'cache' ) );
+		$meta_key      = null;
+
 		// Support caching to speed up retrieval.
-		if ( ! empty( \wzkb_get_option( 'cache' ) ) ) {
+		if ( $cache_enabled ) {
 			$meta_key = Cache::get_key( $args );
-			$query    = get_term_meta( $term->term_id, $meta_key, true );
+			$query    = Cache::get( $term->term_id, $meta_key );
 		}
 
 		if ( empty( $query ) ) {
 			$query = new \WP_Query( $args );
-		}
 
-		// Support caching to speed up retrieval.
-		if ( ! empty( \wzkb_get_option( 'cache' ) ) ) {
-			add_term_meta( $term->term_id, $meta_key, $query, true );
+			// Support caching to speed up retrieval.
+			if ( $cache_enabled ) {
+				Cache::set( $term->term_id, $meta_key, $query );
+			}
 		}
 
 		return $query;
