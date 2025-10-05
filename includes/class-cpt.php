@@ -82,7 +82,7 @@ class CPT {
 		$ptlabels = apply_filters( 'wzkb_post_type_labels', $ptlabels );
 
 		$ptargs = array(
-			'label'         => __( 'wz_knowledgebase', 'knowledgebase' ),
+			'name'          => 'wz_knowledgebase',
 			'description'   => __( 'Knowledge Base', 'knowledgebase' ),
 			'labels'        => $ptlabels,
 			'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'author', 'custom-fields', 'comments' ),
@@ -95,6 +95,7 @@ class CPT {
 			'map_meta_cap'  => true,
 			'has_archive'   => $archives,
 			'rewrite'       => $rewrite,
+			'query_var'     => true,
 		);
 
 		/**
@@ -127,7 +128,7 @@ class CPT {
 			'show_tagcloud'     => ! $is_hierarchical,
 			'rewrite'           => array(
 				'slug'         => $slug,
-				'with_front'   => true,
+				'with_front'   => false,
 				'hierarchical' => $is_hierarchical,
 			),
 		);
