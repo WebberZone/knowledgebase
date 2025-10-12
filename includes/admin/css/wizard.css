@@ -81,7 +81,11 @@
 .wzkb-setup .wzkb-setup-content table td input[type="number"],
 .wzkb-setup .wzkb-setup-content table td input[type="url"],
 .wzkb-setup .wzkb-setup-content table td input[type="email"],
-.wzkb-setup .wzkb-setup-content table td input:not([type="checkbox"]):not([type="radio"]) {
+.wzkb-setup
+	.wzkb-setup-content
+	table
+	td
+	input:not([type="checkbox"]):not([type="radio"]) {
 	width: 100%;
 }
 

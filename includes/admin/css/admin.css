@@ -49,11 +49,11 @@ a.wzkb_button.wzkb_button_blue:hover {
 
 a.wzkb_button.wzkb_button_gold {
 	color: #000;
-	background: #FFBD59;
-	border: 1px solid #FFA500;
+	background: #ffbd59;
+	border: 1px solid #ffa500;
 }
 
 a.wzkb_button.wzkb_button_gold:hover {
 	color: #000;
-	background: #FFA500;
+	background: #ffa500;
 }

@@ -13,7 +13,10 @@
         "build:breadcrumb": "wp-scripts build --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
         "build:sections": "wp-scripts build --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
         "build:products": "wp-scripts build --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
+        "build:assets": "node build-assets.js",
         "format": "wp-scripts format ./includes/blocks/src/",
+        "format:styles": "wp-scripts format \"./includes/frontend/css/**/*.css\" \"./includes/pro/frontend/css/**/*.css\" \"./includes/admin/css/**/*.css\" \"./includes/admin/settings/css/**/*.css\"",
+        "format:scripts": "wp-scripts format \"./includes/admin/js/**/*.js\" \"./includes/admin/settings/js/**/*.js\"",
         "lint:css": "wp-scripts lint-style ./includes/blocks/src/",
         "lint:js": "wp-scripts lint-js ./includes/blocks/src/",
         "packages-update": "wp-scripts packages-update",
@@ -37,11 +40,14 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.31.0",
-        "@wordpress/scripts": "^30"
+        "@wordpress/prettier-config": "^4.32.0",
+        "@wordpress/scripts": "^30",
+        "clean-css-cli": "^5.6.3",
+        "terser": "^5.44.0",
+        "rtlcss": "^4.3.0"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.31.0",
+        "@wordpress/icons": "^10.32.0",
         "clsx": "^2.1.1",
         "uuid": "^13.0.0"
     }

@@ -482,9 +482,9 @@ class Media_Handler {
 				 */
 				return apply_filters( self::$prefix . '_get_first_image', $image_attributes[0], $postid, $thumb_width, $thumb_height );
 			}
-		} else {
-			return '';
 		}
+
+		return '';
 	}
 
 

@@ -1,0 +1,444 @@
+/**
+ * Classic Style for Knowledge Base - Modern CSS Grid Implementation
+ * 
+ * Modern, clean design using CSS Grid and Flexbox for responsive layouts.
+ * This is the default style with contemporary CSS standards.
+ *
+ * @package WebberZone\Knowledge_Base
+ */
+
+/* CSS Variables for Classic Style - Customization */
+:root {
+	/* Primary colors */
+	--wzkb-color-primary: #667eea;
+	--wzkb-color-text: #333;
+	--wzkb-color-text-medium: #666;
+	--wzkb-color-white: #fff;
+	--wzkb-color-orange: orange;
+
+	/* Background colors */
+	--wzkb-bg-white: #fff;
+	--wzkb-bg-light: #f8f9fa;
+	--wzkb-bg-ghostwhite: ghostwhite;
+
+	/* Border colors */
+	--wzkb-border-light: #e0e0e0;
+	--wzkb-border-medium: #ddd;
+
+	/* Breadcrumb colors */
+	--wzkb-breadcrumb-bg: #f8f9fa;
+	--wzkb-breadcrumb-text: #2d3748;
+	--wzkb-breadcrumb-link: #667eea;
+	--wzkb-breadcrumb-separator: #666;
+	--wzkb-breadcrumb-border: #e0e0e0;
+}
+
+/* Category archive (single section view) - disable grid, show full width */
+.wzkb-category-archive.wzkb {
+	display: block;
+	grid-template-columns: none;
+}
+
+.wzkb-category-archive .wzkb-section {
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Nested section wrappers should also be full width */
+.wzkb-category-archive .wzkb-section-wrapper {
+	display: block;
+	width: 100%;
+}
+
+.wzkb-category-archive .wzkb-section-wrapper .wzkb-section {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 20px;
+}
+
+/* Base container */
+.wzkb {
+	width: 100%;
+	max-width: 100%;
+	margin: 10px 0;
+	display: grid;
+	grid-template-columns: repeat(var(--wzkb-columns, 2), 1fr);
+	gap: 20px;
+}
+
+.wzkb-master-section,
+.section {
+	display: contents;
+}
+
+.wzkb-product {
+	grid-column: 1 / -1;
+	clear: both;
+	display: grid;
+	grid-template-columns: repeat(var(--wzkb-columns, 2), 1fr);
+	gap: 20px;
+	margin-bottom: 30px;
+}
+
+/* Product title styling */
+.wzkb-product-title {
+	font-size: 32px;
+	font-weight: 800;
+	margin: 0 0 20px 0;
+	padding: 0;
+	grid-column: 1 / -1;
+	color: var(--wzkb-color-text);
+}
+
+.wzkb-product-title a {
+	color: var(--wzkb-color-primary);
+	text-decoration: none;
+	font-weight: 800;
+	transition: opacity 0.3s ease;
+}
+
+.wzkb-product-title a:hover {
+	opacity: 0.8;
+}
+
+/* Section styling */
+.wzkb-section {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	min-width: 0;
+}
+
+.wzkb h3 a,
+.wzkb h4 a,
+.wzkb h3 a:visited,
+.wzkb h4 a:visited {
+	color: var(--wzkb-color-text);
+	text-decoration: none;
+	border: 0;
+}
+
+.wzkb h3.wzkb-section-name {
+	font-size: 20px;
+	font-weight: 700;
+	margin-bottom: 12px;
+	padding-bottom: 8px;
+	overflow: hidden;
+	line-height: 1.4;
+	position: relative;
+}
+
+.wzkb-section-name-level-1 {
+	border-bottom: 1px black dotted;
+	border-top: 1px black dotted;
+	padding: 8px 16px;
+	background-color: var(--wzkb-bg-ghostwhite);
+	margin-top: 0;
+	margin-bottom: 0;
+	grid-column: 1 / -1;
+}
+
+.wzkb h3.wzkb-section-name-level-0,
+.wzkb h3.wzkb-section-name-level-1 {
+	font-size: 30px;
+	font-weight: 700;
+}
+
+.wzkb h3.wzkb-section-name-level-2 {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+/* Article list styling */
+.wzkb-articles-list {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.wzkb-articles-list li {
+	margin: 14px 0;
+	padding: 12px 0;
+	position: relative;
+	list-style-type: none !important;
+}
+
+.wzkb-articles-list li:before {
+	content: "\f123";
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 1;
+	font-family: dashicons;
+	text-decoration: inherit;
+	font-weight: 400;
+	font-style: normal;
+	vertical-align: top;
+	text-align: center;
+	-webkit-transition: color 0.1s ease-in 0;
+	transition: color 0.1s ease-in 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	margin-left: 10px;
+	word-wrap: break-word;
+	color: var(--wzkb-color-text-medium);
+}
+
+.wzkb-articles-list li a {
+	color: var(--wzkb-color-text);
+	text-decoration: none;
+	font-weight: 500;
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.wzkb-articles-list li a:hover {
+	color: var(--wzkb-color-primary);
+}
+
+/* Read more articles footer link */
+.wzkb-article-footer {
+	margin-top: 24px;
+	padding-top: 16px;
+	border-top: 1px solid #ddd;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.wzkb-article-footer a {
+	color: var(--wzkb-color-primary);
+	text-decoration: none;
+	font-weight: 700;
+	transition: opacity 0.3s ease;
+}
+
+.wzkb-article-footer a:hover {
+	opacity: 0.7;
+}
+
+/* Section count badge */
+.wzkb-section-count {
+	display: block;
+	float: left;
+	margin: 0;
+	padding: 6px 14px;
+	background: var(--wzkb-color-orange);
+	color: var(--wzkb-color-white) !important;
+	border: none;
+	border-radius: 20px;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 700;
+	min-width: 34px;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+	.wzkb {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.wzkb-product {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Archive styles */
+.wrap {
+	width: 100%;
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Sidebar layout - applies when sidebar is present */
+body.wzkb-sidebar-enabled .wrap {
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	gap: 30px;
+	align-items: start;
+}
+
+body.wzkb-sidebar-enabled #wzkb-content-primary {
+	width: 100%;
+	max-width: none;
+	min-width: 0;
+}
+
+body.wzkb-sidebar-enabled #wzkb-sidebar-primary {
+	width: 100%;
+	max-width: none;
+	min-width: 0;
+}
+
+@media only screen and (max-width: 768px) {
+	body.wzkb-sidebar-enabled .wrap {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+#wzkb-sidebar-primary .widget {
+	padding: 20px;
+	margin-top: 10px;
+}
+
+#wzkb-sidebar-primary .widget ul li {
+	margin-right: 10px;
+	list-style-type: disc;
+}
+
+@media only screen and (max-width: 768px) {
+	#wzkb-sidebar-primary,
+	#wzkb-content-primary {
+		float: none !important;
+		width: 98% !important;
+		margin-right: 0;
+	}
+}
+
+/* Navigation */
+.nav-previous {
+	float: right;
+}
+
+.nav-next {
+	float: left;
+}
+
+/* Search form */
+.wzkb-search-form {
+	border: 2px solid #ddd;
+	border-radius: 50px;
+	background: white;
+	padding: 0;
+	position: relative;
+	margin: 20px auto;
+	font-size: 1.3em;
+	width: 100%;
+	max-width: 100%;
+}
+
+.wzkb-search-form label {
+	width: 100%;
+}
+
+input[type="search"].wzkb-search-field {
+	border: none;
+	border-radius: 50px;
+	color: var(--wzkb-color-text);
+	font-family: "Open Sans", sans-serif;
+	font-size: 1em;
+	font-weight: 500;
+	padding: 16px 52px 16px 24px;
+	width: 100%;
+	background: url(../../images/search-icon.png) no-repeat 16px center;
+	outline: none;
+}
+
+input[type="submit"].wzkb-search-submit {
+	display: none;
+}
+
+.wzkb-search-form .screen-reader-text {
+	position: absolute;
+	clip: rect(0 0 0 0);
+}
+
+/* Pagination */
+nav.pagination {
+	width: 100%;
+	margin: 15px 0;
+	padding: 15px 0;
+	border-top: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
+	text-align: center;
+}
+
+/* Related articles */
+.wzkb-related-articles {
+	clear: both;
+	margin-top: 48px;
+	padding: 32px;
+	background: var(--wzkb-bg-light);
+	border-radius: 12px;
+	border: 1px solid var(--wzkb-border-light);
+}
+
+.wzkb-related-articles h3 {
+	color: var(--wzkb-color-text);
+	font-weight: 700;
+	margin-bottom: 24px;
+}
+
+.wzkb-related-articles ul {
+	list-style-type: none;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 20px;
+}
+
+.wzkb-related-articles ul li {
+	width: auto;
+	background: var(--wzkb-bg-white);
+	padding: 16px;
+	border-radius: 8px;
+	border: 1px solid var(--wzkb-border-light);
+	transition: all 0.3s ease;
+}
+
+.wzkb-related-articles ul li:hover {
+	border-color: var(--wzkb-color-primary);
+	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+	transform: translateY(-2px);
+}
+
+.wzkb-related-articles img,
+.wzkb-related-articles a {
+	display: block;
+}
+
+/* Breadcrumb */
+.wzkb_breadcrumb {
+	margin-bottom: 1.75em;
+	background: var(--wzkb-breadcrumb-bg);
+	padding: 14px 24px;
+	border-radius: 8px;
+	border: 1px solid var(--wzkb-breadcrumb-border);
+	font-size: 15px;
+	max-width: 100%;
+}
+
+.wzkb_breadcrumb-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.wzkb_breadcrumb-item {
+	display: inline;
+	color: var(--wzkb-breadcrumb-text);
+	font-weight: 500;
+}
+
+.wzkb_breadcrumb-item a {
+	color: var(--wzkb-breadcrumb-link);
+	text-decoration: none;
+	font-weight: 600;
+	transition: opacity 0.3s ease;
+}
+
+.wzkb_breadcrumb-item a:hover {
+	opacity: 0.8;
+}
+
+.wzkb_breadcrumb-item:not(:last-child)::after {
+	content: "\00BB";
+	margin: 0 10px;
+	color: var(--wzkb-breadcrumb-separator);
+	font-weight: normal;
+}
