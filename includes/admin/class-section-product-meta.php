@@ -153,6 +153,11 @@ class Section_Product_Meta {
 	/**
 	 * Save product assignment when section is added or edited.
 	 *
+	 * Note: No nonce verification needed here because WordPress core
+	 * verifies the nonce in wp-admin/edit-tags.php before calling
+	 * wp_insert_term() / wp_update_term(), which then fires this hook.
+	 * See: check_admin_referer( 'add-tag' ) and check_admin_referer( 'update-tag_' . $tag_ID )
+	 *
 	 * @since 3.0.0
 	 *
 	 * @param int $term_id  Term ID.

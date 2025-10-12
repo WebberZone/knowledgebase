@@ -8,7 +8,7 @@
 
 /* Ensure content respects admin menu */
 #wpcontent .wzkb-setup {
-	margin-left: 0;
+	margin-right: 0;
 	max-width: 960px;
 }
 
@@ -116,8 +116,8 @@
 }
 
 .wzkb-url-desc {
-	margin-left: 0;
-	padding-left: 0;
+	margin-right: 0;
+	padding-right: 0;
 }
 
 .wzkb-setup .wzkb-setup-actions {
@@ -131,7 +131,7 @@
 }
 
 .wzkb-setup .wzkb-setup-actions .button-next {
-	margin-left: auto;
+	margin-right: auto;
 }
 
 .wzkb-return-to-dashboard {
@@ -170,7 +170,7 @@
 
 .wzkb-setup-warning {
 	background: #fff3cd;
-	border-left: 4px solid #dc9814;
+	border-right: 4px solid #dc9814;
 	padding: 15px 20px;
 	margin: 15px 0;
 	border-radius: 4px;
@@ -179,7 +179,7 @@
 /* Pro Tip and Pro Enabled Messages */
 .wzkb-setup-pro-tip {
 	background: #fff9e6;
-	border-left: 4px solid #996800;
+	border-right: 4px solid #996800;
 	padding: 15px 20px;
 	margin: 15px 0;
 	border-radius: 4px;
@@ -202,7 +202,7 @@
 
 .wzkb-setup-pro-enabled {
 	background: #f0fff0;
-	border-left: 4px solid #46b450;
+	border-right: 4px solid #46b450;
 	padding: 15px 20px;
 	margin: 15px 0;
 	border-radius: 4px;

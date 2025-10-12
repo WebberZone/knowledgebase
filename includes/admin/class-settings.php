@@ -595,10 +595,18 @@ class Settings {
 				'type'    => 'checkbox',
 				'options' => true,
 			),
+			'kb_style'       => array(
+				'id'      => 'kb_style',
+				'name'    => esc_html__( 'Knowledge Base Style', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Select a visual style for your knowledge base display. Premium styles are available in the Pro version.', 'knowledgebase' ),
+				'type'    => 'select',
+				'options' => self::get_kb_styles(),
+				'default' => 'classic',
+			),
 			'columns'        => array(
 				'id'      => 'columns',
 				'name'    => esc_html__( 'Number of columns', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Set number of columns to display the knowledge base archives. This is only works if the above option is selected.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Set number of columns to display the knowledge base archives. Works with all styles except Legacy.', 'knowledgebase' ),
 				'type'    => 'number',
 				'options' => '2',
 				'size'    => 'small',
@@ -626,9 +634,37 @@ class Settings {
 	}
 
 	/**
+	 * Get available KB styles.
+	 *
+	 * Returns free styles by default. Pro and other extensions can add their styles via filter.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array Array of style options.
+	 */
+	public static function get_kb_styles() {
+		// Free styles only.
+		$styles = array(
+			'legacy'  => esc_html__( 'Legacy', 'knowledgebase' ),
+			'classic' => esc_html__( 'Classic', 'knowledgebase' ),
+		);
+
+		/**
+		 * Filter available KB styles.
+		 *
+		 * Allows Pro or other extensions to add their styles to the dropdown.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $styles Array of style options (key => label).
+		 */
+		return apply_filters( 'wzkb_kb_styles', $styles );
+	}
+
+	/**
 	 * Adding WordPress plugin action links.
 	 *
-	 * @since 2.3.0
+	 * @since 3.0.0
 	 *
 	 * @param array $links Array of links.
 	 * @return array
@@ -646,7 +682,7 @@ class Settings {
 	/**
 	 * Add meta links on Plugins page.
 	 *
-	 * @since 2.3.0
+	 * @since 3.0.0
 	 *
 	 * @param array  $links Array of Links.
 	 * @param string $file Current file.

@@ -8,7 +8,7 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 
-__Requires:__ 6.3
+__Requires:__ 6.6
 
 __Tested up to:__ 6.8
 

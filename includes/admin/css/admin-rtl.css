@@ -6,12 +6,12 @@ a.wzkb_button {
 	text-shadow: none;
 	border-radius: 3px;
 	transition: all 0.3s ease 0s;
-	margin-right: 10px;
+	margin-left: 10px;
 	display: inline-block;
 }
 
 a.wzkb_button:hover {
-	box-shadow: 3px 3px 10px #666;
+	box-shadow: -3px 3px 10px #666;
 }
 
 a.wzkb_button.wzkb_button_green {

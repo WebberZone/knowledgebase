@@ -42,6 +42,12 @@ class Breadcrumbs {
 	 * @return \WP_Term|false
 	 */
 	private static function get_product_for_context() {
+		if ( is_tax( 'wzkb_product' ) ) {
+			$product = get_queried_object();
+			if ( $product ) {
+				return $product;
+			}
+		}
 		if ( is_tax( 'wzkb_category' ) || is_tax( 'wzkb_tag' ) ) {
 			$tax = get_queried_object();
 			if ( $tax && isset( $tax->term_id ) ) {
@@ -100,7 +106,8 @@ class Breadcrumbs {
 		! is_post_type_archive( 'wz_knowledgebase' ) &&
 		! is_singular( 'wz_knowledgebase' ) &&
 		! is_tax( 'wzkb_category' ) &&
-		! is_tax( 'wzkb_tag' )
+		! is_tax( 'wzkb_tag' ) &&
+		! is_tax( 'wzkb_product' )
 		) {
 			return '';
 		}
@@ -140,6 +147,17 @@ class Breadcrumbs {
 				$items[] = $item;
 				++$position;
 			}
+		}
+
+		if ( is_tax( 'wzkb_product' ) ) {
+			$product = get_queried_object();
+			$items[] = array(
+				'url'      => get_term_link( $product ),
+				'label'    => esc_html( $product->name ),
+				'position' => $position,
+				'current'  => true,
+			);
+			++$position;
 		}
 
 		if ( is_singular( 'wz_knowledgebase' ) ) {
