@@ -37,13 +37,28 @@ class CPT {
 	 * @since 2.3.0
 	 */
 	public static function register_post_type() {
-		$slug     = sanitize_title( \wzkb_get_option( 'kb_slug', 'knowledgebase' ) );
+		// Sanitize KB slug (remove placeholders, preserve slashes).
+		$slug              = self::sanitize_slug( \wzkb_get_option( 'kb_slug', 'knowledgebase' ) );
+		$article_structure = \wzkb_get_option( 'article_permalink', '' );
+
+		// If article permalink is set to just %postname%, don't use a slug prefix.
+		// This allows KB articles to use the same permalink structure as regular posts.
+		$use_slug_prefix = ! ( '%postname%' === $article_structure );
+
 		$archives = defined( 'WZKB_DISABLE_ARCHIVE' ) && WZKB_DISABLE_ARCHIVE ? false : $slug;
-		$rewrite  = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array(
-			'slug'       => $slug,
+
+		$rewrite = defined( 'WZKB_DISABLE_REWRITE' ) && WZKB_DISABLE_REWRITE ? false : array(
+			'slug'       => $use_slug_prefix ? $slug : 'wz_knowledgebase',
 			'with_front' => false,
 			'feeds'      => \wzkb_get_option( 'disable_kb_feed' ) ? false : true,
 		);
+
+		// If not using slug prefix, we'll add custom rewrite rules and filter permalinks.
+		// Only if Pro Custom Permalinks class is not active (Pro handles this itself).
+		if ( ! $use_slug_prefix && ! class_exists( 'WebberZone\Knowledge_Base\Pro\Custom_Permalinks' ) ) {
+			add_action( 'init', array( __CLASS__, 'add_root_level_rewrite_rules' ), 99 );
+			add_filter( 'post_type_link', array( __CLASS__, 'filter_root_level_permalink' ), 10, 2 );
+		}
 
 		$ptlabels = array(
 			'name'                  => _x( 'Knowledge Base', 'Post Type General Name', 'knowledgebase' ),
@@ -108,6 +123,29 @@ class CPT {
 		$ptargs = apply_filters( 'wzkb_post_type_args', $ptargs );
 
 		register_post_type( 'wz_knowledgebase', $ptargs );
+	}
+
+	/**
+	 * Sanitize slug while preserving slashes and optionally removing placeholders.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $slug                The slug to sanitize.
+	 * @param bool   $remove_placeholders Whether to remove placeholders. Default true.
+	 * @return string Sanitized slug.
+	 */
+	private static function sanitize_slug( string $slug, bool $remove_placeholders = true ): string {
+		// Remove any placeholders (e.g., %product_name%, %section_name%) if requested.
+		if ( $remove_placeholders ) {
+			$slug = preg_replace( '/%[^%]+%/', '', $slug );
+		}
+
+		// Split by slash, sanitize each part, then rejoin.
+		$parts = explode( '/', $slug );
+		$parts = array_map( 'sanitize_title', $parts );
+		$parts = array_filter( $parts ); // Remove empty parts.
+
+		return implode( '/', $parts );
 	}
 
 	/**
@@ -198,9 +236,10 @@ class CPT {
 	 */
 	public static function register_taxonomies() {
 		// Get taxonomy slugs from options.
-		$catslug     = sanitize_title( \wzkb_get_option( 'category_slug', 'kb/section' ) );
-		$tagslug     = sanitize_title( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
-		$productslug = sanitize_title( \wzkb_get_option( 'product_slug', 'kb/products' ) );
+		// Use custom sanitization that preserves slashes and removes placeholders.
+		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
+		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
+		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/products' ) );
 
 		// Register products taxonomy first.
 		$product_args           = self::get_taxonomy_base_args( $productslug, false );
@@ -246,5 +285,143 @@ class CPT {
 		$tag_args = apply_filters( 'wzkb_tag_args', $tag_args );
 
 		register_taxonomy( 'wzkb_tag', array( 'wz_knowledgebase' ), $tag_args );
+
+		// Add taxonomy rewrite rules with 'top' priority to ensure they match before post type rules.
+		add_action( 'init', array( __CLASS__, 'add_taxonomy_rewrite_rules' ), 20 );
+	}
+
+	/**
+	 * Filter KB article permalinks to remove the CPT slug when using %postname% structure.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string   $permalink The post's permalink.
+	 * @param \WP_Post $post      The post object.
+	 * @return string Filtered permalink.
+	 */
+	public static function filter_root_level_permalink( $permalink, $post ) {
+		// Only process KB articles.
+		if ( 'wz_knowledgebase' !== $post->post_type ) {
+			return $permalink;
+		}
+
+		// Remove the 'wz_knowledgebase/' prefix from the permalink.
+		$permalink = str_replace( '/wz_knowledgebase/', '/', $permalink );
+
+		return $permalink;
+	}
+
+	/**
+	 * Maybe query KB article if regular post isn't found.
+	 *
+	 * When using %postname% structure, WordPress will try to find a regular post first.
+	 * If not found, we check if there's a KB article with that slug.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Query $query The WP_Query instance.
+	 */
+	public static function maybe_query_kb_article( $query ) {
+		// Only on main query, not admin.
+		if ( ! $query->is_main_query() || is_admin() ) {
+			return;
+		}
+
+		// Get the post slug from query vars.
+		$post_name = $query->get( 'postname' );
+		if ( empty( $post_name ) ) {
+			$post_name = $query->get( 'name' );
+		}
+
+		// If no post name, nothing to check.
+		if ( empty( $post_name ) ) {
+			return;
+		}
+
+		// If it's already querying a specific post type, don't interfere.
+		$post_type = $query->get( 'post_type' );
+		if ( ! empty( $post_type ) && 'post' !== $post_type ) {
+			return;
+		}
+
+		// Check if there's a regular post with this slug first.
+		$regular_post = get_posts(
+			array(
+				'name'           => $post_name,
+				'post_type'      => 'post',
+				'post_status'    => 'publish',
+				'posts_per_page' => 1,
+			)
+		);
+
+		// If a regular post exists, let WordPress handle it.
+		if ( ! empty( $regular_post ) ) {
+			return;
+		}
+
+		// No regular post found, check if there's a KB article with this slug.
+		$kb_post = get_posts(
+			array(
+				'name'           => $post_name,
+				'post_type'      => 'wz_knowledgebase',
+				'post_status'    => 'publish',
+				'posts_per_page' => 1,
+			)
+		);
+
+		// If a KB article exists, modify the query to fetch it instead.
+		if ( ! empty( $kb_post ) ) {
+			$query->set( 'post_type', 'wz_knowledgebase' );
+			$query->set( 'name', $post_name );
+		}
+	}
+
+	/**
+	 * Add root-level rewrite rules for KB articles when using %postname% structure.
+	 *
+	 * This allows KB articles to use the same permalink structure as regular posts.
+	 * Note: These rules are added but WordPress will try regular posts first, then fall back to KB articles.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function add_root_level_rewrite_rules() {
+		// We don't actually need custom rewrite rules because WordPress's default post rules
+		// will handle the URL matching. We just need to hook into the query to check for KB articles
+		// when a regular post isn't found. Use parse_query which runs before WordPress sets p=0.
+		add_action( 'parse_query', array( __CLASS__, 'maybe_query_kb_article' ), 1 );
+	}
+
+	/**
+	 * Add taxonomy rewrite rules with top priority.
+	 *
+	 * This ensures taxonomy archive URLs are matched before post type attachment rules.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function add_taxonomy_rewrite_rules() {
+		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/products' ) );
+		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
+		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
+
+		// Add product taxonomy rules.
+		add_rewrite_rule(
+			'^' . preg_quote( $productslug, '/' ) . '/([^/]+)/?$',
+			'index.php?wzkb_product=$matches[1]',
+			'top'
+		);
+
+		// Add section taxonomy rules (hierarchical).
+		add_rewrite_rule(
+			'^' . preg_quote( $catslug, '/' ) . '/(.+?)/?$',
+			'index.php?wzkb_category=$matches[1]',
+			'top'
+		);
+
+		// Add tag taxonomy rules.
+		add_rewrite_rule(
+			'^' . preg_quote( $tagslug, '/' ) . '/([^/]+)/?$',
+			'index.php?wzkb_tag=$matches[1]',
+			'top'
+		);
 	}
 }
