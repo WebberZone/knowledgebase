@@ -283,6 +283,7 @@ class Settings {
 			'general' => __( 'General', 'knowledgebase' ),
 			'output'  => __( 'Output', 'knowledgebase' ),
 			'styles'  => __( 'Styles', 'knowledgebase' ),
+			'pro'     => __( 'Pro', 'knowledgebase' ),
 		);
 
 		/**
@@ -579,6 +580,7 @@ class Settings {
 		return apply_filters( self::$prefix . '_settings_output', $settings );
 	}
 
+
 	/**
 	 * Retrieve the array of Styles settings
 	 *
@@ -631,6 +633,192 @@ class Settings {
 		 * @param array $settings Styles settings array
 		 */
 		return apply_filters( self::$prefix . '_settings_styles', $settings );
+	}
+
+	/**
+	 * Retrieve the array of Pro settings
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array Pro settings array
+	 */
+	public static function settings_pro() {
+		$settings = array(
+			'rating_header'             => array(
+				'id'   => 'rating_header',
+				'name' => '<h3>' . esc_html__( 'Article Rating', 'knowledgebase' ) . '</h3>',
+				'desc' => '',
+				'type' => 'header',
+			),
+			'rating_system'             => array(
+				'id'      => 'rating_system',
+				'name'    => esc_html__( 'Enable Rating System', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Allow visitors to rate the quality of knowledge base articles.', 'knowledgebase' ),
+				'type'    => 'select',
+				'default' => 'disabled',
+				'options' => array(
+					'disabled' => esc_html__( 'Disabled', 'knowledgebase' ),
+					'binary'   => esc_html__( 'Useful / Not Useful', 'knowledgebase' ),
+					'scale'    => esc_html__( '1-5 Star Rating', 'knowledgebase' ),
+				),
+				'pro'     => true,
+			),
+			'rating_tracking_method'    => array(
+				'id'      => 'rating_tracking_method',
+				'name'    => esc_html__( 'Vote Tracking Method', 'knowledgebase' ),
+				/* translators: %s: URL to rating system documentation */
+				'desc'    => sprintf(
+					/* translators: %1$s: Opening link tag, %2$s: Closing link tag. */
+					esc_html__( 'Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s.', 'knowledgebase' ),
+					'<a href="https://webberzone.com/support/knowledgebase/rating-system/" target="_blank" rel="noopener noreferrer">',
+					'</a>'
+				),
+				'type'    => 'select',
+				'default' => 'cookie',
+				'options' => array(
+					'none'           => esc_html__( 'No Tracking (allows multiple votes)', 'knowledgebase' ),
+					'cookie'         => esc_html__( 'Cookie Only (requires consent)', 'knowledgebase' ),
+					'ip'             => esc_html__( 'IP Address Only (stores personal data)', 'knowledgebase' ),
+					'cookie_ip'      => esc_html__( 'Cookie + IP Address (requires both)', 'knowledgebase' ),
+					'logged_in_only' => esc_html__( 'Logged-in Users Only (best for authenticated sites)', 'knowledgebase' ),
+				),
+				'pro'     => true,
+			),
+			'show_rating_stats'         => array(
+				'id'      => 'show_rating_stats',
+				'name'    => esc_html__( 'Show Rating Statistics', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display the average rating and vote count below the rating buttons.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'options' => true,
+				'pro'     => true,
+			),
+			'beacon_header'             => array(
+				'id'   => 'beacon_header',
+				'name' => '<h3>' . esc_html__( 'Beacon Help Widget', 'knowledgebase' ) . '</h3>',
+				'desc' => esc_html__( 'A floating help widget that provides self-service support with search, suggested articles, and contact form.', 'knowledgebase' ),
+				'type' => 'header',
+			),
+			'beacon_enabled'            => array(
+				'id'      => 'beacon_enabled',
+				'name'    => esc_html__( 'Enable Beacon', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display a floating help widget on your site for self-service support.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+			'beacon_display_location'   => array(
+				'id'      => 'beacon_display_location',
+				'name'    => esc_html__( 'Display Location', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose where the beacon appears on your site.', 'knowledgebase' ),
+				'type'    => 'select',
+				'default' => 'kb_only',
+				'options' => array(
+					'kb_only'   => esc_html__( 'Knowledge Base Only', 'knowledgebase' ),
+					'sitewide'  => esc_html__( 'Entire Site', 'knowledgebase' ),
+				),
+				'pro'     => true,
+			),
+			'beacon_position'           => array(
+				'id'      => 'beacon_position',
+				'name'    => esc_html__( 'Button Position', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose where the beacon button appears on the screen.', 'knowledgebase' ),
+				'type'    => 'select',
+				'default' => 'right',
+				'options' => array(
+					'right' => esc_html__( 'Bottom Right', 'knowledgebase' ),
+					'left'  => esc_html__( 'Bottom Left', 'knowledgebase' ),
+				),
+				'pro'     => true,
+			),
+			'beacon_button_style'       => array(
+				'id'      => 'beacon_button_style',
+				'name'    => esc_html__( 'Button Style', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose how the beacon button is displayed.', 'knowledgebase' ),
+				'type'    => 'select',
+				'default' => 'icon',
+				'options' => array(
+					'icon'          => esc_html__( 'Icon Only', 'knowledgebase' ),
+					'text'          => esc_html__( 'Text Only', 'knowledgebase' ),
+					'icon_and_text' => esc_html__( 'Icon and Text', 'knowledgebase' ),
+				),
+				'pro'     => true,
+			),
+			'beacon_button_text'        => array(
+				'id'          => 'beacon_button_text',
+				'name'        => esc_html__( 'Button Text', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Text to display on the beacon button (when text style is selected).', 'knowledgebase' ),
+				'type'        => 'text',
+				'default'     => __( 'Help', 'knowledgebase' ),
+				'field_class' => 'regular-text',
+			),
+			'beacon_color'              => array(
+				'id'          => 'beacon_color',
+				'name'        => esc_html__( 'Beacon Color', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Primary color for the beacon button and interface elements.', 'knowledgebase' ),
+				'type'        => 'color',
+				'default'     => '#617DEC',
+				'field_class' => 'color-field',
+				'pro'         => true,
+			),
+			'beacon_greeting'           => array(
+				'id'          => 'beacon_greeting',
+				'name'        => esc_html__( 'Greeting Message', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Welcome message shown when the beacon opens.', 'knowledgebase' ),
+				'type'        => 'text',
+				'default'     => __( 'Hi! How can we help you?', 'knowledgebase' ),
+				'field_class' => 'large-text',
+			),
+			'beacon_search_placeholder' => array(
+				'id'          => 'beacon_search_placeholder',
+				'name'        => esc_html__( 'Search Placeholder', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Placeholder text for the search input field.', 'knowledgebase' ),
+				'type'        => 'text',
+				'default'     => __( 'Search for answers...', 'knowledgebase' ),
+				'field_class' => 'large-text',
+			),
+			'beacon_contact_enabled'    => array(
+				'id'      => 'beacon_contact_enabled',
+				'name'    => esc_html__( 'Enable Contact Form', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Allow visitors to send messages through the beacon.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'beacon_contact_email'      => array(
+				'id'          => 'beacon_contact_email',
+				'name'        => esc_html__( 'Contact Email', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Email address where beacon contact form submissions will be sent.', 'knowledgebase' ),
+				'type'        => 'text',
+				'default'     => get_option( 'admin_email' ),
+				'field_class' => 'regular-text',
+				'pro'         => true,
+			),
+			'beacon_show_on_mobile'     => array(
+				'id'      => 'beacon_show_on_mobile',
+				'name'    => esc_html__( 'Show on Mobile', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display the beacon on mobile devices.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'beacon_enable_animation'   => array(
+				'id'      => 'beacon_enable_animation',
+				'name'    => esc_html__( 'Enable Animations', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enable smooth animations and transitions for the beacon.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+		);
+
+		/**
+		 * Filters the Pro settings array
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $settings Pro Settings array
+		 */
+		return apply_filters( self::$prefix . '_settings_pro', $settings );
 	}
 
 	/**

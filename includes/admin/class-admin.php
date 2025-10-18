@@ -89,6 +89,15 @@ class Admin {
 	public $section_product_meta;
 
 	/**
+	 * Tools Page class.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var object Tools Page class.
+	 */
+	public $tools_page;
+
+	/**
 	 * Main constructor class.
 	 *
 	 * @since 2.3.0
@@ -104,6 +113,7 @@ class Admin {
 		$this->section_product_meta = new Section_Product_Meta();
 		$this->product_migrator     = new Product_Migrator();
 		$this->setup_wizard         = new Setup_Wizard();
+		$this->tools_page           = new Tools_Page();
 	}
 
 	/**

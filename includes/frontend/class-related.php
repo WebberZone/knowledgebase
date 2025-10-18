@@ -31,9 +31,9 @@ class Related {
 	}
 
 	/**
-	 * Get related knowledge base articles.
+	 * Get related articles query.
 	 *
-	 * @since 2.3.0
+	 * @since 3.0.0
 	 *
 	 * @param array $args {
 	 *     Optional. Array of parameters.
@@ -41,22 +41,14 @@ class Related {
 	 *     @type int          $numberposts Total number of posts to retrieve. Is an alias of $posts_per_page in WP_Query. Accepts -1 for all. Default 5.
 	 *     @type WP_Post      $post        Post ID or WP_Post object. Default current post.
 	 *     @type string|int[] $exclude     Post IDs to exclude. Can be in CSV format or an array.
-	 *     @type bool         $show_thumb  Show thumbnail?
-	 *     @type bool         $show_date   Show date?
-	 *     @type string       $title       Title of the related articles. Default is Related Articles wrapped in an H3 header tag.
-	 *     @type string       $thumb_size  Thumbnail size.
 	 * }
-	 * @return string Related knowledge base articles.
+	 * @return \WP_Query Related articles query object.
 	 */
-	public static function get_related_articles( $args = array() ) {
+	public static function get_related_articles_query( $args = array() ) {
 		$defaults = array(
 			'numberposts' => 5,
 			'post'        => get_post(),
 			'exclude'     => array(),
-			'show_thumb'  => true,
-			'show_date'   => true,
-			'title'       => '<h3>' . __( 'Related Articles', 'knowledgebase' ) . '</h3>',
-			'thumb_size'  => 'thumbnail',
 		);
 
 		// Parse incomming $args into an array and merge it with $defaults.
@@ -117,7 +109,42 @@ class Related {
 		 */
 		$related_args = apply_filters( 'wzkb_related_articles_query_args', $related_args, $args );
 
-		$query = new \WP_Query( $related_args );
+		return new \WP_Query( $related_args );
+	}
+
+	/**
+	 * Get related knowledge base articles.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $args {
+	 *     Optional. Array of parameters.
+	 *
+	 *     @type int          $numberposts Total number of posts to retrieve. Is an alias of $posts_per_page in WP_Query. Accepts -1 for all. Default 5.
+	 *     @type WP_Post      $post        Post ID or WP_Post object. Default current post.
+	 *     @type string|int[] $exclude     Post IDs to exclude. Can be in CSV format or an array.
+	 *     @type bool         $show_thumb  Show thumbnail?
+	 *     @type bool         $show_date   Show date?
+	 *     @type string       $title       Title of the related articles. Default is Related Articles wrapped in an H3 header tag.
+	 *     @type string       $thumb_size  Thumbnail size.
+	 * }
+	 * @return string Related knowledge base articles.
+	 */
+	public static function get_related_articles( $args = array() ) {
+		$defaults = array(
+			'numberposts' => 5,
+			'post'        => get_post(),
+			'exclude'     => array(),
+			'show_thumb'  => true,
+			'show_date'   => true,
+			'title'       => '<h3>' . __( 'Related Articles', 'knowledgebase' ) . '</h3>',
+			'thumb_size'  => 'thumbnail',
+		);
+
+		// Parse incomming $args into an array and merge it with $defaults.
+		$args = wp_parse_args( $args, $defaults );
+
+		$query = self::get_related_articles_query( $args );
 
 		$output = '';
 
@@ -146,6 +173,8 @@ class Related {
 			}
 
 			$output .= '</ul></div>';
+
+			wp_reset_postdata();
 		}
 
 		return $output;

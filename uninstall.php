@@ -62,6 +62,9 @@ function wzkb_delete_data() {
 		wzkb_delete_taxonomy( 'wzkb_category' );
 		wzkb_delete_taxonomy( 'wzkb_tag' );
 		wzkb_delete_taxonomy( 'wzkb_product' );
+
+		// Delete rating data.
+		wzkb_delete_rating_data();
 	}
 
 	// Delete the cache.
@@ -106,4 +109,41 @@ function wzkb_delete_cache() {
 	";
 
 	$wpdb->query( $sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+}
+
+/**
+ * Delete Rating Data.
+ *
+ * Removes all rating-related post meta from the database.
+ *
+ * @since 3.0.0
+ */
+function wzkb_delete_rating_data() {
+	global $wpdb;
+
+	// Array of rating meta keys to delete.
+	$rating_meta_keys = array(
+		'_wzkb_rating_total',
+		'_wzkb_rating_sum',
+		'_wzkb_rating_positive',
+		'_wzkb_ratings',
+		'_wzkb_rating_ips',
+		'_wzkb_rating_user_ids',
+		'_wzkb_rating_feedback',
+	);
+
+	// Delete all rating meta for each key.
+	foreach ( $rating_meta_keys as $meta_key ) {
+		 //phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s",
+				$meta_key
+			)
+		);
+	}
+
+	// Delete rating cache.
+	wp_cache_delete( 'wzkb_rating_global_mean_binary', 'wzkb_rating' );
+	wp_cache_delete( 'wzkb_rating_global_mean_scale', 'wzkb_rating' );
 }
