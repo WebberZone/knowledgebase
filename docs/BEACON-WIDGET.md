@@ -1,6 +1,6 @@
 # Beacon Help Widget
 
-The Beacon is a floating help widget inspired by HelpScout's Beacon that provides self-service support with search, suggested articles, and a contact form.
+The Beacon is a floating help widget that provides self-service support with search, suggested articles, and a contact form.
 
 ## Features
 
@@ -10,6 +10,7 @@ The Beacon is a floating help widget inspired by HelpScout's Beacon that provide
 - **Self-Service Search** - Search knowledge base articles with debounced AJAX search (500ms)
 - **Smart Suggested Articles** - Context-aware articles using Related class for KB posts, recent articles elsewhere
 - **Contact Form** - HTML email contact with beautiful template when articles don't help
+- **Built-in Spam Protection** - Honeypot field plus anonymous rate limiting without storing IPs
 - **Stacked Navigation** - Mobile-app-style layered interface for smooth UX
 - **Responsive Design** - Works beautifully on desktop, tablet, and mobile devices
 - **Fixed Search Box** - Search box locked at bottom using CSS Grid for optimal UX
@@ -359,6 +360,7 @@ Add custom styles to override defaults:
 - Output escaping (esc_html, esc_attr, esc_url)
 - Email validation
 - XSS prevention in JavaScript
+- Honeypot field on the contact form and token-based rate limiting (no IP storage)
 
 ### Performance
 
