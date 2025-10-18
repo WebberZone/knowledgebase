@@ -4,6 +4,16 @@ This directory contains developer documentation for the Knowledge Base plugin.
 
 ## Available Documentation
 
+### Rating System Documentation
+
+- **[RATING-SYSTEM.md](RATING-SYSTEM.md)** - Complete documentation for the Pro rating system
+  - Configuration options and tracking methods
+  - GDPR compliance guidance
+  - Frontend display and customization
+  - Admin features and Bayesian sorting
+  - Security features and performance
+  - Privacy policy templates
+
 ### Styles Architecture Release Notes
 
 - **[STYLES-ARCHITECTURE-RELEASE.md](STYLES-ARCHITECTURE-RELEASE.md)** - Complete release notes for v2.3.0 styles architecture overhaul

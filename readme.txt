@@ -33,6 +33,10 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 🧩 Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
 ⚡ Built-in Caching — Speed up your Knowledge Base without extra plugins.
 
+### Pro features
+
+⭐ Article Rating System — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+
 ### Key Concepts
 
 * __Articles:__ Custom post type `wz_knowledgebase` — your FAQs, how-to guides, and documentation.
@@ -137,6 +141,10 @@ Fixed security issue where Knowledge Base slug in settings was not sanitized.
 	* New Product widget to display the Sections for a specific Product.
 	* (Pro) Custom Permalinks for Products, Sections, Tags and Articles.
 	* (Pro) Added Clear cache button and Cache expiry option in the settings page.
+	* (Pro) Article Rating System with:
+		* Binary or 5-star voting modes and optional feedback collection.
+		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
+		* Email alerts, per-article reset tools, feedback storage, and Bayesian average sorting for admin lists.
 
 * Modifications:
 	* Standardized CSS class names to use consistent hyphenation (e.g., `wzkb_section` is now `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.

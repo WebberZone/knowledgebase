@@ -1,7 +1,12 @@
 const { execSync } = require( 'child_process' );
 const { readdirSync, statSync, readFileSync, writeFileSync, existsSync, unlinkSync } = require( 'fs' );
-const { join, dirname } = require( 'path' );
+const { join, dirname, resolve, extname } = require( 'path' );
 const { mkdirSync } = require( 'fs' );
+
+// Parse command line arguments.
+const args = process.argv.slice( 2 );
+const specificFiles = args.filter( arg => ! arg.startsWith( '--' ) );
+const processSpecificFiles = specificFiles.length > 0;
 
 /**
  * Configuration for asset processing.
@@ -255,8 +260,22 @@ function combineFiles( outputFile, inputFiles, isJs = false ) {
 	}
 }
 
+// Display usage information if specific files are being processed.
+if ( processSpecificFiles ) {
+	console.log( '==================================' );
+	console.log( 'Processing specific files:' );
+	specificFiles.forEach( file => console.log( `  - ${file}` ) );
+	console.log( '==================================' );
+} else {
+	console.log( '==================================' );
+	console.log( 'Processing all assets in project' );
+	console.log( 'Tip: Pass specific files to process only those:' );
+	console.log( '  node build-assets.js path/to/file.js path/to/file.css' );
+	console.log( '==================================' );
+}
+
 // Step 1: Combine CSS files.
-console.log( '=== Combining CSS Files ===' );
+console.log( '\n=== Combining CSS Files ===' );
 Object.entries( config.combineCss ).forEach( ( [output, inputs] ) => {
 	combineFiles( output, inputs, false );
 } );
@@ -279,22 +298,41 @@ const combinedOutputFiles = [
 ];
 
 // Step 4: Find all CSS and JS files.
-// Note: This includes .min files to allow re-minification of existing minified files.
-const allCssFiles = findFiles( '.', '.css' );
-const allJsFiles = findFiles( '.', '.js' );
+let allCssFiles = [];
+let allJsFiles = [];
+
+if ( processSpecificFiles ) {
+	console.log( '\n=== Processing Specific Files ===' );
+	specificFiles.forEach( file => {
+		const resolvedPath = resolve( file );
+		const ext = extname( file );
+		if ( existsSync( resolvedPath ) ) {
+			if ( ext === '.css' ) {
+				allCssFiles.push( file );
+				console.log( `  ✓ Found CSS: ${file}` );
+			} else if ( ext === '.js' ) {
+				allJsFiles.push( file );
+				console.log( `  ✓ Found JS: ${file}` );
+			} else {
+				console.log( `  ✗ Skipped (not CSS/JS): ${file}` );
+			}
+		} else {
+			console.log( `  ✗ File not found: ${file}` );
+		}
+	} );
+} else {
+	allCssFiles = findFiles( '.', '.css' );
+	allJsFiles = findFiles( '.', '.js' );
+}
 
 // Filter out source files used in combinations.
-// Also filter out .min and combined output files based on config.
 const cssFilesToMinify = allCssFiles.filter( ( file ) => {
-	// Skip source files that are part of combinations.
 	if ( combinedSourceFiles.includes( file ) ) {
 		return false;
 	}
-	// Skip already-minified files (we don't want to minify .min.css again).
 	if ( file.endsWith( '.min.css' ) ) {
 		return false;
 	}
-	// Skip combined output files if not creating minified versions.
 	if ( ! config.createMinifiedCombinedFiles && combinedOutputFiles.includes( file ) ) {
 		return false;
 	}
@@ -302,15 +340,12 @@ const cssFilesToMinify = allCssFiles.filter( ( file ) => {
 } );
 
 const jsFilesToMinify = allJsFiles.filter( ( file ) => {
-	// Skip source files that are part of combinations.
 	if ( combinedSourceFiles.includes( file ) ) {
 		return false;
 	}
-	// Skip already-minified files (we don't want to minify .min.js again).
 	if ( file.endsWith( '.min.js' ) ) {
 		return false;
 	}
-	// Skip combined output files if not creating minified versions.
 	if ( ! config.createMinifiedCombinedFiles && combinedOutputFiles.includes( file ) ) {
 		return false;
 	}
@@ -336,9 +371,13 @@ jsFilesToMinify.forEach( ( file ) => {
 	minifyJs( file, minFile );
 } );
 
-// Step 7: Generate RTL versions for all CSS files (including minified and combined).
+// Step 7: Generate RTL versions for CSS files.
 console.log( '\n=== Generating RTL CSS ===' );
 const cssFilesForRtl = allCssFiles.filter( ( file ) => ! file.includes( '-rtl.' ) && ! file.endsWith( '-rtl.css' ) );
+
+if ( processSpecificFiles && cssFilesForRtl.length === 0 ) {
+	console.log( '  No CSS files to process for RTL.' );
+}
 
 const rtlFilesGenerated = [];
 cssFilesForRtl.forEach( ( file ) => {

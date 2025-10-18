@@ -40,6 +40,10 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 🧩 Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
 ⚡ Built-in Caching — Speed up your Knowledge Base without extra plugins.
 
+### Pro features
+
+⭐ Article Rating System — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+
 ### Key Concepts
 
 * __Articles:__ Custom post type `wz_knowledgebase` — your FAQs, how-to guides, and documentation.

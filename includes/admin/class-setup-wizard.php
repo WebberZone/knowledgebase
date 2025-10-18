@@ -79,6 +79,11 @@ class Setup_Wizard {
 				'view'    => array( $this, 'display_step' ),
 				'handler' => array( $this, 'display_save' ),
 			),
+			'pro_features'  => array(
+				'name'    => esc_html__( 'Pro Features', 'knowledgebase' ),
+				'view'    => array( $this, 'pro_features_step' ),
+				'handler' => array( $this, 'pro_features_save' ),
+			),
 			'complete'      => array(
 				'name'    => esc_html__( 'Ready!', 'knowledgebase' ),
 				'view'    => array( $this, 'complete_step' ),
@@ -189,9 +194,27 @@ class Setup_Wizard {
 				$is_completed = array_search( $this->current_step, array_keys( $this->steps ), true ) > array_search( $step_key, array_keys( $this->steps ), true );
 				$aria_current = $step_key === $this->current_step ? ' aria-current="step"' : '';
 				$class        = $step_key === $this->current_step ? 'active' : ( $is_completed ? 'done' : '' );
+
+				// Generate step URL for completed steps (allow jumping back).
+				$step_url = '';
+				if ( $is_completed ) {
+					$step_url = add_query_arg(
+						array(
+							'step'       => $step_key,
+							'wzkb_nonce' => wp_create_nonce( 'wzkb-setup' ),
+						),
+						remove_query_arg( 'activate_error' )
+					);
+				}
 				?>
 				<li class="<?php echo esc_attr( $class ); ?>"<?php echo $aria_current; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-					<?php echo esc_html( $step['name'] ); ?>
+					<?php if ( $is_completed && $step_url ) : ?>
+						<a href="<?php echo esc_url( $step_url ); ?>" title="<?php echo esc_attr( sprintf( __( 'Return to %s', 'knowledgebase' ), $step['name'] ) ); ?>">
+							<?php echo esc_html( $step['name'] ); ?>
+						</a>
+					<?php else : ?>
+						<?php echo esc_html( $step['name'] ); ?>
+					<?php endif; ?>
 				</li>
 				<?php
 			}
@@ -433,6 +456,16 @@ class Setup_Wizard {
 						<p class="description wzkb-url-desc"><?php esc_html_e( 'URL slug for tag archives. Articles can have multiple tags for cross-categorization.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th scope="row"><label for="article_permalink"><?php esc_html_e( 'Article Permalink Structure', 'knowledgebase' ); ?></label></th>
+					<td>
+						<div class="wzkb-url-prefix-row">
+							<span class="wzkb-url-prefix-text"><?php echo esc_html( home_url( '/' ) ); ?></span>
+							<input type="text" id="article_permalink" name="article_permalink" value="<?php echo esc_attr( $settings['article_permalink'] ?? '%postname%' ); ?>" class="regular-text wzkb-url-slug-input" />
+						</div>
+						<p class="description wzkb-url-desc"><?php esc_html_e( 'Structure for article URLs. Use %postname% for simple URLs.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
 			</table>
 			<p class="wzkb-setup-actions step">
 				<?php wp_nonce_field( 'wzkb-setup' ); ?>
@@ -454,10 +487,11 @@ class Setup_Wizard {
 		check_admin_referer( 'wzkb-setup' );
 		// Robust text save pattern for permalinks.
 		$partial = array(
-			'kb_slug'       => isset( $_POST['kb_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['kb_slug'] ) ) : 'knowledgebase',
-			'product_slug'  => isset( $_POST['product_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['product_slug'] ) ) : 'kb/product',
-			'category_slug' => isset( $_POST['category_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['category_slug'] ) ) : 'kb/section',
-			'tag_slug'      => isset( $_POST['tag_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['tag_slug'] ) ) : 'kb/tags',
+			'kb_slug'           => isset( $_POST['kb_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['kb_slug'] ) ) : 'knowledgebase',
+			'product_slug'      => isset( $_POST['product_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['product_slug'] ) ) : 'kb/product',
+			'category_slug'     => isset( $_POST['category_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['category_slug'] ) ) : 'kb/section',
+			'tag_slug'          => isset( $_POST['tag_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['tag_slug'] ) ) : 'kb/tags',
+			'article_permalink' => isset( $_POST['article_permalink'] ) ? sanitize_text_field( wp_unslash( $_POST['article_permalink'] ) ) : '%postname%',
 		);
 		$updated = wzkb_update_settings( $partial );
 		if ( $updated ) {
@@ -631,6 +665,155 @@ class Setup_Wizard {
 			add_settings_error( 'wzkb_setup', 'display_saved', esc_html__( 'Display settings saved successfully.', 'knowledgebase' ), 'success' );
 		} else {
 			add_settings_error( 'wzkb_setup', 'display_save_failed', esc_html__( 'Failed to save display settings.', 'knowledgebase' ), 'error' );
+		}
+		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
+		exit;
+	}
+
+	/**
+	 * Pro Features step.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function pro_features_step() {
+		$settings          = \wzkb_get_settings();
+		$rating_system     = $settings['rating_system'] ?? 'disabled';
+		$tracking_method   = $settings['rating_tracking_method'] ?? 'cookie';
+		$show_rating_stats = $settings['show_rating_stats'] ?? 1;
+		$is_pro            = class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' );
+		?>
+		<h1><?php esc_html_e( 'Pro Features', 'knowledgebase' ); ?></h1>
+		<?php if ( ! $is_pro ) : ?>
+			<div class="wzkb-setup-pro-preview">
+				<p class="wzkb-setup-pro-notice">
+					<span class="dashicons dashicons-star-filled"></span>
+					<strong><?php esc_html_e( 'Upgrade to Knowledge Base Pro to unlock these powerful features!', 'knowledgebase' ); ?></strong>
+				</p>
+				<p><?php esc_html_e( 'The following features are available in the Pro version. Upgrade now to enable them and boost your knowledge base effectiveness.', 'knowledgebase' ); ?></p>
+				<p>
+					<a href="https://webberzone.com/plugins/knowledgebase/pro/" target="_blank" class="button button-primary button-large">
+						<?php esc_html_e( 'Upgrade to Pro', 'knowledgebase' ); ?>
+					</a>
+				</p>
+			</div>
+		<?php else : ?>
+			<p><?php esc_html_e( 'Configure advanced Pro features for your knowledge base.', 'knowledgebase' ); ?></p>
+		<?php endif; ?>
+
+		<form method="post">
+			<h2><?php esc_html_e( 'Article Rating System', 'knowledgebase' ); ?></h2>
+			<table class="form-table">
+				<tr>
+					<th scope="row">
+						<label for="rating_system">
+							<?php esc_html_e( 'Enable Rating System', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
+					<td>
+						<select id="rating_system" name="rating_system" <?php disabled( ! $is_pro ); ?>>
+							<option value="disabled" <?php selected( $rating_system, 'disabled' ); ?>><?php esc_html_e( 'Disabled', 'knowledgebase' ); ?></option>
+							<option value="binary" <?php selected( $rating_system, 'binary' ); ?>><?php esc_html_e( 'Useful / Not Useful', 'knowledgebase' ); ?></option>
+							<option value="scale" <?php selected( $rating_system, 'scale' ); ?>><?php esc_html_e( '1-5 Star Rating', 'knowledgebase' ); ?></option>
+						</select>
+						<p class="description"><?php esc_html_e( 'Allow visitors to rate the quality of knowledge base articles.', 'knowledgebase' ); ?></p>
+						<?php if ( ! $is_pro ) : ?>
+							<p class="description wzkb-pro-feature-desc">
+								<?php esc_html_e( '✨ Collect valuable feedback with binary or 5-star ratings, optional follow-up questions, email alerts, and GDPR-compliant tracking.', 'knowledgebase' ); ?>
+							</p>
+						<?php endif; ?>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="rating_tracking_method">
+							<?php esc_html_e( 'Vote Tracking Method', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
+					<td>
+						<select id="rating_tracking_method" name="rating_tracking_method" <?php disabled( ! $is_pro ); ?>>
+							<option value="none" <?php selected( $tracking_method, 'none' ); ?>><?php esc_html_e( 'No Tracking (allows multiple votes)', 'knowledgebase' ); ?></option>
+							<option value="cookie" <?php selected( $tracking_method, 'cookie' ); ?>><?php esc_html_e( 'Cookie Only (requires consent)', 'knowledgebase' ); ?></option>
+							<option value="ip" <?php selected( $tracking_method, 'ip' ); ?>><?php esc_html_e( 'IP Address Only (stores personal data)', 'knowledgebase' ); ?></option>
+							<option value="cookie_ip" <?php selected( $tracking_method, 'cookie_ip' ); ?>><?php esc_html_e( 'Cookie + IP Address (requires both)', 'knowledgebase' ); ?></option>
+							<option value="logged_in_only" <?php selected( $tracking_method, 'logged_in_only' ); ?>><?php esc_html_e( 'Logged-in Users Only', 'knowledgebase' ); ?></option>
+						</select>
+						<p class="description">
+							<?php
+							printf(
+								/* translators: %1$s: Opening link tag, %2$s: Closing link tag. */
+								esc_html__( 'Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s.', 'knowledgebase' ),
+								'<a href="https://webberzone.com/support/knowledgebase/rating-system/" target="_blank" rel="noopener noreferrer">',
+								'</a>'
+							);
+							?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="show_rating_stats">
+							<?php esc_html_e( 'Show Rating Statistics', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
+					<td>
+						<input type="hidden" name="show_rating_stats" value="0" />
+						<input type="checkbox" id="show_rating_stats" name="show_rating_stats" value="1" <?php checked( $show_rating_stats, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
+						<p class="description"><?php esc_html_e( 'Display the average rating and vote count below the rating buttons.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+			</table>
+
+			<p class="wzkb-setup-actions step">
+				<?php wp_nonce_field( 'wzkb-setup' ); ?>
+				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
+				<?php if ( $is_pro ) : ?>
+					<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
+				<?php else : ?>
+					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button-primary button button-large button-next"><?php esc_html_e( 'Skip to Finish', 'knowledgebase' ); ?></a>
+				<?php endif; ?>
+			</p>
+		</form>
+		<?php
+	}
+
+	/**
+	 * Pro Features step save.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function pro_features_save() {
+		check_admin_referer( 'wzkb-setup' );
+
+		// Only save if Pro is active.
+		if ( ! class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) {
+			wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
+			exit;
+		}
+
+		$partial = array(
+			'rating_system'          => isset( $_POST['rating_system'] ) ? sanitize_text_field( wp_unslash( $_POST['rating_system'] ) ) : 'disabled',
+			'rating_tracking_method' => isset( $_POST['rating_tracking_method'] ) ? sanitize_text_field( wp_unslash( $_POST['rating_tracking_method'] ) ) : 'cookie',
+			'show_rating_stats'      => isset( $_POST['show_rating_stats'] ) ? 1 : 0,
+		);
+
+		$updated = wzkb_update_settings( $partial );
+		if ( $updated ) {
+			add_settings_error( 'wzkb_setup', 'pro_features_saved', esc_html__( 'Pro features settings saved successfully.', 'knowledgebase' ), 'success' );
+		} else {
+			add_settings_error( 'wzkb_setup', 'pro_features_save_failed', esc_html__( 'Failed to save pro features settings.', 'knowledgebase' ), 'error' );
 		}
 		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
 		exit;

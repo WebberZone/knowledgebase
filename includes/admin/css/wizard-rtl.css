@@ -45,6 +45,37 @@
 .wzkb-setup .wzkb-setup-steps li.done {
 	border-color: #2271b1;
 	color: #2271b1;
+	position: relative;
+}
+
+.wzkb-setup .wzkb-setup-steps li.done::before {
+	content: "\f147";
+	font-family: dashicons;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 16px;
+	color: #2271b1;
+}
+
+.wzkb-setup .wzkb-setup-steps li.done a {
+	color: #2271b1;
+	text-decoration: none;
+	display: block;
+	transition: all 0.2s ease;
+	padding-left: 30px;
+}
+
+.wzkb-setup .wzkb-setup-steps li.done a:hover {
+	color: #135e96;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.wzkb-setup .wzkb-setup-steps li.done a:focus {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+	border-radius: 2px;
 }
 
 .wzkb-setup .wzkb-setup-content {
@@ -217,4 +248,86 @@
 	width: 20px;
 	height: 20px;
 	flex-shrink: 0;
+}
+
+/* Pro Features Preview for Free Users */
+.wzkb-setup-pro-preview {
+	background: linear-gradient(-135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+	padding: 30px;
+	margin: 20px 0;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.wzkb-setup-pro-notice {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 1.2em;
+	margin: 0 0 15px;
+}
+
+.wzkb-setup-pro-notice .dashicons {
+	color: #ffd700;
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
+}
+
+.wzkb-setup-pro-preview p {
+	color: #fff;
+	margin: 10px 0;
+}
+
+.wzkb-setup-pro-preview .button {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.wzkb-setup-pro-preview .button-primary {
+	background: #ffd700;
+	border-color: #ffd700;
+	color: #000;
+	font-weight: 600;
+}
+
+.wzkb-setup-pro-preview .button-primary:hover {
+	background: #ffed4e;
+	border-color: #ffed4e;
+}
+
+/* Pro Badge */
+.wzkb-pro-badge {
+	display: inline-block;
+	background: linear-gradient(-135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+	padding: 2px 8px;
+	border-radius: 3px;
+	font-size: 0.75em;
+	font-weight: 600;
+	margin-right: 8px;
+	vertical-align: middle;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* Pro Feature Description */
+.wzkb-pro-feature-desc {
+	background: #f0f6ff;
+	border-right: 3px solid #667eea;
+	padding: 10px 15px;
+	margin-top: 10px !important;
+	border-radius: 3px;
+	font-style: italic;
+}
+
+/* Disabled Fields for Free Users */
+.wzkb-setup table td select:disabled,
+.wzkb-setup table td input:disabled {
+	background-color: #f6f7f7;
+	color: #a0a5aa;
+	cursor: not-allowed;
+	opacity: 0.6;
 }
