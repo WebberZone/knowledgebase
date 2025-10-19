@@ -11,6 +11,7 @@ The Beacon is a floating help widget that provides self-service support with sea
 - **Smart Suggested Articles** - Context-aware articles using Related class for KB posts, recent articles elsewhere
 - **Contact Form** - HTML email contact with beautiful template when articles don't help
 - **Built-in Spam Protection** - Honeypot field plus anonymous rate limiting without storing IPs
+- **Minimum Message Length** - Requires at least 30 characters before submitting (filterable)
 - **Stacked Navigation** - Mobile-app-style layered interface for smooth UX
 - **Responsive Design** - Works beautifully on desktop, tablet, and mobile devices
 - **Fixed Search Box** - Search box locked at bottom using CSS Grid for optimal UX
@@ -23,6 +24,7 @@ The Beacon is a floating help widget that provides self-service support with sea
 - **Smooth Animations** - Polished transitions and hover effects
 - **Accessibility** - Keyboard navigation, focus states, and ARIA labels
 - **Modern UI** - Clean, professional design with rounded corners and shadows
+- **Smart Color Palette** - Setup wizard derives hover/text/link colors from your primary brand color while keeping the panel background white for readability
 
 ## Configuration
 
@@ -38,6 +40,8 @@ Navigate to **Knowledge Base > Settings > Output** and scroll to the **Beacon He
 - **Button Text** - Custom text for the button (default: "Help")
 - **Beacon Color** - Primary color for button and UI elements (default: #617DEC)
 
+> **Setup Wizard Color Tips:** When using the setup wizard, choosing a primary color automatically generates a full palette (button hover, text, panel text, and link hover colors) with contrast-aware values. The panel background is intentionally kept white to maintain content readability.
+
 #### Content Settings
 
 - **Greeting Message** - Welcome message when beacon opens (default: "Hi! How can we help you?")
@@ -47,6 +51,7 @@ Navigate to **Knowledge Base > Settings > Output** and scroll to the **Beacon He
 
 - **Enable Contact Form** - Allow visitors to send messages
 - **Contact Email** - Email address for form submissions (default: admin email)
+- **Minimum Message Length** - Require visitors to enter at least 30 characters (default: 30, filterable)
 
 #### Display Options
 
@@ -222,6 +227,7 @@ add_filter( 'wzkb_beacon_labels', function( $labels ) {
 - `successMessage` - Success message after form submission
 - `errorMessage` - Error message
 - `requiredField` - Required field validation message
+- `messageTooShort` - Message length validation error
 
 ### Suggested Articles
 
@@ -360,7 +366,7 @@ Add custom styles to override defaults:
 - Output escaping (esc_html, esc_attr, esc_url)
 - Email validation
 - XSS prevention in JavaScript
-- Honeypot field on the contact form and token-based rate limiting (no IP storage)
+- Honeypot field on the contact form and token-based rate limiting (5 submissions/hour per token, no IP storage)
 
 ### Performance
 

@@ -118,6 +118,7 @@ class Media_Handler {
 		$postimage     = '';
 		$pick          = '';
 		$attachment_id = '';
+		$extracted_alt = '';
 
 		// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page.
 		$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
@@ -162,9 +163,10 @@ class Media_Handler {
 			 */
 			$post_content = apply_filters( self::$prefix . '_thumb_post_content', $result->post_content, $result );
 
-			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
+			preg_match_all( '/<img\s[^>]*src=[\'\"]([^\'\"]+)[\'\"][^>]*>/i', $post_content, $matches );
 			if ( isset( $matches[1][0] ) && $matches[1][0] ) {          // any image there?
-				$postimage = $matches[1][0]; // we need the first one only!
+				$postimage     = $matches[1][0]; // we need the first one only!
+				$extracted_alt = self::get_alt_from_img_tag( $matches[0][0] );
 			}
 			$pick = 'first';
 			if ( $postimage ) {
@@ -253,6 +255,10 @@ class Media_Handler {
 
 			if ( ! empty( $attachment_id ) && $use_image_alt ) {
 				$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+			}
+
+			if ( empty( $alt ) && $extracted_alt ) {
+				$alt = $extracted_alt;
 			}
 
 			// If empty alt then try to get the title of the attachment.
@@ -401,6 +407,25 @@ class Media_Handler {
 		 * @param array  $attr           Attributes for the image markup.
 		 */
 		return apply_filters( self::$prefix . '_get_image_html', $html, $attachment_url, $attr );
+	}
+
+	/**
+	 * Extract alt text from an image tag string.
+
+	 * @since 3.2.0
+	 *
+	 * @param string $img_tag Image tag HTML.
+	 * @return string Sanitized alt text or empty string if none found.
+	 */
+	private static function get_alt_from_img_tag( string $img_tag ): string {
+		if ( ! preg_match( '/\salt=(\"|\')(.*?)\1/i', $img_tag, $matches ) ) {
+			return '';
+		}
+
+		$alt = wp_specialchars_decode( $matches[2], ENT_QUOTES );
+		$alt = sanitize_text_field( $alt );
+
+		return $alt;
 	}
 
 

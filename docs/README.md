@@ -4,9 +4,13 @@ This directory contains developer documentation for the Knowledge Base plugin.
 
 ## Available Documentation
 
-### Rating System Documentation
+- **[BEACON-WIDGET.md](BEACON-WIDGET.md)**
+  - Feature overview and configuration
+  - Security, spam protection, and validation rules
+  - JavaScript API, events, and customization hooks
+  - Styling guidance and troubleshooting tips
 
-- **[RATING-SYSTEM.md](RATING-SYSTEM.md)** - Complete documentation for the Pro rating system
+- **[RATING-SYSTEM.md](RATING-SYSTEM.md)**
   - Configuration options and tracking methods
   - GDPR compliance guidance
   - Frontend display and customization
@@ -14,14 +18,10 @@ This directory contains developer documentation for the Knowledge Base plugin.
   - Security features and performance
   - Privacy policy templates
 
-### Styles Architecture Release Notes
-
-- **[STYLES-ARCHITECTURE-RELEASE.md](STYLES-ARCHITECTURE-RELEASE.md)** - Complete release notes for v2.3.0 styles architecture overhaul
-  - What changed and why
-  - Technical implementation details
-  - New developer filters
-  - Migration guide
-  - Benefits and future roadmap
+- **[STYLES-ARCHITECTURE-RELEASE.md](STYLES-ARCHITECTURE-RELEASE.md)**
+  - Complete release notes for v2.3.0 styles architecture overhaul
+  - Technical implementation details and new filters
+  - Migration guide, benefits, and roadmap
 
 ## For Plugin Users
 
