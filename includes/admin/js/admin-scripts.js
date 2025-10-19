@@ -15,16 +15,40 @@ jQuery(document).ready(
 				security: WZKBAdminData.security
 			}, function (response) {
 				if (response.success) {
-					alert(WZKBAdminData.strings.success_message);
+					// Use WordPress admin notice instead of alert().
+					showAdminNotice(WZKBAdminData.strings.success_message, 'success');
 				} else {
-					alert(WZKBAdminData.strings.fail_message);
+					showAdminNotice(WZKBAdminData.strings.fail_message, 'error');
 				}
 			}).fail(function (jqXHR, textStatus) {
-				alert(WZKBAdminData.strings.fail_message);
+				showAdminNotice(WZKBAdminData.strings.fail_message, 'error');
 				console.log(WZKBAdminData.strings.request_fail_message + textStatus);
 			}).always(function () {
 				$button.prop('disabled', false).find('.spinner').remove();
 			});
+		}
+
+		// Function to show WordPress admin notices.
+		function showAdminNotice(message, type) {
+			var noticeClass = type === 'success' ? 'notice-success' : 'notice-error';
+			var $notice = $('<div class="notice ' + noticeClass + ' is-dismissible"><p>' + message + '</p></div>');
+		
+			// Insert notice after the first h1 or h2 in the page.
+			if ($('.wrap > h1, .wrap > h2').length) {
+				$('.wrap > h1, .wrap > h2').first().after($notice);
+			} else {
+				$('.wrap').prepend($notice);
+			}
+		
+			// Scroll to notice.
+			$('html, body').animate({ scrollTop: $notice.offset().top - 100 }, 300);
+		
+			// Auto-dismiss after 5 seconds.
+			setTimeout(function() {
+				$notice.fadeOut(300, function() {
+					$(this).remove();
+				});
+			}, 5000);
 		}
 
 		// Prompt the user when they leave the page without saving the form.

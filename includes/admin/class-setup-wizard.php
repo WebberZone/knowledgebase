@@ -198,10 +198,15 @@ class Setup_Wizard {
 	 * @return void
 	 */
 	public function setup_wizard_steps() {
-		$output_steps = $this->steps;
+		$output_steps     = $this->steps;
+		$total_steps      = count( $output_steps );
+		$current_step_num = array_search( $this->current_step, array_keys( $this->steps ), true ) + 1;
+		$progress_percent = ( $current_step_num / $total_steps ) * 100;
 		?>
-		<ol class="wzkb-setup-steps" role="tablist" aria-label="<?php esc_attr_e( 'Setup Wizard Steps', 'knowledgebase' ); ?>">
+		<ol class="wzkb-setup-steps" role="tablist" aria-label="<?php esc_attr_e( 'Setup Wizard Steps', 'knowledgebase' ); ?>" aria-valuenow="<?php echo esc_attr( (string) $current_step_num ); ?>" aria-valuemin="1" aria-valuemax="<?php echo esc_attr( (string) $total_steps ); ?>">
 			<?php
+			/* translators: 1: Current step number, 2: Total steps, 3: Progress percentage */
+			echo '<span class="screen-reader-text">' . esc_html( sprintf( __( 'Step %1$d of %2$d (%3$d%% complete)', 'knowledgebase' ), $current_step_num, $total_steps, round( $progress_percent ) ) ) . '</span>';
 			foreach ( $output_steps as $step_key => $step ) {
 				$is_completed = array_search( $this->current_step, array_keys( $this->steps ), true ) > array_search( $step_key, array_keys( $this->steps ), true );
 				$aria_current = $step_key === $this->current_step ? ' aria-current="step"' : '';

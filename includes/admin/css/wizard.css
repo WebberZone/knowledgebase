@@ -526,23 +526,23 @@
 		flex-direction: column;
 		gap: 15px;
 	}
-	
+
 	.wzkb-setup-next-actions-horizontal li {
 		min-width: auto;
 	}
-	
+
 	.wzkb-setup-pro-actions {
 		flex-direction: column;
 	}
-	
+
 	.wzkb-setup-pro-actions li {
 		min-width: auto;
 	}
-	
+
 	.wzkb-setup-resource-links {
 		flex-direction: column;
 	}
-	
+
 	.wzkb-setup-resource-links li {
 		min-width: auto;
 	}

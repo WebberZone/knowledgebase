@@ -26,6 +26,7 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $custom_css );
 
 
 ?>
+<a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
 <div class="wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
