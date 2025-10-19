@@ -19,6 +19,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 	wp_enqueue_style( 'wz-knowledgebase-styles' );
 }
 ?>
+<a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
 <div class="wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
