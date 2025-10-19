@@ -750,6 +750,7 @@ class Settings {
 				'type'        => 'text',
 				'default'     => __( 'Help', 'knowledgebase' ),
 				'field_class' => 'regular-text',
+				'pro'         => true,
 			),
 			'beacon_color'              => array(
 				'id'          => 'beacon_color',
@@ -821,6 +822,7 @@ class Settings {
 				'type'        => 'text',
 				'default'     => __( 'Hi! How can we help you?', 'knowledgebase' ),
 				'field_class' => 'large-text',
+				'pro'         => true,
 			),
 			'beacon_search_placeholder' => array(
 				'id'          => 'beacon_search_placeholder',
@@ -829,6 +831,7 @@ class Settings {
 				'type'        => 'text',
 				'default'     => __( 'Search for answers...', 'knowledgebase' ),
 				'field_class' => 'large-text',
+				'pro'         => true,
 			),
 			'beacon_contact_enabled'    => array(
 				'id'      => 'beacon_contact_enabled',
