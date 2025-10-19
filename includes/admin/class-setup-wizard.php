@@ -1149,7 +1149,7 @@ class Setup_Wizard {
 					<ul class="wzkb-setup-next-actions-horizontal">
 						<?php if ( $multi_product ) : ?>
 						<li class="setup-product">
-							<a class="button button-primary button-large" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=wzkb_product' ) ); ?>">
+							<a class="button button-primary button-large" href="<?php echo esc_url( admin_url( 'edit-tags.php?taxonomy=wzkb_product&post_type=wz_knowledgebase' ) ); ?>">
 								<span class="dashicons dashicons-plus-alt"></span>
 								<?php esc_html_e( 'Create your first product', 'knowledgebase' ); ?>
 							</a>
