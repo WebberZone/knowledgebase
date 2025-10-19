@@ -11,7 +11,6 @@ namespace WebberZone\Knowledge_Base\Admin;
 
 use WebberZone\Knowledge_Base\Util\Cache;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
-use WebberZone\Knowledge_Base\Admin\Setup_Wizard;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

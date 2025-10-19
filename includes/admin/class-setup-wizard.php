@@ -26,7 +26,7 @@ class Setup_Wizard {
 	 * Wizard steps.
 	 *
 	 * @since 3.0.0
-
+	 *
 	 * @var array
 	 */
 	private $steps = array();
@@ -35,10 +35,19 @@ class Setup_Wizard {
 	 * Current step.
 	 *
 	 * @since 3.0.0
-
+	 *
 	 * @var string
 	 */
 	private $current_step = '';
+
+	/**
+	 * Whether Pro is active.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var bool
+	 */
+	private bool $is_pro_active = false;
 
 	/**
 	 * Constructor.
@@ -46,6 +55,9 @@ class Setup_Wizard {
 	 * @since 3.0.0
 	 */
 	public function __construct() {
+		$main                = \WebberZone\Knowledge_Base\wzkb();
+		$this->is_pro_active = ! empty( $main->pro );
+
 		Hook_Registry::add_action( 'admin_menu', array( $this, 'admin_menus' ), PHP_INT_MAX );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'setup_wizard' ), PHP_INT_MAX );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'redirect_on_activation' ) );
@@ -374,7 +386,7 @@ class Setup_Wizard {
 			);
 		?>
 		</p>
-		<?php if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) : ?>
+		<?php if ( $this->is_pro_active ) : ?>
 		<p class="wzkb-setup-pro-enabled">
 			<span class="dashicons dashicons-yes-alt"></span>
 			<span>
@@ -685,7 +697,7 @@ class Setup_Wizard {
 		$rating_system     = $settings['rating_system'] ?? 'disabled';
 		$tracking_method   = $settings['rating_tracking_method'] ?? 'cookie';
 		$show_rating_stats = $settings['show_rating_stats'] ?? 1;
-		$is_pro            = class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' );
+		$is_pro            = $this->is_pro_active;
 
 		// Beacon settings for Pro.
 		$beacon_enabled          = $settings['beacon_enabled'] ?? 0;
@@ -785,21 +797,39 @@ class Setup_Wizard {
 				</tr>
 			</table>
 
-			<?php if ( $is_pro ) : ?>
 			<h2><?php esc_html_e( 'Beacon Help Widget', 'knowledgebase' ); ?></h2>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><label for="beacon_enabled"><?php esc_html_e( 'Enable Beacon', 'knowledgebase' ); ?></label></th>
+					<th scope="row">
+						<label for="beacon_enabled">
+							<?php esc_html_e( 'Enable Beacon', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
 					<td>
 						<input type="hidden" name="beacon_enabled" value="0" />
-						<input type="checkbox" id="beacon_enabled" name="beacon_enabled" value="1" <?php checked( $beacon_enabled, 1 ); ?> />
+						<input type="checkbox" id="beacon_enabled" name="beacon_enabled" value="1" <?php checked( $beacon_enabled, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
 						<p class="description"><?php esc_html_e( 'Display the floating help widget with search, suggested articles, and contact form.', 'knowledgebase' ); ?></p>
+						<?php if ( ! $is_pro ) : ?>
+							<p class="description wzkb-pro-feature-desc">
+								<?php esc_html_e( '✨ Engage visitors with a modern floating help widget featuring instant search, context-aware article suggestions, and an integrated contact form—all beautifully designed and mobile-responsive.', 'knowledgebase' ); ?>
+							</p>
+						<?php endif; ?>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="beacon_display_location"><?php esc_html_e( 'Display Location', 'knowledgebase' ); ?></label></th>
+					<th scope="row">
+						<label for="beacon_display_location">
+							<?php esc_html_e( 'Display Location', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
 					<td>
-						<select id="beacon_display_location" name="beacon_display_location">
+						<select id="beacon_display_location" name="beacon_display_location" <?php disabled( ! $is_pro ); ?>>
 							<option value="kb_only" <?php selected( $beacon_display_location, 'kb_only' ); ?>><?php esc_html_e( 'Knowledge Base Only', 'knowledgebase' ); ?></option>
 							<option value="sitewide" <?php selected( $beacon_display_location, 'sitewide' ); ?>><?php esc_html_e( 'Entire Site', 'knowledgebase' ); ?></option>
 						</select>
@@ -807,47 +837,70 @@ class Setup_Wizard {
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="beacon_position"><?php esc_html_e( 'Button Position', 'knowledgebase' ); ?></label></th>
+					<th scope="row">
+						<label for="beacon_position">
+							<?php esc_html_e( 'Button Position', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
 					<td>
-						<select id="beacon_position" name="beacon_position">
+						<select id="beacon_position" name="beacon_position" <?php disabled( ! $is_pro ); ?>>
 							<option value="right" <?php selected( $beacon_position, 'right' ); ?>><?php esc_html_e( 'Bottom Right', 'knowledgebase' ); ?></option>
 							<option value="left" <?php selected( $beacon_position, 'left' ); ?>><?php esc_html_e( 'Bottom Left', 'knowledgebase' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="beacon_color"><?php esc_html_e( 'Primary Color', 'knowledgebase' ); ?></label></th>
+					<th scope="row">
+						<label for="beacon_color">
+							<?php esc_html_e( 'Primary Color', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
 					<td>
-						<input type="text" id="beacon_color" name="beacon_color" value="<?php echo esc_attr( $beacon_color ); ?>" class="color-field" />
+						<input type="text" id="beacon_color" name="beacon_color" value="<?php echo esc_attr( $beacon_color ); ?>" class="color-field" <?php disabled( ! $is_pro ); ?> />
 						<p class="description"><?php esc_html_e( 'Main brand color for the beacon button. Other colors will be generated automatically.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="beacon_greeting"><?php esc_html_e( 'Greeting Message', 'knowledgebase' ); ?></label></th>
+					<th scope="row">
+						<label for="beacon_greeting">
+							<?php esc_html_e( 'Greeting Message', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
 					<td>
-						<input type="text" id="beacon_greeting" name="beacon_greeting" value="<?php echo esc_attr( $beacon_greeting ); ?>" class="large-text" />
+						<input type="text" id="beacon_greeting" name="beacon_greeting" value="<?php echo esc_attr( $beacon_greeting ); ?>" class="large-text" <?php disabled( ! $is_pro ); ?> />
 						<p class="description"><?php esc_html_e( 'Welcome message shown when users open the beacon.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="beacon_contact_enabled"><?php esc_html_e( 'Enable Contact Form', 'knowledgebase' ); ?></label></th>
+					<th scope="row">
+						<label for="beacon_contact_enabled">
+							<?php esc_html_e( 'Enable Contact Form', 'knowledgebase' ); ?>
+							<?php if ( ! $is_pro ) : ?>
+								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
+							<?php endif; ?>
+						</label>
+					</th>
 					<td>
 						<input type="hidden" name="beacon_contact_enabled" value="0" />
-						<input type="checkbox" id="beacon_contact_enabled" name="beacon_contact_enabled" value="1" <?php checked( $beacon_contact_enabled, 1 ); ?> />
+						<input type="checkbox" id="beacon_contact_enabled" name="beacon_contact_enabled" value="1" <?php checked( $beacon_contact_enabled, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
 						<p class="description"><?php esc_html_e( 'Allow visitors to send messages from the beacon.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 			</table>
-			<?php endif; ?>
 
 			<p class="wzkb-setup-actions step">
 				<?php wp_nonce_field( 'wzkb-setup' ); ?>
 				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
-				<?php if ( $is_pro ) : ?>
-					<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
-				<?php else : ?>
-					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button-primary button button-large button-next"><?php esc_html_e( 'Skip to Finish', 'knowledgebase' ); ?></a>
-				<?php endif; ?>
+				<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
 			</p>
 		</form>
 		<?php
@@ -864,7 +917,7 @@ class Setup_Wizard {
 		check_admin_referer( 'wzkb-setup' );
 
 		// Only save if Pro is active.
-		if ( ! class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) {
+		if ( ! $this->is_pro_active ) {
 			wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
 			exit;
 		}
@@ -1060,7 +1113,7 @@ class Setup_Wizard {
 		update_option( 'wzkb_setup_completed', true );
 		update_option( 'wzkb_setup_current_step', '' );
 		$multi_product  = \wzkb_get_option( 'multi_product' );
-		$pro_active     = class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' );
+		$pro_active     = $this->is_pro_active;
 		$beacon_enabled = $pro_active && wzkb_get_option( 'beacon_enabled' );
 		$rating_enabled = $pro_active && 'disabled' !== wzkb_get_option( 'rating_system' );
 		?>

@@ -252,8 +252,8 @@
 
 /* Pro Features Preview for Free Users */
 .wzkb-setup-pro-preview {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	color: #fff;
+	background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+	color: #f9fafb;
 	padding: 30px;
 	margin: 20px 0;
 	border-radius: 8px;
@@ -277,8 +277,21 @@
 }
 
 .wzkb-setup-pro-preview p {
-	color: #fff;
+	color: #f9fafb;
 	margin: 10px 0;
+}
+
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview,
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview p,
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview strong,
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview span,
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview a:not(.button) {
+	color: #f9fafb;
+}
+
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview a:not(.button):hover,
+.wzkb-setup .wzkb-setup-content .wzkb-setup-pro-preview a:not(.button):focus {
+	color: #fde68a;
 }
 
 .wzkb-setup-pro-preview .button {
@@ -287,15 +300,16 @@
 }
 
 .wzkb-setup-pro-preview .button-primary {
-	background: #ffd700;
-	border-color: #ffd700;
-	color: #000;
+	background: #fbbf24;
+	border-color: #d97706;
+	color: #1f2937;
 	font-weight: 600;
 }
 
 .wzkb-setup-pro-preview .button-primary:hover {
-	background: #ffed4e;
-	border-color: #ffed4e;
+	background: #f59e0b;
+	border-color: #b45309;
+	color: #111827;
 }
 
 /* Pro Badge */
