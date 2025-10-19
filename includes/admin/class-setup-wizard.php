@@ -493,6 +493,7 @@ class Setup_Wizard {
 			'tag_slug'          => isset( $_POST['tag_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['tag_slug'] ) ) : 'kb/tags',
 			'article_permalink' => isset( $_POST['article_permalink'] ) ? sanitize_text_field( wp_unslash( $_POST['article_permalink'] ) ) : '%postname%',
 		);
+
 		$updated = wzkb_update_settings( $partial );
 		if ( $updated ) {
 			add_settings_error( 'wzkb_setup', 'permalinks_saved', esc_html__( 'Permalink settings saved successfully.', 'knowledgebase' ), 'success' );
@@ -635,6 +636,7 @@ class Setup_Wizard {
 				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
 				<input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'knowledgebase' ); ?>" name="wzkb_save_step" />
 			</p>
+
 		</form>
 		<?php
 	}
@@ -660,6 +662,7 @@ class Setup_Wizard {
 			'include_styles'        => isset( $_POST['include_styles'] ) ? 1 : 0,
 			'columns'               => isset( $_POST['columns'] ) ? absint( wp_unslash( $_POST['columns'] ) ) : 1,
 		);
+
 		$updated = wzkb_update_settings( $partial );
 		if ( $updated ) {
 			add_settings_error( 'wzkb_setup', 'display_saved', esc_html__( 'Display settings saved successfully.', 'knowledgebase' ), 'success' );
@@ -683,6 +686,14 @@ class Setup_Wizard {
 		$tracking_method   = $settings['rating_tracking_method'] ?? 'cookie';
 		$show_rating_stats = $settings['show_rating_stats'] ?? 1;
 		$is_pro            = class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' );
+
+		// Beacon settings for Pro.
+		$beacon_enabled          = $settings['beacon_enabled'] ?? 0;
+		$beacon_display_location = $settings['beacon_display_location'] ?? 'kb_only';
+		$beacon_position         = $settings['beacon_position'] ?? 'right';
+		$beacon_color            = $settings['beacon_color'] ?? '#617DEC';
+		$beacon_greeting         = $settings['beacon_greeting'] ?? __( 'Hi! How can we help you?', 'knowledgebase' );
+		$beacon_contact_enabled  = $settings['beacon_contact_enabled'] ?? 1;
 		?>
 		<h1><?php esc_html_e( 'Pro Features', 'knowledgebase' ); ?></h1>
 		<?php if ( ! $is_pro ) : ?>
@@ -774,6 +785,61 @@ class Setup_Wizard {
 				</tr>
 			</table>
 
+			<?php if ( $is_pro ) : ?>
+			<h2><?php esc_html_e( 'Beacon Help Widget', 'knowledgebase' ); ?></h2>
+			<table class="form-table">
+				<tr>
+					<th scope="row"><label for="beacon_enabled"><?php esc_html_e( 'Enable Beacon', 'knowledgebase' ); ?></label></th>
+					<td>
+						<input type="hidden" name="beacon_enabled" value="0" />
+						<input type="checkbox" id="beacon_enabled" name="beacon_enabled" value="1" <?php checked( $beacon_enabled, 1 ); ?> />
+						<p class="description"><?php esc_html_e( 'Display the floating help widget with search, suggested articles, and contact form.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="beacon_display_location"><?php esc_html_e( 'Display Location', 'knowledgebase' ); ?></label></th>
+					<td>
+						<select id="beacon_display_location" name="beacon_display_location">
+							<option value="kb_only" <?php selected( $beacon_display_location, 'kb_only' ); ?>><?php esc_html_e( 'Knowledge Base Only', 'knowledgebase' ); ?></option>
+							<option value="sitewide" <?php selected( $beacon_display_location, 'sitewide' ); ?>><?php esc_html_e( 'Entire Site', 'knowledgebase' ); ?></option>
+						</select>
+						<p class="description"><?php esc_html_e( 'Control where the beacon button appears.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="beacon_position"><?php esc_html_e( 'Button Position', 'knowledgebase' ); ?></label></th>
+					<td>
+						<select id="beacon_position" name="beacon_position">
+							<option value="right" <?php selected( $beacon_position, 'right' ); ?>><?php esc_html_e( 'Bottom Right', 'knowledgebase' ); ?></option>
+							<option value="left" <?php selected( $beacon_position, 'left' ); ?>><?php esc_html_e( 'Bottom Left', 'knowledgebase' ); ?></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="beacon_color"><?php esc_html_e( 'Primary Color', 'knowledgebase' ); ?></label></th>
+					<td>
+						<input type="text" id="beacon_color" name="beacon_color" value="<?php echo esc_attr( $beacon_color ); ?>" class="color-field" />
+						<p class="description"><?php esc_html_e( 'Main brand color for the beacon button. Other colors will be generated automatically.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="beacon_greeting"><?php esc_html_e( 'Greeting Message', 'knowledgebase' ); ?></label></th>
+					<td>
+						<input type="text" id="beacon_greeting" name="beacon_greeting" value="<?php echo esc_attr( $beacon_greeting ); ?>" class="large-text" />
+						<p class="description"><?php esc_html_e( 'Welcome message shown when users open the beacon.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="beacon_contact_enabled"><?php esc_html_e( 'Enable Contact Form', 'knowledgebase' ); ?></label></th>
+					<td>
+						<input type="hidden" name="beacon_contact_enabled" value="0" />
+						<input type="checkbox" id="beacon_contact_enabled" name="beacon_contact_enabled" value="1" <?php checked( $beacon_contact_enabled, 1 ); ?> />
+						<p class="description"><?php esc_html_e( 'Allow visitors to send messages from the beacon.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+			</table>
+			<?php endif; ?>
+
 			<p class="wzkb-setup-actions step">
 				<?php wp_nonce_field( 'wzkb-setup' ); ?>
 				<a href="<?php echo esc_url( $this->get_previous_step_link() ); ?>" class="button button-large"><?php esc_html_e( 'Previous', 'knowledgebase' ); ?></a>
@@ -809,6 +875,37 @@ class Setup_Wizard {
 			'show_rating_stats'      => isset( $_POST['show_rating_stats'] ) ? 1 : 0,
 		);
 
+		// Save simplified beacon settings.
+		$beacon_display_location = isset( $_POST['beacon_display_location'] ) ? sanitize_text_field( wp_unslash( $_POST['beacon_display_location'] ) ) : 'kb_only';
+		if ( ! in_array( $beacon_display_location, array( 'kb_only', 'sitewide' ), true ) ) {
+			$beacon_display_location = 'kb_only';
+		}
+
+		$beacon_position = isset( $_POST['beacon_position'] ) ? sanitize_text_field( wp_unslash( $_POST['beacon_position'] ) ) : 'right';
+		if ( ! in_array( $beacon_position, array( 'right', 'left' ), true ) ) {
+			$beacon_position = 'right';
+		}
+
+		$beacon_color = isset( $_POST['beacon_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['beacon_color'] ) ) : '#617DEC';
+		if ( ! $beacon_color ) {
+			$beacon_color = '#617DEC';
+		}
+
+		// Generate secondary colors from primary.
+		$generated_colors = $this->generate_beacon_colors( $beacon_color );
+
+		$beacon_settings = array(
+			'beacon_enabled'          => isset( $_POST['beacon_enabled'] ) ? 1 : 0,
+			'beacon_display_location' => $beacon_display_location,
+			'beacon_position'         => $beacon_position,
+			'beacon_color'            => $beacon_color,
+			'beacon_greeting'         => isset( $_POST['beacon_greeting'] ) ? sanitize_text_field( wp_unslash( $_POST['beacon_greeting'] ) ) : __( 'Hi! How can we help you?', 'knowledgebase' ),
+			'beacon_contact_enabled'  => isset( $_POST['beacon_contact_enabled'] ) ? 1 : 0,
+		);
+
+		// Merge with generated colors.
+		$partial = array_merge( $partial, $generated_colors, $beacon_settings );
+
 		$updated = wzkb_update_settings( $partial );
 		if ( $updated ) {
 			add_settings_error( 'wzkb_setup', 'pro_features_saved', esc_html__( 'Pro features settings saved successfully.', 'knowledgebase' ), 'success' );
@@ -817,6 +914,139 @@ class Setup_Wizard {
 		}
 		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
 		exit;
+	}
+
+	/**
+	 * Generate beacon colors from primary color.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $primary_color Primary hex color.
+	 * @return array Generated color scheme.
+	 */
+	private function generate_beacon_colors( $primary_color ) {
+		// Convert hex to RGB.
+		$rgb       = $this->hex_to_rgb( $primary_color );
+		$luminance = $this->calculate_luminance( $rgb );
+		$is_light  = $luminance >= 0.6;
+
+		$hover_adjust = $is_light ? -0.2 : 0.2;
+		$hover_rgb    = $this->adjust_brightness( $rgb, $hover_adjust );
+
+		$panel_rgb = array(
+			'r' => 255,
+			'g' => 255,
+			'b' => 255,
+		);
+
+		$link_hover_rgb = $this->adjust_brightness( $panel_rgb, -0.05 );
+
+		return array(
+			'beacon_hover_color'      => $this->rgb_to_hex( $hover_rgb ),
+			'beacon_text_color'       => $this->get_contrast_color( $rgb ),
+			'beacon_hover_text_color' => $this->get_contrast_color( $hover_rgb ),
+			'beacon_panel_bg_color'   => $this->rgb_to_hex( $panel_rgb ),
+			'beacon_panel_text_color' => $this->get_contrast_color( $panel_rgb ),
+			'beacon_link_hover_color' => $this->rgb_to_hex( $link_hover_rgb ),
+		);
+	}
+
+	/**
+	 * Convert hex to RGB.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $hex Hex color.
+	 * @return array RGB values.
+	 */
+	private function hex_to_rgb( $hex ) {
+		$hex = ltrim( $hex, '#' );
+
+		if ( strlen( $hex ) === 3 ) {
+			$r = hexdec( str_repeat( substr( $hex, 0, 1 ), 2 ) );
+			$g = hexdec( str_repeat( substr( $hex, 1, 1 ), 2 ) );
+			$b = hexdec( str_repeat( substr( $hex, 2, 1 ), 2 ) );
+		} else {
+			$r = hexdec( substr( $hex, 0, 2 ) );
+			$g = hexdec( substr( $hex, 2, 2 ) );
+			$b = hexdec( substr( $hex, 4, 2 ) );
+		}
+
+		return array(
+			'r' => $r,
+			'g' => $g,
+			'b' => $b,
+		);
+	}
+
+	/**
+	 * Adjust brightness of RGB color.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $rgb      RGB array.
+	 * @param float $percent  Adjustment between -1 and 1.
+	 * @return array Adjusted RGB array.
+	 */
+	private function adjust_brightness( array $rgb, $percent ) {
+		$percent = max( -1, min( 1, (float) $percent ) );
+
+		$adjusted = array();
+
+		foreach ( $rgb as $channel => $value ) {
+			if ( $percent >= 0 ) {
+				$adjusted_value = $value + ( 255 - $value ) * $percent;
+			} else {
+				$adjusted_value = $value * ( 1 + $percent );
+			}
+
+			$adjusted[ $channel ] = (int) round( max( 0, min( 255, $adjusted_value ) ) );
+		}
+
+		return $adjusted;
+	}
+
+	/**
+	 * Calculate relative luminance of RGB color.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $rgb RGB array.
+	 * @return float Relative luminance.
+	 */
+	private function calculate_luminance( array $rgb ) {
+		$components = array();
+
+		foreach ( $rgb as $value ) {
+			$channel      = $value / 255;
+			$components[] = ( $channel <= 0.03928 ) ? ( $channel / 12.92 ) : pow( ( $channel + 0.055 ) / 1.055, 2.4 );
+		}
+
+		return 0.2126 * $components[0] + 0.7152 * $components[1] + 0.0722 * $components[2];
+	}
+
+	/**
+	 * Get contrasting color (black or white) for given RGB.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $rgb RGB array.
+	 * @return string Hex color with leading #.
+	 */
+	private function get_contrast_color( array $rgb ) {
+		return ( $this->calculate_luminance( $rgb ) > 0.55 ) ? '#000000' : '#ffffff';
+	}
+
+	/**
+	 * Convert RGB to hex string.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $rgb RGB values.
+	 * @return string Hex color.
+	 */
+	private function rgb_to_hex( $rgb ) {
+		return sprintf( '#%02x%02x%02x', $rgb['r'], $rgb['g'], $rgb['b'] );
 	}
 
 	/**
@@ -829,42 +1059,121 @@ class Setup_Wizard {
 	public function complete_step() {
 		update_option( 'wzkb_setup_completed', true );
 		update_option( 'wzkb_setup_current_step', '' );
-		$multi_product = \wzkb_get_option( 'multi_product' );
+		$multi_product  = \wzkb_get_option( 'multi_product' );
+		$pro_active     = class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' );
+		$beacon_enabled = $pro_active && wzkb_get_option( 'beacon_enabled' );
+		$rating_enabled = $pro_active && 'disabled' !== wzkb_get_option( 'rating_system' );
 		?>
-		<h1><?php esc_html_e( 'Your Knowledge Base is Ready!', 'knowledgebase' ); ?></h1>
-		<p><?php esc_html_e( 'Congratulations! You have completed the setup wizard.', 'knowledgebase' ); ?></p>
-		<?php if ( $multi_product ) : ?>
-			<p><?php esc_html_e( 'You can now start adding Products, Sections and Articles to your knowledge base.', 'knowledgebase' ); ?></p>
-		<?php else : ?>
-			<p><?php esc_html_e( 'You can now start adding Sections and Articles to your knowledge base.', 'knowledgebase' ); ?></p>
-		<?php endif; ?>
-		<div class="wzkb-setup-next-steps">
-			<div class="wzkb-setup-next-steps-first">
-				<h2><?php esc_html_e( 'Next Steps', 'knowledgebase' ); ?></h2>
-				<ul class="wzkb-setup-next-actions-horizontal">
+		<div class="wzkb-setup-complete">
+			<h1><?php esc_html_e( 'Your Knowledge Base is Ready!', 'knowledgebase' ); ?></h1>
+			<p><?php esc_html_e( 'Congratulations! You have completed the setup wizard.', 'knowledgebase' ); ?></p>
+			
+			<?php if ( $multi_product ) : ?>
+				<p><?php esc_html_e( 'You can now start adding Products, Sections and Articles to your knowledge base.', 'knowledgebase' ); ?></p>
+			<?php else : ?>
+				<p><?php esc_html_e( 'You can now start adding Sections and Articles to your knowledge base.', 'knowledgebase' ); ?></p>
+			<?php endif; ?>
+
+			<div class="wzkb-setup-next-steps">
+				<div class="wzkb-setup-next-steps-first">
+					<h2><?php esc_html_e( 'Next Steps', 'knowledgebase' ); ?></h2>
+					
 					<?php if ( $multi_product ) : ?>
-					<li class="setup-product">
-						<a class="button button-primary button-large" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=wz_knowledgebase' ) ); ?>">
-							<?php esc_html_e( 'Create your first product', 'knowledgebase' ); ?>
-						</a>
-					</li>
+						<div class="wzkb-setup-guidance">
+							<p><strong><?php esc_html_e( 'Multi-Product Mode:', 'knowledgebase' ); ?></strong> <?php esc_html_e( 'Start by creating products to organize your knowledge base content.', 'knowledgebase' ); ?></p>
+						</div>
+					<?php else : ?>
+						<div class="wzkb-setup-guidance">
+							<p><strong><?php esc_html_e( 'Single-Product Mode:', 'knowledgebase' ); ?></strong> <?php esc_html_e( 'Create sections to categorize your articles and improve navigation.', 'knowledgebase' ); ?></p>
+						</div>
 					<?php endif; ?>
-					<li class="setup-product">
-						<a class="button button-large <?php echo $multi_product ? '' : ' button-primary'; ?>" href="<?php echo esc_url( admin_url( 'edit-tags.php?taxonomy=wzkb_category&post_type=wz_knowledgebase' ) ); ?>">
-							<?php esc_html_e( 'Add sections', 'knowledgebase' ); ?>
-						</a>
-					</li>
-					<li class="setup-product">
-						<a class="button button-large" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=wz_knowledgebase' ) ); ?>">
-							<?php esc_html_e( 'Create your first article', 'knowledgebase' ); ?>
-						</a>
-					</li>
-					<li class="setup-product">
-						<a class="button button-large" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ); ?>">
-							<?php esc_html_e( 'Configure additional settings', 'knowledgebase' ); ?>
-						</a>
-					</li>
-				</ul>
+
+					<ul class="wzkb-setup-next-actions-horizontal">
+						<?php if ( $multi_product ) : ?>
+						<li class="setup-product">
+							<a class="button button-primary button-large" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=wzkb_product' ) ); ?>">
+								<span class="dashicons dashicons-plus-alt"></span>
+								<?php esc_html_e( 'Create your first product', 'knowledgebase' ); ?>
+							</a>
+							<span class="wzkb-action-description"><?php esc_html_e( 'Organize content by products', 'knowledgebase' ); ?></span>
+						</li>
+						<?php endif; ?>
+						<li class="setup-sections">
+							<a class="button button-large <?php echo $multi_product ? '' : ' button-primary'; ?>" href="<?php echo esc_url( admin_url( 'edit-tags.php?taxonomy=wzkb_category&post_type=wz_knowledgebase' ) ); ?>">
+								<span class="dashicons dashicons-category"></span>
+								<?php esc_html_e( 'Add sections', 'knowledgebase' ); ?>
+							</a>
+							<span class="wzkb-action-description"><?php esc_html_e( 'Create categories for articles', 'knowledgebase' ); ?></span>
+						</li>
+						<li class="setup-article">
+							<a class="button button-large" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=wz_knowledgebase' ) ); ?>">
+								<span class="dashicons dashicons-edit-page"></span>
+								<?php esc_html_e( 'Create your first article', 'knowledgebase' ); ?>
+							</a>
+							<span class="wzkb-action-description"><?php esc_html_e( 'Add helpful content', 'knowledgebase' ); ?></span>
+						</li>
+						<li class="setup-settings">
+							<a class="button button-large" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ); ?>">
+								<span class="dashicons dashicons-admin-settings"></span>
+								<?php esc_html_e( 'Configure additional settings', 'knowledgebase' ); ?>
+							</a>
+							<span class="wzkb-action-description"><?php esc_html_e( 'Customize display and behavior', 'knowledgebase' ); ?></span>
+						</li>
+					</ul>
+
+					<?php if ( $pro_active ) : ?>
+						<div class="wzkb-setup-pro-features">
+							<h3><?php esc_html_e( 'Pro Features Available', 'knowledgebase' ); ?></h3>
+							<ul class="wzkb-setup-pro-actions">
+								<?php if ( $beacon_enabled ) : ?>
+								<li class="setup-beacon">
+									<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings#pro' ) ); ?>">
+										<span class="dashicons dashicons-megaphone"></span>
+										<?php esc_html_e( 'Customize Beacon Widget', 'knowledgebase' ); ?>
+									</a>
+									<span class="wzkb-action-description"><?php esc_html_e( 'Configure help widget appearance', 'knowledgebase' ); ?></span>
+								</li>
+								<?php endif; ?>
+								
+								<?php if ( $rating_enabled ) : ?>
+								<li class="setup-rating">
+									<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings#pro' ) ); ?>">
+										<span class="dashicons dashicons-star-filled"></span>
+										<?php esc_html_e( 'Configure Rating System', 'knowledgebase' ); ?>
+									</a>
+									<span class="wzkb-action-description"><?php esc_html_e( 'Set up article feedback', 'knowledgebase' ); ?></span>
+								</li>
+								<?php endif; ?>
+								
+								<li class="setup-permalinks">
+									<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings#general' ) ); ?>">
+										<span class="dashicons dashicons-admin-links"></span>
+										<?php esc_html_e( 'Customize Permalinks', 'knowledgebase' ); ?>
+									</a>
+									<span class="wzkb-action-description"><?php esc_html_e( 'Optimize URL structure', 'knowledgebase' ); ?></span>
+								</li>
+							</ul>
+						</div>
+					<?php endif; ?>
+
+					<div class="wzkb-setup-resources">
+						<h3><?php esc_html_e( 'Helpful Resources', 'knowledgebase' ); ?></h3>
+						<ul class="wzkb-setup-resource-links">
+							<li>
+								<a href="https://webberzone.com/support/product/knowledgebase/" target="_blank">
+									<span class="dashicons dashicons-sos"></span>
+									<?php esc_html_e( 'Support Forum', 'knowledgebase' ); ?>
+								</a>
+							</li>
+							<li>
+								<a href="https://webberzone.com/plugins/knowledgebase/pro/" target="_blank">
+									<span class="dashicons dashicons-rocket"></span>
+									<?php esc_html_e( 'Upgrade to Pro', 'knowledgebase' ); ?>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -937,10 +1246,13 @@ class Setup_Wizard {
 
 		$min = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
+		// Enqueue WordPress color picker.
+		wp_enqueue_style( 'wp-color-picker' );
+
 		wp_register_style(
 			'wzkb-wizard',
 			plugins_url( "css/wizard{$min}.css", __FILE__ ),
-			array( 'dashicons' ),
+			array( 'dashicons', 'wp-color-picker' ),
 			WZKB_VERSION
 		);
 		wp_enqueue_style( 'wzkb-wizard' );
@@ -948,7 +1260,7 @@ class Setup_Wizard {
 		wp_register_script(
 			'wzkb-wizard',
 			plugins_url( "js/wizard{$min}.js", __FILE__ ),
-			array( 'jquery' ),
+			array( 'jquery', 'wp-color-picker' ),
 			WZKB_VERSION,
 			true
 		);

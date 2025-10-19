@@ -85,6 +85,7 @@
 	text-align: center;
 	font-size: 70%;
 	min-width: 36px;
+	color: #1a1a1a;
 }
 
 .wzkb-product {
@@ -297,7 +298,12 @@ input[type="search"].wzkb-search-field {
 	padding: 10px 6px 10px 45px;
 	width: 100%;
 	background: url(../images/search-icon.png) no-repeat 0 5px;
-	outline: none;
+}
+
+input[type="search"].wzkb-search-field:focus {
+	outline: 2px solid #005fcc;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 3px rgba(0, 95, 204, 0.25);
 }
 
 input[type="submit"].wzkb-search-submit {
@@ -348,115 +354,115 @@ nav.pagination {
 }
 
 .wzkb-alert-primary {
-	color: #004085;
-	background-color: #cce5ff;
-	border-color: #b8daff;
+	color: #084298;
+	background-color: #cfe2ff;
+	border-color: #b6d4fe;
 }
 
 .wzkb-alert-primary hr {
-	border-top-color: #9fcdff;
+	border-top-color: #9ec5fe;
 }
 
 .wzkb-alert-primary .wzkb-alert-link {
-	color: #002752;
+	color: #06357a;
 }
 
 .wzkb-alert-secondary {
-	color: #383d41;
+	color: #41464b;
 	background-color: #e2e3e5;
-	border-color: #d6d8db;
+	border-color: #d3d6d8;
 }
 
 .wzkb-alert-secondary hr {
-	border-top-color: #c8cbcf;
+	border-top-color: #c6c8cb;
 }
 
 .wzkb-alert-secondary .wzkb-alert-link {
-	color: #202326;
+	color: #34383c;
 }
 
 .wzkb-alert-success {
-	color: #155724;
-	background-color: #d4edda;
-	border-color: #c3e6cb;
+	color: #0f5132;
+	background-color: #d1e7dd;
+	border-color: #badbcc;
 }
 
 .wzkb-alert-success hr {
-	border-top-color: #b1dfbb;
+	border-top-color: #a3cfbb;
 }
 
 .wzkb-alert-success .wzkb-alert-link {
-	color: #0b2e13;
+	color: #0c4128;
 }
 
 .wzkb-alert-info {
-	color: #0c5460;
-	background-color: #d1ecf1;
-	border-color: #bee5eb;
+	color: #055160;
+	background-color: #cff4fc;
+	border-color: #b6effb;
 }
 
 .wzkb-alert-info hr {
-	border-top-color: #abdde5;
+	border-top-color: #9ee6f8;
 }
 
 .wzkb-alert-info .wzkb-alert-link {
-	color: #062c33;
+	color: #04414d;
 }
 
 .wzkb-alert-warning {
-	color: #856404;
+	color: #664d03;
 	background-color: #fff3cd;
-	border-color: #ffeeba;
+	border-color: #ffecb5;
 }
 
 .wzkb-alert-warning hr {
-	border-top-color: #ffe8a1;
+	border-top-color: #ffe29d;
 }
 
 .wzkb-alert-warning .wzkb-alert-link {
-	color: #533f03;
+	color: #523e02;
 }
 
 .wzkb-alert-danger {
-	color: #721c24;
+	color: #842029;
 	background-color: #f8d7da;
-	border-color: #f5c6cb;
+	border-color: #f5c2c7;
 }
 
 .wzkb-alert-danger hr {
-	border-top-color: #f1b0b7;
+	border-top-color: #f1aeb5;
 }
 
 .wzkb-alert-danger .wzkb-alert-link {
-	color: #491217;
+	color: #6a1a21;
 }
 
 .wzkb-alert-light {
-	color: #818182;
-	background-color: #fefefe;
-	border-color: #fdfdfe;
+	color: #212529;
+	background-color: #f8f9fa;
+	border-color: #e9ecef;
 }
 
 .wzkb-alert-light hr {
-	border-top-color: #ececf6;
+	border-top-color: #dfe3e6;
 }
 
 .wzkb-alert-light .wzkb-alert-link {
-	color: #686868;
+	color: #0a58ca;
 }
 
 .wzkb-alert-dark {
-	color: #1b1e21;
-	background-color: #d6d8d9;
-	border-color: #c6c8ca;
+	color: #141619;
+	background-color: #d3d3d4;
+	border-color: #bcbebf;
 }
 
 .wzkb-alert-dark hr {
-	border-top-color: #b9bbbe;
+	border-top-color: #b0b2b3;
 }
 
 .wzkb-alert-dark .wzkb-alert-link {
-	color: #040505;
+	color: #101214;
 }
 
 /* Related Posts */

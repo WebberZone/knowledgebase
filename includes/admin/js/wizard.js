@@ -1,6 +1,11 @@
 jQuery(function ($) {
     'use strict';
 
+    // Initialize WordPress color picker.
+    $('.color-field').each(function (i, element) {
+        $(element).wpColorPicker();
+    });
+
     // Enable continue button when required fields are filled.
     $('.wzkb-setup-content').on('change', 'input, select', function () {
         var form = $(this).closest('form');
