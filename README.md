@@ -32,24 +32,28 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 
 ### Main features
 
-🚀 Unlimited Knowledge Bases — Support as many products as you like, with unlimited sections and sub-sections.
-🎨 Beautiful, Responsive Layouts — Ships with clean templates powered by the Responsive Grid System.
-🔗 Customisable Permalinks — View your KB at /knowledgebase/ by default or change it easily.
-✨ Shortcodes + Gutenberg Blocks — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
-🧭 Built-in Breadcrumbs — Improve UX and SEO with breadcrumb navigation.
-🧩 Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
-⚡ Built-in Caching — Speed up your Knowledge Base without extra plugins.
+- 🚀 __Unlimited Knowledge Bases__ — Support as many products as you like, with unlimited sections and sub-sections.
+- 🎨 __Beautiful, Responsive Layouts__ — Ships with clean templates powered by the Responsive Grid System.
+- 🔗 __Customisable Permalinks__ — View your KB at /knowledgebase/ by default or change it easily.
+- ✨ __Shortcodes + Gutenberg Blocks__ — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
+- 🧭 __Built-in Breadcrumbs__ — Improve UX and SEO with breadcrumb navigation.
+- 🧩 __Widgets Included__ — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
+- ⚡ __Built-in Caching__ — Speed up your Knowledge Base without extra plugins.
 
 ### Pro features
 
-⭐ Article Rating System — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+- ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+- 💬 __Beacon Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
+- 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
+- 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+- 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
 ### Key Concepts
 
-* __Articles:__ Custom post type `wz_knowledgebase` — your FAQs, how-to guides, and documentation.
-* __Products:__ Custom taxonomy `wzkb_product` — link articles to one or more products.
-* __Sections:__ Custom taxonomy `wzkb_category` — organize content neatly into categories.
-* __Tags:__ Optional `wzkb_tag` taxonomy — make finding content even easier.
+- __Articles:__ Custom post type `wz_knowledgebase` — your FAQs, how-to guides, and documentation.
+- __Products:__ Custom taxonomy `wzkb_product` — link articles to one or more products.
+- __Sections:__ Custom taxonomy `wzkb_category` — organize content neatly into categories.
+- __Tags:__ Optional `wzkb_tag` taxonomy — make finding content even easier.
 
 ### Contribute
 

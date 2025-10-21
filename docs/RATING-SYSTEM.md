@@ -6,20 +6,20 @@ The Knowledge Base plugin includes a comprehensive PRO rating system that allows
 
 The rating system provides three modes:
 
-1. **Disabled** - No rating functionality
-2. **Binary Rating** - Useful / Not Useful buttons
-3. **Scale Rating** - 1-5 star rating system
+1. __Disabled__ - No rating functionality
+2. __Binary Rating__ - Useful / Not Useful buttons
+3. __Scale Rating__ - 1-5 star rating system
 
 ## Configuration
 
 ### Admin Settings
 
-Navigate to **Knowledge Base → Settings → Output** to configure the rating system.
+Navigate to __Knowledge Base → Settings → Output__ to configure the rating system.
 
 #### Rating System Mode
 
-**Setting:** `rating_system`  
-**Options:**
+__Setting:__ `rating_system`  
+__Options:__
 
 - `disabled` - No rating system (default)
 - `binary` - Useful / Not Useful buttons
@@ -27,8 +27,8 @@ Navigate to **Knowledge Base → Settings → Output** to configure the rating s
 
 #### Vote Tracking Method
 
-**Setting:** `rating_tracking_method`  
-**Options:**
+__Setting:__ `rating_tracking_method`  
+__Options:__
 
 - `none` - No Tracking (allows multiple votes)
 - `cookie` - Cookie Only (default)
@@ -40,46 +40,46 @@ Navigate to **Knowledge Base → Settings → Output** to configure the rating s
 
 ### No Tracking (`none`)
 
-**How it works:**
+__How it works:__
 
 - No cookies set
 - No personal data stored
 - Allows unlimited votes from same visitor
 - Most privacy-friendly option
 
-**GDPR Considerations:**
+__GDPR Considerations:__
 
-- ✅ **No consent required**
+- ✅ __No consent required__
 - ✅ Perfect for GDPR compliance without cookie banners
 - ✅ No privacy policy disclosure needed
 - ⚠️ Allows vote manipulation (use for low-stakes feedback)
 
 ### Cookie Only (`cookie`)
 
-**How it works:**
+__How it works:__
 
 - Sets a browser cookie when user votes
 - No personal data stored on server
 - Cookie can be cleared by user (allows re-voting)
 
-**Cookie Details:**
+__Cookie Details:__
 
-- **Name:** `wzkb_rated_{post_id}` (e.g., `wzkb_rated_123`)
-- **Value:** `1`
-- **Expiry:** 365 days
-- **Path:** `/`
-- **SameSite:** `Lax`
-- **Purpose:** Prevent duplicate votes on knowledge base articles
+- __Name:__ `wzkb_rated_{post_id}` (e.g., `wzkb_rated_123`)
+- __Value:__ `1`
+- __Expiry:__ 365 days
+- __Path:__ `/`
+- __SameSite:__ `Lax`
+- __Purpose:__ Prevent duplicate votes on knowledge base articles
 
-**GDPR Considerations:**
+__GDPR Considerations:__
 
-- ⚠️ **Requires cookie consent** under GDPR/ePrivacy
+- ⚠️ __Requires cookie consent__ under GDPR/ePrivacy
 - Must be disclosed in cookie policy
 - Should be added to cookie consent manager
 - Consider as "Functional" or "Preference" cookie category
 - No personal data stored server-side
 
-**Cookie Consent Integration:**
+__Cookie Consent Integration:__
 
 ```javascript
 // Example: Only initialize rating if user has consented
@@ -90,38 +90,38 @@ if (userHasConsentedToCookies()) {
 
 ### IP Address Only (`ip`)
 
-**How it works:**
+__How it works:__
 
-- Stores **hashed** visitor IP address in post meta (SHA-256 with WordPress salt)
+- Stores __hashed__ visitor IP address in post meta (SHA-256 with WordPress salt)
 - Checks IP hash against stored list before allowing vote
 - No cookies set
-- **Privacy-friendly:** Original IP cannot be recovered from hash
+- __Privacy-friendly:__ Original IP cannot be recovered from hash
 
-**Data Storage:**
+__Data Storage:__
 
-- **Post Meta Key:** `_wzkb_rating_ips`
-- **Data Type:** Array of SHA-256 hashed IP addresses
-- **Example:** `['a3f5b...', 'c7d2e...']` (64-character hashes)
-- **Hash Method:** `hash('sha256', $ip . wp_salt('nonce'))`
+- __Post Meta Key:__ `_wzkb_rating_ips`
+- __Data Type:__ Array of SHA-256 hashed IP addresses
+- __Example:__ `['a3f5b...', 'c7d2e...']` (64-character hashes)
+- __Hash Method:__ `hash('sha256', $ip . wp_salt('nonce'))`
 
-**GDPR Considerations:**
+__GDPR Considerations:__
 
-- ✅ **Pseudonymized data** under GDPR Article 4(5)
-- ✅ **Cannot reverse** hash to obtain original IP
-- ✅ **Reduced GDPR obligations** compared to raw IP storage
-- ✅ **Privacy by design** - admins never see actual IPs
+- ✅ __Pseudonymized data__ under GDPR Article 4(5)
+- ✅ __Cannot reverse__ hash to obtain original IP
+- ✅ __Reduced GDPR obligations__ compared to raw IP storage
+- ✅ __Privacy by design__ - admins never see actual IPs
 - Still requires privacy policy disclosure
 - Lighter data protection requirements than raw IPs
 
 ### Cookie + IP Address (`cookie_ip`)
 
-**How it works:**
+__How it works:__
 
 - Combines both cookie and IP checking
 - User must pass both checks to vote
 - Most reliable duplicate prevention
 
-**GDPR Considerations:**
+__GDPR Considerations:__
 
 - Requires both cookie consent AND privacy policy disclosure
 - Highest level of tracking
@@ -130,19 +130,19 @@ if (userHasConsentedToCookies()) {
 
 ### Logged-in Users Only (`logged_in_only`)
 
-**How it works:**
+__How it works:__
 
 - Only authenticated WordPress users can vote
 - Stores WordPress user ID in post meta
 - Shows login prompt to guests
 
-**Data Storage:**
+__Data Storage:__
 
-- **Post Meta Key:** `_wzkb_rating_user_ids`
-- **Data Type:** Array of WordPress user IDs
-- **Example:** `[1, 5, 12]`
+- __Post Meta Key:__ `_wzkb_rating_user_ids`
+- __Data Type:__ Array of WordPress user IDs
+- __Example:__ `[1, 5, 12]`
 
-**GDPR Considerations:**
+__GDPR Considerations:__
 
 - ✅ Most GDPR-friendly for authenticated sites
 - No cookies required for tracking
@@ -191,7 +191,7 @@ The plugin automatically loads minified assets (`.min.css` and `.min.js`) in pro
 define( 'SCRIPT_DEBUG', true );
 ```
 
-**Asset Files:**
+__Asset Files:__
 
 - Production: `rating.min.css` and `rating.min.js` (minified)
 - Development: `rating.css` and `rating.js` (full source with comments)
@@ -221,17 +221,17 @@ add_filter( 'the_content', function( $content ) {
 
 ## AJAX Endpoint
 
-**Action:** `wzkb_submit_rating`  
-**Method:** POST  
-**Nonce:** `wzkb_rating_nonce`
+__Action:__ `wzkb_submit_rating`  
+__Method:__ POST  
+__Nonce:__ `wzkb_rating_nonce`
 
-**Parameters:**
+__Parameters:__
 
 - `post_id` - Post ID to rate
 - `rating` - Rating value (0-1 for binary, 1-5 for scale)
 - `mode` - Rating mode ('binary' or 'scale')
 
-**Response:**
+__Response:__
 
 ```json
 {
@@ -255,15 +255,15 @@ add_filter( 'the_content', function( $content ) {
 
 The admin posts list includes a "Rating" column showing:
 
-- **Binary mode:** Percentage helpful (e.g., "80% (10)")
-- **Scale mode:** Average rating (e.g., "4.2 / 5 (10)")
+- __Binary mode:__ Percentage helpful (e.g., "80% (10)")
+- __Scale mode:__ Average rating (e.g., "4.2 / 5 (10)")
 - Column is sortable
 
 ### Bayesian Average Sorting
 
-The rating column uses **Bayesian average** (weighted rating) for intelligent sorting that balances quality with quantity.
+The rating column uses __Bayesian average__ (weighted rating) for intelligent sorting that balances quality with quantity.
 
-**How It Works:**
+__How It Works:__
 
 ```text
 Weighted Score = (v / (v + m)) × R + (m / (v + m)) × C
@@ -271,30 +271,30 @@ Weighted Score = (v / (v + m)) × R + (m / (v + m)) × C
 
 Where:
 
-- **v** = votes for this article
-- **m** = minimum votes threshold (default: 10)
-- **R** = this article's rating
-- **C** = global mean rating across all articles
+- __v__ = votes for this article
+- __m__ = minimum votes threshold (default: 10)
+- __R__ = this article's rating
+- __C__ = global mean rating across all articles
 
-**Why This Matters:**
+__Why This Matters:__
 
 | Without Bayesian | With Bayesian |
 |------------------|---------------|
 | Article A: 5.0 (2 votes) ranks #1 | Article B: 4.5 (500 votes) ranks #1 |
 | Article B: 4.5 (500 votes) ranks #2 | Article A: 5.0 (2 votes) ranks lower |
 
-**Benefits:**
+__Benefits:__
 
 - ✅ Prevents new articles with few votes from dominating
 - ✅ Rewards consistently good content with many votes
 - ✅ Pulls low-vote articles toward the global average
 - ✅ Same algorithm used by IMDb, Reddit, and Steam
 
-**Performance:**
+__Performance:__
 
 The global mean rating is cached for 1 hour to avoid expensive database queries on every page load. The cache is automatically invalidated when any rating is submitted.
 
-**Customization:**
+__Customization:__
 
 Adjust the minimum votes threshold (higher = more conservative):
 
@@ -305,7 +305,7 @@ add_filter( 'wzkb_rating_bayesian_min_votes', function( $min_votes, $rating_mode
 }, 10, 2 );
 ```
 
-**Examples:**
+__Examples:__
 
 With `m = 10` and global mean of `70%`:
 
@@ -342,24 +342,24 @@ Add this to your privacy policy when using the rating system:
 
 #### For No Tracking Mode
 
-**Article Ratings:** When you rate a knowledge base article, no personal information is collected or stored. You may rate articles multiple times.
+__Article Ratings:__ When you rate a knowledge base article, no personal information is collected or stored. You may rate articles multiple times.
 
 #### For Cookie-Only Mode
 
-**Article Ratings:** When you rate a knowledge base article, we store a cookie
+__Article Ratings:__ When you rate a knowledge base article, we store a cookie
 on your device (wzkb_rated_[article_id]) to prevent duplicate votes. This cookie
 expires after 365 days. No personal information is collected or stored on our servers.
 
 #### For IP Address Mode
 
-**Article Ratings:** When you rate a knowledge base article, we store a pseudonymized
+__Article Ratings:__ When you rate a knowledge base article, we store a pseudonymized
 identifier (cryptographic hash) derived from your IP address to prevent duplicate votes.
 This hash cannot be reversed to obtain your original IP address. The data is automatically
 limited to the most recent 10,000 votes per article for performance reasons.
 
 #### For Logged-in Users Mode
 
-**Article Ratings:** When you rate a knowledge base article, your user ID is stored
+__Article Ratings:__ When you rate a knowledge base article, your user ID is stored
 with your rating to prevent duplicate votes. This data is associated with your
 WordPress account and will be deleted if you delete your account.
 
@@ -401,7 +401,7 @@ function wzkb_delete_ratings_by_ip( $ip_address ) {
 }
 ```
 
-**Note:** Since IPs are hashed, you need the original IP address to generate the matching hash for deletion.
+__Note:__ Since IPs are hashed, you need the original IP address to generate the matching hash for deletion.
 
 ## Cookie Consent Manager Integration
 
@@ -505,11 +505,11 @@ The rating system works with page caching because:
 
 The rating system includes automatic optimizations:
 
-- **Automatic array size limits:** Max 10,000 IP hashes per article
-- **Auto-cleanup:** Removes oldest 1,000 entries when limit reached
-- **Efficient storage:** SHA-256 hashes are 64 characters (vs up to 39 for IPv6)
-- **Rate limiting:** 10 requests per 60 seconds per user/IP
-- **Race condition prevention:** Transient-based locking for concurrent votes
+- __Automatic array size limits:__ Max 10,000 IP hashes per article
+- __Auto-cleanup:__ Removes oldest 1,000 entries when limit reached
+- __Efficient storage:__ SHA-256 hashes are 64 characters (vs up to 39 for IPv6)
+- __Rate limiting:__ 10 requests per 60 seconds per user/IP
+- __Race condition prevention:__ Transient-based locking for concurrent votes
 
 For additional optimization, consider:
 
@@ -556,41 +556,41 @@ For issues or questions about the rating system:
 
 ### Built-in Security Protections
 
-1. **CSRF Protection**
+1. __CSRF Protection__
    - Nonce verification on all AJAX requests
    - WordPress nonce system integration
 
-2. **Rate Limiting**
+2. __Rate Limiting__
    - Default: 10 requests per 60 seconds per user/IP
    - Prevents abuse and stats manipulation
    - Configurable via `wzkb_rating_rate_limits` filter
 
-3. **Input Validation**
+3. __Input Validation__
    - All inputs sanitized and validated
    - Post status verification (only published posts)
    - Rating value range checks
    - Post type verification
 
-4. **Race Condition Prevention**
+4. __Race Condition Prevention__
    - Transient-based locking mechanism
    - Prevents concurrent vote conflicts
    - 5-second lock timeout with retry logic
 
-5. **Integer Overflow Protection**
+5. __Integer Overflow Protection__
    - Maximum vote count: 2,147,483,647
    - Automatic limit enforcement
 
-6. **IP Spoofing Prevention**
+6. __IP Spoofing Prevention__
    - Prioritizes `REMOTE_ADDR` (cannot be spoofed)
    - Proxy headers disabled by default
    - Optional proxy support via `wzkb_rating_use_proxy_headers` filter
 
-7. **Cookie Security**
+7. __Cookie Security__
    - `SameSite=Lax` for CSRF protection
    - `Secure` flag on HTTPS sites
    - 365-day expiry
 
-8. **Privacy by Design**
+8. __Privacy by Design__
    - IP addresses hashed with SHA-256
    - WordPress salt added for uniqueness
    - Hashes cannot be reversed
@@ -605,7 +605,7 @@ If your site is behind a trusted proxy or CDN (Cloudflare, AWS CloudFront, etc.)
 add_filter( 'wzkb_rating_use_proxy_headers', '__return_true' );
 ```
 
-**Warning:** Only enable this if you trust your proxy/CDN configuration. Improper use can allow IP spoofing.
+__Warning:__ Only enable this if you trust your proxy/CDN configuration. Improper use can allow IP spoofing.
 
 ## Changelog
 
@@ -614,8 +614,8 @@ add_filter( 'wzkb_rating_use_proxy_headers', '__return_true' );
 - Initial release of rating system
 - Three rating modes (disabled, binary, scale)
 - Five tracking methods (none, cookie, IP, cookie+IP, logged-in only)
-- **IP hashing for GDPR compliance** (pseudonymization)
-- **Enterprise-grade security** (rate limiting, race condition prevention, overflow protection)
+- __IP hashing for GDPR compliance__ (pseudonymization)
+- __Enterprise-grade security__ (rate limiting, race condition prevention, overflow protection)
 - GDPR compliance options with detailed documentation
 - Admin column with sortable ratings
 - Responsive design with mobile support
