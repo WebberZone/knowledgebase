@@ -1,8 +1,8 @@
 # Knowledge Base Style Customization Guide
 
-**Version:** 3.0.0  
-**Last Updated:** October 12, 2025  
-**Audience:** Site Administrators, Theme Developers
+__Version:__ 3.0.0  
+__Last Updated:__ October 12, 2025  
+__Audience:__ Site Administrators, Theme Developers
 
 ---
 
@@ -21,15 +21,15 @@
 
 ## Introduction
 
-All Knowledge Base styles use **CSS Custom Properties (CSS Variables)** for easy color customization. This means you can change the entire color scheme of your knowledge base without editing any plugin files.
+All Knowledge Base styles use __CSS Custom Properties (CSS Variables)__ for easy color customization. This means you can change the entire color scheme of your knowledge base without editing any plugin files.
 
 ### Benefits of CSS Variables
 
-- ✅ **Easy to customize** - Change colors in one place
-- ✅ **No file editing** - Add custom CSS through WordPress settings
-- ✅ **Update-safe** - Changes persist through plugin updates
-- ✅ **Real-time preview** - See changes immediately
-- ✅ **No coding required** - Simple copy-paste customization
+- ✅ __Easy to customize__ - Change colors in one place
+- ✅ __No file editing__ - Add custom CSS through WordPress settings
+- ✅ __Update-safe__ - Changes persist through plugin updates
+- ✅ __Real-time preview__ - See changes immediately
+- ✅ __No coding required__ - Simple copy-paste customization
 
 ---
 
@@ -37,9 +37,9 @@ All Knowledge Base styles use **CSS Custom Properties (CSS Variables)** for easy
 
 ### 3-Step Customization Process
 
-1. **Choose your style** from the dropdown (Settings → Knowledge Base → Output)
-2. **Find the CSS variables** for that style (see sections below)
-3. **Add custom CSS** to override colors (Settings → Knowledge Base → Output → Custom CSS)
+1. __Choose your style__ from the dropdown (Settings → Knowledge Base → Output)
+2. __Find the CSS variables__ for that style (see sections below)
+3. __Add custom CSS__ to override colors (Settings → Knowledge Base → Output → Custom CSS)
 
 ### Example: Change Primary Color
 
@@ -57,21 +57,21 @@ That's it! The knowledge base will now use your brand color throughout.
 
 ### Method 1: Plugin Settings (Recommended)
 
-**Path:** WordPress Admin → Knowledge Base → Settings → Output
+__Path:__ WordPress Admin → Knowledge Base → Settings → Output
 
-1. Scroll to **"Custom CSS"** field at the bottom
+1. Scroll to __"Custom CSS"__ field at the bottom
 2. Paste your CSS variables
-3. Click **"Save Changes"**
+3. Click __"Save Changes"__
 4. View your knowledge base to see changes
 
 ### Method 2: WordPress Customizer
 
-**Path:** Appearance → Customize → Additional CSS
+__Path:__ Appearance → Customize → Additional CSS
 
-1. Click **"Additional CSS"**
+1. Click __"Additional CSS"__
 2. Add your CSS variables
 3. Preview changes in real-time
-4. Click **"Publish"**
+4. Click __"Publish"__
 
 ### Method 3: Child Theme (For Developers)
 
@@ -90,7 +90,7 @@ Add to your child theme's `style.css`:
 
 ### Classic Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -118,7 +118,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Modern Blue Theme for Classic */
@@ -135,7 +135,7 @@ Add to your child theme's `style.css`:
 
 ### Legacy Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -156,7 +156,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* WordPress Admin Colors for Legacy */
@@ -174,7 +174,7 @@ Add to your child theme's `style.css`:
 
 ### Card Layout (modern.css)
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -202,7 +202,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Purple Card Theme */
@@ -219,7 +219,7 @@ Add to your child theme's `style.css`:
 
 ### Minimal Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -241,7 +241,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Warm Minimal Theme */
@@ -258,7 +258,7 @@ Add to your child theme's `style.css`:
 
 ### Boxed Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -288,7 +288,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Teal Boxed Theme */
@@ -305,7 +305,7 @@ Add to your child theme's `style.css`:
 
 ### Gradient Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -333,7 +333,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Ocean Gradient Theme */
@@ -351,7 +351,7 @@ Add to your child theme's `style.css`:
 
 ### Compact Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -374,7 +374,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Compact Dark Theme */
@@ -390,7 +390,7 @@ Add to your child theme's `style.css`:
 
 ### Magazine Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -414,7 +414,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Tech Magazine Theme */
@@ -431,7 +431,7 @@ Add to your child theme's `style.css`:
 
 ### Professional Style
 
-**Default Colors:**
+__Default Colors:__
 
 ```css
 :root {
@@ -455,7 +455,7 @@ Add to your child theme's `style.css`:
 }
 ```
 
-**Customization Example:**
+__Customization Example:__
 
 ```css
 /* Enterprise Green Theme */
@@ -614,11 +614,11 @@ Make it pop with bold colors:
 
 ### My Custom Colors Aren't Showing
 
-**Solution 1:** Clear your browser cache
+__Solution 1:__ Clear your browser cache
 
 - Press `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
 
-**Solution 2:** Check CSS syntax
+__Solution 2:__ Check CSS syntax
 
 ```css
 /* ✅ Correct */
@@ -637,7 +637,7 @@ Make it pop with bold colors:
 }
 ```
 
-**Solution 3:** Use `!important` if theme overrides variables
+__Solution 3:__ Use `!important` if theme overrides variables
 
 ```css
 :root {
@@ -647,7 +647,7 @@ Make it pop with bold colors:
 
 ### Colors Look Different on Mobile
 
-**Solution:** Some CSS may be cached. Add this to force reload:
+__Solution:__ Some CSS may be cached. Add this to force reload:
 
 ```css
 /* Force fresh styles */
@@ -658,7 +658,7 @@ Make it pop with bold colors:
 
 ### Specific Elements Not Changing
 
-**Solution:** Target elements directly:
+__Solution:__ Target elements directly:
 
 ```css
 /* Override section headings specifically */
@@ -670,9 +670,9 @@ Make it pop with bold colors:
 
 ### Color Contrast Issues
 
-**Tool:** Check contrast at <https://webaim.org/resources/contrastchecker/>
+__Tool:__ Check contrast at <https://webaim.org/resources/contrastchecker/>
 
-**WCAG AA Standard:** Minimum 4.5:1 ratio for normal text
+__WCAG AA Standard:__ Minimum 4.5:1 ratio for normal text
 
 ```css
 /* Good contrast example */
@@ -689,19 +689,19 @@ Make it pop with bold colors:
 
 Need help choosing colors? Try these tools:
 
-- **Coolors.co** - Generate color palettes
-- **Adobe Color** - Color wheel and harmony rules
-- **Material Design Colors** - Pre-defined palettes
-- **Paletton** - Color scheme designer
-- **Contrast Checker** - Ensure accessibility
+- __Coolors.co__ - Generate color palettes
+- __Adobe Color__ - Color wheel and harmony rules
+- __Material Design Colors__ - Pre-defined palettes
+- __Paletton__ - Color scheme designer
+- __Contrast Checker__ - Ensure accessibility
 
 ---
 
 ## Need More Help?
 
-- **Documentation:** <https://webberzone.com/support/knowledgebase/>
-- **Support Forums:** <https://wordpress.org/support/plugin/knowledgebase/>
-- **GitHub Issues:** <https://github.com/WebberZone/knowledgebase/issues>
+- __Documentation:__ <https://webberzone.com/support/knowledgebase/>
+- __Support Forums:__ <https://wordpress.org/support/plugin/knowledgebase/>
+- __GitHub Issues:__ <https://github.com/WebberZone/knowledgebase/issues>
 
 ---
 

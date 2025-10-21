@@ -4,13 +4,13 @@ This directory contains developer documentation for the Knowledge Base plugin.
 
 ## Available Documentation
 
-- **[BEACON-WIDGET.md](BEACON-WIDGET.md)**
+- __[BEACON-WIDGET.md](BEACON-WIDGET.md)__
   - Feature overview and configuration
   - Security, spam protection, and validation rules
   - JavaScript API, events, and customization hooks
   - Styling guidance and troubleshooting tips
 
-- **[RATING-SYSTEM.md](RATING-SYSTEM.md)**
+- __[RATING-SYSTEM.md](RATING-SYSTEM.md)__
   - Configuration options and tracking methods
   - GDPR compliance guidance
   - Frontend display and customization
@@ -18,14 +18,14 @@ This directory contains developer documentation for the Knowledge Base plugin.
   - Security features and performance
   - Privacy policy templates
 
-- **[STYLES-ARCHITECTURE-RELEASE.md](STYLES-ARCHITECTURE-RELEASE.md)**
+- __[STYLES-ARCHITECTURE-RELEASE.md](STYLES-ARCHITECTURE-RELEASE.md)__
   - Complete release notes for v2.3.0 styles architecture overhaul
   - Technical implementation details and new filters
   - Migration guide, benefits, and roadmap
 
 ## For Plugin Users
 
-These files are for **developers only** and are not included in the plugin distribution. If you're looking for user documentation, please see:
+These files are for __developers only__ and are not included in the plugin distribution. If you're looking for user documentation, please see:
 
 - [Plugin README](../README.md)
 - [WebberZone Support](https://webberzone.com/support/)

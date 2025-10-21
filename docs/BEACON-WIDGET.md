@@ -6,60 +6,60 @@ The Beacon is a floating help widget that provides self-service support with sea
 
 ### Core Functionality
 
-- **Floating Button** - Customizable button that sits at the bottom right (or left) of the screen
-- **Self-Service Search** - Search knowledge base articles with debounced AJAX search (500ms)
-- **Smart Suggested Articles** - Context-aware articles using Related class for KB posts, recent articles elsewhere
-- **Contact Form** - HTML email contact with beautiful template when articles don't help
-- **Built-in Spam Protection** - Honeypot field plus anonymous rate limiting without storing IPs
-- **Minimum Message Length** - Requires at least 30 characters before submitting (filterable)
-- **Stacked Navigation** - Mobile-app-style layered interface for smooth UX
-- **Responsive Design** - Works beautifully on desktop, tablet, and mobile devices
-- **Fixed Search Box** - Search box locked at bottom using CSS Grid for optimal UX
-- **Related Articles Integration** - Reuses existing Related class logic (DRY principle)
+- __Floating Button__ – Customizable button that sits at the bottom right (or left) of the screen.
+- __Self-Service Search__ – Search knowledge base articles with debounced AJAX search (500ms).
+- __Smart Suggested Articles__ – Context-aware articles using Related class for KB posts, recent articles elsewhere.
+- __Contact Form__ – HTML email contact with beautiful template when articles do not help.
+- __Built-in Spam Protection__ – Honeypot field plus anonymous rate limiting without storing IPs.
+- __Minimum Message Length__ – Requires at least 30 characters before submitting (filterable).
+- __Stacked Navigation__ – Mobile-app-style layered interface for smooth UX.
+- __Responsive Design__ – Works beautifully on desktop, tablet, and mobile devices.
+- __Fixed Search Box__ – Search box locked at bottom using CSS Grid for optimal UX.
+- __Related Articles Integration__ – Reuses existing Related class logic (DRY principle).
 
 ### Design Features
 
-- **Customizable Appearance** - Colors, position, button style, and labels
-- **Dark Mode Support** - Automatically adapts to user's color scheme preference
-- **Smooth Animations** - Polished transitions and hover effects
-- **Accessibility** - Keyboard navigation, focus states, and ARIA labels
-- **Modern UI** - Clean, professional design with rounded corners and shadows
-- **Smart Color Palette** - Setup wizard derives hover/text/link colors from your primary brand color while keeping the panel background white for readability
+- __Customizable Appearance__ – Colors, position, button style, and labels.
+- __Dark Mode Support__ – Automatically adapts to the user’s color scheme preference.
+- __Smooth Animations__ – Polished transitions and hover effects.
+- __Accessibility__ – Keyboard navigation, focus states, and ARIA labels.
+- __Modern UI__ – Clean, professional design with rounded corners and shadows.
+- __Smart Color Palette__ – Setup wizard derives hover/text/link colors from your primary brand color while keeping the panel background white for readability.
 
 ## Configuration
 
 ### Admin Settings
 
-Navigate to **Knowledge Base > Settings > Output** and scroll to the **Beacon Help Widget** section.
+Navigate to __Knowledge Base → Settings → Output__ and scroll to the __Beacon Help Widget__ section.
 
 #### Basic Settings
 
-- **Enable Beacon** - Turn the beacon on/off
-- **Button Position** - Choose bottom right or bottom left
-- **Button Style** - Icon only, text only, or icon + text
-- **Button Text** - Custom text for the button (default: "Help")
-- **Beacon Color** - Primary color for button and UI elements (default: #617DEC)
+- __Enable Beacon__ – Turn the beacon on/off.
+- __Button Position__ – Choose bottom right or bottom left.
+- __Button Style__ – Icon only, text only, or icon + text.
+- __Button Text__ – Custom text for the button (default: “Help”).
+- __Beacon Color__ - Primary color for button and UI elements (default: #617DEC)
 
-> **Setup Wizard Color Tips:** When using the setup wizard, choosing a primary color automatically generates a full palette (button hover, text, panel text, and link hover colors) with contrast-aware values. The panel background is intentionally kept white to maintain content readability.
+> __Setup Wizard Color Tips:__ When using the setup wizard, choosing a primary color automatically generates a full palette (button hover, text, panel text, and link hover colors) with contrast-aware values. The panel background is intentionally kept white to maintain content readability.
 
 #### Content Settings
 
-- **Greeting Message** - Welcome message when beacon opens (default: "Hi! How can we help you?")
-- **Search Placeholder** - Placeholder text for search input (default: "Search for answers...")
+- __Greeting Message__ – Welcome message when beacon opens (default: “Hi! How can we help you?”).
+- __Search Placeholder__ – Placeholder text for search input (default: “Search for answers…”).
 
 #### Contact Form Settings
 
-- **Enable Contact Form** - Allow visitors to send messages
-- **Contact Email** - Email address for form submissions (default: admin email)
-- **Minimum Message Length** - Require visitors to enter at least 30 characters (default: 30, filterable)
+- __Enable Contact Form__ – Allow visitors to send messages.
+- __Contact Email__ – Email address for form submissions (default: admin email).
+- __Minimum Message Length__ – Require visitors to enter at least 30 characters (default: 30, filterable).
 
 #### Display Options
 
-- **Display Location** - Choose where beacon appears:
-  - **Knowledge Base Only** (default) - Shows only on KB pages (singles, archives, taxonomies)
-  - **Entire Site** - Shows sitewide
-- **Show on Mobile** - Display beacon on mobile devices
-- **Enable Animations** - Smooth animations and transitions
+- __Display Location__ – Choose where beacon appears:
+  - __Knowledge Base Only__ (default) – Shows only on KB pages (singles, archives, taxonomies).
+  - __Entire Site__ – Shows sitewide.
+- __Show on Mobile__ - Display beacon on mobile devices
+- __Enable Animations__ - Smooth animations and transitions
 
 ## JavaScript API
 
@@ -166,7 +166,7 @@ The beacon uses CSS Grid for a robust, modern layout:
 }
 ```
 
-**Benefits:**
+__Benefits:__
 
 - Search box always visible at bottom
 - Articles scroll independently
@@ -178,8 +178,8 @@ The beacon uses CSS Grid for a robust, modern layout:
 
 The search box appears at the bottom of:
 
-1. **Home Screen** - Below suggested articles and contact button
-2. **Search Results Screen** - Below search results
+1. __Home Screen__ - Below suggested articles and contact button
+2. __Search Results Screen__ - Below search results
 
 Both use the same CSS Grid layout ensuring the search box is always accessible without scrolling.
 
@@ -206,7 +206,7 @@ add_filter( 'wzkb_beacon_labels', function( $labels ) {
 } );
 ```
 
-**Available Labels:**
+__Available Labels:__
 
 - `greeting` - Welcome message on home screen
 - `searchPlaceholder` - Search input placeholder
@@ -235,9 +235,9 @@ add_filter( 'wzkb_beacon_labels', function( $labels ) {
 
 The beacon intelligently suggests articles based on context:
 
-1. **On KB Articles** - Shows related articles using the Related class (same categories/tags)
-2. **On Other Pages** - Shows recent KB articles
-3. **Custom Override** - Use filter to provide specific articles
+1. __On KB Articles__ - Shows related articles using the Related class (same categories/tags)
+2. __On Other Pages__ - Shows recent KB articles
+3. __Custom Override__ - Use filter to provide specific articles
 
 #### Custom Suggested Articles
 
@@ -348,11 +348,11 @@ Add custom styles to override defaults:
 
 ### Files
 
-- **PHP Class**: `includes/pro/beacon/class-beacon.php`
-- **JavaScript**: `includes/pro/beacon/js/beacon.js` (and `beacon.min.js`)
-- **CSS**: `includes/pro/beacon/css/beacon.css` (and `beacon.min.css`)
-- **Settings**: `includes/admin/class-settings.php`
-- **Related Integration**: `includes/frontend/class-related.php`
+- __PHP Class__: `includes/pro/beacon/class-beacon.php`
+- __JavaScript__: `includes/pro/beacon/js/beacon.js` (and `beacon.min.js`)
+- __CSS__: `includes/pro/beacon/css/beacon.css` (and `beacon.min.css`)
+- __Settings__: `includes/admin/class-settings.php`
+- __Related Integration__: `includes/frontend/class-related.php`
 
 ### AJAX Endpoints
 
@@ -430,12 +430,12 @@ Add custom styles to override defaults:
 
 ## Best Practices
 
-1. **Keep Suggested Articles Relevant** - Use the filter to show contextual articles
-2. **Test on Mobile** - Ensure beacon works well on all devices
-3. **Monitor Contact Submissions** - Set up proper email notifications
-4. **Customize Colors** - Match your brand colors
-5. **Add Analytics** - Track beacon usage with custom events
-6. **Optimize Search** - Ensure articles have good titles and excerpts
+1. __Keep Suggested Articles Relevant__ - Use the filter to show contextual articles
+2. __Test on Mobile__ - Ensure beacon works well on all devices
+3. __Monitor Contact Submissions__ - Set up proper email notifications
+4. __Customize Colors__ - Match your brand colors
+5. __Add Analytics__ - Track beacon usage with custom events
+6. __Optimize Search__ - Ensure articles have good titles and excerpts
 
 ## Examples
 
@@ -559,24 +559,24 @@ Enhanced search results experience:
 
 ### Version 3.0.0
 
-- **NEW**: CSS Grid layout for robust positioning
-- **NEW**: Search box locked at bottom (home + search screens)
-- **NEW**: Related articles integration using Related class
-- **NEW**: Customizable labels via `wzkb_beacon_labels` filter
-- **NEW**: Display location setting (KB only or sitewide)
-- **NEW**: "Haven't found what you're looking for" message
-- **NEW**: Contact button in search results
-- **NEW**: RTL (Right-to-Left) language support with automatic detection
-- **IMPROVED**: No horizontal scrollbar with `overflow-x: hidden`
-- **IMPROVED**: Word wrapping for long content
-- **IMPROVED**: Scrollable content area with fixed search
-- **IMPROVED**: HTML email template for contact form
-- **IMPROVED**: State persistence (no reset on close)
-- **IMPROVED**: DRY principle - reuses Related class logic
-- **FIXED**: Duplicate ID issues (now uses classes)
-- **FIXED**: Search box positioning issues
-- **FIXED**: Cache busting for CSS/JS updates
-- **FIXED**: RTL CSS files now load automatically based on `is_rtl()`
+- __NEW__: CSS Grid layout for robust positioning
+- __NEW__: Search box locked at bottom (home + search screens)
+- __NEW__: Related articles integration using Related class
+- __NEW__: Customizable labels via `wzkb_beacon_labels` filter
+- __NEW__: Display location setting (KB only or sitewide)
+- __NEW__: "Haven't found what you're looking for" message
+- __NEW__: Contact button in search results
+- __NEW__: RTL (Right-to-Left) language support with automatic detection
+- __IMPROVED__: No horizontal scrollbar with `overflow-x: hidden`
+- __IMPROVED__: Word wrapping for long content
+- __IMPROVED__: Scrollable content area with fixed search
+- __IMPROVED__: HTML email template for contact form
+- __IMPROVED__: State persistence (no reset on close)
+- __IMPROVED__: DRY principle - reuses Related class logic
+- __FIXED__: Duplicate ID issues (now uses classes)
+- __FIXED__: Search box positioning issues
+- __FIXED__: Cache busting for CSS/JS updates
+- __FIXED__: RTL CSS files now load automatically based on `is_rtl()`
 
 ### Version 2.0.0
 
