@@ -73,6 +73,75 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 	define( 'WZKB_PLUGIN_FILE', __FILE__ );
 }
 
+
+if ( ! function_exists( __NAMESPACE__ . '\wzkb_deactivate_other_instances' ) ) {
+	/**
+	 * Deactivate other instances of WZKB when this plugin is activated.
+	 *
+	 * @param string $plugin The plugin being activated.
+	 * @param bool   $network_wide Whether the plugin is being activated network-wide.
+	 */
+	function wzkb_deactivate_other_instances( $plugin, $network_wide = false ) {
+		$free_plugin = 'knowledgebase/knowledgebase.php';
+		$pro_plugin  = 'knowledgebase-pro/knowledgebase.php';
+
+		// Only proceed if one of our plugins is being activated.
+		if ( ! in_array( $plugin, array( $free_plugin, $pro_plugin ), true ) ) {
+			return;
+		}
+
+		$plugins_to_deactivate = array();
+		$deactivated_plugin    = '';
+
+		// If pro is being activated, deactivate free.
+		if ( $pro_plugin === $plugin ) {
+			if ( is_plugin_active( $free_plugin ) || ( $network_wide && is_plugin_active_for_network( $free_plugin ) ) ) {
+				$plugins_to_deactivate[] = $free_plugin;
+				$deactivated_plugin      = 'WebberZone Knowledge Base';
+			}
+		}
+
+		// If free is being activated, deactivate pro.
+		if ( $free_plugin === $plugin ) {
+			if ( is_plugin_active( $pro_plugin ) || ( $network_wide && is_plugin_active_for_network( $pro_plugin ) ) ) {
+				$plugins_to_deactivate[] = $pro_plugin;
+				$deactivated_plugin      = 'WebberZone Knowledge Base Pro';
+			}
+		}
+
+		if ( ! empty( $plugins_to_deactivate ) ) {
+			deactivate_plugins( $plugins_to_deactivate, false, $network_wide );
+			set_transient( 'wzkb_deactivated_notice', $deactivated_plugin, 1 * HOUR_IN_SECONDS );
+		}
+	}
+	add_action( 'activated_plugin', __NAMESPACE__ . '\wzkb_deactivate_other_instances', 10, 2 );
+}
+
+// Show admin notice about automatic deactivation.
+if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\wzkb_show_deactivation_notice' ) ) {
+	add_action(
+		'admin_notices',
+		function () {
+			$deactivated_plugin = get_transient( 'wzkb_deactivated_notice' );
+			if ( $deactivated_plugin ) {
+				/* translators: %s: Name of the deactivated plugin */
+				$message = sprintf( __( "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s.", 'knowledgebase' ), $deactivated_plugin );
+				?>
+			<div class="updated" style="border-left: 4px solid #ffba00;">
+				<p><?php echo esc_html( $message ); ?></p>
+			</div>
+				<?php
+				delete_transient( 'wzkb_deactivated_notice' );
+			}
+		}
+	);
+}
+
+if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
+	// Finally load Freemius integration.
+	require_once plugin_dir_path( __FILE__ ) . 'load-freemius.php';
+}
+
 // Load the autoloader.
 require_once WZKB_PLUGIN_DIR . 'includes/autoloader.php';
 
