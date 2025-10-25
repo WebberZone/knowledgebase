@@ -13,7 +13,7 @@ const processSpecificFiles = specificFiles.length > 0;
  */
 const config = {
 	// Directories to exclude from processing.
-	excludeDirs: ['node_modules', 'vendor', 'build', '.git', 'includes/blocks'],
+	excludeDirs: ['node_modules', 'vendor', 'build', '.git', 'includes/blocks', 'includes/pro/blocks'],
 	
 	// File patterns to exclude from discovery.
 	// Note: We exclude -rtl.css but not .min files to allow re-minification.
