@@ -83,7 +83,8 @@ class Related {
 			'posts_per_page'      => $args['numberposts'],
 			'post_status'         => 'publish',
 			'post__not_in'        => $exclude,
-			'orderby'             => 'rand',
+			'orderby'             => 'date',
+			'order'               => 'DESC',
 			'tax_query'           => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				'relation' => 'OR',
 				array(
@@ -120,25 +121,29 @@ class Related {
 	 * @param array $args {
 	 *     Optional. Array of parameters.
 	 *
-	 *     @type int          $numberposts Total number of posts to retrieve. Is an alias of $posts_per_page in WP_Query. Accepts -1 for all. Default 5.
-	 *     @type WP_Post      $post        Post ID or WP_Post object. Default current post.
-	 *     @type string|int[] $exclude     Post IDs to exclude. Can be in CSV format or an array.
-	 *     @type bool         $show_thumb  Show thumbnail?
-	 *     @type bool         $show_date   Show date?
-	 *     @type string       $title       Title of the related articles. Default is Related Articles wrapped in an H3 header tag.
-	 *     @type string       $thumb_size  Thumbnail size.
+	 *     @type int          $numberposts  Total number of posts to retrieve. Is an alias of $posts_per_page in WP_Query. Accepts -1 for all. Default 5.
+	 *     @type WP_Post      $post         Post ID or WP_Post object. Default current post.
+	 *     @type string|int[] $exclude      Post IDs to exclude. Can be in CSV format or an array.
+	 *     @type bool         $show_thumb   Show thumbnail? Default true.
+	 *     @type bool         $show_excerpt Show excerpt? Falls back to first 55 words of post content if no excerpt. Default false.
+	 *     @type bool         $show_date    Show date? Default true.
+	 *     @type string       $title        Title text. Can be pre-formatted HTML (for backward compatibility) or plain text. Default is Related Articles wrapped in H3 tag.
+	 *     @type string       $heading_tag  HTML heading tag (h2, h3, h4, h5, h6). When provided, title is treated as plain text and wrapped in this tag. Default empty (uses title as-is).
+	 *     @type string       $thumb_size   Thumbnail size. Default 'thumbnail'.
 	 * }
-	 * @return string Related knowledge base articles.
+	 * @return string Related knowledge base articles HTML, or empty string if no posts found.
 	 */
 	public static function get_related_articles( $args = array() ) {
 		$defaults = array(
-			'numberposts' => 5,
-			'post'        => get_post(),
-			'exclude'     => array(),
-			'show_thumb'  => true,
-			'show_date'   => true,
-			'title'       => '<h3>' . __( 'Related Articles', 'knowledgebase' ) . '</h3>',
-			'thumb_size'  => 'thumbnail',
+			'numberposts'  => 5,
+			'post'         => get_post(),
+			'exclude'      => array(),
+			'show_thumb'   => true,
+			'show_excerpt' => false,
+			'show_date'    => true,
+			'title'        => '<h3>' . __( 'Related Articles', 'knowledgebase' ) . '</h3>',
+			'heading_tag'  => '',
+			'thumb_size'   => 'thumbnail',
 		);
 
 		// Parse incomming $args into an array and merge it with $defaults.
@@ -149,7 +154,14 @@ class Related {
 		$output = '';
 
 		if ( $query->have_posts() ) {
-			$output .= '<div class="wzkb-related-articles">' . $args['title'] . '<ul>';
+			// If heading_tag is provided, use it to build the title. Otherwise use the title as-is for backward compatibility.
+			if ( ! empty( $args['heading_tag'] ) ) {
+				$heading_tag = in_array( $args['heading_tag'], array( 'h2', 'h3', 'h4', 'h5', 'h6' ), true ) ? $args['heading_tag'] : 'h3';
+				$title_html  = '<' . $heading_tag . '>' . esc_html( $args['title'] ) . '</' . $heading_tag . '>';
+			} else {
+				$title_html = $args['title'];
+			}
+			$output .= '<div class="wzkb-related-articles">' . $title_html . '<ul>';
 
 			while ( $query->have_posts() ) {
 				$query->the_post();
@@ -164,6 +176,13 @@ class Related {
 				$output .= get_the_title( get_the_ID() );
 
 				$output .= '</a>';
+
+				if ( $args['show_excerpt'] ) {
+					$excerpt = ! empty( get_the_excerpt() ) ? get_the_excerpt() : wp_trim_words( get_the_content(), 55 );
+					if ( ! empty( $excerpt ) ) {
+						$output .= '<div class="wzkb-excerpt">' . wp_kses_post( wp_trim_words( $excerpt, 20 ) ) . '</div>';
+					}
+				}
 
 				if ( $args['show_date'] ) {
 					$output .= '<span class="wzkb-related-article-date"> ' . get_the_date( get_option( 'date_format', 'd/m/y' ) ) . '</span> ';

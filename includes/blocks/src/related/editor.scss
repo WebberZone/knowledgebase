@@ -1,0 +1,46 @@
+// Related Articles Block Editor Styles
+.wp-block-knowledgebase-related {
+	.wzkb-related-articles {
+		padding: 1rem;
+		border: 1px solid #e0e0e0;
+		border-radius: 4px;
+		background: #fafafa;
+
+		h3 {
+			margin-top: 0;
+			font-size: 1.1em;
+			font-weight: 600;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			li {
+				padding: 0.5rem 0;
+				border-bottom: 1px solid #e0e0e0;
+
+				&:last-child {
+					border-bottom: none;
+				}
+
+				a {
+					color: #0073aa;
+					text-decoration: none;
+
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+
+				.wzkb-excerpt {
+					font-size: 0.9em;
+					color: #666;
+					margin-top: 0.25rem;
+					line-height: 1.4;
+				}
+			}
+		}
+	}
+}

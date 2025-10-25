@@ -10,6 +10,8 @@ namespace WebberZone\Knowledge_Base\Blocks;
 
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 use WebberZone\Knowledge_Base\Frontend\Display;
+use WebberZone\Knowledge_Base\Frontend\Related;
+use WebberZone\Knowledge_Base\Frontend\Search;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -30,6 +32,7 @@ class Blocks {
 	 */
 	public function __construct() {
 		Hook_Registry::add_action( 'init', array( $this, 'register_blocks' ) );
+		Hook_Registry::add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_settings' ) );
 	}
 
 	/**
@@ -47,16 +50,67 @@ class Blocks {
 			'breadcrumb' => 'render_breadcrumb_block',
 			'sections'   => 'render_sections_block',
 			'products'   => 'render_products_block',
+			'related'    => 'render_related_block',
+			'search'     => 'render_search_block',
 		);
 
+		/**
+		 * Filter the list of blocks to register.
+		 *
+		 * Allows Pro (or other extensions) to add additional blocks.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $blocks Associative array of block slug => render callback (string method name or callable).
+		 */
+		$blocks = apply_filters( 'wzkb_register_blocks', $blocks );
+
 		foreach ( $blocks as $block_name => $render_callback ) {
+			/**
+			 * Filter the path to the block metadata directory for a given block.
+			 *
+			 * @since 3.0.0
+			 *
+			 * @param string $path       Default path within the free plugin.
+			 * @param string $block_name Block slug.
+			 */
+			$metadata_path = apply_filters( 'wzkb_block_metadata_path', __DIR__ . "/build/$block_name/", $block_name );
+
+			/**
+			 * Filter the render callback for a given block.
+			 *
+			 * @since 3.0.0
+			 *
+			 * @param callable $callback   Default callback (instance method on this class) or provided callable.
+			 * @param string   $block_name Block slug.
+			 * @param object   $instance   This Blocks instance.
+			 */
+			$default_callback = is_string( $render_callback ) ? array( $this, $render_callback ) : $render_callback;
+			$callback         = apply_filters( 'wzkb_block_render_callback', $default_callback, $block_name, $this );
+
 			register_block_type_from_metadata(
-				__DIR__ . "/build/$block_name/",
+				$metadata_path,
 				array(
-					'render_callback' => array( $this, $render_callback ),
+					'render_callback' => $callback,
 				)
 			);
 		}
+	}
+
+	/**
+	 * Enqueue the editor settings script so KB blocks can access shared options.
+	 *
+	 * @since 3.0.0
+	 * @return void
+	 */
+	public function enqueue_editor_settings() {
+		$settings = \wzkb_get_settings();
+		$settings = apply_filters( 'wzkb_block_editor_settings', $settings );
+
+		$handle = 'wzkb-editor-settings';
+		wp_register_script( $handle, false, array( 'wp-block-editor' ), WZKB_VERSION, true );
+		wp_localize_script( $handle, 'wzkbKB', array( 'settings' => $settings ) );
+		wp_enqueue_script( $handle );
 	}
 
 	/**
@@ -118,7 +172,14 @@ class Blocks {
 		 */
 		$arguments = apply_filters( 'wzkb_block_options', $arguments, $attributes );
 
-		return wzkb_knowledge( $arguments );
+		$wrapper_attributes = get_block_wrapper_attributes();
+		$output             = sprintf(
+			'<div %1$s>%2$s</div>',
+			$wrapper_attributes,
+			wzkb_knowledge( $arguments )
+		);
+
+		return $output;
 	}
 
 	/**
@@ -188,7 +249,15 @@ class Blocks {
 			$heading       = $term->name;
 			$list_of_posts = '<' . $heading_level . '>' . esc_html( $heading ) . '</' . $heading_level . '>' . $list_of_posts;
 		}
-		return $list_of_posts;
+
+		$wrapper_attributes = get_block_wrapper_attributes();
+		$output             = sprintf(
+			'<div %1$s>%2$s</div>',
+			$wrapper_attributes,
+			$list_of_posts
+		);
+
+		return $output;
 	}
 
 	/**
@@ -312,6 +381,109 @@ class Blocks {
 			$wrapper_attributes,
 			! empty( $attributes['title'] ) ? '<h2 class="wzkb-products-title">' . esc_html( $attributes['title'] ) . '</h2>' : '',
 			wzkb_get_product_sections_list( $product_id, $arguments )
+		);
+
+		return $output;
+	}
+
+	/**
+	 * Renders the `knowledgebase/related` block on server.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the related articles list.
+	 */
+	public function render_related_block( $attributes ) {
+		// Only display on single KB articles on the frontend.
+		if ( ! is_singular( 'wz_knowledgebase' ) && ! wp_is_serving_rest_request() ) {
+			return '';
+		}
+
+		// Map block attributes (camelCase) to function arguments (snake_case).
+		// Sanitize title at source. Allow empty title (user may intentionally leave it blank).
+		$title = isset( $attributes['title'] ) ? sanitize_text_field( $attributes['title'] ) : __( 'Related Articles', 'knowledgebase' );
+
+		// Validate heading level against whitelist.
+		$heading_level = ! empty( $attributes['headingLevel'] ) ? $attributes['headingLevel'] : 'h3';
+		if ( ! in_array( $heading_level, array( 'h2', 'h3', 'h4', 'h5', 'h6' ), true ) ) {
+			$heading_level = 'h3';
+		}
+
+		$args = array(
+			'numberposts'  => ! empty( $attributes['limit'] ) ? (int) $attributes['limit'] : 5,
+			'post'         => get_post(),
+			'show_thumb'   => isset( $attributes['showThumb'] ) ? (bool) $attributes['showThumb'] : true,
+			'show_excerpt' => isset( $attributes['showExcerpt'] ) ? (bool) $attributes['showExcerpt'] : false,
+			'show_date'    => isset( $attributes['showDate'] ) ? (bool) $attributes['showDate'] : true,
+			'title'        => $title,
+			'heading_tag'  => $heading_level,
+		);
+
+		// Get related articles using the Related class.
+		$output = Related::get_related_articles( $args );
+
+		// Show editor notice when no posts found (editor context).
+		if ( empty( $output ) && wp_is_serving_rest_request() ) {
+			return '<div class="wp-block-notice"><p>' . esc_html__( 'No related articles found. This block displays related articles for the current knowledge base article.', 'knowledgebase' ) . '</p></div>';
+		}
+
+		// Wrap output with block wrapper attributes for proper block styling.
+		if ( ! empty( $output ) ) {
+			$wrapper_attributes = get_block_wrapper_attributes();
+			$output             = '<div ' . $wrapper_attributes . '>' . $output . '</div>';
+		}
+
+		/**
+		 * Filters the related articles block output.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param string $output     Related articles HTML.
+		 * @param array  $attributes Block attributes.
+		 */
+		return apply_filters( 'wzkb_related_block_output', $output, $attributes );
+	}
+
+	/**
+	 * Renders the `knowledgebase/search` block on server.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $attributes The block attributes.
+	 *
+	 * @return string Returns the search form HTML.
+	 */
+	public function render_search_block( $attributes ) {
+		$wrapper_attributes = get_block_wrapper_attributes();
+
+		// Map block attributes to function arguments.
+		// Sanitize user input at source.
+		$placeholder = ! empty( $attributes['placeholder'] ) ? sanitize_text_field( $attributes['placeholder'] ) : __( 'Search the knowledgebase…', 'knowledgebase' );
+		$button_text = ! empty( $attributes['buttonText'] ) ? sanitize_text_field( $attributes['buttonText'] ) : __( 'Search', 'knowledgebase' );
+
+		$args = array(
+			'placeholder' => $placeholder,
+			'button_text' => $button_text,
+		);
+
+		$form = Search::get_search_form( $args );
+
+		/**
+		 * Filters the search form output for the block.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param string $form       Search form HTML.
+		 * @param array  $attributes Block attributes.
+		 */
+		$form = apply_filters( 'wzkb_search_block_form', $form, $attributes );
+
+		$output = sprintf(
+			'<div %1$s>%2$s</div>',
+			$wrapper_attributes,
+			$form
 		);
 
 		return $output;
