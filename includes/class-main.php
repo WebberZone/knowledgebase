@@ -179,9 +179,11 @@ final class Main {
 
 		$this->hooks();
 
-		// Conditionally load Pro if available.
-		if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\Pro' ) ) {
-			$this->pro = new Pro\Pro();
+		// Initialize pro features.
+		if ( wzkb_freemius()->is__premium_only() ) {
+			if ( wzkb_freemius()->can_use_premium_code() ) {
+				$this->pro = new Pro\Pro();
+			}
 		}
 
 		if ( is_admin() ) {
