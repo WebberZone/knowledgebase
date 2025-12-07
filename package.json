@@ -6,6 +6,7 @@
     "license": "GPL-2.0-or-later",
     "main": "index.js",
     "scripts": {
+        "build:assets": "node build-assets.js",
         "build": "wp-scripts build --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
         "build:alerts": "wp-scripts build --webpack-src-dir=includes/blocks/src/alerts/ --output-path=includes/blocks/build/alerts/",
         "build:kb": "wp-scripts build --webpack-src-dir=includes/blocks/src/kb/ --output-path=includes/blocks/build/kb/",
@@ -36,7 +37,10 @@
     ],
     "devDependencies": {
         "@wordpress/prettier-config": "^4.14.0",
-        "@wordpress/scripts": "^27"
+        "@wordpress/scripts": "^27",
+        "clean-css-cli": "^5.6.3",
+        "rtlcss": "^4.3.0",
+        "terser": "^5.44.0"
     },
     "dependencies": {
         "@wordpress/icons": "^10.14.0",
