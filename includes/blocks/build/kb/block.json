@@ -4,7 +4,7 @@
   "name": "knowledgebase/knowledgebase",
   "version": "2.3.0",
   "title": "Knowledge Base",
-  "category": "design",
+  "category": "knowledgebase",
   "icon": "book",
   "keywords": [
     "knowledgbase",

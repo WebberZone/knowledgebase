@@ -9,61 +9,137 @@
 (function ($) {
 	'use strict';
 
+	var DATA = window.knowledgebaseProductFilter || {};
+
 	/**
-	 * Add product filter to the Sections taxonomy screen.
+	 * Build and insert the product filter form.
 	 */
-	function addProductFilter() {
-		// Find the search form
-		var $searchForm = $('.search-form');
-		if (!$searchForm.length) {
+	function renderProductFilter() {
+		if ($('.wzkb-sections-product-filter').length) {
 			return;
 		}
 
-		// Find the search box paragraph inside the form
-		var $searchBox = $searchForm.find('.search-box');
-		if (!$searchBox.length) {
+		var products = DATA.products || [];
+		if (!products.length) {
 			return;
 		}
 
-		// Create product filter element
-		var $productFilter = $('<span class="product-filter-wrap" style="margin-right: 10px; display: inline-block; vertical-align: middle;">');
-		var $productLabel = $('<label for="wzkb_product" style="margin-right: 5px; display: inline-block;">');
-		$productLabel.text(knowledgebaseProductFilter.strings.productLabel);
+		var strings = DATA.strings || {};
+		var selected = DATA.selectedProduct;
+		if (selected === undefined || selected === null || '' === String(selected)) {
+			selected = DATA.currentProduct || '';
+		}
+		var queryParams = $.extend({}, DATA.queryParams || {});
 
-		var $select = $('<select name="wzkb_product" id="wzkb_product" class="postform" style="vertical-align: middle;">');
+		if (!queryParams.taxonomy) {
+			queryParams.taxonomy = 'wzkb_category';
+		}
 
-		$select.append($('<option>', {
-			value: '',
-			text: knowledgebaseProductFilter.strings.allProducts
-		}));
-
-		// Add all product options.
-		$.each(knowledgebaseProductFilter.products, function (index, product) {
-			$select.append($('<option>', {
-				value: product.term_id,
-				text: product.name,
-				selected: knowledgebaseProductFilter.selectedProduct == product.term_id
-			}));
+		var $form = $('<form>', {
+			class: 'wzkb-sections-product-filter',
+			method: 'get'
+		}).css({
+			marginTop: '12px'
 		});
 
-		// Add product filter to search box
-		$productFilter.append($select);
+		$.each(queryParams, function (key, value) {
+			if ('wzkb_product' === key) {
+				return;
+			}
 
-		// Insert product filter before the search box
-		$searchBox.prepend($productFilter);
+			if (value === undefined || value === null || '' === String(value)) {
+				return;
+			}
 
-		// Add placeholder to search input
-		$searchBox.find('#tag-search-input').attr('placeholder', knowledgebaseProductFilter.strings.searchPlaceholder);
+			$form.append(
+				$('<input>', {
+					type: 'hidden',
+					name: key,
+					value: value
+				})
+			);
+		});
 
-		// Ensure we're not losing search parameter if it exists in the URL but not in the form
-		if (knowledgebaseProductFilter.queryParams.s && !$searchForm.find('input[name="s"]').val()) {
-			$searchForm.find('input[name="s"]').val(knowledgebaseProductFilter.queryParams.s);
+		var $label = $('<label>', {
+			for: 'wzkb_product',
+			class: 'screen-reader-text'
+		}).text(strings.productLabel || 'Product:');
+
+		var instructionText = strings.filterInstruction || 'Switch product to refine this list:';
+		var $instruction = $('<span>', {
+			class: 'wzkb-sections-product-filter__instruction',
+			text: instructionText
+		});
+
+		var $select = $('<select>', {
+			id: 'wzkb_product',
+			name: 'wzkb_product',
+			class: 'postform'
+		});
+
+		$select.append(
+			$('<option>', {
+				value: '',
+				text: strings.allProducts || 'All Products'
+			})
+		);
+
+		$.each(products, function (index, product) {
+			$select.append(
+				$('<option>', {
+					value: product.term_id,
+					text: product.name,
+					selected: String(product.term_id) === String(selected)
+				})
+			);
+		});
+
+		$form.append($label, $instruction, $select);
+
+		$select.on('change', function () {
+			$form.trigger('submit');
+		});
+
+		$form.append(
+			'<noscript><button type="submit" class="button">' + (strings.filter || 'Filter') + '</button></noscript>'
+		);
+
+		var $wrap = $('.wrap');
+		if ($wrap.length) {
+			var $button = $wrap.children('.wzkb_button').first();
+			if ($button.length) {
+				$button.after($form);
+			} else {
+				var $heading = $wrap.children('h1').first();
+				if ($heading.length) {
+					$heading.after($form);
+				} else {
+					$wrap.prepend($form);
+				}
+			}
 		}
 	}
 
-	// Initialize when DOM is ready.
-	$(document).ready(function () {
-		addProductFilter();
+	/**
+	 * Enhance the search form placeholder when present.
+	 */
+	function enhanceSearch() {
+		var strings = DATA.strings || {};
+		var placeholder = strings.searchPlaceholder;
+		var $searchInput = $('.search-form').find('#tag-search-input');
+
+		if ($searchInput.length && placeholder) {
+			$searchInput.attr('placeholder', placeholder);
+		}
+
+		if (DATA.queryParams && DATA.queryParams.s && !$searchInput.val()) {
+			$searchInput.val(DATA.queryParams.s);
+		}
+	}
+
+	$(function () {
+		renderProductFilter();
+		enhanceSearch();
 	});
 
 })(jQuery);

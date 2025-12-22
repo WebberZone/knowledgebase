@@ -1,3 +1,8 @@
+/* Tabs */
+#post-body-content .ui-tabs-nav {
+	border-bottom: 1px solid #c3c4c7;
+}
+
 /* General styles for the repeater wrapper */
 .wz-repeater-wrapper {
 	position: relative;

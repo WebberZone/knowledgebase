@@ -226,7 +226,17 @@ class Setup_Wizard {
 				?>
 				<li class="<?php echo esc_attr( $class ); ?>"<?php echo $aria_current; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 					<?php if ( $is_completed && $step_url ) : ?>
-						<a href="<?php echo esc_url( $step_url ); ?>" title="<?php echo esc_attr( sprintf( __( 'Return to %s', 'knowledgebase' ), $step['name'] ) ); ?>">
+						<a href="<?php echo esc_url( $step_url ); ?>" title="
+						<?php
+						echo esc_attr(
+							sprintf(
+							/* translators: %s: Setup wizard step name. */
+								__( 'Return to %s', 'knowledgebase' ),
+								$step['name']
+							)
+						);
+						?>
+						">
 							<?php echo esc_html( $step['name'] ); ?>
 						</a>
 					<?php else : ?>
@@ -386,6 +396,7 @@ class Setup_Wizard {
 		<p>
 		<?php
 			printf(
+				/* translators: %1$s: Example knowledge base path wrapped in code tags. */
 				esc_html__( 'Customize the URL structure of your Knowledge Base. You can enter a relative path like %1$s, but ensure it does not conflict with other plugins or themes and does not end with a slash or contain any special characters.', 'knowledgebase' ),
 				'<code>support/knowledgebase</code>'
 			);
@@ -421,8 +432,8 @@ class Setup_Wizard {
 				<span>
 				<?php
 					printf(
-						/* translators: %s is the product name */
-						esc_html__( 'Want advanced permalink flexibility? Upgrade to %s for nested structures, intelligent routing, custom placeholders, and automatic conflict resolution. %s', 'knowledgebase' ),
+						/* translators: %1$s is the product name, %2$s is the link */
+						esc_html__( 'Want advanced permalink flexibility? Upgrade to %1$s for nested structures, intelligent routing, custom placeholders, and automatic conflict resolution. %2$s', 'knowledgebase' ),
 						'<strong>' . esc_html__( 'Knowledge Base Pro', 'knowledgebase' ) . '</strong>',
 						'<a href="https://webberzone.com/plugins/knowledgebase/pro/" target="_blank" class="button button-secondary button-small">' . esc_html__( 'Learn More', 'knowledgebase' ) . '</a>'
 					);
@@ -704,13 +715,13 @@ class Setup_Wizard {
 		$show_rating_stats = $settings['show_rating_stats'] ?? 1;
 		$is_pro            = $this->is_pro_active;
 
-		// Beacon settings for Pro.
-		$beacon_enabled          = $settings['beacon_enabled'] ?? 0;
-		$beacon_display_location = $settings['beacon_display_location'] ?? 'kb_only';
-		$beacon_position         = $settings['beacon_position'] ?? 'right';
-		$beacon_color            = $settings['beacon_color'] ?? '#617DEC';
-		$beacon_greeting         = $settings['beacon_greeting'] ?? __( 'Hi! How can we help you?', 'knowledgebase' );
-		$beacon_contact_enabled  = $settings['beacon_contact_enabled'] ?? 1;
+		// Help Widget settings for Pro.
+		$help_widget_enabled          = $settings['help_widget_enabled'] ?? 0;
+		$help_widget_display_location = $settings['help_widget_display_location'] ?? 'kb_only';
+		$help_widget_position         = $settings['help_widget_position'] ?? 'right';
+		$help_widget_color            = $settings['help_widget_color'] ?? '#617DEC';
+		$help_widget_greeting         = $settings['help_widget_greeting'] ?? __( 'Hi! How can we help you?', 'knowledgebase' );
+		$help_widget_contact_enabled  = $settings['help_widget_contact_enabled'] ?? 1;
 		?>
 		<h1><?php esc_html_e( 'Pro Features', 'knowledgebase' ); ?></h1>
 		<?php if ( ! $is_pro ) : ?>
@@ -802,20 +813,20 @@ class Setup_Wizard {
 				</tr>
 			</table>
 
-			<h2><?php esc_html_e( 'Beacon Help Widget', 'knowledgebase' ); ?></h2>
+			<h2><?php esc_html_e( 'Help Widget', 'knowledgebase' ); ?></h2>
 			<table class="form-table">
 				<tr>
 					<th scope="row">
-						<label for="beacon_enabled">
-							<?php esc_html_e( 'Enable Beacon', 'knowledgebase' ); ?>
+						<label for="help_widget_enabled">
+							<?php esc_html_e( 'Enable Help Widget', 'knowledgebase' ); ?>
 							<?php if ( ! $is_pro ) : ?>
 								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
 							<?php endif; ?>
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="beacon_enabled" value="0" />
-						<input type="checkbox" id="beacon_enabled" name="beacon_enabled" value="1" <?php checked( $beacon_enabled, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
+						<input type="hidden" name="help_widget_enabled" value="0" />
+						<input type="checkbox" id="help_widget_enabled" name="help_widget_enabled" value="1" <?php checked( $help_widget_enabled, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
 						<p class="description"><?php esc_html_e( 'Display the floating help widget with search, suggested articles, and contact form.', 'knowledgebase' ); ?></p>
 						<?php if ( ! $is_pro ) : ?>
 							<p class="description wzkb-pro-feature-desc">
@@ -826,7 +837,7 @@ class Setup_Wizard {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="beacon_display_location">
+						<label for="help_widget_display_location">
 							<?php esc_html_e( 'Display Location', 'knowledgebase' ); ?>
 							<?php if ( ! $is_pro ) : ?>
 								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
@@ -834,16 +845,16 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<select id="beacon_display_location" name="beacon_display_location" <?php disabled( ! $is_pro ); ?>>
-							<option value="kb_only" <?php selected( $beacon_display_location, 'kb_only' ); ?>><?php esc_html_e( 'Knowledge Base Only', 'knowledgebase' ); ?></option>
-							<option value="sitewide" <?php selected( $beacon_display_location, 'sitewide' ); ?>><?php esc_html_e( 'Entire Site', 'knowledgebase' ); ?></option>
+						<select id="help_widget_display_location" name="help_widget_display_location" <?php disabled( ! $is_pro ); ?>>
+							<option value="kb_only" <?php selected( $help_widget_display_location, 'kb_only' ); ?>><?php esc_html_e( 'Knowledge Base Only', 'knowledgebase' ); ?></option>
+							<option value="sitewide" <?php selected( $help_widget_display_location, 'sitewide' ); ?>><?php esc_html_e( 'Entire Site', 'knowledgebase' ); ?></option>
 						</select>
-						<p class="description"><?php esc_html_e( 'Control where the beacon button appears.', 'knowledgebase' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Control where the help widget button appears.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="beacon_position">
+						<label for="help_widget_position">
 							<?php esc_html_e( 'Button Position', 'knowledgebase' ); ?>
 							<?php if ( ! $is_pro ) : ?>
 								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
@@ -851,15 +862,15 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<select id="beacon_position" name="beacon_position" <?php disabled( ! $is_pro ); ?>>
-							<option value="right" <?php selected( $beacon_position, 'right' ); ?>><?php esc_html_e( 'Bottom Right', 'knowledgebase' ); ?></option>
-							<option value="left" <?php selected( $beacon_position, 'left' ); ?>><?php esc_html_e( 'Bottom Left', 'knowledgebase' ); ?></option>
+						<select id="help_widget_position" name="help_widget_position" <?php disabled( ! $is_pro ); ?>>
+							<option value="right" <?php selected( $help_widget_position, 'right' ); ?>><?php esc_html_e( 'Bottom Right', 'knowledgebase' ); ?></option>
+							<option value="left" <?php selected( $help_widget_position, 'left' ); ?>><?php esc_html_e( 'Bottom Left', 'knowledgebase' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="beacon_color">
+						<label for="help_widget_color">
 							<?php esc_html_e( 'Primary Color', 'knowledgebase' ); ?>
 							<?php if ( ! $is_pro ) : ?>
 								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
@@ -867,13 +878,13 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="text" id="beacon_color" name="beacon_color" value="<?php echo esc_attr( $beacon_color ); ?>" class="color-field" <?php disabled( ! $is_pro ); ?> />
-						<p class="description"><?php esc_html_e( 'Main brand color for the beacon button. Other colors will be generated automatically.', 'knowledgebase' ); ?></p>
+						<input type="text" id="help_widget_color" name="help_widget_color" value="<?php echo esc_attr( $help_widget_color ); ?>" class="color-field" <?php disabled( ! $is_pro ); ?> />
+						<p class="description"><?php esc_html_e( 'Main brand color for the help widget button. Other colors will be generated automatically.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="beacon_greeting">
+						<label for="help_widget_greeting">
 							<?php esc_html_e( 'Greeting Message', 'knowledgebase' ); ?>
 							<?php if ( ! $is_pro ) : ?>
 								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
@@ -881,13 +892,13 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="text" id="beacon_greeting" name="beacon_greeting" value="<?php echo esc_attr( $beacon_greeting ); ?>" class="large-text" <?php disabled( ! $is_pro ); ?> />
-						<p class="description"><?php esc_html_e( 'Welcome message shown when users open the beacon.', 'knowledgebase' ); ?></p>
+						<input type="text" id="help_widget_greeting" name="help_widget_greeting" value="<?php echo esc_attr( $help_widget_greeting ); ?>" class="large-text" <?php disabled( ! $is_pro ); ?> />
+						<p class="description"><?php esc_html_e( 'Welcome message shown when users open the help widget.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="beacon_contact_enabled">
+						<label for="help_widget_contact_enabled">
 							<?php esc_html_e( 'Enable Contact Form', 'knowledgebase' ); ?>
 							<?php if ( ! $is_pro ) : ?>
 								<span class="wzkb-pro-badge"><?php esc_html_e( 'PRO', 'knowledgebase' ); ?></span>
@@ -895,9 +906,9 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="beacon_contact_enabled" value="0" />
-						<input type="checkbox" id="beacon_contact_enabled" name="beacon_contact_enabled" value="1" <?php checked( $beacon_contact_enabled, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
-						<p class="description"><?php esc_html_e( 'Allow visitors to send messages from the beacon.', 'knowledgebase' ); ?></p>
+						<input type="hidden" name="help_widget_contact_enabled" value="0" />
+						<input type="checkbox" id="help_widget_contact_enabled" name="help_widget_contact_enabled" value="1" <?php checked( $help_widget_contact_enabled, 1 ); ?> <?php disabled( ! $is_pro ); ?> />
+						<p class="description"><?php esc_html_e( 'Allow visitors to send messages from the help widget.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -933,36 +944,36 @@ class Setup_Wizard {
 			'show_rating_stats'      => isset( $_POST['show_rating_stats'] ) ? 1 : 0,
 		);
 
-		// Save simplified beacon settings.
-		$beacon_display_location = isset( $_POST['beacon_display_location'] ) ? sanitize_text_field( wp_unslash( $_POST['beacon_display_location'] ) ) : 'kb_only';
-		if ( ! in_array( $beacon_display_location, array( 'kb_only', 'sitewide' ), true ) ) {
-			$beacon_display_location = 'kb_only';
+		// Save simplified help widget settings.
+		$help_widget_display_location = isset( $_POST['help_widget_display_location'] ) ? sanitize_text_field( wp_unslash( $_POST['help_widget_display_location'] ) ) : 'kb_only';
+		if ( ! in_array( $help_widget_display_location, array( 'kb_only', 'sitewide' ), true ) ) {
+			$help_widget_display_location = 'kb_only';
 		}
 
-		$beacon_position = isset( $_POST['beacon_position'] ) ? sanitize_text_field( wp_unslash( $_POST['beacon_position'] ) ) : 'right';
-		if ( ! in_array( $beacon_position, array( 'right', 'left' ), true ) ) {
-			$beacon_position = 'right';
+		$help_widget_position = isset( $_POST['help_widget_position'] ) ? sanitize_text_field( wp_unslash( $_POST['help_widget_position'] ) ) : 'right';
+		if ( ! in_array( $help_widget_position, array( 'right', 'left' ), true ) ) {
+			$help_widget_position = 'right';
 		}
 
-		$beacon_color = isset( $_POST['beacon_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['beacon_color'] ) ) : '#617DEC';
-		if ( ! $beacon_color ) {
-			$beacon_color = '#617DEC';
+		$help_widget_color = isset( $_POST['help_widget_color'] ) ? sanitize_hex_color( wp_unslash( $_POST['help_widget_color'] ) ) : '#617DEC';
+		if ( ! $help_widget_color ) {
+			$help_widget_color = '#617DEC';
 		}
 
 		// Generate secondary colors from primary.
-		$generated_colors = $this->generate_beacon_colors( $beacon_color );
+		$generated_colors = $this->generate_help_widget_colors( $help_widget_color );
 
-		$beacon_settings = array(
-			'beacon_enabled'          => isset( $_POST['beacon_enabled'] ) ? 1 : 0,
-			'beacon_display_location' => $beacon_display_location,
-			'beacon_position'         => $beacon_position,
-			'beacon_color'            => $beacon_color,
-			'beacon_greeting'         => isset( $_POST['beacon_greeting'] ) ? sanitize_text_field( wp_unslash( $_POST['beacon_greeting'] ) ) : __( 'Hi! How can we help you?', 'knowledgebase' ),
-			'beacon_contact_enabled'  => isset( $_POST['beacon_contact_enabled'] ) ? 1 : 0,
+		$help_widget_settings = array(
+			'help_widget_enabled'          => isset( $_POST['help_widget_enabled'] ) ? 1 : 0,
+			'help_widget_display_location' => $help_widget_display_location,
+			'help_widget_position'         => $help_widget_position,
+			'help_widget_color'            => $help_widget_color,
+			'help_widget_greeting'         => isset( $_POST['help_widget_greeting'] ) ? sanitize_text_field( wp_unslash( $_POST['help_widget_greeting'] ) ) : __( 'Hi! How can we help you?', 'knowledgebase' ),
+			'help_widget_contact_enabled'  => isset( $_POST['help_widget_contact_enabled'] ) ? 1 : 0,
 		);
 
 		// Merge with generated colors.
-		$partial = array_merge( $partial, $generated_colors, $beacon_settings );
+		$partial = array_merge( $partial, $generated_colors, $help_widget_settings );
 
 		$updated = wzkb_update_settings( $partial );
 		if ( $updated ) {
@@ -975,14 +986,14 @@ class Setup_Wizard {
 	}
 
 	/**
-	 * Generate beacon colors from primary color.
+	 * Generate help widget colors from primary color.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param string $primary_color Primary hex color.
 	 * @return array Generated color scheme.
 	 */
-	private function generate_beacon_colors( $primary_color ) {
+	private function generate_help_widget_colors( $primary_color ) {
 		// Convert hex to RGB.
 		$rgb       = $this->hex_to_rgb( $primary_color );
 		$luminance = $this->calculate_luminance( $rgb );
@@ -1000,12 +1011,12 @@ class Setup_Wizard {
 		$link_hover_rgb = $this->adjust_brightness( $panel_rgb, -0.05 );
 
 		return array(
-			'beacon_hover_color'      => $this->rgb_to_hex( $hover_rgb ),
-			'beacon_text_color'       => $this->get_contrast_color( $rgb ),
-			'beacon_hover_text_color' => $this->get_contrast_color( $hover_rgb ),
-			'beacon_panel_bg_color'   => $this->rgb_to_hex( $panel_rgb ),
-			'beacon_panel_text_color' => $this->get_contrast_color( $panel_rgb ),
-			'beacon_link_hover_color' => $this->rgb_to_hex( $link_hover_rgb ),
+			'help_widget_hover_color'      => $this->rgb_to_hex( $hover_rgb ),
+			'help_widget_text_color'       => $this->get_contrast_color( $rgb ),
+			'help_widget_hover_text_color' => $this->get_contrast_color( $hover_rgb ),
+			'help_widget_panel_bg_color'   => $this->rgb_to_hex( $panel_rgb ),
+			'help_widget_panel_text_color' => $this->get_contrast_color( $panel_rgb ),
+			'help_widget_link_hover_color' => $this->rgb_to_hex( $link_hover_rgb ),
 		);
 	}
 
@@ -1117,10 +1128,10 @@ class Setup_Wizard {
 	public function complete_step() {
 		update_option( 'wzkb_setup_completed', true );
 		update_option( 'wzkb_setup_current_step', '' );
-		$multi_product  = \wzkb_get_option( 'multi_product' );
-		$pro_active     = $this->is_pro_active;
-		$beacon_enabled = $pro_active && wzkb_get_option( 'beacon_enabled' );
-		$rating_enabled = $pro_active && 'disabled' !== wzkb_get_option( 'rating_system' );
+		$multi_product       = \wzkb_get_option( 'multi_product' );
+		$pro_active          = $this->is_pro_active;
+		$help_widget_enabled = $pro_active && wzkb_get_option( 'help_widget_enabled' );
+		$rating_enabled      = $pro_active && 'disabled' !== wzkb_get_option( 'rating_system' );
 		?>
 		<div class="wzkb-setup-complete">
 			<h1><?php esc_html_e( 'Your Knowledge Base is Ready!', 'knowledgebase' ); ?></h1>
@@ -1179,15 +1190,33 @@ class Setup_Wizard {
 						</li>
 					</ul>
 
+					<?php
+					// Check if there are articles, categories, but no products.
+					$post_counts    = wp_count_posts( 'wz_knowledgebase' );
+					$article_count  = $post_counts->publish + $post_counts->draft + $post_counts->pending + $post_counts->future + $post_counts->private;
+					$category_count = wp_count_terms( 'wzkb_category' );
+					$product_count  = wp_count_terms( 'wzkb_product' );
+					if ( $article_count > 0 && $category_count > 0 && 0 === (int) $product_count ) :
+						?>
+					<div class="wzkb-setup-migrator-notice">
+						<h3><?php esc_html_e( 'Migrate Existing Content', 'knowledgebase' ); ?></h3>
+						<p><?php esc_html_e( 'It looks like you have existing articles and sections. If you want to organize them into products, use the Product Migration Wizard to convert your top-level sections into products.', 'knowledgebase' ); ?></p>
+						<a class="button button-secondary button-large" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-product-migration' ) ); ?>">
+							<span class="dashicons dashicons-admin-tools"></span>
+							<?php esc_html_e( 'Run Product Migration', 'knowledgebase' ); ?>
+						</a>
+					</div>
+					<?php endif; ?>
+
 					<?php if ( $pro_active ) : ?>
 						<div class="wzkb-setup-pro-features">
 							<h3><?php esc_html_e( 'Pro Features Available', 'knowledgebase' ); ?></h3>
 							<ul class="wzkb-setup-pro-actions">
-								<?php if ( $beacon_enabled ) : ?>
-								<li class="setup-beacon">
+								<?php if ( $help_widget_enabled ) : ?>
+								<li class="setup-help widget">
 									<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings#pro' ) ); ?>">
 										<span class="dashicons dashicons-megaphone"></span>
-										<?php esc_html_e( 'Customize Beacon Widget', 'knowledgebase' ); ?>
+										<?php esc_html_e( 'Customize Help Widget', 'knowledgebase' ); ?>
 									</a>
 									<span class="wzkb-action-description"><?php esc_html_e( 'Configure help widget appearance', 'knowledgebase' ); ?></span>
 								</li>

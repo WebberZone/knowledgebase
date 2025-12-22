@@ -127,7 +127,7 @@ class Breadcrumbs {
 		);
 
 		$position = 3;
-		if ( wzkb_get_option( 'multi_product' ) ) {
+		if ( wzkb_get_option( 'multi_product' ) && ! is_tax( 'wzkb_product' ) ) {
 			$product = self::get_product_for_context();
 			if ( $product ) {
 				$items[] = array(
@@ -213,13 +213,6 @@ class Breadcrumbs {
 
 		$args  = wp_parse_args( $args, $defaults );
 		$trail = array();
-
-		$output  = '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-		$output .= '<a href="' . esc_url( get_term_link( $taxonomy ) ) . '" itemprop="item" title="' . esc_attr( $taxonomy->name ) . '">';
-		$output .= '<span itemprop="name">' . esc_html( $taxonomy->name ) . '</span>';
-		$output .= '</a>';
-		$output .= '<meta itemprop="position" content="' . intval( $position ) . '" />';
-		$output .= '</li>';
 
 		if ( ! empty( $taxonomy->parent ) ) {
 			$trail     = array_merge(

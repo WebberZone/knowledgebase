@@ -11,7 +11,7 @@
  */
 
 global $wp_query;
-$this_tax = $wp_query->get_queried_object();
+$wzkb_current_taxonomy = $wp_query->get_queried_object();
 
 get_header();
 
@@ -20,16 +20,16 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 }
 ?>
 <a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
-<div class="wrap">
+<div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			<?php wzkb_search_form(); ?>
-			<?php if ( $this_tax ) : ?>
+			<?php if ( $wzkb_current_taxonomy ) : ?>
 
 				<header class="page-header">
-					<h1 class="page-title"><?php echo esc_html( $this_tax->name ); ?></h1>
-					<?php if ( ! empty( $this_tax->description ) ) : ?>
-						<div class="taxonomy-description"><?php echo esc_html( $this_tax->description ); ?></div>
+					<h1 class="page-title"><?php echo esc_html( $wzkb_current_taxonomy->name ); ?></h1>
+					<?php if ( ! empty( $wzkb_current_taxonomy->description ) ) : ?>
+						<div class="taxonomy-description"><?php echo esc_html( $wzkb_current_taxonomy->description ); ?></div>
 					<?php endif; ?>
 				</header><!-- .page-header -->
 
@@ -37,15 +37,15 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 				wzkb_breadcrumb();
 
 				// Display top-level sections for this product.
-				$args = array(
-					'product'     => $this_tax->term_id,
+				$wzkb_knowledge_args = array(
+					'product'     => $wzkb_current_taxonomy->term_id,
 					'extra_class' => 'wzkb-product-archive',
 				);
-				echo wzkb_knowledge( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo wzkb_knowledge( $wzkb_knowledge_args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				?>
 
 			<?php else : ?>
-				<?php esc_html_e( 'No product found', 'wzkb' ); ?>
+				<?php esc_html_e( 'No product found', 'knowledgebase' ); ?>
 			<?php endif; ?>
 		</main><!-- .site-main -->
 	</div><!-- .content-area -->
@@ -55,7 +55,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 		include_once 'sidebar-primary.php';
 	}
 	?>
-</div><!-- .wrap -->
+</div><!-- .wrap.wzkb-wrap -->
 
 <?php
 get_footer();

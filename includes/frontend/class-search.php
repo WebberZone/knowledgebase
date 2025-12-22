@@ -48,11 +48,14 @@ class Search {
 
 		$args = wp_parse_args( $args, $defaults );
 
+		// Generate unique ID for label association.
+		$input_id = 'wzkb-search-field-' . uniqid();
+
 		$form = '<form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">'
-			. '<label>'
+			. '<label for="' . esc_attr( $input_id ) . '">'
 			. '<span class="screen-reader-text">' . _x( 'Search for:', 'label', 'knowledgebase' ) . '</span>'
-			. '<input type="search" class="wzkb-search-field" placeholder="' . esc_attr( $args['placeholder'] ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'knowledgebase' ) . '" />'
 			. '</label>'
+			. '<input type="search" id="' . esc_attr( $input_id ) . '" class="wzkb-search-field" placeholder="' . esc_attr( $args['placeholder'] ) . '" value="' . get_search_query() . '" name="s" aria-label="' . esc_attr_x( 'Search the knowledgebase', 'aria-label', 'knowledgebase' ) . '" />'
 			. '<input type="hidden" name="post_type" value="wz_knowledgebase">'
 			. '<input type="submit" class="wzkb-search-submit" value="' . esc_attr( $args['button_text'] ) . '" />'
 			. '</form>';

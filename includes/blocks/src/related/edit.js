@@ -29,7 +29,8 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { title, limit, headingLevel, showExcerpt, showThumb, showDate } = attributes;
+	const { title, limit, headingLevel, showExcerpt, showThumb, showDate } =
+		attributes;
 	const blockProps = useBlockProps();
 
 	return (
@@ -142,14 +143,8 @@ export default function Edit({ attributes, setAttributes }) {
 							}
 							help={
 								showDate
-									? __(
-											'Date will be shown',
-											'knowledgebase'
-										)
-									: __(
-											'Date will be hidden',
-											'knowledgebase'
-										)
+									? __('Date will be shown', 'knowledgebase')
+									: __('Date will be hidden', 'knowledgebase')
 							}
 						/>
 					</PanelRow>

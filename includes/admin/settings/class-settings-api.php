@@ -259,6 +259,8 @@ class Settings_API {
 			'checkbox_modified'    => 'Modified from default setting',
 			'button_label'         => 'Choose File',
 			'previous_saved'       => 'Previously saved',
+			'repeater_new_item'    => 'New Item',
+			'required_label'       => 'Required',
 		);
 
 		$strings = wp_parse_args( $strings, $defaults );
@@ -512,18 +514,18 @@ class Settings_API {
 			self::VERSION
 		);
 
-		// Top Select scripts and styles.
+		// Tom Select scripts and styles.
 		wp_register_style(
 			'wz-' . $this->prefix . '-tom-select',
-			'https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.min.css',
+			plugins_url( 'css/tom-select.min.css', __FILE__ ),
 			array(),
-			'2.3.1'
+			self::VERSION
 		);
 		wp_register_script(
 			'wz-' . $this->prefix . '-tom-select',
-			'https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js',
+			plugins_url( 'js/tom-select.complete.min.js', __FILE__ ),
 			array( 'jquery' ),
-			'2.3.1',
+			self::VERSION,
 			true
 		);
 		wp_register_script(
@@ -584,8 +586,8 @@ class Settings_API {
 			'wz-' . $this->prefix . '-tom-select-init',
 			'WZTomSelectSettings',
 			array(
-				'action'   => $this->prefix . '_kit_search',
-				'nonce'    => wp_create_nonce( $this->prefix . '_kit_search' ),
+				'action'   => $this->prefix . '_taxonomy_search_tom_select',
+				'nonce'    => wp_create_nonce( $this->prefix . '_taxonomy_search_tom_select' ),
 				'endpoint' => 'forms',
 			)
 		);
@@ -924,6 +926,7 @@ class Settings_API {
 		ob_start();
 		?>
 			<div class="wrap">
+				<?php do_action( $this->prefix . '_settings_page_header_before' ); ?>
 				<h1><?php echo esc_html( $this->translation_strings['page_header'] ); ?></h1>
 				<?php do_action( $this->prefix . '_settings_page_header' ); ?>
 
@@ -964,7 +967,7 @@ class Settings_API {
 	 * Shows all the settings section labels as tab
 	 */
 	public function show_navigation() {
-		$active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), $this->settings_sections ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
+		$active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), $this->settings_sections ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : $this->default_tab; // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
 
 		$html = '<ul class="nav-tab-wrapper" style="padding:0">';
 
@@ -979,9 +982,13 @@ class Settings_API {
 
 			$active = $active_tab === $tab_id ? ' ' : '';
 
-			$html .= '<li style="padding:0; border:0; margin:0;"><a href="#' . esc_attr( $tab_id ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab ' . sanitize_html_class( $active ) . '">';
-			$html .= esc_html( $tab_name );
-			$html .= '</a></li>';
+			$html .= sprintf(
+				'<li style="padding:0; border:0; margin:0;"><a href="#%s" title="%s" class="nav-tab %s">%s</a></li>',
+				esc_attr( $tab_id ),
+				esc_attr( $tab_name ),
+				sanitize_html_class( $active ),
+				esc_html( $tab_name )
+			);
 
 		}
 
@@ -1126,7 +1133,7 @@ class Settings_API {
 
 		// Add required indicator to field name if the field is required.
 		if ( ! empty( $field['required'] ) && true === $field['required'] ) {
-			$field['name'] = sprintf( '%s <span class="required" title="%s">*</span>', $field['name'], esc_attr__( 'Required', 'glue-link' ) );
+			$field['name'] = sprintf( '%s <span class="required" title="%s">*</span>', $field['name'], 'Required' );
 		}
 
 		return $field;

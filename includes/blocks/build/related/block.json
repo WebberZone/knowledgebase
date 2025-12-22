@@ -4,7 +4,7 @@
   "name": "knowledgebase/related",
   "version": "3.0.0",
   "title": "Knowledge Base Related Articles",
-  "category": "design",
+  "category": "knowledgebase",
   "icon": "book",
   "keywords": [
     "knowledgebase",

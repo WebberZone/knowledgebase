@@ -181,8 +181,10 @@ class Template_Handler {
 			return $query_result;
 		}
 
+		// Only register block templates for singular KB posts.
+		// Archives, taxonomy pages, and search results should use classic PHP templates.
 		global $post;
-		if ( ( empty( $post ) && ! is_admin() ) || ( ! empty( $post ) && 'wz_knowledgebase' !== $post->post_type ) ) {
+		if ( empty( $post ) || 'wz_knowledgebase' !== $post->post_type || ! is_singular( 'wz_knowledgebase' ) ) {
 			return $query_result;
 		}
 

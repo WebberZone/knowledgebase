@@ -175,7 +175,7 @@ class Options_API {
 	public static function update_settings( array $settings, bool $merge = true, bool $autoload = true ): bool {
 		// Merge incoming array into existing settings if requested.
 		if ( $merge ) {
-			$existing = self::get_settings();
+			$existing = (array) self::get_settings();
 			$settings = array_merge( $existing, $settings );
 		}
 		$did_update = update_option( self::SETTINGS_OPTION, $settings, $autoload );
@@ -293,7 +293,7 @@ class Options_API {
 
 		$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$comma = _x( ',', 'tag delimiter' );
+		$comma = _x( ',', 'tag delimiter', 'knowledgebase' );
 		if ( ',' !== $comma ) {
 			$s = str_replace( $comma, ',', $s );
 		}

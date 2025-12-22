@@ -4,7 +4,7 @@
 	"name": "knowledgebase/search",
 	"version": "3.0.0",
 	"title": "Knowledge Base Search",
-	"category": "design",
+	"category": "knowledgebase",
 	"icon": "search",
 	"keywords": ["knowledgebase", "search", "kb"],
 	"description": "Display a search form for the Knowledge Base",

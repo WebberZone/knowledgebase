@@ -18,7 +18,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 }
 ?>
 <a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
-<div class="wrap">
+<div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 		<?php wzkb_search_form(); ?>
@@ -67,8 +67,8 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 						 * @param array $args Arguments array.
 						 * @param int   $id   Post ID.
 						 */
-						$related_articles_args = apply_filters( 'wzkb_related_articles_args', array(), get_the_ID() );
-						wzkb_related_articles( $related_articles_args );
+						$wzkb_related_articles_args = apply_filters( 'wzkb_related_articles_args', array(), get_the_ID() );
+						wzkb_related_articles( $wzkb_related_articles_args );
 					}
 					?>
 				</div><!-- .page-content -->
@@ -129,7 +129,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 	}
 	?>
 
-</div><!-- .wrap -->
+</div><!-- .wrap.wzkb-wrap -->
 
 <?php
 get_footer();

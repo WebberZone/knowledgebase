@@ -90,7 +90,8 @@ class Styles_Handler {
 
 			// Sidebar styles - use body class for more reliable targeting.
 			if ( wzkb_get_option( 'show_sidebar' ) ) {
-				$extra_styles = 'body.wzkb-sidebar-enabled .wrap{display:grid;grid-template-columns:1fr 300px;gap:30px;align-items:start;max-width:100%;}body.wzkb-sidebar-enabled #wzkb-content-primary{width:100%;max-width:none;min-width:0;}body.wzkb-sidebar-enabled #wzkb-sidebar-primary{width:100%;max-width:none;min-width:0;}';
+				// Use a responsive sidebar column with min/max instead of fixed pixel width and respect wrapper max-width variable.
+				$extra_styles = 'body.wzkb-sidebar-enabled .wzkb-wrap{display:grid;grid-template-columns:1fr minmax(250px,320px);gap:30px;align-items:start;max-width:var(--wzkb-wrapper-max-width,100%);}body.wzkb-sidebar-enabled #wzkb-content-primary{width:100%;max-width:none;min-width:0;}body.wzkb-sidebar-enabled #wzkb-sidebar-primary{width:100%;max-width:none;min-width:0;}';
 				wp_add_inline_style( 'wz-knowledgebase-styles', $extra_styles );
 			}
 		}

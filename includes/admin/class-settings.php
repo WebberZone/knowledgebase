@@ -187,24 +187,52 @@ class Settings {
 		$defaults = array();
 
 		// Get all registered settings.
-		$settings = self::get_registered_settings();
+		$settings      = self::get_registered_settings();
+		$default_types = array(
+			'color',
+			'css',
+			'csv',
+			'file',
+			'html',
+			'multicheck',
+			'number',
+			'numbercsv',
+			'password',
+			'postids',
+			'posttypes',
+			'radio',
+			'radiodesc',
+			'repeater',
+			'select',
+			'sensitive',
+			'taxonomies',
+			'text',
+			'textarea',
+			'thumbsizes',
+			'url',
+			'wysiwyg',
+		);
 
 		// Loop through each section.
-		foreach ( $settings as $section => $section_settings ) {
+		foreach ( $settings as $section_settings ) {
 			// Loop through each setting in the section.
 			foreach ( $section_settings as $setting ) {
-				if ( isset( $setting['id'] ) ) {
-					// When checkbox is set to true, set this to 1.
-					if ( 'checkbox' === $setting['type'] && ! empty( $setting['options'] ) ) {
-						$defaults[ $setting['id'] ] = 1;
-					} elseif ( in_array( $setting['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $setting['default'] ) ) {
-						$defaults[ $setting['id'] ] = $setting['default'];
-					} elseif ( in_array( $setting['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes', 'repeater' ), true ) && isset( $setting['default'] ) ) {
-						$defaults[ $setting['id'] ] = $setting['default'];
-					} else {
-						$defaults[ $setting['id'] ] = '';
-					}
+				if ( ! isset( $setting['id'] ) ) {
+					continue;
 				}
+
+				$setting_id    = $setting['id'];
+				$setting_type  = $setting['type'] ?? '';
+				$default_value = '';
+
+				// When checkbox is set to true, set this to 1.
+				if ( 'checkbox' === $setting_type ) {
+					$default_value = isset( $setting['default'] ) ? (int) (bool) $setting['default'] : 0;
+				} elseif ( isset( $setting['default'] ) && in_array( $setting_type, $default_types, true ) ) {
+					$default_value = $setting['default'];
+				}
+
+				$defaults[ $setting_id ] = $default_value;
 			}
 		}
 
@@ -280,9 +308,9 @@ class Settings {
 	 */
 	public static function get_settings_sections() {
 		$sections = array(
+			'styles'  => __( 'Styles', 'knowledgebase' ),
 			'general' => __( 'General', 'knowledgebase' ),
 			'output'  => __( 'Output', 'knowledgebase' ),
-			'styles'  => __( 'Styles', 'knowledgebase' ),
 			'pro'     => __( 'Pro', 'knowledgebase' ),
 		);
 
@@ -396,6 +424,7 @@ class Settings {
 				'type'        => 'text',
 				'default'     => '%postname%',
 				'field_class' => 'large-text',
+				'pro'         => true,
 			),
 			'performance_header'   => array(
 				'id'   => 'performance_header',
@@ -503,13 +532,13 @@ class Settings {
 				'name'        => esc_html__( 'Knowledge base title', 'knowledgebase' ),
 				'desc'        => esc_html__( 'This will be displayed as the title of the archive title as well as on other relevant places.', 'knowledgebase' ),
 				'type'        => 'text',
-				'options'     => 'Knowledge Base',
+				'default'     => 'Knowledge Base',
 				'field_class' => 'large-text',
 			),
 			'category_level'        => array(
 				'id'      => 'category_level',
 				'name'    => esc_html__( 'First section level', 'knowledgebase' ),
-				'desc'    => esc_html__( 'This option allows you to create multi-level knowledge bases. This works in conjunction with the inbuilt styles. Set to 1 to lay out the top level sections in a grid. Set to 2 to lay out the second level categories in the grid. This is great if you have multiple products and want to create separate knowledge bases for each of them. The default option is 2 and was the behaviour of this plugin before v1.5.0.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (sections as first level of each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0.', 'knowledgebase' ),
 				'type'    => 'number',
 				'default' => '2',
 				'size'    => 'small',
@@ -547,7 +576,7 @@ class Settings {
 			'limit'                 => array(
 				'id'      => 'limit',
 				'name'    => esc_html__( 'Max articles per section', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. After this limit is reached, the footer is displayed with the more link to view the category.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. Once this limit is reached, the footer displays a more link to view the category.', 'knowledgebase' ),
 				'type'    => 'number',
 				'default' => '5',
 				'size'    => 'small',
@@ -590,14 +619,25 @@ class Settings {
 	 */
 	public static function settings_styles() {
 		$settings = array(
-			'include_styles' => array(
+			'product_archive_layout' => array(
+				'id'      => 'product_archive_layout',
+				'name'    => esc_html__( 'Product archive layout', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose how products are displayed on the main knowledge base archive when Multi-Product Mode is enabled.', 'knowledgebase' ),
+				'type'    => 'select',
+				'options' => array(
+					'sections' => esc_html__( 'Sections list (current behavior)', 'knowledgebase' ),
+					'grid'     => esc_html__( 'Product cards grid', 'knowledgebase' ),
+				),
+				'default' => 'sections',
+			),
+			'include_styles'         => array(
 				'id'      => 'include_styles',
 				'name'    => esc_html__( 'Include inbuilt styles', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'options' => true,
+				'default' => true,
 			),
-			'kb_style'       => array(
+			'kb_style'               => array(
 				'id'      => 'kb_style',
 				'name'    => esc_html__( 'Knowledge Base Style', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Select a visual style for your knowledge base display. Premium styles are available in the Pro version.', 'knowledgebase' ),
@@ -605,17 +645,17 @@ class Settings {
 				'options' => self::get_kb_styles(),
 				'default' => 'classic',
 			),
-			'columns'        => array(
+			'columns'                => array(
 				'id'      => 'columns',
 				'name'    => esc_html__( 'Number of columns', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Set number of columns to display the knowledge base archives. Works with all styles except Legacy.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Set the number of columns to display the knowledge base archives.', 'knowledgebase' ),
 				'type'    => 'number',
-				'options' => '2',
+				'default' => '2',
 				'size'    => 'small',
 				'min'     => '1',
 				'max'     => '5',
 			),
-			'custom_css'     => array(
+			'custom_css'             => array(
 				'id'          => 'custom_css',
 				'name'        => esc_html__( 'Custom CSS', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Enter any custom valid CSS without any wrapping &lt;style&gt; tags', 'knowledgebase' ),
@@ -644,13 +684,13 @@ class Settings {
 	 */
 	public static function settings_pro() {
 		$settings = array(
-			'rating_header'             => array(
+			'rating_header'                  => array(
 				'id'   => 'rating_header',
 				'name' => '<h3>' . esc_html__( 'Article Rating', 'knowledgebase' ) . '</h3>',
 				'desc' => '',
 				'type' => 'header',
 			),
-			'rating_system'             => array(
+			'rating_system'                  => array(
 				'id'      => 'rating_system',
 				'name'    => esc_html__( 'Enable Rating System', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Allow visitors to rate the quality of knowledge base articles.', 'knowledgebase' ),
@@ -663,14 +703,14 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'rating_tracking_method'    => array(
+			'rating_tracking_method'         => array(
 				'id'      => 'rating_tracking_method',
 				'name'    => esc_html__( 'Vote Tracking Method', 'knowledgebase' ),
 				/* translators: %s: URL to rating system documentation */
 				'desc'    => sprintf(
 					/* translators: %1$s: Opening link tag, %2$s: Closing link tag. */
 					esc_html__( 'Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s.', 'knowledgebase' ),
-					'<a href="https://webberzone.com/support/knowledgebase/rating-system/" target="_blank" rel="noopener noreferrer">',
+					'<a href="https://webberzone.com/support/knowledgebase/knowledge-base-rating-system/#tracking-methods--gdpr-compliance" target="_blank" rel="noopener noreferrer">',
 					'</a>'
 				),
 				'type'    => 'select',
@@ -684,32 +724,32 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'show_rating_stats'         => array(
+			'show_rating_stats'              => array(
 				'id'      => 'show_rating_stats',
 				'name'    => esc_html__( 'Show Rating Statistics', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the average rating and vote count below the rating buttons.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'options' => true,
+				'default' => true,
 				'pro'     => true,
 			),
-			'beacon_header'             => array(
-				'id'   => 'beacon_header',
-				'name' => '<h3>' . esc_html__( 'Beacon Help Widget', 'knowledgebase' ) . '</h3>',
+			'help_widget_header'             => array(
+				'id'   => 'help_widget_header',
+				'name' => '<h3>' . esc_html__( 'Help Widget', 'knowledgebase' ) . '</h3>',
 				'desc' => esc_html__( 'A floating help widget that provides self-service support with search, suggested articles, and contact form.', 'knowledgebase' ),
 				'type' => 'header',
 			),
-			'beacon_enabled'            => array(
-				'id'      => 'beacon_enabled',
-				'name'    => esc_html__( 'Enable Beacon', 'knowledgebase' ),
+			'help_widget_enabled'            => array(
+				'id'      => 'help_widget_enabled',
+				'name'    => esc_html__( 'Enable Help Widget', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display a floating help widget on your site for self-service support.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => false,
 				'pro'     => true,
 			),
-			'beacon_display_location'   => array(
-				'id'      => 'beacon_display_location',
+			'help_widget_display_location'   => array(
+				'id'      => 'help_widget_display_location',
 				'name'    => esc_html__( 'Display Location', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Choose where the beacon appears on your site.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose where the help widget appears on your site.', 'knowledgebase' ),
 				'type'    => 'select',
 				'default' => 'kb_only',
 				'options' => array(
@@ -718,10 +758,10 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'beacon_position'           => array(
-				'id'      => 'beacon_position',
+			'help_widget_position'           => array(
+				'id'      => 'help_widget_position',
 				'name'    => esc_html__( 'Button Position', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Choose where the beacon button appears on the screen.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose where the help widget button appears on the screen.', 'knowledgebase' ),
 				'type'    => 'select',
 				'default' => 'right',
 				'options' => array(
@@ -730,10 +770,10 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'beacon_button_style'       => array(
-				'id'      => 'beacon_button_style',
+			'help_widget_button_style'       => array(
+				'id'      => 'help_widget_button_style',
 				'name'    => esc_html__( 'Button Style', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Choose how the beacon button is displayed.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose how the help widget button is displayed.', 'knowledgebase' ),
 				'type'    => 'select',
 				'default' => 'icon',
 				'options' => array(
@@ -743,89 +783,89 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'beacon_button_text'        => array(
-				'id'          => 'beacon_button_text',
+			'help_widget_button_text'        => array(
+				'id'          => 'help_widget_button_text',
 				'name'        => esc_html__( 'Button Text', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Text to display on the beacon button (when text style is selected).', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Text to display on the help widget button (when text style is selected).', 'knowledgebase' ),
 				'type'        => 'text',
 				'default'     => __( 'Help', 'knowledgebase' ),
 				'field_class' => 'regular-text',
 				'pro'         => true,
 			),
-			'beacon_color'              => array(
-				'id'          => 'beacon_color',
-				'name'        => esc_html__( 'Beacon Color', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Primary color for the beacon button and interface elements.', 'knowledgebase' ),
+			'help_widget_color'              => array(
+				'id'          => 'help_widget_color',
+				'name'        => esc_html__( 'Help Widget Color', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Primary color for the help widget button and interface elements.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#617DEC',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_hover_color'        => array(
-				'id'          => 'beacon_hover_color',
-				'name'        => esc_html__( 'Beacon Hover Color', 'knowledgebase' ),
+			'help_widget_hover_color'        => array(
+				'id'          => 'help_widget_hover_color',
+				'name'        => esc_html__( 'Help Widget Hover Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Hover color for buttons and interactive elements.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#4c63d2',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_text_color'         => array(
-				'id'          => 'beacon_text_color',
-				'name'        => esc_html__( 'Beacon Text Color', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Text color for the beacon button and interface elements.', 'knowledgebase' ),
+			'help_widget_text_color'         => array(
+				'id'          => 'help_widget_text_color',
+				'name'        => esc_html__( 'Help Widget Text Color', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Text color for the help widget button and interface elements.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#ffffff',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_hover_text_color'   => array(
-				'id'          => 'beacon_hover_text_color',
-				'name'        => esc_html__( 'Beacon Hover Text Color', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Text color for the beacon button on hover.', 'knowledgebase' ),
+			'help_widget_hover_text_color'   => array(
+				'id'          => 'help_widget_hover_text_color',
+				'name'        => esc_html__( 'Help Widget Hover Text Color', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Text color for the help widget button on hover.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#ffffff',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_panel_bg_color'     => array(
-				'id'          => 'beacon_panel_bg_color',
+			'help_widget_panel_bg_color'     => array(
+				'id'          => 'help_widget_panel_bg_color',
 				'name'        => esc_html__( 'Panel Background Color', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Background color for the beacon panel.', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Background color for the help widget panel.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#ffffff',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_panel_text_color'   => array(
-				'id'          => 'beacon_panel_text_color',
+			'help_widget_panel_text_color'   => array(
+				'id'          => 'help_widget_panel_text_color',
 				'name'        => esc_html__( 'Panel Text Color', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Default text color within the beacon panel.', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Default text color within the help widget panel.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#1a1a1a',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_link_hover_color'   => array(
-				'id'          => 'beacon_link_hover_color',
+			'help_widget_link_hover_color'   => array(
+				'id'          => 'help_widget_link_hover_color',
 				'name'        => esc_html__( 'Link Hover Background', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Background color when hovering over beacon links and list items.', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Background color when hovering over help widget links and list items.', 'knowledgebase' ),
 				'type'        => 'color',
 				'default'     => '#f3f4f6',
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'beacon_greeting'           => array(
-				'id'          => 'beacon_greeting',
+			'help_widget_greeting'           => array(
+				'id'          => 'help_widget_greeting',
 				'name'        => esc_html__( 'Greeting Message', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Welcome message shown when the beacon opens.', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Welcome message shown when the help widget opens.', 'knowledgebase' ),
 				'type'        => 'text',
 				'default'     => __( 'Hi! How can we help you?', 'knowledgebase' ),
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
-			'beacon_search_placeholder' => array(
-				'id'          => 'beacon_search_placeholder',
+			'help_widget_search_placeholder' => array(
+				'id'          => 'help_widget_search_placeholder',
 				'name'        => esc_html__( 'Search Placeholder', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Placeholder text for the search input field.', 'knowledgebase' ),
 				'type'        => 'text',
@@ -833,35 +873,35 @@ class Settings {
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
-			'beacon_contact_enabled'    => array(
-				'id'      => 'beacon_contact_enabled',
+			'help_widget_contact_enabled'    => array(
+				'id'      => 'help_widget_contact_enabled',
 				'name'    => esc_html__( 'Enable Contact Form', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Allow visitors to send messages through the beacon.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Allow visitors to send messages through the help widget.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 				'pro'     => true,
 			),
-			'beacon_contact_email'      => array(
-				'id'          => 'beacon_contact_email',
+			'help_widget_contact_email'      => array(
+				'id'          => 'help_widget_contact_email',
 				'name'        => esc_html__( 'Contact Email', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Email address where beacon contact form submissions will be sent.', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Email address where help widget contact form submissions will be sent.', 'knowledgebase' ),
 				'type'        => 'text',
 				'default'     => get_option( 'admin_email' ),
 				'field_class' => 'regular-text',
 				'pro'         => true,
 			),
-			'beacon_show_on_mobile'     => array(
-				'id'      => 'beacon_show_on_mobile',
+			'help_widget_show_on_mobile'     => array(
+				'id'      => 'help_widget_show_on_mobile',
 				'name'    => esc_html__( 'Show on Mobile', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Display the beacon on mobile devices.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display the help widget on mobile devices.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 				'pro'     => true,
 			),
-			'beacon_enable_animation'   => array(
-				'id'      => 'beacon_enable_animation',
+			'help_widget_enable_animation'   => array(
+				'id'      => 'help_widget_enable_animation',
 				'name'    => esc_html__( 'Enable Animations', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Enable smooth animations and transitions for the beacon.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enable smooth animations and transitions for the help widget.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 				'pro'     => true,
@@ -983,18 +1023,20 @@ class Settings {
 	public function get_help_tabs() {
 		$help_tabs = array(
 			array(
-				'id'      => 'wzkb-settings-general',
-				'title'   => __( 'General', 'knowledgebase' ),
+				'id'      => 'wzkb-settings-overview',
+				'title'   => __( 'Knowledge Base Settings', 'knowledgebase' ),
 				'content' =>
-				'<p>' . __( 'This screen provides the basic settings for configuring your knowledge base.', 'knowledgebase' ) . '</p>' .
-					'<p>' . __( 'Set the knowledge base slugs which drive what the urls are for the knowledge base homepage, articles, categories and tags.', 'knowledgebase' ) . '</p>',
-			),
-			array(
-				'id'      => 'wzkb-settings-styles',
-				'title'   => __( 'Styles', 'knowledgebase' ),
-				'content' =>
-				'<p>' . __( 'This screen provides options to control the look and feel of the knowledge base.', 'knowledgebase' ) . '</p>' .
-					'<p>' . __( 'Disable the styles included within the plugin and/or add your own CSS styles to customize this.', 'knowledgebase' ) . '</p>',
+					'<p>' . __( 'Configure every part of your docs experience from this screen. Use the sections on the left to move between General, Output, Styles, and Pro options.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>General</strong> covers Multi-Product Mode, URL slugs, caching, uninstall cleanup, and feed behaviour so links stay consistent and data is removed safely when required.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>Output</strong> controls how archives render—titles, hierarchy depth, article counts, excerpts, limits per section, sidebars, and related articles.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>Styles</strong> lets you switch layouts, set columns, and add custom CSS. Disable inbuilt styles if your theme already provides the styling you need.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>Pro features</strong> unlock article ratings, the floating help widget, and advanced layouts.', 'knowledgebase' ) . '</p>' .
+					'<p>' . sprintf(
+						/* translators: 1: Opening link tag, 2: Closing link tag. */
+						__( '%1$sRead the full settings guide%2$s', 'knowledgebase' ),
+						'<a href="' . esc_url( 'https://webberzone.com/support/knowledgebase/knowledge-base-settings/' ) . '" target="_blank" rel="noopener noreferrer" class="button">',
+						'</a>'
+					) . '</p>',
 			),
 		);
 

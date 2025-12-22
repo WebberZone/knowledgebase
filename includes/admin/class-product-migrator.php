@@ -79,7 +79,7 @@ class Product_Migrator {
 		echo '<div class="notice notice-warning is-dismissible wzkb-product-migrate-notice" data-nonce="' . esc_attr( $nonce ) . '" data-dismiss-action="wzkb_dismiss_product_notice">
 			<p>
 				<strong>' . esc_html__( 'New Multi-Products Mode available!', 'knowledgebase' ) . '</strong> 
-				' . esc_html__( 'Organize your knowledge base by product with our new Multi-Products mode! You can migrate your existing content using the migration wizard. If you don\'t want to use this feature, you can dismiss this notice by saving the settings page.', 'knowledgebase' ) . '
+				' . esc_html__( "Organize your knowledge base by product with our new Multi-Products mode! You can migrate your existing content using the migration wizard. If you don't want to use this feature, you can dismiss this notice by saving the settings page.", 'knowledgebase' ) . '
 			</p>
 			<p>
 				<a href="' . esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings#general' ) ) . '" class="button button-primary">' .
@@ -220,11 +220,12 @@ class Product_Migrator {
 			wp_send_json_error( __( 'Insufficient permissions.', 'knowledgebase' ), 403 );
 		}
 
-		$state   = isset( $_POST['state'] ) ? map_deep( wp_unslash( $_POST['state'] ), 'sanitize_text_field' ) : array();
-		$state   = is_array( $state ) ? $state : array();
-		$dry_run = isset( $_POST['dry_run'] ) && absint( $_POST['dry_run'] );
-		$log     = is_array( get_transient( 'wzkb_migration_log' ) ) ? get_transient( 'wzkb_migration_log' ) : array();
-		$step    = isset( $_POST['step'] ) ? absint( $_POST['step'] ) : 0;
+		$state          = isset( $_POST['state'] ) ? map_deep( wp_unslash( $_POST['state'] ), 'sanitize_text_field' ) : array();
+		$state          = is_array( $state ) ? $state : array();
+		$dry_run        = isset( $_POST['dry_run'] ) && absint( $_POST['dry_run'] );
+		$log            = is_array( get_transient( 'wzkb_migration_log' ) ) ? get_transient( 'wzkb_migration_log' ) : array();
+		$step           = isset( $_POST['step'] ) ? absint( $_POST['step'] ) : 0;
+		$last_log_index = isset( $state['last_log_index'] ) ? (int) $state['last_log_index'] : 0;
 
 		$response_data = array(
 			'done'      => false,
@@ -239,6 +240,18 @@ class Product_Migrator {
 
 		switch ( $step ) {
 			case 0:
+				if ( ! empty( $state['initialization_complete'] ) ) {
+					$response_data['message']   = '<strong>' . __( 'Migration already initialized. Resuming...', 'knowledgebase' ) . '</strong>';
+					$log[]                      = $response_data['message'];
+					$response_data['progress']  = ! empty( $state['products_created'] ) ? 20 : 0;
+					$response_data['next_step'] = ! empty( $state['products_created'] ) ? 2 : 1;
+					$response_data['log']       = array_slice( $log, $last_log_index );
+					$state['last_log_index']    = count( $log );
+					$response_data['state']     = $state;
+					set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
+					break;
+				}
+
 				delete_transient( 'wzkb_migration_log' );
 				delete_transient( 'wzkb_migration_assigned_articles' );
 				delete_transient( 'wzkb_migration_article_counts' );
@@ -287,6 +300,7 @@ class Product_Migrator {
 						$articles                       = get_posts(
 							array(
 								'post_type'        => $this->post_type_article,
+								'post_status'      => array( 'publish', 'draft', 'pending', 'future', 'private' ),
 								'posts_per_page'   => -1,
 								'fields'           => 'ids',
 								'tax_query'        => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
@@ -309,20 +323,22 @@ class Product_Migrator {
 					}
 				}
 
-				$state['top_section_ids']        = $top_section_ids;
-				$state['section_to_product_map'] = array();
-				$state['total_articles']         = $total_articles;
-				$state['articles_processed']     = 0;
-				$state['sections_mapped']        = 0;
-				$state['top_sections_mapped']    = 0;
-				$state['total_descendant_count'] = $total_descendant_count;
-				$state['sections_deleted']       = 0;
-				$state['processed_section_ids']  = array();
-				$state['last_log_index']         = 0;
+				$state['top_section_ids']         = $top_section_ids;
+				$state['section_to_product_map']  = array();
+				$state['total_articles']          = $total_articles;
+				$state['articles_processed']      = 0;
+				$state['sections_mapped']         = 0;
+				$state['top_sections_mapped']     = 0;
+				$state['total_descendant_count']  = $total_descendant_count;
+				$state['sections_deleted']        = 0;
+				$state['processed_section_ids']   = array();
+				$state['processed_article_ids']   = array();
+				$state['last_logged_section']     = array();
+				$state['initialization_complete'] = true;
+				$state['last_log_index']          = 0;
 
 				set_transient( 'wzkb_migration_article_counts', $section_article_counts, DAY_IN_SECONDS );
 				delete_transient( 'wzkb_migration_assigned_articles' );
-				set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
 
 				$response_data['progress']  = 20;
 				$response_data['next_step'] = 1;
@@ -333,17 +349,29 @@ class Product_Migrator {
 					$response_data['progress'] = 100;
 					$response_data['message']  = __( 'No top-level sections found. Nothing to migrate.', 'knowledgebase' );
 					$log[]                     = $response_data['message'];
-					$response_data['log']      = $log;
-					$state['last_log_index']   = count( $log );
-					set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
 				} else {
-					$response_data['log']    = $log;
-					$state['last_log_index'] = count( $log );
-					set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
+					$response_data['state'] = $state;
 				}
+
+				$response_data['log']    = array_slice( $log, $last_log_index );
+				$state['last_log_index'] = count( $log );
+				$response_data['state']  = $state;
+				set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
 				break;
 
 			case 1:
+				if ( ! empty( $state['products_created'] ) ) {
+					$response_data['message']   = '<strong>' . __( 'Products already created. Skipping product creation step...', 'knowledgebase' ) . '</strong>';
+					$log[]                      = $response_data['message'];
+					$response_data['progress']  = 20;
+					$response_data['next_step'] = 2;
+					$response_data['log']       = array_slice( $log, $last_log_index );
+					$state['last_log_index']    = count( $log );
+					$response_data['state']     = $state;
+					set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
+					break;
+				}
+
 				$response_data['message'] = '<strong>' . __( 'Creating products from top-level sections...', 'knowledgebase' ) . '</strong>';
 				$log[]                    = $response_data['message'];
 				$top_section_ids          = $state['top_section_ids'] ?? array();
@@ -401,11 +429,12 @@ class Product_Migrator {
 
 				$state['section_to_product_map'] = $section_to_product_map;
 				$state['simulated_product_ids']  = $simulated_product_ids;
-				$response_data['log']            = $log;
-				$response_data['state']          = $state;
+				$state['products_created']       = true;
+				$response_data['log']            = array_slice( $log, $last_log_index );
 				$response_data['progress']       = 20;
 				$response_data['next_step']      = 2;
 				$state['last_log_index']         = count( $log );
+				$response_data['state']          = $state;
 				set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
 				break;
 
@@ -432,12 +461,10 @@ class Product_Migrator {
 				 */
 				$max_articles_per_batch = apply_filters( 'wzkb_migration_max_articles_per_batch', 50 );
 
-				$response_data['message']   = '<strong>' . __( 'Mapping descendant sections and articles to products...', 'knowledgebase' ) . '</strong>';
-				$log[]                      = $response_data['message'];
 				$top_section_ids            = $state['top_section_ids'] ?? array();
 				$section_to_product_map     = $state['section_to_product_map'] ?? array();
 				$section_article_counts     = is_array( get_transient( 'wzkb_migration_article_counts' ) ) ? get_transient( 'wzkb_migration_article_counts' ) : array();
-				$total_articles             = $state['total_articles'] ?? 0;
+				$total_articles             = isset( $state['total_articles'] ) ? (int) $state['total_articles'] : 0;
 				$articles_processed         = $state['articles_processed'] ?? 0;
 				$sections_mapped            = $state['sections_mapped'] ?? 0;
 				$top_sections_mapped        = $state['top_sections_mapped'] ?? 0;
@@ -446,19 +473,7 @@ class Product_Migrator {
 				$current_desc_section_index = isset( $state['current_desc_section_index'] ) ? (int) $state['current_desc_section_index'] : 0;
 				$current_article_offset     = isset( $state['current_article_offset'] ) ? (int) $state['current_article_offset'] : 0;
 				$descendant_ids             = $state['descendant_ids'] ?? array();
-				$last_log_index             = isset( $state['last_log_index'] ) ? (int) $state['last_log_index'] : 0;
-
-				$log[] = sprintf(
-					/* translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Top sections count, 6: Articles processed, 7: Total articles */
-					__( 'Incoming State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, top_sections_count=%5$d, articles_processed=%6$d/%7$d', 'knowledgebase' ),
-					$current_top_section_index,
-					$current_desc_section_index,
-					$current_article_offset,
-					count( $descendant_ids ),
-					count( $top_section_ids ),
-					$articles_processed,
-					$total_articles
-				);
+				$last_logged_section        = $state['last_logged_section'] ?? array();
 
 				if ( empty( $top_section_ids ) || $current_top_section_index >= count( $top_section_ids ) ) {
 					$response_data['progress']  = 80;
@@ -467,7 +482,58 @@ class Product_Migrator {
 					$log[]                      = $response_data['message'];
 					unset( $state['current_top_section_index'], $state['descendant_ids'], $state['current_desc_section_index'], $state['current_article_offset'] );
 				} else {
-					$section_id = $top_section_ids[ $current_top_section_index ];
+					$section_id         = $top_section_ids[ $current_top_section_index ];
+					$section_term       = get_term( $section_id, $this->taxonomy_section );
+					$section_name       = $section_term->name ?? $section_id;
+					$total_top_sections = count( $top_section_ids );
+					$log_key            = (string) $current_top_section_index;
+
+					$is_new_section = ( empty( $descendant_ids ) && 0 === $current_desc_section_index && 0 === $current_article_offset );
+
+					if ( $is_new_section ) {
+						$stage_message = sprintf(
+							/* translators: 1: Section name, 2: Section ID, 3: Current index, 4: Total count */
+							__( 'Starting sub-section mapping for "%1$s" (ID: %2$d) (%3$d of %4$d)...', 'knowledgebase' ),
+							$section_name,
+							$section_id,
+							$current_top_section_index + 1,
+							$total_top_sections
+						);
+						$current_stage = 'start';
+					} else {
+						$stage_message = sprintf(
+							/* translators: 1: Section name, 2: Section ID, 3: Current index, 4: Total count */
+							__( 'Continuing sub-section mapping for "%1$s" (ID: %2$d) (%3$d of %4$d)...', 'knowledgebase' ),
+							$section_name,
+							$section_id,
+							$current_top_section_index + 1,
+							$total_top_sections
+						);
+						$current_stage = 'continue';
+					}
+
+					$response_data['message'] = '<strong>' . $stage_message . '</strong>';
+
+					$last_entry = $last_logged_section[ $log_key ] ?? array();
+					if ( ( $last_entry['section_id'] ?? null ) !== $section_id || ( $last_entry['stage'] ?? '' ) !== $current_stage ) {
+						$log[]                           = $response_data['message'];
+						$last_logged_section[ $log_key ] = array(
+							'section_id' => $section_id,
+							'stage'      => $current_stage,
+						);
+					}
+
+					$log[] = sprintf(
+						/* translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Top sections count, 6: Articles processed, 7: Total articles */
+						__( 'Incoming State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, top_sections_count=%5$d, articles_processed=%6$d/%7$d', 'knowledgebase' ),
+						$current_top_section_index,
+						$current_desc_section_index,
+						$current_article_offset,
+						count( $descendant_ids ),
+						count( $top_section_ids ),
+						$articles_processed,
+						$total_articles
+					);
 					if ( ! isset( $section_to_product_map[ $section_id ] ) ) {
 						$log[] = sprintf(
 							/* translators: %d: Section ID */
@@ -511,6 +577,10 @@ class Product_Migrator {
 									/* translators: %d: Section ID */
 									__( 'Completed all sections for top section ID: %d. Moving to next top section.', 'knowledgebase' ),
 									$section_id
+								);
+								$last_logged_section[ $log_key ] = array(
+									'section_id' => $section_id,
+									'stage'      => 'complete',
 								);
 								++$current_top_section_index;
 								$descendant_ids             = array();
@@ -567,6 +637,7 @@ class Product_Migrator {
 							$articles = get_posts(
 								array(
 									'post_type'        => $this->post_type_article,
+									'post_status'      => array( 'publish', 'draft', 'pending', 'future', 'private' ),
 									'posts_per_page'   => $articles_to_fetch,
 									'offset'           => $current_article_offset,
 									'fields'           => 'ids',
@@ -640,9 +711,12 @@ class Product_Migrator {
 							}
 						}
 
+						$processed_count          = count( $state['processed_article_ids'] ?? array() );
+						$effective_total_articles = max( $total_articles, $processed_count );
+
 						if ( $current_top_section_index < count( $top_section_ids ) ) {
 							$response_data['progress']  = $total_articles > 0
-								? round( max( 20, min( 80, ( count( $state['processed_article_ids'] ?? array() ) / $total_articles ) * 60 + 20 ) ), 1 )
+								? round( max( 20, min( 80, ( $effective_total_articles > 0 ? ( $processed_count / $effective_total_articles ) : 0 ) * 60 + 20 ) ), 1 )
 								: round( max( 20, min( 80, ( $current_top_section_index / max( 1, count( $top_section_ids ) ) ) * 60 + 20 ) ), 1 );
 							$response_data['next_step'] = 2;
 						}
@@ -656,9 +730,13 @@ class Product_Migrator {
 				$state['descendant_ids']             = $descendant_ids;
 				$state['current_desc_section_index'] = $current_desc_section_index;
 				$state['current_article_offset']     = $current_article_offset;
-				$state['articles_processed']         = count( $state['processed_article_ids'] ?? array() );
+				$processed_count                     = count( $state['processed_article_ids'] ?? array() );
+				$effective_total_articles            = max( $total_articles, $processed_count );
+				$state['articles_processed']         = $processed_count;
+				$state['total_articles']             = $effective_total_articles;
 				$state['sections_mapped']            = $sections_mapped;
 				$state['top_sections_mapped']        = $top_sections_mapped;
+				$state['last_logged_section']        = $last_logged_section;
 
 				$log[] = sprintf(
 					/* translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Sections mapped, 6: Top sections mapped, 7: Articles processed, 8: Total articles */
@@ -715,21 +793,14 @@ class Product_Migrator {
 					$state['simulated_product_ids'] = array();
 				}
 
-				$log[] = sprintf(
-					/* translators: 1: Descendant sections, 2: Top-level sections, 3: Sections deleted, 4: Total sections, 5: Articles processed */
-					__( 'Mapped %1$d descendant sections and %2$d top-level sections (total %4$d sections), processed %5$d articles, deleted %3$d top-level sections.', 'knowledgebase' ),
-					$state['sections_mapped'],
+				$log[] = '<strong>' . sprintf(
+					/* translators: 1: Products created, 2: Sub-sections mapped, 3: Articles processed, 4: Sections deleted */
+					__( 'Migration Summary: Created %1$d products from top-level sections, mapped %2$d sub-sections to products, processed %3$d articles, and deleted %4$d old top-level sections.', 'knowledgebase' ),
 					$state['top_sections_mapped'],
-					$sections_deleted,
-					$state['sections_mapped'] + $state['top_sections_mapped'],
-					$state['articles_processed'] ?? 0
-				);
-
-				$log[] = sprintf(
-					/* translators: %d: Expected descendant count */
-					__( 'Expected descendant count from initial scan: %d', 'knowledgebase' ),
-					$state['total_descendant_count'] ?? 0
-				);
+					$state['sections_mapped'],
+					$state['articles_processed'] ?? 0,
+					$sections_deleted
+				) . '</strong>';
 
 				if ( ! $dry_run ) {
 					update_option( 'wzkb_product_migration_complete', time() );

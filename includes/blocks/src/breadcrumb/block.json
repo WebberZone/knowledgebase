@@ -4,7 +4,7 @@
 	"name": "knowledgebase/breadcrumb",
 	"version": "2.3.0",
 	"title": "Knowledge Base Breadcrumb",
-	"category": "design",
+	"category": "knowledgebase",
 	"icon": "menu",
 	"keywords": ["knowledgebase", "breadcrumb", "kb", "navigation"],
 	"description": "Display the Knowledge Base Breadcrumb navigation",
