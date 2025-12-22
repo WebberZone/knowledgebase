@@ -186,17 +186,18 @@ class Settings_Wizard_API {
 	 */
 	public function set_translation_strings( $strings ) {
 		$defaults = array(
-			'page_title'      => 'Setup Wizard',
-			'menu_title'      => 'Setup Wizard',
-			'wizard_title'    => 'Setup Wizard',
-			'next_step'       => 'Next Step',
-			'previous_step'   => 'Previous Step',
-			'finish_setup'    => 'Finish Setup',
-			'skip_wizard'     => 'Skip Wizard',
-			'step_of'         => 'Step %1$d of %2$d',
-			'wizard_complete' => 'Wizard Complete!',
-			'setup_complete'  => 'Setup has been completed successfully.',
-			'go_to_settings'  => 'Go to Settings',
+			'page_title'            => 'Setup Wizard',
+			'menu_title'            => 'Setup Wizard',
+			'wizard_title'          => 'Setup Wizard',
+			'next_step'             => 'Next Step',
+			'previous_step'         => 'Previous Step',
+			'finish_setup'          => 'Finish Setup',
+			'skip_wizard'           => 'Skip Wizard',
+			'step_of'               => 'Step %1$d of %2$d',
+			'wizard_complete'       => 'Wizard Complete!',
+			'setup_complete'        => 'Setup has been completed successfully.',
+			'go_to_settings'        => 'Go to Settings',
+			'tom_select_no_results' => 'No results found for "%s"',
 		);
 
 		$this->translation_strings = wp_parse_args( $strings, $defaults );
@@ -258,6 +259,46 @@ class Settings_Wizard_API {
 			array( 'wp-color-picker' ),
 			$this->get_version(),
 			'all'
+		);
+
+		// Tom Select assets for taxonomy fields.
+		wp_register_style(
+			'wz-' . $this->prefix . '-tom-select',
+			plugins_url( 'css/tom-select.min.css', __FILE__ ),
+			array(),
+			$this->get_version()
+		);
+		wp_register_script(
+			'wz-' . $this->prefix . '-tom-select',
+			plugins_url( 'js/tom-select.complete.min.js', __FILE__ ),
+			array( 'jquery' ),
+			$this->get_version(),
+			true
+		);
+		wp_register_script(
+			'wz-' . $this->prefix . '-tom-select-init',
+			plugin_dir_url( __FILE__ ) . 'js/tom-select-init' . $minimize . '.js',
+			array( 'jquery', 'wz-' . $this->prefix . '-tom-select' ),
+			$this->get_version(),
+			true
+		);
+		wp_enqueue_style( 'wz-' . $this->prefix . '-tom-select' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-tom-select' );
+		wp_enqueue_script( 'wz-' . $this->prefix . '-tom-select-init' );
+
+		// Localize Tom Select settings for wizard.
+		wp_localize_script(
+			'wz-' . $this->prefix . '-tom-select-init',
+			'WZKBTomSelectSettings',
+			array(
+				'action'   => $this->prefix . '_taxonomy_search_tom_select',
+				'nonce'    => wp_create_nonce( $this->prefix . '_taxonomy_search_tom_select' ),
+				'endpoint' => 'category',
+				'strings'  => array(
+					// translators: %s: Search query.
+					'no_results' => esc_html__( 'No results found for "%s"', 'knowledgebase' ),
+				),
+			)
 		);
 	}
 
@@ -549,21 +590,13 @@ class Settings_Wizard_API {
 				<p class="wizard-step-counter">
 					<?php
 					$current_step_name = $step_config['title'] ?? '';
-					if ( ! empty( $current_step_name ) ) {
-						printf(
-							/* translators: %1$s: current step name, %2$d: current step number, %3$d: total steps */
-							esc_html__( '%1$s - Step %2$d of %3$d', 'knowledgebase' ),
-							esc_html( $current_step_name ),
-							esc_html( (string) $this->current_step ),
-							esc_html( (string) $this->total_steps )
-						);
-					} else {
-						printf(
-							esc_html( $this->translation_strings['step_of'] ),
-							esc_html( (string) $this->current_step ),
-							esc_html( (string) $this->total_steps )
-						);
-					}
+					$step_pattern      = ! empty( $current_step_name ) ? '%1$s - Step %2$d of %3$d' : $this->translation_strings['step_of'];
+					printf(
+						esc_html( $step_pattern ),
+						esc_html( $current_step_name ),
+						esc_html( (string) $this->current_step ),
+						esc_html( (string) $this->total_steps )
+					);
 					?>
 				</p>
 			</div>
@@ -630,6 +663,16 @@ class Settings_Wizard_API {
 							</table>
 						<?php endif; ?>
 						</div>
+
+						<?php
+						/**
+						 * Fires before the wizard actions are rendered.
+						 *
+						 * @param int $current_step Current step number.
+						 * @param int $total_steps  Total number of steps.
+						 */
+						do_action( "{$this->prefix}_wizard_before_actions", $this->current_step, $this->total_steps );
+						?>
 
 						<div class="wizard-actions">
 							<?php $this->render_wizard_buttons(); ?>

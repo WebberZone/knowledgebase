@@ -70,8 +70,13 @@ jQuery(document).ready(function ($) {
 		$(element).wpColorPicker();
 	});
 
+	// Reset default thumbnail - uses plugin-specific localized data.
 	$('.reset-default-thumb').on('click', function () {
-		$('#wzkb_settings\\[thumb_default\\]').val(wzkb_admin.thumb_default);
+		var settingsKey = WZSettingsAdmin.settings_key || '';
+		var thumbDefault = (typeof window[WZSettingsAdmin.prefix + '_admin'] !== 'undefined')
+			? window[WZSettingsAdmin.prefix + '_admin'].thumb_default
+			: '';
+		$('#' + settingsKey + '\\[thumb_default\\]').val(thumbDefault);
 	});
 
 });

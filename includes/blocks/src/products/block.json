@@ -4,7 +4,7 @@
 	"name": "knowledgebase/products",
 	"version": "3.0.0",
 	"title": "Knowledge Base Products",
-	"category": "design",
+	"category": "knowledgebase",
 	"icon": "products",
 	"keywords": ["knowledgebase", "kb", "products"],
 	"description": "Display sections under a selected product for the Knowledge Base",

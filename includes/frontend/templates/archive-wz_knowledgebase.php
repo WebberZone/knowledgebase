@@ -18,7 +18,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 }
 ?>
 <a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
-<div class="wrap">
+<div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 			<?php wzkb_search_form(); ?>
@@ -47,7 +47,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 		include_once 'sidebar-primary.php';
 	}
 	?>
-</div><!-- .wrap -->
+</div><!-- .wrap.wzkb-wrap -->
 
 <?php
 get_footer();

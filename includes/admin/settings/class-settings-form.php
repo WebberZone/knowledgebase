@@ -323,20 +323,21 @@ class Settings_Form {
 		$default  = isset( $args['default'] ) ? (int) $args['default'] : '';
 		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
-		$html  = sprintf(
+		$html              = sprintf(
 			'<input type="hidden" name="%1$s[%2$s]" value="-1" />',
 			$this->settings_key,
 			sanitize_key( $args['id'] )
 		);
-		$html .= sprintf(
+		$html             .= sprintf(
 			'<input type="checkbox" id="%1$s[%2$s]" name="%1$s[%2$s]" value="1" %3$s %4$s />',
 			$this->settings_key,
 			sanitize_key( $args['id'] ),
 			$checked,
 			$disabled
 		);
-		$html .= ( (bool) $value !== (bool) $default ) ? '<em style="color:#9B0800">' . $this->translation_strings['checkbox_modified'] . '</em>' : '';
-		$html .= $this->get_field_description( $args );
+		$checkbox_modified = $this->translation_strings['checkbox_modified'] ?? 'Modified from default setting';
+		$html             .= ( (bool) $value !== (bool) $default ) ? '<em style="color:#9B0800">' . $checkbox_modified . '</em>' : '';
+		$html             .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
 		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -820,7 +821,7 @@ class Settings_Form {
 				?>
 			</div>
 			<button type="button" class="button add-item" data-target="<?php echo esc_attr( $args['id'] ); ?>">
-				<?php echo esc_html( ! empty( $args['add_button_text'] ) ? $args['add_button_text'] : __( 'Add Item', 'glue-link' ) ); ?>
+				<?php echo esc_html( ! empty( $args['add_button_text'] ) ? $args['add_button_text'] : 'Add Item' ); ?>
 			</button>
 
 			<script type="text/template" class="repeater-template" data-id="<?php echo esc_attr( $args['id'] ); ?>">
@@ -931,7 +932,7 @@ class Settings_Form {
 			<?php
 			$display_field = ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name';
 			?>
-			<span class="repeater-title"><?php echo esc_html( ! empty( $item['fields'][ $display_field ] ) ? $item['fields'][ $display_field ] : 'New Item' ); ?></span>
+			<span class="repeater-title"><?php echo esc_html( ! empty( $item['fields'][ $display_field ] ) ? $item['fields'][ $display_field ] : $this->translation_strings['repeater_new_item'] ); ?></span>
 			<span class="toggle-icon">▼</span>
 		</div>
 		<div class="repeater-item-content" style="display: none;">
@@ -958,7 +959,7 @@ class Settings_Form {
 						<label class="wz-repeater-field-label" for="<?php echo esc_attr( sprintf( '%s_%s_%s', $args['id'], $index, $field_id ) ); ?>">
 							<?php echo esc_html( $field['name'] ); ?>
 							<?php if ( ! empty( $field['required'] ) ) : ?>
-								<span class="required" title="<?php esc_attr_e( 'Required', 'glue-link' ); ?>">*</span>
+								<span class="required" title="<?php echo esc_attr( $this->translation_strings['required_label'] ); ?>">*</span>
 							<?php endif; ?>
 						</label>
 					</div>
@@ -1004,7 +1005,7 @@ class Settings_Form {
 			var $this = $(this);
 			var newName = $this.val();
 			var $repeaterTitle = $this.closest('.wz-repeater-item').find('.repeater-title');
-			$repeaterTitle.text(newName || 'New Item'); // Update title or set default if empty
+			$repeaterTitle.text(newName || '<?php echo esc_js( $this->translation_strings['repeater_new_item'] ); ?>'); // Update title or set default if empty
 		});
 	});
 	</script>

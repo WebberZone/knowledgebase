@@ -4,7 +4,7 @@
 	"name": "knowledgebase/alerts",
 	"version": "2.3.0",
 	"title": "Knowledge Base Alerts",
-	"category": "design",
+	"category": "knowledgebase",
 	"icon": "book",
 	"keywords": ["knowledgbase", "alerts", "kb"],
 	"description": "Display alerts for WZ Knowledge Base",

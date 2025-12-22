@@ -31,9 +31,12 @@ class Admin_Columns {
 		Hook_Registry::add_filter( 'manage_edit-wzkb_category_sortable_columns', array( $this, 'tax_sortable_columns' ) );
 		Hook_Registry::add_filter( 'manage_edit-wzkb_tag_columns', array( $this, 'tax_columns' ) );
 		Hook_Registry::add_filter( 'manage_edit-wzkb_tag_sortable_columns', array( $this, 'tax_sortable_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_product_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_product_sortable_columns', array( $this, 'tax_sortable_columns' ) );
 
 		Hook_Registry::add_filter( 'manage_wzkb_category_custom_column', array( $this, 'tax_id' ), 10, 3 );
 		Hook_Registry::add_filter( 'manage_wzkb_tag_custom_column', array( $this, 'tax_id' ), 10, 3 );
+		Hook_Registry::add_filter( 'manage_wzkb_product_custom_column', array( $this, 'tax_id' ), 10, 3 );
 
 		// Register Product filter for Articles admin screen.
 		Hook_Registry::add_action( 'restrict_manage_posts', array( $this, 'add_product_filter_dropdown' ) );
@@ -44,7 +47,8 @@ class Admin_Columns {
 		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'filter_sections_by_product' ), 10, 2 );
 
 		// Add sorting.
-		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'sort_terms_by_product' ), 10, 2 );
+		Hook_Registry::add_action( 'pre_get_terms', array( $this, 'set_default_sections_order' ) );
+		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'sort_terms_by_product' ), 10, 3 );
 	}
 
 	/**
@@ -124,9 +128,10 @@ class Admin_Columns {
 	 *
 	 * @param array $pieces     Array of query SQL clauses.
 	 * @param array $taxonomies Array of taxonomy names.
+	 * @param array $args       Additional term query arguments.
 	 * @return array Modified clauses.
 	 */
-	public function sort_terms_by_product( $pieces, $taxonomies ) {
+	public function sort_terms_by_product( $pieces, $taxonomies, $args ) {
 		global $wpdb;
 
 		// Only run for wzkb_category in admin.
@@ -135,29 +140,70 @@ class Admin_Columns {
 		}
 
 		// Check if sorting by product.
-		$orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$orderby = isset( $args['orderby'] ) ? sanitize_key( $args['orderby'] ) : '';
 		if ( 'product' !== $orderby ) {
 			return $pieces;
 		}
 
 		// Get sort order.
-		$order = isset( $_GET['order'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_GET['order'] ) ) ) : 'ASC'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$order = isset( $args['order'] ) ? strtoupper( sanitize_text_field( $args['order'] ) ) : 'ASC';
 		$order = in_array( $order, array( 'ASC', 'DESC' ), true ) ? $order : 'ASC';
 
-		// Join with termmeta to get product_id.
-		$pieces['join'] .= " LEFT JOIN {$wpdb->termmeta} AS tm ON t.term_id = tm.term_id AND tm.meta_key = 'product_id'";
+		$meta_alias     = 'tm_product_sort';
+		$product_alias  = 'pt_product_sort';
+		$taxonomy_alias = 'ptt_product_sort';
+
+		// Join with termmeta to get product_id while avoiding alias collisions.
+		$pieces['join'] .= " LEFT JOIN {$wpdb->termmeta} AS {$meta_alias} ON t.term_id = {$meta_alias}.term_id AND {$meta_alias}.meta_key = 'product_id'";
 
 		// Join with terms and term_taxonomy to get wzkb_product name.
-		$pieces['join'] .= " LEFT JOIN {$wpdb->terms} AS pt ON tm.meta_value = pt.term_id";
-		$pieces['join'] .= " LEFT JOIN {$wpdb->term_taxonomy} AS ptt ON pt.term_id = ptt.term_id AND ptt.taxonomy = 'wzkb_product'";
+		$pieces['join'] .= " LEFT JOIN {$wpdb->terms} AS {$product_alias} ON {$meta_alias}.meta_value = {$product_alias}.term_id";
+		$pieces['join'] .= " LEFT JOIN {$wpdb->term_taxonomy} AS {$taxonomy_alias} ON {$product_alias}.term_id = {$taxonomy_alias}.term_id AND {$taxonomy_alias}.taxonomy = 'wzkb_product'";
 
 		// Set the ORDER BY clause with the "ORDER BY" prefix.
-		$pieces['orderby'] = "ORDER BY COALESCE(pt.name, '') $order, t.name $order";
+		$pieces['orderby'] = "ORDER BY COALESCE({$product_alias}.name, '') $order, t.name $order";
 
 		// Prevent WordPress from appending the order.
 		$pieces['order'] = '';
 
 		return $pieces;
+	}
+
+	/**
+	 * Ensure Sections screen defaults to sorting by Product.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Term_Query $query Term query instance.
+	 */
+	public function set_default_sections_order( $query ) {
+		if ( ! is_admin() || ! $query instanceof \WP_Term_Query ) {
+			return;
+		}
+
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || 'edit-tags' !== $screen->base || 'wzkb_category' !== $screen->taxonomy ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return;
+		}
+
+		// Respect explicit user choice.
+		if ( isset( $_GET['orderby'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		$orderby = isset( $query->query_vars['orderby'] ) ? $query->query_vars['orderby'] : '';
+		if ( ! empty( $orderby ) && 'name' !== $orderby ) {
+			return;
+		}
+
+		$query->query_vars['orderby'] = 'product';
+		if ( empty( $query->query_vars['order'] ) ) {
+			$query->query_vars['order'] = 'ASC';
+		}
 	}
 
 	/**
@@ -343,12 +389,15 @@ class Admin_Columns {
 			'wzkb-sections-product-filter',
 			'knowledgebaseProductFilter',
 			array(
-				'products'        => $products_data,
-				'selectedProduct' => $selected,
-				'queryParams'     => $query_params,
-				'strings'         => array(
-					'allProducts'       => __( 'All Products', 'knowledgebase' ),
-					'filter'            => __( 'Filter', 'knowledgebase' ),
+				'products'       => $products_data,
+				'currentProduct' => $selected,
+				'queryParams'    => $query_params,
+				'currentScreen'  => $screen->id,
+				'nonces'         => array(
+					'filter' => wp_create_nonce( 'wzkb_sections_filter' ),
+				),
+				'strings'        => array(
+					'filterInstruction' => __( 'Filter sections by product:', 'knowledgebase' ),
 					'productLabel'      => __( 'Product:', 'knowledgebase' ),
 					'searchPlaceholder' => __( 'Search sections...', 'knowledgebase' ),
 				),

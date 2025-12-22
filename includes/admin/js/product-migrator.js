@@ -83,11 +83,11 @@
 					return;
 				}
 
-				if (response.data.log && Array.isArray(response.data.log)) {
-					response.data.log.forEach(function (line) { appendToLog(line); });
-				}
+				var hasLogEntries = response.data.log && Array.isArray(response.data.log) && response.data.log.length;
 
-				if (response.data.message) {
+				if (hasLogEntries) {
+					response.data.log.forEach(function (line) { appendToLog(line); });
+				} else if (response.data.message) {
 					appendToLog(response.data.message);
 				}
 

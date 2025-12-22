@@ -54,8 +54,7 @@ class CPT {
 		);
 
 		// If not using slug prefix, we'll add custom rewrite rules and filter permalinks.
-		// Only if Pro Custom Permalinks class is not active (Pro handles this itself).
-		if ( ! $use_slug_prefix && ! class_exists( 'WebberZone\Knowledge_Base\Pro\Custom_Permalinks' ) ) {
+		if ( ! $use_slug_prefix ) {
 			add_action( 'init', array( __CLASS__, 'add_root_level_rewrite_rules' ), 99 );
 			add_filter( 'post_type_link', array( __CLASS__, 'filter_root_level_permalink' ), 10, 2 );
 		}

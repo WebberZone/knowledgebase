@@ -33,6 +33,7 @@ class Blocks {
 	public function __construct() {
 		Hook_Registry::add_action( 'init', array( $this, 'register_blocks' ) );
 		Hook_Registry::add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_settings' ) );
+		Hook_Registry::add_filter( 'block_categories_all', array( $this, 'register_block_category' ) );
 	}
 
 	/**
@@ -95,6 +96,38 @@ class Blocks {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Register custom block category for Knowledge Base blocks.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $categories Array of block categories.
+	 * @return array Modified array of block categories.
+	 */
+	public function register_block_category( $categories ) {
+
+		$insert_after = 'widgets';
+		$position     = 0;
+
+		foreach ( $categories as $index => $category ) {
+			if ( isset( $category['slug'] ) && $insert_after === $category['slug'] ) {
+				$position = $index + 1;
+				break;
+			}
+		}
+
+		// Insert the custom category at the desired position.
+		$custom_category = array(
+			'slug'  => 'knowledgebase',
+			'title' => __( 'Knowledge Base', 'knowledgebase' ),
+			'icon'  => 'book',
+		);
+
+		array_splice( $categories, $position, 0, array( $custom_category ) );
+
+		return $categories;
 	}
 
 	/**

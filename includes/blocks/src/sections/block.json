@@ -4,7 +4,7 @@
 	"name": "knowledgebase/sections",
 	"version": "2.3.0",
 	"title": "Knowledge Base Sections",
-	"category": "design",
+	"category": "knowledgebase",
 	"icon": "book",
 	"keywords": ["knowledgbase", "sections", "kb"],
 	"description": "Display the list of sections when browsing a knowledge base page",

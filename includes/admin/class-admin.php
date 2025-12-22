@@ -116,6 +116,181 @@ class Admin {
 	}
 
 	/**
+	 * Render the Knowledge Base admin banner.
+	 *
+	 * @since 3.0.0
+	 */
+	public function render_admin_banner() {
+		$screen = get_current_screen();
+
+		if ( ! $screen || ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
+
+		if ( ! $this->is_knowledge_base_screen( $screen ) ) {
+			return;
+		}
+
+		$kb_url          = wzkb_get_kb_url();
+		$products_url    = admin_url( 'edit-tags.php?taxonomy=wzkb_product&post_type=wz_knowledgebase' );
+		$sections_url    = admin_url( 'edit-tags.php?taxonomy=wzkb_category&post_type=wz_knowledgebase' );
+		$tags_url        = admin_url( 'edit-tags.php?taxonomy=wzkb_tag&post_type=wz_knowledgebase' );
+		$tools_url       = admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb_tools_page' );
+		$plugin_url      = 'https://webberzone.com/plugins/';
+		$current_section = '';
+		$page_param      = $this->get_request_page_param();
+
+		if ( ! empty( $screen->taxonomy ) ) {
+			if ( 'wzkb_product' === $screen->taxonomy ) {
+				$current_section = 'products';
+			} elseif ( 'wzkb_category' === $screen->taxonomy ) {
+				$current_section = 'sections';
+			} elseif ( 'wzkb_tag' === $screen->taxonomy ) {
+				$current_section = 'tags';
+			}
+		} elseif ( $this->is_tools_screen( $screen, $page_param ) ) {
+			$current_section = 'tools';
+		}
+
+		$products_classes = 'wzkb-admin-banner__link wzkb-admin-banner__link--secondary' . ( 'products' === $current_section ? ' wzkb-admin-banner__link--current' : '' );
+		$sections_classes = 'wzkb-admin-banner__link wzkb-admin-banner__link--secondary' . ( 'sections' === $current_section ? ' wzkb-admin-banner__link--current' : '' );
+		$tags_classes     = 'wzkb-admin-banner__link wzkb-admin-banner__link--secondary' . ( 'tags' === $current_section ? ' wzkb-admin-banner__link--current' : '' );
+		$tools_classes    = 'wzkb-admin-banner__link wzkb-admin-banner__link--secondary' . ( 'tools' === $current_section ? ' wzkb-admin-banner__link--current' : '' );
+
+		?>
+		<div class="wzkb-admin-banner" role="region" aria-label="<?php echo esc_attr__( 'Knowledge Base quick links', 'knowledgebase' ); ?>">
+			<div class="wzkb-admin-banner__intro">
+				<span class="wzkb-admin-banner__eyebrow"><?php esc_html_e( 'WebberZone Knowledge Base', 'knowledgebase' ); ?></span>
+				<p class="wzkb-admin-banner__title"><?php esc_html_e( 'Shape a helpful support hub your users will love.', 'knowledgebase' ); ?></p>
+				<p class="wzkb-admin-banner__text"><?php esc_html_e( 'Jump to your most-used Knowledge Base tools, manage content faster, and explore more WebberZone plugins.', 'knowledgebase' ); ?></p>
+			</div>
+			<nav class="wzkb-admin-banner__links" aria-label="<?php echo esc_attr__( 'Knowledge Base admin shortcuts', 'knowledgebase' ); ?>">
+				<a class="wzkb-admin-banner__link wzkb-admin-banner__link--primary wzkb-admin-banner__link--kb-archive" href="<?php echo esc_url( $kb_url ); ?>" target="_blank" rel="noopener noreferrer">
+					<?php esc_html_e( 'View Knowledge Base', 'knowledgebase' ); ?>
+				</a>
+				<a class="<?php echo esc_attr( $products_classes . ' wzkb-admin-banner__link--products' ); ?>" href="<?php echo esc_url( $products_url ); ?>">
+					<?php esc_html_e( 'Products', 'knowledgebase' ); ?>
+				</a>
+				<a class="<?php echo esc_attr( $sections_classes . ' wzkb-admin-banner__link--sections' ); ?>" href="<?php echo esc_url( $sections_url ); ?>">
+					<?php esc_html_e( 'Sections', 'knowledgebase' ); ?>
+				</a>
+				<a class="<?php echo esc_attr( $tags_classes . ' wzkb-admin-banner__link--tags' ); ?>" href="<?php echo esc_url( $tags_url ); ?>">
+					<?php esc_html_e( 'Tags', 'knowledgebase' ); ?>
+				</a>
+				<a class="<?php echo esc_attr( $tools_classes . ' wzkb-admin-banner__link--tools' ); ?>" href="<?php echo esc_url( $tools_url ); ?>">
+					<?php esc_html_e( 'Tools', 'knowledgebase' ); ?>
+				</a>
+				<a class="wzkb-admin-banner__link wzkb-admin-banner__link--accent wzkb-admin-banner__link--plugins" href="<?php echo esc_url( $plugin_url ); ?>" target="_blank" rel="noopener noreferrer">
+					<?php esc_html_e( 'More WebberZone Plugins', 'knowledgebase' ); ?>
+				</a>
+			</nav>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Determine if the banner should be rendered on the current screen.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Screen $screen Current screen.
+	 *
+	 * @return bool
+	 */
+	private function is_knowledge_base_screen( \WP_Screen $screen ): bool {
+		$page_param = $this->get_request_page_param();
+
+		if ( isset( $screen->post_type ) && 'wz_knowledgebase' === $screen->post_type ) {
+			return true;
+		}
+
+		if ( isset( $screen->taxonomy ) && in_array( $screen->taxonomy, array( 'wzkb_category', 'wzkb_product', 'wzkb_tag' ), true ) ) {
+			return true;
+		}
+
+		if ( isset( $screen->id ) && in_array( $screen->id, array( 'wz_knowledgebase_page_wzkb-settings', 'knowledgebase_page_wzkb-settings' ), true ) ) {
+			return true;
+		}
+
+		if ( $this->is_tools_screen( $screen, $page_param ) ) {
+			return true;
+		}
+
+		if ( '' !== $page_param && in_array( $page_param, array( 'wzkb-settings', 'wzkb_tools_page' ), true ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Retrieve the current admin page query parameter in a sanitised form.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string Sanitised page identifier.
+	 */
+	private function get_request_page_param(): string {
+		$page_param_raw = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+
+		if ( is_string( $page_param_raw ) && '' !== $page_param_raw ) {
+			return sanitize_key( $page_param_raw );
+		}
+
+		if ( isset( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return sanitize_key( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
+
+		return '';
+	}
+
+	/**
+	 * Determine whether the current screen represents the Tools page.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Screen $screen      Current screen instance.
+	 * @param string     $page_param  Sanitised page query parameter.
+	 *
+	 * @return bool
+	 */
+	private function is_tools_screen( \WP_Screen $screen, string $page_param ): bool {
+		$candidates = array();
+
+		if ( isset( $screen->id ) ) {
+			$candidates[] = (string) $screen->id;
+		}
+
+		if ( isset( $screen->base ) ) {
+			$candidates[] = (string) $screen->base;
+		}
+
+		if ( isset( $screen->parent_base ) ) {
+			$candidates[] = (string) $screen->parent_base;
+		}
+
+		if ( isset( $screen->parent_file ) ) {
+			$candidates[] = (string) $screen->parent_file;
+		}
+
+		if ( '' !== $page_param ) {
+			$candidates[] = $page_param;
+		}
+
+		foreach ( $candidates as $candidate ) {
+			if ( '' === $candidate ) {
+				continue;
+			}
+
+			if ( false !== strpos( $candidate, 'wzkb_tools_page' ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Run the hooks.
 	 *
 	 * @since 2.3.0
@@ -125,7 +300,7 @@ class Admin {
 		Hook_Registry::add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		Hook_Registry::add_filter( 'dashboard_glance_items', array( $this, 'dashboard_glance_items' ), 10, 1 );
 		Hook_Registry::add_filter( 'admin_head', array( $this, 'admin_head' ) );
-		Hook_Registry::add_action( 'admin_footer', array( $this, 'maybe_add_button_to_post_list' ) );
+		Hook_Registry::add_action( 'in_admin_header', array( $this, 'render_admin_banner' ) );
 	}
 
 	/**
@@ -166,7 +341,22 @@ class Admin {
 			WZKB_VERSION
 		);
 
-		if ( isset( $_GET['post_type'] ) && 'wz_knowledgebase' === $_GET['post_type'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
+		$screen         = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		$should_enqueue = false;
+
+		if ( $screen && $this->is_knowledge_base_screen( $screen ) ) {
+			$should_enqueue = true;
+		} else {
+			$post_type = filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING );
+			$taxonomy  = filter_input( INPUT_GET, 'taxonomy', FILTER_SANITIZE_STRING );
+			$page      = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
+
+			if ( 'wz_knowledgebase' === $post_type || in_array( $taxonomy, array( 'wzkb_category', 'wzkb_product', 'wzkb_tag' ), true ) || in_array( $page, array( 'wzkb-settings', 'wzkb_tools_page' ), true ) ) {
+				$should_enqueue = true;
+			}
+		}
+
+		if ( $should_enqueue ) {
 			wp_enqueue_style( 'wzkb-admin-ui' );
 		}
 	}
@@ -187,10 +377,10 @@ class Admin {
 		$cat_slug     = \wzkb_get_option( 'category_slug', 'not-set-random-string' );
 		$tag_slug     = \wzkb_get_option( 'tag_slug', 'not-set-random-string' );
 
-		// Only add the notice if the settings cannot be found.
-		if ( 'not-set-random-string' === $kb_slug || 'not-set-random-string' === $product_slug || 'not-set-random-string' === $cat_slug || 'not-set-random-string' === $tag_slug ) {
-			?>		
-			<div class="updated">
+		// Only add the notice if the settings cannot be found. Skip if on the setup wizard page.
+		if ( ! ( isset( $_GET['page'] ) && 'wzkb-setup' === $_GET['page'] ) && ( 'not-set-random-string' === $kb_slug || 'not-set-random-string' === $product_slug || 'not-set-random-string' === $cat_slug || 'not-set-random-string' === $tag_slug ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			?>
+						<div class="updated">
 				<p>
 					<?php
 						printf(
@@ -212,6 +402,7 @@ class Admin {
 				// translators: %s: Link to plugin settings page.
 				$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ), esc_html__( 'plugin settings', 'knowledgebase' ) );
 				$message       = sprintf(
+					/* translators: %s: HTML link to the plugin settings page. */
 					esc_html__( 'The Products taxonomy is only available in multi-product mode. Please enable multi-product mode in the %s.', 'knowledgebase' ),
 					$settings_link
 				);
@@ -282,45 +473,26 @@ class Admin {
 	}
 
 	/**
-	 * Add button to knowledgebase post type list screen
-	 */
-	public function maybe_add_button_to_post_list() {
-		$screen = get_current_screen();
-		if ( ! $screen ||
-			( 'wz_knowledgebase' !== $screen->post_type && 'wzkb_category' !== $screen->taxonomy ) ||
-			( 'edit' !== $screen->base && 'wz_knowledgebase' !== $screen->post_type ) ) {
-			return;
-		}
-
-		$this->render_custom_button( 'Visit Knowledge Base' );
-	}
-
-	/**
-	 * Render the custom button
+	 * Display Pro upgrade banner.
 	 *
-	 * @since 2.3.0
+	 * @since 3.0.0
 	 *
-	 * @param string $button_text Text to display on the button.
+	 * @param bool   $donate      Whether to show the donate banner.
+	 * @param string $custom_text Custom text to show in the banner.
 	 */
-	private function render_custom_button( $button_text = 'Custom Action' ) {
+	public static function pro_upgrade_banner( $donate = true, $custom_text = '' ) {
 		?>
-		<script>
-		jQuery(document).ready(function($) {
-			// Find the H1 and insert our button right after it
-			var $h1 = $('.wrap h1');
-			
-			// Create the button
-			var $kbUrlButton = $('<a>', {
-				href: '<?php wzkb_the_kb_url(); ?>',
-				class: 'page-title-action wzkb_button wzkb_button_blue',
-				text: '<?php echo esc_js( $button_text ); ?>',
-				target: '_blank'
-			});
+			<div id="pro-upgrade-banner">
+				<div class="inside">
+					<?php if ( ! empty( $custom_text ) ) : ?>
+						<p><?php echo wp_kses_post( $custom_text ); ?></p>
+					<?php endif; ?>
 
-			// Insert the button right after the H1
-			$h1.after($kbUrlButton);
-		});
-		</script>
+					<?php if ( $donate ) : ?>
+						<p><a href="https://wzn.io/donate-kb" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
+					<?php endif; ?>
+				</div>
+			</div>
 		<?php
 	}
 }

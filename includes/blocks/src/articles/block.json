@@ -4,7 +4,7 @@
 	"name": "knowledgebase/articles",
 	"version": "2.3.0",
 	"title": "Knowledge Base Articles",
-	"category": "design",
+	"category": "knowledgebase",
 	"icon": "book",
 	"keywords": ["knowledgbase", "articles", "kb"],
 	"description": "Display the Knowledge Base Articles",

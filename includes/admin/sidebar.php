@@ -5,13 +5,11 @@
  * @package WebberZone\Knowledge_Base
  */
 
+use WebberZone\Knowledge_Base\Admin\Admin;
+
 ?>
 <div class="postbox-container">
-	<div id="pro-upgrade-banner">
-		<div class="inside">
-			<p><a href="https://wzn.io/donate-bs" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
-		</div>
-	</div>
+	<?php Admin::pro_upgrade_banner(); ?>
 
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
 		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'knowledgebase' ); ?></span></h2>
