@@ -701,8 +701,8 @@ class REST_Controller {
 			'permalink' => get_permalink( $post ),
 			'products'  => $this->format_terms( get_the_terms( $post, 'wzkb_product' ) ),
 			'sections'  => $this->format_terms( get_the_terms( $post, 'wzkb_category' ) ),
-			'date'      => mysql_to_rfc3339( $post->post_date_gmt ),
-			'modified'  => mysql_to_rfc3339( $post->post_modified_gmt ),
+			'date'      => mysql2date( DATE_RFC3339, $post->post_date_gmt, false ),
+			'modified'  => mysql2date( DATE_RFC3339, $post->post_modified_gmt, false ),
 		);
 
 		if ( $include_content ) {
