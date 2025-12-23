@@ -8,6 +8,8 @@
 namespace WebberZone\Knowledge_Base;
 
 use WebberZone\Knowledge_Base\Admin\Admin;
+use WebberZone\Knowledge_Base\Admin\Product_Section_Selector;
+use WebberZone\Knowledge_Base\REST\REST_Controller;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -127,6 +129,15 @@ final class Main {
 	public Blocks\Blocks $blocks;
 
 	/**
+	 * REST controller.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @var REST\REST_Controller
+	 */
+	public REST_Controller $rest_controller;
+
+	/**
 	 * Related articles.
 	 *
 	 * @since 2.3.0
@@ -178,6 +189,13 @@ final class Main {
 		$this->blocks           = new Blocks\Blocks();
 
 		$this->hooks();
+
+		// Ensure REST endpoints are always available.
+		$this->rest_controller = new REST_Controller();
+
+		if ( 0 !== (int) wzkb_get_option( 'multi_product', 0 ) ) {
+			new Product_Section_Selector();
+		}
 
 		// Initialize pro features.
 		if ( wzkb_freemius()->is__premium_only() ) {

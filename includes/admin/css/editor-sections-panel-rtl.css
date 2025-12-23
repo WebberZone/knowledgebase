@@ -1,0 +1,65 @@
+.wzkb-editor-sections__loading {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-start;
+}
+
+.wzkb-editor-sections__container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 4px 0;
+}
+
+.wzkb-editor-sections__message {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.wzkb-editor-sections__notice {
+	margin: 0;
+}
+
+.wzkb-editor-sections__group {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 6px 0 12px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.wzkb-editor-sections__group-title {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.4;
+	font-weight: 600;
+}
+
+.wzkb-editor-sections__tree {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-right: 2px;
+}
+
+.wzkb-editor-sections__node .components-base-control__field {
+	margin-bottom: 0;
+}
+
+.wzkb-editor-sections__node {
+	font-size: 13px;
+	line-height: 1.4;
+	margin: 3px 0;
+}
+
+.wzkb-editor-sections__node--child {
+	margin-top: 6px;
+}
+
+.wzkb-editor-sections__empty {
+	font-style: italic;
+	margin: 0;
+	font-size: 13px;
+}

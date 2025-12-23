@@ -3,9 +3,9 @@ Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, support, documentation
 Requires at least: 6.6
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.3.1
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 ### Pro features
 
 - ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
-- 💬 __Beacon Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
+- 💬 __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
 - 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
 - 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
@@ -129,88 +129,45 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.2 =
-Fixed security issue where Knowledge Base slug in settings was not sanitized.
+= 3.0.0 =
+Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
+
 
 == Changelog ==
 
 = 3.0.0 =
 
 * Features:
-	* Introduced a new hierarchical Products taxonomy (`wzkb_product`) enabling multi-product support for articles and sections.
-		* Migration wizard to map existing sections and articles to products, with dry-run and batch processing.
+	* Introduced a hierarchical Products taxonomy (`wzkb_product`) for multi-product knowledge bases.
+		* Migration wizard with dry-run and batch processing to map existing sections and articles to products.
 		* Product-based frontend templates that preserve section hierarchy.
 		* Admin UI enhancements for managing products, sections, and migration.
-	* Setup Wizard to guide users through the initial setup process.
-	* New Product widget to display the Sections for a specific Product.
-	* (Pro) Custom Permalinks for Products, Sections, Tags and Articles.
-	* (Pro) Added Clear cache button and Cache expiry option in the settings page.
-	* (Pro) Article Rating System with:
-		* Binary or 5-star voting modes and optional feedback collection.
+	* Setup Wizard to guide users through the initial configuration.
+	* New Product widget to display sections for a specific product.
+	* [Pro] Custom permalinks for Products, Sections, Tags, and Articles.
+	* [Pro] Cache tools: Clear cache button and cache expiry option in the settings.
+	* [Pro] Article Rating System:
+		* Binary or 5-star voting, optional follow-up feedback, shortcode support, and Tools page controls.
 		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
-		* Email alerts, per-article reset tools, feedback storage, and Bayesian average sorting for admin lists.
+		* Email alerts, per-article reset tools, feedback storage, privacy exporter/eraser, and Bayesian average sorting in admin lists.
+	* [Pro] Floating Help Widget providing a branded assistant with live search, suggested articles, configurable labels/colours, and a contact form with HTML email notifications.
+	* [Pro] Premium layout pack with seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 
 * Modifications:
-	* Standardized CSS class names to use consistent hyphenation (e.g., `wzkb_section` is now `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
-	* New Hooks_Registry class added to handle hooks in a more organized way and prevents accidental duplicate hooks.
-	* Upgraded WebberZone Settings API.
+	* Standardised CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
+	* Added `Hooks_Registry` class to organise hooks and prevent accidental duplicates.
+	* Upgraded the WebberZone Settings API.
 
 * Breaking Changes:
-	* CSS classes have been renamed for consistency:
+	* CSS classes have been renamed for consistency, for example:
 		* `wzkb_section` → `wzkb-section`
 		* `wzkb_section_wrapper` → `wzkb-section-wrapper`
 		* `wzkb_section_name` → `wzkb-section-name`
 		* `wzkb_section_count` → `wzkb-section-count`
 		* `wzkb_shortcode` → `wzkb-shortcode`
 		* `wzkb_block` → `wzkb-block`
-		* And other similar class name changes
-	* If you have custom CSS targeting these classes, you'll need to update your selectors
-
-= 2.3.2 =
-
-* Bug fixes:
-	* Fixed security issue where Knowledge Base slug in settings was not sanitized.
-
-= 2.3.1 =
-
-* Bug fixes:
-	* Fixed security issue where arguments passed to the shortcodes were not properly sanitized.
-
-= 2.3.0 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-3-0/](https://webberzone.com/blog/knowledge-base-v2-3-0/)
-
-The plugin has been completely rewritten to use classes and autoloading.
-
-* Features:
-	* New block: Knowledge Base Articles.
-	* New block: Knowledge Base Breadcrumbs.
-	* New block: Knowledge Base Sections.
-
-* Modifications:
-	* Enhanced breadcrumb navigation with semantic HTML5 markup and improved accessibility
-	* Added Schema.org BreadcrumbList markup for better SEO
-	* Added support for custom Unicode separators in breadcrumbs
-
-= 2.2.1 =
-
-* Enhancements:
-	* The plugin will now load RTL styles if your site is in RTL mode.
-	* Only load CSS on the frontend if the option is enabled in the Settings page.
-
-* Bug fixes:
-	* Fixed a security issue in the alerts block that impacted edge cases of stored data from contributors. Now the alert block content is passed through `wp_kses_post` before being displayed.
-	* Fixed a bug where the block would not render correctly in the editor
-
-= 2.2.0 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-2-0/](https://webberzone.com/blog/knowledge-base-v2-2-0/)
-
-* Enhancements:
-	* The plugin will now look for templates within `wp-content/knowledgebase/templates` folder if it is not found within the existing theme before using the plugin's included templates
-	* Alerts block now shows a preview and the Default style is inserted correctly
-	* Upgrade settings handling to use the WebberZone Settings_API class
-	* Knowledge Base block is wrapped in the `<Disabled>` component which prevent any accidental clicking when you're using it in the block editor (Gutenberg)
+		* and other similar class name changes.
+	* If you have custom CSS targeting these classes, please update your selectors.
 
 = Earlier versions =
 

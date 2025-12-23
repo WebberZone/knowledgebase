@@ -15,15 +15,15 @@ global $wpdb;
 if ( is_multisite() ) {
 
 	// Get all blogs in the network and activate plugin on each one.
-	$blogids = $wpdb->get_col( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+	$wzkb_blogids = $wpdb->get_col( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		"
 		SELECT blog_id FROM $wpdb->blogs
 		WHERE archived = '0' AND spam = '0' AND deleted = '0'
 	"
 	);
 
-	foreach ( $blogids as $blogid ) {
-		switch_to_blog( $blogid );
+	foreach ( $wzkb_blogids as $wzkb_blogid ) {
+		switch_to_blog( $wzkb_blogid );
 		wzkb_delete_data();
 		restore_current_blog();
 	}
@@ -88,7 +88,7 @@ function wzkb_delete_taxonomy( $taxonomy ) {
             ON t.term_id = tt.term_id
             WHERE tt.taxonomy = "' . $taxonomy . '"';
 
-	$terms = $wpdb->get_results( $query ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+	$terms = $wpdb->get_results( $query ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter 
 
 	foreach ( $terms as $term ) {
 		wp_delete_term( $term->term_id, $taxonomy );
