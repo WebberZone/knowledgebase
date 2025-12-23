@@ -1,6 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Constant WZKB_PLUGIN_DIR not found\\.$#"
+			message: "#^Function fs_dynamic_init not found\\.$#"
 			count: 1
-			path: includes/frontend/class-language-handler.php
+			path: load-freemius.php

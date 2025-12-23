@@ -127,6 +127,11 @@ class Admin {
 			return;
 		}
 
+		// Skip post editor screens where Gutenberg already provides its own header UI.
+		if ( isset( $screen->base ) && in_array( $screen->base, array( 'post', 'post-new' ), true ) ) {
+			return;
+		}
+
 		if ( ! $this->is_knowledge_base_screen( $screen ) ) {
 			return;
 		}
@@ -245,6 +250,29 @@ class Admin {
 	}
 
 	/**
+	 * Retrieve a sanitized request variable intended for use as a key/slug.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $key Request key to fetch.
+	 *
+	 * @return string Sanitised key value.
+	 */
+	private function get_request_key_param( string $key ): string {
+		$value_raw = filter_input( INPUT_GET, $key, FILTER_UNSAFE_RAW );
+
+		if ( is_string( $value_raw ) && '' !== $value_raw ) {
+			return sanitize_key( $value_raw );
+		}
+
+		if ( isset( $_GET[ $key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return sanitize_key( wp_unslash( (string) $_GET[ $key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
+
+		return '';
+	}
+
+	/**
 	 * Determine whether the current screen represents the Tools page.
 	 *
 	 * @since 3.0.0
@@ -347,9 +375,9 @@ class Admin {
 		if ( $screen && $this->is_knowledge_base_screen( $screen ) ) {
 			$should_enqueue = true;
 		} else {
-			$post_type = filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_STRING );
-			$taxonomy  = filter_input( INPUT_GET, 'taxonomy', FILTER_SANITIZE_STRING );
-			$page      = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
+			$post_type = $this->get_request_key_param( 'post_type' );
+			$taxonomy  = $this->get_request_key_param( 'taxonomy' );
+			$page      = $this->get_request_page_param();
 
 			if ( 'wz_knowledgebase' === $post_type || in_array( $taxonomy, array( 'wzkb_category', 'wzkb_product', 'wzkb_tag' ), true ) || in_array( $page, array( 'wzkb-settings', 'wzkb_tools_page' ), true ) ) {
 				$should_enqueue = true;

@@ -73,6 +73,17 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 	define( 'WZKB_PLUGIN_FILE', __FILE__ );
 }
 
+if ( ! defined( 'WZKB_DEFAULT_THUMBNAIL_URL' ) ) {
+	/**
+	 * Holds the default thumbnail URL for Knowledge Base.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var string $wzkb_default_thumbnail_url Default thumbnail URL.
+	 */
+	define( 'WZKB_DEFAULT_THUMBNAIL_URL', WZKB_PLUGIN_URL . 'includes/frontend/images/default-thumb.png' );
+}
+
 
 if ( ! function_exists( __NAMESPACE__ . '\wzkb_deactivate_other_instances' ) ) {
 	/**
@@ -191,4 +202,4 @@ require_once WZKB_PLUGIN_DIR . 'includes/functions.php';
  * @var array WZKB Settings
  */
 global $wzkb_settings;
-$wzkb_settings = Options_API::get_settings();
+$wzkb_settings = \wzkb_get_settings();

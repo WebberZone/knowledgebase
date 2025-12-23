@@ -10,7 +10,7 @@
 
 __Requires:__ 6.6
 
-__Tested up to:__ 6.8
+__Tested up to:__ 6.9
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -43,7 +43,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 ### Pro features
 
 - ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
-- 💬 __Beacon Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
+- 💬 __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
 - 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
 - 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
