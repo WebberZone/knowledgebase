@@ -30,6 +30,7 @@
 	--wzkb-breadcrumb-text: #2d3748;
 	--wzkb-breadcrumb-link: #1630A2;
 	--wzkb-breadcrumb-separator: var(--wzkb-color-dark);
+	--wzkb-breadcrumb-separator-color: var(--wzkb-color-dark);
 	--wzkb-breadcrumb-border: #e0e0e0;
 
 	/* Layout variables */
