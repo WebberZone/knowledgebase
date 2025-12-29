@@ -13,38 +13,50 @@ use WebberZone\Knowledge_Base\Util\Hook_Registry;
  * Class Template_Handler
  *
  * Handles template-related functionalities for the Knowledge Base plugin.
+ * Delegates block template management to Block_Template_Manager.
  */
 class Template_Handler {
+	/**
+	 * Template directory path.
+	 */
+	const TEMPLATE_DIR = __DIR__ . '/templates';
+
+	/**
+	 * Post type for knowledge base.
+	 */
+	const POST_TYPE = 'wz_knowledgebase';
+
+	/**
+	 * Block template manager instance.
+	 *
+	 * @var Block_Template_Manager
+	 */
+	public Block_Template_Manager $block_template_manager;
+
 	/**
 	 * Constructor for the Template_Handler class.
 	 */
 	public function __construct() {
+		// Initialize block template manager.
+		$this->block_template_manager = new Block_Template_Manager();
+
+		// Classic theme support.
 		Hook_Registry::add_filter( 'template_include', array( $this, 'archive_template' ) );
 
-		Hook_Registry::add_filter( 'get_block_templates', array( $this, 'manage_block_templates' ), 10, 3 );
-
-		$template_types = array(
-			'archive'  => 'add_custom_archive_template',
-			'index'    => 'add_custom_index_template',
-			'single'   => 'add_custom_single_template',
-			'taxonomy' => 'add_custom_taxonomy_template',
-			'search'   => 'add_custom_search_template',
-		);
-
-		foreach ( $template_types as $type => $callback ) {
-			Hook_Registry::add_filter( "{$type}_template_hierarchy", array( $this, $callback ) );
-		}
-
+		// Query modifications and sidebar registration.
 		Hook_Registry::add_filter( 'pre_get_posts', array( $this, 'posts_per_search_page' ) );
 		Hook_Registry::add_filter( 'document_title_parts', array( $this, 'update_title' ), 99999 );
 		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_sidebars' ), 11 );
 	}
 
+
 	/**
-	 * Replace the archive temlate for the knowledge base. Filters template_include.
+	 * Replace the archive template for the knowledge base (classic themes only).
 	 *
-	 * To further customize these archive views, you may create a
-	 * new template file for each one in your theme's folder:
+	 * Filters template_include to load custom PHP templates for classic themes.
+	 * Block themes are handled by Block_Template_Manager.
+	 *
+	 * To customize these archive views, create a new template file in your theme's folder:
 	 * archive-wz_knowledgebase.php (Main KB archives), wzkb-category.php (Category/Section archives),
 	 * wzkb-search.php (Search results page) or taxonomy-wzkb_tag.php (Tag archives)
 	 *
@@ -60,9 +72,9 @@ class Template_Handler {
 
 		$template_name = null;
 
-		if ( is_singular( 'wz_knowledgebase' ) ) {
+		if ( is_singular( self::POST_TYPE ) ) {
 			$template_name = 'single-wz_knowledgebase.php';
-		} elseif ( is_post_type_archive( 'wz_knowledgebase' ) ) {
+		} elseif ( is_post_type_archive( self::POST_TYPE ) ) {
 			$template_name = is_search() ? 'wzkb-search.php' : 'archive-wz_knowledgebase.php';
 		} elseif ( is_tax( 'wzkb_category' ) && ! is_search() ) {
 			$template_name = 'taxonomy-wzkb_category.php';
@@ -80,7 +92,7 @@ class Template_Handler {
 			if ( file_exists( $new_template ) ) {
 				return $new_template;
 			}
-			$new_template = __DIR__ . '/templates/' . $template_name;
+			$new_template = self::TEMPLATE_DIR . '/' . str_replace( '.html', '.php', $template_name );
 			if ( file_exists( $new_template ) ) {
 				return $new_template;
 			}
@@ -119,13 +131,13 @@ class Template_Handler {
 		if ( is_tax( 'wzkb_product' ) ) {
 			return $this->add_custom_template( $templates, 'archive', 'wzkb_product', 'taxonomy-wzkb_product' );
 		}
-		if ( is_singular( 'wz_knowledgebase' ) ) {
-			return $this->add_custom_template( $templates, 'single', 'wz_knowledgebase', 'single-wz_knowledgebase' );
+		if ( is_singular( self::POST_TYPE ) ) {
+			return $this->add_custom_template( $templates, 'single', self::POST_TYPE, 'single-wz_knowledgebase' );
 		}
 		if ( is_search() ) {
-			return $this->add_custom_template( $templates, 'search', 'wz_knowledgebase', 'wzkb-search' );
+			return $this->add_custom_template( $templates, 'search', self::POST_TYPE, 'wzkb-search' );
 		}
-		return $this->add_custom_template( $templates, 'archive', 'wz_knowledgebase', 'archive-wz_knowledgebase' );
+		return $this->add_custom_template( $templates, 'archive', self::POST_TYPE, 'archive-wz_knowledgebase' );
 	}
 
 	/**
@@ -145,7 +157,7 @@ class Template_Handler {
 	 * @return array Updated array of found templates.
 	 */
 	public function add_custom_single_template( $templates ) {
-		return $this->add_custom_template( $templates, 'single', 'wz_knowledgebase', 'single-wz_knowledgebase' );
+		return $this->add_custom_template( $templates, 'single', self::POST_TYPE, 'single-wz_knowledgebase' );
 	}
 
 	/**
@@ -165,126 +177,9 @@ class Template_Handler {
 	 * @return array Updated array of found templates.
 	 */
 	public function add_custom_search_template( $templates ) {
-		return $this->add_custom_template( $templates, 'search', 'wz_knowledgebase', 'wzkb-search' );
+		return $this->add_custom_template( $templates, 'search', self::POST_TYPE, 'wzkb-search' );
 	}
 
-	/**
-	 * Manage block templates for the wz_knowledgebase custom post type.
-	 *
-	 * @param array  $query_result   Array of found block templates.
-	 * @param array  $query          Arguments to retrieve templates.
-	 * @param string $template_type  $template_type wp_template or wp_template_part.
-	 * @return array Updated array of found block templates.
-	 */
-	public function manage_block_templates( $query_result, $query, $template_type ) {
-		if ( 'wp_template' !== $template_type ) {
-			return $query_result;
-		}
-
-		// Only register block templates for singular KB posts.
-		// Archives, taxonomy pages, and search results should use classic PHP templates.
-		global $post;
-		if ( empty( $post ) || 'wz_knowledgebase' !== $post->post_type || ! is_singular( 'wz_knowledgebase' ) ) {
-			return $query_result;
-		}
-
-		$theme        = wp_get_theme();
-		$block_source = 'plugin';
-
-		$template_name = null;
-
-		if ( is_singular( 'wz_knowledgebase' ) ) {
-			$template_name = 'single-wz_knowledgebase';
-		} elseif ( is_post_type_archive( 'wz_knowledgebase' ) ) {
-			$template_name = is_search() ? 'wzkb-search' : 'archive-wz_knowledgebase';
-		} elseif ( is_tax( 'wzkb_category' ) && ! is_search() ) {
-			$template_name = 'taxonomy-wzkb_category';
-		} elseif ( is_tax( 'wzkb_product' ) && ! is_search() ) {
-			$template_name = 'taxonomy-wzkb_product';
-		}
-
-		if ( $template_name ) {
-			$template_file_path = $theme->get_template_directory() . '/templates/' . $template_name . '.html';
-			if ( file_exists( $template_file_path ) ) {
-				$block_source = 'theme';
-			} else {
-				$template_file_path = __DIR__ . '/templates/' . $template_name . '.html';
-			}
-
-			if ( file_exists( $template_file_path ) ) {
-				$template_contents = self::get_template_content( $template_file_path );
-				$template_contents = self::replace_placeholders_with_shortcodes( $template_contents );
-
-				$new_block                 = new \WP_Block_Template();
-				$new_block->type           = 'wp_template';
-				$new_block->theme          = $theme->stylesheet;
-				$new_block->slug           = $template_name;
-				$new_block->id             = 'wzkb//' . $template_name;
-				$new_block->title          = 'Knowledge Base Template - ' . $template_name;
-				$new_block->description    = '';
-				$new_block->source         = $block_source;
-				$new_block->status         = 'publish';
-				$new_block->has_theme_file = true;
-				$new_block->is_custom      = true;
-				$new_block->content        = $template_contents;
-				$new_block->post_types     = array( 'wz_knowledgebase' );
-
-				// Add taxonomy support for block template.
-				if ( 'taxonomy-wzkb_category' === $template_name ) {
-					$new_block->description = 'Knowledge Base Section (taxonomy) block template.';
-				}
-				if ( 'taxonomy-wzkb_product' === $template_name ) {
-					$new_block->description = 'Knowledge Base Product (taxonomy) block template.';
-				}
-
-				$query_result[] = $new_block;
-			}
-		}
-
-		return $query_result;
-	}
-
-	/**
-	 * Replaces placeholders with corresponding shortcode output.
-	 *
-	 * @param string $template_contents The template content containing placeholders.
-	 * @return string The updated template with shortcodes replaced by their output.
-	 */
-	public static function replace_placeholders_with_shortcodes( $template_contents ) {
-		// Regular expression to match placeholders like {{shortcode param="value"}}.
-		$pattern = '/\{\{([a-zA-Z_]+)(.*?)\}\}/';
-
-		// Callback function to process each match.
-		$callback = function ( $matches ) {
-			$shortcode = trim( $matches[1] ); // Extract the shortcode name.
-			$params    = trim( $matches[2] ); // Extract any parameters.
-
-			// Construct the shortcode with the parameters.
-			if ( ! empty( $params ) ) {
-				$shortcode_output = '[' . $shortcode . ' ' . $params . ']';
-			} else {
-				$shortcode_output = '[' . $shortcode . ']';
-			}
-
-			// Run the shortcode and return the output.
-			return do_shortcode( $shortcode_output );
-		};
-
-		// Run the preg_replace_callback to find and replace all placeholders.
-		return preg_replace_callback( $pattern, $callback, $template_contents );
-	}
-
-	/**
-	 * Get the content of a template file.
-	 *
-	 * @param string $template The template file to include.
-	 * @return string The content of the template file.
-	 */
-	public static function get_template_content( $template ) {
-		ob_start();
-		include $template;
-		return ob_get_clean();
-	}
 
 	/**
 	 * For knowledge base search results, set posts_per_page 10.
@@ -296,9 +191,9 @@ class Template_Handler {
 	 */
 	public function posts_per_search_page( $query ) {
 
-		if ( ! is_admin() && $query->is_search() && isset( $query->query_vars['post_type'] ) && 'wz_knowledgebase' === $query->query_vars['post_type'] ) {
+		if ( ! is_admin() && $query->is_search() && isset( $query->query_vars['post_type'] ) && self::POST_TYPE === $query->query_vars['post_type'] ) {
 			$query->set( 'posts_per_page', 12 );
-			$query->set( 'post_type', 'wz_knowledgebase' );
+			$query->set( 'post_type', self::POST_TYPE );
 		}
 
 		return $query;
@@ -315,7 +210,7 @@ class Template_Handler {
 	 */
 	public function update_title( $title ) {
 
-		if ( is_post_type_archive( 'wz_knowledgebase' ) && ! is_search() ) {
+		if ( is_post_type_archive( self::POST_TYPE ) && ! is_search() ) {
 			$title['title'] = wzkb_get_option( 'kb_title' );
 		}
 

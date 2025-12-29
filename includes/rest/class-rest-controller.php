@@ -364,8 +364,8 @@ class REST_Controller {
 		$cached = $this->cache_get( $cache_key );
 		if ( false !== $cached ) {
 			$response = rest_ensure_response( $cached['body'] );
-			$response->header( 'X-WP-Total', $cached['total'] );
-			$response->header( 'X-WP-TotalPages', $cached['pages'] );
+			$response->header( 'X-WP-Total', (string) $cached['total'] );
+			$response->header( 'X-WP-TotalPages', (string) $cached['pages'] );
 
 			return $response;
 		}
@@ -378,8 +378,8 @@ class REST_Controller {
 		}
 
 		$response = rest_ensure_response( $posts );
-		$response->header( 'X-WP-Total', (int) $query->found_posts );
-		$response->header( 'X-WP-TotalPages', (int) $query->max_num_pages );
+		$response->header( 'X-WP-Total', (string) (int) $query->found_posts );
+		$response->header( 'X-WP-TotalPages', (string) (int) $query->max_num_pages );
 
 		$this->cache_set(
 			$cache_key,
@@ -689,7 +689,7 @@ class REST_Controller {
 	 */
 	private function prepare_post_for_response( $post, $include_content = false ) {
 		$post = get_post( $post );
-		if ( ! $post ) {
+		if ( ! ( $post instanceof \WP_Post ) ) {
 			return array();
 		}
 

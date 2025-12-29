@@ -50,6 +50,24 @@ class Setup_Wizard {
 	private bool $is_pro_active = false;
 
 	/**
+	 * Parent menu slug for the wizard.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @var string
+	 */
+	private string $menu_parent = 'edit.php?post_type=wz_knowledgebase';
+
+	/**
+	 * Wizard submenu slug.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @var string
+	 */
+	private string $menu_slug = 'wzkb-setup';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 3.0.0
@@ -62,6 +80,7 @@ class Setup_Wizard {
 		Hook_Registry::add_action( 'admin_init', array( $this, 'setup_wizard' ), PHP_INT_MAX );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'redirect_on_activation' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), PHP_INT_MAX );
+		Hook_Registry::add_action( 'admin_head', array( $this, 'hide_submenu_item' ) );
 	}
 
 	/**
@@ -113,13 +132,27 @@ class Setup_Wizard {
 	 */
 	public function admin_menus() {
 		add_submenu_page(
-			'edit.php?post_type=wz_knowledgebase',
+			$this->menu_parent,
 			esc_html__( 'Knowledge Base Setup', 'knowledgebase' ),
 			esc_html__( 'Setup Wizard', 'knowledgebase' ),
 			'manage_options',
-			'wzkb-setup',
+			$this->menu_slug,
 			array( $this, 'render_wizard' )
 		);
+	}
+
+	/**
+	 * Hide the wizard submenu item while keeping the page accessible.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return void
+	 */
+	public function hide_submenu_item() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		remove_submenu_page( $this->menu_parent, $this->menu_slug );
 	}
 
 	/**
@@ -330,7 +363,7 @@ class Setup_Wizard {
 				<tr>
 					<th scope="row"><label for="multi_product"><?php esc_html_e( 'Enable Multi-Product Mode', 'knowledgebase' ); ?></label></th>
 					<td>
-						<input type="hidden" name="multi_product" value="0" />
+						<input type="hidden" name="multi_product" value="-1" />
 						<input type="checkbox" id="multi_product" name="multi_product" value="1" <?php checked( $multi, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Multi-product mode (created in version 3.0) allows you to organize your knowledge base by product using the dedicated Product taxonomy.', 'knowledgebase' ); ?></p>
 						<p class="description"><?php esc_html_e( 'This is useful if you have multiple products that require their own documentation.', 'knowledgebase' ); ?></p>
@@ -366,9 +399,9 @@ class Setup_Wizard {
 	public function mode_save() {
 		check_admin_referer( 'wzkb-setup' );
 		// Robust checkbox save pattern.
-		$multi = isset( $_POST['multi_product'] ) ? intval( $_POST['multi_product'] ) : 0;
+		$multi = $this->get_checkbox_post_value( 'multi_product' );
 		wzkb_update_option( 'multi_product', $multi );
-		if ( wzkb_get_option( 'multi_product' ) === $multi ) {
+		if ( (int) wzkb_get_option( 'multi_product' ) === $multi ) {
 			add_settings_error( 'wzkb_setup', 'mode_saved', esc_html__( 'Mode settings saved successfully.', 'knowledgebase' ), 'success' );
 		} else {
 			add_settings_error( 'wzkb_setup', 'mode_save_failed', esc_html__( 'Failed to save mode settings.', 'knowledgebase' ), 'error' );
@@ -489,9 +522,9 @@ class Setup_Wizard {
 					<td>
 						<div class="wzkb-url-prefix-row">
 							<span class="wzkb-url-prefix-text"><?php echo esc_html( home_url( '/' ) ); ?></span>
-							<input type="text" id="article_permalink" name="article_permalink" value="<?php echo esc_attr( $settings['article_permalink'] ?? '%postname%' ); ?>" class="regular-text wzkb-url-slug-input" />
+							<input type="text" id="article_permalink" name="article_permalink" value="<?php echo esc_attr( $settings['article_permalink'] ?? '' ); ?>" class="regular-text wzkb-url-slug-input" />
 						</div>
-						<p class="description wzkb-url-desc"><?php esc_html_e( 'Structure for article URLs. Use %postname% for simple URLs.', 'knowledgebase' ); ?></p>
+						<p class="description wzkb-url-desc"><?php esc_html_e( 'Structure for article URLs. Use %postname% for simple URLs. Leave empty to use default which is the "Knowledge Base slug/%postname%".', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -519,7 +552,7 @@ class Setup_Wizard {
 			'product_slug'      => isset( $_POST['product_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['product_slug'] ) ) : 'kb/product',
 			'category_slug'     => isset( $_POST['category_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['category_slug'] ) ) : 'kb/section',
 			'tag_slug'          => isset( $_POST['tag_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['tag_slug'] ) ) : 'kb/tags',
-			'article_permalink' => isset( $_POST['article_permalink'] ) ? sanitize_text_field( wp_unslash( $_POST['article_permalink'] ) ) : '%postname%',
+			'article_permalink' => isset( $_POST['article_permalink'] ) ? sanitize_text_field( wp_unslash( $_POST['article_permalink'] ) ) : '',
 		);
 
 		$updated = wzkb_update_settings( $partial );
@@ -543,15 +576,16 @@ class Setup_Wizard {
 	public function display_step() {
 		// Load all settings at once.
 		$settings           = \wzkb_get_settings();
-		$kb_title           = $settings['kb_title'] ?? '';
-		$show_article_count = $settings['show_article_count'] ?? 0;
+		$kb_title           = $settings['kb_title'] ?? 'Knowledge Base';
+		$show_article_count = $settings['show_article_count'] ?? 1;
 		$show_excerpt       = $settings['show_excerpt'] ?? 0;
-		$clickable_section  = $settings['clickable_section'] ?? 0;
+		$clickable_section  = $settings['clickable_section'] ?? 1;
 		$limit              = $settings['limit'] ?? 5;
-		$show_related       = $settings['show_related_articles'] ?? 0;
+		$show_related       = $settings['show_related_articles'] ?? 1;
 		$cache              = $settings['cache'] ?? 0;
-		$include_styles     = $settings['include_styles'] ?? 0;
-		$columns            = $settings['columns'] ?? 1;
+		$include_styles     = $settings['include_styles'] ?? 1;
+		$columns            = $settings['columns'] ?? 2;
+		$show_sidebar       = $settings['show_sidebar'] ?? 0;
 		?>
 		<h1><?php esc_html_e( 'Display Settings', 'knowledgebase' ); ?></h1>
 		<form method="post">
@@ -575,7 +609,7 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="show_article_count" value="0" />
+						<input type="hidden" name="show_article_count" value="-1" />
 						<input type="checkbox" id="show_article_count" name="show_article_count" value="1" <?php checked( $show_article_count, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Show the number of articles within each section.', 'knowledgebase' ); ?></p>
 					</td>
@@ -587,7 +621,7 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="show_excerpt" value="0" />
+						<input type="hidden" name="show_excerpt" value="-1" />
 						<input type="checkbox" id="show_excerpt" name="show_excerpt" value="1" <?php checked( $show_excerpt, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Show the excerpt below the article title.', 'knowledgebase' ); ?></p>
 					</td>
@@ -599,7 +633,7 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="clickable_section" value="0" />
+						<input type="hidden" name="clickable_section" value="-1" />
 						<input type="checkbox" id="clickable_section" name="clickable_section" value="1" <?php checked( $clickable_section, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Make the section title a clickable link.', 'knowledgebase' ); ?></p>
 					</td>
@@ -622,7 +656,7 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="show_related_articles" value="0" />
+						<input type="hidden" name="show_related_articles" value="-1" />
 						<input type="checkbox" id="show_related_articles" name="show_related_articles" value="1" <?php checked( $show_related, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template.', 'knowledgebase' ); ?></p>
 					</td>
@@ -634,9 +668,21 @@ class Setup_Wizard {
 						</label>
 					</th>
 					<td>
-						<input type="hidden" name="cache" value="0" />
+						<input type="hidden" name="cache" value="-1" />
 						<input type="checkbox" id="cache" name="cache" value="1" <?php checked( $cache, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases.', 'knowledgebase' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="show_sidebar">
+							<?php esc_html_e( 'Show sidebar', 'knowledgebase' ); ?>
+						</label>
+					</th>
+					<td>
+						<input type="hidden" name="show_sidebar" value="-1" />
+						<input type="checkbox" id="show_sidebar" name="show_sidebar" value="1" <?php checked( $show_sidebar, 1 ); ?> />
+						<p class="description"><?php esc_html_e( 'Add the sidebar of your theme into the inbuilt templates for archive, sections and search. Activate this option if your theme does not already include this.', 'knowledgebase' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -646,7 +692,7 @@ class Setup_Wizard {
 				<tr>
 					<th scope="row"><label for="include_styles"><?php esc_html_e( 'Include built-in styles', 'knowledgebase' ); ?></label></th>
 					<td>
-						<input type="hidden" name="include_styles" value="0" />
+						<input type="hidden" name="include_styles" value="-1" />
 						<input type="checkbox" id="include_styles" name="include_styles" value="1" <?php checked( $include_styles, 1 ); ?> />
 						<p class="description"><?php esc_html_e( 'Include the built-in styles for the knowledge base.', 'knowledgebase' ); ?></p>
 					</td>
@@ -681,13 +727,14 @@ class Setup_Wizard {
 		// Robust pattern for all display settings (checkboxes, text, numbers).
 		$partial = array(
 			'kb_title'              => isset( $_POST['kb_title'] ) ? sanitize_text_field( wp_unslash( $_POST['kb_title'] ) ) : '',
-			'show_article_count'    => isset( $_POST['show_article_count'] ) ? 1 : 0,
-			'show_excerpt'          => isset( $_POST['show_excerpt'] ) ? 1 : 0,
-			'clickable_section'     => isset( $_POST['clickable_section'] ) ? 1 : 0,
+			'show_article_count'    => $this->get_checkbox_post_value( 'show_article_count' ),
+			'show_excerpt'          => $this->get_checkbox_post_value( 'show_excerpt' ),
+			'clickable_section'     => $this->get_checkbox_post_value( 'clickable_section' ),
 			'limit'                 => isset( $_POST['limit'] ) ? absint( wp_unslash( $_POST['limit'] ) ) : 5,
-			'show_related_articles' => isset( $_POST['show_related_articles'] ) ? 1 : 0,
-			'cache'                 => isset( $_POST['cache'] ) ? 1 : 0,
-			'include_styles'        => isset( $_POST['include_styles'] ) ? 1 : 0,
+			'show_related_articles' => $this->get_checkbox_post_value( 'show_related_articles' ),
+			'cache'                 => $this->get_checkbox_post_value( 'cache' ),
+			'show_sidebar'          => $this->get_checkbox_post_value( 'show_sidebar' ),
+			'include_styles'        => $this->get_checkbox_post_value( 'include_styles' ),
 			'columns'               => isset( $_POST['columns'] ) ? absint( wp_unslash( $_POST['columns'] ) ) : 1,
 		);
 
@@ -941,7 +988,7 @@ class Setup_Wizard {
 		$partial = array(
 			'rating_system'          => isset( $_POST['rating_system'] ) ? sanitize_text_field( wp_unslash( $_POST['rating_system'] ) ) : 'disabled',
 			'rating_tracking_method' => isset( $_POST['rating_tracking_method'] ) ? sanitize_text_field( wp_unslash( $_POST['rating_tracking_method'] ) ) : 'cookie',
-			'show_rating_stats'      => isset( $_POST['show_rating_stats'] ) ? 1 : 0,
+			'show_rating_stats'      => $this->get_checkbox_post_value( 'show_rating_stats' ),
 		);
 
 		// Save simplified help widget settings.
@@ -964,12 +1011,12 @@ class Setup_Wizard {
 		$generated_colors = $this->generate_help_widget_colors( $help_widget_color );
 
 		$help_widget_settings = array(
-			'help_widget_enabled'          => isset( $_POST['help_widget_enabled'] ) ? 1 : 0,
+			'help_widget_enabled'          => $this->get_checkbox_post_value( 'help_widget_enabled' ),
 			'help_widget_display_location' => $help_widget_display_location,
 			'help_widget_position'         => $help_widget_position,
 			'help_widget_color'            => $help_widget_color,
 			'help_widget_greeting'         => isset( $_POST['help_widget_greeting'] ) ? sanitize_text_field( wp_unslash( $_POST['help_widget_greeting'] ) ) : __( 'Hi! How can we help you?', 'knowledgebase' ),
-			'help_widget_contact_enabled'  => isset( $_POST['help_widget_contact_enabled'] ) ? 1 : 0,
+			'help_widget_contact_enabled'  => $this->get_checkbox_post_value( 'help_widget_contact_enabled' ),
 		);
 
 		// Merge with generated colors.
@@ -983,6 +1030,31 @@ class Setup_Wizard {
 		}
 		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
 		exit;
+	}
+
+	/**
+	 * Sanitize checkbox values from posted data.
+	 *
+	 * Uses the same logic as sanitize_checkbox_field for consistency.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $key Checkbox field name.
+	 * @return int 1 if checked, 0 otherwise.
+	 */
+	private function get_checkbox_post_value( string $key ): int {
+		if ( ! isset( $_POST[ $key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			return 0;
+		}
+
+		$value = wp_unslash( $_POST[ $key ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( is_array( $value ) ) {
+			$value = end( $value );
+		}
+
+		$value = in_array( (int) $value, array( 0, -1 ), true ) ? 0 : 1;
+
+		return $value;
 	}
 
 	/**
@@ -1193,10 +1265,10 @@ class Setup_Wizard {
 					<?php
 					// Check if there are articles, categories, but no products.
 					$post_counts    = wp_count_posts( 'wz_knowledgebase' );
-					$article_count  = $post_counts->publish + $post_counts->draft + $post_counts->pending + $post_counts->future + $post_counts->private;
-					$category_count = wp_count_terms( 'wzkb_category' );
-					$product_count  = wp_count_terms( 'wzkb_product' );
-					if ( $article_count > 0 && $category_count > 0 && 0 === (int) $product_count ) :
+					$article_count  = (int) $post_counts->publish + (int) $post_counts->draft + (int) $post_counts->pending + (int) $post_counts->future + (int) $post_counts->private;
+					$category_count = $this->get_taxonomy_count( 'wzkb_category' );
+					$product_count  = $this->get_taxonomy_count( 'wzkb_product' );
+					if ( $article_count > 0 && $category_count > 0 && 0 === $product_count ) :
 						?>
 					<div class="wzkb-setup-migrator-notice">
 						<h3><?php esc_html_e( 'Migrate Existing Content', 'knowledgebase' ); ?></h3>
@@ -1391,5 +1463,28 @@ class Setup_Wizard {
 		// Redirect to wizard page.
 		wp_safe_redirect( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-setup' ) );
 		exit;
+	}
+
+	/**
+	 * Retrieve the count of terms for a taxonomy.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $taxonomy Taxonomy slug.
+	 * @return int
+	 */
+	private function get_taxonomy_count( string $taxonomy ): int {
+		$count = wp_count_terms(
+			array(
+				'taxonomy'   => $taxonomy,
+				'hide_empty' => false,
+			)
+		);
+
+		if ( is_wp_error( $count ) ) {
+			return 0;
+		}
+
+		return (int) $count;
 	}
 }

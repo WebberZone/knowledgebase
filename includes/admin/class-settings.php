@@ -149,6 +149,7 @@ class Settings {
 		Hook_Registry::add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
 
 		Hook_Registry::add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
+		Hook_Registry::add_action( self::$prefix . '_settings_form_buttons', array( $this, 'render_wizard_button' ), 20 );
 	}
 
 	/**
@@ -308,9 +309,9 @@ class Settings {
 	 */
 	public static function get_settings_sections() {
 		$sections = array(
-			'styles'  => __( 'Styles', 'knowledgebase' ),
 			'general' => __( 'General', 'knowledgebase' ),
 			'output'  => __( 'Output', 'knowledgebase' ),
+			'styles'  => __( 'Styles', 'knowledgebase' ),
 			'pro'     => __( 'Pro', 'knowledgebase' ),
 		);
 
@@ -420,9 +421,9 @@ class Settings {
 			'article_permalink'    => array(
 				'id'          => 'article_permalink',
 				'name'        => esc_html__( 'Article Permalink Structure', 'knowledgebase' ),
-				'desc'        => esc_html__( 'Structure for article URLs. Default: %postname%', 'knowledgebase' ),
+				'desc'        => esc_html__( 'Structure for article URLs. Leave empty to use default which is the "Knowledge Base slug/%postname%".', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => '%postname%',
+				'default'     => '',
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
@@ -586,7 +587,7 @@ class Settings {
 			'show_sidebar'          => array(
 				'id'      => 'show_sidebar',
 				'name'    => esc_html__( 'Show sidebar', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Add the sidebar of your theme into the inbuilt templates for archive, sections and search. Activate this option if your theme does not already include this.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Add the sidebar of your theme into the inbuilt templates for archive, sections and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
@@ -648,7 +649,7 @@ class Settings {
 			'columns'                => array(
 				'id'      => 'columns',
 				'name'    => esc_html__( 'Number of columns', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Set the number of columns to display the knowledge base archives.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Set the number of columns to display the knowledge base archives. This will be overridden on smaller screens to optimize display.', 'knowledgebase' ),
 				'type'    => 'number',
 				'default' => '2',
 				'size'    => 'small',
@@ -994,16 +995,16 @@ class Settings {
 	 */
 	public function get_help_sidebar() {
 		$help_sidebar =
-			/* translators: 1: Plugin support site link. */
-			'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s">support site</a>.', 'knowledgebase' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
-			/* translators: 1: WordPress.org support forums link. */
-			'<p>' . sprintf( __( 'Support queries should be posted in the <a href="%s">WordPress.org support forums</a>.', 'knowledgebase' ), esc_url( 'https://wordpress.org/support/plugin/knowledgebase' ) ) . '</p>' .
-			'<p>' . sprintf(
-				/* translators: 1: Github issues link, 2: Github plugin page link. */
-				__( '<a href="%1$s">Post an issue</a> on <a href="%2$s">GitHub</a> (bug reports only).', 'knowledgebase' ),
-				esc_url( 'https://github.com/WebberZone/knowledgebase/issues' ),
-				esc_url( 'https://github.com/WebberZone/knowledgebase' )
-			) . '</p>';
+		/* translators: 1: Plugin support site link. */
+		'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s">support site</a>.', 'knowledgebase' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
+		/* translators: 1: WordPress.org support forums link. */
+		'<p>' . sprintf( __( 'Please report bugs, contribute or request features on <a href="%s">GitHub</a>.', 'knowledgebase' ), esc_url( 'https://github.com/WebberZone/knowledgebase' ) ) . '</p>' .
+		'<p>' . sprintf(
+			/* translators: 1: Github issues link, 2: Github plugin page link. */
+			__( '<a href="%1$s">Post an issue</a> on <a href="%2$s">GitHub</a> (bug reports only).', 'knowledgebase' ),
+			esc_url( 'https://github.com/WebberZone/knowledgebase/issues' ),
+			esc_url( 'https://github.com/WebberZone/knowledgebase' )
+		) . '</p>';
 
 		/**
 		 * Filter to modify the help sidebar content.
@@ -1085,7 +1086,7 @@ class Settings {
 	 */
 	public static function get_admin_footer_text() {
 		return sprintf(
-			/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
+		/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
 			__( 'Thank you for using %1$sWebberZone Knowledge_Base%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s', 'knowledgebase' ),
 			'<a href="https://webberzone.com/plugins/knowledgebase/" target="_blank">',
 			'</a>',
@@ -1125,5 +1126,30 @@ class Settings {
 		flush_rewrite_rules( true );
 
 		return $settings;
+	}
+
+	/**
+	 * Add Setup Wizard button on the settings page.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function render_wizard_button() {
+		printf(
+			'<br /><a aria-label="%s" class="button button-secondary" href="%s" title="%s" style="margin-top: 10px;">%s</a>',
+			esc_attr__( 'Start Settings Wizard', 'knowledgebase' ),
+			esc_url(
+				add_query_arg(
+					array(
+						'post_type' => 'wz_knowledgebase',
+						'page'      => 'wzkb-setup',
+					),
+					admin_url( 'edit.php' )
+				)
+			),
+			esc_attr__( 'Start Settings Wizard', 'knowledgebase' ),
+			esc_html__( 'Start Settings Wizard', 'knowledgebase' )
+		);
 	}
 }
