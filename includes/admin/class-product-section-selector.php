@@ -33,6 +33,13 @@ class Product_Section_Selector {
 	private bool $is_syncing = false;
 
 	/**
+	 * Cached product map.
+	 *
+	 * @var array|null
+	 */
+	private ?array $product_map = null;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -41,10 +48,13 @@ class Product_Section_Selector {
 		}
 
 		Hook_Registry::add_action( 'init', array( $this, 'register_meta' ) );
-		Hook_Registry::add_action( 'add_meta_boxes', array( $this, 'remove_classic_section_metabox' ), 99 );
+		Hook_Registry::add_action( 'add_meta_boxes', array( $this, 'remove_core_taxonomy_metaboxes' ), 99 );
+		Hook_Registry::add_action( 'add_meta_boxes', array( $this, 'register_classic_sections_metabox' ), 100 );
 		Hook_Registry::add_filter( 'get_user_option_meta-box-order_wz_knowledgebase', array( $this, 'filter_meta_box_order' ) );
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_classic_assets' ) );
 		Hook_Registry::add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
 		Hook_Registry::add_action( 'rest_after_insert_wz_knowledgebase', array( $this, 'sync_sections_after_rest_save' ), 10, 3 );
+		Hook_Registry::add_action( 'save_post_wz_knowledgebase', array( $this, 'maybe_capture_classic_submission' ), 5, 2 );
 		Hook_Registry::add_action( 'save_post_wz_knowledgebase', array( $this, 'maybe_sync_sections_during_save' ), 20, 2 );
 	}
 
@@ -123,10 +133,131 @@ class Product_Section_Selector {
 	}
 
 	/**
-	 * Remove classic metabox so only the custom panel remains.
+	 * Remove classic taxonomy metaboxes replaced by custom UI.
 	 */
-	public function remove_classic_section_metabox() {
+	public function remove_core_taxonomy_metaboxes() {
 		remove_meta_box( 'wzkb_categorydiv', 'wz_knowledgebase', 'side' );
+
+		if ( ! $this->is_block_editor_enabled() ) {
+			remove_meta_box( 'wzkb_productdiv', 'wz_knowledgebase', 'side' );
+			remove_meta_box( 'tagsdiv-wzkb_product', 'wz_knowledgebase', 'side' );
+		}
+	}
+
+	/**
+	 * Register replacement metabox for the classic editor.
+	 */
+	public function register_classic_sections_metabox() {
+		if ( $this->is_block_editor_enabled() ) {
+			return;
+		}
+
+		add_meta_box(
+			'wzkb-classic-sections',
+			esc_html__( 'Product-aware Sections', 'knowledgebase' ),
+			array( $this, 'render_classic_sections_metabox' ),
+			'wz_knowledgebase',
+			'side',
+			'high'
+		);
+	}
+
+	/**
+	 * Render the custom metabox contents.
+	 *
+	 * @param \WP_Post $post Current post.
+	 */
+	public function render_classic_sections_metabox( \WP_Post $post ) {
+		wp_nonce_field( 'wzkb_classic_sections', 'wzkb_classic_sections_nonce' );
+
+		$product_ids = $this->sanitize_id_array( get_post_meta( $post->ID, '_wzkb_product_ids', true ) );
+		$section_ids = $this->sanitize_id_array( get_post_meta( $post->ID, '_wzkb_section_ids', true ) );
+		?>
+		<input type="hidden" name="_wzkb_product_ids" id="wzkb_classic_product_ids" value="<?php echo esc_attr( implode( ',', $product_ids ) ); ?>" />
+		<input type="hidden" name="_wzkb_section_ids" id="wzkb_classic_section_ids" value="<?php echo esc_attr( implode( ',', $section_ids ) ); ?>" />
+
+		<div class="wzkb-classic-sections" data-role="root">
+			<div class="wzkb-classic-sections__product-search">
+				<label class="screen-reader-text" for="wzkb_classic_product_search">
+					<?php esc_html_e( 'Search products', 'knowledgebase' ); ?>
+				</label>
+				<input
+					type="search"
+					id="wzkb_classic_product_search"
+					class="wzkb-classic-sections__product-search-input"
+					data-role="product-search"
+					placeholder="<?php echo esc_attr__( 'Search products…', 'knowledgebase' ); ?>"
+				/>
+			</div>
+			<div class="wzkb-classic-sections__products" data-role="products">
+				<p class="wzkb-classic-sections__message">
+					<?php esc_html_e( 'Loading products…', 'knowledgebase' ); ?>
+				</p>
+			</div>
+			<div class="wzkb-classic-sections__sections" data-role="sections">
+				<p class="wzkb-classic-sections__message">
+					<?php esc_html_e( 'Select one or more products to load their sections.', 'knowledgebase' ); ?>
+				</p>
+			</div>
+		</div>
+		<noscript>
+			<p class="wzkb-classic-sections__note">
+				<?php esc_html_e( 'JavaScript is required to manage product-aware sections in the classic editor.', 'knowledgebase' ); ?>
+			</p>
+		</noscript>
+		<?php
+	}
+
+	/**
+	 * Enqueue assets for the classic editor metabox.
+	 *
+	 * @param string $hook Current admin page.
+	 */
+	public function enqueue_classic_assets( $hook ) {
+		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || 'wz_knowledgebase' !== $screen->post_type || $this->is_block_editor_enabled() ) {
+			return;
+		}
+
+		$asset_url = plugin_dir_url( __FILE__ );
+		$minimize  = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_script(
+			'wzkb-classic-sections-metabox',
+			$asset_url . 'js/classic-sections-metabox' . $minimize . '.js',
+			array( 'jquery', 'wp-api-fetch' ),
+			WZKB_VERSION,
+			true
+		);
+
+		$post_id      = $this->get_current_post_id();
+		$products     = $this->sanitize_id_array( $post_id ? get_post_meta( $post_id, '_wzkb_product_ids', true ) : array() );
+		$sections     = $this->sanitize_id_array( $post_id ? get_post_meta( $post_id, '_wzkb_section_ids', true ) : array() );
+		$strings      = $this->get_ui_strings();
+		$product_map  = $this->get_product_map();
+		$localization = array(
+			'endpoint' => esc_url_raw( rest_url( 'wzkb/v1/sections' ) ),
+			'nonce'    => wp_create_nonce( 'wp_rest' ),
+			'products' => $product_map,
+			'meta'     => array(
+				'products' => $products,
+				'sections' => $sections,
+			),
+			'strings'  => $strings,
+		);
+
+		wp_localize_script( 'wzkb-classic-sections-metabox', 'WZKBClassicSections', $localization );
+
+		wp_enqueue_style(
+			'wzkb-classic-sections-metabox',
+			$asset_url . 'css/classic-sections-metabox' . $minimize . '.css',
+			array(),
+			WZKB_VERSION
+		);
 	}
 
 	/**
@@ -140,6 +271,12 @@ class Product_Section_Selector {
 			return $order;
 		}
 
+		$hidden_boxes = array( 'wzkb_categorydiv' );
+		if ( ! $this->is_block_editor_enabled() ) {
+			$hidden_boxes[] = 'wzkb_productdiv';
+			$hidden_boxes[] = 'tagsdiv-wzkb_product';
+		}
+
 		foreach ( $order as $context => $boxes ) {
 			if ( empty( $boxes ) ) {
 				continue;
@@ -149,8 +286,8 @@ class Product_Section_Selector {
 				',',
 				array_filter(
 					array_map( 'trim', explode( ',', $boxes ) ),
-					static function ( $box_id ) {
-						return 'wzkb_categorydiv' !== $box_id;
+					static function ( $box_id ) use ( $hidden_boxes ) {
+						return ! in_array( $box_id, $hidden_boxes, true );
 					}
 				)
 			);
@@ -184,21 +321,8 @@ class Product_Section_Selector {
 			true
 		);
 
-		$products = get_terms(
-			array(
-				'taxonomy'   => 'wzkb_product',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-
-		$product_map = array();
-		if ( ! empty( $products ) && ! is_wp_error( $products ) ) {
-			foreach ( $products as $product ) {
-				$product_map[ (int) $product->term_id ] = $product->name;
-			}
-		}
+		$product_map = $this->get_product_map();
+		$strings     = $this->get_ui_strings();
 
 		wp_localize_script(
 			'wzkb-editor-sections-panel',
@@ -207,15 +331,7 @@ class Product_Section_Selector {
 				'endpoint' => esc_url_raw( rest_url( 'wzkb/v1/sections' ) ),
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
 				'products' => $product_map,
-				'strings'  => array(
-					'panelTitle'     => esc_html__( 'Knowledge Base Sections', 'knowledgebase' ),
-					'selectProducts' => esc_html__( 'Select a product to load its sections.', 'knowledgebase' ),
-					'noSections'     => esc_html__( 'No sections match the selected products.', 'knowledgebase' ),
-					'loading'        => esc_html__( 'Loading sections…', 'knowledgebase' ),
-					'unassigned'     => esc_html__( 'Sections without a product', 'knowledgebase' ),
-					/* translators: %s: Product name. */
-					'productHeading' => esc_html__( '%s sections', 'knowledgebase' ),
-				),
+				'strings'  => $strings,
 			)
 		);
 
@@ -284,6 +400,34 @@ class Product_Section_Selector {
 	}
 
 	/**
+	 * Capture classic editor submissions and persist meta.
+	 *
+	 * @param int      $post_id Post ID.
+	 * @param \WP_Post $post    Post object.
+	 */
+	public function maybe_capture_classic_submission( $post_id, $post ) {
+		if ( 'wz_knowledgebase' !== $post->post_type || $this->is_block_editor_enabled() ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['wzkb_classic_sections_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wzkb_classic_sections_nonce'] ) ), 'wzkb_classic_sections' ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		$product_ids = $this->get_sanitized_ids_from_input( '_wzkb_product_ids' );
+		$section_ids = $this->get_sanitized_ids_from_input( '_wzkb_section_ids' );
+
+		update_post_meta( $post_id, '_wzkb_product_ids', $product_ids );
+		update_post_meta( $post_id, '_wzkb_section_ids', $section_ids );
+
+		wp_set_post_terms( $post_id, $product_ids, 'wzkb_product', false );
+	}
+
+	/**
 	 * Assign taxonomy terms based on meta values.
 	 *
 	 * @param int   $post_id     Post ID.
@@ -325,5 +469,121 @@ class Product_Section_Selector {
 
 		$product_ids = array_map( 'absint', wp_list_pluck( $product_terms, 'term_id' ) );
 		update_post_meta( $post_id, '_wzkb_product_ids', array_values( $product_ids ) );
+	}
+
+	/**
+	 * Retrieve sanitized IDs from POST input.
+	 *
+	 * @param string $key Field key.
+	 * @return array
+	 */
+	private function get_sanitized_ids_from_input( string $key ): array {
+		$raw_value = filter_input( INPUT_POST, $key, FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
+
+		if ( null === $raw_value ) {
+			$string_value = filter_input( INPUT_POST, $key, FILTER_UNSAFE_RAW );
+
+			if ( null === $string_value || '' === $string_value ) {
+				return array();
+			}
+
+			$raw_value = explode( ',', $string_value );
+		}
+
+		$raw_value = (array) wp_unslash( $raw_value );
+		$raw_value = array_filter(
+			array_map(
+				static function ( $item ) {
+					return sanitize_text_field( $item );
+				},
+				$raw_value
+			),
+			static function ( $item ) {
+				return '' !== $item;
+			}
+		);
+
+		return $this->sanitize_id_array( $raw_value );
+	}
+
+	/**
+	 * Determine if the block editor is active for Knowledge Base posts.
+	 *
+	 * @return bool
+	 */
+	private function is_block_editor_enabled(): bool {
+		return (bool) use_block_editor_for_post_type( 'wz_knowledgebase' );
+	}
+
+	/**
+	 * Get the current editing post ID.
+	 *
+	 * @return int
+	 */
+	private function get_current_post_id(): int {
+		global $post;
+
+		if ( $post instanceof \WP_Post && 'wz_knowledgebase' === $post->post_type ) {
+			return (int) $post->ID;
+		}
+
+		$post_id = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT );
+		if ( $post_id ) {
+			return absint( $post_id );
+		}
+
+		$post_id = filter_input( INPUT_POST, 'post_ID', FILTER_SANITIZE_NUMBER_INT );
+		return $post_id ? absint( $post_id ) : 0;
+	}
+
+	/**
+	 * Retrieve a cached map of product IDs to names.
+	 *
+	 * @return array
+	 */
+	private function get_product_map(): array {
+		if ( null !== $this->product_map ) {
+			return $this->product_map;
+		}
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_product',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+
+		$this->product_map = array();
+
+		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$this->product_map[ (int) $term->term_id ] = $term->name;
+			}
+		}
+
+		return $this->product_map;
+	}
+
+	/**
+	 * Shared UI strings for selectors.
+	 *
+	 * @return array
+	 */
+	private function get_ui_strings(): array {
+		return array(
+			'panelTitle'        => esc_html__( 'Knowledge Base Sections', 'knowledgebase' ),
+			'selectProducts'    => esc_html__( 'Select a product to load its sections.', 'knowledgebase' ),
+			'noSections'        => esc_html__( 'No sections match the selected products.', 'knowledgebase' ),
+			'loading'           => esc_html__( 'Loading sections…', 'knowledgebase' ),
+			'unassigned'        => esc_html__( 'Sections without a product', 'knowledgebase' ),
+			/* translators: %s: Product name. */
+			'productHeading'    => esc_html__( '%s sections', 'knowledgebase' ),
+			'searchPlaceholder' => esc_html__( 'Search products…', 'knowledgebase' ),
+			'noProductMatches'  => esc_html__( 'No products match your search.', 'knowledgebase' ),
+			/* translators: 1: shown count. 2: total count. */
+			'productOverflow'   => esc_html__( 'Showing first %1$s products out of %2$s. Refine your search.', 'knowledgebase' ),
+		);
 	}
 }

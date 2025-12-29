@@ -27,6 +27,7 @@ class Styles_Handler {
 	 */
 	public function __construct() {
 		Hook_Registry::add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
+		Hook_Registry::add_action( 'enqueue_block_assets', array( $this, 'register_block_styles' ) );
 	}
 
 	/**
@@ -87,14 +88,45 @@ class Styles_Handler {
 				$taxonomy_css = '.wzkb-section-name-level-1 { display: none; }';
 				wp_add_inline_style( 'wz-knowledgebase-styles', $taxonomy_css );
 			}
-
-			// Sidebar styles - use body class for more reliable targeting.
-			if ( wzkb_get_option( 'show_sidebar' ) ) {
-				// Use a responsive sidebar column with min/max instead of fixed pixel width and respect wrapper max-width variable.
-				$extra_styles = 'body.wzkb-sidebar-enabled .wzkb-wrap{display:grid;grid-template-columns:1fr minmax(250px,320px);gap:30px;align-items:start;max-width:var(--wzkb-wrapper-max-width,100%);}body.wzkb-sidebar-enabled #wzkb-content-primary{width:100%;max-width:none;min-width:0;}body.wzkb-sidebar-enabled #wzkb-sidebar-primary{width:100%;max-width:none;min-width:0;}';
-				wp_add_inline_style( 'wz-knowledgebase-styles', $extra_styles );
-			}
 		}
+	}
+
+	/**
+	 * Enqueue block assets for both front-end and editor (including Site Editor).
+	 *
+	 * @since 2.3.0
+	 */
+	public function register_block_styles() {
+		// Only load in admin/editor context, not on front-end (to avoid double loading).
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$rtl_suffix = is_rtl() ? '-rtl' : '';
+		$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$kb_style   = wzkb_get_option( 'kb_style', 'classic' );
+
+		// Get style file location.
+		$style_url = $this->get_style_url( $kb_style, $rtl_suffix, $min_suffix );
+
+		// Enqueue the style for the block editor (including Site Editor).
+		wp_enqueue_style(
+			'wz-knowledgebase-styles',
+			$style_url,
+			array( 'dashicons' ),
+			WZKB_VERSION
+		);
+
+		// Add custom CSS.
+		$custom_css = wzkb_get_option( 'custom_css' );
+		if ( ! empty( $custom_css ) ) {
+			wp_add_inline_style( 'wz-knowledgebase-styles', esc_html( $custom_css ) );
+		}
+
+		// Inject CSS variable for columns setting.
+		$columns     = absint( wzkb_get_option( 'columns', 2 ) );
+		$columns_css = '.wzkb { --wzkb-columns: ' . $columns . '; }';
+		wp_add_inline_style( 'wz-knowledgebase-styles', $columns_css );
 	}
 
 	/**

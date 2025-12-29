@@ -195,6 +195,28 @@ class Blocks {
 
 		$arguments = wp_parse_args( $attributes['other_attributes'], $arguments );
 
+		// Convert category and product to integers if set.
+		if ( isset( $arguments['category'] ) ) {
+			$arguments['category'] = intval( $arguments['category'] );
+		}
+		if ( isset( $arguments['product'] ) ) {
+			$arguments['product'] = intval( $arguments['product'] );
+		}
+
+		// Auto-detect context when block is used in templates without explicit attributes.
+		if ( empty( $arguments['category'] ) && empty( $arguments['product'] ) ) {
+			$queried_object = get_queried_object();
+
+			// Check if we're on a taxonomy page.
+			if ( $queried_object instanceof \WP_Term ) {
+				if ( 'wzkb_category' === $queried_object->taxonomy ) {
+					$arguments['category'] = -1; // Auto-detect current category.
+				} elseif ( 'wzkb_product' === $queried_object->taxonomy ) {
+					$arguments['product'] = -1; // Auto-detect current product.
+				}
+			}
+		}
+
 		/**
 		 * Filters arguments passed to wzkb_knowledge for the block.
 		 *

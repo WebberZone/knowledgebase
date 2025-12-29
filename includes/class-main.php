@@ -86,7 +86,7 @@ final class Main {
 	/**
 	 * Template Handler.
 	 *
-	 * @since 4.0.0
+	 * @since 3.0.0
 	 *
 	 * @var Frontend\Template_Handler Template handler.
 	 */
@@ -131,7 +131,7 @@ final class Main {
 	/**
 	 * REST controller.
 	 *
-	 * @since 4.0.0
+	 * @since 3.0.0
 	 *
 	 * @var REST\REST_Controller
 	 */
@@ -145,6 +145,15 @@ final class Main {
 	 * @var Frontend\Related Related articles handler.
 	 */
 	public Frontend\Related $related_articles;
+
+	/**
+	 * Block patterns.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var Frontend\Patterns Patterns handler.
+	 */
+	public Frontend\Patterns $patterns;
 
 	/**
 	 * Gets the instance of the class.
@@ -187,6 +196,7 @@ final class Main {
 		$this->shortcodes       = new Frontend\Shortcodes();
 		$this->feed             = new Frontend\Feed();
 		$this->blocks           = new Blocks\Blocks();
+		$this->patterns         = new Frontend\Patterns();
 
 		$this->hooks();
 

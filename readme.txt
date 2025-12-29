@@ -2,7 +2,7 @@
 Contributors: Ajay, webberzone
 Donate link: https://ajaydsouza.com/donate/
 Tags: knowledge base, knowledgebase, FAQ, support, documentation
-Requires at least: 6.6
+Requires at least: 6.7
 Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 3.0.0
@@ -144,8 +144,14 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 		* Admin UI enhancements for managing products, sections, and migration.
 	* Setup Wizard to guide users through the initial configuration.
 	* New Product widget to display sections for a specific product.
+	* Block Templates and Patterns:
+		* Full Site Editor (FSE) support with custom block templates for Knowledge Base layouts.
+		* Pre-designed block patterns including single article, archives, sections, products, and sidebar layouts.
+		* Sidebar pattern with search, sections, products, and recent articles for easy navigation.
+		* Templates work with both classic and block themes.
 	* [Pro] Custom permalinks for Products, Sections, Tags, and Articles.
-	* [Pro] Cache tools: Clear cache button and cache expiry option in the settings.
+	* [Pro] Cache tools: Clear cache button and cache expiry option in the Settings page.
+	* [Pro] Flush permalinks button in the Settings page.
 	* [Pro] Article Rating System:
 		* Binary or 5-star voting, optional follow-up feedback, shortcode support, and Tools page controls.
 		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
