@@ -24,9 +24,13 @@
       "type": "string",
       "default": ""
     },
+    "productId": {
+      "type": "number",
+      "default": 0
+    },
     "limit": {
-      "type": "string",
-      "default": ""
+      "type": "number",
+      "default": 5
     },
     "showArticleCount": {
       "type": "boolean",
@@ -44,9 +48,21 @@
       "type": "boolean",
       "default": false
     },
-    "columns": {
+    "title": {
       "type": "string",
       "default": ""
+    },
+    "showHeading": {
+      "type": "boolean",
+      "default": false
+    },
+    "linkHeading": {
+      "type": "boolean",
+      "default": false
+    },
+    "headingLevel": {
+      "type": "string",
+      "default": "h2"
     },
     "other_attributes": {
       "type": "string",
@@ -56,5 +72,6 @@
   "example": {},
   "textdomain": "knowledgebase",
   "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css"
+  "editorStyle": "file:./index.css",
+  "style": "file:./style.css"
 }

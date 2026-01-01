@@ -109,46 +109,26 @@ class Block_Template_Manager {
 	 */
 	private function get_template_definitions(): array {
 		return array(
-			'single-wz_knowledgebase'               => array(
+			'single-wz_knowledgebase'  => array(
 				'title'       => __( 'Knowledge Base Single Article', 'knowledgebase' ),
 				'description' => __( 'Displays a single knowledge base article.', 'knowledgebase' ),
 				'post_types'  => array( self::POST_TYPE ),
 			),
-			'single-wz_knowledgebase-with-sidebar'  => array(
-				'title'       => __( 'Knowledge Base Single Article (With Sidebar)', 'knowledgebase' ),
-				'description' => __( 'Displays a single knowledge base article with sidebar navigation.', 'knowledgebase' ),
-				'post_types'  => array( self::POST_TYPE ),
-			),
-			'archive-wz_knowledgebase'              => array(
+			'archive-wz_knowledgebase' => array(
 				'title'       => __( 'Knowledge Base Archive', 'knowledgebase' ),
 				'description' => __( 'Displays the knowledge base archive.', 'knowledgebase' ),
 			),
-			'archive-wz_knowledgebase-with-sidebar' => array(
-				'title'       => __( 'Knowledge Base Archive (With Sidebar)', 'knowledgebase' ),
-				'description' => __( 'Displays the knowledge base archive with sidebar navigation.', 'knowledgebase' ),
-				'post_types'  => array( self::POST_TYPE ),
-			),
-			'wzkb-search'                           => array(
+			'wzkb-search'              => array(
 				'title'       => __( 'Knowledge Base Search', 'knowledgebase' ),
 				'description' => __( 'Displays knowledge base search results.', 'knowledgebase' ),
 			),
-			'taxonomy-wzkb_category'                => array(
+			'taxonomy-wzkb_category'   => array(
 				'title'       => __( 'Knowledge Base Section', 'knowledgebase' ),
 				'description' => __( 'Knowledge Base Section (taxonomy) block template.', 'knowledgebase' ),
 			),
-			'taxonomy-wzkb_category-with-sidebar'   => array(
-				'title'       => __( 'Knowledge Base Section (With Sidebar)', 'knowledgebase' ),
-				'description' => __( 'Knowledge Base Section with sidebar navigation.', 'knowledgebase' ),
-				'post_types'  => array( self::POST_TYPE ),
-			),
-			'taxonomy-wzkb_product'                 => array(
+			'taxonomy-wzkb_product'    => array(
 				'title'       => __( 'Knowledge Base Product', 'knowledgebase' ),
 				'description' => __( 'Knowledge Base Product (taxonomy) block template.', 'knowledgebase' ),
-			),
-			'taxonomy-wzkb_product-with-sidebar'    => array(
-				'title'       => __( 'Knowledge Base Product (With Sidebar)', 'knowledgebase' ),
-				'description' => __( 'Knowledge Base Product with sidebar navigation.', 'knowledgebase' ),
-				'post_types'  => array( self::POST_TYPE ),
 			),
 		);
 	}

@@ -10,12 +10,10 @@ jQuery(document).ready(
 
 		$('button[name="wzkb_flush_permalinks"]').on('click', function (e) {
 			e.preventDefault();
-			if (confirm(WZKBAdminData.strings.flush_confirm_message)) {
-				var $button = $(this);
-				var nonce = $button.data('nonce');
-				$button.prop('disabled', true).append(' <span class="spinner is-active"></span>');
-				flushPermalinks($button, nonce);
-			}
+			var $button = $(this);
+			var nonce = $button.data('nonce');
+			$button.prop('disabled', true).append(' <span class="spinner is-active"></span>');
+			flushPermalinks($button, nonce);
 		});
 
 		// Function to clear the cache.

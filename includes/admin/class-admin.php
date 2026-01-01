@@ -29,72 +29,81 @@ class Admin {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Settings API.
+	 * @var Settings Settings API.
 	 */
-	public $settings;
+	public Settings $settings;
 
 	/**
 	 * Activator class.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Activator class.
+	 * @var Activator Activator class.
 	 */
-	public $activator;
+	public Activator $activator;
 
 	/**
-	 * Setup wizard.
+	 * Settings wizard.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @var Setup_Wizard|null Setup wizard instance.
+	 * @var Settings_Wizard|null Settings wizard instance.
 	 */
-	public ?Setup_Wizard $setup_wizard = null;
+	public ?Settings_Wizard $settings_wizard = null;
 
 	/**
 	 * Cache.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Cache.
+	 * @var Cache Cache.
 	 */
-	public $cache;
+	public Cache $cache;
 
 	/**
 	 * Admin columns.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Admin columns.
+	 * @var Admin_Columns Admin columns.
 	 */
-	public $admin_columns;
+	public Admin_Columns $admin_columns;
 
 	/**
 	 * Product Migrator class.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @var object Product Migrator class.
+	 * @var Product_Migrator Product Migrator class.
 	 */
-	public $product_migrator;
+	public Product_Migrator $product_migrator;
+
+	/**
+	 * Admin Notices API.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @var Admin_Notices_API Admin notices API.
+	 */
+	public Admin_Notices_API $admin_notices_api;
 
 	/**
 	 * Section Product Meta class.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @var object Section Product Meta class.
+	 * @var Section_Product_Meta Section Product Meta class.
 	 */
-	public $section_product_meta;
+	public Section_Product_Meta $section_product_meta;
 
 	/**
 	 * Tools Page class.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @var object Tools Page class.
+	 * @var Tools_Page Tools Page class.
 	 */
-	public $tools_page;
+	public Tools_Page $tools_page;
 
 	/**
 	 * Admin banner helper instance.
@@ -120,7 +129,8 @@ class Admin {
 		$this->admin_columns        = new Admin_Columns();
 		$this->section_product_meta = new Section_Product_Meta();
 		$this->product_migrator     = new Product_Migrator();
-		$this->setup_wizard         = new Setup_Wizard();
+		$this->admin_notices_api    = new Admin_Notices_API();
+		$this->settings_wizard      = new Settings_Wizard();
 		$this->tools_page           = new Tools_Page();
 		$this->admin_banner         = new Admin_Banner( $this->get_admin_banner_config() );
 	}
@@ -442,21 +452,6 @@ class Admin {
 				);
 			}
 		}
-
-		// Show notice if sidebar is enabled and using a block theme.
-		if ( wzkb_get_option( 'show_sidebar' ) && function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
-			$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'site-editor.php?postType=wp_template&postId=knowledgebase-pro//single-wz_knowledgebase-with-sidebar' ) ), esc_html__( 'Site Editor', 'knowledgebase' ) );
-			$message       = sprintf(
-				/* translators: 1: "Include Sidebar" setting name, 2: HTML link to Site Editor */
-				esc_html__( 'The "Include Sidebar" setting only works with classic themes. For block themes, please use the sidebar templates available in the %2$s instead.', 'knowledgebase' ),
-				'<strong>' . esc_html__( 'Include Sidebar', 'knowledgebase' ) . '</strong>',
-				$settings_link
-			);
-			printf(
-				'<div class="notice notice-info"><p>%s</p></div>',
-				wp_kses_post( $message )
-			);
-		}
 	}
 
 	/**
@@ -534,7 +529,7 @@ class Admin {
 					<?php endif; ?>
 
 					<?php if ( $donate ) : ?>
-						<p><a href="https://wzn.io/donate-kb" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
+						<p><a href="https://wzn.io/donate-wz" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
 					<?php endif; ?>
 				</div>
 			</div>

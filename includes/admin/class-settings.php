@@ -579,10 +579,10 @@ class Settings {
 				'name'    => esc_html__( 'Max articles per section', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. Once this limit is reached, the footer displays a more link to view the category.', 'knowledgebase' ),
 				'type'    => 'number',
-				'default' => '5',
+				'default' => 5,
 				'size'    => 'small',
-				'min'     => '1',
-				'max'     => '500',
+				'min'     => -1,
+				'max'     => 500,
 			),
 			'show_sidebar'          => array(
 				'id'      => 'show_sidebar',
@@ -1143,7 +1143,7 @@ class Settings {
 				add_query_arg(
 					array(
 						'post_type' => 'wz_knowledgebase',
-						'page'      => 'wzkb-setup',
+						'page'      => 'wzkb_wizard',
 					),
 					admin_url( 'edit.php' )
 				)

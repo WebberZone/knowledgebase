@@ -44,7 +44,7 @@ class Products_Widget extends \WP_Widget {
 	public function form( $instance ) {
 		$title      = isset( $instance['title'] ) ? $instance['title'] : '';
 		$product_id = isset( $instance['product_id'] ) ? (int) $instance['product_id'] : 0;
-		$depth      = isset( $instance['depth'] ) ? (int) $instance['depth'] : 0;
+		$depth      = isset( $instance['depth'] ) ? (int) $instance['depth'] : -1;
 
 		$products = get_terms(
 			array(
@@ -72,8 +72,8 @@ class Products_Widget extends \WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>">
-				<?php esc_html_e( 'Max Depth (0 for unlimited):', 'knowledgebase' ); ?>
-				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'depth' ) ); ?>" type="number" value="<?php echo esc_attr( (string) $depth ); ?>" min="0" />
+				<?php esc_html_e( 'Max Depth (-1 for unlimited):', 'knowledgebase' ); ?>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'depth' ) ); ?>" type="number" value="<?php echo esc_attr( (string) $depth ); ?>" />
 			</label>
 		</p>
 		<?php
@@ -92,7 +92,7 @@ class Products_Widget extends \WP_Widget {
 		$instance               = array();
 		$instance['title']      = sanitize_text_field( $new_instance['title'] );
 		$instance['product_id'] = isset( $new_instance['product_id'] ) ? (int) $new_instance['product_id'] : 0;
-		$instance['depth']      = isset( $new_instance['depth'] ) ? (int) $new_instance['depth'] : 0;
+		$instance['depth']      = isset( $new_instance['depth'] ) ? (int) $new_instance['depth'] : -1;
 		return $instance;
 	}
 
@@ -117,18 +117,18 @@ class Products_Widget extends \WP_Widget {
 		$title      = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 		$title      = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 		$product_id = ! empty( $instance['product_id'] ) ? (int) $instance['product_id'] : 0;
-		$depth      = ! empty( $instance['depth'] ) ? (int) $instance['depth'] : 0;
-
-		if ( ! $product_id ) {
-			return;
-		}
+		$depth      = isset( $instance['depth'] ) ? (int) $instance['depth'] : -1;
 
 		$output  = '';
 		$output .= $args['before_widget'];
 		if ( ! empty( $title ) ) {
 			$output .= $args['before_title'] . esc_html( $title ) . $args['after_title'];
 		}
-		$output .= Display::get_product_sections_list( $product_id, array( 'depth' => $depth ) );
+		if ( 0 === $product_id ) {
+			$output .= Display::get_sections_tree( 0, array( 'depth' => $depth ) );
+		} else {
+			$output .= Display::get_product_sections_list( $product_id, array( 'depth' => $depth ) );
+		}
 		$output .= $args['after_widget'];
 
 		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

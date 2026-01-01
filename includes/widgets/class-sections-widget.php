@@ -51,7 +51,7 @@ class Sections_Widget extends \WP_Widget {
 				'hide_empty' => false,
 			)
 		);
-		$depth          = isset( $instance['depth'] ) ? $instance['depth'] : '';
+		$depth          = isset( $instance['depth'] ) ? $instance['depth'] : -1;
 		$before_li_item = isset( $instance['before_li_item'] ) ? $instance['before_li_item'] : '';
 		$after_li_item  = isset( $instance['after_li_item'] ) ? $instance['after_li_item'] : '';
 
@@ -79,7 +79,7 @@ class Sections_Widget extends \WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>">
-			<?php esc_html_e( 'Max Depth (0 for unlimited)', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'depth' ) ); ?>" type="text" value="<?php echo esc_attr( $depth ); ?>" />
+			<?php esc_html_e( 'Max Depth (-1 for unlimited)', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'depth' ) ); ?>" type="number" value="<?php echo esc_attr( $depth ); ?>" />
 			</label>
 		</p>
 		<p>
@@ -124,7 +124,7 @@ class Sections_Widget extends \WP_Widget {
 		$instance['title']          = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 		$instance['term_id']        = ( ! empty( $new_instance['term_id'] ) ) ? intval( $new_instance['term_id'] ) : '';
 		$instance['product_id']     = isset( $new_instance['product_id'] ) ? (int) $new_instance['product_id'] : 0;
-		$instance['depth']          = ( ! empty( $new_instance['depth'] ) ) ? intval( $new_instance['depth'] ) : '';
+		$instance['depth']          = ( ! empty( $new_instance['depth'] ) ) ? (int) $new_instance['depth'] : -1;
 		$instance['before_li_item'] = ( ! empty( $new_instance['before_li_item'] ) ) ? $new_instance['before_li_item'] : '';
 		$instance['after_li_item']  = ( ! empty( $new_instance['after_li_item'] ) ) ? $new_instance['after_li_item'] : '';
 
@@ -171,7 +171,7 @@ class Sections_Widget extends \WP_Widget {
 		$arguments = array(
 			'is_widget'      => 1,
 			'instance_id'    => $this->number,
-			'depth'          => ( ! empty( $instance['depth'] ) ) ? (int) $instance['depth'] : 0,
+			'depth'          => ( isset( $instance['depth'] ) ) ? (int) $instance['depth'] : -1,
 			'before_li_item' => ( ! empty( $instance['before_li_item'] ) ) ? $instance['before_li_item'] : '',
 			'after_li_item'  => ( ! empty( $instance['after_li_item'] ) ) ? $instance['after_li_item'] : '',
 		);
@@ -195,19 +195,7 @@ class Sections_Widget extends \WP_Widget {
 		if ( $product_id > 0 ) {
 			$output .= wzkb_get_product_sections_list( $product_id, $arguments );
 		} else {
-			$is_multi_product = \wzkb_get_option( 'multi_product' );
-			if ( $is_multi_product ) {
-				$products = \WebberZone\Knowledge_Base\Frontend\Display::fetch_terms( 'wzkb_product' );
-				if ( ! empty( $products ) && ! is_wp_error( $products ) ) {
-					foreach ( $products as $product ) {
-						$output .= '<ul class="wzkb-products-list"><li class="wzkb-product-item"><a href="' . esc_url( get_term_link( $product ) ) . '" class="wzkb-product-link">' . esc_html( $product->name ) . '</a>';
-						$output .= wzkb_get_product_sections_list( $product->term_id, $arguments );
-						$output .= '</li></ul>';
-					}
-				}
-			} else {
-				$output .= wzkb_categories_list( $term_id, 0, $arguments );
-			}
+			$output .= \WebberZone\Knowledge_Base\Frontend\Display::get_sections_tree( $term_id, $arguments );
 		}
 
 		$output .= $args['after_widget'];
