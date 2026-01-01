@@ -9,6 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { bookIcon } from '../components/icons';
 import Edit from './edit';
 import metadata from './block.json';
+import './editor.scss';
 
 /**
  * Register the block

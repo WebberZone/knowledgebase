@@ -6,8 +6,12 @@
 	"title": "Knowledge Base Sections",
 	"category": "knowledgebase",
 	"icon": "book",
-	"keywords": ["knowledgbase", "sections", "kb"],
-	"description": "Display the list of sections when browsing a knowledge base page",
+	"keywords": [
+		"knowledgbase",
+		"sections",
+		"kb"
+	],
+	"description": "Display subsections of a selected section or the full knowledge base sections tree if no section is selected",
 	"supports": {
 		"html": false
 	},
@@ -21,12 +25,12 @@
 			"default": ""
 		},
 		"termID": {
-			"type": "string",
-			"default": ""
+			"type": "number",
+			"default": 0
 		},
 		"depth": {
-			"type": "string",
-			"default": ""
+			"type": "number",
+			"default": -1
 		},
 		"beforeLiItem": {
 			"type": "string",

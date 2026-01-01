@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+
 import {
 	PanelBody,
 	TextControl,
-	SelectControl,
 	RangeControl,
 	Placeholder,
 	Disabled,
@@ -14,6 +14,7 @@ import {
 import { bookIcon } from '../components/icons';
 import { useSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
+import SectionSelector from '../components/section-selector';
 
 /**
  * Edit function for the Knowledge Base Products block.
@@ -41,15 +42,15 @@ export default function Edit({ attributes, setAttributes }) {
 	}, []);
 
 	// Create options array for SelectControl
-	const productOptions = products
-		? [
-				{ value: 0, label: __('Select a product', 'knowledgebase') },
-				...products.map((product) => ({
-					value: product.id,
-					label: product.name,
-				})),
-			]
-		: [{ value: 0, label: __('Loading…', 'knowledgebase') }];
+	const formatProductLabel = (term) => term.name;
+
+	const sectionSelectorProps = {
+		taxonomy: 'wzkb_product',
+		label: __('Product', 'knowledgebase'),
+		help: __('Search and select a product', 'knowledgebase'),
+		includeEmptyLabel: __('Select a product', 'knowledgebase'),
+		formatLabel: formatProductLabel,
+	};
 
 	// If no product is selected, show the placeholder
 	if (!productId) {
@@ -64,13 +65,14 @@ export default function Edit({ attributes, setAttributes }) {
 								setAttributes({ title: value })
 							}
 						/>
-						<SelectControl
-							label={__('Product', 'knowledgebase')}
+						<SectionSelector
+							{...sectionSelectorProps}
 							value={productId}
-							options={productOptions}
 							onChange={(value) =>
-								setAttributes({ productId: parseInt(value) })
+								setAttributes({ productId: value })
 							}
+							className="wzkb-products-selector"
+							wrapperClass="wzkb-products-selector-wrapper"
 						/>
 					</PanelBody>
 				</InspectorControls>
@@ -84,12 +86,18 @@ export default function Edit({ attributes, setAttributes }) {
 							'knowledgebase'
 						)}
 					>
-						<SelectControl
+						<SectionSelector
+							taxonomy="wzkb_product"
+							label={__('Product', 'knowledgebase')}
 							value={productId}
-							options={productOptions}
 							onChange={(value) =>
-								setAttributes({ productId: parseInt(value) })
+								setAttributes({ productId: value })
 							}
+							help={__('Search and select a product', 'knowledgebase')}
+							includeEmptyLabel={__('Select a product', 'knowledgebase')}
+							formatLabel={(term) => term.name}
+							className="wzkb-products-selector"
+							wrapperClass="wzkb-products-selector-wrapper"
 						/>
 					</Placeholder>
 				</div>
@@ -106,21 +114,22 @@ export default function Edit({ attributes, setAttributes }) {
 						value={title}
 						onChange={(value) => setAttributes({ title: value })}
 					/>
-					<SelectControl
-						label={__('Product', 'knowledgebase')}
+					<SectionSelector
+						{...sectionSelectorProps}
 						value={productId}
-						options={productOptions}
 						onChange={(value) =>
-							setAttributes({ productId: parseInt(value) })
+							setAttributes({ productId: value })
 						}
+						className="wzkb-products-selector"
+						wrapperClass="wzkb-products-selector-wrapper"
 					/>
 					<RangeControl
 						label={__('Max Depth', 'knowledgebase')}
 						value={depth}
 						onChange={(value) => setAttributes({ depth: value })}
-						min={0}
+						min={-1}
 						max={10}
-						help={__('0 for unlimited depth', 'knowledgebase')}
+						help={__('-1 for unlimited depth, 0 for current section only', 'knowledgebase')}
 					/>
 					<TextControl
 						label={__('Before list item', 'knowledgebase')}

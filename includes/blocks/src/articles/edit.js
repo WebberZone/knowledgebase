@@ -1,107 +1,91 @@
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
 
 import {
 	Disabled,
-	ComboboxControl,
 	ToggleControl,
 	PanelBody,
 	PanelRow,
-	Spinner,
 	TextControl,
-	Notice,
 	Placeholder,
 	SelectControl,
+	RangeControl,
 } from '@wordpress/components';
 
 import { bookIcon } from '../components/icons';
+import SectionSelector from '../components/section-selector';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { termID, limit, showExcerpt, showHeading, headingLevel } =
-		attributes;
+	const {
+		termID,
+		limit,
+		showExcerpt,
+		showHeading,
+		linkHeading,
+		headingLevel,
+		productId,
+		depth,
+	} = attributes;
 
 	const blockProps = useBlockProps();
 
-	const { terms, hasResolved, error } = useSelect((select) => {
-		const query = { per_page: -1 };
-		const selectorArgs = ['taxonomy', 'wzkb_category', query];
+	const sectionSelectorProps = {
+		label: __('Filter by Section', 'knowledgebase'),
+		value: termID,
+		onChange: (value) => setAttributes({ termID: value }),
+		taxonomy: 'wzkb_category',
+		includeEmptyLabel: __('Select a section', 'knowledgebase'),
+		className: 'wzkb-products-selector',
+		wrapperClass: 'wzkb-products-selector-wrapper',
+		help: __('Search and select a knowledge base section', 'knowledgebase'),
+	};
 
-		try {
-			return {
-				terms: select(coreStore).getEntityRecords(...selectorArgs),
-				hasResolved: select(coreStore).hasFinishedResolution(
-					'getEntityRecords',
-					selectorArgs
-				),
-				error: null,
-			};
-		} catch (fetchError) {
-			return {
-				terms: [],
-				hasResolved: true,
-				error: fetchError,
-			};
+	const filterSectionsByProduct = productId
+		? {
+			filterTerm: (term) =>
+				term.kb_product && term.kb_product.term_id === productId,
 		}
-	}, []);
+		: {};
 
-	const termOptions =
-		terms?.map((term) => ({
-			label: `${term.name} (#${term.id})`,
-			value: term.id.toString(),
-		})) || [];
+	const productSelectorProps = {
+		taxonomy: 'wzkb_product',
+		label: __('Filter by Product', 'knowledgebase'),
+		value: productId,
+		onChange: (value) => setAttributes({ productId: value, termID: 0 }),
+		includeEmptyLabel: __('Select a product', 'knowledgebase'),
+		formatLabel: (term) => term.name,
+		className: 'wzkb-products-selector',
+		wrapperClass: 'wzkb-products-selector-wrapper',
+		help: __('Search and select a product', 'knowledgebase'),
+	};
 
 	// Function to render Inspector Controls
 	const renderInspectorControls = () => (
 		<InspectorControls>
-			{error && (
-				<Notice status="error" isDismissible={false}>
-					{__(
-						'Error loading categories. Please try again.',
-						'knowledgebase'
-					)}
-				</Notice>
-			)}
-
 			<PanelBody
 				title={__('Knowledge Base Articles Settings', 'knowledgebase')}
 				initialOpen={true}
 			>
 				<PanelRow>
-					{!hasResolved ? (
-						<Spinner />
-					) : (
-						<ComboboxControl
-							label={__(
-								'Select Knowledge Base Section',
-								'knowledgebase'
-							)}
-							value={termID}
-							onChange={(value) =>
-								setAttributes({ termID: value })
-							}
-							options={termOptions}
-							help={__(
-								'Search and select a knowledge base section',
-								'knowledgebase'
-							)}
-						/>
-					)}
+					<SectionSelector {...productSelectorProps} />
+				</PanelRow>
+				<strong>{__('OR', 'knowledgebase')}</strong>
+				<PanelRow>
+					<SectionSelector
+						{...sectionSelectorProps}
+						{...filterSectionsByProduct}
+					/>
 				</PanelRow>
 				<PanelRow>
-					<TextControl
+					<RangeControl
 						label={__('Limit', 'knowledgebase')}
 						value={limit}
-						type="number"
-						min="1"
 						onChange={(value) => setAttributes({ limit: value })}
-						help={__(
-							'Enter the maximum number of articles to display',
-							'knowledgebase'
-						)}
+						min={-1}
+						max={10}
+						help={__('-1 for unlimited articles', 'knowledgebase')}
 					/>
 				</PanelRow>
 				<PanelRow>
@@ -119,25 +103,71 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelRow>
 				<PanelRow>
+					<RangeControl
+						label={__('Max Depth', 'knowledgebase')}
+						value={depth}
+						onChange={(value) => setAttributes({ depth: value })}
+						min={-1}
+						max={10}
+						help={__('-1 for unlimited depth, 0 for current section only', 'knowledgebase')}
+					/>
+				</PanelRow>
+				<PanelRow>
 					<ToggleControl
-						label={__('Show Heading', 'knowledgebase')}
+						label={
+							productId
+								? __('Show product heading', 'knowledgebase')
+								: __('Show section heading', 'knowledgebase')
+						}
 						checked={showHeading}
 						onChange={() =>
 							setAttributes({ showHeading: !showHeading })
 						}
 						help={
 							showHeading
-								? __(
+								? productId
+									? __(
+										'Product heading will be shown',
+										'knowledgebase'
+									)
+									: __(
 										'Section heading will be shown',
 										'knowledgebase'
 									)
-								: __(
+								: productId
+									? __(
+										'Product heading will be hidden',
+										'knowledgebase'
+									)
+									: __(
 										'Section heading will be hidden',
 										'knowledgebase'
 									)
 						}
 					/>
 				</PanelRow>
+				{showHeading && (
+					<PanelRow>
+						<ToggleControl
+							label={__('Link heading to selection', 'knowledgebase')}
+							checked={linkHeading}
+							onChange={() =>
+								setAttributes({ linkHeading: !linkHeading })
+							}
+							help={
+								linkHeading
+									? __(
+										'Heading will link to the selected product or section.',
+										'knowledgebase'
+									)
+									: __(
+										'Heading will remain plain text.',
+										'knowledgebase'
+									)
+							}
+						/>
+					</PanelRow>
+				)}
 				{showHeading && (
 					<PanelRow>
 						<SelectControl
@@ -166,32 +196,41 @@ export default function Edit({ attributes, setAttributes }) {
 		</InspectorControls>
 	);
 
-	// If no term is selected, show the placeholder
-	if (!termID) {
+	// If no term or product is selected, show the placeholder
+	if (!termID && !productId) {
 		return (
 			<>
 				{renderInspectorControls()}
-
 				<div {...blockProps}>
 					<Placeholder
 						icon={bookIcon}
 						label={__('Knowledge Base Articles', 'knowledgebase')}
 						instructions={__(
-							'Select a section to display its articles.',
+							'Select a product or section to display its articles.',
 							'knowledgebase'
 						)}
 					>
-						{!hasResolved ? (
-							<Spinner />
-						) : (
-							<ComboboxControl
-								value={termID}
-								onChange={(value) =>
-									setAttributes({ termID: value })
-								}
-								options={termOptions}
-							/>
-						)}
+						<div className="wzkb-articles-placeholder-grid">
+							<div className="wzkb-articles-selector-column">
+								<span className="wzkb-articles-selector-heading">
+									{__('Filter by product', 'knowledgebase')}
+								</span>
+								<SectionSelector
+									{...productSelectorProps}
+									label=""
+								/>
+							</div>
+							<div className="wzkb-articles-selector-column">
+								<span className="wzkb-articles-selector-heading">
+									{__('Filter by section', 'knowledgebase')}
+								</span>
+								<SectionSelector
+									{...sectionSelectorProps}
+									{...filterSectionsByProduct}
+									label=""
+								/>
+							</div>
+						</div>
 					</Placeholder>
 				</div>
 			</>

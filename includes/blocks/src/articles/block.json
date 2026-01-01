@@ -6,8 +6,12 @@
 	"title": "Knowledge Base Articles",
 	"category": "knowledgebase",
 	"icon": "book",
-	"keywords": ["knowledgbase", "articles", "kb"],
-	"description": "Display the Knowledge Base Articles",
+	"keywords": [
+		"knowledgbase",
+		"articles",
+		"kb"
+	],
+	"description": "Display the Knowledge Base Articles by Product or Section",
 	"supports": {
 		"html": false
 	},
@@ -17,16 +21,24 @@
 			"default": ""
 		},
 		"limit": {
-			"type": "string",
-			"default": ""
+			"type": "number",
+			"default": -1
 		},
 		"showExcerpt": {
 			"type": "boolean",
 			"default": false
 		},
+		"productId": {
+			"type": "number",
+			"default": 0
+		},
 		"termID": {
-			"type": "string",
-			"default": ""
+			"type": "number",
+			"default": 0
+		},
+		"depth": {
+			"type": "number",
+			"default": -1
 		},
 		"title": {
 			"type": "string",
@@ -34,7 +46,11 @@
 		},
 		"showHeading": {
 			"type": "boolean",
-			"default": true
+			"default": false
+		},
+		"linkHeading": {
+			"type": "boolean",
+			"default": false
 		},
 		"headingLevel": {
 			"type": "string",
@@ -44,5 +60,6 @@
 	"example": {},
 	"textdomain": "knowledgebase",
 	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css"
+	"editorStyle": "file:./index.css",
+	"style": "file:./style.css"
 }

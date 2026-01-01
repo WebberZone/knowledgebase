@@ -26,6 +26,44 @@ if ( ! defined( 'WPINC' ) ) {
 class Blocks {
 
 	/**
+	 * Centralized attribute mappings for blocks.
+	 *
+	 * @since 3.0.0
+	 * @var array
+	 */
+	private static $block_mappings = array(
+		'kb'       => array(
+			'show_article_count'  => 'showArticleCount',
+			'show_excerpt'        => 'showExcerpt',
+			'clickable_section'   => 'hasClickableSection',
+			'show_empty_sections' => 'showEmptySections',
+			'extra_class'         => 'className',
+			'product'             => 'productId',
+			'show_heading'        => 'showHeading',
+			'link_heading'        => 'linkHeading',
+			'heading_level'       => 'headingLevel',
+		),
+		'articles' => array(
+			'term_id'       => 'termID',
+			'product_id'    => 'productId',
+			'show_excerpt'  => 'showExcerpt',
+			'show_heading'  => 'showHeading',
+			'link_heading'  => 'linkHeading',
+			'heading_level' => 'headingLevel',
+		),
+		'sections' => array(
+			'term_id'        => 'termID',
+			'before_li_item' => 'beforeLiItem',
+			'after_li_item'  => 'afterLiItem',
+		),
+		'products' => array(
+			'product_id'     => 'productId',
+			'before_li_item' => 'beforeLiItem',
+			'after_li_item'  => 'afterLiItem',
+		),
+	);
+
+	/**
 	 * Initialize the class and set up hooks
 	 *
 	 * @since 2.3.0
@@ -147,22 +185,199 @@ class Blocks {
 	}
 
 	/**
-	 * Maps JavaScript attribute names to PHP attribute names.
+	 * Map JavaScript attributes to PHP attributes.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @param array $attributes   The block attributes.
-	 * @param array $mappings     Array of mappings with PHP attributes as keys and JS attributes as values.
+	 * @param array  $attributes Block attributes array.
+	 * @param array  $mappings  Attribute mappings array.
+	 * @param string $block_type Block type for using centralized mappings.
 	 * @return array             Modified attributes array with mapped values.
 	 */
-	private function map_attributes( $attributes, $mappings ) {
+	private function map_attributes( $attributes, $mappings = array(), $block_type = '' ) {
+		// Use centralized mappings if block_type is provided and mappings are not.
+		if ( ! empty( $block_type ) && empty( $mappings ) && isset( self::$block_mappings[ $block_type ] ) ) {
+			$mappings = self::$block_mappings[ $block_type ];
+		}
+
 		foreach ( $mappings as $php_attr => $js_attr ) {
 			if ( isset( $attributes[ $js_attr ] ) ) {
 				$attributes[ $php_attr ] = $attributes[ $js_attr ];
-				unset( $attributes[ $js_attr ] );
+				if ( $php_attr !== $js_attr ) {
+					unset( $attributes[ $js_attr ] );
+				}
 			}
 		}
 		return $attributes;
+	}
+
+	/**
+	 * Generate heading HTML for blocks.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int    $category     Category ID.
+	 * @param int    $product      Product ID.
+	 * @param bool   $show_heading Whether to show heading.
+	 * @param bool   $link_heading Whether to link heading.
+	 * @param string $heading_level Heading level (h1-h6, p).
+	 * @return string Heading HTML or empty string.
+	 */
+	private function generate_block_heading( $category, $product, $show_heading, $link_heading, $heading_level ) {
+		if ( ! $show_heading ) {
+			return '';
+		}
+
+		// Fetch term based on category or product.
+		if ( 0 !== $category ) {
+			$term = get_term( $category, 'wzkb_category' );
+		} elseif ( 0 !== $product ) {
+			$term = get_term( $product, 'wzkb_product' );
+		} else {
+			$term = null;
+		}
+
+		// Check if term is valid.
+		if ( is_wp_error( $term ) || ! $term ) {
+			return '';
+		}
+
+		// Create heading content.
+		$term_name   = esc_html( $term->name );
+		$heading_tag = \in_array( $heading_level, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p' ), true ) ? $heading_level : 'h2';
+
+		if ( $link_heading ) {
+			$term_link       = get_term_link( $term );
+			$heading_content = ! is_wp_error( $term_link ) ? '<a href="' . esc_url( $term_link ) . '">' . $term_name . '</a>' : $term_name;
+		} else {
+			$heading_content = $term_name;
+		}
+
+		return sprintf(
+			'<%1$s>%2$s</%1$s>',
+			$heading_tag,
+			$heading_content
+		);
+	}
+
+	/**
+	 * Render a block with heading and wrapper.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param callable $content_renderer Callable that returns the block content.
+	 * @param array    $heading_args    Heading arguments.
+	 * @param array    $wrapper_attrs   Block wrapper attributes.
+	 * @return string Rendered block output.
+	 */
+	private function render_block_with_heading( $content_renderer, $heading_args, $wrapper_attrs = array() ) {
+		// Generate heading HTML.
+		$heading_html = $this->generate_block_heading(
+			$heading_args['category'],
+			$heading_args['product'],
+			$heading_args['show_heading'],
+			$heading_args['link_heading'],
+			$heading_args['heading_level']
+		);
+
+		// Check for invalid heading target with clearer intent.
+		$invalid_heading_target =
+			$heading_args['show_heading']
+			&& empty( $heading_html )
+			&& ( 0 !== $heading_args['category'] || 0 !== $heading_args['product'] );
+
+		if ( $invalid_heading_target ) {
+			return esc_html__( 'Invalid section or product selected.', 'knowledgebase' );
+		}
+
+		// Get content from renderer.
+		$content = call_user_func( $content_renderer );
+
+		// Prepend heading if it exists.
+		if ( ! empty( $heading_html ) ) {
+			$content = $heading_html . $content;
+		}
+
+		// Get wrapper attributes if not provided.
+		if ( empty( $wrapper_attrs ) ) {
+			$wrapper_attrs = get_block_wrapper_attributes();
+		}
+
+		return sprintf(
+			'<div %1$s>%2$s</div>',
+			$wrapper_attrs,
+			$content
+		);
+	}
+
+	/**
+	 * Build arguments for KB block.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $attributes Block attributes.
+	 * @return array Built arguments array.
+	 */
+	private function build_kb_arguments( $attributes ) {
+		$args = array_merge(
+			$attributes,
+			array(
+				'is_block' => 1,
+			)
+		);
+
+		$args = wp_parse_args( $attributes['other_attributes'], $args );
+
+		// Convert category and product to integers if set.
+		if ( isset( $args['category'] ) ) {
+			$args['category'] = intval( $args['category'] );
+		}
+		if ( isset( $args['product'] ) ) {
+			$args['product'] = intval( $args['product'] );
+		}
+
+		// Auto-detect context when block is used in templates without explicit attributes.
+		if ( empty( $args['category'] ) && empty( $args['product'] ) ) {
+			$queried_object = get_queried_object();
+
+			// Check if we're on a taxonomy page.
+			if ( $queried_object instanceof \WP_Term ) {
+				if ( 'wzkb_category' === $queried_object->taxonomy ) {
+					$args['category'] = -1; // Auto-detect current category.
+				} elseif ( 'wzkb_product' === $queried_object->taxonomy ) {
+					$args['product'] = -1; // Auto-detect current product.
+				}
+			}
+		}
+
+		// Normalize layout rules via Display.
+		$args = Display::normalize_arguments( $args );
+
+		return $args;
+	}
+
+	/**
+	 * Build arguments for Articles block.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $attributes Block attributes.
+	 * @return array Built arguments array.
+	 */
+	private function build_articles_arguments( $attributes ) {
+		$args = array(
+			'category'     => isset( $attributes['term_id'] ) ? (int) $attributes['term_id'] : 0,
+			'product'      => isset( $attributes['product_id'] ) ? (int) $attributes['product_id'] : 0,
+			'show_excerpt' => isset( $attributes['show_excerpt'] ) ? (bool) $attributes['show_excerpt'] : false,
+			'limit'        => isset( $attributes['limit'] ) ? (int) $attributes['limit'] : -1,
+			'depth'        => isset( $attributes['depth'] ) ? (int) $attributes['depth'] : -1,
+			'is_block'     => 1,
+		);
+
+		// Normalize layout rules via Display.
+		$args = Display::normalize_arguments( $args );
+
+		return $args;
 	}
 
 	/**
@@ -175,47 +390,11 @@ class Blocks {
 	 * @return string Returns the post content with latest posts added.
 	 */
 	public function render_kb_block( $attributes ) {
-		// Remap selected attributes from JS to PHP.
-		$mappings = array(
-			'show_article_count'  => 'showArticleCount',
-			'show_excerpt'        => 'showExcerpt',
-			'clickable_section'   => 'hasClickableSection',
-			'show_empty_sections' => 'showEmptySections',
-			'extra_class'         => 'className',
-		);
+		// Remap selected attributes from JS to PHP using centralized mappings.
+		$attributes = $this->map_attributes( $attributes, array(), 'kb' );
 
-		$attributes = $this->map_attributes( $attributes, $mappings );
-
-		$arguments = array_merge(
-			$attributes,
-			array(
-				'is_block' => 1,
-			)
-		);
-
-		$arguments = wp_parse_args( $attributes['other_attributes'], $arguments );
-
-		// Convert category and product to integers if set.
-		if ( isset( $arguments['category'] ) ) {
-			$arguments['category'] = intval( $arguments['category'] );
-		}
-		if ( isset( $arguments['product'] ) ) {
-			$arguments['product'] = intval( $arguments['product'] );
-		}
-
-		// Auto-detect context when block is used in templates without explicit attributes.
-		if ( empty( $arguments['category'] ) && empty( $arguments['product'] ) ) {
-			$queried_object = get_queried_object();
-
-			// Check if we're on a taxonomy page.
-			if ( $queried_object instanceof \WP_Term ) {
-				if ( 'wzkb_category' === $queried_object->taxonomy ) {
-					$arguments['category'] = -1; // Auto-detect current category.
-				} elseif ( 'wzkb_product' === $queried_object->taxonomy ) {
-					$arguments['product'] = -1; // Auto-detect current product.
-				}
-			}
-		}
+		// Build arguments using dedicated method.
+		$arguments = $this->build_kb_arguments( $attributes );
 
 		/**
 		 * Filters arguments passed to wzkb_knowledge for the block.
@@ -227,14 +406,22 @@ class Blocks {
 		 */
 		$arguments = apply_filters( 'wzkb_block_options', $arguments, $attributes );
 
-		$wrapper_attributes = get_block_wrapper_attributes();
-		$output             = sprintf(
-			'<div %1$s>%2$s</div>',
-			$wrapper_attributes,
-			wzkb_knowledge( $arguments )
+		// Prepare heading arguments with null coalescing for safety.
+		$heading_args = array(
+			'category'      => $arguments['category'],
+			'product'       => $arguments['product'],
+			'show_heading'  => $attributes['show_heading'] ?? false,
+			'link_heading'  => $attributes['link_heading'] ?? false,
+			'heading_level' => $attributes['heading_level'] ?? 'h2',
 		);
 
-		return $output;
+		// Create content renderer.
+		$content_renderer = function () use ( $arguments ) {
+			return wzkb_knowledge( $arguments );
+		};
+
+		// Render using unified helper.
+		return $this->render_block_with_heading( $content_renderer, $heading_args );
 	}
 
 	/**
@@ -261,58 +448,32 @@ class Blocks {
 	 * @return string Returns the post content with latest posts added.
 	 */
 	public function render_articles_block( $attributes ) {
-		$mappings = array(
-			'term_id'       => 'termID',
-			'show_excerpt'  => 'showExcerpt',
-			'show_heading'  => 'showHeading',
-			'heading_level' => 'headingLevel',
+		$attributes = $this->map_attributes( $attributes, array(), 'articles' );
+
+		// Build arguments using dedicated method.
+		$kb_args = $this->build_articles_arguments( $attributes );
+
+		// Exit if both term_id and product_id are empty.
+		if ( 0 === $kb_args['category'] && 0 === $kb_args['product'] ) {
+			return esc_html__( 'Please select a Product or Section.' );
+		}
+
+		// Prepare heading arguments with null coalescing for safety.
+		$heading_args = array(
+			'category'      => $kb_args['category'],
+			'product'       => $kb_args['product'],
+			'show_heading'  => $attributes['show_heading'] ?? false,
+			'link_heading'  => $attributes['link_heading'] ?? false,
+			'heading_level' => $attributes['heading_level'] ?? 'h2',
 		);
 
-		$attributes = $this->map_attributes( $attributes, $mappings );
+		// Create content renderer.
+		$content_renderer = function () use ( $kb_args ) {
+			return wzkb_knowledge( $kb_args );
+		};
 
-		$limit = (int) ( ! empty( $attributes['limit'] ) ? $attributes['limit'] : wzkb_get_option( 'limit', 5 ) );
-
-		$show_excerpt = isset( $attributes['show_excerpt'] ) ? (bool) $attributes['show_excerpt'] : false;
-
-		if ( empty( $attributes['term_id'] ) ) {
-			return __( 'Enter a section ID.', 'knowledgebase' );
-		}
-
-		$term = get_term( (int) $attributes['term_id'], 'wzkb_category' );
-
-		if ( empty( $term ) || is_wp_error( $term ) ) {
-			return __( 'Section not found.', 'knowledgebase' );
-		}
-
-		$list_of_posts = Display::get_posts_by_term(
-			$term,
-			0,
-			array(
-				'show_excerpt' => $show_excerpt,
-				'limit'        => $limit,
-			)
-		);
-
-		if ( empty( $list_of_posts ) ) {
-			return __( 'No articles found.', 'knowledgebase' );
-		}
-
-		$show_heading  = isset( $attributes['show_heading'] ) ? (bool) $attributes['show_heading'] : true;
-		$heading_level = isset( $attributes['heading_level'] ) ? sanitize_html_class( $attributes['heading_level'] ) : 'h2';
-
-		if ( $show_heading ) {
-			$heading       = $term->name;
-			$list_of_posts = '<' . $heading_level . '>' . esc_html( $heading ) . '</' . $heading_level . '>' . $list_of_posts;
-		}
-
-		$wrapper_attributes = get_block_wrapper_attributes();
-		$output             = sprintf(
-			'<div %1$s>%2$s</div>',
-			$wrapper_attributes,
-			$list_of_posts
-		);
-
-		return $output;
+		// Render using unified helper.
+		return $this->render_block_with_heading( $content_renderer, $heading_args );
 	}
 
 	/**
@@ -324,7 +485,7 @@ class Blocks {
 	 *
 	 * @return string Rendered block output.
 	 */
-	public static function render_breadcrumb_block( $attributes ) {
+	public function render_breadcrumb_block( $attributes ) {
 		$wrapper_attributes = get_block_wrapper_attributes();
 
 		$output = sprintf(
@@ -346,13 +507,7 @@ class Blocks {
 	 * @return string Returns the sections list.
 	 */
 	public function render_sections_block( $attributes ) {
-		$mappings = array(
-			'term_id'        => 'termID',
-			'before_li_item' => 'beforeLiItem',
-			'after_li_item'  => 'afterLiItem',
-		);
-
-		$attributes = $this->map_attributes( $attributes, $mappings );
+		$attributes = $this->map_attributes( $attributes, array(), 'sections' );
 
 		$arguments = array(
 			'is_block'       => 1,
@@ -375,9 +530,9 @@ class Blocks {
 
 		$wrapper_attributes = get_block_wrapper_attributes();
 
-		$categories_list = wzkb_categories_list( $term_id, 0, $arguments );
+		$sections_output = Display::get_sections_tree( $term_id, $arguments );
 
-		if ( empty( $categories_list ) && wp_is_serving_rest_request() ) {
+		if ( empty( $sections_output ) && wp_is_serving_rest_request() ) {
 			return __( 'No sections found. This message is only displayed in the editor and not on the frontend.', 'knowledgebase' );
 		}
 
@@ -385,7 +540,7 @@ class Blocks {
 			'<div %1$s>%2$s%3$s</div>',
 			$wrapper_attributes,
 			! empty( $attributes['title'] ) ? '<h2>' . esc_html( $attributes['title'] ) . '</h2>' : '',
-			$categories_list
+			$sections_output
 		);
 
 		return $output;
@@ -401,14 +556,7 @@ class Blocks {
 	 * @return string Returns the rendered product sections list.
 	 */
 	public function render_products_block( $attributes ) {
-		$mappings = array(
-			'product_id'     => 'productId',
-			'depth'          => 'depth',
-			'before_li_item' => 'beforeLiItem',
-			'after_li_item'  => 'afterLiItem',
-		);
-
-		$attributes = $this->map_attributes( $attributes, $mappings );
+		$attributes = $this->map_attributes( $attributes, array(), 'products' );
 
 		$arguments = array(
 			'is_block'       => 1,
@@ -431,11 +579,13 @@ class Blocks {
 
 		$wrapper_attributes = get_block_wrapper_attributes();
 
+		$content = ( $product_id > 0 ) ? wzkb_get_product_sections_list( $product_id, $arguments ) : Display::get_sections_tree( 0, $arguments );
+
 		$output = sprintf(
 			'<div %1$s>%2$s%3$s</div>',
 			$wrapper_attributes,
 			! empty( $attributes['title'] ) ? '<h2 class="wzkb-products-title">' . esc_html( $attributes['title'] ) . '</h2>' : '',
-			wzkb_get_product_sections_list( $product_id, $arguments )
+			$content
 		);
 
 		return $output;

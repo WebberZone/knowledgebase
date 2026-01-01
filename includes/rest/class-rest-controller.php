@@ -172,6 +172,58 @@ class REST_Controller {
 				),
 			)
 		);
+
+		register_rest_field(
+			'wzkb_category',
+			'kb_product',
+			array(
+				'methods'      => WP_REST_Server::READABLE,
+				'get_callback' => array( $this, 'get_category_product_data' ),
+				'schema'       => array(
+					'description' => __( 'Associated product for the section.', 'knowledgebase' ),
+					'type'        => 'object',
+					'context'     => array( 'view', 'edit' ),
+					'properties'  => array(
+						'id'   => array(
+							'type'        => 'integer',
+							'description' => __( 'Product term ID.', 'knowledgebase' ),
+						),
+						'name' => array(
+							'type'        => 'string',
+							'description' => __( 'Product term name.', 'knowledgebase' ),
+						),
+						'slug' => array(
+							'type'        => 'string',
+							'description' => __( 'Product term slug.', 'knowledgebase' ),
+						),
+					),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Return product data for a section term.
+	 *
+	 * @param array $term_data Term data array.
+	 * @return array|null Product data or null when unavailable.
+	 */
+	public function get_category_product_data( $term_data ) {
+		$product_id = (int) get_term_meta( (int) $term_data['id'], 'product_id', true );
+		if ( 0 === $product_id ) {
+			return null;
+		}
+
+		$product = get_term( $product_id, 'wzkb_product' );
+		if ( ! $product || is_wp_error( $product ) ) {
+			return null;
+		}
+
+		return array(
+			'id'   => (int) $product->term_id,
+			'name' => $product->name,
+			'slug' => $product->slug,
+		);
 	}
 
 	/**

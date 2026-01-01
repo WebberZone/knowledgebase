@@ -207,13 +207,16 @@ final class Main {
 			new Product_Section_Selector();
 		}
 
-		// Initialize pro features.
-		if ( wzkb_freemius()->is__premium_only() ) {
-			if ( wzkb_freemius()->can_use_premium_code() ) {
-				$this->pro = new Pro\Pro();
-			}
-		}
+		// Initialize admin on init action to ensure translations are loaded.
+		add_action( 'init', array( $this, 'init_admin' ) );
+	}
 
+	/**
+	 * Initialize admin components.
+	 *
+	 * @since 4.1.0
+	 */
+	public function init_admin(): void {
 		if ( is_admin() ) {
 			$this->admin = new Admin();
 		}

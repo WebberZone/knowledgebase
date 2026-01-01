@@ -11,7 +11,7 @@
     "kb",
     "products"
   ],
-  "description": "Display sections under a selected product for the Knowledge Base",
+  "description": "Display sections under a selected product or the full knowledge base products/sections tree if none selected",
   "supports": {
     "html": false
   },
@@ -26,7 +26,7 @@
     },
     "depth": {
       "type": "number",
-      "default": 0
+      "default": -1
     },
     "beforeLiItem": {
       "type": "string",

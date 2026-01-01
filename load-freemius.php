@@ -43,7 +43,7 @@ if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
 					),
 					'menu'                => array(
 						'slug'       => 'edit.php?post_type=wz_knowledgebase',
-						'first-path' => 'edit.php?post_type=wz_knowledgebase&page=wzkb-setup',
+						'first-path' => 'edit.php?post_type=wz_knowledgebase&page=wzkb_wizard',
 						'contact'    => false,
 						'support'    => false,
 					),

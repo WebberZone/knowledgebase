@@ -59,6 +59,16 @@ class Patterns {
 		}
 
 		foreach ( $pattern_files as $pattern_file ) {
+			// Validate the file exists and is readable.
+			if ( ! file_exists( $pattern_file ) || ! is_readable( $pattern_file ) ) {
+				continue;
+			}
+
+			// Ensure it's a PHP file (extra safety).
+			if ( pathinfo( $pattern_file, PATHINFO_EXTENSION ) !== 'php' ) {
+				continue;
+			}
+
 			$pattern_data = get_file_data(
 				$pattern_file,
 				array(

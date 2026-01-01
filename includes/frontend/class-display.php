@@ -22,12 +22,52 @@ if ( ! defined( 'WPINC' ) ) {
 class Display {
 
 	/**
+	 * Cache for frequently accessed options.
+	 *
+	 * @since 3.0.0
+	 * @var array
+	 */
+	private static $options_cache = array();
+
+	/**
+	 * Default cache time in seconds.
+	 *
+	 * @since 3.0.0
+	 * @var int
+	 */
+	const DEFAULT_CACHE_TIME = HOUR_IN_SECONDS;
+
+	/**
+	 * Default post limit.
+	 *
+	 * @since 3.0.0
+	 * @var int
+	 */
+	const DEFAULT_POST_LIMIT = 5;
+
+	/**
 	 * Constructor class.
 	 *
 	 * @since 2.3.0
 	 */
 	public function __construct() {
 		new Breadcrumbs();
+	}
+
+	/**
+	 * Get a cached option value.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $option        Option name.
+	 * @param mixed  $default_value Default value to return if option doesn't exist.
+	 * @return mixed Option value.
+	 */
+	private static function get_cached_option( $option, $default_value = null ) {
+		if ( ! isset( self::$options_cache[ $option ] ) ) {
+			self::$options_cache[ $option ] = \wzkb_get_option( $option, $default_value );
+		}
+		return self::$options_cache[ $option ];
 	}
 
 	/**
@@ -58,21 +98,25 @@ class Display {
 			'is_shortcode'           => false,
 			'is_block'               => false,
 			'extra_class'            => '',
-			'show_article_count'     => \wzkb_get_option( 'show_article_count' ),
-			'show_excerpt'           => \wzkb_get_option( 'show_excerpt' ),
-			'clickable_section'      => \wzkb_get_option( 'clickable_section' ),
-			'show_empty_sections'    => \wzkb_get_option( 'show_empty_sections' ),
-			'limit'                  => \wzkb_get_option( 'limit' ),
-			'columns'                => \wzkb_get_option( 'columns' ),
-			'product_archive_layout' => \wzkb_get_option( 'product_archive_layout', 'sections' ),
+			'show_article_count'     => self::get_cached_option( 'show_article_count' ),
+			'show_excerpt'           => self::get_cached_option( 'show_excerpt' ),
+			'clickable_section'      => self::get_cached_option( 'clickable_section' ),
+			'show_empty_sections'    => self::get_cached_option( 'show_empty_sections' ),
+			'limit'                  => self::get_cached_option( 'limit' ),
+			'columns'                => self::get_cached_option( 'columns' ),
+			'product_archive_layout' => self::get_cached_option( 'product_archive_layout', 'sections' ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 		$args = Helpers::sanitize_args( $args );
 
+		// Normalize layout rules for consistency.
+		$args = self::normalize_arguments( $args );
+
 		// Set defaults if variables are empty.
-		$args['limit']                  = ( ! empty( absint( $args['limit'] ) ) ) ? absint( $args['limit'] ) : \wzkb_get_option( 'limit' );
-		$args['columns']                = ( ! empty( absint( $args['columns'] ) ) ) ? absint( $args['columns'] ) : \wzkb_get_option( 'columns' );
+		$args['limit']   = isset( $args['limit'] ) ? \intval( $args['limit'] ) : self::get_cached_option( 'limit' );
+		$args['columns'] = isset( $args['columns'] ) ? \absint( $args['columns'] ) : self::get_cached_option( 'columns' );
+
 		$args['product_archive_layout'] = in_array( $args['product_archive_layout'], array( 'sections', 'grid' ), true ) ? $args['product_archive_layout'] : 'sections';
 
 		// Set default classes.
@@ -80,65 +124,36 @@ class Display {
 
 		$output = '<div class="wzkb ' . esc_attr( $div_classes ) . '">';
 
-		$product          = intval( $args['product'] );
-		$category         = intval( $args['category'] );
-		$is_multi_product = \wzkb_get_option( 'multi_product' );
+		$product          = \intval( $args['product'] );
+		$category         = \intval( $args['category'] );
+		$is_multi_product = self::get_cached_option( 'multi_product' );
 
 		// Harmonize: If product = -1, auto-detect current product term (like category does).
 		if ( -1 === $product ) {
 			$queried_object = get_queried_object();
 			if ( isset( $queried_object->term_id ) && isset( $queried_object->taxonomy ) && 'wzkb_product' === $queried_object->taxonomy ) {
-				$product = intval( $queried_object->term_id );
+				$product = \intval( $queried_object->term_id );
 			}
 		}
 
-		if ( $is_multi_product ) {
-			if ( $product > 0 ) {
-				// Product-specific view in multi-product mode.
+		// Resolve view and render accordingly.
+		switch ( self::resolve_view( $product, $category, $is_multi_product ) ) {
+			case 'product':
 				$output .= self::render_product_sections( $product, $args );
-			} elseif ( 0 === $product && 0 === $category ) {
-				// Products archive view in multi-product mode.
+				break;
+
+			case 'product_archive':
 				$products = self::fetch_terms( 'wzkb_product' );
 				if ( ! empty( $products ) && ! is_wp_error( $products ) ) {
-					if ( 'grid' === $args['product_archive_layout'] ) {
-						$output .= self::render_product_archive_grid( $products );
-					} else {
-						foreach ( $products as $product_term ) {
-							$output .= '<div class="wzkb-product wzkb-product-' . esc_attr( $product_term->term_id ) . '">';
-							$output .= '<div class="wzkb-product-header">';
-
-							// Display product title as clickable if clickable_section is enabled.
-							$output .= '<h2 class="wzkb-product-title">';
-							if ( $args['clickable_section'] ) {
-								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_term_link is properly escaped below.
-								$output .= '<a href="' . esc_url( get_term_link( $product_term ) ) . '" title="' . esc_attr( $product_term->name ) . '">' . esc_html( $product_term->name ) . '</a>';
-							} else {
-								$output .= esc_html( $product_term->name );
-							}
-							$output .= '</h2>';
-
-							if ( $product_term->description ) {
-								$output .= '<div class="wzkb-product-description">' . esc_html( $product_term->description ) . '</div>';
-							}
-
-							$output .= '</div>'; // .wzkb-product-header
-
-							$output .= '<div class="wzkb-product-grid">';
-							$output .= self::render_product_sections( $product_term->term_id, $args );
-							$output .= '</div>'; // .wzkb-product-grid
-							$output .= '</div>';
-						}
-					}
+					$output .= self::render_product_archive( $products, $args );
 				} else {
 					$output .= '<div class="wzkb-no-products">' . esc_html__( 'No products found.', 'knowledgebase' ) . '</div>';
 				}
-			} else {
-				// Fallback to category view even in multi-product mode.
+				break;
+
+			default:
 				$output .= self::render_category_view( $category, $args );
-			}
-		} else {
-			// Single product mode (default): Simple category-based structure.
-			$output .= self::render_category_view( $category, $args );
+				break;
 		}
 
 		$output .= '</div>';
@@ -156,7 +171,39 @@ class Display {
 	}
 
 	/**
+	 * Resolve which view to render based on product and category context.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int  $product         Product ID.
+	 * @param int  $category        Category ID.
+	 * @param bool $is_multi_product Whether multi-product mode is enabled.
+	 * @return string View type: 'product', 'product_archive', or 'category'.
+	 */
+	private static function resolve_view( int $product, int $category, bool $is_multi_product ): string {
+		// Early return if not in multi-product mode.
+		if ( ! $is_multi_product ) {
+			return 'category';
+		}
+
+		// Early return if we have a specific product.
+		if ( $product > 0 ) {
+			return 'product';
+		}
+
+		// Early return if no product or category specified - show archive.
+		if ( 0 === $product && 0 === $category ) {
+			return 'product_archive';
+		}
+
+		// Default to category view.
+		return 'category';
+	}
+
+	/**
 	 * Generic method to fetch terms with optional meta query filters.
+	 *
+	 * @since 2.3.0
 	 *
 	 * @param string $taxonomy     Taxonomy to query.
 	 * @param array  $query_args   Base arguments for get_terms().
@@ -166,9 +213,9 @@ class Display {
 	public static function fetch_terms( $taxonomy, $query_args = array(), $meta_query = array() ) {
 		$default_args = array(
 			'taxonomy'   => $taxonomy,
-			'hide_empty' => false,
 			'orderby'    => 'slug',
 			'order'      => 'ASC',
+			'hide_empty' => true,
 		);
 		$args         = wp_parse_args( $query_args, $default_args );
 
@@ -176,27 +223,94 @@ class Display {
 			$args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 
-		return get_terms( $args );
+		// Only cache if caching is enabled.
+		$cache_enabled = ! empty( self::get_cached_option( 'cache' ) );
+
+		if ( $cache_enabled ) {
+			// Create a transient-based cache key for non-term-specific queries.
+			$transient_key = 'wzkb_fetch_terms_' . md5( wp_json_encode( $args ) );
+
+			// Try to get from transient cache first.
+			$cached_terms = get_transient( $transient_key );
+			if ( false !== $cached_terms ) {
+				return $cached_terms;
+			}
+		}
+
+		// Fetch terms.
+		$terms = get_terms( $args );
+
+		// Cache the results if caching is enabled.
+		if ( $cache_enabled && ! is_wp_error( $terms ) ) {
+			$cache_expiry = (int) self::get_cached_option( 'cache_expiry', self::DEFAULT_CACHE_TIME );
+			set_transient( $transient_key, $terms, $cache_expiry );
+		}
+
+		return $terms;
 	}
 
 	/**
 	 * Render all top-level sections for a given product term ID.
 	 *
+	 * @since 3.0.0
+	 *
 	 * @param int   $product_id Product term ID.
 	 * @param array $args       Arguments for display.
 	 * @return string           Rendered HTML for sections.
 	 */
-	public static function render_product_sections( $product_id, $args ) {
+	public static function render_product_sections( int $product_id, array $args ): string {
 		$product = get_term( $product_id, 'wzkb_product' );
 		if ( is_wp_error( $product ) || ! $product ) {
 			return '<p>' . esc_html__( 'Invalid product ID.', 'knowledgebase' ) . '</p>';
 		}
 
+		$result = self::render_product_sections_only( $product_id, $args );
+
+		if ( '' === $result['output'] ) {
+			// Fallback to product articles if no sections found.
+			$product_articles_output = self::render_product_articles_fallback( $product, $product_id, $args, $result['section_ids'] );
+
+			if ( '' === $product_articles_output ) {
+				return '<p>' . esc_html__( 'No sections found for this product.', 'knowledgebase' ) . '</p>';
+			}
+
+			return $product_articles_output;
+		}
+
+		return $result['output'];
+	}
+
+	/**
+	 * Render only the sections for a product, without fallback logic.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int   $product_id Product term ID.
+	 * @param array $args       Arguments for display.
+	 * @return array           Array with 'output' and 'section_ids' keys.
+	 */
+	private static function render_product_sections_only( int $product_id, array $args ): array {
+		$defaults = array(
+			'show_empty_sections' => (int) self::get_cached_option( 'show_empty_sections' ),
+			'show_article_count'  => (int) self::get_cached_option( 'show_article_count' ),
+			'show_excerpt'        => (int) self::get_cached_option( 'show_excerpt' ),
+			'clickable_section'   => (int) self::get_cached_option( 'clickable_section' ),
+			'columns'             => (int) self::get_cached_option( 'columns', 1 ),
+			'limit'               => (int) self::get_cached_option( 'limit', 5 ),
+			'depth'               => -1,
+			'is_block'            => 1,
+		);
+		$args     = wp_parse_args( $args, $defaults );
+		$args     = Helpers::sanitize_args( $args );
+
+		// Cache category level to avoid repeated option calls.
+		$category_level = (int) self::get_cached_option( 'category_level' );
+
 		$sections = self::fetch_terms(
 			'wzkb_category',
 			array(
 				'parent'     => 0,
-				'hide_empty' => $args['show_empty_sections'] ? 0 : 1,
+				'hide_empty' => ! $args['show_empty_sections'],
 			),
 			array(
 				array(
@@ -210,7 +324,6 @@ class Display {
 		$section_output   = '';
 		$section_term_ids = array();
 		if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
-			$category_level = (int) \wzkb_get_option( 'category_level' );
 			if ( 1 === $category_level ) {
 				$section_output .= '<div class="section group">';
 			}
@@ -230,14 +343,10 @@ class Display {
 			}
 		}
 
-		$section_term_ids        = array_unique( $section_term_ids );
-		$product_articles_output = self::render_product_articles_fallback( $product, $product_id, $args, $section_term_ids );
-
-		if ( '' === $section_output && '' === $product_articles_output ) {
-			return '<p>' . esc_html__( 'No sections found for this product.', 'knowledgebase' ) . '</p>';
-		}
-
-		return $section_output . $product_articles_output;
+		return array(
+			'output'      => $section_output,
+			'section_ids' => array_unique( $section_term_ids ),
+		);
 	}
 
 	/**
@@ -305,39 +414,39 @@ class Display {
 	 * @param array $args    Parameters array.
 	 * @return string Formatted output.
 	 */
-	public static function get_knowledge_base_loop( $term_id, $level, $nested = true, $args = array() ) {
+	public static function get_knowledge_base_loop( int $term_id, int $level, bool $nested = true, array $args = array() ): string {
 		// Recursion guard: skip if this term_id has already been rendered.
 		if ( isset( $args['visited_term_ids'] ) && in_array( $term_id, $args['visited_term_ids'], true ) ) {
 			return '';
 		}
-		// Add this term_id to visited_term_ids for recursion tracking.
-		if ( ! isset( $args['visited_term_ids'] ) ) {
-			$args['visited_term_ids'] = array();
-		}
-		$args['visited_term_ids'][] = $term_id;
+
+		// Create a local copy of args for recursion safety.
+		$local_args                     = $args;
+		$visited                        = $local_args['visited_term_ids'] ?? array();
+		$visited[]                      = $term_id;
+		$local_args['visited_term_ids'] = $visited;
 
 		// Special handling for root level (term_id = 0) in single product mode.
 		if ( 0 === $term_id && 0 === $level ) {
 			$output = '';
 
-			// Get top-level sections.
 			$sections = self::fetch_terms(
 				'wzkb_category',
 				array(
 					'parent'     => 0,
-					'hide_empty' => $args['show_empty_sections'] ? 0 : 1,
+					'hide_empty' => ! $local_args['show_empty_sections'],
 				)
 			);
 
 			if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
 				// Add section wrapper if category_level is 2.
-				$category_level = (int) \wzkb_get_option( 'category_level' );
+				$category_level = (int) self::get_cached_option( 'category_level' );
 				if ( 2 === $category_level ) {
 					$output .= '<div class="section group">';
 				}
 
 				foreach ( $sections as $section ) {
-					$output .= self::get_knowledge_base_loop( $section->term_id, 1, true, $args );
+					$output .= self::get_knowledge_base_loop( $section->term_id, 1, true, $local_args );
 				}
 
 				if ( 2 === $category_level ) {
@@ -351,22 +460,15 @@ class Display {
 		$term = get_term( $term_id, 'wzkb_category' );
 		if ( is_wp_error( $term ) || ! $term ) {
 			/* translators: %s: Term ID */
-			return sprintf( __( '%s is not enter a valid section ID', 'knowledgebase' ), $term_id );
+			return sprintf( __( '%s is not a valid section ID', 'knowledgebase' ), $term_id );
 		}
 
-		$category_level = (int) \wzkb_get_option( 'category_level' );
-		$divclasses     = array( 'wzkb-section', 'wzkb-section-level-' . $level );
+		$output = self::open_section_wrapper( $level, $local_args );
 
-		if ( 1 === $category_level && 1 === $level ) {
-			$divclasses[] = 'col span_1_of_' . $args['columns'];
-		} elseif ( 2 === $category_level && 2 === $level ) {
-			$divclasses[] = 'col span_1_of_' . $args['columns'];
+		if ( ! ( 0 === $level && isset( $local_args['skip_top_header'] ) && $local_args['skip_top_header'] ) ) {
+			$output .= self::get_article_header( $term, $level, $local_args );
 		}
-
-		$output = '<div class="' . esc_attr( implode( ' ', $divclasses ) ) . '">';
-
-		$output .= self::get_article_header( $term, $level, $args );
-		$output .= self::get_posts_by_term( $term, $level, $args );
+		$output .= self::get_posts_by_term( $term, $level, $local_args );
 
 		$output .= '<div class="wzkb-section-wrapper">';
 
@@ -375,30 +477,66 @@ class Display {
 			'wzkb_category',
 			array(
 				'orderby'    => 'slug',
-				'hide_empty' => $args['show_empty_sections'] ? 0 : 1,
 				'parent'     => $term_id,
+				'hide_empty' => ! $local_args['show_empty_sections'],
 			)
 		);
 
 		if ( ! $nested ) {
-			$output .= '</div>'; // End wzkb-section-wrapper.
+			$output .= self::close_section_inner();
 			$output .= '</div>'; // End wzkb-section.
 		}
 
 		if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
-			++$level;
-
 			foreach ( $sections as $section ) {
-				$output .= self::get_knowledge_base_loop( $section->term_id, $level, $nested, $args );
+				// Check if we've reached the maximum depth limit for nested sections.
+				// If depth is set and not -1 (unlimited), and current level exceeds it, skip this section.
+				if ( isset( $local_args['depth'] ) && -1 !== (int) $local_args['depth'] && $level >= (int) $local_args['depth'] ) {
+					continue;
+				}
+				$output .= self::get_knowledge_base_loop( $section->term_id, $level + 1, $nested, $local_args );
 			}
 		}
 
 		if ( $nested ) {
-			$output .= '</div>'; // End wzkb-section-wrapper.
+			$output .= self::close_section_inner();
 			$output .= '</div>'; // End wzkb-section.
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Open section wrapper HTML.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int   $level Section level.
+	 * @param array $args  Display arguments.
+	 * @return string Opening wrapper HTML.
+	 */
+	private static function open_section_wrapper( $level, $args ) {
+		$category_level = (int) self::get_cached_option( 'category_level' );
+		$divclasses     = array( 'wzkb-section', 'wzkb-section-level-' . $level );
+
+		if ( 1 === $category_level && 1 === $level ) {
+			$divclasses[] = 'col span_1_of_' . $args['columns'];
+		} elseif ( 2 === $category_level && 2 === $level ) {
+			$divclasses[] = 'col span_1_of_' . $args['columns'];
+		}
+
+		return '<div class="' . esc_attr( implode( ' ', $divclasses ) ) . '">';
+	}
+
+	/**
+	 * Close section inner wrapper HTML.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string Closing wrapper HTML.
+	 */
+	private static function close_section_inner() {
+		return '</div>'; // End wzkb-section-wrapper.
 	}
 
 	/**
@@ -409,14 +547,16 @@ class Display {
 	 * @param \WP_Term $term The Term.
 	 * @return \WP_Query Query results for the given term.
 	 */
-	public static function get_term_posts( $term ) {
+	public static function get_term_posts( $term ): \WP_Query {
 		// Get the term children for the current term.
 		$termchildren = get_term_children( $term->term_id, 'wzkb_category' );
 
 		// Get all the posts for the current term excluding posts located in its child terms.
 		$args = array(
-			'posts_per_page' => -1,
-			'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+			'posts_per_page'      => -1,
+			'no_found_rows'       => true,
+			'ignore_sticky_posts' => true,
+			'tax_query'           => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				'relation' => 'AND',
 				array(
 					'taxonomy' => 'wzkb_category',
@@ -433,7 +573,7 @@ class Display {
 		);
 
 		$query         = null;
-		$cache_enabled = ! empty( \wzkb_get_option( 'cache' ) );
+		$cache_enabled = ! empty( self::get_cached_option( 'cache' ) );
 		$meta_key      = null;
 
 		// Support caching to speed up retrieval.
@@ -462,9 +602,9 @@ class Display {
 	 * @param \WP_Term $term  Current term.
 	 * @param int      $level Current level in the recursive loop.
 	 * @param array    $args  Parameters array.
-	 * @return string Formatted output of posts for a given term.
+	 * @return string HTML string of posts.
 	 */
-	public static function get_posts_by_term( $term, $level, $args = array() ) {
+	public static function get_posts_by_term( $term, int $level, array $args ): string {
 		$output = '';
 		$query  = self::get_term_posts( $term );
 
@@ -479,7 +619,7 @@ class Display {
 	}
 
 	/**
-	 * Header of the articles list.
+	 * Get the article header.
 	 *
 	 * @since 2.3.0
 	 *
@@ -488,19 +628,19 @@ class Display {
 	 * @param array    $args  Parameters array.
 	 * @return string Formatted header output.
 	 */
-	public static function get_article_header( $term, $level, $args = array() ) {
+	public static function get_article_header( $term, int $level, array $args = array() ): string {
 		$output = '<h3 class="wzkb-section-name wzkb-section-name-level-' . $level . '">';
 
 		if ( $args['clickable_section'] ) {
-			$output .= '<a href="' . get_term_link( $term ) . '" title="' . $term->name . '" >' . $term->name . '</a>';
+			$output .= '<a href="' . esc_url( get_term_link( $term ) ) . '" title="' . esc_attr( $term->name ) . '">' . esc_html( $term->name ) . '</a>';
 		} else {
-			$output .= $term->name;
+			$output .= esc_html( $term->name );
 		}
 
 		if ( $args['show_article_count'] ) {
 			/* translators: %d: Number of articles within a section. */
 			$count_text = sprintf( _n( '%d article', '%d articles', $term->count, 'knowledgebase' ), $term->count );
-			$output    .= '<div class="wzkb-section-count" aria-label="' . esc_attr( $count_text ) . '">' . $term->count . '</div>';
+			$output    .= '<span class="wzkb-section-count" aria-label="' . esc_attr( $count_text ) . '">' . $term->count . '</span>';
 		}
 
 		$output .= '</h3> ';
@@ -519,7 +659,7 @@ class Display {
 	 * @param array     $args  Parameters array.
 	 * @return string Formatted articles list.
 	 */
-	public static function get_articles_loop( $term, $level, $query, $args = array() ) {
+	public static function get_articles_loop( $term, int $level, \WP_Query $query, array $args ): string {
 		$limit  = 0;
 		$output = '<ul class="wzkb-articles-list term-' . $term->term_id . '">';
 
@@ -537,7 +677,7 @@ class Display {
 
 			++$limit;
 
-			if ( $limit >= $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
+			if ( $args['limit'] > 0 && $limit >= $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
 				break;
 			}
 		endwhile;
@@ -558,10 +698,10 @@ class Display {
 	 * @param array     $args  Parameters array.
 	 * @return string Formatted footer output.
 	 */
-	public static function get_article_footer( $term, $level, $query, $args = array() ) {
+	public static function get_article_footer( $term, int $level, \WP_Query $query, array $args ): string {
 		$output = '';
 
-		if ( $query->found_posts > $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
+		if ( $args['limit'] > 0 && $query->found_posts > $args['limit'] && ! is_tax( 'wzkb_category', $term->term_id ) ) {
 			$output .= sprintf(
 				'<p class="wzkb-article-footer">%1$s<a href="%2$s" title="%3$s">%3$s</a> &raquo;</p>',
 				esc_html__( 'Read more articles in ', 'knowledgebase' ),
@@ -585,9 +725,10 @@ class Display {
 	 */
 	public static function get_categories_list( $term_id, $level = 0, $args = array() ) {
 		$defaults = array(
-			'depth'          => 0,  // Depth of nesting.
-			'before_li_item' => '', // Before list item - just after <li>.
-			'after_li_item'  => '', // Before list item - just before </li>.
+			'depth'               => 0,  // Depth of nesting.
+			'before_li_item'      => '', // Before list item - just after <li>.
+			'after_li_item'       => '', // Before list item - just before </li>.
+			'show_empty_sections' => (int) self::get_cached_option( 'show_empty_sections' ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -598,8 +739,8 @@ class Display {
 			'wzkb_category',
 			array(
 				'orderby'    => 'slug',
-				'hide_empty' => \wzkb_get_option( 'show_empty_sections' ) ? 0 : 1,
 				'parent'     => $term_id,
+				'hide_empty' => ! $args['show_empty_sections'],
 			)
 		);
 
@@ -619,13 +760,10 @@ class Display {
 
 				$output .= '<li class="wzkb_cat_' . $term->term_id . '">' . $args['before_li_item'];
 				$output .= '<a href="' . esc_url( $term_link ) . '" title="' . esc_attr( $term->name ) . '">' . esc_html( $term->name ) . '</a>';
-				$output .= self::get_categories_list( $term->term_id, $level, $args );
-				$output .= $args['after_li_item'] . '</li>';
-
-				// Exit the loop if we are at the depth.
-				if ( 0 < $args['depth'] && $level >= $args['depth'] ) {
-					break;
+				if ( -1 === (int) $args['depth'] || $level < (int) $args['depth'] ) {
+					$output .= self::get_categories_list( $term->term_id, $level, $args );
 				}
+				$output .= $args['after_li_item'] . '</li>';
 			}
 
 			$output .= '</ul>';
@@ -685,9 +823,10 @@ class Display {
 	 */
 	public static function get_product_sections_list( $product_id, $args = array(), $level = 0 ) {
 		$defaults = array(
-			'depth'          => 0,  // Depth of nesting.
-			'before_li_item' => '', // Before list item - just after <li>.
-			'after_li_item'  => '', // Before list item - just before </li>.
+			'depth'               => 0,  // Depth of nesting.
+			'before_li_item'      => '', // Before list item - just after <li>.
+			'after_li_item'       => '', // Before list item - just before </li>.
+			'show_empty_sections' => (int) self::get_cached_option( 'show_empty_sections' ),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -702,18 +841,48 @@ class Display {
 			foreach ( $sections as $section ) {
 				$output .= '<li class="wzkb_cat_' . $section->term_id . '">' . $args['before_li_item'];
 				$output .= '<a href="' . esc_url( get_term_link( $section ) ) . '">' . esc_html( $section->name ) . '</a>';
-				$output .= self::get_categories_list( $section->term_id, $level, $args );
-				$output .= $args['after_li_item'] . '</li>';
-
-				// Exit the loop if we are at the depth.
-				if ( 0 < $args['depth'] && $level >= $args['depth'] ) {
-					break;
+				if ( -1 === (int) $args['depth'] || $level < (int) $args['depth'] ) {
+					$output .= self::get_categories_list( $section->term_id, $level, $args );
 				}
+				$output .= $args['after_li_item'] . '</li>';
 			}
 			$output .= '</ul>';
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Get a hierarchical list of sections, either for a specific term or a full products/sections tree.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int   $term_id Term ID (0 for full tree).
+	 * @param array $args    Display arguments.
+	 * @return string        HTML output.
+	 */
+	public static function get_sections_tree( int $term_id, array $args = array() ): string {
+		if ( $term_id > 0 ) {
+			return wzkb_categories_list( $term_id, 0, $args );
+		}
+
+		$is_multi_product = self::get_cached_option( 'multi_product' );
+
+		if ( $is_multi_product ) {
+			$products = self::fetch_terms( 'wzkb_product' );
+			if ( ! empty( $products ) && ! is_wp_error( $products ) ) {
+				$output                      = '';
+				$args['show_empty_sections'] = $args['show_empty_sections'] ?? (int) self::get_cached_option( 'show_empty_sections' );
+				foreach ( $products as $product ) {
+					$output .= '<ul class="wzkb-products-list"><li class="wzkb-product-item"><a href="' . esc_url( get_term_link( $product ) ) . '" class="wzkb-product-link">' . esc_html( $product->name ) . '</a>';
+					$output .= self::get_product_sections_list( $product->term_id, $args );
+					$output .= '</li></ul>';
+				}
+				return $output;
+			}
+		}
+
+		return wzkb_categories_list( 0, 0, $args );
 	}
 
 	/**
@@ -735,7 +904,46 @@ class Display {
 		$term_id        = $category > 0 ? $category : 0;
 		$nested_wrapper = isset( $args['nested_wrapper'] ) ? $args['nested_wrapper'] : true;
 
-		return self::get_knowledge_base_loop( $term_id, $level, $nested_wrapper, $args );
+		// Create a local copy of args for recursion safety.
+		$local_args = $args;
+		return self::get_knowledge_base_loop( $term_id, $level, $nested_wrapper, $local_args );
+	}
+
+	/**
+	 * Normalize arguments for layout context.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $args Arguments to normalize.
+	 * @return array Normalized arguments.
+	 */
+	public static function normalize_arguments( $args ) {
+		// Ensure all defaults are present.
+		$args = wp_parse_args(
+			$args,
+			array(
+				'category'    => 0,
+				'product'     => 0,
+				'columns'     => self::get_cached_option( 'columns' ),
+				'extra_class' => '',
+			)
+		);
+
+		// Type casting for safety.
+		$args['category']    = (int) $args['category'];
+		$args['product']     = (int) $args['product'];
+		$args['columns']     = (int) $args['columns'];
+		$args['extra_class'] = (string) $args['extra_class'];
+
+		// Force single column for single sections via class and ensure extra_class is set.
+		if ( 0 !== $args['product'] ) {
+			$args['extra_class'] = trim( $args['extra_class'] . ' wzkb-product-archive' );
+		} elseif ( 0 !== $args['category'] ) {
+			$args['extra_class'] = trim( $args['extra_class'] . ' wzkb-category-archive' );
+			$args['columns']     = 1;
+		}
+
+		return $args;
 	}
 
 	/**
@@ -754,6 +962,10 @@ class Display {
 		if ( isset( $args['product_archive_layout'] ) && 'grid' === $args['product_archive_layout'] ) {
 			$classes[] = 'wzkb-product-grid-layout';
 		}
+
+		// Filter out empty values to prevent double spaces.
+		$classes = array_filter( $classes );
+
 		/**
 		 * Filter the classes added to the div wrapper of the Knowledge Base.
 		 *
@@ -762,6 +974,51 @@ class Display {
 		 * @param string $div_classes String with the classes of the div wrapper.
 		 */
 		return apply_filters( 'wzkb_div_class', implode( ' ', $classes ) );
+	}
+
+	/**
+	 * Render product archive view.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $products Array of product terms.
+	 * @param array $args     Display arguments.
+	 * @return string Rendered HTML.
+	 */
+	private static function render_product_archive( $products, $args ) {
+		$output = '';
+
+		if ( 'grid' === $args['product_archive_layout'] ) {
+			$output .= self::render_product_archive_grid( $products );
+		} else {
+			foreach ( $products as $product_term ) {
+				$output .= '<div class="wzkb-product wzkb-product-' . esc_attr( $product_term->term_id ) . '">';
+				$output .= '<div class="wzkb-product-header">';
+
+				// Display product title as clickable if clickable_section is enabled.
+				$output .= '<h2 class="wzkb-product-title">';
+				if ( $args['clickable_section'] ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_term_link is properly escaped below.
+					$output .= '<a href="' . esc_url( get_term_link( $product_term ) ) . '" title="' . esc_attr( $product_term->name ) . '">' . esc_html( $product_term->name ) . '</a>';
+				} else {
+					$output .= esc_html( $product_term->name );
+				}
+				$output .= '</h2>';
+
+				if ( $product_term->description ) {
+					$output .= '<div class="wzkb-product-description">' . esc_html( $product_term->description ) . '</div>';
+				}
+
+				$output .= '</div>'; // .wzkb-product-header
+
+				$output .= '<div class="wzkb-product-grid">';
+				$output .= self::render_product_sections( $product_term->term_id, $args );
+				$output .= '</div>'; // .wzkb-product-grid
+				$output .= '</div>';
+			}
+		}
+
+		return $output;
 	}
 
 	/**
