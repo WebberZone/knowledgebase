@@ -87,7 +87,6 @@ msgid "Styles"
 msgstr ""
 
 #: includes/admin/class-settings.php:391
-#: includes/admin/class-setup-wizard.php:481
 msgid "Knowledge Base slug"
 msgstr ""
 
@@ -100,7 +99,6 @@ msgid "Each article can have multiple tags. This setting is used when registerin
 msgstr ""
 
 #: includes/admin/class-settings.php:438
-#: includes/admin/class-setup-wizard.php:667
 msgid "Enable cache"
 msgstr ""
 
@@ -143,22 +141,18 @@ msgid "The knowledge base articles have a default feed. This option will disable
 msgstr ""
 
 #: includes/admin/class-settings.php:533
-#: includes/admin/class-setup-wizard.php:597
 msgid "Knowledge base title"
 msgstr ""
 
 #: includes/admin/class-settings.php:534
-#: includes/admin/class-setup-wizard.php:602
 msgid "This will be displayed as the title of the archive title as well as on other relevant places."
 msgstr ""
 
 #: includes/admin/class-settings.php:541
-#: includes/admin/class-setup-wizard.php:374
 msgid "First section level"
 msgstr ""
 
 #: includes/admin/class-settings.php:551
-#: includes/admin/class-setup-wizard.php:608
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:153
 msgid "Show article count"
@@ -169,7 +163,6 @@ msgid "If selected, the number of articles will be displayed in an orange circle
 msgstr ""
 
 #: includes/admin/class-settings.php:558
-#: includes/admin/class-setup-wizard.php:620
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:166
 msgid "Show excerpt"
@@ -180,7 +173,6 @@ msgid "Select to include the post excerpt after the article link"
 msgstr ""
 
 #: includes/admin/class-settings.php:565
-#: includes/admin/class-setup-wizard.php:632
 msgid "Link section title"
 msgstr ""
 
@@ -199,28 +191,20 @@ msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
 #: includes/admin/class-settings.php:579
-#: includes/admin/class-setup-wizard.php:644
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:139
 msgid "Max articles per section"
 msgstr ""
 
 #: includes/admin/class-settings.php:589
-#: includes/admin/class-setup-wizard.php:679
 msgid "Show sidebar"
 msgstr ""
 
-#: includes/admin/class-setup-wizard.php:685
-msgid "Add the sidebar of your theme into the inbuilt templates for archive, sections and search. Activate this option if your theme does not already include this."
-msgstr ""
-
 #: includes/admin/class-settings.php:596
-#: includes/admin/class-setup-wizard.php:655
 msgid "Show related articles"
 msgstr ""
 
 #: includes/admin/class-settings.php:597
-#: includes/admin/class-setup-wizard.php:661
 msgid "Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template."
 msgstr ""
 
@@ -233,7 +217,6 @@ msgid "Uncheck this to disable this plugin from adding the inbuilt styles. You w
 msgstr ""
 
 #: includes/admin/class-settings.php:651
-#: includes/admin/class-setup-wizard.php:701
 msgid "Number of columns"
 msgstr ""
 
@@ -522,6 +505,7 @@ msgid "New Article"
 msgstr ""
 
 #: includes/class-cpt.php:72
+#: includes/pro/rating/class-rating-email.php:264
 msgid "Edit Article"
 msgstr ""
 
@@ -530,6 +514,8 @@ msgid "Update Article"
 msgstr ""
 
 #: includes/class-cpt.php:74
+#: includes/pro/rating/class-rating-email.php:267
+#: includes/pro/rating/class-ratings-page.php:376
 msgid "View Article"
 msgstr ""
 
@@ -686,6 +672,8 @@ msgstr ""
 #: includes/blocks/src/products/edit.js:113
 #: includes/blocks/src/related/edit.js:51
 #: includes/blocks/src/sections/edit.js:29
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:56
 msgid "Title"
 msgstr ""
 
@@ -926,6 +914,7 @@ msgstr ""
 
 #: includes/admin/class-product-migrator.php:220
 #: includes/admin/class-settings-wizard.php:367
+#: includes/pro/class-admin.php:104
 msgid "Insufficient permissions."
 msgstr ""
 
@@ -1177,7 +1166,6 @@ msgid "Select the product this section belongs to."
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:152
-#: includes/admin/class-setup-wizard.php:136
 msgid "Knowledge Base Setup"
 msgstr ""
 
@@ -1210,8 +1198,6 @@ msgid "Customize how the knowledge base archive looks and which metadata is visi
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:172
-#: includes/admin/class-setup-wizard.php:114
-#: includes/admin/class-setup-wizard.php:773
 msgid "Pro Features"
 msgstr ""
 
@@ -1224,7 +1210,6 @@ msgid "Knowledge Base Setup Wizard"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:217
-#: includes/admin/class-setup-wizard.php:137
 msgid "Setup Wizard"
 msgstr ""
 
@@ -1291,10 +1276,12 @@ msgid "Reindexing... Click to Stop"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:372
+#: includes/pro/class-admin.php:111
 msgid "Permalinks flushed successfully."
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:396
+#: includes/pro/class-admin.php:86
 msgid "Flush Permalinks"
 msgstr ""
 
@@ -1307,42 +1294,34 @@ msgid "Next Steps:"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:406
-#: includes/admin/class-setup-wizard.php:1224
 msgid "Start by creating products to organize your knowledge base content."
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:406
-#: includes/admin/class-setup-wizard.php:1228
 msgid "Create sections to categorize your articles and improve navigation."
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:414
-#: includes/admin/class-setup-wizard.php:1237
 msgid "Create your first product"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:416
-#: includes/admin/class-setup-wizard.php:1239
 msgid "Organize content by products"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:422
-#: includes/admin/class-setup-wizard.php:1245
 msgid "Add sections"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:424
-#: includes/admin/class-setup-wizard.php:1247
 msgid "Create categories for articles"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:429
-#: includes/admin/class-setup-wizard.php:1252
 msgid "Create your first article"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:431
-#: includes/admin/class-setup-wizard.php:1254
 msgid "Add helpful content"
 msgstr ""
 
@@ -1351,22 +1330,18 @@ msgid "Configure settings"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:438
-#: includes/admin/class-setup-wizard.php:1261
 msgid "Customize display and behavior"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:444
-#: includes/admin/class-setup-wizard.php:1285
 msgid "Pro Features Available"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:449
-#: includes/admin/class-setup-wizard.php:1310
 msgid "Customize Permalinks"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:451
-#: includes/admin/class-setup-wizard.php:1312
 msgid "Optimize URL structure"
 msgstr ""
 
@@ -1379,7 +1354,6 @@ msgid "Set up article feedback and help widget"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:470
-#: includes/admin/class-setup-wizard.php:1319
 msgid "Helpful Resources"
 msgstr ""
 
@@ -1400,7 +1374,6 @@ msgid "Maintenance and debugging"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:489
-#: includes/admin/class-setup-wizard.php:1324
 msgid "Support Forum"
 msgstr ""
 
@@ -1417,12 +1390,10 @@ msgid "Pro"
 msgstr ""
 
 #: includes/admin/class-settings.php:368
-#: includes/admin/class-setup-wizard.php:99
 msgid "Multi-Product Mode"
 msgstr ""
 
 #: includes/admin/class-settings.php:375
-#: includes/admin/class-setup-wizard.php:364
 msgid "Enable Multi-Product Mode"
 msgstr ""
 
@@ -1431,8 +1402,6 @@ msgid "Enable this option to use a dedicated “Products” menu to organize you
 msgstr ""
 
 #: includes/admin/class-settings.php:385
-#: includes/admin/class-setup-wizard.php:104
-#: includes/admin/class-setup-wizard.php:428
 msgid "Permalinks"
 msgstr ""
 
@@ -1441,7 +1410,6 @@ msgid "The following settings affect the permalinks of the knowledge base. These
 msgstr ""
 
 #: includes/admin/class-settings.php:399
-#: includes/admin/class-setup-wizard.php:491
 msgid "Product slug"
 msgstr ""
 
@@ -1450,7 +1418,6 @@ msgid "This slug forms part of the URL for product pages when Multi-Product Mode
 msgstr ""
 
 #: includes/admin/class-settings.php:407
-#: includes/admin/class-setup-wizard.php:501
 msgid "Section slug"
 msgstr ""
 
@@ -1459,12 +1426,10 @@ msgid "Each section is a section of the knowledge base. This setting is used whe
 msgstr ""
 
 #: includes/admin/class-settings.php:415
-#: includes/admin/class-setup-wizard.php:511
 msgid "Tags slug"
 msgstr ""
 
 #: includes/admin/class-settings.php:423
-#: includes/admin/class-setup-wizard.php:521
 msgid "Article Permalink Structure"
 msgstr ""
 
@@ -1585,59 +1550,48 @@ msgid "Article Rating"
 msgstr ""
 
 #: includes/admin/class-settings.php:696
-#: includes/admin/class-setup-wizard.php:797
 msgid "Enable Rating System"
 msgstr ""
 
 #: includes/admin/class-settings.php:697
-#: includes/admin/class-setup-wizard.php:809
 msgid "Allow visitors to rate the quality of knowledge base articles."
 msgstr ""
 
 #: includes/admin/class-settings.php:701
-#: includes/admin/class-setup-wizard.php:805
 msgid "Disabled"
 msgstr ""
 
 #: includes/admin/class-settings.php:702
-#: includes/admin/class-setup-wizard.php:806
 msgid "Useful / Not Useful"
 msgstr ""
 
 #: includes/admin/class-settings.php:703
-#: includes/admin/class-setup-wizard.php:807
 msgid "1-5 Star Rating"
 msgstr ""
 
 #: includes/admin/class-settings.php:709
-#: includes/admin/class-setup-wizard.php:820
 msgid "Vote Tracking Method"
 msgstr ""
 
 #. translators: %1$s: Opening link tag, %2$s: Closing link tag.
 #: includes/admin/class-settings.php:713
-#: includes/admin/class-setup-wizard.php:838
 #, php-format
 msgid "Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s."
 msgstr ""
 
 #: includes/admin/class-settings.php:720
-#: includes/admin/class-setup-wizard.php:828
 msgid "No Tracking (allows multiple votes)"
 msgstr ""
 
 #: includes/admin/class-settings.php:721
-#: includes/admin/class-setup-wizard.php:829
 msgid "Cookie Only (requires consent)"
 msgstr ""
 
 #: includes/admin/class-settings.php:722
-#: includes/admin/class-setup-wizard.php:830
 msgid "IP Address Only (stores personal data)"
 msgstr ""
 
 #: includes/admin/class-settings.php:723
-#: includes/admin/class-setup-wizard.php:831
 msgid "Cookie + IP Address (requires both)"
 msgstr ""
 
@@ -1646,17 +1600,14 @@ msgid "Logged-in Users Only (best for authenticated sites)"
 msgstr ""
 
 #: includes/admin/class-settings.php:730
-#: includes/admin/class-setup-wizard.php:849
 msgid "Show Rating Statistics"
 msgstr ""
 
 #: includes/admin/class-settings.php:731
-#: includes/admin/class-setup-wizard.php:858
 msgid "Display the average rating and vote count below the rating buttons."
 msgstr ""
 
 #: includes/admin/class-settings.php:738
-#: includes/admin/class-setup-wizard.php:863
 msgid "Help Widget"
 msgstr ""
 
@@ -1665,7 +1616,6 @@ msgid "A floating help widget that provides self-service support with search, su
 msgstr ""
 
 #: includes/admin/class-settings.php:744
-#: includes/admin/class-setup-wizard.php:868
 msgid "Enable Help Widget"
 msgstr ""
 
@@ -1674,7 +1624,6 @@ msgid "Display a floating help widget on your site for self-service support."
 msgstr ""
 
 #: includes/admin/class-settings.php:752
-#: includes/admin/class-setup-wizard.php:888
 msgid "Display Location"
 msgstr ""
 
@@ -1683,17 +1632,14 @@ msgid "Choose where the help widget appears on your site."
 msgstr ""
 
 #: includes/admin/class-settings.php:757
-#: includes/admin/class-setup-wizard.php:896
 msgid "Knowledge Base Only"
 msgstr ""
 
 #: includes/admin/class-settings.php:758
-#: includes/admin/class-setup-wizard.php:897
 msgid "Entire Site"
 msgstr ""
 
 #: includes/admin/class-settings.php:764
-#: includes/admin/class-setup-wizard.php:905
 msgid "Button Position"
 msgstr ""
 
@@ -1702,12 +1648,10 @@ msgid "Choose where the help widget button appears on the screen."
 msgstr ""
 
 #: includes/admin/class-settings.php:769
-#: includes/admin/class-setup-wizard.php:913
 msgid "Bottom Right"
 msgstr ""
 
 #: includes/admin/class-settings.php:770
-#: includes/admin/class-setup-wizard.php:914
 msgid "Bottom Left"
 msgstr ""
 
@@ -1742,6 +1686,7 @@ msgid "Text to display on the help widget button (when text style is selected)."
 msgstr ""
 
 #: includes/admin/class-settings.php:792
+#: includes/pro/help-widget/class-help-widget.php:75
 msgid "Help"
 msgstr ""
 
@@ -1802,7 +1747,6 @@ msgid "Background color when hovering over help widget links and list items."
 msgstr ""
 
 #: includes/admin/class-settings.php:861
-#: includes/admin/class-setup-wizard.php:935
 msgid "Greeting Message"
 msgstr ""
 
@@ -1811,8 +1755,7 @@ msgid "Welcome message shown when the help widget opens."
 msgstr ""
 
 #: includes/admin/class-settings.php:864
-#: includes/admin/class-setup-wizard.php:770
-#: includes/admin/class-setup-wizard.php:1018
+#: includes/pro/help-widget/class-help-widget.php:83
 msgid "Hi! How can we help you?"
 msgstr ""
 
@@ -1825,11 +1768,11 @@ msgid "Placeholder text for the search input field."
 msgstr ""
 
 #: includes/admin/class-settings.php:873
+#: includes/pro/help-widget/class-help-widget.php:84
 msgid "Search for answers..."
 msgstr ""
 
 #: includes/admin/class-settings.php:879
-#: includes/admin/class-setup-wizard.php:949
 msgid "Enable Contact Form"
 msgstr ""
 
@@ -1907,374 +1850,6 @@ msgstr ""
 msgid "Start Settings Wizard"
 msgstr ""
 
-#: includes/admin/class-setup-wizard.php:94
-msgid "Welcome"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:109
-msgid "Display"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:119
-msgid "Ready!"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:171
-msgid "Sorry, you are not allowed to access this page."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:218
-msgid "WebberZone Knowledge Base Setup Wizard"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:239
-#: includes/admin/settings/class-settings-wizard-api.php:833
-msgid "Setup Wizard Steps"
-msgstr ""
-
-#. translators: 1: Current step number, 2: Total steps, 3: Progress percentage
-#: includes/admin/class-setup-wizard.php:242
-#, php-format
-msgid "Step %1$d of %2$d (%3$d%% complete)"
-msgstr ""
-
-#. translators: %s: Setup wizard step name.
-#: includes/admin/class-setup-wizard.php:267
-#, php-format
-msgid "Return to %s"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:317
-msgid "The Knowledge Base has already been set up. You can rerun the setup wizard to change your configuration, or skip to the dashboard."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:320
-msgid "Welcome to Knowledge Base!"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:321
-msgid "Thank you for choosing Knowledge Base! This quick setup wizard will help you configure the basic settings. It is completely optional and should not take longer than five minutes."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:322
-msgid "No time right now? If you do not want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:326
-msgid "Let's Go!"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:327
-msgid "Not right now"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:359
-msgid "Knowledge Base Mode"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:360
-msgid "Enable multi-product mode to organize your knowledge base by product."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:368
-msgid "Multi-product mode (created in version 3.0) allows you to organize your knowledge base by product using the dedicated Product taxonomy."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:369
-msgid "This is useful if you have multiple products that require their own documentation."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:370
-msgid "This is recommended to be enabled if you plan to use the knowledge base for multiple products."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:377
-msgid "Knowledge Base supports an unlimited hierarchy of sections. This allows you to create a single or multi-product knowledge base by only using Sections. This was the default mode before version 3.0."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:378
-msgid "If you plan to use multi-product mode, set this to 1 to use the sections as the first level of each product. This is the recommended mode for multi-product knowledge bases."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:379
-msgid "If you don't plan to use multi-product mode, but want to have multiple top-level sections for products or categories, set this to 2. The Top-level sections will be used for products or categories."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:385
-#: includes/admin/class-setup-wizard.php:533
-#: includes/admin/class-setup-wizard.php:710
-#: includes/admin/class-setup-wizard.php:965
-msgid "Previous"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:386
-#: includes/admin/class-setup-wizard.php:534
-#: includes/admin/class-setup-wizard.php:711
-#: includes/admin/class-setup-wizard.php:966
-msgid "Continue"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:405
-msgid "Mode settings saved successfully."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:407
-msgid "Failed to save mode settings."
-msgstr ""
-
-#. translators: %1$s: Example knowledge base path wrapped in code tags.
-#: includes/admin/class-setup-wizard.php:433
-#, php-format
-msgid "Customize the URL structure of your Knowledge Base. You can enter a relative path like %1$s, but ensure it does not conflict with other plugins or themes and does not end with a slash or contain any special characters."
-msgstr ""
-
-#. translators: %s is wrapped in <code>
-#: includes/admin/class-setup-wizard.php:445
-#, php-format
-msgid "<strong>Pro active:</strong> You can use nested structures and advanced placeholders like %s for complete control over your URLs."
-msgstr ""
-
-#. translators: %1$s, %2$s are wrapped in <code>
-#: includes/admin/class-setup-wizard.php:456
-#, php-format
-msgid "All the below slugs must be unique and not nested within each other. e.g. %1$s and %2$s are NOT valid as the product slug is nested below the KB slug."
-msgstr ""
-
-#. translators: %1$s is the product name, %2$s is the link
-#: includes/admin/class-setup-wizard.php:469
-#, php-format
-msgid "Want advanced permalink flexibility? Upgrade to %1$s for nested structures, intelligent routing, custom placeholders, and automatic conflict resolution. %2$s"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:470
-msgid "Knowledge Base Pro"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:471
-msgid "Learn More"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:487
-msgid "This sets the main URL of the knowledge base. It will also serve as the base URL for your articles."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:497
-msgid "URL slug for product pages when Multi-Product Mode is enabled. If you are not using multi-product mode, this will be ignored."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:507
-msgid "URL slug for section archives. Each Section contains a group of related articles."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:517
-msgid "URL slug for tag archives. Articles can have multiple tags for cross-categorization."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:527
-msgid "Structure for article URLs. Use %postname% for simple URLs. Leave empty to use default which is the \"Knowledge Base slug/%postname%\"."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:560
-msgid "Permalink settings saved successfully."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:563
-msgid "Failed to save permalink settings."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:590
-msgid "Display Settings"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:592
-msgid "Configure the Knowledge Base Output"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:614
-msgid "Show the number of articles within each section."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:626
-msgid "Show the excerpt below the article title."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:638
-msgid "Make the section title a clickable link."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:649
-msgid "Maximum number of articles to display per section. After this limit is reached, the footer is displayed with the more link to view the category."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:673
-msgid "Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:690
-msgid "Style Settings"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:693
-msgid "Include built-in styles"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:697
-msgid "Include the built-in styles for the knowledge base."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:703
-msgid "Number of columns to display the knowledge base in."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:743
-msgid "Display settings saved successfully."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:745
-msgid "Failed to save display settings."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:778
-msgid "Upgrade to Knowledge Base Pro to unlock these powerful features!"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:780
-msgid "The following features are available in the Pro version. Upgrade now to enable them and boost your knowledge base effectiveness."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:783
-#: includes/admin/class-setup-wizard.php:1330
-msgid "Upgrade to Pro"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:788
-msgid "Configure advanced Pro features for your knowledge base."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:792
-msgid "Article Rating System"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:799
-#: includes/admin/class-setup-wizard.php:822
-#: includes/admin/class-setup-wizard.php:851
-#: includes/admin/class-setup-wizard.php:870
-#: includes/admin/class-setup-wizard.php:890
-#: includes/admin/class-setup-wizard.php:907
-#: includes/admin/class-setup-wizard.php:923
-#: includes/admin/class-setup-wizard.php:937
-#: includes/admin/class-setup-wizard.php:951
-msgid "PRO"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:812
-msgid "✨ Collect valuable feedback with binary or 5-star ratings, optional follow-up questions, email alerts, and GDPR-compliant tracking."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:832
-msgid "Logged-in Users Only"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:877
-msgid "Display the floating help widget with search, suggested articles, and contact form."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:880
-msgid "✨ Engage visitors with a modern floating help widget featuring instant search, context-aware article suggestions, and an integrated contact form—all beautifully designed and mobile-responsive."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:899
-msgid "Control where the help widget button appears."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:921
-msgid "Primary Color"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:929
-msgid "Main brand color for the help widget button. Other colors will be generated automatically."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:943
-msgid "Welcome message shown when users open the help widget."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:958
-msgid "Allow visitors to send messages from the help widget."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1027
-msgid "Pro features settings saved successfully."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1029
-msgid "Failed to save pro features settings."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1209
-msgid "Your Knowledge Base is Ready!"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1210
-msgid "Congratulations! You have completed the setup wizard."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1213
-msgid "You can now start adding Products, Sections and Articles to your knowledge base."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1215
-msgid "You can now start adding Sections and Articles to your knowledge base."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1220
-msgid "Next Steps"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1224
-msgid "Multi-Product Mode:"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1228
-msgid "Single-Product Mode:"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1259
-msgid "Configure additional settings"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1274
-msgid "Migrate Existing Content"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1275
-msgid "It looks like you have existing articles and sections. If you want to organize them into products, use the Product Migration Wizard to convert your top-level sections into products."
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1278
-msgid "Run Product Migration"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1291
-msgid "Customize Help Widget"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1293
-msgid "Configure help widget appearance"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1301
-msgid "Configure Rating System"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1303
-msgid "Set up article feedback"
-msgstr ""
-
-#: includes/admin/class-setup-wizard.php:1430
-msgid "Are you sure you want to skip the setup wizard? You can return to it later. This will only skip the setup wizard if you have not completed it yet."
-msgstr ""
-
 #: includes/admin/class-tools-page.php:53
 #: includes/admin/class-tools-page.php:87
 msgid "Knowledge Base Tools"
@@ -2292,6 +1867,10 @@ msgstr ""
 
 #: includes/admin/class-tools-page.php:159
 msgid "Different features can add their own tool sections to this page."
+msgstr ""
+
+#: includes/admin/settings/class-settings-wizard-api.php:833
+msgid "Setup Wizard Steps"
 msgstr ""
 
 #: includes/admin/sidebar.php:21
@@ -2323,6 +1902,10 @@ msgid "Search the knowledgebase…"
 msgstr ""
 
 #: includes/blocks/class-blocks.php:669
+#: includes/pro/help-widget/class-help-widget.php:249
+#: includes/pro/help-widget/class-help-widget.php:392
+#: includes/pro/help-widget/class-help-widget.php:427
+#: includes/pro/rating/class-ratings-page.php:151
 msgid "Search"
 msgstr ""
 
@@ -2570,6 +2153,736 @@ msgstr ""
 msgid "No product found"
 msgstr ""
 
+#: includes/pro/blocks/class-blocks.php:95
+msgid "The Rating System is disabled for Knowledge Base."
+msgstr ""
+
+#: includes/pro/blocks/class-blocks.php:97
+msgid "Open settings"
+msgstr ""
+
+#: includes/pro/blocks/class-blocks.php:126
+msgid "No rated articles to display yet."
+msgstr ""
+
+#: includes/pro/blocks/class-blocks.php:137
+#: includes/pro/rating/class-rating.php:530
+msgid "Top Rated Articles"
+msgstr ""
+
+#: includes/pro/blocks/class-blocks.php:147
+msgid "Readers loved these articles the most."
+msgstr ""
+
+#: includes/pro/blocks/class-blocks.php:153
+msgid "Keep exploring the knowledge base for more insights."
+msgstr ""
+
+#: includes/pro/class-admin.php:83
+msgid "Clear cache"
+msgstr ""
+
+#: includes/pro/class-admin.php:99
+#: includes/pro/rating/class-rating-admin.php:296
+#: includes/pro/rating/class-ratings-page.php:86
+msgid "Security check failed."
+msgstr ""
+
+#: includes/pro/class-custom-permalinks.php:1109
+msgid "You can use the following placeholders in the permalink structure:"
+msgstr ""
+
+#: includes/pro/class-pro.php:129
+msgid "Modern"
+msgstr ""
+
+#: includes/pro/class-pro.php:130
+msgid "Minimal"
+msgstr ""
+
+#: includes/pro/class-pro.php:131
+msgid "Boxed"
+msgstr ""
+
+#: includes/pro/class-pro.php:132
+msgid "Gradient"
+msgstr ""
+
+#: includes/pro/class-pro.php:133
+msgid "Compact"
+msgstr ""
+
+#: includes/pro/class-pro.php:134
+msgid "Magazine"
+msgstr ""
+
+#: includes/pro/class-pro.php:135
+msgid "Professional"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:250
+msgid "Send a message"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:251
+#: includes/pro/help-widget/class-help-widget.php:405
+#: includes/pro/help-widget/class-help-widget.php:440
+msgid "Back"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:252
+#: includes/pro/help-widget/class-help-widget.php:348
+#: includes/pro/help-widget/class-help-widget.php:411
+#: includes/pro/help-widget/class-help-widget.php:446
+msgid "Close"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:253
+msgid "No articles found"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:254
+msgid "Haven't found what you're looking for, drop us a line"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:255
+#: includes/pro/help-widget/class-help-widget.php:361
+msgid "Suggested articles"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:256
+#: includes/pro/help-widget/class-help-widget.php:410
+msgid "Search results"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:257
+#: includes/pro/help-widget/class-help-widget.php:384
+#: includes/pro/help-widget/class-help-widget.php:445
+msgid "Send us a message"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:258
+#: includes/pro/help-widget/class-help-widget.php:457
+#: includes/pro/help-widget/class-help-widget.php:458
+msgid "Name"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:259
+#: includes/pro/help-widget/class-help-widget.php:462
+#: includes/pro/help-widget/class-help-widget.php:463
+msgid "Email"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:260
+#: includes/pro/help-widget/class-help-widget.php:467
+#: includes/pro/help-widget/class-help-widget.php:468
+#: includes/pro/help-widget/class-help-widget.php:597
+msgid "Subject"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:261
+#: includes/pro/help-widget/class-help-widget.php:472
+#: includes/pro/help-widget/class-help-widget.php:473
+#: includes/pro/help-widget/class-help-widget.php:611
+msgid "Message"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:262
+#: includes/pro/help-widget/class-help-widget.php:477
+msgid "Send message"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:263
+msgid "Thank you! We'll get back to you soon."
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:264
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:265
+msgid "This field is required"
+msgstr ""
+
+#. translators: %d: Required message length in characters.
+#: includes/pro/help-widget/class-help-widget.php:267
+#, php-format
+msgid "Please enter at least %d characters."
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:329
+msgid "Open help widget"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:500
+msgid "Search query is required"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:562
+msgid "New Contact Message"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:578
+msgid "From"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:626
+msgid "This message was sent via the Help Widget on"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:664
+#: includes/pro/help-widget/class-help-widget.php:740
+msgid "Thank you! Your message has been sent successfully. We'll get back to you soon."
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:671
+msgid "All fields are required"
+msgstr ""
+
+#. translators: %d: Required message length in characters.
+#: includes/pro/help-widget/class-help-widget.php:682
+#, php-format
+msgid "Please enter at least %d characters in the message field."
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:690
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:701
+msgid "Too many submissions. Please try again later."
+msgstr ""
+
+#: includes/pro/help-widget/class-help-widget.php:744
+msgid "Failed to send message. Please try again."
+msgstr ""
+
+#: includes/pro/rating/class-rating-admin.php:98
+#: includes/pro/rating/class-rating.php:1253
+#: includes/pro/rating/class-rating.php:1304
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: includes/pro/rating/class-rating-admin.php:120
+#: includes/pro/rating/class-rating.php:1894
+msgid "Rating"
+msgstr ""
+
+#. translators: 1: Percentage, 2: Total votes
+#: includes/pro/rating/class-rating-admin.php:151
+#, php-format
+msgid "%1$d%% (%2$d)"
+msgstr ""
+
+#. translators: 1: Average rating, 2: Total votes
+#: includes/pro/rating/class-rating-admin.php:154
+#, php-format
+msgid "%1$.1f / 5 (%2$d)"
+msgstr ""
+
+#. translators: %d: Number of feedback entries
+#: includes/pro/rating/class-rating-admin.php:163
+#: includes/pro/rating/class-ratings-page.php:398
+#, php-format
+msgid "%d feedback"
+msgid_plural "%d feedbacks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/pro/rating/class-rating-admin.php:274
+msgid "Reset Rating"
+msgstr ""
+
+#: includes/pro/rating/class-rating-admin.php:290
+msgid "Invalid post ID."
+msgstr ""
+
+#: includes/pro/rating/class-rating-admin.php:301
+msgid "You do not have permission to reset ratings."
+msgstr ""
+
+#: includes/pro/rating/class-rating-admin.php:317
+msgid "Rating reset successfully."
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:71
+msgid "Unknown Article"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:74
+#: includes/pro/rating/class-rating.php:193
+#: includes/pro/rating/class-ratings-page.php:411
+#: includes/pro/rating/class-ratings-page.php:507
+msgid "Not Useful"
+msgstr ""
+
+#. translators: %d: Rating value (1-5).
+#: includes/pro/rating/class-rating-email.php:76
+#: includes/pro/rating/class-ratings-page.php:413
+#, php-format
+msgid "%d / 5 stars"
+msgstr ""
+
+#. translators: %s: Article title
+#: includes/pro/rating/class-rating-email.php:79
+#, php-format
+msgid "[Knowledge Base] Low rating received: %s"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:193
+msgid "Low Rating Alert"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:205
+msgid "A low rating with feedback was received for the following article:"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:218
+msgid "Rating:"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:226
+msgid "Total Votes:"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:234
+msgid "Average:"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:250
+msgid "User Feedback:"
+msgstr ""
+
+#: includes/pro/rating/class-rating-email.php:274
+msgid "View All Ratings & Feedback →"
+msgstr ""
+
+#. translators: %s: Site name
+#: includes/pro/rating/class-rating-email.php:288
+#, php-format
+msgid "This email was sent from %s"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:163
+msgid "Article rating"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:165
+msgid "Was this article helpful?"
+msgstr ""
+
+#. translators: 1: Opening link tag, 2: Closing link tag
+#: includes/pro/rating/class-rating.php:174
+#, php-format
+msgid "Please %1$slog in%2$s to rate this article."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:189
+#: includes/pro/rating/class-rating.php:1873
+#: includes/pro/rating/class-ratings-page.php:411
+#: includes/pro/rating/class-ratings-page.php:507
+msgid "Useful"
+msgstr ""
+
+#. translators: %d: Star rating value.
+#: includes/pro/rating/class-rating.php:199
+#, php-format
+msgid "Rate %d stars"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:210
+msgid "How can we improve this article?"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:211
+msgid "(optional)"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:214
+msgid "Maximum 500 characters"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:221
+msgid "Your feedback helps us improve..."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:223
+msgid "Submit Feedback"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:224
+msgid "Skip"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:229
+#: includes/pro/rating/class-rating.php:895
+#: includes/pro/rating/class-rating.php:956
+#: includes/pro/rating/class-rating.php:1254
+msgid "Thank you for your feedback!"
+msgstr ""
+
+#. translators: 1: Percentage, 2: Total votes
+#: includes/pro/rating/class-rating.php:239
+#: includes/pro/rating/class-rating.php:948
+#, php-format
+msgid "%1$d%% found this helpful (%2$d votes)"
+msgstr ""
+
+#. translators: 1: Average rating, 2: Total votes
+#: includes/pro/rating/class-rating.php:246
+#: includes/pro/rating/class-rating.php:951
+#, php-format
+msgid "Average rating: %1$.1f / 5 (%2$d votes)"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:562
+msgid "These articles consistently earn the highest satisfaction scores from readers."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:569
+msgid "Top rated knowledge base articles"
+msgstr ""
+
+#. translators: %d: Number of votes.
+#: includes/pro/rating/class-rating.php:585
+#, php-format
+msgid "%d votes"
+msgstr ""
+
+#. translators: %s: Average rating.
+#: includes/pro/rating/class-rating.php:590
+#, php-format
+msgid "%s out of 5 stars"
+msgstr ""
+
+#. translators: %d: Number of votes.
+#: includes/pro/rating/class-rating.php:592
+#, php-format
+msgid "%d vote"
+msgid_plural "%d votes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/pro/rating/class-rating.php:858
+msgid "Invalid submission."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:863
+msgid "You are submitting ratings too quickly. Please wait a moment and try again."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:876
+msgid "Invalid data."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:881
+#: includes/pro/rating/class-rating.php:908
+msgid "Invalid post type."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:903
+msgid "Invalid rating data."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:913
+msgid "This article is not available for rating."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:918
+msgid "You have already rated this article."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:923
+#: includes/pro/rating/class-rating.php:927
+msgid "Invalid rating value."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1255
+msgid "Submitting..."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1378
+msgid "Rating cache cleared successfully"
+msgstr ""
+
+#. translators: %d: Number of articles
+#: includes/pro/rating/class-rating.php:1385
+#, php-format
+msgid "Ratings recalculated for %d articles"
+msgstr ""
+
+#. translators: %d: Number of articles
+#: includes/pro/rating/class-rating.php:1392
+#, php-format
+msgid "Ratings reset for %d articles"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1410
+msgid "Rating Statistics"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1415
+msgid "Total Articles with Ratings:"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1419
+msgid "Total Votes Cast:"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1423
+msgid "Average Rating (Binary):"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1427
+msgid "Average Rating (Scale):"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1440
+msgid "Clear Rating Cache"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1446
+msgid "Clear Cache"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1451
+msgid "Clear the rating system cache. This includes the global mean rating used for Bayesian average calculations. The cache will be automatically rebuilt when needed."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1461
+msgid "Recalculate Ratings"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1467
+msgid "Recalculate All Ratings"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1472
+msgid "Recalculate rating statistics from individual rating data. Use this if you switched between Binary and Scale modes, or if statistics appear incorrect. This will rebuild all rating meta based on the current rating mode."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1482
+#: includes/pro/rating/class-rating.php:1489
+msgid "Reset All Ratings"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1488
+msgid "Are you sure you want to reset ALL ratings? This will delete all rating data and cannot be undone!"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1494
+msgid "Warning:"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1495
+msgid "This will permanently delete all rating data including votes, statistics, and tracking information for ALL knowledge base articles. This action cannot be reversed. Make sure you have a database backup before proceeding."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1749
+#: includes/pro/rating/class-rating.php:1766
+#: includes/pro/rating/class-rating.php:1839
+msgid "Knowledge Base Article Ratings"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1843
+#: includes/pro/rating/class-rating.php:1884
+#: includes/pro/rating/class-ratings-page.php:338
+msgid "Article"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1847
+#: includes/pro/rating/class-rating.php:1888
+msgid "Article URL"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1851
+msgid "Rating participation"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1852
+msgid "You rated this article while logged in. Exact scores are stored only in aggregate form."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1873
+msgid "Not useful"
+msgstr ""
+
+#. translators: %d: Star rating value.
+#: includes/pro/rating/class-rating.php:1876
+#, php-format
+msgid "%d stars"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1901
+#: includes/pro/rating/class-ratings-page.php:340
+#: includes/pro/rating/class-ratings-page.php:487
+msgid "Feedback"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1908
+msgid "Submitted on"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:1915
+msgid "Knowledge Base Article Rating Feedback"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2060
+msgid "Rating Cache"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2062
+msgid "The rating system uses caching to improve performance. The global mean rating (used for Bayesian average calculations) is cached for 1 hour."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2063
+msgid "Clear the cache if you notice incorrect sorting or statistics. The cache will be automatically rebuilt when needed."
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2070
+msgid "Reset Ratings"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2072
+msgid "Resetting ratings will permanently delete all rating data including:"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2074
+msgid "Vote counts"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2075
+msgid "Rating statistics"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2076
+msgid "Tracking data (IPs, user IDs, cookies)"
+msgstr ""
+
+#: includes/pro/rating/class-rating.php:2078
+msgid "This action cannot be undone. Always backup your database first."
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:53
+#: includes/pro/rating/class-ratings-page.php:54
+#: includes/pro/rating/class-ratings-page.php:133
+msgid "Ratings Feedback"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:91
+msgid "You do not have permission to export ratings."
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:137
+msgid "Export to CSV"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:149
+msgid "Search feedback:"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:150
+msgid "Search feedback..."
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:155
+msgid "All Ratings"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:156
+msgid "Low Ratings Only"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:158
+msgid "Filter"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:162
+msgid "Clear"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:172
+msgid "No feedback found matching your search."
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:174
+msgid "No feedback has been submitted yet."
+msgstr ""
+
+#. translators: %d: Number of articles with feedback
+#: includes/pro/rating/class-ratings-page.php:183
+#, php-format
+msgid "Showing feedback from %d articles. Click an article title to edit."
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:339
+msgid "Rating Stats"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:341
+msgid "Recent Feedback"
+msgstr ""
+
+#. translators: 1: Percentage, 2: Total votes
+#: includes/pro/rating/class-ratings-page.php:385
+#, php-format
+msgid "%1$d%% (%2$d votes)"
+msgstr ""
+
+#. translators: 1: Average rating, 2: Total votes
+#: includes/pro/rating/class-ratings-page.php:388
+#, php-format
+msgid "%1$.1f / 5 (%2$d votes)"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:428
+msgid "Show less"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:428
+msgid "Show all"
+msgstr ""
+
+#. translators: %d: Number of additional feedback entries
+#: includes/pro/rating/class-ratings-page.php:431
+#, php-format
+msgid "Show all (%d more)"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:483
+msgid "Article ID"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:484
+msgid "Article Title"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:485
+msgid "Rating Mode"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:486
+msgid "Rating Value"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:488
+msgid "Date"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:489
+msgid "User ID"
+msgstr ""
+
+#. translators: %d: Rating value (1-5).
+#: includes/pro/rating/class-ratings-page.php:509
+#, php-format
+msgid "%d / 5"
+msgstr ""
+
+#: includes/pro/rating/class-ratings-page.php:520
+msgid "Anonymous"
+msgstr ""
+
 #: includes/rest/class-rest-controller.php:72
 msgid "Comma-separated list of product term IDs."
 msgstr ""
@@ -2697,7 +3010,7 @@ msgid "Max Depth (-1 for unlimited)"
 msgstr ""
 
 #. translators: %s: Name of the deactivated plugin
-#: knowledgebase.php:139
+#: knowledgebase.php:141
 #, php-format
 msgid "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s."
 msgstr ""
@@ -2754,6 +3067,8 @@ msgstr ""
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/articles/edit.js:93
 #: includes/blocks/src/related/edit.js:99
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:104
 msgid "Show Excerpt"
 msgstr ""
 
@@ -2761,6 +3076,8 @@ msgstr ""
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/articles/edit.js:100
 #: includes/blocks/src/related/edit.js:106
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:111
 msgid "Excerpt will be shown"
 msgstr ""
 
@@ -2768,6 +3085,8 @@ msgstr ""
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/articles/edit.js:101
 #: includes/blocks/src/related/edit.js:110
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:115
 msgid "Excerpt will be hidden"
 msgstr ""
 
@@ -2846,6 +3165,8 @@ msgstr ""
 #: includes/blocks/src/articles/edit.js:174
 #: includes/blocks/src/kb/edit.js:238
 #: includes/blocks/src/related/edit.js:64
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:69
 msgid "Heading Level"
 msgstr ""
 
@@ -2918,11 +3239,15 @@ msgstr ""
 
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:76
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:81
 msgid "Choose the HTML heading level for the title"
 msgstr ""
 
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:84
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:89
 msgid "Number of Articles"
 msgstr ""
 
@@ -2948,6 +3273,8 @@ msgstr ""
 
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:139
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:164
 msgid "Show Date"
 msgstr ""
 
@@ -2979,6 +3306,116 @@ msgstr ""
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:58
 msgid "Text shown on the search button"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:51
+msgid "Top Rated Articles Settings"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:61
+msgid "Section title for top-rated articles"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:96
+msgid "Maximum number of articles to display"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:124
+msgid "Show Rating"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:131
+msgid "Rating will be shown"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:135
+msgid "Rating will be hidden"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:144
+msgid "Show Categories"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:151
+msgid "Category links will be displayed below the article title"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:155
+msgid "Category links will be hidden"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:171
+msgid "Publication date will be displayed below the article title"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:175
+msgid "Publication date will be hidden"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:184
+msgid "Order by"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:188
+msgid "Bayesian (best)"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:195
+msgid "Average rating"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:202
+msgid "Total votes"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:206
+msgid "Positive ratio (binary)"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:213
+msgid "Newest"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:217
+msgid "Random"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:224
+msgid "Choose how to sort the list"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:232
+msgid "Order"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:236
+msgid "Descending"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/index.js:1
+#: includes/pro/blocks/src/rating/edit.js:240
+msgid "Ascending"
 msgstr ""
 
 #: includes/blocks/build/alerts/block.json
@@ -3021,6 +3458,8 @@ msgstr ""
 #: includes/blocks/src/related/block.json
 #: includes/blocks/src/search/block.json
 #: includes/blocks/src/sections/block.json
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
 msgctxt "block keyword"
 msgid "kb"
 msgstr ""
@@ -3089,6 +3528,8 @@ msgstr ""
 #: includes/blocks/build/related/block.json
 #: includes/blocks/src/articles/block.json
 #: includes/blocks/src/related/block.json
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
 msgctxt "block keyword"
 msgid "articles"
 msgstr ""
@@ -3113,6 +3554,8 @@ msgstr ""
 #: includes/blocks/src/products/block.json
 #: includes/blocks/src/related/block.json
 #: includes/blocks/src/search/block.json
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
 msgctxt "block keyword"
 msgid "knowledgebase"
 msgstr ""
@@ -3223,4 +3666,46 @@ msgstr ""
 #: includes/blocks/src/sections/block.json
 msgctxt "block description"
 msgid "Display subsections of a selected section or the full knowledge base sections tree if no section is selected"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block title"
+msgid "Knowledge Base Top Rated Articles"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block keyword"
+msgid "rating"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block keyword"
+msgid "top-rated"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block description"
+msgid "Display top-rated knowledge base articles"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block style label"
+msgid "Minimal"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block style label"
+msgid "Card Highlight"
+msgstr ""
+
+#: includes/pro/blocks/build/rating/block.json
+#: includes/pro/blocks/src/rating/block.json
+msgctxt "block style label"
+msgid "Compact Stack"
 msgstr ""
