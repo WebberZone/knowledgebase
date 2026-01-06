@@ -49,6 +49,12 @@ class Shortcodes {
 
 		if ( wzkb_get_option( 'include_styles' ) ) {
 			wp_enqueue_style( 'wz-knowledgebase-styles' );
+
+			// Add custom CSS.
+			$custom_css = wzkb_get_option( 'custom_css' );
+			if ( ! empty( $custom_css ) ) {
+				wp_add_inline_style( 'wz-knowledgebase-styles', esc_html( $custom_css ) );
+			}
 		}
 		$atts = shortcode_atts(
 			array(

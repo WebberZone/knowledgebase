@@ -23,6 +23,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 <div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+			<?php wzkb_breadcrumb(); ?>
 			<?php wzkb_search_form(); ?>
 			<?php if ( $wzkb_current_taxonomy ) : ?>
 
@@ -34,8 +35,6 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 				</header><!-- .page-header -->
 
 				<?php
-				wzkb_breadcrumb();
-
 				// Display top-level sections for this product.
 				$wzkb_knowledge_args = array(
 					'product'     => $wzkb_current_taxonomy->term_id,

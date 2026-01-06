@@ -133,7 +133,7 @@ class CPT {
 	 * @param bool   $remove_placeholders Whether to remove placeholders. Default true.
 	 * @return string Sanitized slug.
 	 */
-	private static function sanitize_slug( string $slug, bool $remove_placeholders = true ): string {
+	public static function sanitize_slug( string $slug, bool $remove_placeholders = true ): string {
 		// Remove any placeholders (e.g., %product_name%, %section_name%) if requested.
 		if ( $remove_placeholders ) {
 			$slug = preg_replace( '/%[^%]+%/', '', $slug );
