@@ -46,6 +46,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 				</h1>
 			</header><!-- .page-header -->
 
+			<?php wzkb_breadcrumb(); ?>
 			<?php wzkb_search_form(); ?>
 
 			<?php if ( $wzkb_query->have_posts() ) : ?>

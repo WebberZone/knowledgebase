@@ -21,10 +21,10 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 <div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+		<?php wzkb_breadcrumb(); ?>
 		<?php wzkb_search_form(); ?>
 		<?php
 		if ( have_posts() ) :
-			wzkb_breadcrumb();
 
 			while ( have_posts() ) :
 				the_post();

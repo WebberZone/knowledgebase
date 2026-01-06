@@ -30,6 +30,7 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $wzkb_inline_css );
 <div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+			<?php wzkb_breadcrumb(); ?>
 			<?php wzkb_search_form(); ?>
 			<?php if ( have_posts() ) : ?>
 
@@ -38,8 +39,6 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $wzkb_inline_css );
 				</header><!-- .page-header -->
 
 				<?php
-				wzkb_breadcrumb();
-
 				// Display knowledge base content for this category.
 				$wzkb_knowledge_args = array(
 					'category'    => $wzkb_current_taxonomy->term_id,
