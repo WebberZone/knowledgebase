@@ -37,7 +37,7 @@ if ( ! defined( 'WZKB_VERSION' ) ) {
 	 *
 	 * @var string $wzkb_version Plugin version
 	 */
-	define( 'WZKB_VERSION', '3.0.0-beta2' );
+	define( 'WZKB_VERSION', '3.0.0-beta3' );
 }
 
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
