@@ -103,6 +103,8 @@ class Settings_Wizard extends Settings_Wizard_API {
 			$all_settings = array_merge( $all_settings, $section_settings );
 		}
 
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+
 		$mode_keys             = array(
 			'multi_product',
 			'category_level',
@@ -172,6 +174,24 @@ class Settings_Wizard extends Settings_Wizard_API {
 				'title'       => __( 'Pro Features', 'knowledgebase' ),
 				'description' => __( 'Unlock premium features like ratings and the help widget. Configure the essentials here before diving deeper.', 'knowledgebase' ),
 				'settings'    => $this->build_step_settings( $pro_features_keys, $all_settings ),
+			),
+			'products_setup'        => array(
+				'title'       => __( 'Create Products', 'knowledgebase' ),
+				'description' => __( 'Add one or more products to organize your knowledge base content.', 'knowledgebase' ),
+				'settings'    => array(),
+				'custom_step' => 'products',
+			),
+			'sections_setup'        => array(
+				'title'       => __( 'Create Sections', 'knowledgebase' ),
+				'description' => __( 'Add sections to organize your articles. You can add more later.', 'knowledgebase' ),
+				'settings'    => array(),
+				'custom_step' => 'sections',
+			),
+			'subsections_setup'     => array(
+				'title'       => __( 'Create Subsections', 'knowledgebase' ),
+				'description' => __( 'Add subsections and assign them to a parent section. You can add more later.', 'knowledgebase' ),
+				'settings'    => array(),
+				'custom_step' => 'subsections',
 			),
 		);
 
@@ -305,36 +325,55 @@ class Settings_Wizard extends Settings_Wizard_API {
 			return;
 		}
 
-		// Check if we're on the custom tables indexing step.
 		$step_config = $this->get_current_step_config();
-		if ( ! empty( $step_config['custom_step'] ) ) {
-			// Enqueue the reindex script from custom tables admin.
+		$custom_step = $step_config['custom_step'] ?? '';
+		$minimize    = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
+			wp_enqueue_style(
+				'wzkb-wizard-content',
+				plugins_url( 'settings/css/wizard-content' . $minimize . '.css', __FILE__ ),
+				array(),
+				WZKB_VERSION
+			);
 			wp_enqueue_script(
-				'wzkb-reindex',
-				WZKB_PLUGIN_URL . 'includes/pro/custom-tables/admin/js/reindex.js',
+				'wzkb-wizard-content',
+				plugins_url( 'settings/js/wizard-content' . $minimize . '.js', __FILE__ ),
 				array( 'jquery' ),
 				WZKB_VERSION,
 				true
 			);
-
-			// Localize script with necessary data.
-			wp_localize_script(
-				'wzkb-reindex',
-				'wzkbReindexSettings',
-				array(
-					'ajaxurl'        => admin_url( 'admin-ajax.php' ),
-					'nonce'          => wp_create_nonce( 'wzkb_reindex_nonce' ),
-					'strings'        => array(
-						'starting'    => __( 'Starting reindex process...', 'knowledgebase' ),
-						'completed'   => __( 'Reindexing complete!', 'knowledgebase' ),
-						'error'       => __( 'An error occurred during reindexing. Please try again.', 'knowledgebase' ),
-						'buttonText'  => __( 'Reindex Custom Tables', 'knowledgebase' ),
-						'clickToStop' => __( 'Reindexing... Click to Stop', 'knowledgebase' ),
-					),
-					'isNetworkAdmin' => is_multisite() && is_network_admin(),
-				)
-			);
 		}
+	}
+
+	/**
+	 * Process the current step's form data.
+	 *
+	 * Custom taxonomy setup steps don't use the settings table, so we need to
+	 * handle them explicitly and still fire the step processed action.
+	 */
+	protected function process_current_step() {
+		$current_step_config = $this->get_current_step_config();
+		$custom_step         = $current_step_config['custom_step'] ?? '';
+
+		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
+			switch ( $custom_step ) {
+				case 'products':
+					$this->process_products_submission();
+					break;
+				case 'sections':
+					$this->process_sections_submission();
+					break;
+				case 'subsections':
+					$this->process_subsections_submission();
+					break;
+			}
+
+			do_action( $this->prefix . '_wizard_step_processed', $this->current_step, array() );
+			return;
+		}
+
+		parent::process_current_step();
 	}
 
 	/**
@@ -351,8 +390,508 @@ class Settings_Wizard extends Settings_Wizard_API {
 			return;
 		}
 
-		// Use parent method for regular steps.
+		$custom_step = $step_config['custom_step'] ?? '';
+		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
+			$this->render_taxonomy_setup_step( $custom_step, $step_config );
+			return;
+		}
+
 		parent::render_wizard_page();
+	}
+
+	/**
+	 * Render custom taxonomy setup steps inside the wizard.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $custom_step Custom step identifier.
+	 * @param array  $step_config Current step configuration.
+	 * @return void
+	 */
+	protected function render_taxonomy_setup_step( string $custom_step, array $step_config ) {
+		$this->maybe_clamp_current_step();
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+		?>
+		<div class="wrap wizard-wrap">
+			<h1><?php echo esc_html( $this->translation_strings['wizard_title'] ); ?></h1>
+
+			<?php $this->render_wizard_steps_navigation(); ?>
+
+			<div class="wizard-progress">
+				<div class="wizard-progress-bar">
+					<div class="wizard-progress-fill" style="width: <?php echo esc_attr( (string) ( ( $this->current_step / $this->total_steps ) * 100 ) ); ?>%;"></div>
+				</div>
+				<p class="wizard-step-counter">
+					<?php
+					$current_step_name = $step_config['title'] ?? '';
+					$step_pattern      = ! empty( $current_step_name ) ? '%1$s - Step %2$d of %3$d' : $this->translation_strings['step_of'];
+					printf(
+						esc_html( $step_pattern ),
+						esc_html( $current_step_name ),
+						esc_html( (string) $this->current_step ),
+						esc_html( (string) $this->total_steps )
+					);
+					?>
+				</p>
+			</div>
+
+			<div class="wizard-content">
+				<div class="wizard-step">
+					<h2><?php echo esc_html( $step_config['title'] ?? '' ); ?></h2>
+					<?php if ( ! empty( $step_config['description'] ) ) : ?>
+						<p class="wizard-step-description"><?php echo wp_kses_post( $step_config['description'] ); ?></p>
+					<?php endif; ?>
+
+					<form method="post" action="">
+						<?php wp_nonce_field( "{$this->prefix}_wizard_nonce", "{$this->prefix}_wizard_nonce" ); ?>
+						<div class="wizard-fields">
+							<?php
+							switch ( $custom_step ) {
+								case 'products':
+									$this->render_products_fields();
+									break;
+								case 'sections':
+									$this->render_sections_fields( $multi_product );
+									break;
+								case 'subsections':
+									$this->render_subsections_fields();
+									break;
+							}
+							?>
+						</div>
+
+						<?php
+						do_action( "{$this->prefix}_wizard_before_actions", $this->current_step, $this->total_steps );
+						?>
+						<div class="wizard-actions">
+							<?php $this->render_wizard_buttons(); ?>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the products repeater fields.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function render_products_fields() {
+		$existing_products = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_product',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+		if ( is_wp_error( $existing_products ) ) {
+			$existing_products = array();
+		}
+		?>
+		<div class="wzkb-wizard-repeater" data-repeater-type="products">
+			<table class="widefat striped wzkb-wizard-repeater-table">
+				<thead>
+					<tr>
+						<th><?php esc_html_e( 'Existing', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Name', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Slug', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Description', 'knowledgebase' ); ?></th>
+						<th class="wzkb-wizard-col-actions"><?php esc_html_e( 'Actions', 'knowledgebase' ); ?></th>
+					</tr>
+				</thead>
+				<tbody class="wzkb-wizard-repeater-rows">
+					<?php $this->render_empty_repeater_row( 'wzkb_wizard_products', $existing_products ); ?>
+				</tbody>
+			</table>
+			<p>
+				<button type="button" class="button wzkb-wizard-add-row" data-target="wzkb_wizard_products"><?php esc_html_e( 'Add another product', 'knowledgebase' ); ?></button>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the sections repeater fields.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int $multi_product Whether multi-product mode is enabled.
+	 * @return void
+	 */
+	protected function render_sections_fields( int $multi_product ) {
+		$products = array();
+		if ( 1 === $multi_product ) {
+			$products = get_terms(
+				array(
+					'taxonomy'   => 'wzkb_product',
+					'hide_empty' => false,
+					'orderby'    => 'name',
+					'order'      => 'ASC',
+				)
+			);
+			if ( is_wp_error( $products ) ) {
+				$products = array();
+			}
+		}
+		$existing_sections = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_category',
+				'hide_empty' => false,
+				'parent'     => 0,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+		if ( is_wp_error( $existing_sections ) ) {
+			$existing_sections = array();
+		}
+		?>
+		<div class="wzkb-wizard-repeater" data-repeater-type="sections" data-multi-product="<?php echo esc_attr( (string) $multi_product ); ?>">
+			<table class="widefat striped wzkb-wizard-repeater-table">
+				<thead>
+					<tr>
+						<th><?php esc_html_e( 'Existing', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Name', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Slug', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Description', 'knowledgebase' ); ?></th>
+						<?php if ( 1 === $multi_product ) : ?>
+							<th><?php esc_html_e( 'Product', 'knowledgebase' ); ?></th>
+						<?php endif; ?>
+						<th class="wzkb-wizard-col-actions"><?php esc_html_e( 'Actions', 'knowledgebase' ); ?></th>
+					</tr>
+				</thead>
+				<tbody class="wzkb-wizard-repeater-rows">
+					<?php $this->render_empty_repeater_row( 'wzkb_wizard_sections', $existing_sections, $products, ( 1 === $multi_product ) ); ?>
+				</tbody>
+			</table>
+			<p>
+				<button type="button" class="button wzkb-wizard-add-row" data-target="wzkb_wizard_sections"><?php esc_html_e( 'Add another section', 'knowledgebase' ); ?></button>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the subsections repeater fields.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function render_subsections_fields() {
+		$sections = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_category',
+				'hide_empty' => false,
+				'parent'     => 0,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+		if ( is_wp_error( $sections ) ) {
+			$sections = array();
+		}
+		$all_sections = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_category',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+		if ( is_wp_error( $all_sections ) ) {
+			$all_sections = array();
+		}
+		$existing_subsections = array_values(
+			array_filter(
+				(array) $all_sections,
+				static function ( $term ) {
+					return is_numeric( $term->parent ) && (int) $term->parent > 0;
+				}
+			)
+		);
+		?>
+		<div class="wzkb-wizard-repeater" data-repeater-type="subsections">
+			<table class="widefat striped wzkb-wizard-repeater-table">
+				<thead>
+					<tr>
+						<th><?php esc_html_e( 'Existing', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Name', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Slug', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Description', 'knowledgebase' ); ?></th>
+						<th><?php esc_html_e( 'Parent section', 'knowledgebase' ); ?></th>
+						<th class="wzkb-wizard-col-actions"><?php esc_html_e( 'Actions', 'knowledgebase' ); ?></th>
+					</tr>
+				</thead>
+				<tbody class="wzkb-wizard-repeater-rows">
+					<?php $this->render_empty_repeater_row( 'wzkb_wizard_subsections', $existing_subsections, $sections, true, true ); ?>
+				</tbody>
+			</table>
+			<p>
+				<button type="button" class="button wzkb-wizard-add-row" data-target="wzkb_wizard_subsections"><?php esc_html_e( 'Add another subsection', 'knowledgebase' ); ?></button>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Get the full section hierarchy path for a term.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Term $term Term object.
+	 * @return string Hierarchy path.
+	 */
+	protected function get_term_hierarchy_path( $term ) {
+		return wzkb_get_term_hierarchy_path( $term );
+	}
+
+	/**
+	 * Render a single empty repeater row template.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $field_name        Field name base.
+	 * @param array  $existing_terms    Existing terms for the "Existing" selector.
+	 * @param array  $terms             Optional terms to populate select options.
+	 * @param bool   $show_term_select  Whether to show a term select field.
+	 * @param bool   $is_parent_section Whether the select is for parent section.
+	 * @return void
+	 */
+	protected function render_empty_repeater_row( string $field_name, array $existing_terms = array(), array $terms = array(), bool $show_term_select = false, bool $is_parent_section = false ) {
+		?>
+		<tr class="wzkb-wizard-repeater-row">
+			<td>
+				<select class="wzkb-wizard-existing-select" name="<?php echo esc_attr( $field_name ); ?>[0][existing_id]">
+					<option value="0"><?php esc_html_e( '— New —', 'knowledgebase' ); ?></option>
+					<?php foreach ( $existing_terms as $term ) : ?>
+						<?php
+						$related_id = 0;
+						if ( 'wzkb_wizard_sections' === $field_name ) {
+							$related_id = (int) get_term_meta( (int) $term->term_id, 'product_id', true );
+						}
+						?>
+						<option
+							value="<?php echo esc_attr( (string) (int) $term->term_id ); ?>"
+							data-name="<?php echo esc_attr( $term->name ); ?>"
+							data-slug="<?php echo esc_attr( $term->slug ); ?>"
+							data-description="<?php echo esc_attr( (string) $term->description ); ?>"
+							data-parent="<?php echo esc_attr( (string) (int) $term->parent ); ?>"
+							data-related-id="<?php echo esc_attr( (string) $related_id ); ?>"
+						>
+							<?php echo esc_html( $this->get_term_hierarchy_path( $term ) ); ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</td>
+			<td>
+				<input type="text" class="regular-text wzkb-wizard-name" name="<?php echo esc_attr( $field_name ); ?>[0][name]" value="" />
+			</td>
+			<td>
+				<input type="text" class="regular-text wzkb-wizard-slug" name="<?php echo esc_attr( $field_name ); ?>[0][slug]" value="" />
+			</td>
+			<td>
+				<textarea class="large-text wzkb-wizard-description" rows="2" name="<?php echo esc_attr( $field_name ); ?>[0][description]"></textarea>
+			</td>
+			<?php if ( $show_term_select ) : ?>
+				<td>
+					<select class="wzkb-wizard-term-select" name="<?php echo esc_attr( $field_name ); ?>[0][<?php echo $is_parent_section ? 'parent_section_id' : 'product_id'; ?>]">
+						<option value="0"><?php echo esc_html( $is_parent_section ? __( '— Select Section —', 'knowledgebase' ) : __( '— Select Product —', 'knowledgebase' ) ); ?></option>
+						<?php foreach ( $terms as $term ) : ?>
+							<option value="<?php echo esc_attr( (string) (int) $term->term_id ); ?>">
+								<?php echo esc_html( $this->get_term_hierarchy_path( $term ) ); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				</td>
+			<?php endif; ?>
+			<td class="wzkb-wizard-col-actions">
+				<button type="button" class="button-link-delete wzkb-wizard-remove-row"><?php esc_html_e( 'Remove', 'knowledgebase' ); ?></button>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * Ensure the stored/current step stays within valid bounds.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function maybe_clamp_current_step() {
+		if ( $this->current_step < 1 ) {
+			$this->current_step = 1;
+		}
+		if ( $this->current_step > $this->total_steps ) {
+			$this->current_step = $this->total_steps;
+			update_option( "{$this->prefix}_wizard_current_step", $this->current_step );
+		}
+	}
+
+	/**
+	 * Create products submitted from the products wizard step.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function process_products_submission() {
+		$rows = filter_input( INPUT_POST, 'wzkb_wizard_products', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
+		if ( empty( $rows ) || ! is_array( $rows ) ) {
+			return;
+		}
+		foreach ( $rows as $row ) {
+			$this->insert_or_update_term_id_from_row( $row, 'wzkb_product' );
+		}
+	}
+
+	/**
+	 * Create sections submitted from the sections wizard step.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function process_sections_submission() {
+		$rows = filter_input( INPUT_POST, 'wzkb_wizard_sections', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
+		if ( empty( $rows ) || ! is_array( $rows ) ) {
+			return;
+		}
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+		foreach ( $rows as $row ) {
+			$term_id = $this->insert_or_update_term_id_from_row( $row, 'wzkb_category' );
+			if ( $term_id <= 0 ) {
+				continue;
+			}
+			if ( 1 === $multi_product ) {
+				$product_id = isset( $row['product_id'] ) ? absint( $row['product_id'] ) : 0;
+				if ( $product_id > 0 ) {
+					update_term_meta( $term_id, 'product_id', $product_id );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Create subsections submitted from the subsections wizard step.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function process_subsections_submission() {
+		$rows = filter_input( INPUT_POST, 'wzkb_wizard_subsections', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
+		if ( empty( $rows ) || ! is_array( $rows ) ) {
+			return;
+		}
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+		foreach ( $rows as $row ) {
+			$parent_id   = isset( $row['parent_section_id'] ) ? absint( $row['parent_section_id'] ) : 0;
+			$existing_id = isset( $row['existing_id'] ) ? absint( $row['existing_id'] ) : 0;
+			if ( $parent_id <= 0 && $existing_id <= 0 ) {
+				continue;
+			}
+			if ( $existing_id > 0 && $parent_id <= 0 ) {
+				$existing_term = get_term( $existing_id, 'wzkb_category' );
+				if ( $existing_term && ! is_wp_error( $existing_term ) ) {
+					$parent_id = (int) $existing_term->parent;
+				}
+			}
+
+			$args = array();
+			if ( $parent_id > 0 ) {
+				$args['parent'] = $parent_id;
+			}
+			$term_id = $this->insert_or_update_term_id_from_row( $row, 'wzkb_category', $args );
+			if ( $term_id <= 0 ) {
+				continue;
+			}
+			if ( 1 === $multi_product ) {
+				$inherited_product_id = $parent_id > 0 ? (int) get_term_meta( $parent_id, 'product_id', true ) : 0;
+				if ( $inherited_product_id > 0 ) {
+					update_term_meta( $term_id, 'product_id', $inherited_product_id );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Insert a term from a repeater row, or return existing term ID when it exists.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param mixed  $row        Raw row data.
+	 * @param string $taxonomy   Taxonomy name.
+	 * @param array  $extra_args Extra arguments passed to wp_insert_term.
+	 * @return int Term ID on success, 0 on failure.
+	 */
+	protected function insert_or_update_term_id_from_row( $row, string $taxonomy, array $extra_args = array() ): int {
+		if ( ! is_array( $row ) ) {
+			return 0;
+		}
+		$existing_id = isset( $row['existing_id'] ) ? absint( $row['existing_id'] ) : 0;
+		$name        = isset( $row['name'] ) ? sanitize_text_field( wp_unslash( $row['name'] ) ) : '';
+		$slug        = isset( $row['slug'] ) ? sanitize_title( wp_unslash( $row['slug'] ) ) : '';
+		$description = isset( $row['description'] ) ? wp_kses_post( wp_unslash( $row['description'] ) ) : '';
+
+		if ( $existing_id > 0 ) {
+			$args = array();
+			if ( '' !== $name ) {
+				$args['name'] = $name;
+			}
+			if ( '' !== $slug ) {
+				$args['slug'] = $slug;
+			}
+			if ( '' !== $description ) {
+				$args['description'] = $description;
+			}
+			$args = array_merge( $args, $extra_args );
+
+			if ( empty( $args ) ) {
+				return $existing_id;
+			}
+			$updated = wp_update_term( $existing_id, $taxonomy, $args );
+			if ( is_wp_error( $updated ) ) {
+				return 0;
+			}
+			return (int) ( $updated['term_id'] ?? $existing_id );
+		}
+
+		if ( '' === $name ) {
+			return 0;
+		}
+		if ( '' === $slug ) {
+			$slug = sanitize_title( $name );
+		}
+
+		$existing = get_term_by( 'slug', $slug, $taxonomy );
+		if ( $existing instanceof \WP_Term ) {
+			return (int) $existing->term_id;
+		}
+
+		$args = array_merge(
+			array(
+				'slug'        => $slug,
+				'description' => $description,
+			),
+			$extra_args
+		);
+
+		$inserted = wp_insert_term( $name, $taxonomy, $args );
+		if ( is_wp_error( $inserted ) ) {
+			if ( 'term_exists' === $inserted->get_error_code() ) {
+				$term_id = (int) $inserted->get_error_data();
+				return $term_id;
+			}
+			return 0;
+		}
+		return isset( $inserted['term_id'] ) ? (int) $inserted['term_id'] : 0;
 	}
 
 	/**

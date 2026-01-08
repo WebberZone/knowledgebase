@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: includes/admin/class-settings-wizard.php
-
-		-
 			message: "#^Function fs_dynamic_init not found\\.$#"
 			count: 1
 			path: load-freemius.php

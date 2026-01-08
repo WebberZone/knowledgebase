@@ -105,16 +105,13 @@ class Admin_Columns {
 		}
 		if ( 'product' === $name ) {
 			// Get linked product for this section.
-			$product_id = get_term_meta( $id, 'product_id', true );
-			if ( $product_id ) {
-				$product = get_term( $product_id, 'wzkb_product' );
-				if ( $product && ! is_wp_error( $product ) ) {
-					return sprintf(
-						'<a href="%s">%s</a>',
-						esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&wzkb_product=' . $product->slug ) ),
-						esc_html( $product->name )
-					);
-				}
+			$product = wzkb_get_section_product( $id );
+			if ( $product ) {
+				return sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&wzkb_product=' . $product->slug ) ),
+					esc_html( $product->name )
+				);
 			}
 			return '&mdash;'; // Em dash if not linked.
 		}
