@@ -126,7 +126,8 @@ class Section_Product_Meta {
 		}
 
 		// Get current product assignment.
-		$product_id = get_term_meta( $term->term_id, 'product_id', true );
+		$product    = wzkb_get_section_product( $term );
+		$product_id = $product ? $product->term_id : 0;
 		?>
 		<tr class="form-field term-product-wrap">
 			<th scope="row"><label for="term-product"><?php esc_html_e( 'Product', 'knowledgebase' ); ?></label></th>

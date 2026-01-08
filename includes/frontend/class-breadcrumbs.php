@@ -50,13 +50,10 @@ class Breadcrumbs {
 		}
 		if ( is_tax( 'wzkb_category' ) || is_tax( 'wzkb_tag' ) ) {
 			$tax = get_queried_object();
-			if ( $tax && isset( $tax->term_id ) ) {
-				$product_id = get_term_meta( $tax->term_id, 'product_id', true );
-				if ( $product_id ) {
-					$product = get_term( $product_id, 'wzkb_product' );
-					if ( $product && ! is_wp_error( $product ) ) {
-						return $product;
-					}
+			if ( $tax instanceof \WP_Term ) {
+				$product = wzkb_get_section_product( $tax );
+				if ( $product ) {
+					return $product;
 				}
 			}
 		}
@@ -69,12 +66,9 @@ class Breadcrumbs {
 				while ( $ancestor->parent ) {
 					$ancestor = get_term( $ancestor->parent, $ancestor->taxonomy );
 				}
-				$product_id = get_term_meta( $ancestor->term_id, 'product_id', true );
-				if ( $product_id ) {
-					$product = get_term( $product_id, 'wzkb_product' );
-					if ( $product && ! is_wp_error( $product ) ) {
-						return $product;
-					}
+				$product = wzkb_get_section_product( $ancestor );
+				if ( $product ) {
+					return $product;
 				}
 			}
 		}

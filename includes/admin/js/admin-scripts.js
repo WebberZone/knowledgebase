@@ -78,33 +78,6 @@ jQuery(document).ready(
 			}, 5000);
 		}
 
-		// Prompt the user when they leave the page without saving the form.
-		var formmodified = 0;
-
-		function confirmFormChange() {
-			formmodified = 1;
-		}
-
-		function confirmExit() {
-			if (formmodified == 1) {
-				return true;
-			}
-		}
-
-		function formNotModified() {
-			formmodified = 0;
-		}
-
-		$('form *').change(confirmFormChange);
-
-		window.onbeforeunload = confirmExit;
-
-		$("input[name='submit']").click(formNotModified);
-		$("input[id='search-submit']").click(formNotModified);
-		$("input[id='doaction']").click(formNotModified);
-		$("input[id='doaction2']").click(formNotModified);
-		$("input[name='filter_action']").click(formNotModified);
-
 		$(
 			function () {
 				$("#post-body-content").tabs(

@@ -209,13 +209,8 @@ class REST_Controller {
 	 * @return array|null Product data or null when unavailable.
 	 */
 	public function get_category_product_data( $term_data ) {
-		$product_id = (int) get_term_meta( (int) $term_data['id'], 'product_id', true );
-		if ( 0 === $product_id ) {
-			return null;
-		}
-
-		$product = get_term( $product_id, 'wzkb_product' );
-		if ( ! $product || is_wp_error( $product ) ) {
+		$product = wzkb_get_section_product( $term_data['id'] );
+		if ( ! $product ) {
 			return null;
 		}
 
@@ -344,11 +339,12 @@ class REST_Controller {
 
 		$response = array_map(
 			static function ( $term ) {
+				$product = wzkb_get_section_product( $term );
 				return array(
 					'id'      => (int) $term->term_id,
 					'name'    => $term->name,
 					'parent'  => (int) $term->parent,
-					'product' => (int) get_term_meta( $term->term_id, 'product_id', true ),
+					'product' => (int) ( $product ? $product->term_id : 0 ),
 				);
 			},
 			$terms
