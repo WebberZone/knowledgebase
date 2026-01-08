@@ -336,9 +336,57 @@ class Admin {
 	 */
 	public function hooks() {
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		Hook_Registry::add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		Hook_Registry::add_action( 'admin_init', array( $this, 'register_notices' ) );
 		Hook_Registry::add_filter( 'dashboard_glance_items', array( $this, 'dashboard_glance_items' ), 10, 1 );
 		Hook_Registry::add_filter( 'admin_head', array( $this, 'admin_head' ) );
+	}
+
+	/**
+	 * Register admin notices.
+	 *
+	 * @since 3.0.0
+	 */
+	public function register_notices() {
+		$kb_slug      = \wzkb_get_option( 'kb_slug', 'not-set-random-string' );
+		$product_slug = \wzkb_get_option( 'product_slug', 'not-set-random-string' );
+		$cat_slug     = \wzkb_get_option( 'category_slug', 'not-set-random-string' );
+		$tag_slug     = \wzkb_get_option( 'tag_slug', 'not-set-random-string' );
+
+		// Notice for missing settings.
+		if ( ! ( isset( $_GET['page'] ) && 'wzkb-setup' === $_GET['page'] ) && ( 'not-set-random-string' === $kb_slug || 'not-set-random-string' === $product_slug || 'not-set-random-string' === $cat_slug || 'not-set-random-string' === $tag_slug ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$this->admin_notices_api->register_notice(
+				array(
+					'id'          => 'wzkb_settings_not_registered',
+					'type'        => 'error',
+					'dismissible' => false,
+					'message'     => sprintf(
+						/* translators: 1. Link to admin page. */
+						esc_html__( 'Knowledge Base settings for the slug have not been registered. Please visit the %s to update and save the options.', 'knowledgebase' ),
+						'<a href="' . esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) . '">' . esc_html__( 'admin page', 'knowledgebase' ) . '</a>'
+					),
+				)
+			);
+		}
+
+		// Notice for Products taxonomy when multi-product mode is disabled.
+		$this->admin_notices_api->register_notice(
+			array(
+				'id'          => 'wzkb_multi_product_disabled',
+				'type'        => 'warning',
+				'dismissible' => false,
+				'screens'     => array( 'edit-wzkb_product' ),
+				'conditions'  => array(
+					function () {
+						return ! (int) \wzkb_get_option( 'multi_product', 0 );
+					},
+				),
+				'message'     => sprintf(
+					/* translators: %s: HTML link to the plugin settings page. */
+					esc_html__( 'The Products taxonomy is only available in multi-product mode. Please enable multi-product mode in the %s.', 'knowledgebase' ),
+					sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ), esc_html__( 'plugin settings', 'knowledgebase' ) )
+				),
+			)
+		);
 	}
 
 	/**
@@ -398,59 +446,6 @@ class Admin {
 		if ( $should_enqueue ) {
 			wp_enqueue_script( 'wzkb-admin' );
 			wp_enqueue_style( 'wzkb-admin-ui' );
-		}
-	}
-
-	/**
-	 * Display admin notices.
-	 *
-	 * @since 2.3.0
-	 */
-	public function admin_notices() {
-		// Only add the notice if the user is an admin.
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		$kb_slug      = \wzkb_get_option( 'kb_slug', 'not-set-random-string' );
-		$product_slug = \wzkb_get_option( 'product_slug', 'not-set-random-string' );
-		$cat_slug     = \wzkb_get_option( 'category_slug', 'not-set-random-string' );
-		$tag_slug     = \wzkb_get_option( 'tag_slug', 'not-set-random-string' );
-
-		// Only add the notice if the settings cannot be found. Skip if on the setup wizard page.
-		if ( ! ( isset( $_GET['page'] ) && 'wzkb-setup' === $_GET['page'] ) && ( 'not-set-random-string' === $kb_slug || 'not-set-random-string' === $product_slug || 'not-set-random-string' === $cat_slug || 'not-set-random-string' === $tag_slug ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			?>
-						<div class="updated">
-				<p>
-					<?php
-						printf(
-							/* translators: 1. Link to admin page. */
-							esc_html__( 'Knowledge Base settings for the slug have not been registered. Please visit the %s to update and save the options.', 'knowledgebase' ),
-							'<a href="' . esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ) . '">' . esc_html__( 'admin page', 'knowledgebase' ) . '</a>'
-						);
-					?>
-				</p>
-			</div>
-			<?php
-		}
-
-		// Show notice if on Products taxonomy screen and multi-product mode is not enabled.
-		global $current_screen;
-		if ( isset( $current_screen ) && 'edit-wzkb_product' === $current_screen->id && 'wzkb_product' === $current_screen->taxonomy ) { // Check for Products taxonomy admin screen.
-			$multi_product = (int) wzkb_get_option( 'multi_product', 0 );
-			if ( ! $multi_product ) { // Yoda condition: Only show if not enabled.
-				// translators: %s: Link to plugin settings page.
-				$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' ) ), esc_html__( 'plugin settings', 'knowledgebase' ) );
-				$message       = sprintf(
-					/* translators: %s: HTML link to the plugin settings page. */
-					esc_html__( 'The Products taxonomy is only available in multi-product mode. Please enable multi-product mode in the %s.', 'knowledgebase' ),
-					$settings_link
-				);
-				printf(
-					'<div class="notice notice-warning"><p>%s</p></div>',
-					wp_kses_post( $message )
-				);
-			}
 		}
 	}
 

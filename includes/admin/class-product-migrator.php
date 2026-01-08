@@ -51,50 +51,9 @@ class Product_Migrator {
 	 * Constructor: Hook admin notices and menu.
 	 */
 	public function __construct() {
-		Hook_Registry::add_action( 'admin_notices', array( $this, 'maybe_show_enable_notice' ) );
 		Hook_Registry::add_action( 'admin_menu', array( $this, 'register_migration_wizard_page' ) );
 		Hook_Registry::add_action( 'wp_ajax_wzkb_dismiss_product_notice', array( $this, 'dismiss_product_notice' ) );
 		Hook_Registry::add_action( 'wp_ajax_wzkb_product_migration_batch', array( $this, 'handle_migration_batch' ) );
-	}
-
-	/**
-	 * Show a dismissible notice to enable the Products taxonomy logic.
-	 */
-	public function maybe_show_enable_notice() {
-		$multi_product_enabled = wzkb_get_option( 'multi_product', 'not-set-random-string' );
-		if ( 'not-set-random-string' !== $multi_product_enabled ) {
-			return;
-		}
-
-		if ( self::is_dismissed() ) {
-			return;
-		}
-		if ( ! self::is_kb_admin_screen() ) {
-			return;
-		}
-		$nonce              = wp_create_nonce( 'wzkb_dismiss_product_notice' );
-		$migration_complete = get_option( 'wzkb_product_migration_complete', false );
-
-		// Add a dismissible notice about the new Products taxonomy feature.
-		echo '<div class="notice notice-warning is-dismissible wzkb-product-migrate-notice" data-nonce="' . esc_attr( $nonce ) . '" data-dismiss-action="wzkb_dismiss_product_notice">
-			<p>
-				<strong>' . esc_html__( 'New Multi-Products Mode available!', 'knowledgebase' ) . '</strong> 
-				' . esc_html__( "Organize your knowledge base by product with our new Multi-Products mode! You can migrate your existing content using the migration wizard. If you don't want to use this feature, you can dismiss this notice by saving the settings page.", 'knowledgebase' ) . '
-			</p>
-			<p>
-				<a href="' . esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings#general' ) ) . '" class="button button-primary">' .
-					esc_html__( 'Enable Multi-Products', 'knowledgebase' ) .
-				'</a>';
-
-		// Only show Migration Wizard link if migration is not completed yet.
-		if ( ! $migration_complete ) {
-			echo ' <a href="' . esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-product-migration' ) ) . '" class="button">' .
-					esc_html__( 'Migration Wizard', 'knowledgebase' ) .
-				'</a>';
-		}
-
-		echo '</p>
-		</div>';
 	}
 
 	/**
