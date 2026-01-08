@@ -76,6 +76,33 @@ class Breadcrumbs {
 	}
 
 	/**
+	 * Check if current page is displaying Knowledge Base content via shortcode or block.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return bool True if KB content is displayed via shortcode or block.
+	 */
+	private static function is_kb_context() {
+		// Check if current page content contains knowledgebase shortcode or block.
+		if ( is_front_page() || is_home() || is_page() ) {
+			$post = get_post();
+			if ( $post ) {
+				// Check for shortcode.
+				if ( has_shortcode( $post->post_content, 'knowledgebase' ) ) {
+					return true;
+				}
+
+				// Check for block in Gutenberg content.
+				if ( has_block( 'knowledgebase/knowledgebase', $post ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Creates the breadcrumb.
 	 *
 	 * @since 2.3.0
@@ -101,7 +128,8 @@ class Breadcrumbs {
 		! is_singular( 'wz_knowledgebase' ) &&
 		! is_tax( 'wzkb_category' ) &&
 		! is_tax( 'wzkb_tag' ) &&
-		! is_tax( 'wzkb_product' )
+		! is_tax( 'wzkb_product' ) &&
+		! self::is_kb_context()
 		) {
 			return '';
 		}
