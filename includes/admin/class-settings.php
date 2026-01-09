@@ -380,6 +380,14 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => false,
 			),
+			'kb_homepage_mode'     => array(
+				'id'      => 'kb_homepage_mode',
+				'name'    => esc_html__( 'Use Knowledge Base as Homepage', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enable this option to make the site homepage display the Knowledge Base. The Knowledge Base URL will become the homepage, and the Knowledge Base archive URL will redirect to the homepage.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
 			'permalink_header'     => array(
 				'id'   => 'permalink_header',
 				'name' => '<h3>' . esc_html__( 'Permalinks', 'knowledgebase' ) . '</h3>',

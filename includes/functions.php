@@ -205,6 +205,10 @@ function wzkb_related_articles( $args = array() ) {
  * @return string The URL to the knowledge base archive page.
  */
 function wzkb_get_kb_url() {
+	if ( \wzkb_get_option( 'kb_homepage_mode', false ) ) {
+		return home_url( '/' );
+	}
+
 	$kb_slug = \wzkb_get_option( 'kb_slug', 'knowledgebase' );
 	return home_url( "/{$kb_slug}/" );
 }
