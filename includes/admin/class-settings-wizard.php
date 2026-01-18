@@ -233,17 +233,20 @@ class Settings_Wizard extends Settings_Wizard_API {
 	 */
 	public function get_translation_strings() {
 		return array(
-			'page_title'      => __( 'Knowledge Base Setup Wizard', 'knowledgebase' ),
-			'menu_title'      => __( 'Setup Wizard', 'knowledgebase' ),
-			'next_step'       => __( 'Next Step', 'knowledgebase' ),
-			'previous_step'   => __( 'Previous Step', 'knowledgebase' ),
-			'finish_setup'    => __( 'Finish Setup', 'knowledgebase' ),
-			'skip_wizard'     => __( 'Skip Wizard', 'knowledgebase' ),
+			'page_title'            => __( 'Knowledge Base Setup Wizard', 'knowledgebase' ),
+			'menu_title'            => __( 'Setup Wizard', 'knowledgebase' ),
+			'next_step'             => __( 'Next Step', 'knowledgebase' ),
+			'previous_step'         => __( 'Previous Step', 'knowledgebase' ),
+			'finish_setup'          => __( 'Finish Setup', 'knowledgebase' ),
+			'skip_wizard'           => __( 'Skip Wizard', 'knowledgebase' ),
+			/* translators: %s: Search query. */
+			'tom_select_no_results' => __( 'No results found for "%s"', 'knowledgebase' ),
+			'steps_nav_aria_label'  => __( 'Setup Wizard Steps', 'knowledgebase' ),
 			/* translators: %1$d: Current step number, %2$d: Total number of steps */
-			'step_of'         => __( 'Step %1$d of %2$d', 'knowledgebase' ),
-			'wizard_complete' => __( 'Setup Complete!', 'knowledgebase' ),
-			'setup_complete'  => __( 'Your Knowledge Base has been configured successfully. You can now start organizing your documentation.', 'knowledgebase' ),
-			'go_to_settings'  => __( 'Go to Settings', 'knowledgebase' ),
+			'step_of'               => __( 'Step %1$d of %2$d', 'knowledgebase' ),
+			'wizard_complete'       => __( 'Setup Complete!', 'knowledgebase' ),
+			'setup_complete'        => __( 'Your Knowledge Base has been configured successfully. You can now start organizing your documentation.', 'knowledgebase' ),
+			'go_to_settings'        => __( 'Go to Settings', 'knowledgebase' ),
 		);
 	}
 
@@ -332,13 +335,13 @@ class Settings_Wizard extends Settings_Wizard_API {
 		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
 			wp_enqueue_style(
 				'wzkb-wizard-content',
-				plugins_url( 'settings/css/wizard-content' . $minimize . '.css', __FILE__ ),
+				plugins_url( 'css/wizard-content' . $minimize . '.css', __FILE__ ),
 				array(),
 				WZKB_VERSION
 			);
 			wp_enqueue_script(
 				'wzkb-wizard-content',
-				plugins_url( 'settings/js/wizard-content' . $minimize . '.js', __FILE__ ),
+				plugins_url( 'js/wizard-content' . $minimize . '.js', __FILE__ ),
 				array( 'jquery' ),
 				WZKB_VERSION,
 				true
