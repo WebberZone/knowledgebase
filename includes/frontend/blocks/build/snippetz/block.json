@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "webberzone/snippetz",
+  "version": "2.1.0",
+  "title": "WebberZone Snippetz",
+  "category": "widgets",
+  "icon": "editor-code",
+  "description": "Display a snippet with this Gutenberg block.",
+  "keywords": [
+    "snippet",
+    "code",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "attributes": {
+    "className": {
+      "type": "string",
+      "default": ""
+    },
+    "snippetId": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "add-to-all",
+  "editorScript": "file:./index.js"
+}
