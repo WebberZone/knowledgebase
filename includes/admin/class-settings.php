@@ -1114,8 +1114,23 @@ class Settings {
 		if ( ! isset( $this->settings_api->settings_page ) || $hook !== $this->settings_api->settings_page ) {
 			return;
 		}
+
 		wp_enqueue_script( 'wzkb-admin' );
 		wp_enqueue_style( 'wzkb-admin-ui' );
+		wp_localize_script(
+			'wzkb-admin',
+			'wzkb_admin_data',
+			array(
+				'security' => wp_create_nonce( 'wzkb-admin' ),
+				'strings'  => array(
+					'confirm_message'      => esc_html__( 'Are you sure you want to clear the cache?', 'knowledgebase' ),
+					'clearing_text'        => esc_html__( 'Clearing...', 'knowledgebase' ),
+					'success_message'      => esc_html__( 'Cache cleared successfully!', 'knowledgebase' ),
+					'fail_message'         => esc_html__( 'Failed to clear cache. Please try again.', 'knowledgebase' ),
+					'request_fail_message' => esc_html__( 'Request failed: ', 'knowledgebase' ),
+				),
+			)
+		);
 	}
 
 	/**
