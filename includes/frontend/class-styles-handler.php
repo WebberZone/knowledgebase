@@ -34,19 +34,15 @@ class Styles_Handler {
 	 * Enqueue styles.
 	 */
 	public function register_styles() {
-
-		$rtl_suffix = is_rtl() ? '-rtl' : '';
-		$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$kb_style   = wzkb_get_option( 'kb_style', 'classic' );
-
-		// Get style file location (allow Pro or other extensions to override).
-		$style_url = $this->get_style_url( $kb_style, $rtl_suffix, $min_suffix );
+		$style_context = $this->get_style_context();
+		$style_url     = $style_context['style_url'];
+		$deps          = $style_context['deps'];
 
 		// Register the selected style (each style is complete and standalone).
 		wp_register_style(
 			'wz-knowledgebase-styles',
 			$style_url,
-			array( 'dashicons' ),
+			$deps,
 			WZKB_VERSION
 		);
 
@@ -71,17 +67,7 @@ class Styles_Handler {
 
 			// Add body class for selected style.
 			add_filter( 'body_class', array( $this, 'add_style_body_class' ) );
-
-			// Add custom CSS.
-			$custom_css = wzkb_get_option( 'custom_css' );
-			if ( ! empty( $custom_css ) ) {
-				wp_add_inline_style( 'wz-knowledgebase-styles', esc_html( $custom_css ) );
-			}
-
-			// Inject CSS variable for columns setting.
-			$columns     = absint( wzkb_get_option( 'columns', 2 ) );
-			$columns_css = '.wzkb { --wzkb-columns: ' . $columns . '; }';
-			wp_add_inline_style( 'wz-knowledgebase-styles', $columns_css );
+			$this->add_common_inline_styles( 'wz-knowledgebase-styles' );
 
 			// Add custom styles for taxonomy archives.
 			if ( is_tax( 'wzkb_category' ) ) {
@@ -101,32 +87,66 @@ class Styles_Handler {
 		if ( ! is_admin() ) {
 			return;
 		}
-
-		$rtl_suffix = is_rtl() ? '-rtl' : '';
-		$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$kb_style   = wzkb_get_option( 'kb_style', 'classic' );
-
-		// Get style file location.
-		$style_url = $this->get_style_url( $kb_style, $rtl_suffix, $min_suffix );
+		$style_context = $this->get_style_context();
+		$style_url     = $style_context['style_url'];
+		$deps          = $style_context['deps'];
 
 		// Enqueue the style for the block editor (including Site Editor).
 		wp_enqueue_style(
 			'wz-knowledgebase-styles',
 			$style_url,
-			array( 'dashicons' ),
+			$deps,
 			WZKB_VERSION
 		);
+		$this->add_common_inline_styles( 'wz-knowledgebase-styles' );
+	}
 
-		// Add custom CSS.
+	/**
+	 * Get the style context used for registering/enqueuing the main KB stylesheet.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array{
+	 *     rtl_suffix:string,
+	 *     min_suffix:string,
+	 *     kb_style:string,
+	 *     deps:array,
+	 *     style_url:string
+	 * }
+	 */
+	private function get_style_context() {
+		$rtl_suffix = is_rtl() ? '-rtl' : '';
+		$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$kb_style   = wzkb_get_option( 'kb_style', 'classic' );
+		$deps       = ( 'classic' === $kb_style ) ? array( 'dashicons' ) : array();
+
+		$style_url = $this->get_style_url( $kb_style, $rtl_suffix, $min_suffix );
+
+		return array(
+			'rtl_suffix' => $rtl_suffix,
+			'min_suffix' => $min_suffix,
+			'kb_style'   => $kb_style,
+			'deps'       => $deps,
+			'style_url'  => $style_url,
+		);
+	}
+
+	/**
+	 * Add common inline styles for the main KB stylesheet handle.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $handle Style handle.
+	 */
+	private function add_common_inline_styles( $handle ) {
 		$custom_css = wzkb_get_option( 'custom_css' );
 		if ( ! empty( $custom_css ) ) {
-			wp_add_inline_style( 'wz-knowledgebase-styles', esc_html( $custom_css ) );
+			wp_add_inline_style( $handle, esc_html( $custom_css ) );
 		}
 
-		// Inject CSS variable for columns setting.
 		$columns     = absint( wzkb_get_option( 'columns', 2 ) );
 		$columns_css = '.wzkb { --wzkb-columns: ' . $columns . '; }';
-		wp_add_inline_style( 'wz-knowledgebase-styles', $columns_css );
+		wp_add_inline_style( $handle, $columns_css );
 	}
 
 	/**

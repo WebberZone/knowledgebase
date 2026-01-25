@@ -207,6 +207,9 @@ final class Main {
 			new Product_Section_Selector();
 		}
 
+		// Initialize pro features.
+		// Pro features are handled by the Freemius integration in the pro version.
+
 		// Initialize admin on init action to ensure translations are loaded.
 		add_action( 'init', array( $this, 'init_admin' ) );
 	}

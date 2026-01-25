@@ -353,7 +353,15 @@ class Admin {
 		$tag_slug     = \wzkb_get_option( 'tag_slug', 'not-set-random-string' );
 
 		// Notice for missing settings.
-		if ( ! ( isset( $_GET['page'] ) && 'wzkb-setup' === $_GET['page'] ) && ( 'not-set-random-string' === $kb_slug || 'not-set-random-string' === $product_slug || 'not-set-random-string' === $cat_slug || 'not-set-random-string' === $tag_slug ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$is_setup_page = 'wzkb_wizard' === $page;
+		$slugs_not_set = 'not-set-random-string' === $kb_slug
+			|| 'not-set-random-string' === $product_slug
+			|| 'not-set-random-string' === $cat_slug
+			|| 'not-set-random-string' === $tag_slug;
+
+		if ( ! $is_setup_page && $slugs_not_set ) {
 			$this->admin_notices_api->register_notice(
 				array(
 					'id'          => 'wzkb_settings_not_registered',
