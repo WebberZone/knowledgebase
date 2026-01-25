@@ -629,7 +629,8 @@ class Display {
 	 * @return string Formatted header output.
 	 */
 	public static function get_article_header( $term, int $level, array $args = array() ): string {
-		$output = '<h3 class="wzkb-section-name wzkb-section-name-level-' . $level . '">';
+		$heading_level = min( 2 + $level, 6 ); // Start at h3, max h6.
+		$output        = '<h' . $heading_level . ' class="wzkb-section-name wzkb-section-name-level-' . $level . '">';
 
 		if ( $args['clickable_section'] ) {
 			$output .= '<a href="' . esc_url( get_term_link( $term ) ) . '" title="' . esc_attr( $term->name ) . '">' . esc_html( $term->name ) . '</a>';
@@ -643,7 +644,7 @@ class Display {
 			$output    .= '<span class="wzkb-section-count" aria-label="' . esc_attr( $count_text ) . '">' . $term->count . '</span>';
 		}
 
-		$output .= '</h3> ';
+		$output .= '</h' . $heading_level . '> ';
 
 		return $output;
 	}

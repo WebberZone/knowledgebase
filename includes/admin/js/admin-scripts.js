@@ -18,7 +18,7 @@ jQuery(document).ready(
 
 		// Function to clear the cache.
 		function clearCache($button) {
-			$.post(ajaxurl, {
+			$.post(WZKBAdminData.ajax_url, {
 				action: 'wzkb_clear_cache',
 				security: WZKBAdminData.security
 			}, function (response) {
@@ -38,7 +38,7 @@ jQuery(document).ready(
 
 		// Function to flush permalinks.
 		function flushPermalinks($button, nonce) {
-			$.post(ajaxurl, {
+			$.post(WZKBAdminData.ajax_url, {
 				action: 'wzkb_flush_permalinks',
 				nonce: nonce
 			}, function (response) {
