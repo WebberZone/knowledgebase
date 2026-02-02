@@ -657,7 +657,7 @@ class Product_Migrator {
 							$articles_in_batch      += $articles_count;
 							$current_article_offset += $articles_count;
 
-							if ( $articles_count < $articles_to_fetch || $current_article_offset >= $section_article_counts[ $current_section_id ] ) {
+							if ( $articles_count < $articles_to_fetch || $current_article_offset >= ( $section_article_counts[ $current_section_id ] ?? 0 ) ) {
 								$log[] = sprintf(
 									/* translators: 1: Section ID, 2: Article count */
 									__( 'Finished processing articles for section ID: %1$d (found %2$d articles).', 'knowledgebase' ),
@@ -673,10 +673,11 @@ class Product_Migrator {
 						$processed_count          = count( $state['processed_article_ids'] ?? array() );
 						$effective_total_articles = max( $total_articles, $processed_count );
 
+						$response_data['progress'] = $total_articles > 0
+							? round( max( 20, min( 80, ( $effective_total_articles > 0 ? ( $processed_count / $effective_total_articles ) : 0 ) * 60 + 20 ) ), 1 )
+							: round( max( 20, min( 80, ( $current_top_section_index / max( 1, count( $top_section_ids ) ) ) * 60 + 20 ) ), 1 );
+
 						if ( $current_top_section_index < count( $top_section_ids ) ) {
-							$response_data['progress']  = $total_articles > 0
-								? round( max( 20, min( 80, ( $effective_total_articles > 0 ? ( $processed_count / $effective_total_articles ) : 0 ) * 60 + 20 ) ), 1 )
-								: round( max( 20, min( 80, ( $current_top_section_index / max( 1, count( $top_section_ids ) ) ) * 60 + 20 ) ), 1 );
 							$response_data['next_step'] = 2;
 						}
 					}
@@ -740,17 +741,33 @@ class Product_Migrator {
 				}
 				$state['sections_deleted'] = $sections_deleted;
 
-				if ( $dry_run && ! empty( $state['simulated_product_ids'] ) ) {
-					foreach ( $state['simulated_product_ids'] as $sim_product_id ) {
-						wp_delete_term( $sim_product_id, $this->taxonomy_product );
-						$log[] = sprintf(
-							/* translators: 1: Product ID */
-							__( 'Deleted simulated product with ID: %1$d after dry run.', 'knowledgebase' ),
-							$sim_product_id
-						);
+				if ( $dry_run ) {
+					$simulated_product_ids = $state['simulated_product_ids'] ?? array();
+					if ( ! empty( $simulated_product_ids ) ) {
+						foreach ( $simulated_product_ids as $sim_product_id ) {
+							wp_delete_term( $sim_product_id, $this->taxonomy_product );
+							$log[] = sprintf(
+								/* translators: 1: Product ID */
+								__( 'Deleted simulated product with ID: %1$d after dry run.', 'knowledgebase' ),
+								$sim_product_id
+							);
+						}
+						$state['simulated_product_ids'] = array();
 					}
-					$state['simulated_product_ids'] = array();
 				}
+
+				$log[] = sprintf(
+					/* translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Sections mapped, 6: Top sections mapped, 7: Articles processed, 8: Total articles */
+					__( 'Outgoing State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, sections_mapped=%5$d, top_sections_mapped=%6$d, articles_processed=%7$d/%8$d', 'knowledgebase' ),
+					$state['current_top_section_index'] ?? 0,
+					$state['current_desc_section_index'] ?? 0,
+					$state['current_article_offset'] ?? 0,
+					count( $state['descendant_ids'] ?? array() ),
+					$state['sections_mapped'] ?? 0,
+					$state['top_sections_mapped'] ?? 0,
+					$state['articles_processed'] ?? 0,
+					$state['total_articles'] ?? 0
+				);
 
 				$log[] = '<strong>' . sprintf(
 					/* translators: 1: Products created, 2: Sub-sections mapped, 3: Articles processed, 4: Sections deleted */

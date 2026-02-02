@@ -154,21 +154,31 @@ class CPT {
 	 *
 	 * @param string $slug     Taxonomy slug.
 	 * @param bool   $is_hierarchical Whether the taxonomy is hierarchical.
+	 * @param bool   $enable_rewrite Whether to enable rewrite rules. Default true.
 	 *
 	 * @return array Base arguments for the taxonomy.
 	 */
-	private static function get_taxonomy_base_args( string $slug, bool $is_hierarchical = true ): array {
-		return array(
+	private static function get_taxonomy_base_args( string $slug, bool $is_hierarchical = true, bool $enable_rewrite = true ): array {
+		$args = array(
 			'hierarchical'      => $is_hierarchical,
 			'show_admin_column' => true,
 			'show_in_rest'      => true,
 			'show_tagcloud'     => ! $is_hierarchical,
-			'rewrite'           => array(
+		);
+
+		// Only add rewrite rules if enabled. When custom article structures are used,
+		// we disable permastruct rewrite and rely on custom rewrite rules instead.
+		if ( $enable_rewrite ) {
+			$args['rewrite'] = array(
 				'slug'         => $slug,
 				'with_front'   => false,
 				'hierarchical' => $is_hierarchical,
-			),
-		);
+			);
+		} else {
+			$args['rewrite'] = false;
+		}
+
+		return $args;
 	}
 
 	/**
@@ -236,12 +246,22 @@ class CPT {
 	public static function register_taxonomies() {
 		// Get taxonomy slugs from options.
 		// Use custom sanitization that preserves slashes and removes placeholders.
+		// When custom article structure is set, use the base slug without placeholders.
+		$article_structure            = \wzkb_get_option( 'article_permalink', '' );
+		$has_custom_article_structure = ! empty( $article_structure ) && '%postname%' !== trim( $article_structure );
+
+		// Only disable permastruct if Pro is enabled to handle custom structures.
+		// If Pro isn't enabled, keep permastruct so URLs work with standard rewrite rules.
+		$is_pro_enabled      = wzkb()->is_pro_enabled;
+		$disable_permastruct = $has_custom_article_structure && $is_pro_enabled;
+
 		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
 		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
 		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/products' ) );
 
 		// Register products taxonomy first.
-		$product_args           = self::get_taxonomy_base_args( $productslug, false );
+		// Disable permastruct rewrite only if Pro is enabled and custom article structure is used, to avoid conflicts.
+		$product_args           = self::get_taxonomy_base_args( $productslug, false, ! $disable_permastruct );
 		$product_args['labels'] = self::get_taxonomy_labels( 'Product', 'Products' );
 
 		/**
@@ -256,7 +276,8 @@ class CPT {
 		register_taxonomy( 'wzkb_product', array( 'wz_knowledgebase' ), $product_args );
 
 		// Register categories (sections) taxonomy.
-		$cat_args           = self::get_taxonomy_base_args( $catslug, true );
+		// Disable permastruct rewrite only if Pro is enabled and custom article structure is used, to avoid conflicts.
+		$cat_args           = self::get_taxonomy_base_args( $catslug, true, ! $disable_permastruct );
 		$cat_args['labels'] = self::get_taxonomy_labels( 'Section', 'Sections' );
 
 		/**
@@ -271,7 +292,8 @@ class CPT {
 		register_taxonomy( 'wzkb_category', array( 'wz_knowledgebase' ), $cat_args );
 
 		// Register tags taxonomy.
-		$tag_args           = self::get_taxonomy_base_args( $tagslug, false );
+		// Disable permastruct rewrite only if Pro is enabled and custom article structure is used, to avoid conflicts.
+		$tag_args           = self::get_taxonomy_base_args( $tagslug, false, ! $disable_permastruct );
 		$tag_args['labels'] = self::get_taxonomy_labels( 'Tag', 'Tags' );
 
 		/**
@@ -286,7 +308,10 @@ class CPT {
 		register_taxonomy( 'wzkb_tag', array( 'wz_knowledgebase' ), $tag_args );
 
 		// Add taxonomy rewrite rules with 'top' priority to ensure they match before post type rules.
-		add_action( 'init', array( __CLASS__, 'add_taxonomy_rewrite_rules' ), 20 );
+		// Only add if Pro is enabled and custom article structure is used (otherwise WordPress handles it via permastruct).
+		if ( $disable_permastruct ) {
+			add_action( 'init', array( __CLASS__, 'add_taxonomy_rewrite_rules' ), 20 );
+		}
 	}
 
 	/**

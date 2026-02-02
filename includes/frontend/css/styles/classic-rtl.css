@@ -721,6 +721,23 @@ nav.pagination {
 .wzkb-product-card:focus-within {
 	transform: translateY(-6px);
 	box-shadow: 0 25px 50px var(--wzkb-shadow-hover, rgba(22, 33, 82, 0.16));
+	background: var(--wzkb-color-primary, #506eff);
+	color: var(--wzkb-color-white, #ffffff);
+}
+
+.wzkb-product-card:hover .wzkb-product-title,
+.wzkb-product-card:focus-within .wzkb-product-title {
+	color: var(--wzkb-color-white, #ffffff);
+}
+
+.wzkb-product-card:hover .wzkb-product-description,
+.wzkb-product-card:focus-within .wzkb-product-description {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.wzkb-product-card:hover .wzkb-product-card-cta,
+.wzkb-product-card:focus-within .wzkb-product-card-cta {
+	color: var(--wzkb-color-white, #ffffff);
 }
 
 .wzkb-product-card:hover::before,

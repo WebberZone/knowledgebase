@@ -110,6 +110,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'category_level',
 		);
 		$permalink_keys        = array(
+			'permalink_header',
 			'kb_slug',
 			'product_slug',
 			'category_slug',

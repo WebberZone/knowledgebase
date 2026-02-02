@@ -60,9 +60,6 @@ class Admin_Columns {
 	 * @return array Updated columns.
 	 */
 	public static function tax_columns( $columns ) {
-		// Remove the description column.
-		unset( $columns['description'] );
-
 		$new_columns = array(
 			'tax_id' => 'ID',
 		);
