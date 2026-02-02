@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WebberZone Knowledge Base 3.0.0-beta3\n"
+"Project-Id-Version: WebberZone Knowledge Base 3.0.0-RC1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/knowledgebase\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-25T11:39:28+00:00\n"
+"POT-Creation-Date: 2026-02-02T18:32:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
@@ -40,31 +40,31 @@ msgstr ""
 msgid "https://webberzone.com"
 msgstr ""
 
-#: includes/admin/class-admin-columns.php:73
+#: includes/admin/class-admin-columns.php:70
 #: includes/admin/class-section-product-meta.php:83
 #: includes/admin/class-section-product-meta.php:133
-#: includes/admin/class-settings-wizard.php:566
+#: includes/admin/class-settings-wizard.php:567
 #: includes/blocks/build/products/index.js:1
 #: includes/blocks/src/products/edit.js:49
 #: includes/blocks/src/products/edit.js:91
 msgid "Product"
 msgstr ""
 
-#: includes/admin/class-admin-columns.php:237
+#: includes/admin/class-admin-columns.php:234
 msgid "All Products"
 msgstr ""
 
-#: includes/admin/class-admin-columns.php:397
+#: includes/admin/class-admin-columns.php:394
 msgid "Filter sections by product:"
 msgstr ""
 
-#: includes/admin/class-admin-columns.php:398
+#: includes/admin/class-admin-columns.php:395
 #: includes/widgets/class-products-widget.php:64
 #: includes/widgets/class-sections-widget.php:69
 msgid "Product:"
 msgstr ""
 
-#: includes/admin/class-admin-columns.php:399
+#: includes/admin/class-admin-columns.php:396
 msgid "Search sections..."
 msgstr ""
 
@@ -110,58 +110,54 @@ msgid "WebberZone Plugins"
 msgstr ""
 
 #. translators: 1. Link to admin page.
-#: includes/admin/class-admin.php:364
+#: includes/admin/class-admin.php:372
 #, php-format
 msgid "Knowledge Base settings for the slug have not been registered. Please visit the %s to update and save the options."
 msgstr ""
 
-#: includes/admin/class-admin.php:365
+#: includes/admin/class-admin.php:373
 msgid "admin page"
 msgstr ""
 
 #. translators: %s: HTML link to the plugin settings page.
-#: includes/admin/class-admin.php:385
+#: includes/admin/class-admin.php:393
 #, php-format
 msgid "The Products taxonomy is only available in multi-product mode. Please enable multi-product mode in the %s."
 msgstr ""
 
-#: includes/admin/class-admin.php:386
+#: includes/admin/class-admin.php:394
 msgid "plugin settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:415
-#: includes/admin/class-settings.php:1126
+#: includes/admin/class-admin.php:423
 msgid "Are you sure you want to clear the cache?"
 msgstr ""
 
-#: includes/admin/class-admin.php:416
+#: includes/admin/class-admin.php:424
 msgid "Are you sure you want to flush the permalinks?"
 msgstr ""
 
-#: includes/admin/class-admin.php:417
-#: includes/admin/class-settings.php:1128
+#: includes/admin/class-admin.php:425
 msgid "Cache cleared successfully!"
 msgstr ""
 
-#: includes/admin/class-admin.php:418
-#: includes/admin/class-settings.php:1129
+#: includes/admin/class-admin.php:426
 msgid "Failed to clear cache. Please try again."
 msgstr ""
 
-#: includes/admin/class-admin.php:419
-#: includes/admin/class-settings.php:1130
+#: includes/admin/class-admin.php:427
 msgid "Request failed: "
 msgstr ""
 
 #. translators: 1. Number of articles
-#: includes/admin/class-admin.php:465
+#: includes/admin/class-admin.php:473
 #, php-format
 msgid "%s KB article"
 msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:527
+#: includes/admin/class-admin.php:535
 msgid "Support the development - Send us a donation today."
 msgstr ""
 
@@ -179,7 +175,7 @@ msgid "Unknown error"
 msgstr ""
 
 #: includes/admin/class-product-migrator.php:104
-#: includes/admin/class-product-migrator.php:771
+#: includes/admin/class-product-migrator.php:788
 msgid "Migration complete!"
 msgstr ""
 
@@ -246,7 +242,7 @@ msgid "Copy Log"
 msgstr ""
 
 #: includes/admin/class-product-migrator.php:179
-#: includes/admin/class-settings-wizard.php:909
+#: includes/admin/class-settings-wizard.php:910
 msgid "Insufficient permissions."
 msgstr ""
 
@@ -391,38 +387,39 @@ msgid "Finished processing articles for section ID: %1$d (found %2$d articles)."
 msgstr ""
 
 #. translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Sections mapped, 6: Top sections mapped, 7: Articles processed, 8: Total articles
-#: includes/admin/class-product-migrator.php:702
+#: includes/admin/class-product-migrator.php:703
+#: includes/admin/class-product-migrator.php:761
 #, php-format
 msgid "Outgoing State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, sections_mapped=%5$d, top_sections_mapped=%6$d, articles_processed=%7$d/%8$d"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:722
+#: includes/admin/class-product-migrator.php:723
 msgid "Deleting old top-level sections..."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:737
+#: includes/admin/class-product-migrator.php:738
 #, php-format
 msgid "Deleting top-level section ID: %d."
 msgstr ""
 
 #. translators: 1: Product ID
-#: includes/admin/class-product-migrator.php:748
+#: includes/admin/class-product-migrator.php:751
 #, php-format
 msgid "Deleted simulated product with ID: %1$d after dry run."
 msgstr ""
 
 #. translators: 1: Products created, 2: Sub-sections mapped, 3: Articles processed, 4: Sections deleted
-#: includes/admin/class-product-migrator.php:757
+#: includes/admin/class-product-migrator.php:774
 #, php-format
 msgid "Migration Summary: Created %1$d products from top-level sections, mapped %2$d sub-sections to products, processed %3$d articles, and deleted %4$d old top-level sections."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:771
+#: includes/admin/class-product-migrator.php:788
 msgid "Dry run complete! No changes were made."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:783
+#: includes/admin/class-product-migrator.php:800
 msgid "Unknown migration step."
 msgstr ""
 
@@ -489,7 +486,7 @@ msgstr ""
 
 #: includes/admin/class-section-product-meta.php:85
 #: includes/admin/class-section-product-meta.php:136
-#: includes/admin/class-settings-wizard.php:707
+#: includes/admin/class-settings-wizard.php:708
 msgid "— Select Product —"
 msgstr ""
 
@@ -498,289 +495,289 @@ msgstr ""
 msgid "Select the product this section belongs to."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:154
+#: includes/admin/class-settings-wizard.php:155
 msgid "Knowledge Base Setup"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:155
+#: includes/admin/class-settings-wizard.php:156
 msgid "Thank you for installing Knowledge Base! This wizard will help you configure the essential settings to get your knowledge base working perfectly."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:159
+#: includes/admin/class-settings-wizard.php:160
 msgid "Mode Settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:160
+#: includes/admin/class-settings-wizard.php:161
 msgid "Enable multi-product mode and determine which section level is displayed first."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:164
+#: includes/admin/class-settings-wizard.php:165
 msgid "Permalinks & Performance"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:165
+#: includes/admin/class-settings-wizard.php:166
 msgid "Define slugs, permalink structure, and caching settings for the knowledge base."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:169
+#: includes/admin/class-settings-wizard.php:170
 msgid "Display Options"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:170
+#: includes/admin/class-settings-wizard.php:171
 msgid "Customize how the knowledge base archive looks and which metadata is visible."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:174
+#: includes/admin/class-settings-wizard.php:175
 msgid "Pro Features"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:175
+#: includes/admin/class-settings-wizard.php:176
 msgid "Unlock premium features like ratings and the help widget. Configure the essentials here before diving deeper."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:179
+#: includes/admin/class-settings-wizard.php:180
 msgid "Create Products"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:180
+#: includes/admin/class-settings-wizard.php:181
 msgid "Add one or more products to organize your knowledge base content."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:185
+#: includes/admin/class-settings-wizard.php:186
 msgid "Create Sections"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:186
+#: includes/admin/class-settings-wizard.php:187
 msgid "Add sections to organize your articles. You can add more later."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:191
+#: includes/admin/class-settings-wizard.php:192
 msgid "Create Subsections"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:192
+#: includes/admin/class-settings-wizard.php:193
 msgid "Add subsections and assign them to a parent section. You can add more later."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:236
+#: includes/admin/class-settings-wizard.php:237
 msgid "Knowledge Base Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:237
+#: includes/admin/class-settings-wizard.php:238
 msgid "Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:238
+#: includes/admin/class-settings-wizard.php:239
 msgid "Next Step"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:239
+#: includes/admin/class-settings-wizard.php:240
 msgid "Previous Step"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:240
+#: includes/admin/class-settings-wizard.php:241
 msgid "Finish Setup"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:241
+#: includes/admin/class-settings-wizard.php:242
 msgid "Skip Wizard"
 msgstr ""
 
 #. translators: %s: Search query.
-#: includes/admin/class-settings-wizard.php:243
+#: includes/admin/class-settings-wizard.php:244
 #, php-format
 msgid "No results found for \"%s\""
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:244
+#: includes/admin/class-settings-wizard.php:245
 msgid "Setup Wizard Steps"
 msgstr ""
 
 #. translators: %1$d: Current step number, %2$d: Total number of steps
-#: includes/admin/class-settings-wizard.php:246
+#: includes/admin/class-settings-wizard.php:247
 #, php-format
 msgid "Step %1$d of %2$d"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:247
+#: includes/admin/class-settings-wizard.php:248
 msgid "Setup Complete!"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:248
+#: includes/admin/class-settings-wizard.php:249
 msgid "Your Knowledge Base has been configured successfully. You can now start organizing your documentation."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:249
+#: includes/admin/class-settings-wizard.php:250
 msgid "Go to Settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:285
+#: includes/admin/class-settings-wizard.php:286
 msgid "Welcome to Knowledge Base! Would you like to run the setup wizard to configure the plugin?"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:287
+#: includes/admin/class-settings-wizard.php:288
 msgid "Run Setup Wizard"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:503
-#: includes/admin/class-settings-wizard.php:561
-#: includes/admin/class-settings-wizard.php:626
-msgid "Existing"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:504
 #: includes/admin/class-settings-wizard.php:562
 #: includes/admin/class-settings-wizard.php:627
-msgid "Name"
+msgid "Existing"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:505
 #: includes/admin/class-settings-wizard.php:563
 #: includes/admin/class-settings-wizard.php:628
-msgid "Slug"
+msgid "Name"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:506
 #: includes/admin/class-settings-wizard.php:564
 #: includes/admin/class-settings-wizard.php:629
-msgid "Description"
+msgid "Slug"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:507
-#: includes/admin/class-settings-wizard.php:568
-#: includes/admin/class-settings-wizard.php:631
+#: includes/admin/class-settings-wizard.php:565
+#: includes/admin/class-settings-wizard.php:630
+msgid "Description"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:508
+#: includes/admin/class-settings-wizard.php:569
+#: includes/admin/class-settings-wizard.php:632
 msgid "Actions"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:515
+#: includes/admin/class-settings-wizard.php:516
 msgid "Add another product"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:576
+#: includes/admin/class-settings-wizard.php:577
 msgid "Add another section"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:630
+#: includes/admin/class-settings-wizard.php:631
 msgid "Parent section"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:639
+#: includes/admin/class-settings-wizard.php:640
 msgid "Add another subsection"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:674
+#: includes/admin/class-settings-wizard.php:675
 msgid "— New —"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:707
+#: includes/admin/class-settings-wizard.php:708
 msgid "— Select Section —"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:717
+#: includes/admin/class-settings-wizard.php:718
 msgid "Remove"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:914
+#: includes/admin/class-settings-wizard.php:915
 msgid "Permalinks flushed successfully."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:938
+#: includes/admin/class-settings-wizard.php:939
 msgid "Flush Permalinks"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:942
+#: includes/admin/class-settings-wizard.php:943
 msgid "Visit Knowledge Base"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:948
+#: includes/admin/class-settings-wizard.php:949
 msgid "Next Steps:"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:948
+#: includes/admin/class-settings-wizard.php:949
 msgid "Start by creating products to organize your knowledge base content."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:948
+#: includes/admin/class-settings-wizard.php:949
 msgid "Create sections to categorize your articles and improve navigation."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:956
+#: includes/admin/class-settings-wizard.php:957
 msgid "Create your first product"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:958
+#: includes/admin/class-settings-wizard.php:959
 msgid "Organize content by products"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:964
+#: includes/admin/class-settings-wizard.php:965
 msgid "Add sections"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:966
+#: includes/admin/class-settings-wizard.php:967
 msgid "Create categories for articles"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:971
+#: includes/admin/class-settings-wizard.php:972
 msgid "Create your first article"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:973
+#: includes/admin/class-settings-wizard.php:974
 msgid "Add helpful content"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:978
+#: includes/admin/class-settings-wizard.php:979
 msgid "Configure settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:980
+#: includes/admin/class-settings-wizard.php:981
 msgid "Customize display and behavior"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:986
+#: includes/admin/class-settings-wizard.php:987
 msgid "Pro Features Available"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:991
+#: includes/admin/class-settings-wizard.php:992
 msgid "Customize Permalinks"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:993
+#: includes/admin/class-settings-wizard.php:994
 msgid "Optimize URL structure"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1002
+#: includes/admin/class-settings-wizard.php:1003
 msgid "Configure Rating System and Help Widget"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1004
+#: includes/admin/class-settings-wizard.php:1005
 msgid "Set up article feedback and help widget"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1012
+#: includes/admin/class-settings-wizard.php:1013
 msgid "Helpful Resources"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1017
+#: includes/admin/class-settings-wizard.php:1018
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1019
+#: includes/admin/class-settings-wizard.php:1020
 msgid "Read the plugin manual"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1024
+#: includes/admin/class-settings-wizard.php:1025
 msgid "Tools Page"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1026
+#: includes/admin/class-settings-wizard.php:1027
 msgid "Maintenance and debugging"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1031
+#: includes/admin/class-settings-wizard.php:1032
 msgid "Support Forum"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1033
+#: includes/admin/class-settings-wizard.php:1034
 msgid "Get help from the community"
 msgstr ""
 
@@ -1414,11 +1411,11 @@ msgid "Enable smooth animations and transitions for the help widget."
 msgstr ""
 
 #: includes/admin/class-settings.php:942
-msgid "Legacy"
+msgid "Classic"
 msgstr ""
 
 #: includes/admin/class-settings.php:943
-msgid "Classic"
+msgid "Vibrant"
 msgstr ""
 
 #: includes/admin/class-settings.php:989
@@ -1484,13 +1481,9 @@ msgstr ""
 msgid "Thank you for using %1$sWebberZone Knowledge_Base%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s"
 msgstr ""
 
-#: includes/admin/class-settings.php:1127
-msgid "Clearing..."
-msgstr ""
-
-#: includes/admin/class-settings.php:1164
-#: includes/admin/class-settings.php:1174
-#: includes/admin/class-settings.php:1175
+#: includes/admin/class-settings.php:1149
+#: includes/admin/class-settings.php:1159
+#: includes/admin/class-settings.php:1160
 msgid "Start Settings Wizard"
 msgstr ""
 
@@ -1707,119 +1700,119 @@ msgid "Filter Articles list"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:187
+#: includes/class-cpt.php:197
 #, php-format
 msgctxt "Taxonomy General Name"
 msgid "Knowledge Base %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:189
+#: includes/class-cpt.php:199
 #, php-format
 msgctxt "Taxonomy Singular Name"
 msgid "Knowledge Base %1$s"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:193
+#: includes/class-cpt.php:203
 #, php-format
 msgid "All %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:195
+#: includes/class-cpt.php:205
 #, php-format
 msgid "Parent %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:197
+#: includes/class-cpt.php:207
 #, php-format
 msgid "Parent %1$s:"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:199
+#: includes/class-cpt.php:209
 #, php-format
 msgid "New %1$s Name"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:201
+#: includes/class-cpt.php:211
 #, php-format
 msgid "Add New %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:203
+#: includes/class-cpt.php:213
 #, php-format
 msgid "Edit %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:205
+#: includes/class-cpt.php:215
 #, php-format
 msgid "Update %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:207
+#: includes/class-cpt.php:217
 #, php-format
 msgid "View %1$s"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:209
+#: includes/class-cpt.php:219
 #, php-format
 msgid "Separate %1$s with commas"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:211
+#: includes/class-cpt.php:221
 #, php-format
 msgid "Add or remove %1$s"
 msgstr ""
 
-#: includes/class-cpt.php:212
+#: includes/class-cpt.php:222
 msgid "Choose from the most used"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:214
+#: includes/class-cpt.php:224
 #, php-format
 msgid "Popular %1$s"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:216
+#: includes/class-cpt.php:226
 #, php-format
 msgid "Search %1$s"
 msgstr ""
 
-#: includes/class-cpt.php:217
+#: includes/class-cpt.php:227
 msgid "Not Found"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:219
+#: includes/class-cpt.php:229
 #, php-format
 msgid "No %1$s found"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:221
+#: includes/class-cpt.php:231
 #, php-format
 msgid "%1$s list"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:223
+#: includes/class-cpt.php:233
 #, php-format
 msgid "%1$s list navigation"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:225
+#: includes/class-cpt.php:235
 #, php-format
 msgid "Back to %1$s"
 msgstr ""
@@ -1897,18 +1890,18 @@ msgid "%s is not a valid section ID"
 msgstr ""
 
 #. translators: %d: Number of articles within a section.
-#: includes/frontend/class-display.php:642
+#: includes/frontend/class-display.php:643
 #, php-format
 msgid "%d article"
 msgid_plural "%d articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/frontend/class-display.php:707
+#: includes/frontend/class-display.php:708
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/frontend/class-display.php:1058
+#: includes/frontend/class-display.php:1059
 msgid "View articles"
 msgstr ""
 

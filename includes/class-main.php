@@ -48,6 +48,15 @@ final class Main {
 	public ?Pro\Pro $pro = null;
 
 	/**
+	 * Whether Pro code can be used.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @var bool Whether Pro is enabled.
+	 */
+	public bool $is_pro_enabled = false;
+
+	/**
 	 * Shortcodes.
 	 *
 	 * @since 2.3.0
