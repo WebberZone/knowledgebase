@@ -600,7 +600,7 @@ class Media_Handler {
 	 * are empty or invalid, and strips internal `thumb_*` keys that must
 	 * never appear in the final `<img>` tag.
 	 *
-	 * @since 4.2.0
+	 * @since 3.0.0
 	 *
 	 * @param array $attr Image attributes.
 	 * @return array Cleaned attributes.

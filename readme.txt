@@ -38,6 +38,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
 - 💬 __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
 - 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
+- 🏠 __Knowledge Base Homepage Mode__ — Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
 - 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
@@ -137,6 +138,8 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 = 3.0.0 =
 
+Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](https://webberzone.com/announcements/knowledge-base-v3-0-0/)
+
 * Features:
 	* Introduced a hierarchical Products taxonomy (`wzkb_product`) for multi-product knowledge bases.
 		* Migration wizard with dry-run and batch processing to map existing sections and articles to products.
@@ -152,6 +155,7 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 	* [Pro] Custom permalinks for Products, Sections, Tags, and Articles.
 	* [Pro] Cache tools: Clear cache button and cache expiry option in the Settings page.
 	* [Pro] Flush permalinks button in the Settings page.
+	* [Pro] Knowledge Base Homepage Mode: Display the Knowledge Base on your site homepage, and redirect the Knowledge Base archive URL to the homepage.
 	* [Pro] Article Rating System:
 		* Binary or 5-star voting, optional follow-up feedback, shortcode support, and Tools page controls.
 		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
