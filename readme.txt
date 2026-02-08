@@ -35,6 +35,8 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 
 ### Pro features
 
+[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/#pro) enhances the plugin with advanced features for larger documentation sites, including ratings and feedback, a help widget, a powerful custom permalinks engine, premium layouts, and additional admin tools.
+
 - ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
 - 💬 __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
 - 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
