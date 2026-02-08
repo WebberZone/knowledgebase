@@ -1719,14 +1719,6 @@ msgstr ""
 msgid "Display the help widget on mobile devices."
 msgstr ""
 
-#: includes/admin/class-settings.php:905
-msgid "Enable Animations"
-msgstr ""
-
-#: includes/admin/class-settings.php:906
-msgid "Enable smooth animations and transitions for the help widget."
-msgstr ""
-
 #: includes/admin/class-settings.php:935
 msgid "Classic"
 msgstr ""
@@ -2849,4 +2841,12 @@ msgstr ""
 
 #: includes/admin/class-settings.php:627
 msgid "Choose how products are displayed on the main Knowledge Base archive when Multi-Product Mode is enabled. “Sections list” shows each product with its sections listed below. The “Product cards grid” displays products as a grid of cards, allowing visitors to click through to a product page."
+msgstr ""
+
+#: includes/admin/class-settings.php:905
+msgid "Enable button pulse"
+msgstr ""
+
+#: includes/admin/class-settings.php:906
+msgid "Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static."
 msgstr ""

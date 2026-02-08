@@ -902,8 +902,8 @@ class Settings {
 			),
 			'help_widget_enable_animation'   => array(
 				'id'      => 'help_widget_enable_animation',
-				'name'    => esc_html__( 'Enable Animations', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Enable smooth animations and transitions for the help widget.', 'knowledgebase' ),
+				'name'    => esc_html__( 'Enable button pulse', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 				'pro'     => true,

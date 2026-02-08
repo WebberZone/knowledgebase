@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-08T10:03:35+00:00\n"
+"POT-Creation-Date: 2026-02-08T10:29:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
@@ -1399,11 +1399,11 @@ msgid "Display the help widget on mobile devices."
 msgstr ""
 
 #: includes/admin/class-settings.php:905
-msgid "Enable Animations"
+msgid "Enable button pulse"
 msgstr ""
 
 #: includes/admin/class-settings.php:906
-msgid "Enable smooth animations and transitions for the help widget."
+msgid "Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static."
 msgstr ""
 
 #: includes/admin/class-settings.php:935
