@@ -257,7 +257,7 @@ class CPT {
 
 		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
 		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
-		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/products' ) );
+		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/product' ) );
 
 		// Register products taxonomy first.
 		// Disable permastruct rewrite only if Pro is enabled and custom article structure is used, to avoid conflicts.
