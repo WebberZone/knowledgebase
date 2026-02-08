@@ -423,7 +423,7 @@ class CPT {
 	 * @since 3.0.0
 	 */
 	public static function add_taxonomy_rewrite_rules() {
-		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/products' ) );
+		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/product' ) );
 		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
 		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
 
