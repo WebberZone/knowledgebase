@@ -58,7 +58,7 @@ msgstr ""
 #: includes/admin/class-settings.php:259
 #: includes/admin/class-settings.php:261
 #: includes/admin/class-settings.php:295
-#: includes/admin/class-settings.php:1036
+#: includes/admin/class-settings.php:1029
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:123
 msgid "Knowledge Base Settings"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: includes/admin/class-settings.php:260
 #: includes/admin/class-settings.php:296
-#: includes/admin/class-settings.php:970
+#: includes/admin/class-settings.php:963
 #: includes/blocks/build/products/index.js:1
 #: includes/blocks/src/products/edit.js:60
 #: includes/blocks/src/products/edit.js:111
@@ -86,175 +86,167 @@ msgstr ""
 msgid "Styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:399
+#: includes/admin/class-settings.php:392
 msgid "Knowledge Base slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:400
+#: includes/admin/class-settings.php:393
 msgid "This will set the opening path of the URL of the knowledge base and is set when registering the custom post type"
 msgstr ""
 
-#: includes/admin/class-settings.php:424
+#: includes/admin/class-settings.php:417
 msgid "Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:446
+#: includes/admin/class-settings.php:439
 msgid "Enable cache"
 msgstr ""
 
-#: includes/admin/class-settings.php:475
+#: includes/admin/class-settings.php:468
 msgid "Uninstall options"
 msgstr ""
 
-#: includes/admin/class-settings.php:482
+#: includes/admin/class-settings.php:475
 msgid "Delete options on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:483
+#: includes/admin/class-settings.php:476
 msgid "Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin"
 msgstr ""
 
-#: includes/admin/class-settings.php:490
+#: includes/admin/class-settings.php:483
 msgid "Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option"
 msgstr ""
 
-#: includes/admin/class-settings.php:496
+#: includes/admin/class-settings.php:489
 msgid "Feed options"
 msgstr ""
 
-#: includes/admin/class-settings.php:503
+#: includes/admin/class-settings.php:496
 msgid "Include in feed"
 msgstr ""
 
-#: includes/admin/class-settings.php:504
+#: includes/admin/class-settings.php:497
 msgid "Adds the knowledge base articles to the main RSS feed for your site"
 msgstr ""
 
-#: includes/admin/class-settings.php:510
+#: includes/admin/class-settings.php:503
 msgid "Disable KB feed"
 msgstr ""
 
 #. translators: 1: Opening link tag, 2: Closing link tag.
-#: includes/admin/class-settings.php:512
+#: includes/admin/class-settings.php:505
 #, php-format
 msgid "The knowledge base articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option."
 msgstr ""
 
-#: includes/admin/class-settings.php:541
+#: includes/admin/class-settings.php:534
 msgid "Knowledge base title"
 msgstr ""
 
 #: includes/admin/class-settings.php:542
-msgid "This will be displayed as the title of the archive title as well as on other relevant places."
-msgstr ""
-
-#: includes/admin/class-settings.php:549
 msgid "First section level"
 msgstr ""
 
-#: includes/admin/class-settings.php:559
+#: includes/admin/class-settings.php:552
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:153
 msgid "Show article count"
 msgstr ""
 
-#: includes/admin/class-settings.php:560
+#: includes/admin/class-settings.php:553
 msgid "If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count"
 msgstr ""
 
-#: includes/admin/class-settings.php:566
+#: includes/admin/class-settings.php:559
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:166
 msgid "Show excerpt"
 msgstr ""
 
-#: includes/admin/class-settings.php:567
+#: includes/admin/class-settings.php:560
 msgid "Select to include the post excerpt after the article link"
 msgstr ""
 
-#: includes/admin/class-settings.php:573
+#: includes/admin/class-settings.php:566
 msgid "Link section title"
 msgstr ""
 
-#: includes/admin/class-settings.php:574
-msgid "If selected, the title of each section of the knowledgebase will be linked to its own page"
-msgstr ""
-
-#: includes/admin/class-settings.php:580
+#: includes/admin/class-settings.php:573
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:192
 msgid "Show empty sections"
 msgstr ""
 
-#: includes/admin/class-settings.php:581
+#: includes/admin/class-settings.php:574
 msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
-#: includes/admin/class-settings.php:587
+#: includes/admin/class-settings.php:580
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:139
 msgid "Max articles per section"
 msgstr ""
 
-#: includes/admin/class-settings.php:597
+#: includes/admin/class-settings.php:590
 msgid "Show sidebar"
 msgstr ""
 
-#: includes/admin/class-settings.php:604
+#: includes/admin/class-settings.php:597
 msgid "Show related articles"
 msgstr ""
 
-#: includes/admin/class-settings.php:605
+#: includes/admin/class-settings.php:598
 msgid "Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template."
 msgstr ""
 
-#: includes/admin/class-settings.php:644
+#: includes/admin/class-settings.php:637
 msgid "Include inbuilt styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:645
+#: includes/admin/class-settings.php:638
 msgid "Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/class-settings.php:659
+#: includes/admin/class-settings.php:652
 msgid "Number of columns"
 msgstr ""
 
-#: includes/admin/class-settings.php:669
+#: includes/admin/class-settings.php:662
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/class-settings.php:670
+#: includes/admin/class-settings.php:663
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
-#: includes/admin/class-settings.php:989
+#: includes/admin/class-settings.php:982
 #: includes/admin/sidebar.php:30
 msgid "Support"
 msgstr ""
 
-#: includes/admin/class-settings.php:990
+#: includes/admin/class-settings.php:983
 msgid "Donate"
 msgstr ""
 
-#: includes/admin/class-settings.php:991
+#: includes/admin/class-settings.php:984
 msgid "Contribute"
 msgstr ""
 
 #. translators: 1: Plugin support site link.
-#: includes/admin/class-settings.php:1007
+#: includes/admin/class-settings.php:1000
 #, php-format
 msgid "For more information or how to get support visit the <a href=\"%s\">support site</a>."
 msgstr ""
 
 #. translators: 1: Github issues link, 2: Github plugin page link.
-#: includes/admin/class-settings.php:1012
+#: includes/admin/class-settings.php:1005
 #, php-format
 msgid "<a href=\"%1$s\">Post an issue</a> on <a href=\"%2$s\">GitHub</a> (bug reports only)."
 msgstr ""
 
 #. translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link.
-#: includes/admin/class-settings.php:1098
+#: includes/admin/class-settings.php:1091
 #, php-format
 msgid "Thank you for using %1$sWebberZone Knowledge_Base%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s"
 msgstr ""
@@ -1348,456 +1340,432 @@ msgid "Pro"
 msgstr ""
 
 #: includes/admin/class-settings.php:368
-msgid "Multi-Product Mode"
-msgstr ""
-
-#: includes/admin/class-settings.php:375
 msgid "Enable Multi-Product Mode"
 msgstr ""
 
-#: includes/admin/class-settings.php:376
-msgid "Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled. This is a transitional feature for advanced organization and future compatibility."
-msgstr ""
-
-#: includes/admin/class-settings.php:393
+#: includes/admin/class-settings.php:386
 msgid "Permalinks"
 msgstr ""
 
-#: includes/admin/class-settings.php:394
+#: includes/admin/class-settings.php:387
 msgid "The following settings affect the permalinks of the knowledge base. These are set when registering the custom post type and taxonomy. Please visit the Permalinks page in the Settings menu to refresh permalinks if you get 404 errors."
 msgstr ""
 
-#: includes/admin/class-settings.php:407
+#: includes/admin/class-settings.php:400
 msgid "Product slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:408
+#: includes/admin/class-settings.php:401
 msgid "This slug forms part of the URL for product pages when Multi-Product Mode is enabled. The value is used when registering the custom taxonomy."
 msgstr ""
 
-#: includes/admin/class-settings.php:415
+#: includes/admin/class-settings.php:408
 msgid "Section slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:416
+#: includes/admin/class-settings.php:409
 msgid "Each section is a section of the knowledge base. This setting is used when registering the custom section and forms a part of the URL when browsing section archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:423
+#: includes/admin/class-settings.php:416
 msgid "Tags slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:431
+#: includes/admin/class-settings.php:424
 msgid "Article Permalink Structure"
 msgstr ""
 
-#: includes/admin/class-settings.php:432
+#: includes/admin/class-settings.php:425
 msgid "Structure for article URLs. Leave empty to use default which is the \"Knowledge Base slug/%postname%\"."
 msgstr ""
 
-#: includes/admin/class-settings.php:440
+#: includes/admin/class-settings.php:433
 msgid "Performance"
 msgstr ""
 
-#: includes/admin/class-settings.php:447
+#: includes/admin/class-settings.php:440
 msgid "Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases"
 msgstr ""
 
-#: includes/admin/class-settings.php:453
+#: includes/admin/class-settings.php:446
 msgid "Cache Time"
 msgstr ""
 
-#: includes/admin/class-settings.php:454
+#: includes/admin/class-settings.php:447
 msgid "How long should the knowledge base be cached for. Default is 1 day."
 msgstr ""
 
-#: includes/admin/class-settings.php:458
+#: includes/admin/class-settings.php:451
 msgid "No expiry"
 msgstr ""
 
-#: includes/admin/class-settings.php:459
+#: includes/admin/class-settings.php:452
 msgid "1 Hour"
 msgstr ""
 
-#: includes/admin/class-settings.php:460
+#: includes/admin/class-settings.php:453
 msgid "6 Hours"
 msgstr ""
 
-#: includes/admin/class-settings.php:461
+#: includes/admin/class-settings.php:454
 msgid "12 Hours"
 msgstr ""
 
-#: includes/admin/class-settings.php:462
+#: includes/admin/class-settings.php:455
 msgid "1 Day"
 msgstr ""
 
-#: includes/admin/class-settings.php:463
+#: includes/admin/class-settings.php:456
 msgid "3 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:464
+#: includes/admin/class-settings.php:457
 msgid "1 Week"
 msgstr ""
 
-#: includes/admin/class-settings.php:465
+#: includes/admin/class-settings.php:458
 msgid "2 Weeks"
 msgstr ""
 
-#: includes/admin/class-settings.php:466
+#: includes/admin/class-settings.php:459
 msgid "30 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:467
+#: includes/admin/class-settings.php:460
 msgid "60 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:468
+#: includes/admin/class-settings.php:461
 msgid "90 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:469
+#: includes/admin/class-settings.php:462
 msgid "1 Year"
 msgstr ""
 
-#: includes/admin/class-settings.php:489
+#: includes/admin/class-settings.php:482
 msgid "Delete all content on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:550
-msgid "Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (sections as first level of each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0."
-msgstr ""
-
-#: includes/admin/class-settings.php:588
-msgid "Enter the number of articles that should be displayed in each section when viewing the knowledge base. Once this limit is reached, the footer displays a more link to view the category."
-msgstr ""
-
-#: includes/admin/class-settings.php:598
-msgid "Add the sidebar of your theme into the inbuilt templates for archive, sections and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme."
-msgstr ""
-
-#: includes/admin/class-settings.php:633
+#: includes/admin/class-settings.php:626
 msgid "Product archive layout"
 msgstr ""
 
-#: includes/admin/class-settings.php:634
-msgid "Choose how products are displayed on the main knowledge base archive when Multi-Product Mode is enabled."
-msgstr ""
-
-#: includes/admin/class-settings.php:637
+#: includes/admin/class-settings.php:630
 msgid "Sections list (current behavior)"
 msgstr ""
 
-#: includes/admin/class-settings.php:638
+#: includes/admin/class-settings.php:631
 msgid "Product cards grid"
 msgstr ""
 
-#: includes/admin/class-settings.php:651
+#: includes/admin/class-settings.php:644
 msgid "Knowledge Base Style"
 msgstr ""
 
-#: includes/admin/class-settings.php:652
+#: includes/admin/class-settings.php:645
 msgid "Select a visual style for your knowledge base display. Premium styles are available in the Pro version."
 msgstr ""
 
-#: includes/admin/class-settings.php:660
+#: includes/admin/class-settings.php:653
 msgid "Set the number of columns to display the knowledge base archives. This will be overridden on smaller screens to optimize display."
 msgstr ""
 
-#: includes/admin/class-settings.php:698
+#: includes/admin/class-settings.php:691
 msgid "Article Rating"
 msgstr ""
 
-#: includes/admin/class-settings.php:704
+#: includes/admin/class-settings.php:697
 msgid "Enable Rating System"
 msgstr ""
 
-#: includes/admin/class-settings.php:705
+#: includes/admin/class-settings.php:698
 msgid "Allow visitors to rate the quality of knowledge base articles."
 msgstr ""
 
-#: includes/admin/class-settings.php:709
+#: includes/admin/class-settings.php:702
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin/class-settings.php:710
+#: includes/admin/class-settings.php:703
 msgid "Useful / Not Useful"
 msgstr ""
 
-#: includes/admin/class-settings.php:711
+#: includes/admin/class-settings.php:704
 msgid "1-5 Star Rating"
 msgstr ""
 
-#: includes/admin/class-settings.php:717
+#: includes/admin/class-settings.php:710
 msgid "Vote Tracking Method"
 msgstr ""
 
 #. translators: %1$s: Opening link tag, %2$s: Closing link tag.
-#: includes/admin/class-settings.php:721
+#: includes/admin/class-settings.php:714
 #, php-format
 msgid "Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s."
 msgstr ""
 
-#: includes/admin/class-settings.php:728
+#: includes/admin/class-settings.php:721
 msgid "No Tracking (allows multiple votes)"
 msgstr ""
 
-#: includes/admin/class-settings.php:729
+#: includes/admin/class-settings.php:722
 msgid "Cookie Only (requires consent)"
 msgstr ""
 
-#: includes/admin/class-settings.php:730
+#: includes/admin/class-settings.php:723
 msgid "IP Address Only (stores personal data)"
 msgstr ""
 
-#: includes/admin/class-settings.php:731
+#: includes/admin/class-settings.php:724
 msgid "Cookie + IP Address (requires both)"
 msgstr ""
 
-#: includes/admin/class-settings.php:732
+#: includes/admin/class-settings.php:725
 msgid "Logged-in Users Only (best for authenticated sites)"
 msgstr ""
 
-#: includes/admin/class-settings.php:738
+#: includes/admin/class-settings.php:731
 msgid "Show Rating Statistics"
 msgstr ""
 
-#: includes/admin/class-settings.php:739
+#: includes/admin/class-settings.php:732
 msgid "Display the average rating and vote count below the rating buttons."
 msgstr ""
 
-#: includes/admin/class-settings.php:746
+#: includes/admin/class-settings.php:739
 msgid "Help Widget"
 msgstr ""
 
-#: includes/admin/class-settings.php:747
+#: includes/admin/class-settings.php:740
 msgid "A floating help widget that provides self-service support with search, suggested articles, and contact form."
 msgstr ""
 
-#: includes/admin/class-settings.php:752
+#: includes/admin/class-settings.php:745
 msgid "Enable Help Widget"
 msgstr ""
 
-#: includes/admin/class-settings.php:753
+#: includes/admin/class-settings.php:746
 msgid "Display a floating help widget on your site for self-service support."
 msgstr ""
 
-#: includes/admin/class-settings.php:760
+#: includes/admin/class-settings.php:753
 msgid "Display Location"
 msgstr ""
 
-#: includes/admin/class-settings.php:761
+#: includes/admin/class-settings.php:754
 msgid "Choose where the help widget appears on your site."
 msgstr ""
 
-#: includes/admin/class-settings.php:765
+#: includes/admin/class-settings.php:758
 msgid "Knowledge Base Only"
 msgstr ""
 
-#: includes/admin/class-settings.php:766
+#: includes/admin/class-settings.php:759
 msgid "Entire Site"
 msgstr ""
 
-#: includes/admin/class-settings.php:772
+#: includes/admin/class-settings.php:765
 msgid "Button Position"
 msgstr ""
 
-#: includes/admin/class-settings.php:773
+#: includes/admin/class-settings.php:766
 msgid "Choose where the help widget button appears on the screen."
 msgstr ""
 
-#: includes/admin/class-settings.php:777
+#: includes/admin/class-settings.php:770
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/admin/class-settings.php:778
+#: includes/admin/class-settings.php:771
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/admin/class-settings.php:784
+#: includes/admin/class-settings.php:777
 msgid "Button Style"
 msgstr ""
 
-#: includes/admin/class-settings.php:785
+#: includes/admin/class-settings.php:778
 msgid "Choose how the help widget button is displayed."
 msgstr ""
 
-#: includes/admin/class-settings.php:789
+#: includes/admin/class-settings.php:782
 msgid "Icon Only"
 msgstr ""
 
-#: includes/admin/class-settings.php:790
+#: includes/admin/class-settings.php:783
 msgid "Text Only"
 msgstr ""
 
-#: includes/admin/class-settings.php:791
+#: includes/admin/class-settings.php:784
 msgid "Icon and Text"
 msgstr ""
 
-#: includes/admin/class-settings.php:797
+#: includes/admin/class-settings.php:790
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:53
 msgid "Button Text"
 msgstr ""
 
-#: includes/admin/class-settings.php:798
+#: includes/admin/class-settings.php:791
 msgid "Text to display on the help widget button (when text style is selected)."
 msgstr ""
 
-#: includes/admin/class-settings.php:800
+#: includes/admin/class-settings.php:793
 msgid "Help"
 msgstr ""
 
-#: includes/admin/class-settings.php:806
+#: includes/admin/class-settings.php:799
 msgid "Help Widget Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:807
+#: includes/admin/class-settings.php:800
 msgid "Primary color for the help widget button and interface elements."
 msgstr ""
 
-#: includes/admin/class-settings.php:815
+#: includes/admin/class-settings.php:808
 msgid "Help Widget Hover Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:816
+#: includes/admin/class-settings.php:809
 msgid "Hover color for buttons and interactive elements."
 msgstr ""
 
-#: includes/admin/class-settings.php:824
+#: includes/admin/class-settings.php:817
 msgid "Help Widget Text Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:825
+#: includes/admin/class-settings.php:818
 msgid "Text color for the help widget button and interface elements."
 msgstr ""
 
-#: includes/admin/class-settings.php:833
+#: includes/admin/class-settings.php:826
 msgid "Help Widget Hover Text Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:834
+#: includes/admin/class-settings.php:827
 msgid "Text color for the help widget button on hover."
 msgstr ""
 
-#: includes/admin/class-settings.php:842
+#: includes/admin/class-settings.php:835
 msgid "Panel Background Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:843
+#: includes/admin/class-settings.php:836
 msgid "Background color for the help widget panel."
 msgstr ""
 
-#: includes/admin/class-settings.php:851
+#: includes/admin/class-settings.php:844
 msgid "Panel Text Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:852
+#: includes/admin/class-settings.php:845
 msgid "Default text color within the help widget panel."
 msgstr ""
 
-#: includes/admin/class-settings.php:860
+#: includes/admin/class-settings.php:853
 msgid "Link Hover Background"
 msgstr ""
 
-#: includes/admin/class-settings.php:861
+#: includes/admin/class-settings.php:854
 msgid "Background color when hovering over help widget links and list items."
 msgstr ""
 
-#: includes/admin/class-settings.php:869
+#: includes/admin/class-settings.php:862
 msgid "Greeting Message"
 msgstr ""
 
-#: includes/admin/class-settings.php:870
+#: includes/admin/class-settings.php:863
 msgid "Welcome message shown when the help widget opens."
 msgstr ""
 
-#: includes/admin/class-settings.php:872
+#: includes/admin/class-settings.php:865
 msgid "Hi! How can we help you?"
 msgstr ""
 
-#: includes/admin/class-settings.php:878
+#: includes/admin/class-settings.php:871
 msgid "Search Placeholder"
 msgstr ""
 
-#: includes/admin/class-settings.php:879
+#: includes/admin/class-settings.php:872
 msgid "Placeholder text for the search input field."
 msgstr ""
 
-#: includes/admin/class-settings.php:881
+#: includes/admin/class-settings.php:874
 msgid "Search for answers..."
 msgstr ""
 
-#: includes/admin/class-settings.php:887
+#: includes/admin/class-settings.php:880
 msgid "Enable Contact Form"
 msgstr ""
 
-#: includes/admin/class-settings.php:888
+#: includes/admin/class-settings.php:881
 msgid "Allow visitors to send messages through the help widget."
 msgstr ""
 
-#: includes/admin/class-settings.php:895
+#: includes/admin/class-settings.php:888
 msgid "Contact Email"
 msgstr ""
 
-#: includes/admin/class-settings.php:896
+#: includes/admin/class-settings.php:889
 msgid "Email address where help widget contact form submissions will be sent."
 msgstr ""
 
-#: includes/admin/class-settings.php:904
+#: includes/admin/class-settings.php:897
 msgid "Show on Mobile"
 msgstr ""
 
-#: includes/admin/class-settings.php:905
+#: includes/admin/class-settings.php:898
 msgid "Display the help widget on mobile devices."
 msgstr ""
 
-#: includes/admin/class-settings.php:912
+#: includes/admin/class-settings.php:905
 msgid "Enable Animations"
 msgstr ""
 
-#: includes/admin/class-settings.php:913
+#: includes/admin/class-settings.php:906
 msgid "Enable smooth animations and transitions for the help widget."
 msgstr ""
 
-#: includes/admin/class-settings.php:942
+#: includes/admin/class-settings.php:935
 msgid "Classic"
 msgstr ""
 
 #. translators: 1: WordPress.org support forums link.
-#: includes/admin/class-settings.php:1009
+#: includes/admin/class-settings.php:1002
 #, php-format
 msgid "Please report bugs, contribute or request features on <a href=\"%s\">GitHub</a>."
 msgstr ""
 
-#: includes/admin/class-settings.php:1038
+#: includes/admin/class-settings.php:1031
 msgid "Configure every part of your docs experience from this screen. Use the sections on the left to move between General, Output, Styles, and Pro options."
 msgstr ""
 
-#: includes/admin/class-settings.php:1039
+#: includes/admin/class-settings.php:1032
 msgid "<strong>General</strong> covers Multi-Product Mode, URL slugs, caching, uninstall cleanup, and feed behaviour so links stay consistent and data is removed safely when required."
 msgstr ""
 
-#: includes/admin/class-settings.php:1040
+#: includes/admin/class-settings.php:1033
 msgid "<strong>Output</strong> controls how archives render—titles, hierarchy depth, article counts, excerpts, limits per section, sidebars, and related articles."
 msgstr ""
 
-#: includes/admin/class-settings.php:1041
+#: includes/admin/class-settings.php:1034
 msgid "<strong>Styles</strong> lets you switch layouts, set columns, and add custom CSS. Disable inbuilt styles if your theme already provides the styling you need."
 msgstr ""
 
-#: includes/admin/class-settings.php:1042
+#: includes/admin/class-settings.php:1035
 msgid "<strong>Pro features</strong> unlock article ratings, the floating help widget, and advanced layouts."
 msgstr ""
 
 #. translators: 1: Opening link tag, 2: Closing link tag.
-#: includes/admin/class-settings.php:1045
+#: includes/admin/class-settings.php:1038
 #, php-format
 msgid "%1$sRead the full settings guide%2$s"
 msgstr ""
 
-#: includes/admin/class-settings.php:1149
-#: includes/admin/class-settings.php:1159
-#: includes/admin/class-settings.php:1160
+#: includes/admin/class-settings.php:1142
+#: includes/admin/class-settings.php:1152
+#: includes/admin/class-settings.php:1153
 msgid "Start Settings Wizard"
 msgstr ""
 
@@ -2837,12 +2805,8 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: includes/admin/class-settings.php:385
+#: includes/admin/class-settings.php:378
 msgid "Use Knowledge Base as Homepage"
-msgstr ""
-
-#: includes/admin/class-settings.php:386
-msgid "Enable this option to make the site homepage display the Knowledge Base. The Knowledge Base URL will become the homepage, and the Knowledge Base archive URL will redirect to the homepage."
 msgstr ""
 
 #. translators: %s: Search query.
@@ -2851,6 +2815,38 @@ msgstr ""
 msgid "No results found for \"%s\""
 msgstr ""
 
-#: includes/admin/class-settings.php:943
+#: includes/admin/class-settings.php:936
 msgid "Vibrant"
+msgstr ""
+
+#: includes/admin/class-settings.php:369
+msgid "Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled."
+msgstr ""
+
+#: includes/admin/class-settings.php:379
+msgid "Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it."
+msgstr ""
+
+#: includes/admin/class-settings.php:535
+msgid "This will be displayed as the archive title and in other relevant places."
+msgstr ""
+
+#: includes/admin/class-settings.php:543
+msgid "Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (with sections as the first level for each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0."
+msgstr ""
+
+#: includes/admin/class-settings.php:567
+msgid "If selected, the title of each knowledge base section will link to its own page."
+msgstr ""
+
+#: includes/admin/class-settings.php:581
+msgid "Enter the number of articles that should be displayed in each section when viewing the knowledge base. Use -1 to display all articles (no limit). Once this limit is reached, the footer displays a \"more link\" to view the category."
+msgstr ""
+
+#: includes/admin/class-settings.php:591
+msgid "Add the sidebar of your theme to the built-in templates for archives, sections, and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme."
+msgstr ""
+
+#: includes/admin/class-settings.php:627
+msgid "Choose how products are displayed on the main Knowledge Base archive when Multi-Product Mode is enabled. “Sections list” shows each product with its sections listed below. The “Product cards grid” displays products as a grid of cards, allowing visitors to click through to a product page."
 msgstr ""

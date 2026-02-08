@@ -363,38 +363,31 @@ class Settings {
 	 */
 	public static function settings_general() {
 		$settings = array(
-			'multi_product_header' => array(
-				'id'      => 'multi_product_header',
-				'name'    => '<h3>' . esc_html__( 'Multi-Product Mode', 'knowledgebase' ) . '</h3>',
-				'desc'    => '',
-				'type'    => 'header',
-				'default' => '',
-			),
-			'multi_product'        => array(
+			'multi_product'      => array(
 				'id'      => 'multi_product',
 				'name'    => esc_html__( 'Enable Multi-Product Mode', 'knowledgebase' ),
 				'desc'    => esc_html__(
-					'Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled. This is a transitional feature for advanced organization and future compatibility.',
+					'Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled.',
 					'knowledgebase'
 				),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
-			'kb_homepage_mode'     => array(
+			'kb_homepage_mode'   => array(
 				'id'      => 'kb_homepage_mode',
 				'name'    => esc_html__( 'Use Knowledge Base as Homepage', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Enable this option to make the site homepage display the Knowledge Base. The Knowledge Base URL will become the homepage, and the Knowledge Base archive URL will redirect to the homepage.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => false,
 				'pro'     => true,
 			),
-			'permalink_header'     => array(
+			'permalink_header'   => array(
 				'id'   => 'permalink_header',
 				'name' => '<h3>' . esc_html__( 'Permalinks', 'knowledgebase' ) . '</h3>',
 				'desc' => esc_html__( 'The following settings affect the permalinks of the knowledge base. These are set when registering the custom post type and taxonomy. Please visit the Permalinks page in the Settings menu to refresh permalinks if you get 404 errors.', 'knowledgebase' ),
 				'type' => 'header',
 			),
-			'kb_slug'              => array(
+			'kb_slug'            => array(
 				'id'          => 'kb_slug',
 				'name'        => esc_html__( 'Knowledge Base slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'This will set the opening path of the URL of the knowledge base and is set when registering the custom post type', 'knowledgebase' ),
@@ -402,7 +395,7 @@ class Settings {
 				'default'     => 'knowledgebase',
 				'field_class' => 'large-text',
 			),
-			'product_slug'         => array(
+			'product_slug'       => array(
 				'id'          => 'product_slug',
 				'name'        => esc_html__( 'Product slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'This slug forms part of the URL for product pages when Multi-Product Mode is enabled. The value is used when registering the custom taxonomy.', 'knowledgebase' ),
@@ -410,7 +403,7 @@ class Settings {
 				'default'     => 'kb/product',
 				'field_class' => 'large-text',
 			),
-			'category_slug'        => array(
+			'category_slug'      => array(
 				'id'          => 'category_slug',
 				'name'        => esc_html__( 'Section slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Each section is a section of the knowledge base. This setting is used when registering the custom section and forms a part of the URL when browsing section archives', 'knowledgebase' ),
@@ -418,7 +411,7 @@ class Settings {
 				'default'     => 'kb/section',
 				'field_class' => 'large-text',
 			),
-			'tag_slug'             => array(
+			'tag_slug'           => array(
 				'id'          => 'tag_slug',
 				'name'        => esc_html__( 'Tags slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives', 'knowledgebase' ),
@@ -426,7 +419,7 @@ class Settings {
 				'default'     => 'kb/tags',
 				'field_class' => 'large-text',
 			),
-			'article_permalink'    => array(
+			'article_permalink'  => array(
 				'id'          => 'article_permalink',
 				'name'        => esc_html__( 'Article Permalink Structure', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Structure for article URLs. Leave empty to use default which is the "Knowledge Base slug/%postname%".', 'knowledgebase' ),
@@ -435,20 +428,20 @@ class Settings {
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
-			'performance_header'   => array(
+			'performance_header' => array(
 				'id'   => 'performance_header',
 				'name' => '<h3>' . esc_html__( 'Performance', 'knowledgebase' ) . '</h3>',
 				'desc' => '',
 				'type' => 'header',
 			),
-			'cache'                => array(
+			'cache'              => array(
 				'id'      => 'cache',
 				'name'    => esc_html__( 'Enable cache', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
-			'cache_expiry'         => array(
+			'cache_expiry'       => array(
 				'id'      => 'cache_expiry',
 				'name'    => esc_html__( 'Cache Time', 'knowledgebase' ),
 				'desc'    => esc_html__( 'How long should the knowledge base be cached for. Default is 1 day.', 'knowledgebase' ),
@@ -470,42 +463,42 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'uninstall_header'     => array(
+			'uninstall_header'   => array(
 				'id'      => 'uninstall_header',
 				'name'    => '<h3>' . esc_html__( 'Uninstall options', 'knowledgebase' ) . '</h3>',
 				'desc'    => '',
 				'type'    => 'header',
 				'default' => '',
 			),
-			'uninstall_options'    => array(
+			'uninstall_options'  => array(
 				'id'      => 'uninstall_options',
 				'name'    => esc_html__( 'Delete options on uninstall', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 			),
-			'uninstall_data'       => array(
+			'uninstall_data'     => array(
 				'id'      => 'uninstall_data',
 				'name'    => esc_html__( 'Delete all content on uninstall', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
-			'feed_header'          => array(
+			'feed_header'        => array(
 				'id'      => 'feed_header',
 				'name'    => '<h3>' . esc_html__( 'Feed options', 'knowledgebase' ) . '</h3>',
 				'desc'    => '',
 				'type'    => 'header',
 				'default' => '',
 			),
-			'include_in_feed'      => array(
+			'include_in_feed'    => array(
 				'id'      => 'include_in_feed',
 				'name'    => esc_html__( 'Include in feed', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Adds the knowledge base articles to the main RSS feed for your site', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 			),
-			'disable_kb_feed'      => array(
+			'disable_kb_feed'    => array(
 				'id'      => 'disable_kb_feed',
 				'name'    => esc_html__( 'Disable KB feed', 'knowledgebase' ),
 				/* translators: 1: Opening link tag, 2: Closing link tag. */
@@ -539,7 +532,7 @@ class Settings {
 			'kb_title'              => array(
 				'id'          => 'kb_title',
 				'name'        => esc_html__( 'Knowledge base title', 'knowledgebase' ),
-				'desc'        => esc_html__( 'This will be displayed as the title of the archive title as well as on other relevant places.', 'knowledgebase' ),
+				'desc'        => esc_html__( 'This will be displayed as the archive title and in other relevant places.', 'knowledgebase' ),
 				'type'        => 'text',
 				'default'     => 'Knowledge Base',
 				'field_class' => 'large-text',
@@ -547,7 +540,7 @@ class Settings {
 			'category_level'        => array(
 				'id'      => 'category_level',
 				'name'    => esc_html__( 'First section level', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (sections as first level of each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (with sections as the first level for each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0.', 'knowledgebase' ),
 				'type'    => 'number',
 				'default' => '2',
 				'size'    => 'small',
@@ -571,7 +564,7 @@ class Settings {
 			'clickable_section'     => array(
 				'id'      => 'clickable_section',
 				'name'    => esc_html__( 'Link section title', 'knowledgebase' ),
-				'desc'    => esc_html__( 'If selected, the title of each section of the knowledgebase will be linked to its own page', 'knowledgebase' ),
+				'desc'    => esc_html__( 'If selected, the title of each knowledge base section will link to its own page.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => true,
 			),
@@ -585,7 +578,7 @@ class Settings {
 			'limit'                 => array(
 				'id'      => 'limit',
 				'name'    => esc_html__( 'Max articles per section', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. Once this limit is reached, the footer displays a more link to view the category.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. Use -1 to display all articles (no limit). Once this limit is reached, the footer displays a "more link" to view the category.', 'knowledgebase' ),
 				'type'    => 'number',
 				'default' => 5,
 				'size'    => 'small',
@@ -595,7 +588,7 @@ class Settings {
 			'show_sidebar'          => array(
 				'id'      => 'show_sidebar',
 				'name'    => esc_html__( 'Show sidebar', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Add the sidebar of your theme into the inbuilt templates for archive, sections and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Add the sidebar of your theme to the built-in templates for archives, sections, and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme.', 'knowledgebase' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
@@ -631,7 +624,7 @@ class Settings {
 			'product_archive_layout' => array(
 				'id'      => 'product_archive_layout',
 				'name'    => esc_html__( 'Product archive layout', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Choose how products are displayed on the main knowledge base archive when Multi-Product Mode is enabled.', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Choose how products are displayed on the main Knowledge Base archive when Multi-Product Mode is enabled. “Sections list” shows each product with its sections listed below. The “Product cards grid” displays products as a grid of cards, allowing visitors to click through to a product page.', 'knowledgebase' ),
 				'type'    => 'select',
 				'options' => array(
 					'sections' => esc_html__( 'Sections list (current behavior)', 'knowledgebase' ),
