@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Knowledgebase\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/knowledgebase\n"
 "Last-Translator: \n"
 "Language-Team: WebberZone\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-20 12:18+0000\n"
+"POT-Creation-Date: 2026-02-10T19:29:49+00:00\n"
 "PO-Revision-Date: \n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,679 +18,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: vendor\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
-
-#. translators: 1. Number of articles
-#: includes/admin/class-admin.php:473
-#, php-format
-msgid "%s KB article"
-msgid_plural "%s KB articles"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/admin/class-settings.php:262
-msgid "Settings have been reset to their default values. Reload this page to view the updated settings."
-msgstr ""
-
-#: includes/admin/class-settings.php:263
-msgid "Settings updated."
-msgstr ""
-
-#: includes/admin/class-settings.php:264
-msgid "Save Changes"
-msgstr ""
-
-#: includes/admin/class-settings.php:265
-msgid "Reset all settings"
-msgstr ""
-
-#: includes/admin/class-settings.php:266
-msgid "Do you really want to reset all these settings to their default values?"
-msgstr ""
-
-#: includes/admin/class-settings.php:267
-msgid "Modified from default setting"
-msgstr ""
-
-#: includes/admin/class-settings.php:268
-msgid "Choose File"
-msgstr ""
-
-#: includes/admin/class-settings.php:259
-#: includes/admin/class-settings.php:261
-#: includes/admin/class-settings.php:295
-#: includes/admin/class-settings.php:1029
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:123
-msgid "Knowledge Base Settings"
-msgstr ""
-
-#: includes/admin/class-settings.php:260
-#: includes/admin/class-settings.php:296
-#: includes/admin/class-settings.php:963
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/src/products/edit.js:60
-#: includes/blocks/src/products/edit.js:111
-msgid "Settings"
-msgstr ""
-
-#: includes/admin/class-settings.php:312
-#: includes/admin/class-tools-page.php:156
-msgid "General"
-msgstr ""
-
-#: includes/admin/class-settings.php:313
-msgid "Output"
-msgstr ""
-
-#: includes/admin/class-settings.php:314
-msgid "Styles"
-msgstr ""
-
-#: includes/admin/class-settings.php:392
-msgid "Knowledge Base slug"
-msgstr ""
-
-#: includes/admin/class-settings.php:393
-msgid "This will set the opening path of the URL of the knowledge base and is set when registering the custom post type"
-msgstr ""
-
-#: includes/admin/class-settings.php:417
-msgid "Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives"
-msgstr ""
-
-#: includes/admin/class-settings.php:439
-msgid "Enable cache"
-msgstr ""
-
-#: includes/admin/class-settings.php:468
-msgid "Uninstall options"
-msgstr ""
-
-#: includes/admin/class-settings.php:475
-msgid "Delete options on uninstall"
-msgstr ""
-
-#: includes/admin/class-settings.php:476
-msgid "Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin"
-msgstr ""
-
-#: includes/admin/class-settings.php:483
-msgid "Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option"
-msgstr ""
-
-#: includes/admin/class-settings.php:489
-msgid "Feed options"
-msgstr ""
-
-#: includes/admin/class-settings.php:496
-msgid "Include in feed"
-msgstr ""
-
-#: includes/admin/class-settings.php:497
-msgid "Adds the knowledge base articles to the main RSS feed for your site"
-msgstr ""
-
-#: includes/admin/class-settings.php:503
-msgid "Disable KB feed"
-msgstr ""
-
-#. translators: 1: Opening link tag, 2: Closing link tag.
-#: includes/admin/class-settings.php:505
-#, php-format
-msgid "The knowledge base articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option."
-msgstr ""
-
-#: includes/admin/class-settings.php:534
-msgid "Knowledge base title"
-msgstr ""
-
-#: includes/admin/class-settings.php:542
-msgid "First section level"
-msgstr ""
-
-#: includes/admin/class-settings.php:552
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:153
-msgid "Show article count"
-msgstr ""
-
-#: includes/admin/class-settings.php:553
-msgid "If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count"
-msgstr ""
-
-#: includes/admin/class-settings.php:559
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:166
-msgid "Show excerpt"
-msgstr ""
-
-#: includes/admin/class-settings.php:560
-msgid "Select to include the post excerpt after the article link"
-msgstr ""
-
-#: includes/admin/class-settings.php:566
-msgid "Link section title"
-msgstr ""
-
-#: includes/admin/class-settings.php:573
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:192
-msgid "Show empty sections"
-msgstr ""
-
-#: includes/admin/class-settings.php:574
-msgid "If selected, sections with no articles will also be displayed"
-msgstr ""
-
-#: includes/admin/class-settings.php:580
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:139
-msgid "Max articles per section"
-msgstr ""
-
-#: includes/admin/class-settings.php:590
-msgid "Show sidebar"
-msgstr ""
-
-#: includes/admin/class-settings.php:597
-msgid "Show related articles"
-msgstr ""
-
-#: includes/admin/class-settings.php:598
-msgid "Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template."
-msgstr ""
-
-#: includes/admin/class-settings.php:637
-msgid "Include inbuilt styles"
-msgstr ""
-
-#: includes/admin/class-settings.php:638
-msgid "Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option"
-msgstr ""
-
-#: includes/admin/class-settings.php:652
-msgid "Number of columns"
-msgstr ""
-
-#: includes/admin/class-settings.php:662
-msgid "Custom CSS"
-msgstr ""
-
-#: includes/admin/class-settings.php:663
-msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
-msgstr ""
-
-#: includes/admin/class-settings.php:982
-#: includes/admin/sidebar.php:30
-msgid "Support"
-msgstr ""
-
-#: includes/admin/class-settings.php:983
-msgid "Donate"
-msgstr ""
-
-#: includes/admin/class-settings.php:984
-msgid "Contribute"
-msgstr ""
-
-#. translators: 1: Plugin support site link.
-#: includes/admin/class-settings.php:1000
-#, php-format
-msgid "For more information or how to get support visit the <a href=\"%s\">support site</a>."
-msgstr ""
-
-#. translators: 1: Github issues link, 2: Github plugin page link.
-#: includes/admin/class-settings.php:1005
-#, php-format
-msgid "<a href=\"%1$s\">Post an issue</a> on <a href=\"%2$s\">GitHub</a> (bug reports only)."
-msgstr ""
-
-#. translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link.
-#: includes/admin/class-settings.php:1091
-#, php-format
-msgid "Thank you for using %1$sWebberZone Knowledge_Base%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s"
-msgstr ""
-
-#: includes/admin/class-admin.php:423
-msgid "Are you sure you want to clear the cache?"
-msgstr ""
-
-#: includes/admin/class-admin.php:425
-msgid "Cache cleared successfully!"
-msgstr ""
-
-#: includes/admin/class-admin.php:426
-msgid "Failed to clear cache. Please try again."
-msgstr ""
-
-#: includes/admin/class-admin.php:427
-msgid "Request failed: "
-msgstr ""
-
-#: includes/admin/class-admin.php:535
-msgid "Support the development - Send us a donation today."
-msgstr ""
-
-#: includes/admin/sidebar.php:15
-msgid "Quick links"
-msgstr ""
-
-#: includes/admin/sidebar.php:24
-#: includes/blocks/class-blocks.php:162
-#: includes/class-cpt.php:65
-#: includes/class-cpt.php:100
-#: includes/frontend/class-patterns.php:38
-msgid "Knowledge Base"
-msgstr ""
-
-#: includes/admin/sidebar.php:27
-msgid "FAQ"
-msgstr ""
-
-#: includes/admin/sidebar.php:33
-msgid "Reviews"
-msgstr ""
-
-#: includes/admin/sidebar.php:36
-msgid "Github repository"
-msgstr ""
-
-#: includes/admin/sidebar.php:39
-msgid "Ajay's blog"
-msgstr ""
-
-#: includes/admin/sidebar.php:46
-msgid "WebberZone plugins"
-msgstr ""
-
-#: includes/admin/sidebar.php:51
-msgid "Contextual Related Posts"
-msgstr ""
-
-#: includes/admin/sidebar.php:52
-msgid "Top 10"
-msgstr ""
-
-#: includes/admin/sidebar.php:53
-msgid "Better Search"
-msgstr ""
-
-#: includes/admin/sidebar.php:54
-msgid "Snippetz"
-msgstr ""
-
-#: includes/admin/sidebar.php:55
-msgid "Followed Posts"
-msgstr ""
-
-#: includes/admin/sidebar.php:56
-msgid "Popular Authors"
-msgstr ""
-
-#: includes/admin/sidebar.php:57
-msgid "Auto Close"
-msgstr ""
-
-#: includes/admin/sidebar.php:67
-msgid "Follow me"
-msgstr ""
-
-#: includes/blocks/build/alerts/index.js:1
-#: includes/blocks/src/alerts/edit.js:49
-msgid "Enter the alert text..."
-msgstr ""
-
-#: includes/blocks/build/articles/index.js:1
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/components/section-selector.js:82
-msgid "Error loading categories. Please try again."
-msgstr ""
-
-#: includes/blocks/build/articles/index.js:1
-#: includes/blocks/src/articles/edit.js:68
-msgid "Knowledge Base Articles Settings"
-msgstr ""
-
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/sections/edit.js:36
-msgid "Select Knowledge Base Section"
-msgstr ""
-
-#: includes/blocks/build/articles/index.js:1
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/articles/edit.js:42
-#: includes/blocks/src/kb/edit.js:96
-#: includes/blocks/src/sections/edit.js:39
-msgid "Search and select a knowledge base section"
-msgstr ""
-
-#: includes/blocks/build/breadcrumb/index.js:1
-#: includes/blocks/src/breadcrumb/edit.js:22
-msgid "Breadcrumb Settings"
-msgstr ""
-
-#: includes/widgets/class-breadcrumb-widget.php:56
-#: includes/blocks/build/breadcrumb/index.js:1
-#: includes/blocks/src/breadcrumb/edit.js:27
-msgid "Separator"
-msgstr ""
-
-#: includes/blocks/build/breadcrumb/index.js:1
-#: includes/blocks/src/breadcrumb/edit.js:32
-msgid "Enter the separator character or Unicode (e.g. »)"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:156
-msgid "Article count displayed"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:157
-msgid "No article count displayed"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:169
-msgid "Excerpt displayed"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:170
-msgid "No excerpt"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:179
-msgid "Show clickable section"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:182
-msgid "Section headers are linked"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:183
-msgid "Section headers not linked"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:195
-msgid "Empty sections displayed"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:196
-msgid "Empty sections hidden"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:260
-msgid "Other attributes"
-msgstr ""
-
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/src/kb/edit.js:265
-msgid "Enter other attributes in a URL-style string-query."
-msgstr ""
-
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/sections/edit.js:24
-msgid "Knowledge Base Sections Settings"
-msgstr ""
-
-#: includes/widgets/class-sections-widget.php:87
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/products/edit.js:135
-#: includes/blocks/src/sections/edit.js:57
-msgid "Before list item"
-msgstr ""
-
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/products/edit.js:140
-#: includes/blocks/src/sections/edit.js:62
-msgid "HTML/text to add before each list item"
-msgstr ""
-
-#: includes/widgets/class-sections-widget.php:92
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/products/edit.js:146
-#: includes/blocks/src/sections/edit.js:70
-msgid "After list item"
-msgstr ""
-
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/products/edit.js:151
-#: includes/blocks/src/sections/edit.js:75
-msgid "HTML/text to add after each list item"
-msgstr ""
-
-#: includes/class-cpt.php:63
-msgctxt "Post Type General Name"
-msgid "Knowledge Base"
-msgstr ""
-
-#: includes/class-cpt.php:64
-msgctxt "Post Type Singular Name"
-msgid "Knowledge Base"
-msgstr ""
-
-#: includes/class-cpt.php:68
-msgid "All Articles"
-msgstr ""
-
-#: includes/class-cpt.php:69
-#: includes/class-cpt.php:70
-msgid "Add New Article"
-msgstr ""
-
-#: includes/class-cpt.php:71
-msgid "New Article"
-msgstr ""
-
-#: includes/class-cpt.php:72
-msgid "Edit Article"
-msgstr ""
-
-#: includes/class-cpt.php:73
-msgid "Update Article"
-msgstr ""
-
-#: includes/class-cpt.php:74
-msgid "View Article"
-msgstr ""
-
-#: includes/class-cpt.php:76
-msgid "Not found"
-msgstr ""
-
-#: includes/class-cpt.php:77
-msgid "Not found in Trash"
-msgstr ""
-
-#: includes/admin/class-admin.php:195
-msgid "Sections"
-msgstr ""
-
-#: includes/class-cpt.php:222
-msgid "Choose from the most used"
-msgstr ""
-
-#: includes/class-cpt.php:227
-msgid "Not Found"
-msgstr ""
-
-#: includes/admin/class-admin.php:200
-msgid "Tags"
-msgstr ""
-
-#: includes/frontend/class-breadcrumbs.php:206
-msgid "Breadcrumb"
-msgstr ""
-
-#: includes/frontend/class-breadcrumbs.php:140
-msgid "Home"
-msgstr ""
-
-#: includes/frontend/class-display.php:708
-msgid "Read more articles in "
-msgstr ""
-
-#: includes/blocks/class-blocks.php:611
-#: includes/frontend/class-related.php:213
-#: includes/frontend/class-shortcodes.php:215
-msgid "Related Articles"
-msgstr ""
-
-#: includes/frontend/class-search.php:56
-msgctxt "label"
-msgid "Search for:"
-msgstr ""
-
-#: includes/frontend/class-search.php:45
-msgctxt "placeholder"
-msgid "Search the knowledgebase &hellip;"
-msgstr ""
-
-#: includes/frontend/class-search.php:46
-msgctxt "submit button"
-msgid "Search"
-msgstr ""
-
-#: includes/frontend/class-template-handler.php:230
-msgid "WZ Knowledge Base Sidebar"
-msgstr ""
-
-#: includes/frontend/class-template-handler.php:231
-msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
-msgstr ""
-
-#: includes/frontend/templates/archive-wz_knowledgebase.php:37
-#: includes/frontend/templates/wzkb-search.php:85
-msgid "No results found"
-msgstr ""
-
-#: includes/frontend/templates/sidebar-primary.php:18
-msgid "Meta"
-msgstr ""
-
-#. translators: %s: Name of current post. Only visible to screen readers
-#: includes/frontend/templates/single-wz_knowledgebase.php:44
-#, php-format
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr ""
-
-#: includes/frontend/templates/single-wz_knowledgebase.php:56
-msgid "Pages:"
-msgstr ""
-
-#. translators: %s: Name of current post. Only visible to screen readers.
-#: includes/frontend/templates/single-wz_knowledgebase.php:83
-#, php-format
-msgid "Edit <span class=\"screen-reader-text\">%s</span>"
-msgstr ""
-
-#: includes/frontend/templates/single-wz_knowledgebase.php:105
-msgid "Next Post"
-msgstr ""
-
-#: includes/frontend/templates/single-wz_knowledgebase.php:106
-msgid "Next post:"
-msgstr ""
-
-#: includes/frontend/templates/single-wz_knowledgebase.php:108
-msgid "Previous Post"
-msgstr ""
-
-#: includes/frontend/templates/single-wz_knowledgebase.php:109
-msgid "Previous post:"
-msgstr ""
-
-#. translators: 1: Search term.
-#: includes/frontend/templates/wzkb-search.php:44
-#, php-format
-msgid "Search Results for: %s"
-msgstr ""
-
-#: includes/class-options-api.php:296
-#: includes/options-api.php:150
-msgctxt "tag delimiter"
-msgid ","
-msgstr ""
-
-#. translators: This placeholder represents the number of entries cleared from the cache.
-#: includes/util/class-cache.php:51
-#, php-format
-msgid "%s entry cleared"
-msgid_plural "%s entries cleared"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: 1: Opening a tag and Knowledge Base, 2: Closing a tag.
-#: includes/util/class-helpers.php:43
-#, php-format
-msgid "Powered by %1$s plugin%2$s"
-msgstr ""
-
-#: includes/widgets/class-articles-widget.php:30
-#: includes/widgets/class-articles-widget.php:149
-#: includes/blocks/build/articles/index.js:1
-#: includes/blocks/src/articles/edit.js:207
-msgid "Knowledge Base Articles"
-msgstr ""
-
-#: includes/widgets/class-articles-widget.php:33
-msgid "Display the list of Knowledge Base articles for a section"
-msgstr ""
-
-#: includes/widgets/class-articles-widget.php:58
-#: includes/widgets/class-breadcrumb-widget.php:51
-#: includes/widgets/class-sections-widget.php:61
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/related/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/products/edit.js:62
-#: includes/blocks/src/products/edit.js:113
-#: includes/blocks/src/related/edit.js:51
-#: includes/blocks/src/sections/edit.js:29
-msgid "Title"
-msgstr ""
-
-#: includes/widgets/class-articles-widget.php:63
-msgid "Term ID (enter a number)"
-msgstr ""
-
-#: includes/widgets/class-articles-widget.php:73
-msgid "No. of posts"
-msgstr ""
-
-#: includes/widgets/class-articles-widget.php:83
-msgid " Show excerpt?"
-msgstr ""
-
-#: includes/widgets/class-breadcrumb-widget.php:28
-msgid "Knowledge Base Breadcrumb"
-msgstr ""
-
-#: includes/widgets/class-breadcrumb-widget.php:30
-msgid "Display the breadcrumb when viewing a knowledge base article or category"
-msgstr ""
-
-#: includes/widgets/class-sections-widget.php:28
-msgid "WZKB Sections"
-msgstr ""
-
-#: includes/widgets/class-sections-widget.php:30
-msgid "Display the list of sections when browsing a knowledge base page"
-msgstr ""
 
 #. Plugin Name of the plugin
 #: knowledgebase.php
@@ -770,6 +97,14 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
+#: includes/admin/class-admin.php:195
+msgid "Sections"
+msgstr ""
+
+#: includes/admin/class-admin.php:200
+msgid "Tags"
+msgstr ""
+
 #: includes/admin/class-admin.php:205
 #: includes/admin/class-tools-page.php:54
 msgid "Tools"
@@ -777,10 +112,6 @@ msgstr ""
 
 #: includes/admin/class-admin.php:211
 msgid "WebberZone Plugins"
-msgstr ""
-
-#: includes/admin/class-admin.php:424
-msgid "Are you sure you want to flush the permalinks?"
 msgstr ""
 
 #. translators: 1. Link to admin page.
@@ -793,14 +124,46 @@ msgstr ""
 msgid "admin page"
 msgstr ""
 
-#: includes/admin/class-admin.php:394
-msgid "plugin settings"
-msgstr ""
-
 #. translators: %s: HTML link to the plugin settings page.
 #: includes/admin/class-admin.php:393
 #, php-format
 msgid "The Products taxonomy is only available in multi-product mode. Please enable multi-product mode in the %s."
+msgstr ""
+
+#: includes/admin/class-admin.php:394
+msgid "plugin settings"
+msgstr ""
+
+#: includes/admin/class-admin.php:423
+msgid "Are you sure you want to clear the cache?"
+msgstr ""
+
+#: includes/admin/class-admin.php:424
+msgid "Are you sure you want to flush the permalinks?"
+msgstr ""
+
+#: includes/admin/class-admin.php:425
+msgid "Cache cleared successfully!"
+msgstr ""
+
+#: includes/admin/class-admin.php:426
+msgid "Failed to clear cache. Please try again."
+msgstr ""
+
+#: includes/admin/class-admin.php:427
+msgid "Request failed: "
+msgstr ""
+
+#. translators: 1. Number of articles
+#: includes/admin/class-admin.php:473
+#, php-format
+msgid "%s KB article"
+msgid_plural "%s KB articles"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-admin.php:535
+msgid "Support the development - Send us a donation today."
 msgstr ""
 
 #: includes/admin/class-product-migrator.php:69
@@ -1177,6 +540,30 @@ msgstr ""
 msgid "Unlock premium features like ratings and the help widget. Configure the essentials here before diving deeper."
 msgstr ""
 
+#: includes/admin/class-settings-wizard.php:180
+msgid "Create Products"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:181
+msgid "Add one or more products to organize your knowledge base content."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:186
+msgid "Create Sections"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:187
+msgid "Add sections to organize your articles. You can add more later."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:192
+msgid "Create Subsections"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:193
+msgid "Add subsections and assign them to a parent section. You can add more later."
+msgstr ""
+
 #: includes/admin/class-settings-wizard.php:237
 msgid "Knowledge Base Setup Wizard"
 msgstr ""
@@ -1199,6 +586,16 @@ msgstr ""
 
 #: includes/admin/class-settings-wizard.php:242
 msgid "Skip Wizard"
+msgstr ""
+
+#. translators: %s: Search query.
+#: includes/admin/class-settings-wizard.php:244
+#, php-format
+msgid "No results found for \"%s\""
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:245
+msgid "Setup Wizard Steps"
 msgstr ""
 
 #. translators: %1$d: Current step number, %2$d: Total number of steps
@@ -1225,6 +622,64 @@ msgstr ""
 
 #: includes/admin/class-settings-wizard.php:288
 msgid "Run Setup Wizard"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:504
+#: includes/admin/class-settings-wizard.php:562
+#: includes/admin/class-settings-wizard.php:627
+msgid "Existing"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:505
+#: includes/admin/class-settings-wizard.php:563
+#: includes/admin/class-settings-wizard.php:628
+msgid "Name"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:506
+#: includes/admin/class-settings-wizard.php:564
+#: includes/admin/class-settings-wizard.php:629
+msgid "Slug"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:507
+#: includes/admin/class-settings-wizard.php:565
+#: includes/admin/class-settings-wizard.php:630
+msgid "Description"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:508
+#: includes/admin/class-settings-wizard.php:569
+#: includes/admin/class-settings-wizard.php:632
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:516
+msgid "Add another product"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:577
+msgid "Add another section"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:631
+msgid "Parent section"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:640
+msgid "Add another subsection"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:675
+msgid "— New —"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:708
+msgid "— Select Section —"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:718
+msgid "Remove"
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:915
@@ -1331,8 +786,67 @@ msgstr ""
 msgid "Get help from the community"
 msgstr ""
 
+#: includes/admin/class-settings.php:259
+#: includes/admin/class-settings.php:261
+#: includes/admin/class-settings.php:295
+#: includes/admin/class-settings.php:1029
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:123
+msgid "Knowledge Base Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:260
+#: includes/admin/class-settings.php:296
+#: includes/admin/class-settings.php:963
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:60
+#: includes/blocks/src/products/edit.js:111
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:262
+msgid "Settings have been reset to their default values. Reload this page to view the updated settings."
+msgstr ""
+
+#: includes/admin/class-settings.php:263
+msgid "Settings updated."
+msgstr ""
+
+#: includes/admin/class-settings.php:264
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin/class-settings.php:265
+msgid "Reset all settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:266
+msgid "Do you really want to reset all these settings to their default values?"
+msgstr ""
+
+#: includes/admin/class-settings.php:267
+msgid "Modified from default setting"
+msgstr ""
+
+#: includes/admin/class-settings.php:268
+msgid "Choose File"
+msgstr ""
+
 #: includes/admin/class-settings.php:269
 msgid "Previously saved"
+msgstr ""
+
+#: includes/admin/class-settings.php:312
+#: includes/admin/class-tools-page.php:156
+msgid "General"
+msgstr ""
+
+#: includes/admin/class-settings.php:313
+msgid "Output"
+msgstr ""
+
+#: includes/admin/class-settings.php:314
+msgid "Styles"
 msgstr ""
 
 #: includes/admin/class-settings.php:315
@@ -1343,12 +857,32 @@ msgstr ""
 msgid "Enable Multi-Product Mode"
 msgstr ""
 
+#: includes/admin/class-settings.php:369
+msgid "Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled."
+msgstr ""
+
+#: includes/admin/class-settings.php:378
+msgid "Use Knowledge Base as Homepage"
+msgstr ""
+
+#: includes/admin/class-settings.php:379
+msgid "Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it."
+msgstr ""
+
 #: includes/admin/class-settings.php:386
 msgid "Permalinks"
 msgstr ""
 
 #: includes/admin/class-settings.php:387
 msgid "The following settings affect the permalinks of the knowledge base. These are set when registering the custom post type and taxonomy. Please visit the Permalinks page in the Settings menu to refresh permalinks if you get 404 errors."
+msgstr ""
+
+#: includes/admin/class-settings.php:392
+msgid "Knowledge Base slug"
+msgstr ""
+
+#: includes/admin/class-settings.php:393
+msgid "This will set the opening path of the URL of the knowledge base and is set when registering the custom post type"
 msgstr ""
 
 #: includes/admin/class-settings.php:400
@@ -1371,6 +905,10 @@ msgstr ""
 msgid "Tags slug"
 msgstr ""
 
+#: includes/admin/class-settings.php:417
+msgid "Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives"
+msgstr ""
+
 #: includes/admin/class-settings.php:424
 msgid "Article Permalink Structure"
 msgstr ""
@@ -1381,6 +919,10 @@ msgstr ""
 
 #: includes/admin/class-settings.php:433
 msgid "Performance"
+msgstr ""
+
+#: includes/admin/class-settings.php:439
+msgid "Enable cache"
 msgstr ""
 
 #: includes/admin/class-settings.php:440
@@ -1443,12 +985,134 @@ msgstr ""
 msgid "1 Year"
 msgstr ""
 
+#: includes/admin/class-settings.php:468
+msgid "Uninstall options"
+msgstr ""
+
+#: includes/admin/class-settings.php:475
+msgid "Delete options on uninstall"
+msgstr ""
+
+#: includes/admin/class-settings.php:476
+msgid "Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin"
+msgstr ""
+
 #: includes/admin/class-settings.php:482
 msgid "Delete all content on uninstall"
 msgstr ""
 
+#: includes/admin/class-settings.php:483
+msgid "Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option"
+msgstr ""
+
+#: includes/admin/class-settings.php:489
+msgid "Feed options"
+msgstr ""
+
+#: includes/admin/class-settings.php:496
+msgid "Include in feed"
+msgstr ""
+
+#: includes/admin/class-settings.php:497
+msgid "Adds the knowledge base articles to the main RSS feed for your site"
+msgstr ""
+
+#: includes/admin/class-settings.php:503
+msgid "Disable KB feed"
+msgstr ""
+
+#. translators: 1: Opening link tag, 2: Closing link tag.
+#: includes/admin/class-settings.php:505
+#, php-format
+msgid "The knowledge base articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option."
+msgstr ""
+
+#: includes/admin/class-settings.php:534
+msgid "Knowledge base title"
+msgstr ""
+
+#: includes/admin/class-settings.php:535
+msgid "This will be displayed as the archive title and in other relevant places."
+msgstr ""
+
+#: includes/admin/class-settings.php:542
+msgid "First section level"
+msgstr ""
+
+#: includes/admin/class-settings.php:543
+msgid "Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (with sections as the first level for each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0."
+msgstr ""
+
+#: includes/admin/class-settings.php:552
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:153
+msgid "Show article count"
+msgstr ""
+
+#: includes/admin/class-settings.php:553
+msgid "If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count"
+msgstr ""
+
+#: includes/admin/class-settings.php:559
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:166
+msgid "Show excerpt"
+msgstr ""
+
+#: includes/admin/class-settings.php:560
+msgid "Select to include the post excerpt after the article link"
+msgstr ""
+
+#: includes/admin/class-settings.php:566
+msgid "Link section title"
+msgstr ""
+
+#: includes/admin/class-settings.php:567
+msgid "If selected, the title of each knowledge base section will link to its own page."
+msgstr ""
+
+#: includes/admin/class-settings.php:573
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:192
+msgid "Show empty sections"
+msgstr ""
+
+#: includes/admin/class-settings.php:574
+msgid "If selected, sections with no articles will also be displayed"
+msgstr ""
+
+#: includes/admin/class-settings.php:580
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:139
+msgid "Max articles per section"
+msgstr ""
+
+#: includes/admin/class-settings.php:581
+msgid "Enter the number of articles that should be displayed in each section when viewing the knowledge base. Use -1 to display all articles (no limit). Once this limit is reached, the footer displays a \"more link\" to view the category."
+msgstr ""
+
+#: includes/admin/class-settings.php:590
+msgid "Show sidebar"
+msgstr ""
+
+#: includes/admin/class-settings.php:591
+msgid "Add the sidebar of your theme to the built-in templates for archives, sections, and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme."
+msgstr ""
+
+#: includes/admin/class-settings.php:597
+msgid "Show related articles"
+msgstr ""
+
+#: includes/admin/class-settings.php:598
+msgid "Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template."
+msgstr ""
+
 #: includes/admin/class-settings.php:626
 msgid "Product archive layout"
+msgstr ""
+
+#: includes/admin/class-settings.php:627
+msgid "Choose how products are displayed on the main Knowledge Base archive when Multi-Product Mode is enabled. “Sections list” shows each product with its sections listed below. The “Product cards grid” displays products as a grid of cards, allowing visitors to click through to a product page."
 msgstr ""
 
 #: includes/admin/class-settings.php:630
@@ -1459,6 +1123,14 @@ msgstr ""
 msgid "Product cards grid"
 msgstr ""
 
+#: includes/admin/class-settings.php:637
+msgid "Include inbuilt styles"
+msgstr ""
+
+#: includes/admin/class-settings.php:638
+msgid "Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option"
+msgstr ""
+
 #: includes/admin/class-settings.php:644
 msgid "Knowledge Base Style"
 msgstr ""
@@ -1467,8 +1139,20 @@ msgstr ""
 msgid "Select a visual style for your knowledge base display. Premium styles are available in the Pro version."
 msgstr ""
 
+#: includes/admin/class-settings.php:652
+msgid "Number of columns"
+msgstr ""
+
 #: includes/admin/class-settings.php:653
 msgid "Set the number of columns to display the knowledge base archives. This will be overridden on smaller screens to optimize display."
+msgstr ""
+
+#: includes/admin/class-settings.php:662
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/admin/class-settings.php:663
+msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
 #: includes/admin/class-settings.php:691
@@ -1719,14 +1403,51 @@ msgstr ""
 msgid "Display the help widget on mobile devices."
 msgstr ""
 
+#: includes/admin/class-settings.php:905
+msgid "Enable button pulse"
+msgstr ""
+
+#: includes/admin/class-settings.php:906
+msgid "Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static."
+msgstr ""
+
 #: includes/admin/class-settings.php:935
 msgid "Classic"
+msgstr ""
+
+#: includes/admin/class-settings.php:936
+msgid "Vibrant"
+msgstr ""
+
+#: includes/admin/class-settings.php:982
+#: includes/admin/sidebar.php:30
+msgid "Support"
+msgstr ""
+
+#: includes/admin/class-settings.php:983
+msgid "Donate"
+msgstr ""
+
+#: includes/admin/class-settings.php:984
+msgid "Contribute"
+msgstr ""
+
+#. translators: 1: Plugin support site link.
+#: includes/admin/class-settings.php:1000
+#, php-format
+msgid "For more information or how to get support visit the <a href=\"%s\">support site</a>."
 msgstr ""
 
 #. translators: 1: WordPress.org support forums link.
 #: includes/admin/class-settings.php:1002
 #, php-format
 msgid "Please report bugs, contribute or request features on <a href=\"%s\">GitHub</a>."
+msgstr ""
+
+#. translators: 1: Github issues link, 2: Github plugin page link.
+#: includes/admin/class-settings.php:1005
+#, php-format
+msgid "<a href=\"%1$s\">Post an issue</a> on <a href=\"%2$s\">GitHub</a> (bug reports only)."
 msgstr ""
 
 #: includes/admin/class-settings.php:1031
@@ -1755,6 +1476,12 @@ msgstr ""
 msgid "%1$sRead the full settings guide%2$s"
 msgstr ""
 
+#. translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link.
+#: includes/admin/class-settings.php:1091
+#, php-format
+msgid "Thank you for using %1$sWebberZone Knowledge_Base%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s"
+msgstr ""
+
 #: includes/admin/class-settings.php:1142
 #: includes/admin/class-settings.php:1152
 #: includes/admin/class-settings.php:1153
@@ -1780,12 +1507,72 @@ msgstr ""
 msgid "Different features can add their own tool sections to this page."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:245
-msgid "Setup Wizard Steps"
+#: includes/admin/sidebar.php:15
+msgid "Quick links"
 msgstr ""
 
 #: includes/admin/sidebar.php:21
 msgid "Knowledge Base plugin homepage"
+msgstr ""
+
+#: includes/admin/sidebar.php:24
+#: includes/blocks/class-blocks.php:162
+#: includes/class-cpt.php:65
+#: includes/class-cpt.php:100
+#: includes/frontend/class-patterns.php:38
+msgid "Knowledge Base"
+msgstr ""
+
+#: includes/admin/sidebar.php:27
+msgid "FAQ"
+msgstr ""
+
+#: includes/admin/sidebar.php:33
+msgid "Reviews"
+msgstr ""
+
+#: includes/admin/sidebar.php:36
+msgid "Github repository"
+msgstr ""
+
+#: includes/admin/sidebar.php:39
+msgid "Ajay's blog"
+msgstr ""
+
+#: includes/admin/sidebar.php:46
+msgid "WebberZone plugins"
+msgstr ""
+
+#: includes/admin/sidebar.php:51
+msgid "Contextual Related Posts"
+msgstr ""
+
+#: includes/admin/sidebar.php:52
+msgid "Top 10"
+msgstr ""
+
+#: includes/admin/sidebar.php:53
+msgid "Better Search"
+msgstr ""
+
+#: includes/admin/sidebar.php:54
+msgid "Snippetz"
+msgstr ""
+
+#: includes/admin/sidebar.php:55
+msgid "Followed Posts"
+msgstr ""
+
+#: includes/admin/sidebar.php:56
+msgid "Popular Authors"
+msgstr ""
+
+#: includes/admin/sidebar.php:57
+msgid "Auto Close"
+msgstr ""
+
+#: includes/admin/sidebar.php:67
+msgid "Follow me"
 msgstr ""
 
 #: includes/admin/sidebar.php:70
@@ -1804,6 +1591,12 @@ msgstr ""
 msgid "No sections found. This message is only displayed in the editor and not on the frontend."
 msgstr ""
 
+#: includes/blocks/class-blocks.php:611
+#: includes/frontend/class-related.php:213
+#: includes/frontend/class-shortcodes.php:215
+msgid "Related Articles"
+msgstr ""
+
 #: includes/blocks/class-blocks.php:634
 msgid "No related articles found. This block displays related articles for the current knowledge base article."
 msgstr ""
@@ -1816,6 +1609,16 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: includes/class-cpt.php:63
+msgctxt "Post Type General Name"
+msgid "Knowledge Base"
+msgstr ""
+
+#: includes/class-cpt.php:64
+msgctxt "Post Type Singular Name"
+msgid "Knowledge Base"
+msgstr ""
+
 #: includes/class-cpt.php:66
 msgid "KB Article"
 msgstr ""
@@ -1824,8 +1627,41 @@ msgstr ""
 msgid "Parent Article:"
 msgstr ""
 
+#: includes/class-cpt.php:68
+msgid "All Articles"
+msgstr ""
+
+#: includes/class-cpt.php:69
+#: includes/class-cpt.php:70
+msgid "Add New Article"
+msgstr ""
+
+#: includes/class-cpt.php:71
+msgid "New Article"
+msgstr ""
+
+#: includes/class-cpt.php:72
+msgid "Edit Article"
+msgstr ""
+
+#: includes/class-cpt.php:73
+msgid "Update Article"
+msgstr ""
+
+#: includes/class-cpt.php:74
+msgid "View Article"
+msgstr ""
+
 #: includes/class-cpt.php:75
 msgid "Search Articles"
+msgstr ""
+
+#: includes/class-cpt.php:76
+msgid "Not found"
+msgstr ""
+
+#: includes/class-cpt.php:77
+msgid "Not found in Trash"
 msgstr ""
 
 #: includes/class-cpt.php:78
@@ -1938,6 +1774,10 @@ msgstr ""
 msgid "Add or remove %1$s"
 msgstr ""
 
+#: includes/class-cpt.php:222
+msgid "Choose from the most used"
+msgstr ""
+
 #. translators: 1: Plural taxonomy name.
 #: includes/class-cpt.php:224
 #, php-format
@@ -1948,6 +1788,10 @@ msgstr ""
 #: includes/class-cpt.php:226
 #, php-format
 msgid "Search %1$s"
+msgstr ""
+
+#: includes/class-cpt.php:227
+msgid "Not Found"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
@@ -1972,6 +1816,12 @@ msgstr ""
 #: includes/class-cpt.php:235
 #, php-format
 msgid "Back to %1$s"
+msgstr ""
+
+#: includes/class-options-api.php:296
+#: includes/options-api.php:150
+msgctxt "tag delimiter"
+msgid ","
 msgstr ""
 
 #: includes/frontend/class-block-template-manager.php:113
@@ -2014,6 +1864,14 @@ msgstr ""
 msgid "Knowledge Base Product (taxonomy) block template."
 msgstr ""
 
+#: includes/frontend/class-breadcrumbs.php:140
+msgid "Home"
+msgstr ""
+
+#: includes/frontend/class-breadcrumbs.php:206
+msgid "Breadcrumb"
+msgstr ""
+
 #: includes/frontend/class-display.php:150
 msgid "No products found."
 msgstr ""
@@ -2040,13 +1898,40 @@ msgid_plural "%d articles"
 msgstr[0] ""
 msgstr[1] ""
 
+#: includes/frontend/class-display.php:708
+msgid "Read more articles in "
+msgstr ""
+
 #: includes/frontend/class-display.php:1059
 msgid "View articles"
+msgstr ""
+
+#: includes/frontend/class-search.php:45
+msgctxt "placeholder"
+msgid "Search the knowledgebase &hellip;"
+msgstr ""
+
+#: includes/frontend/class-search.php:46
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: includes/frontend/class-search.php:56
+msgctxt "label"
+msgid "Search for:"
 msgstr ""
 
 #: includes/frontend/class-search.php:58
 msgctxt "aria-label"
 msgid "Search the knowledgebase"
+msgstr ""
+
+#: includes/frontend/class-template-handler.php:230
+msgid "WZ Knowledge Base Sidebar"
+msgstr ""
+
+#: includes/frontend/class-template-handler.php:231
+msgid "Displays on WZ Knowledge Base templates displayed by the plugin"
 msgstr ""
 
 #: includes/frontend/templates/archive-wz_knowledgebase.php:20
@@ -2056,14 +1941,55 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
+#: includes/frontend/templates/archive-wz_knowledgebase.php:37
+#: includes/frontend/templates/wzkb-search.php:85
+msgid "No results found"
+msgstr ""
+
+#: includes/frontend/templates/sidebar-primary.php:18
+msgid "Meta"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: includes/frontend/templates/single-wz_knowledgebase.php:44
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: includes/frontend/templates/single-wz_knowledgebase.php:56
+msgid "Pages:"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers.
+#: includes/frontend/templates/single-wz_knowledgebase.php:83
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#: includes/frontend/templates/single-wz_knowledgebase.php:105
+msgid "Next Post"
+msgstr ""
+
+#: includes/frontend/templates/single-wz_knowledgebase.php:106
+msgid "Next post:"
+msgstr ""
+
+#: includes/frontend/templates/single-wz_knowledgebase.php:108
+msgid "Previous Post"
+msgstr ""
+
+#: includes/frontend/templates/single-wz_knowledgebase.php:109
+msgid "Previous post:"
+msgstr ""
+
 #: includes/frontend/templates/taxonomy-wzkb_product.php:47
 msgid "No product found"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:505
-#: includes/admin/class-settings-wizard.php:563
-#: includes/admin/class-settings-wizard.php:628
-msgid "Name"
+#. translators: 1: Search term.
+#: includes/frontend/templates/wzkb-search.php:44
+#, php-format
+msgid "Search Results for: %s"
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:72
@@ -2145,12 +2071,76 @@ msgstr ""
 msgid "Search term."
 msgstr ""
 
+#. translators: This placeholder represents the number of entries cleared from the cache.
+#: includes/util/class-cache.php:51
+#, php-format
+msgid "%s entry cleared"
+msgid_plural "%s entries cleared"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: Opening a tag and Knowledge Base, 2: Closing a tag.
+#: includes/util/class-helpers.php:43
+#, php-format
+msgid "Powered by %1$s plugin%2$s"
+msgstr ""
+
+#: includes/widgets/class-articles-widget.php:30
+#: includes/widgets/class-articles-widget.php:149
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:207
+msgid "Knowledge Base Articles"
+msgstr ""
+
+#: includes/widgets/class-articles-widget.php:33
+msgid "Display the list of Knowledge Base articles for a section"
+msgstr ""
+
+#: includes/widgets/class-articles-widget.php:58
+#: includes/widgets/class-breadcrumb-widget.php:51
+#: includes/widgets/class-sections-widget.php:61
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:62
+#: includes/blocks/src/products/edit.js:113
+#: includes/blocks/src/related/edit.js:51
+#: includes/blocks/src/sections/edit.js:29
+msgid "Title"
+msgstr ""
+
+#: includes/widgets/class-articles-widget.php:63
+msgid "Term ID (enter a number)"
+msgstr ""
+
 #: includes/widgets/class-articles-widget.php:68
 msgid "Product ID (enter a number)"
 msgstr ""
 
+#: includes/widgets/class-articles-widget.php:73
+msgid "No. of posts"
+msgstr ""
+
 #: includes/widgets/class-articles-widget.php:78
 msgid "Max Depth (-1 for unlimited, 0 for current)"
+msgstr ""
+
+#: includes/widgets/class-articles-widget.php:83
+msgid " Show excerpt?"
+msgstr ""
+
+#: includes/widgets/class-breadcrumb-widget.php:28
+msgid "Knowledge Base Breadcrumb"
+msgstr ""
+
+#: includes/widgets/class-breadcrumb-widget.php:30
+msgid "Display the breadcrumb when viewing a knowledge base article or category"
+msgstr ""
+
+#: includes/widgets/class-breadcrumb-widget.php:56
+#: includes/blocks/build/breadcrumb/index.js:1
+#: includes/blocks/src/breadcrumb/edit.js:27
+msgid "Separator"
 msgstr ""
 
 #: includes/widgets/class-products-widget.php:28
@@ -2180,6 +2170,14 @@ msgstr ""
 msgid "Max Depth (-1 for unlimited):"
 msgstr ""
 
+#: includes/widgets/class-sections-widget.php:28
+msgid "WZKB Sections"
+msgstr ""
+
+#: includes/widgets/class-sections-widget.php:30
+msgid "Display the list of sections when browsing a knowledge base page"
+msgstr ""
+
 #: includes/widgets/class-sections-widget.php:66
 msgid "Section ID (enter a number)"
 msgstr ""
@@ -2192,10 +2190,39 @@ msgstr ""
 msgid "Max Depth (-1 for unlimited)"
 msgstr ""
 
+#: includes/widgets/class-sections-widget.php:87
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:135
+#: includes/blocks/src/sections/edit.js:57
+msgid "Before list item"
+msgstr ""
+
+#: includes/widgets/class-sections-widget.php:92
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:146
+#: includes/blocks/src/sections/edit.js:70
+msgid "After list item"
+msgstr ""
+
 #. translators: %s: Name of the deactivated plugin
 #: knowledgebase.php:139
 #, php-format
 msgid "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s."
+msgstr ""
+
+#: includes/blocks/build/alerts/index.js:1
+#: includes/blocks/src/alerts/edit.js:49
+msgid "Enter the alert text..."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/components/section-selector.js:82
+msgid "Error loading categories. Please try again."
 msgstr ""
 
 #: includes/blocks/build/articles/index.js:1
@@ -2214,6 +2241,15 @@ msgstr ""
 
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/articles/edit.js:42
+#: includes/blocks/src/kb/edit.js:96
+#: includes/blocks/src/sections/edit.js:39
+msgid "Search and select a knowledge base section"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/articles/edit.js:54
 #: includes/blocks/src/kb/edit.js:108
 msgid "Filter by Product"
@@ -2227,6 +2263,11 @@ msgstr ""
 #: includes/blocks/src/products/edit.js:50
 #: includes/blocks/src/products/edit.js:96
 msgid "Search and select a product"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:68
+msgid "Knowledge Base Articles Settings"
 msgstr ""
 
 #: includes/blocks/build/articles/index.js:1
@@ -2367,9 +2408,64 @@ msgstr ""
 msgid "Filter by section"
 msgstr ""
 
+#: includes/blocks/build/breadcrumb/index.js:1
+#: includes/blocks/src/breadcrumb/edit.js:22
+msgid "Breadcrumb Settings"
+msgstr ""
+
+#: includes/blocks/build/breadcrumb/index.js:1
+#: includes/blocks/src/breadcrumb/edit.js:32
+msgid "Enter the separator character or Unicode (e.g. »)"
+msgstr ""
+
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:144
 msgid "-1 for unlimited articles. After this limit is reached, the footer is displayed with the more link to view the category."
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:156
+msgid "Article count displayed"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:157
+msgid "No article count displayed"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:169
+msgid "Excerpt displayed"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:170
+msgid "No excerpt"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:179
+msgid "Show clickable section"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:182
+msgid "Section headers are linked"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:183
+msgid "Section headers not linked"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:195
+msgid "Empty sections displayed"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:196
+msgid "Empty sections hidden"
 msgstr ""
 
 #: includes/blocks/build/kb/index.js:1
@@ -2385,6 +2481,30 @@ msgstr ""
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:211
 msgid "Heading will be hidden."
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:260
+msgid "Other attributes"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:265
+msgid "Enter other attributes in a URL-style string-query."
+msgstr ""
+
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:140
+#: includes/blocks/src/sections/edit.js:62
+msgid "HTML/text to add before each list item"
+msgstr ""
+
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:151
+#: includes/blocks/src/sections/edit.js:75
+msgid "HTML/text to add after each list item"
 msgstr ""
 
 #: includes/blocks/build/products/index.js:1
@@ -2475,6 +2595,16 @@ msgstr ""
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:58
 msgid "Text shown on the search button"
+msgstr ""
+
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/sections/edit.js:24
+msgid "Knowledge Base Sections Settings"
+msgstr ""
+
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/sections/edit.js:36
+msgid "Select Knowledge Base Section"
 msgstr ""
 
 #: includes/blocks/build/alerts/block.json
@@ -2719,134 +2849,4 @@ msgstr ""
 #: includes/blocks/src/sections/block.json
 msgctxt "block description"
 msgid "Display subsections of a selected section or the full knowledge base sections tree if no section is selected"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:180
-msgid "Create Products"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:181
-msgid "Add one or more products to organize your knowledge base content."
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:186
-msgid "Create Sections"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:187
-msgid "Add sections to organize your articles. You can add more later."
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:192
-msgid "Create Subsections"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:193
-msgid "Add subsections and assign them to a parent section. You can add more later."
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:504
-#: includes/admin/class-settings-wizard.php:562
-#: includes/admin/class-settings-wizard.php:627
-msgid "Existing"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:506
-#: includes/admin/class-settings-wizard.php:564
-#: includes/admin/class-settings-wizard.php:629
-msgid "Slug"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:507
-#: includes/admin/class-settings-wizard.php:565
-#: includes/admin/class-settings-wizard.php:630
-msgid "Description"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:508
-#: includes/admin/class-settings-wizard.php:569
-#: includes/admin/class-settings-wizard.php:632
-msgid "Actions"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:516
-msgid "Add another product"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:577
-msgid "Add another section"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:631
-msgid "Parent section"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:640
-msgid "Add another subsection"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:675
-msgid "— New —"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:708
-msgid "— Select Section —"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:718
-msgid "Remove"
-msgstr ""
-
-#: includes/admin/class-settings.php:378
-msgid "Use Knowledge Base as Homepage"
-msgstr ""
-
-#. translators: %s: Search query.
-#: includes/admin/class-settings-wizard.php:244
-#, php-format
-msgid "No results found for \"%s\""
-msgstr ""
-
-#: includes/admin/class-settings.php:936
-msgid "Vibrant"
-msgstr ""
-
-#: includes/admin/class-settings.php:369
-msgid "Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled."
-msgstr ""
-
-#: includes/admin/class-settings.php:379
-msgid "Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it."
-msgstr ""
-
-#: includes/admin/class-settings.php:535
-msgid "This will be displayed as the archive title and in other relevant places."
-msgstr ""
-
-#: includes/admin/class-settings.php:543
-msgid "Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (with sections as the first level for each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0."
-msgstr ""
-
-#: includes/admin/class-settings.php:567
-msgid "If selected, the title of each knowledge base section will link to its own page."
-msgstr ""
-
-#: includes/admin/class-settings.php:581
-msgid "Enter the number of articles that should be displayed in each section when viewing the knowledge base. Use -1 to display all articles (no limit). Once this limit is reached, the footer displays a \"more link\" to view the category."
-msgstr ""
-
-#: includes/admin/class-settings.php:591
-msgid "Add the sidebar of your theme to the built-in templates for archives, sections, and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme."
-msgstr ""
-
-#: includes/admin/class-settings.php:627
-msgid "Choose how products are displayed on the main Knowledge Base archive when Multi-Product Mode is enabled. “Sections list” shows each product with its sections listed below. The “Product cards grid” displays products as a grid of cards, allowing visitors to click through to a product page."
-msgstr ""
-
-#: includes/admin/class-settings.php:905
-msgid "Enable button pulse"
-msgstr ""
-
-#: includes/admin/class-settings.php:906
-msgid "Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static."
 msgstr ""
