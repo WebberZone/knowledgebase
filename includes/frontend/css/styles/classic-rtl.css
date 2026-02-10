@@ -723,6 +723,7 @@ nav.pagination {
 	box-shadow: 0 25px 50px var(--wzkb-shadow-hover, rgba(22, 33, 82, 0.16));
 	background: var(--wzkb-color-primary, #506eff);
 	color: var(--wzkb-color-white, #ffffff);
+	border: 1px solid var(--wzkb-color-white, #ffffff);
 }
 
 .wzkb-product-card:hover .wzkb-product-title,
