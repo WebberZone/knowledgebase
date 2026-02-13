@@ -169,6 +169,7 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](http
 	* Standardised CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
 	* Added `Hooks_Registry` class to organise hooks and prevent accidental duplicates.
 	* Upgraded the WebberZone Settings API.
+	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
 
 * Breaking Changes:
 	* CSS classes have been renamed for consistency, for example:
