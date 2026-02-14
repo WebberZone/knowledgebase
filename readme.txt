@@ -1,6 +1,6 @@
 === Knowledge Base ===
 Contributors: Ajay, webberzone
-Donate link: https://ajaydsouza.com/donate/
+Donate link: https://wzn.io/donate-wz
 Tags: knowledge base, knowledgebase, FAQ, support, documentation
 Requires at least: 6.7
 Tested up to: 6.9
