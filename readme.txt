@@ -15,34 +15,34 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) makes building a knowledge base or FAQ for your WordPress site easy, fast, and scalable.
 
-🎯 Perfect for:
-✅ Multi-product companies
-✅ SaaS platforms
-✅ Ecommerce support centres
-✅ Documentation hubs
+Perfect for:
+- Multi-product companies
+- SaaS platforms
+- Ecommerce support centres
+- Documentation hubs
 
-🔎 [Live Demo](https://webberzone.com/support/knowledgebase/).
+[Live Demo](https://webberzone.com/support/knowledgebase/).
 
 ### Main features
 
-🚀 Unlimited Knowledge Bases — Support as many products as you like, with unlimited sections and sub-sections.
-🎨 Beautiful, Responsive Layouts — Ships with clean templates powered by the Responsive Grid System.
-🔗 Customisable Permalinks — View your KB at /knowledgebase/ by default or change it easily.
-✨ Shortcodes + Gutenberg Blocks — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
-🧭 Built-in Breadcrumbs — Improve UX and SEO with breadcrumb navigation.
-🧩 Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
-⚡ Built-in Caching — Speed up your Knowledge Base without extra plugins.
+Unlimited Knowledge Bases — Support as many products as you like, with unlimited sections and sub-sections.
+Beautiful, Responsive Layouts — Ships with clean templates powered by the Responsive Grid System.
+Customisable Permalinks — View your KB at /knowledgebase/ by default or change it easily.
+Shortcodes + Gutenberg Blocks — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
+Built-in Breadcrumbs — Improve UX and SEO with breadcrumb navigation.
+Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
+Built-in Caching — Speed up your Knowledge Base without extra plugins.
 
 ### Pro features
 
 [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/#pro) enhances the plugin with advanced features for larger documentation sites, including ratings and feedback, a help widget, a powerful custom permalinks engine, premium layouts, and additional admin tools.
 
-- ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
-- 💬 __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
-- 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
-- 🏠 __Knowledge Base Homepage Mode__ — Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
-- 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
-- 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
+- __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+- __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
+- __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
+- __Knowledge Base Homepage Mode__ — Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
+- __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+- __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
 ### Key Concepts
 

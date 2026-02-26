@@ -153,6 +153,98 @@ class Settings {
 	}
 
 	/**
+	 * AJAX handler for Tom Select taxonomy searches.
+	 *
+	 * Used by Settings API and Setup Wizard taxonomy autocomplete fields.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public static function taxonomy_search_tom_select(): void {
+		// Verify nonce.
+		if ( ! isset( $_REQUEST['nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_send_json_error();
+		}
+
+		$nonce_valid = wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), self::$prefix . '_taxonomy_search_tom_select' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! $nonce_valid ) {
+			wp_send_json_error();
+		}
+
+		if ( ! isset( $_REQUEST['endpoint'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_send_json_error();
+		}
+
+		$endpoint = sanitize_key( $_REQUEST['endpoint'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$term     = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$comma = _x( ',', 'tag delimiter', 'knowledgebase' );
+		if ( ',' !== $comma ) {
+			$term = str_replace( $comma, ',', $term );
+		}
+		if ( false !== strpos( $term, ',' ) ) {
+			$term_parts = explode( ',', $term );
+			$term       = $term_parts[ count( $term_parts ) - 1 ];
+		}
+		$term = trim( $term );
+
+		$allowed_endpoints = array(
+			'category' => 'wzkb_category',
+			'product'  => 'wzkb_product',
+			'tag'      => 'wzkb_tag',
+			'post_tag' => 'wzkb_tag',
+		);
+
+		$allowed_taxonomies = array_values( $allowed_endpoints );
+		if ( isset( $allowed_endpoints[ $endpoint ] ) ) {
+			$taxonomy = $allowed_endpoints[ $endpoint ];
+		} elseif ( in_array( $endpoint, $allowed_taxonomies, true ) ) {
+			$taxonomy = $endpoint;
+		} else {
+			wp_send_json_success( array() );
+		}
+
+		$tax = get_taxonomy( $taxonomy );
+		if ( ! $tax ) {
+			wp_send_json_success( array() );
+		}
+
+		if ( empty( $tax->cap->assign_terms ) || ! current_user_can( $tax->cap->assign_terms ) ) {
+			wp_send_json_error();
+		}
+
+		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
+		$term_search_min_chars = (int) apply_filters( 'term_search_min_chars', 2, $tax, $term );
+		if ( ( 0 === $term_search_min_chars ) || ( strlen( $term ) < $term_search_min_chars ) ) {
+			wp_send_json_success( array() );
+		}
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => $taxonomy,
+				'name__like' => $term,
+				'hide_empty' => false,
+				'number'     => 20,
+			)
+		);
+
+		$results = array();
+		foreach ( (array) $terms as $found_term ) {
+			if ( ! ( $found_term instanceof \WP_Term ) ) {
+				continue;
+			}
+
+			$results[] = array(
+				'value' => sprintf( '%1$s (%2$s:%3$d)', $found_term->name, $found_term->taxonomy, (int) $found_term->term_taxonomy_id ),
+				'text'  => $found_term->name,
+			);
+		}
+
+		wp_send_json_success( $results );
+	}
+
+	/**
 	 * Initialise the settings API.
 	 *
 	 * @since 2.3.0
