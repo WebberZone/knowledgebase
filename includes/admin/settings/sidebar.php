@@ -5,6 +5,9 @@
  * @package WebberZone\Knowledge_Base
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <div class="postbox-container">
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
