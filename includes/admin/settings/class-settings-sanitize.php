@@ -4,7 +4,7 @@
  *
  * @link  https://webberzone.com
  *
- * @package WebberZone\Better_External_Links
+ * @package WebberZone\Knowledge_Base
  */
 
 namespace WebberZone\Knowledge_Base\Admin\Settings;
