@@ -53,6 +53,7 @@ use WebberZone\Knowledge_Base\Admin\Admin;
 					<li><a href="https://webberzone.com/plugins/better-search/" target="_blank"><?php esc_html_e( 'Better Search', 'knowledgebase' ); ?></a></li>
 					<li><a href="https://webberzone.com/plugins/add-to-all/" target="_blank"><?php esc_html_e( 'Snippetz', 'knowledgebase' ); ?></a></li>
 					<li><a href="https://webberzone.com/webberzone-followed-posts/" target="_blank"><?php esc_html_e( 'Followed Posts', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/webberzone-link-warnings/" target="_blank"><?php esc_html_e( 'Link Warnings', 'knowledgebase' ); ?></a></li>
 					<li><a href="https://webberzone.com/plugins/popular-authors/" target="_blank"><?php esc_html_e( 'Popular Authors', 'knowledgebase' ); ?></a></li>
 					<li><a href="https://webberzone.com/plugins/autoclose/" target="_blank"><?php esc_html_e( 'Auto Close', 'knowledgebase' ); ?></a></li>
 				</ul>
