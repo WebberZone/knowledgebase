@@ -297,14 +297,18 @@ let wzkbSectionsNonceMiddlewareAdded = false;
         }, [productMeta.join(','), taxonomyProducts.join(','), editPost]);
 
         useEffect(() => {
-            if (arraysEqual(taxonomySections, sectionMeta)) {
+            if (arraysEqual(sectionMeta, taxonomySections)) {
                 return;
             }
 
+            const latestMeta = getLatestMeta();
             editPost({
-                wzkb_category: sectionMeta,
+                meta: {
+                    ...latestMeta,
+                    _wzkb_section_ids: taxonomySections,
+                },
             });
-        }, [taxonomySections.join(','), sectionMeta.join(','), editPost]);
+        }, [sectionMeta.join(','), taxonomySections.join(','), editPost]);
 
         const { items: sectionTerms, isLoading, error } = useSections(productMeta);
         const groupedSections = useMemo(

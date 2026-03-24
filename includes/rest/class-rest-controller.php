@@ -368,7 +368,6 @@ class REST_Controller {
 
 		$query_args = array(
 			'post_type'           => 'wz_knowledgebase',
-			'post_status'         => 'publish',
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => false,
 			'posts_per_page'      => $per_page,
@@ -459,7 +458,7 @@ class REST_Controller {
 			);
 		}
 
-		if ( 'publish' !== $post->post_status ) {
+		if ( 'publish' !== $post->post_status && ! current_user_can( 'read_post', $post_id ) ) {
 			return new WP_Error(
 				'wzkb_rest_post_unpublished',
 				__( 'Knowledge Base post is not published.', 'knowledgebase' ),

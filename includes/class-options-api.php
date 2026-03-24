@@ -9,8 +9,6 @@
 
 namespace WebberZone\Knowledge_Base;
 
-use WebberZone\Knowledge_Base\Util\Hook_Registry;
-
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -47,21 +45,12 @@ class Options_API {
 	private static $settings;
 
 	/**
-	 * Initialize hooks for AJAX functionality.
-	 *
-	 * @since 3.0.0
-	 */
-	public static function init() {
-		Hook_Registry::add_action( 'wp_ajax_' . self::FILTER_PREFIX . '_tags_search', array( __CLASS__, 'tags_search' ) );
-	}
-
-	/**
 	 * Get Settings.
 	 *
 	 * Retrieves all plugin settings
 	 *
 	 * @since 3.0.0
-	 * @return array Glue Link settings
+	 * @return array Settings array
 	 */
 	public static function get_settings() {
 		$settings = get_option( self::SETTINGS_OPTION );
@@ -188,7 +177,7 @@ class Options_API {
 	/**
 	 * Remove an option
 	 *
-	 * Removes a Glue Link setting value in both the db and the static variable.
+	 * Removes a setting value in both the db and the static variable.
 	 *
 	 * @since 3.0.0
 	 *
@@ -265,68 +254,4 @@ class Options_API {
 
 		return $did_update;
 	}
-
-	/**
-	 * Function to add an action to search for tags using Ajax.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return void
-	 */
-	public static function tags_search() {
-		if ( ! isset( $_REQUEST['tax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			wp_die();
-		}
-
-		$taxonomy = sanitize_key( $_REQUEST['tax'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$tax      = get_taxonomy( $taxonomy );
-		if ( ! empty( $taxonomy ) ) {
-			$tax = get_taxonomy( $taxonomy );
-			if ( ! $tax ) {
-				wp_die();
-			}
-
-			if ( ! current_user_can( $tax->cap->assign_terms ) ) {
-				wp_die();
-			}
-		}
-
-		$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-		$comma = _x( ',', 'tag delimiter', 'knowledgebase' );
-		if ( ',' !== $comma ) {
-			$s = str_replace( $comma, ',', $s );
-		}
-		if ( false !== strpos( $s, ',' ) ) {
-			$s = explode( ',', $s );
-			$s = $s[ count( $s ) - 1 ];
-		}
-		$s = trim( $s );
-
-		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
-		$term_search_min_chars = (int) apply_filters( 'term_search_min_chars', 2, $tax, $s );
-
-		/*
-		 * Require $term_search_min_chars chars for matching (default: 2)
-		 * ensure it's a non-negative, non-zero integer.
-		 */
-		if ( ( 0 === $term_search_min_chars ) || ( strlen( $s ) < $term_search_min_chars ) ) {
-			wp_die();
-		}
-
-		$results = get_terms(
-			array(
-				'taxonomy'   => $taxonomy,
-				'name__like' => $s,
-				'fields'     => 'names',
-				'hide_empty' => false,
-			)
-		);
-
-		echo wp_json_encode( $results );
-		wp_die();
-	}
 }
-
-// Initialize hooks.
-Options_API::init();

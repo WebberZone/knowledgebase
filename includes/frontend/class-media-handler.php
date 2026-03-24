@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Media Handler class.
  *
- * @since 3.5.0
+ * @since 2.3.0
  */
 class Media_Handler {
 

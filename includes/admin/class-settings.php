@@ -204,7 +204,6 @@ class Settings {
 		} else {
 			wp_send_json_success( array() );
 		}
-
 		$tax = get_taxonomy( $taxonomy );
 		if ( ! $tax ) {
 			wp_send_json_success( array() );

@@ -113,7 +113,6 @@ class Related {
 			'no_found_rows'       => true,
 			'post_type'           => 'wz_knowledgebase',
 			'posts_per_page'      => $args['numberposts'],
-			'post_status'         => 'publish',
 			'post__not_in'        => $exclude,
 			'orderby'             => 'date',
 			'order'               => 'DESC',

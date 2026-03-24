@@ -380,7 +380,6 @@ class Display {
 		$product_articles = new \WP_Query(
 			array(
 				'post_type'           => 'wz_knowledgebase',
-				'post_status'         => 'publish',
 				'posts_per_page'      => -1,
 				'ignore_sticky_posts' => true,
 				'no_found_rows'       => true,
