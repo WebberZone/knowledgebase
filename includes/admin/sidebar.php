@@ -5,6 +5,10 @@
  * @package WebberZone\Knowledge_Base
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use WebberZone\Knowledge_Base\Admin\Admin;
 
 ?>

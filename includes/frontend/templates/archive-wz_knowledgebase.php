@@ -26,7 +26,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
-					<h1 class="page-title"><?php echo wzkb_get_option( 'kb_title' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
+					<h1 class="page-title"><?php echo wp_kses_post( wzkb_get_option( 'kb_title' ) ); ?></h1>
 				</header><!-- .page-header -->
 
 				<?php
