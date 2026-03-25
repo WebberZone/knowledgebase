@@ -898,3 +898,98 @@ nav.pagination {
 .wzkb-product-card:focus-within .wzkb-product-card-cta::after {
 	transform: translateX(-6px);
 }
+
+/* Search results grid */
+.wzkb-search-results-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+	margin: 24px 0;
+}
+
+@media (max-width: 1200px) {
+	.wzkb-search-results-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	.wzkb-search-results-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+.wzkb-search-result-card {
+	display: grid;
+	grid-template-columns: 80px minmax(0, 1fr);
+	grid-template-areas:
+		"thumb title"
+		"excerpt excerpt";
+	align-items: flex-start;
+	gap: 16px;
+	background: var(--wzkb-bg-white);
+	border: 1px solid var(--wzkb-border-light);
+	border-radius: var(--wzkb-border-radius-md);
+	overflow: hidden;
+	padding: 16px;
+	transition:
+		box-shadow var(--wzkb-transition-base) ease,
+		transform var(--wzkb-transition-base) ease;
+}
+
+.wzkb-search-result-card:hover {
+	box-shadow: var(--wzkb-shadow-lg);
+	transform: translateY(-3px);
+}
+
+.wzkb-search-result-thumb-link {
+	display: block;
+	grid-area: thumb;
+	width: 80px;
+	height: 80px;
+	border-radius: var(--wzkb-border-radius-sm);
+	overflow: hidden;
+}
+
+.wzkb-search-result-thumb-link img.wzkb-search-result-thumb {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	display: block;
+	transition: transform var(--wzkb-transition-base) ease;
+}
+
+.wzkb-search-result-card:hover .wzkb-search-result-thumb {
+	transform: scale(1.04);
+}
+
+.wzkb-search-result-body {
+	display: contents;
+}
+
+.wzkb-search-result-title {
+	grid-area: title;
+	font-size: 17px;
+	font-weight: 700;
+	margin: 0 0 8px;
+	line-height: 1.3;
+	min-width: 0;
+}
+
+.wzkb-search-result-title a {
+	color: var(--wzkb-color-text);
+	text-decoration: none;
+	transition: color var(--wzkb-transition-base) ease;
+}
+
+.wzkb-search-result-title a:hover {
+	color: var(--wzkb-color-primary);
+}
+
+.wzkb-search-result-card .wzkb-article-excerpt {
+	grid-area: excerpt;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--wzkb-color-text-medium);
+}

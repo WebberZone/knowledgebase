@@ -51,19 +51,37 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 
 			<?php if ( $wzkb_query->have_posts() ) : ?>
 
+				<div class="wzkb-search-results-grid">
+
 				<?php
 				while ( $wzkb_query->have_posts() ) :
 					$wzkb_query->the_post();
+					$wzkb_thumb = wzkb_get_the_post_thumbnail(
+						array(
+							'post'  => get_post(),
+							'size'  => 'medium',
+							'class' => 'wzkb-search-result-thumb',
+						)
+					);
 					?>
 
-					<header class="entry-header">
-						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-					</header><!-- .entry-header -->
+					<article class="wzkb-search-result-card">
+						<?php if ( $wzkb_thumb ) : ?>
+						<a href="<?php the_permalink(); ?>" class="wzkb-search-result-thumb-link">
+							<?php echo $wzkb_thumb; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</a>
+						<?php endif; ?>
+						<div class="wzkb-search-result-body">
+							<?php the_title( sprintf( '<h2 class="wzkb-search-result-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+							<div class="wzkb-article-excerpt post-<?php the_ID(); ?>">
+							<?php echo get_the_excerpt(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</div>
+						</div>
+					</article>
 
-					<div class="entry-summary">
-						<?php the_excerpt(); ?>
-					</div><!-- .entry-summary -->
 				<?php endwhile; ?>
+
+				</div><!-- .wzkb-search-results-grid -->
 
 				<nav class="pagination">
 					<?php
