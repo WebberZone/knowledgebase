@@ -669,7 +669,7 @@ class Display {
 			$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
 			$output .= '<a href="' . get_permalink() . '" rel="bookmark" title="' . get_the_title() . '">' . get_the_title() . '</a>';
 
-			if ( $args['show_excerpt'] ) {
+			if ( ! empty( $args['show_excerpt'] ) ) {
 				$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '">' . get_the_excerpt() . '</div>';
 			}
 
