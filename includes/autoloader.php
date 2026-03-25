@@ -1,6 +1,6 @@
 <?php
 /**
- * Autoloads classes from the WebberZone\Snippetz namespace.
+ * Autoloads classes from the WebberZone\Knowledge_Base namespace.
  *
  * @package WebberZone\Knowledge_Base
  */
@@ -10,37 +10,44 @@ namespace WebberZone\Knowledge_Base;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Autoloader for WebberZone\Snippetz classes.
+ * Autoloader for WebberZone\Knowledge_Base classes.
  *
  * @param string $class_name The name of the class to load.
+ * @return void
  */
-function autoload( $class_name ) {
-	$namespace         = __NAMESPACE__;
-	$classes_subfolder = 'includes';
+function autoload( $class_name ): void {
+	$namespace = __NAMESPACE__;
 
-	if ( false !== strpos( $class_name, $namespace ) ) {
-		$classes_dir = realpath( WZKB_PLUGIN_DIR ) . DIRECTORY_SEPARATOR . $classes_subfolder . DIRECTORY_SEPARATOR;
+	// Ensure the class belongs to our namespace.
+	if ( false === strpos( $class_name, $namespace ) ) {
+		return;
+	}
 
-		// Project namespace.
-		$project_namespace = $namespace . '\\';
-		$length            = strlen( $project_namespace );
+	// Base plugin directory (one level up from /includes/).
+	$plugin_dir = dirname( __DIR__ );
 
-		$class_file = substr( $class_name, $length ); // Remove top level namespace (that is the current dir).
-		$class_file = str_replace( '_', '-', strtolower( $class_file ) ); // Swap underscores for dashes and lowercase.
+	// Remove the top-level namespace.
+	$project_namespace = $namespace . '\\';
+	$length            = strlen( $project_namespace );
+	$class_file        = substr( $class_name, $length );
 
-		// Prepend `class-` to the filename (last class part).
-		$class_parts                = explode( '\\', $class_file ); // Split the class name into parts.
-		$last_index                 = count( $class_parts ) - 1; // Get the last index.
-		$class_parts[ $last_index ] = 'class-' . $class_parts[ $last_index ]; // Replace the last part with `class-`.
+	// Skip classes in the vendor directory.
+	if ( false !== strpos( strtolower( $class_file ), 'vendor' ) ) {
+		return;
+	}
 
-		// Join everything back together and add the file extension.
-		$class_file = implode( DIRECTORY_SEPARATOR, $class_parts ) . '.php';
-		$location   = $classes_dir . $class_file;
+	// Convert to lowercase and replace underscores with dashes.
+	$class_file = str_replace( '_', '-', strtolower( $class_file ) );
 
-		if ( ! is_file( $location ) ) {
-			return;
-		}
+	// Prepend `class-` to the filename (last class part).
+	$class_parts                = explode( '\\', $class_file );
+	$last_index                 = count( $class_parts ) - 1;
+	$class_parts[ $last_index ] = 'class-' . $class_parts[ $last_index ];
 
+	// Construct the full file path directly.
+	$location = $plugin_dir . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . implode( DIRECTORY_SEPARATOR, $class_parts ) . '.php';
+
+	if ( is_file( $location ) ) {
 		require_once $location;
 	}
 }

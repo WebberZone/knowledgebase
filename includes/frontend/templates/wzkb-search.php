@@ -10,21 +10,21 @@
  * @package WebberZone\Knowledge_Base
  */
 
-$this_page = 1;
+$wzkb_current_page = 1;
 if ( get_query_var( 'paged' ) ) {
-	$this_page = get_query_var( 'paged' );
+	$wzkb_current_page = get_query_var( 'paged' );
 }
 if ( get_query_var( 'page' ) ) {
-	$this_page = get_query_var( 'page' );
+	$wzkb_current_page = get_query_var( 'page' );
 }
 
-$args = array(
+$wzkb_query_args = array(
 	'post_type' => 'wz_knowledgebase',
 	's'         => get_search_query(),
-	'paged'     => $this_page,
+	'paged'     => $wzkb_current_page,
 );
 
-$query = new WP_Query( $args );
+$wzkb_query = new WP_Query( $wzkb_query_args );
 
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
@@ -33,7 +33,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 	wp_enqueue_style( 'wz-knowledgebase-styles' );
 }
 ?>
-<div class="wrap">
+<div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
@@ -46,13 +46,14 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 				</h1>
 			</header><!-- .page-header -->
 
+			<?php wzkb_breadcrumb(); ?>
 			<?php wzkb_search_form(); ?>
 
-			<?php if ( $query->have_posts() ) : ?>
+			<?php if ( $wzkb_query->have_posts() ) : ?>
 
 				<?php
-				while ( $query->have_posts() ) :
-					$query->the_post();
+				while ( $wzkb_query->have_posts() ) :
+					$wzkb_query->the_post();
 					?>
 
 					<header class="entry-header">
@@ -70,7 +71,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 							array(
 								'format'  => '?paged=%#%',
 								'current' => max( 1, get_query_var( 'paged' ) ),
-								'total'   => $query->max_num_pages,
+								'total'   => $wzkb_query->max_num_pages,
 							)
 						);
 					?>
@@ -93,7 +94,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 		include_once 'sidebar-primary.php';
 	}
 	?>
-</div><!-- .wrap -->
+</div><!-- .wrap.wzkb-wrap -->
 
 <?php
 get_footer();

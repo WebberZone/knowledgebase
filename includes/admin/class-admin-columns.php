@@ -1,13 +1,13 @@
 <?php
 /**
- * Admin columns class
- *
- * @since 2.3.0
+ * Admin Columns.
  *
  * @package WebberZone\Knowledge_Base
  */
 
 namespace WebberZone\Knowledge_Base\Admin;
+
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Class to register the Better Search Admin Area.
+ * Admin Columns class.
  *
  * @since 2.3.0
  */
@@ -27,13 +27,28 @@ class Admin_Columns {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		add_filter( 'manage_edit-wzkb_category_columns', array( $this, 'tax_columns' ) );
-		add_filter( 'manage_edit-wzkb_category_sortable_columns', array( $this, 'tax_columns' ) );
-		add_filter( 'manage_edit-wzkb_tag_columns', array( $this, 'tax_columns' ) );
-		add_filter( 'manage_edit-wzkb_tag_sortable_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_category_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_category_sortable_columns', array( $this, 'tax_sortable_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_tag_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_tag_sortable_columns', array( $this, 'tax_sortable_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_product_columns', array( $this, 'tax_columns' ) );
+		Hook_Registry::add_filter( 'manage_edit-wzkb_product_sortable_columns', array( $this, 'tax_sortable_columns' ) );
 
-		add_filter( 'manage_wzkb_category_custom_column', array( $this, 'tax_id' ), 10, 3 );
-		add_filter( 'manage_wzkb_tag_custom_column', array( $this, 'tax_id' ), 10, 3 );
+		Hook_Registry::add_filter( 'manage_wzkb_category_custom_column', array( $this, 'tax_id' ), 10, 3 );
+		Hook_Registry::add_filter( 'manage_wzkb_tag_custom_column', array( $this, 'tax_id' ), 10, 3 );
+		Hook_Registry::add_filter( 'manage_wzkb_product_custom_column', array( $this, 'tax_id' ), 10, 3 );
+
+		// Register Product filter for Articles admin screen.
+		Hook_Registry::add_action( 'restrict_manage_posts', array( $this, 'add_product_filter_dropdown' ) );
+		Hook_Registry::add_action( 'pre_get_posts', array( $this, 'filter_articles_by_product' ) );
+
+		// Register Product filter for Sections taxonomy screen.
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sections_filter_script' ) );
+		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'filter_sections_by_product' ), 10, 2 );
+
+		// Add sorting.
+		Hook_Registry::add_action( 'pre_get_terms', array( $this, 'set_default_sections_order' ) );
+		Hook_Registry::add_filter( 'terms_clauses', array( $this, 'sort_terms_by_product' ), 10, 3 );
 	}
 
 	/**
@@ -45,19 +60,34 @@ class Admin_Columns {
 	 * @return array Updated columns.
 	 */
 	public static function tax_columns( $columns ) {
-
-		// Remove the description column.
-		unset( $columns['description'] );
-
 		$new_columns = array(
 			'tax_id' => 'ID',
 		);
+
+		// Only add Product column for wzkb_category taxonomy.
+		$screen = get_current_screen();
+		if ( isset( $screen->taxonomy ) && 'wzkb_category' === $screen->taxonomy ) {
+			$new_columns['product'] = __( 'Product', 'knowledgebase' );
+		}
 
 		return array_merge( $columns, $new_columns );
 	}
 
 	/**
-	 * Add taxonomy ID to the admin column.
+	 * Make the Product column sortable.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $columns Array of sortable columns.
+	 * @return array Modified array of sortable columns.
+	 */
+	public function tax_sortable_columns( $columns ) {
+		$columns['product'] = 'product';
+		return $columns;
+	}
+
+	/**
+	 * Add taxonomy ID and Product to the admin column.
 	 *
 	 * @since 2.3.0
 	 *
@@ -67,6 +97,346 @@ class Admin_Columns {
 	 * @return int|string
 	 */
 	public static function tax_id( $value, $name, $id ) {
-		return 'tax_id' === $name ? $id : $value;
+		if ( 'tax_id' === $name ) {
+			return $id;
+		}
+		if ( 'product' === $name ) {
+			// Get linked product for this section.
+			$product = wzkb_get_section_product( $id );
+			if ( $product ) {
+				return sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'edit.php?post_type=wz_knowledgebase&wzkb_product=' . $product->slug ) ),
+					esc_html( $product->name )
+				);
+			}
+			return '&mdash;'; // Em dash if not linked.
+		}
+		return $value;
+	}
+
+	/**
+	 * Sort wzkb_category terms by wzkb_product name.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $pieces     Array of query SQL clauses.
+	 * @param array $taxonomies Array of taxonomy names.
+	 * @param array $args       Additional term query arguments.
+	 * @return array Modified clauses.
+	 */
+	public function sort_terms_by_product( $pieces, $taxonomies, $args ) {
+		global $wpdb;
+
+		// Only run for wzkb_category in admin.
+		if ( ! is_admin() || ! in_array( 'wzkb_category', $taxonomies, true ) ) {
+			return $pieces;
+		}
+
+		// Check if sorting by product.
+		$orderby = isset( $args['orderby'] ) ? sanitize_key( $args['orderby'] ) : '';
+		if ( 'product' !== $orderby ) {
+			return $pieces;
+		}
+
+		// Get sort order.
+		$order = isset( $args['order'] ) ? strtoupper( sanitize_text_field( $args['order'] ) ) : 'ASC';
+		$order = in_array( $order, array( 'ASC', 'DESC' ), true ) ? $order : 'ASC';
+
+		$meta_alias     = 'tm_product_sort';
+		$product_alias  = 'pt_product_sort';
+		$taxonomy_alias = 'ptt_product_sort';
+
+		// Join with termmeta to get product_id while avoiding alias collisions.
+		$pieces['join'] .= " LEFT JOIN {$wpdb->termmeta} AS {$meta_alias} ON t.term_id = {$meta_alias}.term_id AND {$meta_alias}.meta_key = 'product_id'";
+
+		// Join with terms and term_taxonomy to get wzkb_product name.
+		$pieces['join'] .= " LEFT JOIN {$wpdb->terms} AS {$product_alias} ON {$meta_alias}.meta_value = {$product_alias}.term_id";
+		$pieces['join'] .= " LEFT JOIN {$wpdb->term_taxonomy} AS {$taxonomy_alias} ON {$product_alias}.term_id = {$taxonomy_alias}.term_id AND {$taxonomy_alias}.taxonomy = 'wzkb_product'";
+
+		// Set the ORDER BY clause with the "ORDER BY" prefix.
+		$pieces['orderby'] = "ORDER BY COALESCE({$product_alias}.name, '') $order, t.name $order";
+
+		// Prevent WordPress from appending the order.
+		$pieces['order'] = '';
+
+		return $pieces;
+	}
+
+	/**
+	 * Ensure Sections screen defaults to sorting by Product.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Term_Query $query Term query instance.
+	 */
+	public function set_default_sections_order( $query ) {
+		if ( ! is_admin() || ! $query instanceof \WP_Term_Query ) {
+			return;
+		}
+
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || 'edit-tags' !== $screen->base || 'wzkb_category' !== $screen->taxonomy ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return;
+		}
+
+		// Respect explicit user choice.
+		if ( isset( $_GET['orderby'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		$orderby = isset( $query->query_vars['orderby'] ) ? $query->query_vars['orderby'] : '';
+		if ( ! empty( $orderby ) && 'name' !== $orderby ) {
+			return;
+		}
+
+		$query->query_vars['orderby'] = 'product';
+		if ( empty( $query->query_vars['order'] ) ) {
+			$query->query_vars['order'] = 'ASC';
+		}
+	}
+
+	/**
+	 * Add product filter dropdown to Knowledgebase admin screen.
+	 *
+	 * @since 3.0.0
+	 */
+	public function add_product_filter_dropdown() {
+		global $pagenow;
+
+		// Only run on the edit.php page for wz_knowledgebase post type.
+		if ( 'edit.php' !== $pagenow || ! isset( $_GET['post_type'] ) || 'wz_knowledgebase' !== $_GET['post_type'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		// Get all wzkb_product terms.
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_product',
+				'hide_empty' => false,
+			)
+		);
+
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
+			return;
+		}
+
+		// Get the currently selected product filter.
+		$selected = isset( $_GET['wzkb_product'] ) ? sanitize_text_field( wp_unslash( $_GET['wzkb_product'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		// Output the dropdown.
+		?>
+		<select name="wzkb_product" id="wzkb_product_filter">
+			<option value=""><?php esc_html_e( 'All Products', 'knowledgebase' ); ?></option>
+			<?php
+			foreach ( $terms as $term ) {
+				printf(
+					'<option value="%s" %s>%s</option>',
+					esc_attr( $term->slug ),
+					selected( $selected, $term->slug, false ),
+					esc_html( $term->name )
+				);
+			}
+			?>
+		</select>
+		<?php
+	}
+
+	/**
+	 * Filter articles by the product in the admin.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Query $query The current WP_Query instance (passed by reference).
+	 */
+	public function filter_articles_by_product( $query ) {
+		global $pagenow;
+
+		// Only run in admin post list, main query, and correct post type.
+		if ( ! is_admin() || 'edit.php' !== $pagenow || ! $query->is_main_query() ) {
+			return;
+		}
+
+		$post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( 'wz_knowledgebase' !== $post_type ) {
+			return;
+		}
+
+		// Get the product filter value.
+		$product = isset( $_GET['wzkb_product'] ) ? sanitize_text_field( wp_unslash( $_GET['wzkb_product'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $product ) ) {
+			return;
+		}
+
+		// Ensure the taxonomy exists.
+		if ( ! taxonomy_exists( 'wzkb_product' ) ) {
+			return;
+		}
+
+		// Add the tax query.
+		$tax_query = array(
+			array(
+				'taxonomy' => 'wzkb_product',
+				'field'    => is_numeric( $product ) ? 'term_id' : 'slug',
+				'terms'    => is_numeric( $product ) ? absint( $product ) : $product,
+			),
+		);
+
+		$query->set( 'tax_query', $tax_query );
+	}
+
+	/**
+	 * Enqueue script for product filter on Sections taxonomy screen.
+	 *
+	 * @since 3.0.0
+	 */
+	public function enqueue_sections_filter_script() {
+		$screen = get_current_screen();
+		if ( ! $screen || 'edit-tags' !== $screen->base || 'wzkb_category' !== $screen->taxonomy ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return;
+		}
+
+		$products = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_product',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+
+		if ( empty( $products ) || is_wp_error( $products ) ) {
+			return;
+		}
+
+		// Format products data for JS.
+		$products_data = array();
+		foreach ( $products as $product ) {
+			$products_data[] = array(
+				'term_id' => $product->term_id,
+				'name'    => $product->name,
+			);
+		}
+
+		// Get current query parameters to preserve them.
+		$query_params = array();
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_GET ) ) {
+			foreach ( $_GET as $key => $value ) {
+				if ( 'wzkb_product' !== $key ) {
+					// Properly sanitize GET parameters based on expected types.
+					$sanitized_key = sanitize_key( $key );
+
+					// Handle common WordPress admin parameters appropriately.
+					switch ( $sanitized_key ) {
+						case 'taxonomy':
+						case 'post_type':
+						case 'orderby':
+						case 'order':
+							$query_params[ $sanitized_key ] = sanitize_text_field( $value );
+							break;
+
+						case 'page':
+						case 'paged':
+							$query_params[ $sanitized_key ] = absint( $value );
+							break;
+
+						case 's': // Search term.
+							$query_params[ $sanitized_key ] = sanitize_text_field( $value );
+							break;
+
+						default:
+							// For any other parameters, apply general sanitization.
+							if ( is_array( $value ) ) {
+								$query_params[ $sanitized_key ] = array_map( 'sanitize_text_field', $value );
+							} else {
+								$query_params[ $sanitized_key ] = sanitize_text_field( $value );
+							}
+							break;
+					}
+				}
+			}
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+		$selected = isset( $_GET['wzkb_product'] ) ? absint( $_GET['wzkb_product'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		// Register and enqueue script.
+		$minimize = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		wp_register_script(
+			'wzkb-sections-product-filter',
+			plugins_url( 'js/sections-product-filter' . $minimize . '.js', __FILE__ ),
+			array( 'jquery' ),
+			WZKB_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'wzkb-sections-product-filter',
+			'knowledgebaseProductFilter',
+			array(
+				'products'       => $products_data,
+				'currentProduct' => $selected,
+				'queryParams'    => $query_params,
+				'currentScreen'  => $screen->id,
+				'nonces'         => array(
+					'filter' => wp_create_nonce( 'wzkb_sections_filter' ),
+				),
+				'strings'        => array(
+					'filterInstruction' => __( 'Filter sections by product:', 'knowledgebase' ),
+					'productLabel'      => __( 'Product:', 'knowledgebase' ),
+					'searchPlaceholder' => __( 'Search sections...', 'knowledgebase' ),
+				),
+			)
+		);
+
+		wp_enqueue_script( 'wzkb-sections-product-filter' );
+	}
+
+	/**
+	 * Filter Sections by selected Product.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $pieces     Array of query SQL clauses.
+	 * @param array $taxonomies Array of taxonomy names.
+	 * @return array Modified query SQL clauses.
+	 */
+	public function filter_sections_by_product( $pieces, $taxonomies ) {
+		global $wpdb;
+
+		// Only run for wzkb_category taxonomy queries.
+		if ( ! in_array( 'wzkb_category', $taxonomies, true ) ) {
+			return $pieces;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || 'edit-tags' !== $screen->base || 'wzkb_category' !== $screen->taxonomy ) {
+			return $pieces;
+		}
+
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return $pieces;
+		}
+
+		if ( empty( $_GET['wzkb_product'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return $pieces;
+		}
+
+		$product_id = absint( $_GET['wzkb_product'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $product_id ) {
+			$pieces['join']  .= " INNER JOIN {$wpdb->termmeta} AS tm ON t.term_id = tm.term_id ";
+			$pieces['where'] .= $wpdb->prepare( " AND tm.meta_key = 'product_id' AND tm.meta_value = %d ", $product_id );
+		}
+
+		return $pieces;
 	}
 }

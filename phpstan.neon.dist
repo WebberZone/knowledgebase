@@ -2,12 +2,16 @@ includes:
 	- phpstan-baseline.neon
 parameters:
     level: 5
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - knowledgebase.php
+        - uninstaller.php
+        - load-freemius.php
+        - includes/
     scanFiles:
         - knowledgebase.php
     scanDirectories:
         - includes
-    paths:
-        - knowledgebase.php
-        - uninstall.php
-        - includes/
+    bootstrapFiles:
+        - phpstan-bootstrap.php
     ignoreErrors:

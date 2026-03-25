@@ -1,0 +1,67 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+// Editor styles for the Products block
+.wp-block-knowledgebase-products {
+	padding: 1em;
+	border: 1px dashed #ccc;
+	background: #f9f9f9;
+
+	// Style the placeholder
+	.components-placeholder {
+		min-height: 200px;
+		padding: 2em;
+		text-align: center;
+
+		.components-select-control {
+			max-width: 300px;
+			margin: 1em auto;
+		}
+
+		&__label {
+			font-size: 1.2em;
+			margin-bottom: 1em;
+		}
+
+		&__instructions {
+			color: #666;
+			margin-bottom: 1em;
+		}
+	}
+
+	// widen combobox (placeholder and inspector)
+	.components-combobox-control__suggestions-container {
+		min-width: 200px;
+		max-width: 100%;
+	}
+
+	.components-combobox-control.wzkb-products-selector {
+		.components-flex-item {
+			flex: 1 1 auto;
+		}
+
+		.components-combobox-control__input {
+			width: 100%;
+		}
+
+		.components-button.is-small.has-icon:not(.has-text) {
+			max-width: fit-content;
+		}
+	}
+
+	.wzkb-products-selector-wrapper {
+		display: flex;
+		justify-content: flex-start;
+		text-align: left;
+	}
+
+	// Style the server-side rendered content
+	&.has-product {
+		border: none;
+		padding: 0;
+		background: none;
+	}
+}

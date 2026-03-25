@@ -1,105 +1,123 @@
 === Knowledge Base ===
 Contributors: Ajay, webberzone
-Donate link: https://ajaydsouza.com/donate/
+Donate link: https://wzn.io/donate-wz
 Tags: knowledge base, knowledgebase, FAQ, support, documentation
-Requires at least: 6.3
-Tested up to: 6.8
+Requires at least: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.3.1
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Effortlessly build a comprehensive knowledge base for unlimited products on your WordPress site and elevate your customer support experience.
+Effortlessly create a powerful, multi-product knowledge base. Boost your support, reduce tickets, scale your documentation and make customers happy!
 
 == Description ==
 
-[Knowledge Base](https://webberzone.com/plugins/knowledgebase/) is an easy-to-use WordPress plugin that allows you to create a knowledge base / FAQ section on your site.
+[Knowledge Base](https://webberzone.com/plugins/knowledgebase/) makes building a knowledge base or FAQ for your WordPress site easy, fast, and scalable.
 
-You can use it to create a single or multi-product knowledge base with little effort.
+Perfect for:
+- Multi-product companies
+- SaaS platforms
+- Ecommerce support centres
+- Documentation hubs
 
-The plugin was born after I tried several free plugins and themes that didn't fit my purpose. It's designed to be very easy to install and use out of the box.
+[Live Demo](https://webberzone.com/support/knowledgebase/).
 
-You can view a [live demo of my knowledge base](https://webberzone.com/support/knowledgebase/).
+### Main features
 
-= Terminology =
+Unlimited Knowledge Bases — Support as many products as you like, with unlimited sections and sub-sections.
+Beautiful, Responsive Layouts — Ships with clean templates powered by the Responsive Grid System.
+Customisable Permalinks — View your KB at /knowledgebase/ by default or change it easily.
+Shortcodes + Gutenberg Blocks — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
+Built-in Breadcrumbs — Improve UX and SEO with breadcrumb navigation.
+Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
+Built-in Caching — Speed up your Knowledge Base without extra plugins.
 
-* __Articles__: A custom post type `wz_knowledgebase` is used to store all the knowledge base articles
-* __Sections__: A custom taxonomy ( `kbcategory` ) used to create the knowledge base. You will need *at least one category* to display the knowledge base. Add these categories under *Knowledge Base > Sections*
-* __Tags__: Additionally you can use tags ( `kbtags` ) can also be used for each knowledge base article.
+### Pro features
 
-= Main features =
+[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/#pro) enhances the plugin with advanced features for larger documentation sites, including ratings and feedback, a help widget, a powerful custom permalinks engine, premium layouts, and additional admin tools.
 
-* Supports unlimited knowledge bases using different sections with unlimited nested levels
-* Inbuilt styles that display the Knowledge Base beautifully and are fully responsive - Uses the [Responsive Grid System](http://www.responsivegridsystem.com/)
-* Customizable permalinks: Archives are enabled so your knowledge base can be viewed automatically at `/knowledgebase/` upon activation. You can change this on the Settings page
-* Shortcode: `[knowledgebase]` will allow you to display the knowledge base on any page you choose. For other shortcodes, check the FAQ
-* Gutenberg block: You can display the knowledge base using a block. Find it by typing `kb` or `knowledge base` when adding a new block
-* Breadcrumbs: Default templates include breadcrumbs. Alternatively, use the function or shortcode to display this where you want
-* Widgets: WZKB Articles, WZKB Sections and WZKB Breadcrumbs
-* Inbuilt cache to speed up the display of your knowledge base articles
+- __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+- __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
+- __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
+- __Knowledge Base Homepage Mode__ — Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
+- __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+- __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
-= Contribute =
+### Key Concepts
+
+* __Articles:__ Custom post type `wz_knowledgebase` — your FAQs, how-to guides, and documentation.
+* __Products:__ Custom taxonomy `wzkb_product` — link articles to one or more products.
+* __Sections:__ Custom taxonomy `wzkb_category` — organize content neatly into categories.
+* __Tags:__ Optional `wzkb_tag` taxonomy — make finding content even easier.
+
+### Contribute
 
 If you have an idea, I'd love to hear it. WebberZone Knowledge Base is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.
 
 == Installation ==
 
-= WordPress install (The easy way) =
+### WordPress install (The easy way)
 
 1. Navigate to “Plugins” within your WordPress Admin Area
 2. Click “Add new” and in the search box enter “Knowledgebase” or "Knowledge Base"
 3. Find the plugin in the list (usually the first result) and click “Install Now”
 4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
-= Manual install =
+### Manual install
 
 1. Download the plugin
 2. Extract the contents of knowledgebase.zip to wp-content/plugins/ folder. You should get a folder called knowledgebase.
 3. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
-= Usage =
+### Quick Start
 
-1. Visit `Knowledge Base &raquo; Sections` to add new categories to the knowledge base
-2. Visit `Knowledge Base &raquo; Add New` to add new Articles to the knowledge base. You can select a section from there while adding
-3. Optionally, create a new page or edit an existing one and add the shortcode `[knowledgebase]` or use the block to set up this page to display the knowledgebase
+When you Activate the plugin for the first time, you will be taken to the Setup Wizard. Follow the instructions to set up your knowledge base.
 
-The plugin supports unlimited levels of category hierarchy. To build a multi-product knowledge base:
+After the Setup Wizard, you can:
+
+1. Go to __Knowledge Base &raquo; Products__ — add your first Products if you've selected Multi-Product mode.
+2. Go to __Knowledge Base &raquo; Sections__ — add your first categories.
+3. Go to __Knowledge Base &raquo; Add New__— create articles and assign them to sections.
+
+__Want a multi-product Knowledge Base only with Sections?__
 
 1. Set the *First section level* under the Output tab to 2
 2. Create a set of top-level sections for each product
 3. Create sub-sections for each of the products
 
-[This live demo](https://webberzone.com/support/knowledgebase/) is a working example of a multi-product knowledge base.
+See a live example: [WebberZone Knowledge Base Demo](https://webberzone.com/support/knowledgebase/).
 
 == Frequently Asked Questions ==
 
-If your question is not listed below, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). It is the fastest way to get support, as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
+If you don't see your question answered below, please post it on the [WordPress.org support forum](http://wordpress.org/support/plugin/knowledgebase). This is the quickest way to get help, as I check the forums daily. For more personalized assistance, I also offer [premium *paid* support via email](https://webberzone.com/support/).
 
-= 404 errors on the knowledge base =
+= Why are Knowledge Base pages giving 404 errors? =
 
-This is usually due to outdated permalinks. To flush the existing permalink rules, visit Settings > Permalinks in your WordPress admin area.
+Flush permalinks! Go to __Settings > Permalinks__ and just click __Save Changes__.
 
-= Shortcodes =
+= What shortcodes are available? =
 
-For details on all the shortcodes included in the plugin, refer to [this Knowledge Base article](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/).
+Check the full shortcode guide here: [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/).
 
-= Using your own templates for archives and search =
+= Can I override templates? =
 
-WebberZone Knowledge Base comes built with custom templates to display archives of the articles, category archives, and search results. You can easily override any of these templates by creating your template in your theme's folder or in `wp-content/knowledgebase/templates`
+Absolutely! Copy these files into your theme or `wp-content/knowledgebase/templates/`:
 
-1. Article view: single-wz_knowledgebase.php or single-wz_knowledgebase.html
-2. Articles archive: archive-wz_knowledgebase.php or archive-wz_knowledgebase.html
-3. Category archive: taxonomy-wzkb_category.php or taxonomy-wzkb_category.html
-4. Search results: wzkb-search.php or wzkb-search.html
+* `single-wz_knowledgebase.php`
+* `archive-wz_knowledgebase.php`
+* `taxonomy-wzkb_category.php`
+* `wzkb-search.php`
 
-= How do I sort the posts or sections? =
+Or .html versions if you are using a block theme.
 
-The plugin doesn't have an inbuilt feature to sort posts or sections. You will need an external plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) which allows you to easily drag and drop posts, sections or tags to display them in a custom order.
+= How do I change the article or section order? =
+
+Use a plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) to easily drag and drop posts, sections or tags to display them in a custom order.
 
 = How can I report security bugs? =
 
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/knowledgebase)
-
 
 == Screenshots ==
 
@@ -113,61 +131,55 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 2.3.3 =
-Fixed issue where slugs in settings no longer supported a forward slash.
+= 3.0.0 =
+Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
+
 
 == Changelog ==
 
-= 2.3.3 =
+= 3.0.0 =
 
-* Bug fixes:
-	* Fixed issue where slugs in settings no longer supported a forward slash.
-
-= 2.3.2 =
-
-* Bug fixes:
-	* Fixed security issue where Knowledge Base slug in settings was not sanitized.
-
-= 2.3.1 =
-
-* Bug fixes:
-	* Fixed security issue where arguments passed to the shortcodes were not properly sanitized.
-
-= 2.3.0 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-3-0/](https://webberzone.com/blog/knowledge-base-v2-3-0/)
-
-The plugin has been completely rewritten to use classes and autoloading.
+Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](https://webberzone.com/announcements/knowledge-base-v3-0-0/)
 
 * Features:
-	* New block: Knowledge Base Articles.
-	* New block: Knowledge Base Breadcrumbs.
-	* New block: Knowledge Base Sections.
+	* Introduced a hierarchical Products taxonomy (`wzkb_product`) for multi-product knowledge bases.
+		* Migration wizard with dry-run and batch processing to map existing sections and articles to products.
+		* Product-based frontend templates that preserve section hierarchy.
+		* Admin UI enhancements for managing products, sections, and migration.
+	* Setup Wizard to guide users through the initial configuration.
+	* New Product widget to display sections for a specific product.
+	* Block Templates and Patterns:
+		* Full Site Editor (FSE) support with custom block templates for Knowledge Base layouts.
+		* Pre-designed block patterns including single article, archives, sections, products, and sidebar layouts.
+		* Sidebar pattern with search, sections, products, and recent articles for easy navigation.
+		* Templates work with both classic and block themes.
+	* [Pro] Custom permalinks for Products, Sections, Tags, and Articles.
+	* [Pro] Cache tools: Clear cache button and cache expiry option in the Settings page.
+	* [Pro] Flush permalinks button in the Settings page.
+	* [Pro] Knowledge Base Homepage Mode: Display the Knowledge Base on your site homepage, and redirect the Knowledge Base archive URL to the homepage.
+	* [Pro] Article Rating System:
+		* Binary or 5-star voting, optional follow-up feedback, shortcode support, and Tools page controls.
+		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
+		* Email alerts, per-article reset tools, feedback storage, privacy exporter/eraser, and Bayesian average sorting in admin lists.
+	* [Pro] Floating Help Widget providing a branded assistant with live search, suggested articles, configurable labels/colours, and a contact form with HTML email notifications.
+	* [Pro] Premium layout pack with seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 
 * Modifications:
-	* Enhanced breadcrumb navigation with semantic HTML5 markup and improved accessibility
-	* Added Schema.org BreadcrumbList markup for better SEO
-	* Added support for custom Unicode separators in breadcrumbs
+	* Standardised CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
+	* Added `Hooks_Registry` class to organise hooks and prevent accidental duplicates.
+	* Upgraded the WebberZone Settings API.
+	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
 
-= 2.2.1 =
-
-* Enhancements:
-	* The plugin will now load RTL styles if your site is in RTL mode.
-	* Only load CSS on the frontend if the option is enabled in the Settings page.
-
-* Bug fixes:
-	* Fixed a security issue in the alerts block that impacted edge cases of stored data from contributors. Now the alert block content is passed through `wp_kses_post` before being displayed.
-	* Fixed a bug where the block would not render correctly in the editor
-
-= 2.2.0 =
-
-Release post: [https://webberzone.com/blog/knowledge-base-v2-2-0/](https://webberzone.com/blog/knowledge-base-v2-2-0/)
-
-* Enhancements:
-	* The plugin will now look for templates within `wp-content/knowledgebase/templates` folder if it is not found within the existing theme before using the plugin's included templates
-	* Alerts block now shows a preview and the Default style is inserted correctly
-	* Upgrade settings handling to use the WebberZone Settings_API class
-	* Knowledge Base block is wrapped in the `<Disabled>` component which prevent any accidental clicking when you're using it in the block editor (Gutenberg)
+* Breaking Changes:
+	* CSS classes have been renamed for consistency, for example:
+		* `wzkb_section` → `wzkb-section`
+		* `wzkb_section_wrapper` → `wzkb-section-wrapper`
+		* `wzkb_section_name` → `wzkb-section-name`
+		* `wzkb_section_count` → `wzkb-section-count`
+		* `wzkb_shortcode` → `wzkb-shortcode`
+		* `wzkb_block` → `wzkb-block`
+		* and other similar class name changes.
+	* If you have custom CSS targeting these classes, please update your selectors.
 
 = Earlier versions =
 
