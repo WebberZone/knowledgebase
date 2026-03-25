@@ -341,7 +341,8 @@
 		inflightKey = key;
 		renderSections([]);
 
-		apiFetch({ url: `${config.endpoint}?products=${encodeURIComponent(key)}` })
+		const separator = config.endpoint.indexOf('?') !== -1 ? '&' : '?';
+		apiFetch({ url: `${config.endpoint}${separator}products=${encodeURIComponent(key)}` })
 			.then((terms) => {
 				if (inflightKey !== key) {
 					return;
