@@ -7,13 +7,13 @@
  * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2015-2025 Ajay D'Souza
+ * @copyright 2015-2026 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Create a multi-product knowledge base on your WordPress site.
- * Version: 2.3.3
+ * Version: 3.0.0-RC1
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WZKB_VERSION' ) ) {
 	 *
 	 * @var string $wzkb_version Plugin version
 	 */
-	define( 'WZKB_VERSION', '2.3.3' );
+	define( 'WZKB_VERSION', '3.0.0' );
 }
 
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
@@ -73,19 +73,111 @@ if ( ! defined( 'WZKB_PLUGIN_FILE' ) ) {
 	define( 'WZKB_PLUGIN_FILE', __FILE__ );
 }
 
+if ( ! defined( 'WZKB_DEFAULT_THUMBNAIL_URL' ) ) {
+	/**
+	 * Holds the default thumbnail URL for Knowledge Base.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var string $wzkb_default_thumbnail_url Default thumbnail URL.
+	 */
+	define( 'WZKB_DEFAULT_THUMBNAIL_URL', WZKB_PLUGIN_URL . 'includes/frontend/images/default-thumb.png' );
+}
+
+
+if ( ! function_exists( __NAMESPACE__ . '\wzkb_deactivate_other_instances' ) ) {
+	/**
+	 * Deactivate other instances of WZKB when this plugin is activated.
+	 *
+	 * @param string $plugin The plugin being activated.
+	 * @param bool   $network_wide Whether the plugin is being activated network-wide.
+	 */
+	function wzkb_deactivate_other_instances( $plugin, $network_wide = false ) {
+		$free_plugin = 'knowledgebase/knowledgebase.php';
+		$pro_plugin  = 'knowledgebase-pro/knowledgebase.php';
+
+		// Only proceed if one of our plugins is being activated.
+		if ( ! in_array( $plugin, array( $free_plugin, $pro_plugin ), true ) ) {
+			return;
+		}
+
+		$plugins_to_deactivate = array();
+		$deactivated_plugin    = '';
+
+		// If pro is being activated, deactivate free.
+		if ( $pro_plugin === $plugin ) {
+			if ( is_plugin_active( $free_plugin ) || ( $network_wide && is_plugin_active_for_network( $free_plugin ) ) ) {
+				$plugins_to_deactivate[] = $free_plugin;
+				$deactivated_plugin      = 'WebberZone Knowledge Base';
+			}
+		}
+
+		// If free is being activated, deactivate pro.
+		if ( $free_plugin === $plugin ) {
+			if ( is_plugin_active( $pro_plugin ) || ( $network_wide && is_plugin_active_for_network( $pro_plugin ) ) ) {
+				$plugins_to_deactivate[] = $pro_plugin;
+				$deactivated_plugin      = 'WebberZone Knowledge Base Pro';
+			}
+		}
+
+		if ( ! empty( $plugins_to_deactivate ) ) {
+			deactivate_plugins( $plugins_to_deactivate, false, $network_wide );
+			set_transient( 'wzkb_deactivated_notice', $deactivated_plugin, 1 * HOUR_IN_SECONDS );
+		}
+	}
+	add_action( 'activated_plugin', __NAMESPACE__ . '\wzkb_deactivate_other_instances', 10, 2 );
+}
+
+// Show admin notice about automatic deactivation.
+if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\wzkb_show_deactivation_notice' ) ) {
+	add_action(
+		'admin_notices',
+		function () {
+			$deactivated_plugin = get_transient( 'wzkb_deactivated_notice' );
+			if ( $deactivated_plugin ) {
+				/* translators: %s: Name of the deactivated plugin */
+				$message = sprintf( __( "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s.", 'knowledgebase' ), $deactivated_plugin );
+				?>
+			<div class="updated" style="border-left: 4px solid #ffba00;">
+				<p><?php echo esc_html( $message ); ?></p>
+			</div>
+				<?php
+				delete_transient( 'wzkb_deactivated_notice' );
+			}
+		}
+	);
+}
+
+if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
+	// Finally load Freemius integration.
+	require_once plugin_dir_path( __FILE__ ) . 'load-freemius.php';
+}
+
 // Load the autoloader.
 require_once WZKB_PLUGIN_DIR . 'includes/autoloader.php';
 
 if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
 	/**
-	 * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
+	 * The main function responsible for returning the one true WebberZone Knowledge Base instance to functions everywhere.
 	 *
 	 * @since 2.3.0
 	 */
 	function load() {
-		Main::get_instance();
+		wzkb();
 	}
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
+}
+
+if ( ! function_exists( 'wzkb' ) ) {
+	/**
+	 * Get the main WebberZone Knowledge Base instance.
+	 *
+	 * @since 3.0.0
+	 * @return Main Main instance.
+	 */
+	function wzkb() {
+		return Main::get_instance();
+	}
 }
 
 // Register the activation hook.
@@ -110,4 +202,4 @@ require_once WZKB_PLUGIN_DIR . 'includes/functions.php';
  * @var array WZKB Settings
  */
 global $wzkb_settings;
-$wzkb_settings = wzkb_get_settings();
+$wzkb_settings = \wzkb_get_settings();

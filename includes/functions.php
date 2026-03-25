@@ -8,6 +8,9 @@
 use WebberZone\Knowledge_Base\Frontend\Media_Handler;
 use WebberZone\Knowledge_Base\Frontend\Related;
 use WebberZone\Knowledge_Base\Util\Helpers;
+use WebberZone\Knowledge_Base\Frontend\Display;
+use WebberZone\Knowledge_Base\Frontend\Breadcrumbs;
+use WebberZone\Knowledge_Base\Frontend\Search;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -25,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @return string Knowledge Base output.
  */
 function wzkb_knowledge( $args = array() ) {
-	return \WebberZone\Knowledge_Base\Frontend\Display::get_knowledge_base( $args );
+	return Display::get_knowledge_base( $args );
 }
 
 /**
@@ -37,7 +40,7 @@ function wzkb_knowledge( $args = array() ) {
  * @return string HTML output with the categories.
  */
 function wzkb_categories_list( $term_id, $level = 0, $args = array() ) {
-	return \WebberZone\Knowledge_Base\Frontend\Display::get_categories_list( $term_id, $level, $args );
+	return Display::get_categories_list( $term_id, $level, $args );
 }
 
 
@@ -50,7 +53,7 @@ function wzkb_categories_list( $term_id, $level = 0, $args = array() ) {
  * @return string|bool Formatted shortcode output. False if not a WZKB post type archive or post.
  */
 function wzkb_get_breadcrumb( $args = array() ) {
-	return \WebberZone\Knowledge_Base\Frontend\Breadcrumbs::get_breadcrumb( $args );
+	return Breadcrumbs::get_breadcrumb( $args );
 }
 
 /**
@@ -72,7 +75,7 @@ function wzkb_breadcrumb( $args = array() ) {
  * @return string   String when retrieving, null when displaying or if searchform.php exists.
  */
 function wzkb_get_search_form() {
-	return \WebberZone\Knowledge_Base\Frontend\Search::get_search_form();
+	return Search::get_search_form();
 }
 
 /**
@@ -155,7 +158,7 @@ function wzkb_get_the_post_thumbnail( $args = array() ) {
 
 	$defaults = array(
 		'post'          => get_post(),
-		'thumb_default' => __DIR__ . '/frontend/images/default-thumb.png',
+		'thumb_default' => plugins_url( 'frontend/images/default-thumb.png', __FILE__ ),
 		'class'         => 'wzkb-relatd-article-thumb',
 		'size'          => 'thumbnail',
 		'scan_images'   => true,
@@ -202,7 +205,12 @@ function wzkb_related_articles( $args = array() ) {
  * @return string The URL to the knowledge base archive page.
  */
 function wzkb_get_kb_url() {
-	return get_post_type_archive_link( 'wz_knowledgebase' );
+	if ( \wzkb_get_option( 'kb_homepage_mode', false ) ) {
+		return home_url( '/' );
+	}
+
+	$kb_slug = \wzkb_get_option( 'kb_slug', 'knowledgebase' );
+	return home_url( "/{$kb_slug}/" );
 }
 
 /**
@@ -212,4 +220,87 @@ function wzkb_get_kb_url() {
  */
 function wzkb_the_kb_url() {
 	echo wzkb_get_kb_url(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
+ * Get a hierarchical list of KB sections for a given product.
+ *
+ * @param int   $product_id Product term ID.
+ * @param array $args       Display arguments.
+ * @return string           HTML output.
+ */
+function wzkb_get_product_sections_list( $product_id, $args = array() ) {
+	if ( empty( $product_id ) ) {
+		return '';
+	}
+	return Display::get_product_sections_list( $product_id, $args );
+}
+
+/**
+ * Echo a hierarchical list of KB sections for a given product.
+ *
+ * @param int   $product_id Product term ID.
+ * @param array $args       Display arguments.
+ */
+function wzkb_the_product_sections_list( $product_id, $args = array() ) {
+	echo wzkb_get_product_sections_list( $product_id, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
+ * Get the product term associated with a section.
+ *
+ * @since 3.0.0
+ *
+ * @param int|\WP_Term $section Section term ID or object.
+ * @return \WP_Term|false Product term object or false if not found.
+ */
+function wzkb_get_section_product( $section ) {
+	$section_id = ( $section instanceof \WP_Term ) ? $section->term_id : absint( $section );
+	if ( ! $section_id ) {
+		return false;
+	}
+
+	$product_id = get_term_meta( $section_id, 'product_id', true );
+	if ( ! $product_id ) {
+		return false;
+	}
+
+	$product = get_term( $product_id, 'wzkb_product' );
+	if ( ! $product || is_wp_error( $product ) ) {
+		return false;
+	}
+
+	return $product;
+}
+
+/**
+ * Get the full section hierarchy path for a term.
+ *
+ * @since 3.0.0
+ *
+ * @param \WP_Term $term      Term object.
+ * @param bool     $include_product Whether to include the associated product in the path.
+ * @param string   $separator Separator between terms.
+ * @return string Hierarchy path.
+ */
+function wzkb_get_term_hierarchy_path( $term, $include_product = true, $separator = ' > ' ) {
+	$ancestors = get_ancestors( $term->term_id, $term->taxonomy );
+	$ancestors = array_reverse( $ancestors );
+	$names     = array();
+
+	if ( $include_product ) {
+		$product = wzkb_get_section_product( $term );
+		if ( $product ) {
+			$names[] = $product->name;
+		}
+	}
+
+	foreach ( $ancestors as $ancestor_id ) {
+		$ancestor = get_term( $ancestor_id, $term->taxonomy );
+		if ( $ancestor instanceof \WP_Term ) {
+			$names[] = $ancestor->name;
+		}
+	}
+	$names[] = $term->name;
+	return implode( $separator, $names );
 }

@@ -1,21 +1,29 @@
 {
     "name": "@webberzone/knowledgebase",
-    "version": "2.3.0",
+    "version": "3.0.0",
     "description": "Fastest way to create a highly-flexible multi-product knowledge base.",
     "author": "WebberZone",
     "license": "GPL-2.0-or-later",
     "main": "index.js",
     "scripts": {
         "build:assets": "node build-assets.js",
-        "build": "wp-scripts build --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
+        "build": "npm run build:free && npm run build:pro",
         "build:alerts": "wp-scripts build --webpack-src-dir=includes/blocks/src/alerts/ --output-path=includes/blocks/build/alerts/",
         "build:kb": "wp-scripts build --webpack-src-dir=includes/blocks/src/kb/ --output-path=includes/blocks/build/kb/",
         "build:articles": "wp-scripts build --webpack-src-dir=includes/blocks/src/articles/ --output-path=includes/blocks/build/articles/",
         "build:breadcrumb": "wp-scripts build --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
         "build:sections": "wp-scripts build --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
-        "format": "wp-scripts format ./includes/blocks/src/",
-        "lint:css": "wp-scripts lint-style ./includes/blocks/src/",
-        "lint:js": "wp-scripts lint-js ./includes/blocks/src/",
+        "build:related": "wp-scripts build --webpack-src-dir=includes/blocks/src/related/ --output-path=includes/blocks/build/related/",
+        "build:search": "wp-scripts build --webpack-src-dir=includes/blocks/src/search/ --output-path=includes/blocks/build/search/",
+        "build:products": "wp-scripts build --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
+        "build:rating": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/rating/ --output-path=includes/pro/blocks/build/rating/",
+        "build:free": "wp-scripts build --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
+        "build:pro": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/ --output-path=includes/pro/blocks/build/",
+        "format": "wp-scripts format ./includes/blocks/src/ ./includes/pro/blocks/src/",
+        "format:styles": "wp-scripts format \"./includes/frontend/css/**/*.css\" \"./includes/pro/frontend/css/**/*.css\" \"./includes/admin/css/**/*.css\" \"./includes/admin/settings/css/**/*.css\"",
+        "format:scripts": "wp-scripts format \"./includes/admin/js/**/*.js\" \"./includes/admin/settings/js/**/*.js\"",
+        "lint:css": "wp-scripts lint-style ./includes/blocks/src/ ./includes/pro/blocks/src/",
+        "lint:js": "wp-scripts lint-js ./includes/blocks/src/ ./includes/pro/blocks/src/",
         "packages-update": "wp-scripts packages-update",
         "start": "wp-scripts start --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
         "start:alerts": "wp-scripts start --webpack-src-dir=includes/blocks/src/alerts/ --output-path=includes/blocks/build/alerts/",
@@ -23,11 +31,16 @@
         "start:articles": "wp-scripts start --webpack-src-dir=includes/blocks/src/articles/ --output-path=includes/blocks/build/articles/",
         "start:breadcrumb": "wp-scripts start --webpack-src-dir=includes/blocks/src/breadcrumb/ --output-path=includes/blocks/build/breadcrumb/",
         "start:sections": "wp-scripts start --webpack-src-dir=includes/blocks/src/sections/ --output-path=includes/blocks/build/sections/",
+        "start:related": "wp-scripts start --webpack-src-dir=includes/blocks/src/related/ --output-path=includes/blocks/build/related/",
+        "start:search": "wp-scripts start --webpack-src-dir=includes/blocks/src/search/ --output-path=includes/blocks/build/search/",
+        "start:products": "wp-scripts start --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
+        "start:rating": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/rating/ --output-path=includes/pro/blocks/build/rating/",
         "zip": "wp-scripts plugin-zip"
     },
     "files": [
         "includes",
         "languages",
+        "vendor/freemius",
         "README.md",
         "knowledgebase.php",
         "index.php",
@@ -36,15 +49,15 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.14.0",
-        "@wordpress/scripts": "^27",
+        "@wordpress/prettier-config": "^4.39.0",
+        "@wordpress/scripts": "^31",
         "clean-css-cli": "^5.6.3",
         "rtlcss": "^4.3.0",
-        "terser": "^5.44.0"
+        "terser": "^5.46.0"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.14.0",
+        "@wordpress/icons": "^11.6.0",
         "clsx": "^2.1.1",
-        "uuid": "^11.0.3"
+        "uuid": "^13.0.0"
     }
 }

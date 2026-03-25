@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "knowledgebase/related",
+  "version": "3.0.0",
+  "title": "Knowledge Base Related Articles",
+  "category": "knowledgebase",
+  "icon": "book",
+  "keywords": [
+    "knowledgebase",
+    "related",
+    "articles",
+    "kb"
+  ],
+  "description": "Display related articles for the current knowledge base article",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "className": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Related Articles"
+    },
+    "limit": {
+      "type": "number",
+      "default": 5
+    },
+    "headingLevel": {
+      "type": "string",
+      "default": "h3"
+    },
+    "showExcerpt": {
+      "type": "boolean",
+      "default": false
+    },
+    "showThumb": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDate": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "example": {},
+  "textdomain": "knowledgebase",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css"
+}

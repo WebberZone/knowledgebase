@@ -11,35 +11,40 @@
  */
 
 global $wp_query;
-$this_tax = $wp_query->get_queried_object();
+$wzkb_current_taxonomy = $wp_query->get_queried_object();
 
 /* This plugin uses the Archive file of TwentyFifteen theme as an example */
 get_header();
 
 // Hide the first level header when displaying the category archives.
-$custom_css = '
+$wzkb_inline_css = '
 	.wzkb-section-name-level-1 {
 		display: none;
 	}
 ';
-wp_add_inline_style( 'wz-knowledgebase-styles', $custom_css );
+wp_add_inline_style( 'wz-knowledgebase-styles', $wzkb_inline_css );
 
 
 ?>
-<div class="wrap">
+<a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
+<div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+			<?php wzkb_breadcrumb(); ?>
 			<?php wzkb_search_form(); ?>
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
-					<h1 class="page-title"><?php echo esc_html( $this_tax->name ); ?></h1>
+					<h1 class="page-title"><?php echo esc_html( $wzkb_current_taxonomy->name ); ?></h1>
 				</header><!-- .page-header -->
 
 				<?php
-				wzkb_breadcrumb();
-
-				echo do_shortcode( "[knowledgebase category='{$this_tax->term_id}']" );
+				// Display knowledge base content for this category.
+				$wzkb_knowledge_args = array(
+					'category'    => $wzkb_current_taxonomy->term_id,
+					'extra_class' => 'wzkb-category-archive',
+				);
+				echo wzkb_knowledge( $wzkb_knowledge_args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				// If no content, include the "No posts found" template.
 			else :
@@ -55,9 +60,7 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $custom_css );
 		include_once 'sidebar-primary.php';
 	}
 	?>
-</div><!-- .wrap -->
+</div><!-- .wrap.wzkb-wrap -->
 
 <?php
 get_footer();
-
-

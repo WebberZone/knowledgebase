@@ -17,19 +17,19 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 	wp_enqueue_style( 'wz-knowledgebase-styles' );
 }
 ?>
-<div class="wrap">
+<a href="#main" class="skip-link screen-reader-text"><?php esc_html_e( 'Skip to content', 'knowledgebase' ); ?></a>
+<div class="wrap wzkb-wrap">
 	<div id="wzkb-content-primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+			<?php wzkb_breadcrumb(); ?>
 			<?php wzkb_search_form(); ?>
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
-					<h1 class="page-title"><?php echo wzkb_get_option( 'kb_title' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h1>
+					<h1 class="page-title"><?php echo wp_kses_post( wzkb_get_option( 'kb_title' ) ); ?></h1>
 				</header><!-- .page-header -->
 
 				<?php
-				wzkb_breadcrumb();
-
 				echo wzkb_knowledge(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				// If no content, include the "No posts found" template.
@@ -46,7 +46,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 		include_once 'sidebar-primary.php';
 	}
 	?>
-</div><!-- .wrap -->
+</div><!-- .wrap.wzkb-wrap -->
 
 <?php
 get_footer();

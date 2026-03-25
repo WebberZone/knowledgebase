@@ -7,7 +7,10 @@
 
 namespace WebberZone\Knowledge_Base;
 
-use WebberZone\Knowledge_Base\Admin\Activator;
+use WebberZone\Knowledge_Base\Admin\Admin;
+use WebberZone\Knowledge_Base\Admin\Product_Section_Selector;
+use WebberZone\Knowledge_Base\REST\REST_Controller;
+use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
 	exit;
@@ -31,99 +34,135 @@ final class Main {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Admin.
+	 * @var Admin|null Admin instance.
 	 */
-	public $admin;
+	public ?Admin $admin = null;
+
+	/**
+	 * Pro features class.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var Pro\Pro|null Pro instance.
+	 */
+	public ?Pro\Pro $pro = null;
+
+	/**
+	 * Whether Pro code can be used.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @var bool Whether Pro is enabled.
+	 */
+	public bool $is_pro_enabled = false;
 
 	/**
 	 * Shortcodes.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Shortcodes.
+	 * @var Frontend\Shortcodes Shortcodes handler.
 	 */
-	public $shortcodes;
+	public Frontend\Shortcodes $shortcodes;
 
 	/**
 	 * Styles.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Styles.
+	 * @var Frontend\Styles_Handler Styles handler.
 	 */
-	public $styles;
+	public Frontend\Styles_Handler $styles;
 
 	/**
 	 * Language Handler.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Language Handler.
+	 * @var Frontend\Language_Handler Language handler.
 	 */
-	public $language;
+	public Frontend\Language_Handler $language;
 
 	/**
 	 * Display.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Display.
+	 * @var Frontend\Display Display handler.
 	 */
-	public $display;
+	public Frontend\Display $display;
 
 	/**
 	 * Template Handler.
 	 *
-	 * @since 4.0.0
+	 * @since 3.0.0
 	 *
-	 * @var object Template Handler.
+	 * @var Frontend\Template_Handler Template handler.
 	 */
-	public $template_handler;
+	public Frontend\Template_Handler $template_handler;
 
 	/**
 	 * CPT.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object CPT.
+	 * @var CPT CPT handler.
 	 */
-	public $cpt;
+	public CPT $cpt;
 
 	/**
 	 * Feed.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Feed.
+	 * @var Frontend\Feed Feed handler.
 	 */
-	public $feed;
+	public Frontend\Feed $feed;
 
 	/**
 	 * Search.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Search.
+	 * @var Frontend\Search Search handler.
 	 */
-	public $search;
+	public Frontend\Search $search;
 
 	/**
 	 * Blocks.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Blocks.
+	 * @var Blocks\Blocks Blocks handler.
 	 */
-	public $blocks;
+	public Blocks\Blocks $blocks;
+
+	/**
+	 * REST controller.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var REST\REST_Controller
+	 */
+	public REST_Controller $rest_controller;
 
 	/**
 	 * Related articles.
 	 *
 	 * @since 2.3.0
 	 *
-	 * @var object Related articles.
+	 * @var Frontend\Related Related articles handler.
 	 */
-	public $related_articles;
+	public Frontend\Related $related_articles;
+
+	/**
+	 * Block patterns.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var Frontend\Patterns Patterns handler.
+	 */
+	public Frontend\Patterns $patterns;
 
 	/**
 	 * Gets the instance of the class.
@@ -166,11 +205,29 @@ final class Main {
 		$this->shortcodes       = new Frontend\Shortcodes();
 		$this->feed             = new Frontend\Feed();
 		$this->blocks           = new Blocks\Blocks();
+		$this->patterns         = new Frontend\Patterns();
 
 		$this->hooks();
 
+		// Ensure REST endpoints are always available.
+		$this->rest_controller = new REST_Controller();
+
+		if ( 0 !== (int) wzkb_get_option( 'multi_product', 0 ) ) {
+			new Product_Section_Selector();
+		}
+
+		// Initialize admin on init action to ensure translations are loaded.
+		add_action( 'init', array( $this, 'init_admin' ) );
+	}
+
+	/**
+	 * Initialize admin components.
+	 *
+	 * @since 4.1.0
+	 */
+	public function init_admin(): void {
 		if ( is_admin() ) {
-			$this->admin = new Admin\Admin();
+			$this->admin = new Admin();
 		}
 	}
 
@@ -180,8 +237,8 @@ final class Main {
 	 * @since 2.3.0
 	 */
 	public function hooks() {
-		add_action( 'init', array( $this, 'initiate_plugin' ) );
-		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'initiate_plugin' ) );
+		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 	}
 
 	/**
@@ -194,7 +251,7 @@ final class Main {
 	}
 
 	/**
-	 * Initialise the Better Search widgets.
+	 * Initialise the Knowledge Base widgets.
 	 *
 	 * @since 2.3.0
 	 */
@@ -202,5 +259,6 @@ final class Main {
 		register_widget( '\WebberZone\Knowledge_Base\Widgets\Articles_Widget' );
 		register_widget( '\WebberZone\Knowledge_Base\Widgets\Sections_Widget' );
 		register_widget( '\WebberZone\Knowledge_Base\Widgets\Breadcrumb_Widget' );
+		register_widget( '\WebberZone\Knowledge_Base\Widgets\Products_Widget' );
 	}
 }

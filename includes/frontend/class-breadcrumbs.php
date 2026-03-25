@@ -37,6 +37,72 @@ class Breadcrumbs {
 	}
 
 	/**
+	 * Get the product term for the current context.
+	 *
+	 * @return \WP_Term|false
+	 */
+	private static function get_product_for_context() {
+		if ( is_tax( 'wzkb_product' ) ) {
+			$product = get_queried_object();
+			if ( $product ) {
+				return $product;
+			}
+		}
+		if ( is_tax( 'wzkb_category' ) || is_tax( 'wzkb_tag' ) ) {
+			$tax = get_queried_object();
+			if ( $tax instanceof \WP_Term ) {
+				$product = wzkb_get_section_product( $tax );
+				if ( $product ) {
+					return $product;
+				}
+			}
+		}
+		if ( is_singular( 'wz_knowledgebase' ) ) {
+			$post  = get_queried_object();
+			$terms = get_the_terms( $post, 'wzkb_category' );
+			if ( is_array( $terms ) && ! empty( $terms ) ) {
+				$primary_term = $terms[0];
+				$ancestor     = $primary_term;
+				while ( $ancestor->parent ) {
+					$ancestor = get_term( $ancestor->parent, $ancestor->taxonomy );
+				}
+				$product = wzkb_get_section_product( $ancestor );
+				if ( $product ) {
+					return $product;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if current page is displaying Knowledge Base content via shortcode or block.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return bool True if KB content is displayed via shortcode or block.
+	 */
+	private static function is_kb_context() {
+		// Check if current page content contains knowledgebase shortcode or block.
+		if ( is_front_page() || is_home() || is_page() ) {
+			$post = get_post();
+			if ( $post ) {
+				// Check for shortcode.
+				if ( has_shortcode( $post->post_content, 'knowledgebase' ) ) {
+					return true;
+				}
+
+				// Check for block in Gutenberg content.
+				if ( has_block( 'knowledgebase/knowledgebase', $post ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Creates the breadcrumb.
 	 *
 	 * @since 2.3.0
@@ -50,115 +116,142 @@ class Breadcrumbs {
 			'separator' => '»',
 		);
 
-		// Parse incoming $args into an array and merge it with $defaults.
 		$args = wp_parse_args( $args, $defaults );
 		$args = Helpers::sanitize_args( $args );
 
-		// Convert Unicode sequence if provided.
 		if ( strpos( $args['separator'], '\\' ) === 0 ) {
 			$args['separator'] = self::unicode_to_char( $args['separator'] );
 		}
 
-		// Return if not a WZKB post type archive or single page.
 		if ( ( ! is_admin() && ! wp_is_json_request() ) &&
 		! is_post_type_archive( 'wz_knowledgebase' ) &&
 		! is_singular( 'wz_knowledgebase' ) &&
 		! is_tax( 'wzkb_category' ) &&
-		! is_tax( 'wzkb_tag' )
+		! is_tax( 'wzkb_tag' ) &&
+		! is_tax( 'wzkb_product' ) &&
+		! self::is_kb_context()
 		) {
 			return '';
 		}
 
-		$output  = '<nav class="wzkb_breadcrumb" aria-label="' . esc_attr__( 'Breadcrumb', 'knowledgebase' ) . '">';
-		$output .= '<ol class="wzkb_breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">';
+		$items   = array();
+		$items[] = array(
+			'url'      => home_url(),
+			'label'    => esc_html__( 'Home', 'knowledgebase' ),
+			'position' => 1,
+			'current'  => false,
+		);
+		$items[] = array(
+			'url'      => wzkb_get_kb_url(),
+			'label'    => esc_html( wzkb_get_option( 'kb_title' ) ),
+			'position' => 2,
+			'current'  => false,
+		);
 
-		// First output the link to home page.
-		$output .= '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-		$output .= '<a href="' . esc_url( home_url() ) . '" itemprop="item">';
-		$output .= '<span itemprop="name">' . esc_html__( 'Home', 'knowledgebase' ) . '</span>';
-		$output .= '</a>';
-		$output .= '<meta itemprop="position" content="1" />';
-		$output .= '</li>';
-
-		// Link to the knowledge base.
-		$output .= '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-		$output .= '<a href="' . esc_url( wzkb_get_kb_url() ) . '" itemprop="item">';
-		$output .= '<span itemprop="name">' . esc_html( wzkb_get_option( 'kb_title' ) ) . '</span>';
-		$output .= '</a>';
-		$output .= '<meta itemprop="position" content="2" />';
-		$output .= '</li>';
-
-		// Output the category or tag.
-		if ( is_tax( 'wzkb_category' ) || is_tax( 'wzkb_tag' ) ) {
-			$tax     = get_queried_object();
-			$output .= self::get_hierarchical_term_trail( $tax, $args, 3 );
+		$position = 3;
+		if ( wzkb_get_option( 'multi_product' ) && ! is_tax( 'wzkb_product' ) ) {
+			$product = self::get_product_for_context();
+			if ( $product ) {
+				$items[] = array(
+					'url'      => get_term_link( $product ),
+					'label'    => esc_html( $product->name ),
+					'position' => $position,
+					'current'  => false,
+				);
+				++$position;
+			}
 		}
 
-		// Output link to single post.
-		if ( is_singular( 'wz_knowledgebase' ) ) {
-			$post = get_queried_object();
+		if ( is_tax( 'wzkb_category' ) || is_tax( 'wzkb_tag' ) ) {
+			$tax   = get_queried_object();
+			$trail = self::get_hierarchical_term_trail_array( $tax, $args, $position );
+			foreach ( $trail as $item ) {
+				$items[] = $item;
+				++$position;
+			}
+		}
 
+		if ( is_tax( 'wzkb_product' ) ) {
+			$product = get_queried_object();
+			$items[] = array(
+				'url'      => get_term_link( $product ),
+				'label'    => esc_html( $product->name ),
+				'position' => $position,
+				'current'  => true,
+			);
+			++$position;
+		}
+
+		if ( is_singular( 'wz_knowledgebase' ) ) {
+			$post  = get_queried_object();
 			$terms = get_the_terms( $post, 'wzkb_category' );
 			if ( is_array( $terms ) && ! empty( $terms ) ) {
-				$tax     = $terms[0];
-				$output .= self::get_hierarchical_term_trail( $tax, $args, 3 );
+				$tax   = $terms[0];
+				$trail = self::get_hierarchical_term_trail_array( $tax, $args, $position );
+				foreach ( $trail as $item ) {
+					$items[] = $item;
+					++$position;
+				}
 			}
-
-			$output .= '<li class="wzkb_breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-			$output .= '<a href="' . esc_url( get_permalink( $post ) ) . '" itemprop="item">';
-			$output .= '<span itemprop="name">' . esc_html( $post->post_title ) . '</span>';
-			$output .= '</a>';
-			$output .= '<meta itemprop="position" content="4" />';
-			$output .= '</li>';
+			$items[] = array(
+				'url'      => get_permalink( $post ),
+				'label'    => esc_html( $post->post_title ),
+				'position' => $position,
+				'current'  => true,
+			);
 		}
 
+		$items = apply_filters( 'wzkb_breadcrumb_items', $items, $args );
+
+		$output  = '<nav class="wzkb_breadcrumb" aria-label="' . esc_attr__( 'Breadcrumb', 'knowledgebase' ) . '">';
+		$output .= '<ol class="wzkb_breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">';
+		$sep     = esc_attr( $args['separator'] );
+		foreach ( $items as $item ) {
+			$output .= '<li class="wzkb_breadcrumb-item" data-separator="' . $sep . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+			$output .= '<a href="' . esc_url( $item['url'] ) . '" itemprop="item"' . ( ! empty( $item['current'] ) ? ' aria-current="page"' : '' ) . '>';
+			$output .= '<span itemprop="name">' . $item['label'] . '</span>';
+			$output .= '</a>';
+			$output .= '<meta itemprop="position" content="' . intval( $item['position'] ) . '" />';
+			$output .= '</li>';
+		}
 		$output .= '</ol>';
 		$output .= '</nav>';
 
-		/**
-		 * Filter the formatted shortcode output.
-		 *
-		 * @since 1.6.0
-		 *
-		 * @param string $output Formatted HTML output.
-		 * @param array  $args   Parameters array.
-		 */
 		return apply_filters( 'wzkb_get_breadcrumb', $output, $args );
 	}
 
 	/**
-	 * Generates the HTML for the taxonomy and its children for the breadcrumb.
-	 *
-	 * @since 2.3.0
+	 * Returns the hierarchical term trail as an array of breadcrumb items.
 	 *
 	 * @param \WP_Term $taxonomy Taxonomy object.
 	 * @param array    $args     Parameters array.
 	 * @param int      $position Current position in breadcrumb.
-	 * @return string HTML output.
+	 * @return array Array of breadcrumb items.
 	 */
-	private static function get_hierarchical_term_trail( \WP_Term $taxonomy, $args = array(), $position = 2 ) {
+	private static function get_hierarchical_term_trail_array( \WP_Term $taxonomy, $args = array(), $position = 2 ) {
 		$defaults = array(
 			'separator' => '»',
 		);
 
-		$args = wp_parse_args( $args, $defaults );
-		$args = Helpers::sanitize_args( $args );
-
-		$output  = '<li class="wzkb_breadcrumb-item" data-separator="' . esc_attr( $args['separator'] ) . '" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-		$output .= '<a href="' . esc_url( get_term_link( $taxonomy ) ) . '" itemprop="item" title="' . esc_attr( $taxonomy->name ) . '">';
-		$output .= '<span itemprop="name">' . esc_html( $taxonomy->name ) . '</span>';
-		$output .= '</a>';
-		$output .= '<meta itemprop="position" content="' . intval( $position ) . '" />';
-		$output .= '</li>';
+		$args  = wp_parse_args( $args, $defaults );
+		$trail = array();
 
 		if ( ! empty( $taxonomy->parent ) ) {
-			$output = self::get_hierarchical_term_trail(
-				get_term( $taxonomy->parent, $taxonomy->taxonomy ),
-				$args,
-				$position - 1
-			) . $output;
+			$trail     = array_merge(
+				self::get_hierarchical_term_trail_array(
+					get_term( $taxonomy->parent, $taxonomy->taxonomy ),
+					$args,
+					$position
+				),
+			);
+			$position += count( $trail );
 		}
-
-		return $output;
+		$trail[] = array(
+			'url'      => get_term_link( $taxonomy ),
+			'label'    => esc_html( $taxonomy->name ),
+			'position' => $position,
+			'current'  => false,
+		);
+		return $trail;
 	}
 }

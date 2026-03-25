@@ -47,7 +47,9 @@ class Articles_Widget extends \WP_Widget {
 	public function form( $instance ) {
 		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
 		$term_id      = isset( $instance['term_id'] ) ? $instance['term_id'] : '';
+		$product_id   = isset( $instance['product_id'] ) ? $instance['product_id'] : '';
 		$limit        = isset( $instance['limit'] ) ? $instance['limit'] : '';
+		$depth        = isset( $instance['depth'] ) ? (int) $instance['depth'] : -1;
 		$show_excerpt = isset( $instance['show_excerpt'] ) ? $instance['show_excerpt'] : '';
 
 		?>
@@ -62,8 +64,18 @@ class Articles_Widget extends \WP_Widget {
 			</label>
 		</p>
 		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'product_id' ) ); ?>">
+			<?php esc_html_e( 'Product ID (enter a number)', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'product_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'product_id' ) ); ?>" type="text" value="<?php echo esc_attr( $product_id ); ?>" />
+			</label>
+		</p>
+		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
 			<?php esc_html_e( 'No. of posts', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>">
+			<?php esc_html_e( 'Max Depth (-1 for unlimited, 0 for current)', 'knowledgebase' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'depth' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'depth' ) ); ?>" type="number" value="<?php echo esc_attr( (string) $depth ); ?>" />
 			</label>
 		</p>
 		<p>
@@ -102,7 +114,9 @@ class Articles_Widget extends \WP_Widget {
 		$instance                 = $old_instance;
 		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 		$instance['term_id']      = ( ! empty( $new_instance['term_id'] ) ) ? intval( $new_instance['term_id'] ) : '';
+		$instance['product_id']   = ( ! empty( $new_instance['product_id'] ) ) ? intval( $new_instance['product_id'] ) : '';
 		$instance['limit']        = ( ! empty( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
+		$instance['depth']        = isset( $new_instance['depth'] ) ? (int) $new_instance['depth'] : -1;
 		$instance['show_excerpt'] = isset( $new_instance['show_excerpt'] ) ? true : false;
 
 		/**
@@ -140,26 +154,38 @@ class Articles_Widget extends \WP_Widget {
 
 		$limit = (int) ( ! empty( $instance['limit'] ) ? $instance['limit'] : wzkb_get_option( 'limit', 5 ) );
 
+		$depth = isset( $instance['depth'] ) ? (int) $instance['depth'] : -1;
+
 		$show_excerpt = isset( $instance['show_excerpt'] ) ? (bool) $instance['show_excerpt'] : false;
 
-		if ( empty( $instance['term_id'] ) ) {
+		// Exit if both term_id and product_id are empty.
+		if ( empty( $instance['term_id'] ) && empty( $instance['product_id'] ) ) {
 			return;
 		}
 
-		$term = get_term( $instance['term_id'], 'wzkb_category' );
-
-		if ( empty( $term ) || is_wp_error( $term ) ) {
-			return;
-		}
-
-		$list_of_posts = Display::get_posts_by_term(
-			$term,
-			0,
-			array(
-				'show_excerpt' => $show_excerpt,
-				'limit'        => $limit,
-			)
+		$kb_args = array(
+			'show_excerpt' => $show_excerpt,
+			'limit'        => $limit,
+			'depth'        => $depth,
 		);
+
+		// Handle product_id if set.
+		if ( ! empty( $instance['product_id'] ) ) {
+			$kb_args['product'] = (int) $instance['product_id'];
+			$list_of_posts      = Display::get_knowledge_base_loop( 0, 1, true, $kb_args );
+		} elseif ( ! empty( $instance['term_id'] ) ) {
+			$term = get_term( $instance['term_id'], 'wzkb_category' );
+
+			if ( empty( $term ) || is_wp_error( $term ) ) {
+				return;
+			}
+
+			if ( -1 === $depth || $depth > 0 ) {
+				$list_of_posts = Display::get_knowledge_base_loop( $term->term_id, 1, true, $kb_args );
+			} else {
+				$list_of_posts = Display::get_posts_by_term( $term, 1, $kb_args );
+			}
+		}
 
 		if ( empty( $list_of_posts ) ) {
 			return;

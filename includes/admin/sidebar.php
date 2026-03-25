@@ -1,0 +1,79 @@
+<?php
+/**
+ * Sidebar
+ *
+ * @package WebberZone\Knowledge_Base
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+use WebberZone\Knowledge_Base\Admin\Admin;
+
+?>
+<div class="postbox-container">
+	<?php Admin::pro_upgrade_banner(); ?>
+
+	<div id="qlinksdiv" class="postbox meta-box-sortables">
+		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'knowledgebase' ); ?></span></h2>
+
+		<div class="inside">
+			<div id="quick-links">
+				<ul class="subsub">
+					<li>
+						<a href="https://webberzone.com/plugins/knowledgebase/" target="_blank"><?php esc_html_e( 'Knowledge Base plugin homepage', 'knowledgebase' ); ?></a>
+					</li>
+					<li>
+						<a href="https://webberzone.com/support/product/knowledgebase/" target="_blank"><?php esc_html_e( 'Knowledge Base', 'knowledgebase' ); ?></a>
+					</li>
+					<li>
+						<a href="https://wordpress.org/plugins/knowledgebase/faq/" target="_blank"><?php esc_html_e( 'FAQ', 'knowledgebase' ); ?></a>
+					</li>
+					<li>
+						<a href="https://webberzone.com/support/" target="_blank"><?php esc_html_e( 'Support', 'knowledgebase' ); ?></a>
+					</li>
+					<li>
+						<a href="https://wordpress.org/support/plugin/knowledgebase/reviews/" target="_blank"><?php esc_html_e( 'Reviews', 'knowledgebase' ); ?></a>
+					</li>
+					<li>
+						<a href="https://github.com/webberzone/knowledgebase" target="_blank"><?php esc_html_e( 'Github repository', 'knowledgebase' ); ?></a>
+					</li>
+					<li>
+						<a href="https://ajaydsouza.com/" target="_blank"><?php esc_html_e( "Ajay's blog", 'knowledgebase' ); ?></a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.inside -->
+	</div><!-- /.postbox -->
+	<div id="pluginsdiv" class="postbox meta-box-sortables">
+		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'WebberZone plugins', 'knowledgebase' ); ?></span></h2>
+
+		<div class="inside">
+			<div id="quick-links">
+				<ul class="subsub">
+					<li><a href="https://webberzone.com/plugins/contextual-related-posts/" target="_blank"><?php esc_html_e( 'Contextual Related Posts', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/top-10/" target="_blank"><?php esc_html_e( 'Top 10', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/better-search/" target="_blank"><?php esc_html_e( 'Better Search', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/add-to-all/" target="_blank"><?php esc_html_e( 'Snippetz', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/webberzone-followed-posts/" target="_blank"><?php esc_html_e( 'Followed Posts', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/webberzone-link-warnings/" target="_blank"><?php esc_html_e( 'Link Warnings', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/popular-authors/" target="_blank"><?php esc_html_e( 'Popular Authors', 'knowledgebase' ); ?></a></li>
+					<li><a href="https://webberzone.com/plugins/autoclose/" target="_blank"><?php esc_html_e( 'Auto Close', 'knowledgebase' ); ?></a></li>
+				</ul>
+			</div>
+		</div><!-- /.inside -->
+	</div><!-- /.postbox -->	
+
+</div>
+
+<div class="postbox-container">
+	<div id="followdiv" class="postbox meta-box-sortables">
+		<h2 class='hndle'><span><?php esc_html_e( 'Follow me', 'knowledgebase' ); ?></span></h2>
+
+		<div class="inside" style="text-align: center">
+		<a href="https://x.com/webberzone/" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/x.png', __FILE__ ) ); ?>" alt="<?php esc_attr_e( 'Follow WebberZone on X', 'knowledgebase' ); ?>" width="100" height="100"></a>
+			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/fb.png', __FILE__ ) ); ?>" alt="<?php esc_attr_e( 'Follow WebberZone on Facebook', 'knowledgebase' ); ?>" width="100" height="100"></a>
+		</div><!-- /.inside -->
+	</div><!-- /.postbox -->
+</div>

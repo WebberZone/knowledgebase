@@ -1,0 +1,11 @@
+/**
+ * Frontend styles for Knowledge Base Block.
+ */
+
+.wp-block-knowledgebase-knowledgebase.wzkb-category-archive {
+    --wzkb-columns: 1 !important;
+
+    .wzkb-section {
+        grid-template-columns: 1fr !important;
+    }
+}
