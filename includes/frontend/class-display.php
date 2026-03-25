@@ -310,7 +310,7 @@ class Display {
 			'wzkb_category',
 			array(
 				'parent'     => 0,
-				'hide_empty' => ! $args['show_empty_sections'],
+				'hide_empty' => empty( $args['show_empty_sections'] ),
 			),
 			array(
 				array(
@@ -433,7 +433,7 @@ class Display {
 				'wzkb_category',
 				array(
 					'parent'     => 0,
-					'hide_empty' => ! $local_args['show_empty_sections'],
+					'hide_empty' => empty( $local_args['show_empty_sections'] ),
 				)
 			);
 
@@ -477,7 +477,7 @@ class Display {
 			array(
 				'orderby'    => 'slug',
 				'parent'     => $term_id,
-				'hide_empty' => ! $local_args['show_empty_sections'],
+				'hide_empty' => empty( $local_args['show_empty_sections'] ),
 			)
 		);
 
@@ -631,13 +631,13 @@ class Display {
 		$heading_level = min( 2 + $level, 6 ); // Start at h3, max h6.
 		$output        = '<h' . $heading_level . ' class="wzkb-section-name wzkb-section-name-level-' . $level . '">';
 
-		if ( $args['clickable_section'] ) {
+		if ( ! empty( $args['clickable_section'] ) ) {
 			$output .= '<a href="' . esc_url( get_term_link( $term ) ) . '" title="' . esc_attr( $term->name ) . '">' . esc_html( $term->name ) . '</a>';
 		} else {
 			$output .= esc_html( $term->name );
 		}
 
-		if ( $args['show_article_count'] ) {
+		if ( ! empty( $args['show_article_count'] ) ) {
 			/* translators: %d: Number of articles within a section. */
 			$count_text = sprintf( _n( '%d article', '%d articles', $term->count, 'knowledgebase' ), $term->count );
 			$output    .= '<span class="wzkb-section-count" aria-label="' . esc_attr( $count_text ) . '">' . $term->count . '</span>';
@@ -740,7 +740,7 @@ class Display {
 			array(
 				'orderby'    => 'slug',
 				'parent'     => $term_id,
-				'hide_empty' => ! $args['show_empty_sections'],
+				'hide_empty' => empty( $args['show_empty_sections'] ),
 			)
 		);
 
@@ -997,7 +997,7 @@ class Display {
 
 				// Display product title as clickable if clickable_section is enabled.
 				$output .= '<h2 class="wzkb-product-title">';
-				if ( $args['clickable_section'] ) {
+				if ( ! empty( $args['clickable_section'] ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_term_link is properly escaped below.
 					$output .= '<a href="' . esc_url( get_term_link( $product_term ) ) . '" title="' . esc_attr( $product_term->name ) . '">' . esc_html( $product_term->name ) . '</a>';
 				} else {
