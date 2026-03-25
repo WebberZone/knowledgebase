@@ -448,4 +448,19 @@ class CPT {
 			'top'
 		);
 	}
+
+	/**
+	 * Sanitize slug but retain slashes.
+	 *
+	 * @since 2.3.3
+	 *
+	 * @param string $slug Raw slug input.
+	 * @return string Sanitized slug with slashes retained.
+	 */
+	public static function sanitize_slug_with_slashes( $slug ) {
+		$parts           = explode( '/', $slug );
+		$sanitized_parts = array_map( 'sanitize_title', $parts );
+
+		return implode( '/', $sanitized_parts );
+	}
 }
