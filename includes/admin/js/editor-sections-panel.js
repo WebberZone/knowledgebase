@@ -135,8 +135,9 @@ let wzkbSectionsNonceMiddlewareAdded = false;
             }));
 
             const query = encodeURIComponent(productKey);
+            const separator = config.endpoint.indexOf('?') !== -1 ? '&' : '?';
 
-            apiFetch({ url: config.endpoint + '?products=' + query })
+            apiFetch({ url: config.endpoint + separator + 'products=' + query })
                 .then((terms) => {
                     if (isCancelled) {
                         return;
