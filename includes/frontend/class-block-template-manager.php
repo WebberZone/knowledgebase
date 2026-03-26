@@ -53,11 +53,26 @@ class Block_Template_Manager {
 	 * Initialize hooks based on WordPress version.
 	 */
 	private function init_hooks() {
+		Hook_Registry::add_filter( 'search_template_hierarchy', array( $this, 'add_search_template_to_hierarchy' ) );
+
 		if ( $this->use_native_registration ) {
 			Hook_Registry::add_action( 'init', array( $this, 'register_block_templates' ) );
 		} else {
 			Hook_Registry::add_filter( 'get_block_templates', array( $this, 'inject_legacy_templates' ), 10, 3 );
 		}
+	}
+
+	/**
+	 * Add wzkb-search to the block template hierarchy for KB search pages.
+	 *
+	 * @param string[] $templates Ordered list of template slugs to look for.
+	 * @return string[] Modified list of template slugs.
+	 */
+	public function add_search_template_to_hierarchy( array $templates ): array {
+		if ( in_array( self::POST_TYPE, (array) get_query_var( 'post_type' ), true ) ) {
+			array_unshift( $templates, 'wzkb-search.php' );
+		}
+		return $templates;
 	}
 
 	/**
@@ -262,15 +277,19 @@ class Block_Template_Manager {
 			return 'single-wz_knowledgebase';
 		}
 
-		if ( is_post_type_archive( self::POST_TYPE ) ) {
-			return is_search() ? 'wzkb-search' : 'archive-wz_knowledgebase';
+		if ( is_search() && in_array( self::POST_TYPE, (array) get_query_var( 'post_type' ), true ) ) {
+			return 'wzkb-search';
 		}
 
-		if ( is_tax( 'wzkb_category' ) && ! is_search() ) {
+		if ( is_post_type_archive( self::POST_TYPE ) ) {
+			return 'archive-wz_knowledgebase';
+		}
+
+		if ( is_tax( 'wzkb_category' ) ) {
 			return 'taxonomy-wzkb_category';
 		}
 
-		if ( is_tax( 'wzkb_product' ) && ! is_search() ) {
+		if ( is_tax( 'wzkb_product' ) ) {
 			return 'taxonomy-wzkb_product';
 		}
 
