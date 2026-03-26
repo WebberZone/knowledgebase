@@ -500,7 +500,8 @@ class Product_Section_Selector {
 		$product_id = (int) $product_terms[0]->term_id;
 
 		foreach ( $section_terms as $section ) {
-			if ( 0 === (int) get_term_meta( $section->term_id, 'product_id', true ) ) {
+			$existing_product_id = get_term_meta( $section->term_id, 'product_id', true );
+			if ( '' === $existing_product_id ) {
 				update_term_meta( $section->term_id, 'product_id', $product_id );
 			}
 		}
