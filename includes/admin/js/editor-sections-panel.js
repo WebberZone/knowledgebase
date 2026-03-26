@@ -247,17 +247,16 @@ let wzkbSectionsNonceMiddlewareAdded = false;
             return null;
         }
 
+        const prefix = level > 0 ? '\u00a0'.repeat( ( level - 1 ) * 3 ) + '\u21b3\u00a0' : '';
+
         return nodes.map((node) => {
             const key = 'section-node-' + node.id;
-            const indentation = level > 0 ? level * 24 : 0;
-            const className =
-                'wzkb-editor-sections__node' + (level > 0 ? ' wzkb-editor-sections__node--child' : '');
 
             return el(
                 'div',
-                { key, className, style: { marginLeft: indentation } },
+                { key, className: 'wzkb-editor-sections__node' },
                 el(CheckboxControl, {
-                    label: node.name,
+                    label: prefix + node.name,
                     checked: selectedIds.has(node.id),
                     onChange: (checked) => onToggle(node.id, checked),
                 }),

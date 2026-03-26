@@ -43,6 +43,8 @@ class Product_Section_Selector {
 	 * Constructor.
 	 */
 	public function __construct() {
+		Hook_Registry::add_filter( 'wp_terms_checklist_args', array( $this, 'use_hierarchical_section_walker' ), 10, 2 );
+
 		if ( 0 === (int) wzkb_get_option( 'multi_product', 0 ) ) {
 			return;
 		}
@@ -361,6 +363,7 @@ class Product_Section_Selector {
 			$this->assign_section_terms( $post->ID, $request['meta']['_wzkb_section_ids'] );
 		}
 
+		$this->sync_products_from_sections( $post->ID );
 		$this->sync_product_meta( $post->ID );
 		$this->sync_section_product_meta( $post->ID );
 	}
@@ -382,18 +385,33 @@ class Product_Section_Selector {
 
 		$this->is_syncing = true;
 
-		$section_ids = get_post_meta( $post_id, '_wzkb_section_ids', true );
+		// Quick Edit saves taxonomy terms directly without updating post meta.
+		// Read back what WordPress just saved so meta stays in sync, then let
+		// sync_products_from_sections derive product assignments from sections.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- action detection only, no data used.
+		$is_quick_edit = isset( $_POST['action'] ) && 'inline-save' === $_POST['action']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
-		if ( empty( $section_ids ) ) {
+		if ( $is_quick_edit ) {
 			$current_terms = get_the_terms( $post_id, 'wzkb_category' );
-			if ( ! empty( $current_terms ) && ! is_wp_error( $current_terms ) ) {
-				$section_ids = array_map( 'absint', wp_list_pluck( $current_terms, 'term_id' ) );
-				update_post_meta( $post_id, '_wzkb_section_ids', $section_ids );
+			$section_ids   = ( ! empty( $current_terms ) && ! is_wp_error( $current_terms ) )
+				? array_map( 'absint', wp_list_pluck( $current_terms, 'term_id' ) )
+				: array();
+			update_post_meta( $post_id, '_wzkb_section_ids', $section_ids );
+		} else {
+			$section_ids = get_post_meta( $post_id, '_wzkb_section_ids', true );
+
+			if ( empty( $section_ids ) ) {
+				$current_terms = get_the_terms( $post_id, 'wzkb_category' );
+				if ( ! empty( $current_terms ) && ! is_wp_error( $current_terms ) ) {
+					$section_ids = array_map( 'absint', wp_list_pluck( $current_terms, 'term_id' ) );
+					update_post_meta( $post_id, '_wzkb_section_ids', $section_ids );
+				}
 			}
 		}
 
 		try {
 			$this->assign_section_terms( $post_id, $section_ids );
+			$this->sync_products_from_sections( $post_id );
 			$this->sync_product_meta( $post_id );
 			$this->sync_section_product_meta( $post_id );
 		} finally {
@@ -474,6 +492,47 @@ class Product_Section_Selector {
 	}
 
 	/**
+	 * Merge product assignments derived from assigned sections.
+	 *
+	 * Each section can carry a `product_id` term meta. Any product referenced
+	 * this way is added to the post's wzkb_product taxonomy so the article is
+	 * always discoverable from its product. Existing product assignments are
+	 * preserved — this only ever adds, never removes.
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	private function sync_products_from_sections( int $post_id ): void {
+		$section_terms = get_the_terms( $post_id, 'wzkb_category' );
+		if ( empty( $section_terms ) || is_wp_error( $section_terms ) ) {
+			return;
+		}
+
+		$derived_ids = array();
+		foreach ( $section_terms as $section ) {
+			$product_id = (int) get_term_meta( $section->term_id, 'product_id', true );
+			if ( $product_id > 0 ) {
+				$derived_ids[] = $product_id;
+			}
+		}
+
+		if ( empty( $derived_ids ) ) {
+			return;
+		}
+
+		$current_terms = get_the_terms( $post_id, 'wzkb_product' );
+		$current_ids   = ( ! empty( $current_terms ) && ! is_wp_error( $current_terms ) )
+			? array_map( 'absint', wp_list_pluck( $current_terms, 'term_id' ) )
+			: array();
+
+		$to_add = array_diff( $derived_ids, $current_ids );
+		if ( empty( $to_add ) ) {
+			return;
+		}
+
+		wp_set_post_terms( $post_id, array_values( array_unique( array_merge( $current_ids, $derived_ids ) ) ), 'wzkb_product', false );
+	}
+
+	/**
 	 * Backfill product_id term meta on sections that have none.
 	 *
 	 * When exactly one product is assigned to the article, any section that
@@ -500,8 +559,7 @@ class Product_Section_Selector {
 		$product_id = (int) $product_terms[0]->term_id;
 
 		foreach ( $section_terms as $section ) {
-			$existing_product_id = get_term_meta( $section->term_id, 'product_id', true );
-			if ( '' === $existing_product_id ) {
+			if ( 0 === (int) get_term_meta( $section->term_id, 'product_id', true ) ) {
 				update_term_meta( $section->term_id, 'product_id', $product_id );
 			}
 		}
@@ -621,5 +679,22 @@ class Product_Section_Selector {
 			/* translators: 1: shown count. 2: total count. */
 			'productOverflow'   => esc_html__( 'Showing first %1$s products out of %2$s. Refine your search.', 'knowledgebase' ),
 		);
+	}
+
+	/**
+	 * Inject Walker_Section_Checklist for the wzkb_category checklist (Quick Edit and post editor).
+	 *
+	 * @param array $args    wp_terms_checklist() arguments.
+	 * @param int   $post_id Post ID (unused).
+	 * @return array
+	 */
+	public function use_hierarchical_section_walker( array $args, $post_id ): array {
+		if ( ! isset( $args['taxonomy'] ) || 'wzkb_category' !== $args['taxonomy'] ) {
+			return $args;
+		}
+
+		$args['walker'] = new Walker_Section_Checklist();
+
+		return $args;
 	}
 }
