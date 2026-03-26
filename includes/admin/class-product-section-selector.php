@@ -362,6 +362,7 @@ class Product_Section_Selector {
 		}
 
 		$this->sync_product_meta( $post->ID );
+		$this->sync_section_product_meta( $post->ID );
 	}
 
 	/**
@@ -394,6 +395,7 @@ class Product_Section_Selector {
 		try {
 			$this->assign_section_terms( $post_id, $section_ids );
 			$this->sync_product_meta( $post_id );
+			$this->sync_section_product_meta( $post_id );
 		} finally {
 			$this->is_syncing = false;
 		}
@@ -469,6 +471,39 @@ class Product_Section_Selector {
 
 		$product_ids = array_map( 'absint', wp_list_pluck( $product_terms, 'term_id' ) );
 		update_post_meta( $post_id, '_wzkb_product_ids', array_values( $product_ids ) );
+	}
+
+	/**
+	 * Backfill product_id term meta on sections that have none.
+	 *
+	 * When exactly one product is assigned to the article, any section that
+	 * lacks a product_id term meta is updated to match. This ensures sections
+	 * linked via the article editor are discoverable by the frontend, which
+	 * queries sections by product_id term meta.
+	 *
+	 * Skips sections that already carry a product_id so that explicit
+	 * assignments made via the Sections admin are never overwritten.
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	private function sync_section_product_meta( int $post_id ): void {
+		$product_terms = get_the_terms( $post_id, 'wzkb_product' );
+		if ( empty( $product_terms ) || is_wp_error( $product_terms ) || 1 !== count( $product_terms ) ) {
+			return;
+		}
+
+		$section_terms = get_the_terms( $post_id, 'wzkb_category' );
+		if ( empty( $section_terms ) || is_wp_error( $section_terms ) ) {
+			return;
+		}
+
+		$product_id = (int) $product_terms[0]->term_id;
+
+		foreach ( $section_terms as $section ) {
+			if ( 0 === (int) get_term_meta( $section->term_id, 'product_id', true ) ) {
+				update_term_meta( $section->term_id, 'product_id', $product_id );
+			}
+		}
 	}
 
 	/**
