@@ -293,9 +293,9 @@
 	};
 
 	const appendTree = (container, nodes, level) => {
+		const prefix = level > 0 ? '\u00a0'.repeat( ( level - 1 ) * 3 ) + '\u21b3\u00a0' : '';
 		nodes.forEach((node) => {
 			const row = createElement('div', 'wzkb-classic-sections__node');
-			row.style.marginLeft = `${level * 16}px`;
 
 			const checkbox = createElement('input');
 			checkbox.type = 'checkbox';
@@ -310,7 +310,7 @@
 				updateHiddenInputs();
 			});
 
-			const label = createElement('span', 'wzkb-classic-sections__node-label', node.name);
+			const label = createElement('span', 'wzkb-classic-sections__node-label', prefix + node.name);
 			row.appendChild(checkbox);
 			row.appendChild(label);
 			container.appendChild(row);
