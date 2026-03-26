@@ -56,7 +56,13 @@ class Styles_Handler {
 			}
 		}
 		if ( wzkb_get_option( 'include_styles' ) ) {
-			if ( is_singular( 'wz_knowledgebase' ) || is_post_type_archive( 'wz_knowledgebase' ) || ( is_tax( 'wzkb_category' ) && ! is_search() ) || ( is_tax( 'wzkb_product' ) && ! is_search() ) ) {
+			if (
+				is_singular( 'wz_knowledgebase' ) ||
+				is_post_type_archive( 'wz_knowledgebase' ) ||
+				( is_tax( 'wzkb_category' ) && ! is_search() ) ||
+				( is_tax( 'wzkb_product' ) && ! is_search() ) ||
+				( is_search() && in_array( 'wz_knowledgebase', (array) get_query_var( 'post_type' ), true ) )
+			) {
 				$should_enqueue = true;
 			}
 		}
