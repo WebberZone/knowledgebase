@@ -30,7 +30,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 				<header class="page-header">
 					<h1 class="page-title"><?php echo esc_html( $wzkb_current_taxonomy->name ); ?></h1>
 					<?php if ( ! empty( $wzkb_current_taxonomy->description ) ) : ?>
-						<div class="taxonomy-description"><?php echo esc_html( $wzkb_current_taxonomy->description ); ?></div>
+						<div class="taxonomy-description"><?php echo wp_kses_post( $wzkb_current_taxonomy->description ); ?></div>
 					<?php endif; ?>
 				</header><!-- .page-header -->
 
