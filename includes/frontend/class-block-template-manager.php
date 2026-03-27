@@ -70,7 +70,7 @@ class Block_Template_Manager {
 	 */
 	public function add_search_template_to_hierarchy( array $templates ): array {
 		if ( in_array( self::POST_TYPE, (array) get_query_var( 'post_type' ), true ) ) {
-			array_unshift( $templates, 'wzkb-search.php' );
+			array_unshift( $templates, 'wzkb-search' );
 		}
 		return $templates;
 	}
