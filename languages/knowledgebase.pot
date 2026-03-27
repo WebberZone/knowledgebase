@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WebberZone Knowledge Base 3.0.0-RC2\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/knowledgebase\n"
+"Project-Id-Version: WebberZone Knowledge Base 3.0.0-RC3\n"
+"Report-Msgid-Bugs-To: https://github.com/WebberZone/knowledgebase/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-26T19:04:23+00:00\n"
+"POT-Creation-Date: 2026-03-27T19:36:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
@@ -44,6 +44,9 @@ msgstr ""
 #: includes/admin/class-section-product-meta.php:83
 #: includes/admin/class-section-product-meta.php:133
 #: includes/admin/class-settings-wizard.php:566
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:49
+#: includes/blocks/src/products/edit.js:91
 msgid "Product"
 msgstr ""
 
@@ -787,12 +790,17 @@ msgstr ""
 #: includes/admin/class-settings.php:352
 #: includes/admin/class-settings.php:386
 #: includes/admin/class-settings.php:1120
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:134
 msgid "Knowledge Base Settings"
 msgstr ""
 
 #: includes/admin/class-settings.php:351
 #: includes/admin/class-settings.php:387
 #: includes/admin/class-settings.php:1054
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:60
+#: includes/blocks/src/products/edit.js:117
 msgid "Settings"
 msgstr ""
 
@@ -1036,6 +1044,8 @@ msgid "Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if u
 msgstr ""
 
 #: includes/admin/class-settings.php:643
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:164
 msgid "Show article count"
 msgstr ""
 
@@ -1044,6 +1054,8 @@ msgid "If selected, the number of articles will be displayed in an orange circle
 msgstr ""
 
 #: includes/admin/class-settings.php:650
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:177
 msgid "Show excerpt"
 msgstr ""
 
@@ -1052,6 +1064,8 @@ msgid "Select to include the post excerpt after the article link"
 msgstr ""
 
 #: includes/admin/class-settings.php:657
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:187
 msgid "Link section title"
 msgstr ""
 
@@ -1060,6 +1074,8 @@ msgid "If selected, the title of each knowledge base section will link to its ow
 msgstr ""
 
 #: includes/admin/class-settings.php:664
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:208
 msgid "Show empty sections"
 msgstr ""
 
@@ -1068,6 +1084,8 @@ msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
 #: includes/admin/class-settings.php:671
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:150
 msgid "Max articles per section"
 msgstr ""
 
@@ -1270,6 +1288,8 @@ msgid "Icon and Text"
 msgstr ""
 
 #: includes/admin/class-settings.php:881
+#: includes/blocks/build/search/index.js:1
+#: includes/blocks/src/search/edit.js:53
 msgid "Button Text"
 msgstr ""
 
@@ -1804,43 +1824,43 @@ msgstr ""
 msgid "Back to %1$s"
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:128
+#: includes/frontend/class-block-template-manager.php:129
 msgid "Knowledge Base Single Article"
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:129
+#: includes/frontend/class-block-template-manager.php:130
 msgid "Displays a single knowledge base article."
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:133
+#: includes/frontend/class-block-template-manager.php:134
 msgid "Knowledge Base Archive"
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:134
+#: includes/frontend/class-block-template-manager.php:135
 msgid "Displays the knowledge base archive."
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:137
+#: includes/frontend/class-block-template-manager.php:138
 msgid "Knowledge Base Search"
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:138
+#: includes/frontend/class-block-template-manager.php:139
 msgid "Displays knowledge base search results."
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:141
+#: includes/frontend/class-block-template-manager.php:142
 msgid "Knowledge Base Section"
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:142
+#: includes/frontend/class-block-template-manager.php:143
 msgid "Knowledge Base Section (taxonomy) block template."
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:145
+#: includes/frontend/class-block-template-manager.php:146
 msgid "Knowledge Base Product"
 msgstr ""
 
-#: includes/frontend/class-block-template-manager.php:146
+#: includes/frontend/class-block-template-manager.php:147
 msgid "Knowledge Base Product (taxonomy) block template."
 msgstr ""
 
@@ -2067,6 +2087,8 @@ msgstr ""
 
 #: includes/widgets/class-articles-widget.php:30
 #: includes/widgets/class-articles-widget.php:149
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:213
 msgid "Knowledge Base Articles"
 msgstr ""
 
@@ -2077,6 +2099,13 @@ msgstr ""
 #: includes/widgets/class-articles-widget.php:58
 #: includes/widgets/class-breadcrumb-widget.php:51
 #: includes/widgets/class-sections-widget.php:61
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:62
+#: includes/blocks/src/products/edit.js:119
+#: includes/blocks/src/related/edit.js:51
+#: includes/blocks/src/sections/edit.js:29
 msgid "Title"
 msgstr ""
 
@@ -2109,6 +2138,8 @@ msgid "Display the breadcrumb when viewing a knowledge base article or category"
 msgstr ""
 
 #: includes/widgets/class-breadcrumb-widget.php:56
+#: includes/blocks/build/breadcrumb/index.js:1
+#: includes/blocks/src/breadcrumb/edit.js:27
 msgid "Separator"
 msgstr ""
 
@@ -2125,6 +2156,13 @@ msgid "Title:"
 msgstr ""
 
 #: includes/widgets/class-products-widget.php:66
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/articles/edit.js:57
+#: includes/blocks/src/kb/edit.js:125
+#: includes/blocks/src/products/edit.js:51
+#: includes/blocks/src/products/edit.js:100
 msgid "Select a product"
 msgstr ""
 
@@ -2153,17 +2191,373 @@ msgid "Max Depth (-1 for unlimited)"
 msgstr ""
 
 #: includes/widgets/class-sections-widget.php:87
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:144
+#: includes/blocks/src/sections/edit.js:63
 msgid "Before list item"
 msgstr ""
 
 #: includes/widgets/class-sections-widget.php:92
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:155
+#: includes/blocks/src/sections/edit.js:76
 msgid "After list item"
 msgstr ""
 
 #. translators: %s: Name of the deactivated plugin
-#: knowledgebase.php:139
+#: knowledgebase.php:140
 #, php-format
 msgid "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s."
+msgstr ""
+
+#: includes/blocks/build/alerts/index.js:1
+#: includes/blocks/src/alerts/edit.js:49
+msgid "Enter the alert text..."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/components/section-selector.js:82
+msgid "Error loading categories. Please try again."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:35
+#: includes/blocks/src/kb/edit.js:100
+msgid "Filter by Section"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:39
+#: includes/blocks/src/kb/edit.js:104
+msgid "Select a section"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/articles/edit.js:42
+#: includes/blocks/src/kb/edit.js:107
+#: includes/blocks/src/sections/edit.js:42
+msgid "Search and select a knowledge base section"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:54
+#: includes/blocks/src/kb/edit.js:119
+msgid "Filter by Product"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/articles/edit.js:61
+#: includes/blocks/src/kb/edit.js:129
+#: includes/blocks/src/products/edit.js:50
+#: includes/blocks/src/products/edit.js:96
+msgid "Search and select a product"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:68
+msgid "Knowledge Base Articles Settings"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:74
+#: includes/blocks/src/kb/edit.js:140
+msgid "OR"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:83
+msgid "Limit"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:88
+msgid "-1 for unlimited articles"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/articles/edit.js:93
+#: includes/blocks/src/related/edit.js:99
+msgid "Show Excerpt"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/articles/edit.js:100
+#: includes/blocks/src/related/edit.js:106
+msgid "Excerpt will be shown"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/articles/edit.js:101
+#: includes/blocks/src/related/edit.js:110
+msgid "Excerpt will be hidden"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/articles/edit.js:107
+#: includes/blocks/src/products/edit.js:133
+#: includes/blocks/src/sections/edit.js:50
+msgid "Max Depth"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/articles/edit.js:112
+#: includes/blocks/src/products/edit.js:138
+#: includes/blocks/src/sections/edit.js:55
+msgid "-1 for unlimited depth, 0 for current section only"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:122
+msgid "Show product heading"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:123
+msgid "Show section heading"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:132
+msgid "Product heading will be shown"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:136
+msgid "Section heading will be shown"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:141
+msgid "Product heading will be hidden"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:145
+msgid "Section heading will be hidden"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:155
+#: includes/blocks/src/kb/edit.js:229
+msgid "Link heading to selection"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:165
+#: includes/blocks/src/kb/edit.js:234
+msgid "Heading will link to the selected product or section."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/articles/edit.js:169
+#: includes/blocks/src/kb/edit.js:238
+msgid "Heading will remain plain text."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/articles/edit.js:180
+#: includes/blocks/src/kb/edit.js:249
+#: includes/blocks/src/related/edit.js:64
+msgid "Heading Level"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:194
+msgid "Select the heading level or paragraph for the section title."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:214
+msgid "Select a product or section to display its articles."
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:222
+msgid "Filter by product"
+msgstr ""
+
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/src/articles/edit.js:231
+msgid "Filter by section"
+msgstr ""
+
+#: includes/blocks/build/breadcrumb/index.js:1
+#: includes/blocks/src/breadcrumb/edit.js:22
+msgid "Breadcrumb Settings"
+msgstr ""
+
+#: includes/blocks/build/breadcrumb/index.js:1
+#: includes/blocks/src/breadcrumb/edit.js:32
+msgid "Enter the separator character or Unicode (e.g. »)"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:155
+msgid "-1 for unlimited articles. After this limit is reached, the footer is displayed with the more link to view the category."
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:190
+msgid "Section title links to the section page"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:194
+msgid "Section title is plain text"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:221
+msgid "Show heading"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:269
+msgid "Other attributes"
+msgstr ""
+
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/src/kb/edit.js:274
+msgid "Enter other attributes in a URL-style string-query."
+msgstr ""
+
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:149
+#: includes/blocks/src/sections/edit.js:68
+msgid "HTML/text to add before each list item"
+msgstr ""
+
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/products/edit.js:160
+#: includes/blocks/src/sections/edit.js:81
+msgid "HTML/text to add after each list item"
+msgstr ""
+
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:83
+msgid "Knowledge Base Products"
+msgstr ""
+
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:84
+msgid "Select a product to display its sections."
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:40
+msgid "Related Articles Settings"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:44
+msgid "This block only displays on single article pages."
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:56
+msgid "Section title for related articles"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:76
+msgid "Choose the HTML heading level for the title"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:84
+msgid "Number of Articles"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:91
+msgid "Maximum number of related articles to display"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:119
+msgid "Show Thumbnail"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:126
+msgid "Thumbnail will be shown"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:130
+msgid "Thumbnail will be hidden"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:139
+msgid "Show Date"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:146
+msgid "Date will be shown"
+msgstr ""
+
+#: includes/blocks/build/related/index.js:1
+#: includes/blocks/src/related/edit.js:147
+msgid "Date will be hidden"
+msgstr ""
+
+#: includes/blocks/build/search/index.js:1
+#: includes/blocks/src/search/edit.js:35
+msgid "Search Settings"
+msgstr ""
+
+#: includes/blocks/build/search/index.js:1
+#: includes/blocks/src/search/edit.js:40
+msgid "Placeholder Text"
+msgstr ""
+
+#: includes/blocks/build/search/index.js:1
+#: includes/blocks/src/search/edit.js:45
+msgid "Text shown in the search input field"
+msgstr ""
+
+#: includes/blocks/build/search/index.js:1
+#: includes/blocks/src/search/edit.js:58
+msgid "Text shown on the search button"
+msgstr ""
+
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/sections/edit.js:24
+msgid "Knowledge Base Sections Settings"
+msgstr ""
+
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/sections/edit.js:36
+msgid "Select Knowledge Base Section"
 msgstr ""
 
 #: includes/blocks/build/alerts/block.json

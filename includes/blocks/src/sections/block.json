@@ -6,11 +6,7 @@
 	"title": "Knowledge Base Sections",
 	"category": "knowledgebase",
 	"icon": "book",
-	"keywords": [
-		"knowledgbase",
-		"sections",
-		"kb"
-	],
+	"keywords": ["knowledgbase", "sections", "kb"],
 	"description": "Display subsections of a selected section or the full knowledge base sections tree if no section is selected",
 	"supports": {
 		"html": false

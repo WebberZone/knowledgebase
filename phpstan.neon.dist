@@ -1,5 +1,5 @@
 includes:
-	- phpstan-baseline.neon
+    - phpstan-baseline.neon
 parameters:
     level: 5
     treatPhpDocTypesAsCertain: false
@@ -10,6 +10,7 @@ parameters:
         - includes/
     scanFiles:
         - knowledgebase.php
+        - vendor/php-stubs/acf-pro-stubs/acf-pro-stubs.php
     scanDirectories:
         - includes
     bootstrapFiles:

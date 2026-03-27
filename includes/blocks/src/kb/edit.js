@@ -85,6 +85,17 @@ const KnowledgeBaseSettings = ({
 		other_attributes,
 	} = attributes;
 
+	const pluginSettings = window.wzkbKB?.settings || {};
+	const effectiveShowArticleCount =
+		showArticleCount ?? !!pluginSettings.show_article_count;
+	const effectiveShowExcerpt = showExcerpt ?? !!pluginSettings.show_excerpt;
+	const effectiveHasClickableSection =
+		hasClickableSection ?? !!pluginSettings.clickable_section;
+	const effectiveShowEmptySections =
+		showEmptySections ?? !!pluginSettings.show_empty_sections;
+	const parsedLimit = parseInt(pluginSettings.limit);
+	const effectiveLimit = limit ?? (isNaN(parsedLimit) ? 5 : parsedLimit);
+
 	const sectionSelectorProps = {
 		label: __('Filter by Section', 'knowledgebase'),
 		value: parseInt(category) || 0,
@@ -98,9 +109,9 @@ const KnowledgeBaseSettings = ({
 
 	const filterSectionsByProduct = productId
 		? {
-			filterTerm: (term) =>
-				term.kb_product && term.kb_product.term_id === productId,
-		}
+				filterTerm: (term) =>
+					term.kb_product && term.kb_product.term_id === productId,
+			}
 		: {};
 
 	const productSelectorProps = {
@@ -137,7 +148,7 @@ const KnowledgeBaseSettings = ({
 			<PanelRow>
 				<RangeControl
 					label={__('Max articles per section', 'knowledgebase')}
-					value={limit}
+					value={effectiveLimit}
 					onChange={(value) => onUpdateAttribute('limit', value)}
 					min={-1}
 					max={20}
@@ -151,52 +162,57 @@ const KnowledgeBaseSettings = ({
 			<PanelRow>
 				<ToggleControl
 					label={__('Show article count', 'knowledgebase')}
-					help={
-						showArticleCount
-							? __('Article count displayed', 'knowledgebase')
-							: __('No article count displayed', 'knowledgebase')
+					checked={effectiveShowArticleCount}
+					onChange={() =>
+						onUpdateAttribute(
+							'showArticleCount',
+							!effectiveShowArticleCount
+						)
 					}
-					checked={showArticleCount}
-					onChange={() => onToggleAttribute('showArticleCount')}
 				/>
 			</PanelRow>
 
 			<PanelRow>
 				<ToggleControl
 					label={__('Show excerpt', 'knowledgebase')}
-					help={
-						showExcerpt
-							? __('Excerpt displayed', 'knowledgebase')
-							: __('No excerpt', 'knowledgebase')
+					checked={effectiveShowExcerpt}
+					onChange={() =>
+						onUpdateAttribute('showExcerpt', !effectiveShowExcerpt)
 					}
-					checked={showExcerpt}
-					onChange={() => onToggleAttribute('showExcerpt')}
 				/>
 			</PanelRow>
 
 			<PanelRow>
 				<ToggleControl
-					label={__('Show clickable section', 'knowledgebase')}
+					label={__('Link section title', 'knowledgebase')}
 					help={
-						hasClickableSection
-							? __('Section headers are linked', 'knowledgebase')
-							: __('Section headers not linked', 'knowledgebase')
+						effectiveHasClickableSection
+							? __(
+									'Section title links to the section page',
+									'knowledgebase'
+								)
+							: __('Section title is plain text', 'knowledgebase')
 					}
-					checked={hasClickableSection}
-					onChange={() => onToggleAttribute('hasClickableSection')}
+					checked={effectiveHasClickableSection}
+					onChange={() =>
+						onUpdateAttribute(
+							'hasClickableSection',
+							!effectiveHasClickableSection
+						)
+					}
 				/>
 			</PanelRow>
 
 			<PanelRow>
 				<ToggleControl
 					label={__('Show empty sections', 'knowledgebase')}
-					help={
-						showEmptySections
-							? __('Empty sections displayed', 'knowledgebase')
-							: __('Empty sections hidden', 'knowledgebase')
+					checked={effectiveShowEmptySections}
+					onChange={() =>
+						onUpdateAttribute(
+							'showEmptySections',
+							!effectiveShowEmptySections
+						)
 					}
-					checked={showEmptySections}
-					onChange={() => onToggleAttribute('showEmptySections')}
 				/>
 			</PanelRow>
 
@@ -205,11 +221,6 @@ const KnowledgeBaseSettings = ({
 					label={__('Show heading', 'knowledgebase')}
 					checked={showHeading}
 					onChange={() => onToggleAttribute('showHeading')}
-					help={
-						showHeading
-							? __('Heading will be displayed above the knowledge base.', 'knowledgebase')
-							: __('Heading will be hidden.', 'knowledgebase')
-					}
 				/>
 			</PanelRow>
 			{showHeading && (
@@ -221,13 +232,13 @@ const KnowledgeBaseSettings = ({
 						help={
 							linkHeading
 								? __(
-									'Heading will link to the selected product or section.',
-									'knowledgebase'
-								)
+										'Heading will link to the selected product or section.',
+										'knowledgebase'
+									)
 								: __(
-									'Heading will remain plain text.',
-									'knowledgebase'
-								)
+										'Heading will remain plain text.',
+										'knowledgebase'
+									)
 						}
 					/>
 				</PanelRow>
@@ -237,7 +248,9 @@ const KnowledgeBaseSettings = ({
 					<SelectControl
 						label={__('Heading Level', 'knowledgebase')}
 						value={headingLevel}
-						onChange={(value) => onUpdateAttribute('headingLevel', value)}
+						onChange={(value) =>
+							onUpdateAttribute('headingLevel', value)
+						}
 						options={[
 							{ label: 'H1', value: 'h1' },
 							{ label: 'H2', value: 'h2' },
@@ -247,10 +260,6 @@ const KnowledgeBaseSettings = ({
 							{ label: 'H6', value: 'h6' },
 							{ label: 'Paragraph', value: 'p' },
 						]}
-						help={__(
-							'Select the heading level or paragraph for the section title.',
-							'knowledgebase'
-						)}
 					/>
 				</PanelRow>
 			)}

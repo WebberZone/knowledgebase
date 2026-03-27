@@ -44,9 +44,9 @@ export default function Edit({ attributes, setAttributes }) {
 
 	const filterSectionsByProduct = productId
 		? {
-			filterTerm: (term) =>
-				term.kb_product && term.kb_product.term_id === productId,
-		}
+				filterTerm: (term) =>
+					term.kb_product && term.kb_product.term_id === productId,
+			}
 		: {};
 
 	const productSelectorProps = {
@@ -109,7 +109,10 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={(value) => setAttributes({ depth: value })}
 						min={-1}
 						max={10}
-						help={__('-1 for unlimited depth, 0 for current section only', 'knowledgebase')}
+						help={__(
+							'-1 for unlimited depth, 0 for current section only',
+							'knowledgebase'
+						)}
 					/>
 				</PanelRow>
 				<PanelRow>
@@ -127,29 +130,32 @@ export default function Edit({ attributes, setAttributes }) {
 							showHeading
 								? productId
 									? __(
-										'Product heading will be shown',
-										'knowledgebase'
-									)
+											'Product heading will be shown',
+											'knowledgebase'
+										)
 									: __(
-										'Section heading will be shown',
-										'knowledgebase'
-									)
+											'Section heading will be shown',
+											'knowledgebase'
+										)
 								: productId
 									? __(
-										'Product heading will be hidden',
-										'knowledgebase'
-									)
+											'Product heading will be hidden',
+											'knowledgebase'
+										)
 									: __(
-										'Section heading will be hidden',
-										'knowledgebase'
-									)
+											'Section heading will be hidden',
+											'knowledgebase'
+										)
 						}
 					/>
 				</PanelRow>
 				{showHeading && (
 					<PanelRow>
 						<ToggleControl
-							label={__('Link heading to selection', 'knowledgebase')}
+							label={__(
+								'Link heading to selection',
+								'knowledgebase'
+							)}
 							checked={linkHeading}
 							onChange={() =>
 								setAttributes({ linkHeading: !linkHeading })
@@ -157,13 +163,13 @@ export default function Edit({ attributes, setAttributes }) {
 							help={
 								linkHeading
 									? __(
-										'Heading will link to the selected product or section.',
-										'knowledgebase'
-									)
+											'Heading will link to the selected product or section.',
+											'knowledgebase'
+										)
 									: __(
-										'Heading will remain plain text.',
-										'knowledgebase'
-									)
+											'Heading will remain plain text.',
+											'knowledgebase'
+										)
 							}
 						/>
 					</PanelRow>

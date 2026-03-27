@@ -29,24 +29,19 @@
       "default": 0
     },
     "limit": {
-      "type": "number",
-      "default": 5
+      "type": "number"
     },
     "showArticleCount": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "showExcerpt": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "hasClickableSection": {
-      "type": "boolean",
-      "default": true
+      "type": "boolean"
     },
     "showEmptySections": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "title": {
       "type": "string",

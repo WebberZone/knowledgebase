@@ -6,11 +6,7 @@
 	"title": "Knowledge Base Articles",
 	"category": "knowledgebase",
 	"icon": "book",
-	"keywords": [
-		"knowledgbase",
-		"articles",
-		"kb"
-	],
+	"keywords": ["knowledgbase", "articles", "kb"],
 	"description": "Display the Knowledge Base Articles by Product or Section",
 	"supports": {
 		"html": false
