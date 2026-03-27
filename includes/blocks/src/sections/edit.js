@@ -33,7 +33,10 @@ export default function Edit({ attributes, setAttributes }) {
 				</PanelRow>
 				<PanelRow>
 					<SectionSelector
-						label={__('Select Knowledge Base Section', 'knowledgebase')}
+						label={__(
+							'Select Knowledge Base Section',
+							'knowledgebase'
+						)}
 						value={termID}
 						onChange={(value) => setAttributes({ termID: value })}
 						help={__(
@@ -49,7 +52,10 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={(value) => setAttributes({ depth: value })}
 						min={-1}
 						max={10}
-						help={__('-1 for unlimited depth, 0 for current section only', 'knowledgebase')}
+						help={__(
+							'-1 for unlimited depth, 0 for current section only',
+							'knowledgebase'
+						)}
 					/>
 				</PanelRow>
 				<PanelRow>

@@ -1,55 +1,59 @@
 === Knowledge Base ===
 Contributors: Ajay, webberzone
 Donate link: https://wzn.io/donate-wz
-Tags: knowledge base, knowledgebase, FAQ, support, documentation
+Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Effortlessly create a powerful, multi-product knowledge base. Boost your support, reduce tickets, scale your documentation and make customers happy!
+Build a multi-product knowledge base for WordPress. Reduce support tickets with self-service docs, FAQs, and a built-in help center.
 
 == Description ==
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) makes building a knowledge base or FAQ for your WordPress site easy, fast, and scalable.
 
+Whether you need a simple FAQ page, a full self-service help center, or a structured multi-product wiki, Knowledge Base scales to fit. Organize articles into products and sections, customize permalinks, and let your customers help themselves: no coding required.
+
 Perfect for:
-- Multi-product companies
-- SaaS platforms
-- Ecommerce support centres
-- Documentation hubs
+
+- Multi-product companies managing multiple help centers
+- SaaS platforms with self-service documentation portals
+- Ecommerce support centres reducing ticket volume
+- Documentation hubs and internal company wikis
+- Developers building customer-facing knowledge portals
 
 [Live Demo](https://webberzone.com/support/knowledgebase/).
 
-### Main features
+### Powerful features available in the Free version
 
-Unlimited Knowledge Bases — Support as many products as you like, with unlimited sections and sub-sections.
-Beautiful, Responsive Layouts — Ships with clean templates powered by the Responsive Grid System.
-Customisable Permalinks — View your KB at /knowledgebase/ by default or change it easily.
-Shortcodes + Gutenberg Blocks — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
-Built-in Breadcrumbs — Improve UX and SEO with breadcrumb navigation.
-Widgets Included — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
-Built-in Caching — Speed up your Knowledge Base without extra plugins.
+- __Unlimited Knowledge Bases__: Support as many products as you like, with unlimited sections and sub-sections.
+- __Beautiful, Responsive Layouts__: Ships with clean templates powered by the Responsive Grid System.
+- __Customisable Permalinks__: View your KB at /knowledgebase/ by default or change it easily.
+- __Shortcodes + Gutenberg Blocks__: Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
+- __Built-in Breadcrumbs__: Improve UX and SEO with breadcrumb navigation.
+- __Widgets Included__: WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
+- __Built-in Caching__: Speed up your Knowledge Base without extra plugins.
 
 ### Pro features
 
 [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/#pro) enhances the plugin with advanced features for larger documentation sites, including ratings and feedback, a help widget, a powerful custom permalinks engine, premium layouts, and additional admin tools.
 
-- __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
-- __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
-- __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
-- __Knowledge Base Homepage Mode__ — Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
-- __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
-- __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
+- __Article Rating & Feedback System__: Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
+- __Help Widget__: Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
+- __Custom Permalinks Engine__: Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
+- __Knowledge Base Homepage Mode__: Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
+- __Premium Layout Pack__: Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+- __Advanced Admin Tools__: Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
 ### Key Concepts
 
-* __Articles:__ Custom post type `wz_knowledgebase` — your FAQs, how-to guides, and documentation.
-* __Products:__ Custom taxonomy `wzkb_product` — link articles to one or more products.
-* __Sections:__ Custom taxonomy `wzkb_category` — organize content neatly into categories.
-* __Tags:__ Optional `wzkb_tag` taxonomy — make finding content even easier.
+* __Articles:__ Custom post type `wz_knowledgebase`: your FAQs, how-to guides, and documentation.
+* __Products:__ Custom taxonomy `wzkb_product`: link articles to one or more products.
+* __Sections:__ Custom taxonomy `wzkb_category`: organize content neatly into categories.
+* __Tags:__ Optional `wzkb_tag` taxonomy: make finding content even easier.
 
 ### Contribute
 
@@ -76,8 +80,8 @@ When you Activate the plugin for the first time, you will be taken to the Setup 
 
 After the Setup Wizard, you can:
 
-1. Go to __Knowledge Base &raquo; Products__ — add your first Products if you've selected Multi-Product mode.
-2. Go to __Knowledge Base &raquo; Sections__ — add your first categories.
+1. Go to __Knowledge Base &raquo; Products__: add your first Products if you've selected Multi-Product mode.
+2. Go to __Knowledge Base &raquo; Sections__: add your first categories.
 3. Go to __Knowledge Base &raquo; Add New__— create articles and assign them to sections.
 
 __Want a multi-product Knowledge Base only with Sections?__
@@ -114,6 +118,22 @@ Or .html versions if you are using a block theme.
 = How do I change the article or section order? =
 
 Use a plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) to easily drag and drop posts, sections or tags to display them in a custom order.
+
+= Can I use this as a help center or wiki? =
+
+Yes! Knowledge Base works equally well as a help center, wiki, FAQ site, or documentation portal. Use sections to organise topics and products to separate different areas of your documentation.
+
+= Does it support multiple products or projects? =
+
+Yes. Enable Multi-Product mode via the Setup Wizard to organise articles under separate Products, each with their own sections and sub-sections.
+
+= Is it compatible with page builders like Elementor or Divi? =
+
+Yes. You can use the [knowledgebase] shortcode in any page builder. The plugin also provides Gutenberg blocks for block-based themes.
+
+= Can visitors search the knowledge base? =
+
+Yes. The plugin includes a built-in search form (via the [wzkb_search] shortcode and a Search block for Gutenberg). The Pro version also adds a floating Help Widget with live search and suggested articles.
 
 = How can I report security bugs? =
 
@@ -169,6 +189,7 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](http
 	* Added `Hooks_Registry` class to organise hooks and prevent accidental duplicates.
 	* Upgraded the WebberZone Settings API.
 	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
+	* Knowledge Base Block will dynamically load the global settings when first inserted.
 
 * Breaking Changes:
 	* CSS classes have been renamed for consistency, for example:

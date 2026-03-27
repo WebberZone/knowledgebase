@@ -93,8 +93,14 @@ export default function Edit({ attributes, setAttributes }) {
 							onChange={(value) =>
 								setAttributes({ productId: value })
 							}
-							help={__('Search and select a product', 'knowledgebase')}
-							includeEmptyLabel={__('Select a product', 'knowledgebase')}
+							help={__(
+								'Search and select a product',
+								'knowledgebase'
+							)}
+							includeEmptyLabel={__(
+								'Select a product',
+								'knowledgebase'
+							)}
 							formatLabel={(term) => term.name}
 							className="wzkb-products-selector"
 							wrapperClass="wzkb-products-selector-wrapper"
@@ -129,7 +135,10 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={(value) => setAttributes({ depth: value })}
 						min={-1}
 						max={10}
-						help={__('-1 for unlimited depth, 0 for current section only', 'knowledgebase')}
+						help={__(
+							'-1 for unlimited depth, 0 for current section only',
+							'knowledgebase'
+						)}
 					/>
 					<TextControl
 						label={__('Before list item', 'knowledgebase')}

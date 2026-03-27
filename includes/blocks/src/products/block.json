@@ -6,11 +6,7 @@
 	"title": "Knowledge Base Products",
 	"category": "knowledgebase",
 	"icon": "products",
-	"keywords": [
-		"knowledgebase",
-		"kb",
-		"products"
-	],
+	"keywords": ["knowledgebase", "kb", "products"],
 	"description": "Display sections under a selected product or the full knowledge base products/sections tree if none selected",
 	"supports": {
 		"html": false

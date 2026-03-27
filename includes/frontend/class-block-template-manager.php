@@ -69,8 +69,9 @@ class Block_Template_Manager {
 	 * @return string[] Modified list of template slugs.
 	 */
 	public function add_search_template_to_hierarchy( array $templates ): array {
-		if ( in_array( self::POST_TYPE, (array) get_query_var( 'post_type' ), true ) ) {
-			array_unshift( $templates, 'wzkb-search' );
+		$post_types = array_filter( (array) get_query_var( 'post_type' ) );
+		if ( array( self::POST_TYPE ) === $post_types ) {
+			array_unshift( $templates, 'wzkb-search.php' );
 		}
 		return $templates;
 	}
@@ -277,7 +278,7 @@ class Block_Template_Manager {
 			return 'single-wz_knowledgebase';
 		}
 
-		if ( is_search() && in_array( self::POST_TYPE, (array) get_query_var( 'post_type' ), true ) ) {
+		if ( is_search() && array( self::POST_TYPE ) === array_filter( (array) get_query_var( 'post_type' ) ) ) {
 			return 'wzkb-search';
 		}
 
