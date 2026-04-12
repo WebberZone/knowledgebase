@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Plugin Overview
 
-WebberZone Knowledge Base is a free WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. This is the standalone free version — there is no `includes/pro/` directory here. The companion premium plugin (knowledgebase-pro) is a separate repository that extends this codebase with pro features.
+WebberZone Knowledge Base (v3.0.0) is a free WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. This is the standalone free version — there is no `includes/pro/` directory here. The companion premium plugin (knowledgebase-pro) is a separate repository that extends this codebase with pro features.
 
-- **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius, triggers autoloader)
+- **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius via `load-freemius.php`, registers autoloader, and directly requires `includes/options-api.php` and `includes/functions.php`)
 - **PHP**: 7.4+ | **WordPress**: 6.7+
 - **Custom post type**: `wz_knowledgebase` | **Taxonomies**: `wzkb_category`, `wzkb_product`, `wzkb_tag`
 - **Constants**: `WZKB_VERSION`, `WZKB_PLUGIN_DIR`, `WZKB_PLUGIN_URL`, `WZKB_PLUGIN_FILE`, `WZKB_DEFAULT_THUMBNAIL_URL`
