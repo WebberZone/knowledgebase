@@ -523,6 +523,8 @@ class REST_Controller {
 			$terms
 		);
 
+		$this->cache_set( $cache_key, $response );
+
 		return rest_ensure_response( $response );
 	}
 

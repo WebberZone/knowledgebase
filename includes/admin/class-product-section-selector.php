@@ -688,7 +688,7 @@ class Product_Section_Selector {
 	 * @param int   $post_id Post ID (unused).
 	 * @return array
 	 */
-	public function use_hierarchical_section_walker( array $args, $post_id ): array {
+	public function use_hierarchical_section_walker( array $args, $post_id ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		if ( ! isset( $args['taxonomy'] ) || 'wzkb_category' !== $args['taxonomy'] ) {
 			return $args;
 		}
