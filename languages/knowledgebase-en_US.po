@@ -106,7 +106,7 @@ msgid "Tags"
 msgstr ""
 
 #: includes/admin/class-admin.php:205
-#: includes/admin/class-tools-page.php:54
+#: includes/admin/class-tools-page.php:57
 msgid "Tools"
 msgstr ""
 
@@ -180,251 +180,240 @@ msgid "Unknown error"
 msgstr ""
 
 #: includes/admin/class-product-migrator.php:104
-#: includes/admin/class-product-migrator.php:788
+#: includes/admin/class-product-migrator.php:861
 msgid "Migration complete!"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:119
+#: includes/admin/class-product-migrator.php:121
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:125
+#: includes/admin/class-product-migrator.php:127
 msgid "Product Migration Wizard"
 msgstr ""
 
 #. translators: %s: Date and time when migration was completed.
-#: includes/admin/class-product-migrator.php:131
+#: includes/admin/class-product-migrator.php:133
 #, php-format
 msgid "Migration already completed on %s."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:138
+#: includes/admin/class-product-migrator.php:140
 msgid "The Migration Wizard simplifies the process of reorganizing your knowledge base by converting your existing sections into products and mapping articles to their corresponding products. This ensures a more structured, user-friendly, and discoverable knowledge base. Below is a step-by-step overview of what the wizard will do. No changes will be applied until you confirm and initiate the migration."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:140
+#: includes/admin/class-product-migrator.php:142
 msgid "Convert Sections to Products: Each top-level section in your knowledge base will be transformed into a distinct product, preserving its identity and purpose."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:141
+#: includes/admin/class-product-migrator.php:143
 msgid "Map Articles to Products: Articles will be intelligently assigned to their respective products based on the existing section hierarchy, ensuring no content is lost or misplaced."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:142
+#: includes/admin/class-product-migrator.php:144
 msgid "Handle Sub-Sections: Any sub-sections (descendant sections) will be processed to correctly associate their articles with the appropriate product, maintaining organizational clarity."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:143
+#: includes/admin/class-product-migrator.php:145
 msgid "Remove Old Sections: Once articles are mapped, the original top-level sections will be removed to streamline your knowledge base structure."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:144
+#: includes/admin/class-product-migrator.php:146
 msgid "Preview with Dry Run: Use the dry-run option to simulate the migration process without making any changes, allowing you to review the outcome before committing."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:145
+#: includes/admin/class-product-migrator.php:147
 msgid "Confirm and Migrate: After reviewing the dry run, you can start the migration with confidence, knowing your knowledge base will be restructured for improved organization and accessibility."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:149
+#: includes/admin/class-product-migrator.php:151
 msgid "Dry run (show summary only, no changes)"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:150
+#: includes/admin/class-product-migrator.php:152
 msgid "I confirm I have backed up my database and understand this migration cannot be undone."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:151
+#: includes/admin/class-product-migrator.php:153
 msgid "Start Migration"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:159
+#: includes/admin/class-product-migrator.php:161
 msgid "Migration Log"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:162
+#: includes/admin/class-product-migrator.php:164
 msgid "Copy Log"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:179
+#: includes/admin/class-product-migrator.php:181
 #: includes/admin/class-settings-wizard.php:909
 msgid "Insufficient permissions."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:203
+#: includes/admin/class-product-migrator.php:205
 msgid "Migration already initialized. Resuming..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:220
+#: includes/admin/class-product-migrator.php:223
 msgid "Initializing migration..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:223
+#: includes/admin/class-product-migrator.php:226
 msgid "Dry run mode: No changes will be made."
 msgstr ""
 
 #. translators: %s: Error message
-#: includes/admin/class-product-migrator.php:239
+#: includes/admin/class-product-migrator.php:242
 #, php-format
 msgid "Error fetching sections: %s"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:309
+#: includes/admin/class-product-migrator.php:338
 msgid "No top-level sections found. Nothing to migrate."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:323
+#: includes/admin/class-product-migrator.php:352
 msgid "Products already created. Skipping product creation step..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:334
+#: includes/admin/class-product-migrator.php:363
 msgid "Creating products from top-level sections..."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:345
+#: includes/admin/class-product-migrator.php:374
 #, php-format
 msgid "Skipped invalid section ID: %d."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Product ID
-#: includes/admin/class-product-migrator.php:355
+#: includes/admin/class-product-migrator.php:385
 #, php-format
 msgid "Used existing product for section \"%1$s\" (ID: %2$d) with product ID: %3$d."
 msgstr ""
 
 #. translators: 1: Product name, 2: Product ID, 3: Section name, 4: Section ID
-#: includes/admin/class-product-migrator.php:378
+#: includes/admin/class-product-migrator.php:424
 #, php-format
 msgid "Created product \"%1$s\" (ID: %2$d) for section \"%3$s\" (ID: %4$d)."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:440
+#: includes/admin/class-product-migrator.php:495
 msgid "No more top-level sections to process. Moving to next step."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Current index, 4: Total count
-#: includes/admin/class-product-migrator.php:455
+#: includes/admin/class-product-migrator.php:510
 #, php-format
 msgid "Starting sub-section mapping for \"%1$s\" (ID: %2$d) (%3$d of %4$d)..."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Current index, 4: Total count
-#: includes/admin/class-product-migrator.php:465
+#: includes/admin/class-product-migrator.php:520
 #, php-format
 msgid "Continuing sub-section mapping for \"%1$s\" (ID: %2$d) (%3$d of %4$d)..."
 msgstr ""
 
 #. translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Top sections count, 6: Articles processed, 7: Total articles
-#: includes/admin/class-product-migrator.php:487
+#: includes/admin/class-product-migrator.php:542
 #, php-format
 msgid "Incoming State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, top_sections_count=%5$d, articles_processed=%6$d/%7$d"
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:499
+#: includes/admin/class-product-migrator.php:554
 #, php-format
 msgid "Skipping section ID: %d (No product mapping found)."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:514
+#: includes/admin/class-product-migrator.php:594
 #, php-format
 msgid "Loading descendants for section ID: %d"
 msgstr ""
 
 #. translators: 1: Section ID, 2: Count
-#: includes/admin/class-product-migrator.php:521
+#: includes/admin/class-product-migrator.php:601
 #, php-format
 msgid "Found %2$d sections (including top-level) for section ID: %1$d."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:537
+#: includes/admin/class-product-migrator.php:618
 #, php-format
 msgid "Completed all sections for top section ID: %d. Moving to next top section."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID
-#: includes/admin/class-product-migrator.php:555
+#: includes/admin/class-product-migrator.php:640
 #, php-format
 msgid "Processing section \"%1$s\" (ID: %2$d)"
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Product ID
-#: includes/admin/class-product-migrator.php:574
+#: includes/admin/class-product-migrator.php:659
 #, php-format
 msgid "Linked section \"%1$s\" (ID: %2$d) to product ID: %3$d."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:587
+#: includes/admin/class-product-migrator.php:672
 #, php-format
 msgid "No articles remaining for section ID: %d."
 msgstr ""
 
 #. translators: 1: Article ID, 2: Product ID
-#: includes/admin/class-product-migrator.php:620
+#: includes/admin/class-product-migrator.php:705
 #, php-format
 msgid "Skipped article ID: %1$d (already assigned to product ID: %2$d)."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:640
+#: includes/admin/class-product-migrator.php:568
+#: includes/admin/class-product-migrator.php:572
 msgid "Unknown Product"
 msgstr ""
 
 #. translators: 1: Product name, 2: Product ID, 3: List of articles
-#: includes/admin/class-product-migrator.php:643
+#: includes/admin/class-product-migrator.php:726
 #, php-format
 msgid "Assigned articles to product \"%1$s\" (ID: %2$d): %3$s"
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:651
+#: includes/admin/class-product-migrator.php:734
 #, php-format
 msgid "No new articles assigned for section ID: %d."
 msgstr ""
 
 #. translators: 1: Section ID, 2: Article count
-#: includes/admin/class-product-migrator.php:663
+#: includes/admin/class-product-migrator.php:746
 #, php-format
 msgid "Finished processing articles for section ID: %1$d (found %2$d articles)."
 msgstr ""
 
 #. translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Sections mapped, 6: Top sections mapped, 7: Articles processed, 8: Total articles
-#: includes/admin/class-product-migrator.php:703
-#: includes/admin/class-product-migrator.php:761
+#: includes/admin/class-product-migrator.php:787
+#: includes/admin/class-product-migrator.php:830
 #, php-format
 msgid "Outgoing State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, sections_mapped=%5$d, top_sections_mapped=%6$d, articles_processed=%7$d/%8$d"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:723
+#: includes/admin/class-product-migrator.php:807
 msgid "Deleting old top-level sections..."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:738
+#: includes/admin/class-product-migrator.php:822
 #, php-format
 msgid "Deleting top-level section ID: %d."
 msgstr ""
 
-#. translators: 1: Product ID
-#: includes/admin/class-product-migrator.php:751
-#, php-format
-msgid "Deleted simulated product with ID: %1$d after dry run."
-msgstr ""
-
-#. translators: 1: Products created, 2: Sub-sections mapped, 3: Articles processed, 4: Sections deleted
-#: includes/admin/class-product-migrator.php:774
-#, php-format
-msgid "Migration Summary: Created %1$d products from top-level sections, mapped %2$d sub-sections to products, processed %3$d articles, and deleted %4$d old top-level sections."
-msgstr ""
-
-#: includes/admin/class-product-migrator.php:788
+#: includes/admin/class-product-migrator.php:861
 msgid "Dry run complete! No changes were made."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:800
+#: includes/admin/class-product-migrator.php:874
 msgid "Unknown migration step."
 msgstr ""
 
@@ -842,7 +831,7 @@ msgid "Previously saved"
 msgstr ""
 
 #: includes/admin/class-settings.php:403
-#: includes/admin/class-tools-page.php:156
+#: includes/admin/class-tools-page.php:227
 msgid "General"
 msgstr ""
 
@@ -1495,22 +1484,22 @@ msgstr ""
 msgid "Start Settings Wizard"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:53
-#: includes/admin/class-tools-page.php:87
+#: includes/admin/class-tools-page.php:56
+#: includes/admin/class-tools-page.php:90
 msgid "Knowledge Base Tools"
 msgstr ""
 
 #. translators: 1: Support link.
-#: includes/admin/class-tools-page.php:148
+#: includes/admin/class-tools-page.php:219
 #, php-format
 msgid "For more information visit the <a href=\"%1$s\">WebberZone support site</a>."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:158
+#: includes/admin/class-tools-page.php:229
 msgid "This screen provides tools for managing the Knowledge Base."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:159
+#: includes/admin/class-tools-page.php:230
 msgid "Different features can add their own tool sections to this page."
 msgstr ""
 
@@ -2010,12 +1999,12 @@ msgid "Search keywords."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:133
-#: includes/rest/class-rest-controller.php:720
+#: includes/rest/class-rest-controller.php:722
 msgid "Filter by product term ID."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:137
-#: includes/rest/class-rest-controller.php:724
+#: includes/rest/class-rest-controller.php:726
 msgid "Filter by section term ID."
 msgstr ""
 
@@ -2052,7 +2041,7 @@ msgid "Section filtering is only available when multi-product mode is enabled."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:456
-#: includes/rest/class-rest-controller.php:547
+#: includes/rest/class-rest-controller.php:549
 msgid "Knowledge Base post not found."
 msgstr ""
 
@@ -2060,19 +2049,19 @@ msgstr ""
 msgid "Knowledge Base post is not published."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:593
+#: includes/rest/class-rest-controller.php:595
 msgid "Search query must be at least two characters long."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:703
+#: includes/rest/class-rest-controller.php:705
 msgid "Number of posts to return per page."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:710
+#: includes/rest/class-rest-controller.php:712
 msgid "Current page of the collection."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:716
+#: includes/rest/class-rest-controller.php:718
 msgid "Search term."
 msgstr ""
 
@@ -2212,7 +2201,7 @@ msgid "After list item"
 msgstr ""
 
 #. translators: %s: Name of the deactivated plugin
-#: knowledgebase.php:140
+#: knowledgebase.php:139
 #, php-format
 msgid "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s."
 msgstr ""
@@ -2807,4 +2796,64 @@ msgstr ""
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:194
 msgid "Section title is plain text"
+msgstr ""
+
+#: includes/admin/class-product-migrator.php:105
+msgid "Starting migration..."
+msgstr ""
+
+#: includes/admin/class-product-migrator.php:106
+msgid "AJAX error"
+msgstr ""
+
+#. translators: 1: Product name, 2: Section ID
+#: includes/admin/class-product-migrator.php:397
+#, php-format
+msgid "Would create product \"%1$s\" for section ID: %2$d."
+msgstr ""
+
+#. translators: 1: Section name, 2: Section ID, 3: Error message
+#: includes/admin/class-product-migrator.php:413
+#, php-format
+msgid "Failed to create product for section \"%1$s\" (ID: %2$d): %3$s"
+msgstr ""
+
+#. translators: %d: Section ID
+#: includes/admin/class-product-migrator.php:578
+#, php-format
+msgid "Skipping section ID: %d (Invalid product mapping found)."
+msgstr ""
+
+#. translators: 1: Total sections mapped, 2: New products created, 3: Existing products reused, 4: Sub-sections mapped, 5: Articles processed, 6: Sections deleted
+#: includes/admin/class-product-migrator.php:845
+#, php-format
+msgid "Migration Summary: Mapped %1$d top-level sections to products (%2$d new, %3$d existing reused), mapped %4$d sub-sections to products, processed %5$d articles, and deleted %6$d old top-level sections."
+msgstr ""
+
+#. translators: %d: Number of cache entries cleared.
+#: includes/admin/class-tools-page.php:161
+#, php-format
+msgid "%d cache entry cleared."
+msgid_plural "%d cache entries cleared."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-tools-page.php:181
+msgid "Cache"
+msgstr ""
+
+#: includes/admin/class-tools-page.php:183
+msgid "The Knowledge Base caches section output to improve performance. Use the button below to clear all cached data."
+msgstr ""
+
+#. translators: %d: Number of cache entries.
+#: includes/admin/class-tools-page.php:188
+#, php-format
+msgid "There is currently %d entry in the cache."
+msgid_plural "There are currently %d entries in the cache."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-tools-page.php:196
+msgid "Clear Cache"
 msgstr ""
