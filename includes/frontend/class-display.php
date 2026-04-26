@@ -666,11 +666,11 @@ class Display {
 		while ( $query->have_posts() ) :
 			$query->the_post();
 
-			$output .= '<li class="wzkb-article-name post-' . get_the_ID() . '">';
-			$output .= '<a href="' . get_permalink() . '" rel="bookmark" title="' . get_the_title() . '">' . get_the_title() . '</a>';
+			$output .= '<li class="wzkb-article-name post-' . absint( get_the_ID() ) . '">';
+			$output .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark" title="' . the_title_attribute( array( 'echo' => false ) ) . '">' . get_the_title() . '</a>';
 
 			if ( ! empty( $args['show_excerpt'] ) ) {
-				$output .= '<div class="wzkb-article-excerpt post-' . get_the_ID() . '">' . get_the_excerpt() . '</div>';
+				$output .= '<div class="wzkb-article-excerpt post-' . absint( get_the_ID() ) . '">' . wp_kses_post( get_the_excerpt() ) . '</div>';
 			}
 
 			$output .= '</li>';
