@@ -74,7 +74,7 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 						<div class="wzkb-search-result-body">
 							<?php the_title( sprintf( '<h2 class="wzkb-search-result-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 							<div class="wzkb-article-excerpt post-<?php the_ID(); ?>">
-							<?php echo get_the_excerpt(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo wp_kses_post( get_the_excerpt() ); ?>
 						</div>
 						</div>
 					</article>

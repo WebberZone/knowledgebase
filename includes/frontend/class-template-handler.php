@@ -41,7 +41,7 @@ class Template_Handler {
 		$this->block_template_manager = new Block_Template_Manager();
 
 		// Classic theme support.
-		Hook_Registry::add_filter( 'template_include', array( $this, 'archive_template' ) );
+		Hook_Registry::add_filter( 'template_include', array( $this, 'archive_template' ), 99 );
 
 		// Query modifications and sidebar registration.
 		Hook_Registry::add_filter( 'pre_get_posts', array( $this, 'posts_per_search_page' ) );

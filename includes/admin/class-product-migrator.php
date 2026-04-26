@@ -102,6 +102,8 @@ class Product_Migrator {
 					'migration_failed'   => esc_html__( 'Migration failed', 'knowledgebase' ),
 					'unknown_error'      => esc_html__( 'Unknown error', 'knowledgebase' ),
 					'migration_complete' => esc_html__( 'Migration complete!', 'knowledgebase' ),
+					'starting_migration' => esc_html__( 'Starting migration...', 'knowledgebase' ),
+					'ajax_error'         => esc_html__( 'AJAX error', 'knowledgebase' ),
 				),
 			)
 		);
@@ -214,6 +216,7 @@ class Product_Migrator {
 				delete_transient( 'wzkb_migration_log' );
 				delete_transient( 'wzkb_migration_assigned_articles' );
 				delete_transient( 'wzkb_migration_article_counts' );
+				delete_transient( 'wzkb_migration_processed_ids' );
 
 				$log = array();
 
@@ -243,9 +246,7 @@ class Product_Migrator {
 				}
 
 				$top_section_ids        = array();
-				$section_article_counts = array();
-				$unique_article_ids     = array();
-				$total_articles         = 0;
+				$all_section_ids_flat   = array();
 				$total_descendant_count = 0;
 
 				foreach ( $top_sections as $section ) {
@@ -253,33 +254,63 @@ class Product_Migrator {
 					$top_section_ids[]       = $section_id;
 					$descendant_ids          = $this->get_all_descendant_section_ids( $section_id, $this->taxonomy_section );
 					$total_descendant_count += count( $descendant_ids );
-					$all_section_ids         = array_merge( array( $section_id ), $descendant_ids );
-
-					foreach ( $all_section_ids as $sid ) {
-						$articles                       = get_posts(
-							array(
-								'post_type'        => $this->post_type_article,
-								'post_status'      => array( 'publish', 'draft', 'pending', 'future', 'private' ),
-								'posts_per_page'   => -1,
-								'fields'           => 'ids',
-								'tax_query'        => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-									array(
-										'taxonomy' => $this->taxonomy_section,
-										'field'    => 'term_id',
-										'terms'    => $sid,
-									),
-								),
-								'suppress_filters' => true,
-							)
-						);
-						$section_article_counts[ $sid ] = count( $articles );
-						foreach ( $articles as $article_id ) {
-							if ( ! in_array( $article_id, $unique_article_ids, true ) ) {
-								$unique_article_ids[] = $article_id;
-								++$total_articles;
-							}
-						}
+					foreach ( array_merge( array( $section_id ), $descendant_ids ) as $sid ) {
+						$all_section_ids_flat[] = $sid;
 					}
+				}
+
+				global $wpdb;
+				$section_article_counts = array();
+				$total_articles         = 0;
+
+				if ( ! empty( $all_section_ids_flat ) ) {
+					$all_section_ids_flat = array_unique( $all_section_ids_flat );
+					$post_statuses        = array( 'publish', 'draft', 'pending', 'future', 'private' );
+					$id_holders           = implode( ',', array_fill( 0, count( $all_section_ids_flat ), '%d' ) );
+					$status_holders       = implode( ',', array_fill( 0, count( $post_statuses ), '%s' ) );
+					$count_args           = array_merge(
+						$all_section_ids_flat,
+						array( $this->taxonomy_section ),
+						$post_statuses,
+						array( $this->post_type_article )
+					);
+
+					// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+					$rows = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT tt.term_id, COUNT(tr.object_id) AS article_count
+							FROM {$wpdb->term_relationships} tr
+							INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+							INNER JOIN {$wpdb->posts} p ON tr.object_id = p.ID
+							WHERE tt.term_id IN ({$id_holders})
+							AND tt.taxonomy = %s
+							AND p.post_status IN ({$status_holders})
+							AND p.post_type = %s
+							GROUP BY tt.term_id",
+							...$count_args
+						),
+						ARRAY_A
+					);
+					// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+					foreach ( (array) $rows as $row ) {
+						$section_article_counts[ (int) $row['term_id'] ] = (int) $row['article_count'];
+					}
+
+					// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
+					$total_articles = (int) $wpdb->get_var(
+						$wpdb->prepare(
+							"SELECT COUNT(DISTINCT tr.object_id)
+							FROM {$wpdb->term_relationships} tr
+							INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+							INNER JOIN {$wpdb->posts} p ON tr.object_id = p.ID
+							WHERE tt.term_id IN ({$id_holders})
+							AND tt.taxonomy = %s
+							AND p.post_status IN ({$status_holders})
+							AND p.post_type = %s",
+							...$count_args
+						)
+					);
+					// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 				}
 
 				$state['top_section_ids']         = $top_section_ids;
@@ -290,8 +321,6 @@ class Product_Migrator {
 				$state['top_sections_mapped']     = 0;
 				$state['total_descendant_count']  = $total_descendant_count;
 				$state['sections_deleted']        = 0;
-				$state['processed_section_ids']   = array();
-				$state['processed_article_ids']   = array();
 				$state['last_logged_section']     = array();
 				$state['initialization_complete'] = true;
 				$state['last_log_index']          = 0;
@@ -335,7 +364,7 @@ class Product_Migrator {
 				$log[]                    = $response_data['message'];
 				$top_section_ids          = $state['top_section_ids'] ?? array();
 				$section_to_product_map   = $state['section_to_product_map'] ?? array();
-				$simulated_product_ids    = $state['simulated_product_ids'] ?? array();
+				$products_new_count       = 0;
 
 				foreach ( $top_section_ids as $section_id ) {
 					$section = get_term( $section_id, $this->taxonomy_section );
@@ -349,8 +378,9 @@ class Product_Migrator {
 					}
 					$existing_product = get_term_by( 'slug', $section->slug, $this->taxonomy_product );
 					if ( $existing_product ) {
-						$product_id = (int) $existing_product->term_id;
-						$log[]      = sprintf(
+						$product_id   = (int) $existing_product->term_id;
+						$product_name = $existing_product->name;
+						$log[]        = sprintf(
 							/* translators: 1: Section name, 2: Section ID, 3: Product ID */
 							__( 'Used existing product for section "%1$s" (ID: %2$d) with product ID: %3$d.', 'knowledgebase' ),
 							$section->name,
@@ -358,36 +388,56 @@ class Product_Migrator {
 							$product_id
 						);
 					} else {
-						$product = wp_insert_term(
-							$section->name,
-							$this->taxonomy_product,
-							array(
-								'description' => $section->description,
-								'slug'        => $section->slug,
-							)
-						);
-						if ( is_wp_error( $product ) ) {
-							continue;
-						}
-						$product_id = (int) $product['term_id'];
+						$product_name = $section->name;
 						if ( $dry_run ) {
-							$simulated_product_ids[] = $product_id;
+							$product_id = $section_id;
+							++$products_new_count;
+							$log[] = sprintf(
+								/* translators: 1: Product name, 2: Section ID */
+								__( 'Would create product "%1$s" for section ID: %2$d.', 'knowledgebase' ),
+								$product_name,
+								$section_id
+							);
+						} else {
+							$product = wp_insert_term(
+								$section->name,
+								$this->taxonomy_product,
+								array(
+									'description' => $section->description,
+									'slug'        => $section->slug,
+								)
+							);
+							if ( is_wp_error( $product ) ) {
+								$log[] = sprintf(
+									/* translators: 1: Section name, 2: Section ID, 3: Error message */
+									__( 'Failed to create product for section "%1$s" (ID: %2$d): %3$s', 'knowledgebase' ),
+									$section->name,
+									$section_id,
+									$product->get_error_message()
+								);
+								continue;
+							}
+							$product_id = (int) $product['term_id'];
+							++$products_new_count;
+							$log[] = sprintf(
+								/* translators: 1: Product name, 2: Product ID, 3: Section name, 4: Section ID */
+								__( 'Created product "%1$s" (ID: %2$d) for section "%3$s" (ID: %4$d).', 'knowledgebase' ),
+								$section->name,
+								$product_id,
+								$section->name,
+								$section_id
+							);
 						}
-						$log[] = sprintf(
-							/* translators: 1: Product name, 2: Product ID, 3: Section name, 4: Section ID */
-							__( 'Created product "%1$s" (ID: %2$d) for section "%3$s" (ID: %4$d).', 'knowledgebase' ),
-							$section->name,
-							$product_id,
-							$section->name,
-							$section_id
-						);
 					}
-					$section_to_product_map[ $section_id ] = $product_id;
+					$section_to_product_map[ $section_id ] = array(
+						'id'   => $product_id,
+						'name' => $product_name,
+					);
 					$state['top_sections_mapped']          = isset( $state['top_sections_mapped'] ) ? $state['top_sections_mapped'] + 1 : 1;
 				}
 
 				$state['section_to_product_map'] = $section_to_product_map;
-				$state['simulated_product_ids']  = $simulated_product_ids;
+				$state['products_new_count']     = $products_new_count;
 				$state['products_created']       = true;
 				$response_data['log']            = array_slice( $log, $last_log_index );
 				$response_data['progress']       = 20;
@@ -428,6 +478,11 @@ class Product_Migrator {
 				$sections_mapped            = $state['sections_mapped'] ?? 0;
 				$top_sections_mapped        = $state['top_sections_mapped'] ?? 0;
 				$already_assigned_articles  = is_array( get_transient( 'wzkb_migration_assigned_articles' ) ) ? get_transient( 'wzkb_migration_assigned_articles' ) : array();
+				$raw_processed_ids          = get_transient( 'wzkb_migration_processed_ids' );
+				$processed_ids              = is_array( $raw_processed_ids ) ? $raw_processed_ids : array(
+					'articles' => array(),
+					'sections' => array(),
+				);
 				$current_top_section_index  = isset( $state['current_top_section_index'] ) ? (int) $state['current_top_section_index'] : 0;
 				$current_desc_section_index = isset( $state['current_desc_section_index'] ) ? (int) $state['current_desc_section_index'] : 0;
 				$current_article_offset     = isset( $state['current_article_offset'] ) ? (int) $state['current_article_offset'] : 0;
@@ -443,7 +498,7 @@ class Product_Migrator {
 				} else {
 					$section_id         = $top_section_ids[ $current_top_section_index ];
 					$section_term       = get_term( $section_id, $this->taxonomy_section );
-					$section_name       = $section_term->name ?? $section_id;
+					$section_name       = ( $section_term && ! is_wp_error( $section_term ) ) ? $section_term->name : (string) $section_id;
 					$total_top_sections = count( $top_section_ids );
 					$log_key            = (string) $current_top_section_index;
 
@@ -499,14 +554,39 @@ class Product_Migrator {
 							__( 'Skipping section ID: %d (No product mapping found).', 'knowledgebase' ),
 							$section_id
 						);
-						$state['current_top_section_index']  = $current_top_section_index + 1;
+						++$current_top_section_index;
+						$state['current_top_section_index']  = $current_top_section_index;
 						$state['descendant_ids']             = array();
 						$state['current_desc_section_index'] = 0;
 						$state['current_article_offset']     = 0;
 						$response_data['progress']           = round( max( 20, min( 80, ( $current_top_section_index / max( 1, count( $top_section_ids ) ) ) * 60 + 20 ) ), 1 );
 						$response_data['next_step']          = 2;
 					} else {
-						$product_id = (int) $section_to_product_map[ $section_id ];
+						$product_entry = $section_to_product_map[ $section_id ];
+						if ( is_array( $product_entry ) ) {
+							$product_id   = (int) ( $product_entry['id'] ?? 0 );
+							$product_name = $product_entry['name'] ?? __( 'Unknown Product', 'knowledgebase' );
+						} else {
+							$product_id   = (int) $product_entry;
+							$product_term = get_term( $product_id, $this->taxonomy_product );
+							$product_name = ( $product_term && ! is_wp_error( $product_term ) ) ? $product_term->name : __( 'Unknown Product', 'knowledgebase' );
+						}
+
+						if ( ! $product_id ) {
+							$log[] = sprintf(
+								/* translators: %d: Section ID */
+								__( 'Skipping section ID: %d (Invalid product mapping found).', 'knowledgebase' ),
+								$section_id
+							);
+							++$current_top_section_index;
+							$state['current_top_section_index']  = $current_top_section_index;
+							$state['descendant_ids']             = array();
+							$state['current_desc_section_index'] = 0;
+							$state['current_article_offset']     = 0;
+							$response_data['progress']           = round( max( 20, min( 80, ( $current_top_section_index / max( 1, count( $top_section_ids ) ) ) * 60 + 20 ) ), 1 );
+							$response_data['next_step']          = 2;
+							break;
+						}
 
 						if ( empty( $descendant_ids ) ) {
 							$log[] = sprintf(
@@ -530,6 +610,7 @@ class Product_Migrator {
 						$sections_processed = 0;
 						$articles_in_batch  = 0;
 						$top_sections_count = count( $top_section_ids );
+						$section_name_cache = array();
 						while ( $sections_processed < $max_sections_per_batch && $articles_in_batch < $max_articles_per_batch && $current_top_section_index < $top_sections_count ) {
 							if ( $current_desc_section_index >= count( $descendant_ids ) ) {
 								$log[] = sprintf(
@@ -549,11 +630,15 @@ class Product_Migrator {
 							}
 
 							$current_section_id = $descendant_ids[ $current_desc_section_index ];
-							$section_term       = get_term( $current_section_id, $this->taxonomy_section );
-							$log[]              = sprintf(
+							if ( ! isset( $section_name_cache[ $current_section_id ] ) ) {
+								$section_term                              = get_term( $current_section_id, $this->taxonomy_section );
+								$section_name_cache[ $current_section_id ] = ( $section_term && ! is_wp_error( $section_term ) ) ? $section_term->name : (string) $current_section_id;
+							}
+							$current_section_name = $section_name_cache[ $current_section_id ];
+							$log[]                = sprintf(
 								/* translators: 1: Section name, 2: Section ID */
 								__( 'Processing section "%1$s" (ID: %2$d)', 'knowledgebase' ),
-								$section_term->name ?? $current_section_id,
+								$current_section_name,
 								$current_section_id
 							);
 
@@ -564,22 +649,22 @@ class Product_Migrator {
 								}
 
 								// Check if we've already counted this section before incrementing.
-								if ( ! isset( $state['processed_section_ids'][ $current_section_id ] ) ) {
+								if ( ! isset( $processed_ids['sections'][ $current_section_id ] ) ) {
 									++$sections_mapped;
-									$state['processed_section_ids'][ $current_section_id ] = true;
+									$processed_ids['sections'][ $current_section_id ] = true;
 								}
 
 								$log[] = sprintf(
 									/* translators: 1: Section name, 2: Section ID, 3: Product ID */
 									__( 'Linked section "%1$s" (ID: %2$d) to product ID: %3$d.', 'knowledgebase' ),
-									$section_term->name ?? $current_section_id,
+									$current_section_name,
 									$current_section_id,
 									$product_id
 								);
 							}
 
 							$articles_remaining = isset( $section_article_counts[ $current_section_id ] ) ? $section_article_counts[ $current_section_id ] - $current_article_offset : $max_articles_per_batch;
-							$articles_to_fetch  = min( $max_articles_per_batch, $max_articles_per_batch - $articles_in_batch, $articles_remaining );
+							$articles_to_fetch  = min( $max_articles_per_batch - $articles_in_batch, $articles_remaining );
 
 							if ( $articles_to_fetch <= 0 ) {
 								$log[] = sprintf(
@@ -630,15 +715,13 @@ class Product_Migrator {
 								$already_assigned_articles[ $product_id ][ $article_id ] = true;
 								++$articles_processed;
 
-								if ( ! isset( $state['processed_article_ids'][ $article_id ] ) ) {
-									$state['processed_article_ids'][ $article_id ] = true;
+								if ( ! isset( $processed_ids['articles'][ $article_id ] ) ) {
+									$processed_ids['articles'][ $article_id ] = true;
 								}
 							}
 
 							if ( ! empty( $assigned_articles ) ) {
-								$product_term = get_term( $product_id, $this->taxonomy_product );
-								$product_name = $product_term->name ?? __( 'Unknown Product', 'knowledgebase' );
-								$log[]        = sprintf(
+								$log[] = sprintf(
 									/* translators: 1: Product name, 2: Product ID, 3: List of articles */
 									__( 'Assigned articles to product "%1$s" (ID: %2$d): %3$s', 'knowledgebase' ),
 									$product_name,
@@ -670,7 +753,7 @@ class Product_Migrator {
 							}
 						}
 
-						$processed_count          = count( $state['processed_article_ids'] ?? array() );
+						$processed_count          = count( $processed_ids['articles'] );
 						$effective_total_articles = max( $total_articles, $processed_count );
 
 						$response_data['progress'] = $total_articles > 0
@@ -684,13 +767,14 @@ class Product_Migrator {
 				}
 
 				set_transient( 'wzkb_migration_assigned_articles', $already_assigned_articles, DAY_IN_SECONDS );
+				set_transient( 'wzkb_migration_processed_ids', $processed_ids, DAY_IN_SECONDS );
 				set_transient( 'wzkb_migration_log', $log, DAY_IN_SECONDS );
 
 				$state['current_top_section_index']  = $current_top_section_index;
 				$state['descendant_ids']             = $descendant_ids;
 				$state['current_desc_section_index'] = $current_desc_section_index;
 				$state['current_article_offset']     = $current_article_offset;
-				$processed_count                     = count( $state['processed_article_ids'] ?? array() );
+				$processed_count                     = count( $processed_ids['articles'] );
 				$effective_total_articles            = max( $total_articles, $processed_count );
 				$state['articles_processed']         = $processed_count;
 				$state['total_articles']             = $effective_total_articles;
@@ -741,21 +825,6 @@ class Product_Migrator {
 				}
 				$state['sections_deleted'] = $sections_deleted;
 
-				if ( $dry_run ) {
-					$simulated_product_ids = $state['simulated_product_ids'] ?? array();
-					if ( ! empty( $simulated_product_ids ) ) {
-						foreach ( $simulated_product_ids as $sim_product_id ) {
-							wp_delete_term( $sim_product_id, $this->taxonomy_product );
-							$log[] = sprintf(
-								/* translators: 1: Product ID */
-								__( 'Deleted simulated product with ID: %1$d after dry run.', 'knowledgebase' ),
-								$sim_product_id
-							);
-						}
-						$state['simulated_product_ids'] = array();
-					}
-				}
-
 				$log[] = sprintf(
 					/* translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Sections mapped, 6: Top sections mapped, 7: Articles processed, 8: Total articles */
 					__( 'Outgoing State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, sections_mapped=%5$d, top_sections_mapped=%6$d, articles_processed=%7$d/%8$d', 'knowledgebase' ),
@@ -769,11 +838,15 @@ class Product_Migrator {
 					$state['total_articles'] ?? 0
 				);
 
-				$log[] = '<strong>' . sprintf(
-					/* translators: 1: Products created, 2: Sub-sections mapped, 3: Articles processed, 4: Sections deleted */
-					__( 'Migration Summary: Created %1$d products from top-level sections, mapped %2$d sub-sections to products, processed %3$d articles, and deleted %4$d old top-level sections.', 'knowledgebase' ),
-					$state['top_sections_mapped'],
-					$state['sections_mapped'],
+				$products_new_count    = (int) ( $state['products_new_count'] ?? 0 );
+				$products_reused_count = max( 0, (int) ( $state['top_sections_mapped'] ?? 0 ) - $products_new_count );
+				$log[]                 = '<strong>' . sprintf(
+					/* translators: 1: Total sections mapped, 2: New products created, 3: Existing products reused, 4: Sub-sections mapped, 5: Articles processed, 6: Sections deleted */
+					__( 'Migration Summary: Mapped %1$d top-level sections to products (%2$d new, %3$d existing reused), mapped %4$d sub-sections to products, processed %5$d articles, and deleted %6$d old top-level sections.', 'knowledgebase' ),
+					$state['top_sections_mapped'] ?? 0,
+					$products_new_count,
+					$products_reused_count,
+					$state['sections_mapped'] ?? 0,
 					$state['articles_processed'] ?? 0,
 					$sections_deleted
 				) . '</strong>';
@@ -791,6 +864,7 @@ class Product_Migrator {
 				$response_data['state']    = $state;
 
 				delete_transient( 'wzkb_migration_assigned_articles' );
+				delete_transient( 'wzkb_migration_processed_ids' );
 				delete_transient( 'wzkb_migration_article_counts' );
 				delete_transient( 'wzkb_migration_log' );
 
