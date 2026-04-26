@@ -812,7 +812,7 @@ class Settings {
 					'none'           => esc_html__( 'No Tracking (allows multiple votes)', 'knowledgebase' ),
 					'cookie'         => esc_html__( 'Cookie Only (requires consent)', 'knowledgebase' ),
 					'ip'             => esc_html__( 'IP Address Only (stores personal data)', 'knowledgebase' ),
-					'cookie_ip'      => esc_html__( 'Cookie + IP Address (requires both)', 'knowledgebase' ),
+					'cookie_ip'      => esc_html__( 'Cookie + IP Address (either blocks voting)', 'knowledgebase' ),
 					'logged_in_only' => esc_html__( 'Logged-in Users Only (best for authenticated sites)', 'knowledgebase' ),
 				),
 				'pro'     => true,
