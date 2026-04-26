@@ -10,6 +10,7 @@
 
 namespace WebberZone\Knowledge_Base\Admin;
 
+use WebberZone\Knowledge_Base\Util\Cache;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -40,6 +41,8 @@ class Tools_Page {
 	public function __construct() {
 		Hook_Registry::add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		Hook_Registry::add_action( 'admin_init', array( $this, 'process_cache_tools' ) );
+		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_cache_tools' ) );
 	}
 
 	/**
@@ -128,6 +131,74 @@ class Tools_Page {
 
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Process cache tools form submissions.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function process_cache_tools() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Just checking page, nonce verified below.
+		if ( ! isset( $_GET['page'] ) || 'wzkb_tools_page' !== $_GET['page'] ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified below.
+		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+			return;
+		}
+
+		if ( isset( $_POST['wzkb_clear_cache'] ) && check_admin_referer( 'wzkb-tools' ) ) {
+			$count = Cache::delete();
+			add_settings_error(
+				'wzkb-notices',
+				'',
+				sprintf(
+					/* translators: %d: Number of cache entries cleared. */
+					esc_html( _n( '%d cache entry cleared.', '%d cache entries cleared.', $count, 'knowledgebase' ) ),
+					(int) $count
+				),
+				'success'
+			);
+		}
+	}
+
+	/**
+	 * Render the cache tools section on the tools page.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function render_cache_tools() {
+		$cache_count = count( Cache::get_keys() );
+		$tools_url   = admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb_tools_page' );
+		?>
+		<div class="postbox">
+			<h2 class="hndle"><span><?php esc_html_e( 'Cache', 'knowledgebase' ); ?></span></h2>
+			<div class="inside">
+				<p><?php esc_html_e( 'The Knowledge Base caches section output to improve performance. Use the button below to clear all cached data.', 'knowledgebase' ); ?></p>
+				<p>
+					<?php
+					printf(
+						/* translators: %d: Number of cache entries. */
+						esc_html( _n( 'There is currently %d entry in the cache.', 'There are currently %d entries in the cache.', $cache_count, 'knowledgebase' ) ),
+						(int) $cache_count
+					);
+					?>
+				</p>
+				<form method="post" action="<?php echo esc_url( $tools_url ); ?>">
+					<?php wp_nonce_field( 'wzkb-tools' ); ?>
+					<p>
+						<input type="submit" name="wzkb_clear_cache" class="button button-secondary" value="<?php esc_attr_e( 'Clear Cache', 'knowledgebase' ); ?>" />
+					</p>
+				</form>
+			</div><!-- /.inside -->
+		</div><!-- /.postbox -->
+		<?php
 	}
 
 	/**
