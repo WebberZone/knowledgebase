@@ -10,8 +10,7 @@ namespace WebberZone\Knowledge_Base;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
+if ( ! function_exists( __NAMESPACE__ . '\\wzkb_freemius' ) ) {
 	/**
 	 * Initialize Freemius SDK.
 	 */
@@ -26,27 +25,27 @@ if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
 			require_once __DIR__ . '/vendor/freemius/start.php';
 			$wzkb_freemius = \fs_dynamic_init(
 				array(
-					'id'                  => '21392',
-					'slug'                => 'knowledgebase',
-					'premium_slug'        => 'knowledgebase-pro',
-					'type'                => 'plugin',
-					'public_key'          => 'pk_1f07ee1df929932e63005f9866901',
-					'is_premium'          => true,
-					'premium_suffix'      => 'Pro',
-					'has_premium_version' => true,
-					'has_addons'          => false,
-					'has_paid_plans'      => true,
-					'wp_org_gatekeeper'   => 'OA7#BoRiBNqdf52FvzEf!!074aRLPs8fspif$7K1#4u4Csys1fQlCecVcUTOs2mcpeVHi#C2j9d09fOTvbC0HloPT7fFee5WdS3G',
-					'trial'               => array(
+					'id'               => '21392',
+					'slug'             => 'knowledgebase',
+					'premium_slug'     => 'knowledgebase-pro',
+					'type'             => 'plugin',
+					'public_key'       => 'pk_1f07ee1df929932e63005f9866901',
+					'is_premium'       => false,
+					'premium_suffix'   => 'Pro',
+					'has_addons'       => false,
+					'has_paid_plans'   => true,
+					'trial'            => array(
 						'days'               => 14,
 						'is_require_payment' => true,
 					),
-					'menu'                => array(
+					'menu'             => array(
 						'slug'       => 'edit.php?post_type=wz_knowledgebase',
 						'first-path' => 'edit.php?post_type=wz_knowledgebase&page=wzkb_wizard',
 						'contact'    => false,
 						'support'    => false,
 					),
+					'is_live'          => true,
+					'is_org_compliant' => true,
 				)
 			);
 		}
