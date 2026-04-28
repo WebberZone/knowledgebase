@@ -37,6 +37,7 @@ Perfect for:
 - __Widgets Included__: WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
 - __Built-in Caching__: Speed up your Knowledge Base without extra plugins.
 - __Multilingual Ready__: Full WPML and Polylang compatibility — translate articles, sections, products, and tags; language-aware caching and widgets included out of the box.
+- __Auto Table of Contents__: Automatically generate a linked Table of Contents from article headings, with configurable depth and minimum heading threshold.
 
 ### Pro features
 
@@ -171,6 +172,24 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 
 == Changelog ==
+
+= 3.1.0 =
+
+* Features:
+	* Auto-generated Table of Contents for Knowledge Base articles: parses headings (H2–H6), injects anchor IDs, and renders a nested linked TOC above article content.
+		* Configurable heading depth (H2–H6), minimum heading count threshold, and custom title text.
+		* WPML and Polylang support for TOC title translation.
+		* Filter `wzkb_toc` to customise the generated HTML.
+		* Public helper functions `wzkb_get_toc()` and `wzkb_toc()` for template use.
+
+* Enhancements:
+	* Improved frontend styles across all themes: TOC styles added to all nine bundled themes (Classic, Vibrant, Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional), each styled to match its design language.
+	* Classic style: removed Dashicons dependency for article list bullets; replaced with a universal `›` glyph. Fixed non-standard `orange` and `ghostwhite` CSS colour values. Modernised section level-1 header styling.
+
+* Bug fixes:
+	* Fixed undefined CSS variables (`--wzkb-shadow-hover`, `--wzkb-bg-light`, `--wzkb-color-text-medium`) in several Pro styles that caused fallback values to be silently discarded.
+	* Fixed incorrect variable reference `--wzkb-radius-md` → `--wzkb-border-radius-md` in Vibrant style TOC.
+	* Removed duplicate ruleset at end of Magazine style.
 
 = 3.0.0 =
 

@@ -7,6 +7,7 @@
 
 use WebberZone\Knowledge_Base\Frontend\Media_Handler;
 use WebberZone\Knowledge_Base\Frontend\Related;
+use WebberZone\Knowledge_Base\Frontend\TOC;
 use WebberZone\Knowledge_Base\Util\Helpers;
 use WebberZone\Knowledge_Base\Frontend\Display;
 use WebberZone\Knowledge_Base\Frontend\Breadcrumbs;
@@ -195,6 +196,35 @@ function wzkb_related_articles( $args = array() ) {
 	} else {
 		return $related;
 	}
+}
+
+/**
+ * Get the table of contents for a knowledge base article.
+ *
+ * @since 3.0.0
+ *
+ * @param string $content Post content to parse. Defaults to current post content.
+ * @param array  $args    Optional arguments. See TOC::process_content() for accepted keys.
+ * @return string TOC HTML, or empty string if not enough headings were found.
+ */
+function wzkb_get_toc( $content = '', $args = array() ) {
+	if ( '' === $content ) {
+		$content = get_the_content();
+	}
+	$result = TOC::process_content( $content, $args );
+	return $result['toc'];
+}
+
+/**
+ * Output the table of contents for a knowledge base article.
+ *
+ * @since 3.0.0
+ *
+ * @param string $content Post content to parse. Defaults to current post content.
+ * @param array  $args    Optional arguments. See TOC::process_content() for accepted keys.
+ */
+function wzkb_toc( $content = '', $args = array() ) {
+	echo wzkb_get_toc( $content, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**

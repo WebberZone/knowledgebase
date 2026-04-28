@@ -1008,3 +1008,47 @@ nav.pagination {
 	font-size: 14px;
 	color: var(--wzkb-color-text-medium);
 }
+
+/* Table of Contents */
+.wzkb-toc {
+	background: var(--wzkb-bg-light);
+	border: 1px solid var(--wzkb-border-light);
+	border-radius: var(--wzkb-border-radius-md, 6px);
+	padding: 1rem 1.5rem;
+	margin-bottom: 2rem;
+	display: inline-block;
+	min-width: 200px;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.wzkb-toc-title {
+	font-weight: 600;
+	margin: 0 0 0.5rem;
+}
+
+.wzkb-toc-list,
+.wzkb-toc-list ul {
+	margin: 0;
+	padding-right: 1.25rem;
+	list-style: disc;
+}
+
+.wzkb-toc-list ul {
+	padding-right: 1.5rem;
+}
+
+.wzkb-toc-list li {
+	margin: 0.2rem 0;
+	line-height: 1.5;
+}
+
+.wzkb-toc-list a {
+	color: var(--wzkb-color-primary);
+	text-decoration: none;
+	transition: color var(--wzkb-transition-base, 0.2s) ease;
+}
+
+.wzkb-toc-list a:hover {
+	text-decoration: underline;
+}

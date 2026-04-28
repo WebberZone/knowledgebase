@@ -39,6 +39,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - 🧭 __Built-in Breadcrumbs__ — Improve UX and SEO with breadcrumb navigation.
 - 🧩 __Widgets Included__ — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
 - ⚡ __Built-in Caching__ — Speed up your Knowledge Base without extra plugins.
+- 📋 __Auto Table of Contents__ — Automatically generate a linked Table of Contents from article headings, with configurable depth and minimum heading threshold.
 
 ### Pro features
 

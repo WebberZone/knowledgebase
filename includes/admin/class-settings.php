@@ -690,6 +690,46 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => true,
 			),
+			'toc_header'            => array(
+				'id'   => 'toc_header',
+				'name' => '<h3>' . esc_html__( 'Table of Contents', 'knowledgebase' ) . '</h3>',
+				'desc' => '',
+				'type' => 'header',
+			),
+			'show_toc'              => array(
+				'id'      => 'show_toc',
+				'name'    => esc_html__( 'Show table of contents', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Auto-generate a table of contents from headings in article content. Only displays when there are sufficient headings.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => false,
+			),
+			'toc_heading_depth'     => array(
+				'id'      => 'toc_heading_depth',
+				'name'    => esc_html__( 'TOC heading depth', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Maximum heading level to include in the table of contents. 2 includes only H2; 3 includes H2 and H3, and so on.', 'knowledgebase' ),
+				'type'    => 'number',
+				'default' => 4,
+				'size'    => 'small',
+				'min'     => 2,
+				'max'     => 6,
+			),
+			'toc_min_headings'      => array(
+				'id'      => 'toc_min_headings',
+				'name'    => esc_html__( 'Minimum headings for TOC', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Minimum number of headings required before the table of contents is displayed.', 'knowledgebase' ),
+				'type'    => 'number',
+				'default' => 3,
+				'size'    => 'small',
+				'min'     => 1,
+				'max'     => 20,
+			),
+			'toc_title'             => array(
+				'id'      => 'toc_title',
+				'name'    => esc_html__( 'TOC title', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Title displayed above the table of contents. Leave empty to hide the title.', 'knowledgebase' ),
+				'type'    => 'text',
+				'default' => __( 'Table of Contents', 'knowledgebase' ),
+			),
 		);
 
 		/**
