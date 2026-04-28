@@ -41,13 +41,14 @@ Perfect for:
 
 ### Pro features
 
-[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/#pro) enhances the plugin with advanced features for larger documentation sites, including ratings and feedback, a help widget, a powerful custom permalinks engine, premium layouts, and additional admin tools.
+[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/#pro) enhances the plugin with advanced features for larger documentation sites, including ratings and feedback, a help widget, a powerful custom permalinks engine, premium layouts, enhanced TOC surfaces, and additional admin tools.
 
 - __Article Rating & Feedback System__: Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
 - __Help Widget__: Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
 - __Custom Permalinks Engine__: Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
 - __Knowledge Base Homepage Mode__: Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
 - __Premium Layout Pack__: Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+- __Enhanced Table of Contents__: Three Pro TOC delivery surfaces — a sidebar widget that renders the TOC for the current article, a Gutenberg block to insert the TOC inline, and a floating/sticky panel that follows the reader down the page.
 - __Advanced Admin Tools__: Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
 ### Key Concepts
@@ -181,6 +182,9 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 		* WPML and Polylang support for TOC title translation.
 		* Filter `wzkb_toc` to customise the generated HTML.
 		* Public helper functions `wzkb_get_toc()` and `wzkb_toc()` for template use.
+	* [Pro] TOC Widget: sidebar widget that renders the Table of Contents for the current article.
+	* [Pro] TOC Gutenberg Block: insert the Table of Contents inline within article content using a block.
+	* [Pro] Floating TOC: sticky panel that follows the reader down the page, with configurable position and behaviour.
 
 * Enhancements:
 	* Improved frontend styles across all themes: TOC styles added to all nine bundled themes (Classic, Vibrant, Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional), each styled to match its design language.

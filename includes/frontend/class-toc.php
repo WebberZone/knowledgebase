@@ -52,7 +52,7 @@ class TOC {
 			return $content;
 		}
 
-		$result = self::process_content( $content );
+		$result = self::process_content( $content, array( 'extra_class' => 'wzkb-toc--inline' ) );
 
 		if ( empty( $result['toc'] ) ) {
 			return $content;
@@ -75,6 +75,7 @@ class TOC {
 	 *     @type int    $heading_depth Max heading level to include (2–6). Default from setting.
 	 *     @type int    $min_headings  Minimum headings required to show TOC. Default from setting.
 	 *     @type string $title         TOC title text. Default from setting.
+	 *     @type string $extra_class   Additional CSS class added to the TOC nav element. Default empty.
 	 * }
 	 * @return array {
 	 *     @type string $toc     TOC HTML, or empty string if below minimum headings.
@@ -86,6 +87,7 @@ class TOC {
 			'heading_depth' => (int) \wzkb_get_option( 'toc_heading_depth', 4 ),
 			'min_headings'  => (int) \wzkb_get_option( 'toc_min_headings', 3 ),
 			'title'         => (string) \wzkb_get_option( 'toc_title', __( 'Table of Contents', 'knowledgebase' ) ),
+			'extra_class'   => '',
 		);
 		$args     = wp_parse_args( $args, $defaults );
 
@@ -158,8 +160,9 @@ class TOC {
 			return '';
 		}
 
-		$title  = isset( $args['title'] ) ? (string) $args['title'] : '';
-		$output = '<nav class="wzkb-toc" aria-label="' . esc_attr__( 'Table of Contents', 'knowledgebase' ) . '">';
+		$title       = isset( $args['title'] ) ? (string) $args['title'] : '';
+		$extra_class = isset( $args['extra_class'] ) && '' !== $args['extra_class'] ? ' ' . esc_attr( $args['extra_class'] ) : '';
+		$output      = '<nav class="wzkb-toc' . $extra_class . '" aria-label="' . esc_attr__( 'Table of Contents', 'knowledgebase' ) . '">';
 
 		if ( '' !== $title ) {
 			$output .= '<p class="wzkb-toc-title">' . esc_html( $title ) . '</p>';
@@ -186,9 +189,6 @@ class TOC {
 				}
 				if ( ! empty( $stack ) && end( $stack ) === $level ) {
 					$output .= '</li>';
-				} elseif ( ! empty( $stack ) ) {
-					$output .= '<ul>';
-					$stack[] = $level;
 				} else {
 					$stack[] = $level;
 				}

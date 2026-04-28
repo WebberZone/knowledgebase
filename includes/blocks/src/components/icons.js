@@ -1,3 +1,52 @@
+export const tocIcon = (props) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="-76.8 -76.8 665.6 665.6"
+		{...props}
+	>
+		<rect
+			width={665.6}
+			height={665.6}
+			x={-76.8}
+			y={-76.8}
+			fill="#FFBD59"
+			rx={332.8}
+		/>
+		{ /* Bullet dots */}
+		<circle cx="80" cy="120" r="32" fill="#792a18" />
+		<circle cx="80" cy="256" r="32" fill="#792a18" />
+		<circle cx="80" cy="392" r="32" fill="#792a18" />
+		{ /* Lines */}
+		<rect x="152" y="100" width="240" height="40" rx="20" fill="#fff" />
+		<rect x="152" y="236" width="200" height="40" rx="20" fill="#fff" />
+		<rect x="152" y="372" width="220" height="40" rx="20" fill="#fff" />
+		{ /* Indented sub-items */}
+		<rect x="192" y="168" width="160" height="32" rx="16" fill="#f0ebea" />
+		<rect x="192" y="304" width="140" height="32" rx="16" fill="#f0ebea" />
+	</svg>
+);
+
+export const ratingIcon = (props) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="-76.8 -76.8 665.6 665.6"
+		{...props}
+	>
+		<rect
+			width={665.6}
+			height={665.6}
+			x={-76.8}
+			y={-76.8}
+			fill="#FFBD59"
+			rx={332.8}
+		/>
+		<path
+			fill="#792a18"
+			d="M256 60l48.6 148.6H460l-126.3 91.8 48.2 148.4L256 357l-125.9 91.8 48.2-148.4L52 208.6h155.4z"
+		/>
+	</svg>
+);
+
 export const bookIcon = (props) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
