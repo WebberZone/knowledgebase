@@ -8,6 +8,7 @@
 namespace WebberZone\Knowledge_Base\Widgets;
 
 use WebberZone\Knowledge_Base\Frontend\Display;
+use WebberZone\Knowledge_Base\Frontend\Language_Handler;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -116,7 +117,7 @@ class Products_Widget extends \WP_Widget {
 
 		$title      = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 		$title      = apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$product_id = ! empty( $instance['product_id'] ) ? (int) $instance['product_id'] : 0;
+		$product_id = Language_Handler::get_translated_term_id( ! empty( $instance['product_id'] ) ? (int) $instance['product_id'] : 0, 'wzkb_product' );
 		$depth      = isset( $instance['depth'] ) ? (int) $instance['depth'] : -1;
 
 		$output  = '';

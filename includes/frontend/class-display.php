@@ -7,6 +7,7 @@
 
 namespace WebberZone\Knowledge_Base\Frontend;
 
+use WebberZone\Knowledge_Base\Frontend\Language_Handler;
 use WebberZone\Knowledge_Base\Util\Cache;
 use WebberZone\Knowledge_Base\Util\Helpers;
 
@@ -228,7 +229,8 @@ class Display {
 
 		if ( $cache_enabled ) {
 			// Create a transient-based cache key for non-term-specific queries.
-			$transient_key = 'wzkb_fetch_terms_' . md5( wp_json_encode( $args ) );
+			$lang          = Language_Handler::get_current_language();
+			$transient_key = 'wzkb_fetch_terms_' . md5( wp_json_encode( $args ) . '_' . $lang );
 
 			// Try to get from transient cache first.
 			$cached_terms = get_transient( $transient_key );
@@ -577,8 +579,10 @@ class Display {
 
 		// Support caching to speed up retrieval.
 		if ( $cache_enabled ) {
-			$meta_key = Cache::get_key( $args );
-			$query    = Cache::get( $term->term_id, $meta_key );
+			$lang           = Language_Handler::get_current_language();
+			$cache_key_args = $lang ? array_merge( $args, array( 'lang' => $lang ) ) : $args;
+			$meta_key       = Cache::get_key( $cache_key_args );
+			$query          = Cache::get( $term->term_id, $meta_key );
 		}
 
 		if ( empty( $query ) ) {

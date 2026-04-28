@@ -7,6 +7,8 @@
 
 namespace WebberZone\Knowledge_Base\Widgets;
 
+use WebberZone\Knowledge_Base\Frontend\Language_Handler;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -165,8 +167,8 @@ class Sections_Widget extends \WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-		$product_id = isset( $instance['product_id'] ) ? (int) $instance['product_id'] : 0;
-		$term_id    = ! empty( $instance['term_id'] ) ? (int) $instance['term_id'] : 0;
+		$product_id = Language_Handler::get_translated_term_id( isset( $instance['product_id'] ) ? (int) $instance['product_id'] : 0, 'wzkb_product' );
+		$term_id    = Language_Handler::get_translated_term_id( ! empty( $instance['term_id'] ) ? (int) $instance['term_id'] : 0, 'wzkb_category' );
 
 		$arguments = array(
 			'is_widget'      => 1,
