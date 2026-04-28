@@ -187,6 +187,7 @@ class TOC {
 				if ( ! empty( $stack ) && end( $stack ) === $level ) {
 					$output .= '</li>';
 				} else {
+					$output .= '<ul>';
 					$stack[] = $level;
 				}
 			}
