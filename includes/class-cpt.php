@@ -371,10 +371,11 @@ class CPT {
 		// Check if there's a regular post with this slug first.
 		$regular_post = get_posts(
 			array(
-				'name'           => $post_name,
-				'post_type'      => 'post',
-				'post_status'    => 'publish',
-				'posts_per_page' => 1,
+				'name'             => $post_name,
+				'post_type'        => 'post',
+				'post_status'      => 'publish',
+				'posts_per_page'   => 1,
+				'suppress_filters' => false,
 			)
 		);
 
@@ -386,10 +387,11 @@ class CPT {
 		// No regular post found, check if there's a KB article with this slug.
 		$kb_post = get_posts(
 			array(
-				'name'           => $post_name,
-				'post_type'      => 'wz_knowledgebase',
-				'post_status'    => 'publish',
-				'posts_per_page' => 1,
+				'name'             => $post_name,
+				'post_type'        => 'wz_knowledgebase',
+				'post_status'      => 'publish',
+				'posts_per_page'   => 1,
+				'suppress_filters' => false,
 			)
 		);
 

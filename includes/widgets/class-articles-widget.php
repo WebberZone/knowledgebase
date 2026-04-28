@@ -8,6 +8,7 @@
 namespace WebberZone\Knowledge_Base\Widgets;
 
 use WebberZone\Knowledge_Base\Frontend\Display;
+use WebberZone\Knowledge_Base\Frontend\Language_Handler;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -171,10 +172,11 @@ class Articles_Widget extends \WP_Widget {
 
 		// Handle product_id if set.
 		if ( ! empty( $instance['product_id'] ) ) {
-			$kb_args['product'] = (int) $instance['product_id'];
+			$kb_args['product'] = Language_Handler::get_translated_term_id( (int) $instance['product_id'], 'wzkb_product' );
 			$list_of_posts      = Display::get_knowledge_base_loop( 0, 1, true, $kb_args );
 		} elseif ( ! empty( $instance['term_id'] ) ) {
-			$term = get_term( $instance['term_id'], 'wzkb_category' );
+			$term_id = Language_Handler::get_translated_term_id( (int) $instance['term_id'], 'wzkb_category' );
+			$term    = get_term( $term_id, 'wzkb_category' );
 
 			if ( empty( $term ) || is_wp_error( $term ) ) {
 				return;

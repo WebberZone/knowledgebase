@@ -166,6 +166,48 @@ class Related {
 			self::sort_query_by_relevance( $query, $category_ids, $tag_ids, $args );
 		}
 
+		// Fallback: if no results and the post has categories, widen the search to
+		// sibling sections — other sections belonging to the same product.
+		if ( 0 === $query->post_count && ! empty( $category_ids ) ) {
+			$products    = get_the_terms( $post, 'wzkb_product' );
+			$product_ids = ( $products && ! is_wp_error( $products ) ) ? wp_list_pluck( $products, 'term_id' ) : array();
+
+			$sibling_args = $related_args;
+
+			if ( ! empty( $product_ids ) ) {
+				// Multi-product: restrict to the same product, exclude the current section.
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				$sibling_args['tax_query'] = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy' => 'wzkb_product',
+						'field'    => 'term_id',
+						'terms'    => $product_ids,
+					),
+					array(
+						'taxonomy' => 'wzkb_category',
+						'field'    => 'term_id',
+						'terms'    => $category_ids,
+						'operator' => 'NOT IN',
+					),
+				);
+			} else {
+				// Single-product: all sections are siblings — exclude only the current section.
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				$sibling_args['tax_query'] = array(
+					array(
+						'taxonomy' => 'wzkb_category',
+						'field'    => 'term_id',
+						'terms'    => $category_ids,
+						'operator' => 'NOT IN',
+					),
+				);
+			}
+
+			$query = new \WP_Query( $sibling_args );
+			self::sort_query_by_relevance( $query, $category_ids, $tag_ids, $args );
+		}
+
 		/**
 		 * Filters the cache TTL for related article queries.
 		 *

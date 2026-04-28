@@ -209,6 +209,11 @@ function wzkb_get_kb_url() {
 		return home_url( '/' );
 	}
 
+	$archive_link = get_post_type_archive_link( 'wz_knowledgebase' );
+	if ( $archive_link ) {
+		return $archive_link;
+	}
+
 	$kb_slug = \wzkb_get_option( 'kb_slug', 'knowledgebase' );
 	return home_url( "/{$kb_slug}/" );
 }
