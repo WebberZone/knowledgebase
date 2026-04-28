@@ -14,12 +14,12 @@
 	--wzkb-color-text: #333;
 	--wzkb-color-text-medium: #666;
 	--wzkb-color-white: #fff;
-	--wzkb-color-orange: orange;
+	--wzkb-color-orange: #f97316;
 
 	/* Background colors */
 	--wzkb-bg-white: #fff;
 	--wzkb-bg-light: #f8f9fa;
-	--wzkb-bg-ghostwhite: ghostwhite;
+	--wzkb-bg-ghostwhite: #f8f8ff;
 
 	/* Border colors */
 	--wzkb-border-light: #e0e0e0;
@@ -189,11 +189,11 @@
 }
 
 .wzkb-section-name-level-1 {
-	border-bottom: 1px black dotted;
-	border-top: 1px black dotted;
-	padding: 5px 1px;
-	background-color: var(--wzkb-bg-ghostwhite);
-	margin-top: 30px;
+	border-bottom: 2px solid var(--wzkb-border-light);
+	border-top: none;
+	padding: 8px 0 10px;
+	background-color: transparent;
+	margin-top: 24px;
 	margin-bottom: 0;
 	grid-column: 1 / -1;
 }
@@ -242,25 +242,17 @@
 }
 
 .wzkb-articles-list li:before {
-	content: "\f123";
+	content: "›";
 	display: inline-block;
-	width: 20px;
-	height: 20px;
-	font-size: 20px;
-	line-height: 1;
-	font-family: dashicons;
-	text-decoration: inherit;
+	width: 16px;
+	font-size: 18px;
+	line-height: 1.4;
 	font-weight: 400;
-	font-style: normal;
-	vertical-align: top;
-	text-align: center;
-	-webkit-transition: color 0.1s ease-in 0;
-	transition: color 0.1s ease-in 0;
+	font-family: inherit;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	margin-left: 10px;
-	word-wrap: break-word;
-	color: var(--wzkb-color-text-medium);
+	margin-left: 8px;
+	color: var(--wzkb-color-primary);
 }
 
 .wzkb-articles-list li a {
@@ -926,4 +918,52 @@ nav.pagination {
 	grid-area: excerpt;
 	margin: 0;
 	line-height: 1.55;
+}
+
+/* Table of Contents */
+.wzkb-toc {
+	background: var(--wzkb-bg-light);
+	border: 1px solid var(--wzkb-border-light);
+	border-radius: 6px;
+	padding: 1rem 1.5rem;
+	margin-bottom: 2rem;
+	display: inline-block;
+	min-width: 200px;
+	max-width: 100%;
+	box-sizing: border-box;
+	box-shadow: 0 1px 4px var(--wzkb-shadow-color);
+}
+
+.wzkb-toc-title {
+	font-weight: 700;
+	margin: 0 0 0.5rem;
+	color: var(--wzkb-color-text-dark);
+	font-size: 15px;
+}
+
+.wzkb-toc-list,
+.wzkb-toc-list ul {
+	margin: 0;
+	padding-right: 1.25rem;
+	list-style: disc;
+}
+
+.wzkb-toc-list ul {
+	padding-right: 1.5rem;
+}
+
+.wzkb-toc-list li {
+	margin: 0.2rem 0;
+	line-height: 1.5;
+}
+
+.wzkb-toc-list a {
+	color: var(--wzkb-color-primary);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.wzkb-toc-list a:hover {
+	color: var(--wzkb-color-dark);
+	text-decoration: underline;
 }

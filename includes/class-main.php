@@ -156,6 +156,15 @@ final class Main {
 	public Frontend\Related $related_articles;
 
 	/**
+	 * Table of contents.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var Frontend\TOC TOC handler.
+	 */
+	public Frontend\TOC $toc;
+
+	/**
 	 * Block patterns.
 	 *
 	 * @since 3.0.0
@@ -201,6 +210,7 @@ final class Main {
 		$this->styles           = new Frontend\Styles_Handler();
 		$this->display          = new Frontend\Display();
 		$this->related_articles = new Frontend\Related();
+		$this->toc              = new Frontend\TOC();
 		$this->search           = new Frontend\Search();
 		$this->shortcodes       = new Frontend\Shortcodes();
 		$this->feed             = new Frontend\Feed();
