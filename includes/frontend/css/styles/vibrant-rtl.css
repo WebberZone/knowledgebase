@@ -1011,11 +1011,14 @@ nav.pagination {
 
 /* Table of Contents */
 .wzkb-toc {
+	margin-bottom: 2rem;
+}
+
+.wzkb-toc--inline {
 	background: var(--wzkb-bg-light);
 	border: 1px solid var(--wzkb-border-light);
 	border-radius: var(--wzkb-border-radius-md, 6px);
 	padding: 1rem 1.5rem;
-	margin-bottom: 2rem;
 	display: inline-block;
 	min-width: 200px;
 	max-width: 100%;
@@ -1025,6 +1028,11 @@ nav.pagination {
 .wzkb-toc-title {
 	font-weight: 600;
 	margin: 0 0 0.5rem;
+}
+
+.wzkb-toc--widget .wzkb-toc-title {
+	color: inherit;
+	font-size: inherit;
 }
 
 .wzkb-toc-list,

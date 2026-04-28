@@ -730,6 +730,26 @@ class Settings {
 				'type'    => 'text',
 				'default' => __( 'Table of Contents', 'knowledgebase' ),
 			),
+			'show_floating_toc'     => array(
+				'id'      => 'show_floating_toc',
+				'name'    => esc_html__( 'Show floating table of contents', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display a sticky/floating TOC panel that follows the reader as they scroll through a KB article. Highlights the active section automatically.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+			'floating_toc_position' => array(
+				'id'      => 'floating_toc_position',
+				'name'    => esc_html__( 'Floating TOC position', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Side of the viewport where the floating TOC panel is anchored.', 'knowledgebase' ),
+				'type'    => 'radio',
+				'default' => 'right',
+				'options' => array(
+					'right' => esc_html__( 'Right', 'knowledgebase' ),
+					'left'  => esc_html__( 'Left', 'knowledgebase' ),
+				),
+				'pro'     => true,
+			),
 		);
 
 		/**
