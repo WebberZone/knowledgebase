@@ -36,6 +36,7 @@ Perfect for:
 - __Built-in Breadcrumbs__: Improve UX and SEO with breadcrumb navigation.
 - __Widgets Included__: WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
 - __Built-in Caching__: Speed up your Knowledge Base without extra plugins.
+- __Multilingual Ready__: Full WPML and Polylang compatibility — translate articles, sections, products, and tags; language-aware caching and widgets included out of the box.
 
 ### Pro features
 
@@ -134,6 +135,20 @@ Yes. You can use the [knowledgebase] shortcode in any page builder. The plugin a
 = Can visitors search the knowledge base? =
 
 Yes. The plugin includes a built-in search form (via the [wzkb_search] shortcode and a Search block for Gutenberg). The Pro version also adds a floating Help Widget with live search and suggested articles.
+
+= Is it compatible with WPML or Polylang? =
+
+Yes. Knowledge Base has built-in support for both WPML and Polylang:
+
+* **Articles, sections, products, and tags** are all translatable. WPML uses `wpml-config.xml` (bundled with the plugin) for automatic configuration. Polylang auto-detects the public post type and taxonomies.
+* **Widgets** (Articles, Sections, Products) translate stored term IDs to the current language automatically, so you can save a term ID in the default language and the widget will display the correct translation.
+* **Archive URLs** resolve to the language-aware URL via `get_post_type_archive_link()`, which both WPML and Polylang filter automatically.
+* **Caching** is language-aware — cached output is keyed per language so visitors never see content from the wrong locale.
+
+**Known limitations:**
+
+* The Pro Custom Permalinks feature builds URL structures using `home_url()`. With WPML you may need to set the *Language URL format* to *Directory* (e.g. `/en/`, `/fr/`) for custom permalink structures to resolve correctly per language.
+* The built-in search form posts to `home_url( '/' )` — this is the standard WordPress search pattern and is handled correctly by both plugins' URL routing.
 
 = How can I report security bugs? =
 
