@@ -34,13 +34,15 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 
 - 🚀 __Unlimited Knowledge Bases__ — Support as many products as you like, with unlimited sections and sub-sections.
 - 🎨 __Beautiful, Responsive Layouts__ — Ships with clean templates powered by the Responsive Grid System.
-- 🔗 __Customisable Permalinks__ — View your KB at /knowledgebase/ by default or change it easily.
+- 🔗 __Customisable Permalinks__ — View your KB at /knowledgebase/ by default or change the base slugs for articles, sections, products, and tags. Advanced custom permalink structures with dynamic placeholders are available in Pro.
 - ✨ __Shortcodes + Gutenberg Blocks__ — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
 - 🧭 __Built-in Breadcrumbs__ — Improve UX and SEO with breadcrumb navigation.
 - 🧩 __Widgets Included__ — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
-- ⚡ __Built-in Caching__ — Speed up your Knowledge Base without extra plugins.
+- ⚡ __Built-in Caching__ — Speed up your Knowledge Base without extra plugins. Configurable cache expiry settings are available in Pro.
 - 📋 __Auto Table of Contents__ — Automatically generate a linked Table of Contents from article headings, with configurable depth and minimum heading threshold.
 - 🔎 __Live Search Suggestions__ — Show accessible AJAX search suggestions as visitors type in the Knowledge Base search form.
+- 🔗 __Related Articles__ — Display related articles at the bottom of KB articles based on categories and tags.
+- ⚠️ __Alerts__ — Add attention-grabbing alert boxes with the [kbalert] shortcode or Alerts block.
 
 ### Pro features
 
@@ -49,7 +51,8 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - ⭐ __Article Rating & Feedback System__ — Collect binary or 5-star feedback with optional follow-up questions, admin alerts, Bayesian sorting, and GDPR-friendly tracking modes.
 - 💬 __Help Widget__ — Offer an in-app support hub with live search, suggested articles, and a contact form inside a floating assistant.
 - 🧭 __Custom Permalinks Engine__ — Craft advanced URL structures for articles, sections, tags, and products using dynamic placeholders.
-- 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+- 🏠 __Knowledge Base Homepage Mode__ — Display the Knowledge Base on your site homepage. The Knowledge Base URL becomes the homepage and the Knowledge Base archive URL redirects to the homepage.
+- 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - 📑 __Enhanced Table of Contents__ — Three Pro TOC delivery surfaces: a sidebar widget that renders the TOC for the current article, a Gutenberg block for inline insertion, and a floating/sticky panel that follows the reader down the page.
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 
