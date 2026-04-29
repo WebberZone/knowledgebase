@@ -690,6 +690,19 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => true,
 			),
+			'search_header'         => array(
+				'id'   => 'search_header',
+				'name' => '<h3>' . esc_html__( 'Search', 'knowledgebase' ) . '</h3>',
+				'desc' => '',
+				'type' => 'header',
+			),
+			'enable_live_search'    => array(
+				'id'      => 'enable_live_search',
+				'name'    => esc_html__( 'Enable live search', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Show real-time search suggestions as the visitor types in the knowledge base search form.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
 			'toc_header'            => array(
 				'id'   => 'toc_header',
 				'name' => '<h3>' . esc_html__( 'Table of Contents', 'knowledgebase' ) . '</h3>',

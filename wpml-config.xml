@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wpml-config>
+
+	<custom-types>
+		<custom-type translate="1" display-as-translated="1">wz_knowledgebase</custom-type>
+	</custom-types>
+
+	<taxonomies>
+		<taxonomy translate="1">wzkb_category</taxonomy>
+		<taxonomy translate="1">wzkb_product</taxonomy>
+		<taxonomy translate="1">wzkb_tag</taxonomy>
+	</taxonomies>
+
+	<admin-texts>
+		<key name="wzkb_settings">
+			<key name="kb_title" />
+			<key name="toc_title" />
+			<key name="help_widget_button_text" />
+			<key name="help_widget_greeting" />
+			<key name="help_widget_search_placeholder" />
+		</key>
+	</admin-texts>
+
+</wpml-config>

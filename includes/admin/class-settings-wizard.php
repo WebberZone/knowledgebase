@@ -129,6 +129,8 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'limit',
 			'show_related_articles',
 			'show_sidebar',
+			'enable_live_search',
+			'show_toc',
 		);
 		$style_settings_keys   = array(
 			'include_styles',
@@ -138,6 +140,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'custom_css',
 		);
 		$pro_features_keys     = array(
+			'show_floating_toc',
 			'rating_system',
 			'rating_tracking_method',
 			'show_rating_stats',

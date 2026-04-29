@@ -38,6 +38,7 @@ Perfect for:
 - __Built-in Caching__: Speed up your Knowledge Base without extra plugins.
 - __Multilingual Ready__: Full WPML and Polylang compatibility — translate articles, sections, products, and tags; language-aware caching and widgets included out of the box.
 - __Auto Table of Contents__: Automatically generate a linked Table of Contents from article headings, with configurable depth and minimum heading threshold.
+- __Live Search Suggestions__: Show accessible AJAX search suggestions as visitors type in the Knowledge Base search form.
 
 ### Pro features
 
@@ -136,7 +137,7 @@ Yes. You can use the [knowledgebase] shortcode in any page builder. The plugin a
 
 = Can visitors search the knowledge base? =
 
-Yes. The plugin includes a built-in search form (via the [wzkb_search] shortcode and a Search block for Gutenberg). The Pro version also adds a floating Help Widget with live search and suggested articles.
+Yes. The plugin includes a built-in search form (via the [wzkb_search] shortcode and a Search block for Gutenberg) with optional live AJAX suggestions. You can enable or disable live search from the plugin settings. The Pro version also adds a floating Help Widget with live search and suggested articles.
 
 = Is it compatible with WPML or Polylang? =
 
@@ -174,27 +175,6 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 == Changelog ==
 
-= 3.1.0 =
-
-* Features:
-	* Auto-generated Table of Contents for Knowledge Base articles: parses headings (H2–H6), injects anchor IDs, and renders a nested linked TOC above article content.
-		* Configurable heading depth (H2–H6), minimum heading count threshold, and custom title text.
-		* WPML and Polylang support for TOC title translation.
-		* Filter `wzkb_toc` to customise the generated HTML.
-		* Public helper functions `wzkb_get_toc()` and `wzkb_toc()` for template use.
-	* [Pro] TOC Widget: sidebar widget that renders the Table of Contents for the current article.
-	* [Pro] TOC Gutenberg Block: insert the Table of Contents inline within article content using a block.
-	* [Pro] Floating TOC: sticky panel that follows the reader down the page, with configurable position and behaviour.
-
-* Enhancements:
-	* Improved frontend styles across all themes: TOC styles added to all nine bundled themes (Classic, Vibrant, Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional), each styled to match its design language.
-	* Classic style: removed Dashicons dependency for article list bullets; replaced with a universal `›` glyph. Fixed non-standard `orange` and `ghostwhite` CSS colour values. Modernised section level-1 header styling.
-
-* Bug fixes:
-	* Fixed undefined CSS variables (`--wzkb-shadow-hover`, `--wzkb-bg-light`, `--wzkb-color-text-medium`) in several Pro styles that caused fallback values to be silently discarded.
-	* Fixed incorrect variable reference `--wzkb-radius-md` → `--wzkb-border-radius-md` in Vibrant style TOC.
-	* Removed duplicate ruleset at end of Magazine style.
-
 = 3.0.0 =
 
 Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](https://webberzone.com/announcements/knowledge-base-v3-0-0/)
@@ -211,6 +191,13 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](http
 		* Pre-designed block patterns including single article, archives, sections, products, and sidebar layouts.
 		* Sidebar pattern with search, sections, products, and recent articles for easy navigation.
 		* Templates work with both classic and block themes.
+	* Auto-generated Table of Contents for Knowledge Base articles: parses headings (H2–H6), injects anchor IDs, and renders a nested linked TOC above article content.
+		* Configurable heading depth (H2–H6), minimum heading count threshold, and custom title text.
+		* WPML and Polylang support for TOC title translation.
+		* Filter `wzkb_toc` to customise the generated HTML.
+		* Public helper functions `wzkb_get_toc()` and `wzkb_toc()` for template use.
+		* [Pro] TOC widget, block and floating widget.
+	* Live search suggestions for the Knowledge Base search form, with AJAX results, keyboard navigation, and accessible screen reader support.
 	* [Pro] Custom permalinks for Products, Sections, Tags, and Articles.
 	* [Pro] Cache tools: Clear cache button and cache expiry option in the Settings page.
 	* [Pro] Flush permalinks button in the Settings page.
