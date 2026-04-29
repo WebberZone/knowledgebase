@@ -17,6 +17,7 @@
         "build:search": "wp-scripts build --webpack-src-dir=includes/blocks/src/search/ --output-path=includes/blocks/build/search/",
         "build:products": "wp-scripts build --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
         "build:rating": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/rating/ --output-path=includes/pro/blocks/build/rating/",
+        "build:toc": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/toc/ --output-path=includes/pro/blocks/build/toc/",
         "build:free": "wp-scripts build --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
         "build:pro": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/ --output-path=includes/pro/blocks/build/",
         "format": "wp-scripts format ./includes/blocks/src/ ./includes/pro/blocks/src/",
@@ -35,6 +36,7 @@
         "start:search": "wp-scripts start --webpack-src-dir=includes/blocks/src/search/ --output-path=includes/blocks/build/search/",
         "start:products": "wp-scripts start --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
         "start:rating": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/rating/ --output-path=includes/pro/blocks/build/rating/",
+        "start:toc": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/toc/ --output-path=includes/pro/blocks/build/toc/",
         "zip": "wp-scripts plugin-zip"
     },
     "files": [
@@ -49,15 +51,15 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.39.0",
-        "@wordpress/scripts": "^31",
+        "@wordpress/prettier-config": "^4.44.0",
+        "@wordpress/scripts": "^32",
         "clean-css-cli": "^5.6.3",
         "rtlcss": "^4.3.0",
-        "terser": "^5.46.0"
+        "terser": "^5.46.2"
     },
     "dependencies": {
-        "@wordpress/icons": "^11.6.0",
+        "@wordpress/icons": "^12.2.0",
         "clsx": "^2.1.1",
-        "uuid": "^13.0.0"
+        "uuid": "^14.0.0"
     }
 }

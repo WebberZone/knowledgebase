@@ -165,6 +165,15 @@ final class Main {
 	public Frontend\TOC $toc;
 
 	/**
+	 * Live search.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @var Frontend\Live_Search Live search handler.
+	 */
+	public Frontend\Live_Search $live_search;
+
+	/**
 	 * Block patterns.
 	 *
 	 * @since 3.0.0
@@ -212,6 +221,7 @@ final class Main {
 		$this->related_articles = new Frontend\Related();
 		$this->toc              = new Frontend\TOC();
 		$this->search           = new Frontend\Search();
+		$this->live_search      = new Frontend\Live_Search();
 		$this->shortcodes       = new Frontend\Shortcodes();
 		$this->feed             = new Frontend\Feed();
 		$this->blocks           = new Blocks\Blocks();
