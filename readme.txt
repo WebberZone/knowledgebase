@@ -34,7 +34,7 @@ Perfect for:
 - __Customisable Permalinks__: View your KB at /knowledgebase/ by default or change the base slugs for articles, sections, products, and tags. Advanced custom permalink structures with dynamic placeholders are available in Pro.
 - __Shortcodes + Gutenberg Blocks__: Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
 - __Built-in Breadcrumbs__: Improve UX and SEO with breadcrumb navigation.
-- __Widgets Included__: WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
+- __Widgets Included__: WZKB Articles, WZKB Sections, WZKB Products, and WZKB Breadcrumbs widgets.
 - __Built-in Caching__: Speed up your Knowledge Base without extra plugins. Configurable cache expiry settings are available in Pro.
 - __Multilingual Ready__: Full WPML and Polylang compatibility — translate articles, sections, products, and tags; language-aware caching and widgets included out of the box.
 - __Auto Table of Contents__: Automatically generate a linked Table of Contents from article headings, with configurable depth and minimum heading threshold.
@@ -209,7 +209,7 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](http
 		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
 		* Email alerts, per-article reset tools, feedback storage, privacy exporter/eraser, and Bayesian average sorting in admin lists.
 	* [Pro] Floating Help Widget providing a branded assistant with live search, suggested articles, configurable labels/colours, and a contact form with HTML email notifications.
-	* [Pro] Premium layout pack with seven additional frontend styles (Card, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+	* [Pro] Premium layout pack with seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 
 * Modifications:
 	* Standardised CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
