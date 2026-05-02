@@ -8,7 +8,7 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/knowledgebase?style=flat-square)](https://wordpress.org/plugins/knowledgebase/)
 
-__Requires:__ 6.6
+__Requires:__ 6.7
 
 __Tested up to:__ 7.0
 
@@ -37,7 +37,8 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - 🔗 __Customisable Permalinks__ — View your KB at /knowledgebase/ by default or change the base slugs for articles, sections, products, and tags. Advanced custom permalink structures with dynamic placeholders are available in Pro.
 - ✨ __Shortcodes + Gutenberg Blocks__ — Add KB listings anywhere using [knowledgebase] or use the Knowledge Base block.
 - 🧭 __Built-in Breadcrumbs__ — Improve UX and SEO with breadcrumb navigation.
-- 🧩 __Widgets Included__ — WZKB Articles, WZKB Sections, and WZKB Breadcrumbs widgets.
+- 🧩 __Widgets Included__ — WZKB Articles, WZKB Sections, WZKB Products, and WZKB Breadcrumbs widgets.
+- 🌐 __Multilingual Ready__ — Full WPML and Polylang compatibility — translate articles, sections, products, and tags; language-aware caching and widgets included out of the box.
 - ⚡ __Built-in Caching__ — Speed up your Knowledge Base without extra plugins. Configurable cache expiry settings are available in Pro.
 - 📋 __Auto Table of Contents__ — Automatically generate a linked Table of Contents from article headings, with configurable depth and minimum heading threshold.
 - 🔎 __Live Search Suggestions__ — Show accessible AJAX search suggestions as visitors type in the Knowledge Base search form.
