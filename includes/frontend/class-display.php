@@ -52,7 +52,6 @@ class Display {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		new Breadcrumbs();
 	}
 
 	/**
