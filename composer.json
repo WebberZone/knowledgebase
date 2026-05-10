@@ -23,14 +23,14 @@
         "php": ">=7.4"
     },
     "require-dev": {
-        "szepeviktor/phpstan-wordpress": "^1",
+        "szepeviktor/phpstan-wordpress": "^2",
         "phpstan/extension-installer": "^1",
-        "phpstan/phpstan": "^1",
+        "phpstan/phpstan": "^2",
         "php-stubs/wordpress-stubs": "^6",
         "php-stubs/acf-pro-stubs": "^6.5",
         "wp-coding-standards/wpcs": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
-        "yoast/phpunit-polyfills": "^3",
+        "yoast/phpunit-polyfills": "^4",
         "phpunit/phpunit": "^9 || ^10 || ^11 || ^12"
     },
     "config": {

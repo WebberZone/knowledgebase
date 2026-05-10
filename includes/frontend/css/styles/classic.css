@@ -463,10 +463,6 @@ body.wzkb-sidebar-enabled #wzkb-sidebar-primary {
 	min-width: 0;
 }
 
-#wzkb-sidebar-primary .widget {
-	padding: 20px;
-	margin-top: 10px;
-}
 
 #wzkb-sidebar-primary .widget ul li {
 	margin-left: 10px;
@@ -909,11 +905,8 @@ nav.pagination {
 }
 
 /* Table of Contents */
-.wzkb-toc {
-	margin-bottom: 2rem;
-}
-
 .wzkb-toc--inline {
+	margin-bottom: 1rem;
 	background: var(--wzkb-bg-light);
 	border: 1px solid var(--wzkb-border-light);
 	border-radius: 6px;
