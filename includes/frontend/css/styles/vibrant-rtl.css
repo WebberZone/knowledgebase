@@ -553,14 +553,6 @@ body.wzkb-sidebar-enabled #wzkb-sidebar-primary {
 	min-width: 0;
 }
 
-#wzkb-sidebar-primary .widget {
-	padding: 20px;
-	margin-top: 12px;
-	background: var(--wzkb-bg-white);
-	border: 1px solid var(--wzkb-border-light);
-	border-radius: var(--wzkb-border-radius-md);
-}
-
 #wzkb-sidebar-primary .widget ul li {
 	margin-right: 10px;
 	list-style-type: disc;
@@ -1010,11 +1002,8 @@ nav.pagination {
 }
 
 /* Table of Contents */
-.wzkb-toc {
-	margin-bottom: 2rem;
-}
-
 .wzkb-toc--inline {
+	margin-bottom: 1rem;
 	background: var(--wzkb-bg-light);
 	border: 1px solid var(--wzkb-border-light);
 	border-radius: var(--wzkb-border-radius-md, 6px);
