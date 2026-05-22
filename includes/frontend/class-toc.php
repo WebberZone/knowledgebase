@@ -34,7 +34,7 @@ class TOC {
 	 * @since 3.0.0
 	 */
 	public function __construct() {
-		if ( \wzkb_get_option( 'show_toc' ) ) {
+		if ( \wzkb_get_option( 'show_toc', false ) ) {
 			Hook_Registry::add_filter( 'the_content', array( $this, 'inject_toc' ) );
 		}
 	}
