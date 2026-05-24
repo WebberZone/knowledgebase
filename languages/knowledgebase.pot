@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-24T14:30:48+00:00\n"
+"POT-Creation-Date: 2026-05-24T14:46:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
@@ -49,6 +49,7 @@ msgstr ""
 #: includes/admin/class-section-product-meta.php:83
 #: includes/admin/class-section-product-meta.php:133
 #: includes/admin/class-settings-wizard.php:569
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:49
 #: build/knowledgebase/includes/blocks/src/products/edit.js:91
 #: includes/blocks/build/products/index.js:1
@@ -1011,6 +1012,7 @@ msgstr ""
 #: includes/admin/class-settings.php:352
 #: includes/admin/class-settings.php:386
 #: includes/admin/class-settings.php:1193
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:134
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:134
@@ -1023,6 +1025,7 @@ msgstr ""
 #: includes/admin/class-settings.php:351
 #: includes/admin/class-settings.php:387
 #: includes/admin/class-settings.php:1127
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:60
 #: build/knowledgebase/includes/blocks/src/products/edit.js:117
 #: includes/blocks/build/products/index.js:1
@@ -1332,6 +1335,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/admin/class-settings.php:643
 #: includes/admin/class-settings.php:643
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:164
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:164
@@ -1345,6 +1349,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/admin/class-settings.php:650
 #: includes/admin/class-settings.php:650
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:177
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:177
@@ -1358,6 +1363,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/admin/class-settings.php:657
 #: includes/admin/class-settings.php:657
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:187
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:187
@@ -1371,6 +1377,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/admin/class-settings.php:664
 #: includes/admin/class-settings.php:664
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:208
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:208
@@ -1384,6 +1391,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/admin/class-settings.php:671
 #: includes/admin/class-settings.php:671
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:150
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:150
@@ -1737,6 +1745,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/admin/class-settings.php:954
 #: includes/admin/class-settings.php:954
+#: build/knowledgebase/includes/blocks/build/search/index.js:1
 #: build/knowledgebase/includes/blocks/src/search/edit.js:53
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:53
@@ -2835,6 +2844,7 @@ msgstr ""
 #: build/knowledgebase/includes/widgets/class-articles-widget.php:150
 #: includes/widgets/class-articles-widget.php:31
 #: includes/widgets/class-articles-widget.php:150
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:213
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:213
@@ -2852,6 +2862,9 @@ msgstr ""
 #: includes/widgets/class-articles-widget.php:59
 #: includes/widgets/class-breadcrumb-widget.php:51
 #: includes/widgets/class-sections-widget.php:63
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:62
 #: build/knowledgebase/includes/blocks/src/products/edit.js:119
 #: build/knowledgebase/includes/blocks/src/related/edit.js:51
@@ -2903,6 +2916,7 @@ msgstr ""
 
 #: build/knowledgebase/includes/widgets/class-breadcrumb-widget.php:56
 #: includes/widgets/class-breadcrumb-widget.php:56
+#: build/knowledgebase/includes/blocks/build/breadcrumb/index.js:1
 #: build/knowledgebase/includes/blocks/src/breadcrumb/edit.js:27
 #: includes/blocks/build/breadcrumb/index.js:1
 #: includes/blocks/src/breadcrumb/edit.js:27
@@ -2926,6 +2940,9 @@ msgstr ""
 
 #: build/knowledgebase/includes/widgets/class-products-widget.php:67
 #: includes/widgets/class-products-widget.php:67
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:57
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:125
 #: build/knowledgebase/includes/blocks/src/products/edit.js:51
@@ -2972,6 +2989,8 @@ msgstr ""
 
 #: build/knowledgebase/includes/widgets/class-sections-widget.php:89
 #: includes/widgets/class-sections-widget.php:89
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:144
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:63
 #: includes/blocks/build/products/index.js:1
@@ -2983,6 +3002,8 @@ msgstr ""
 
 #: build/knowledgebase/includes/widgets/class-sections-widget.php:94
 #: includes/widgets/class-sections-widget.php:94
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:155
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:76
 #: includes/blocks/build/products/index.js:1
@@ -2999,12 +3020,28 @@ msgstr ""
 msgid "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/index.js:1
 #: build/knowledgebase/includes/blocks/src/alerts/edit.js:49
 #: includes/blocks/build/alerts/index.js:1
 #: includes/blocks/src/alerts/edit.js:49
 msgid "Enter the alert text..."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
+#: build/knowledgebase/includes/blocks/src/components/section-selector.js:82
+#: includes/blocks/build/articles/index.js:1
+#: includes/blocks/build/kb/index.js:1
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/build/sections/index.js:1
+#: includes/blocks/src/components/section-selector.js:82
+msgid "Error loading categories. Please try again."
+msgstr ""
+
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:35
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:100
 #: includes/blocks/build/articles/index.js:1
@@ -3014,6 +3051,8 @@ msgstr ""
 msgid "Filter by Section"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:39
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:104
 #: includes/blocks/build/articles/index.js:1
@@ -3023,6 +3062,9 @@ msgstr ""
 msgid "Select a section"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:42
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:107
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:42
@@ -3035,6 +3077,8 @@ msgstr ""
 msgid "Search and select a knowledge base section"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:54
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:119
 #: includes/blocks/build/articles/index.js:1
@@ -3044,6 +3088,9 @@ msgstr ""
 msgid "Filter by Product"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:61
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:129
 #: build/knowledgebase/includes/blocks/src/products/edit.js:50
@@ -3058,12 +3105,15 @@ msgstr ""
 msgid "Search and select a product"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:68
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:68
 msgid "Knowledge Base Articles Settings"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:74
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:140
 #: includes/blocks/build/articles/index.js:1
@@ -3073,18 +3123,22 @@ msgstr ""
 msgid "OR"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:83
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:83
 msgid "Limit"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:88
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:88
 msgid "-1 for unlimited articles"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:93
 #: build/knowledgebase/includes/blocks/src/related/edit.js:99
 #: includes/blocks/build/articles/index.js:1
@@ -3094,6 +3148,8 @@ msgstr ""
 msgid "Show Excerpt"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:100
 #: build/knowledgebase/includes/blocks/src/related/edit.js:106
 #: includes/blocks/build/articles/index.js:1
@@ -3103,6 +3159,8 @@ msgstr ""
 msgid "Excerpt will be shown"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:101
 #: build/knowledgebase/includes/blocks/src/related/edit.js:110
 #: includes/blocks/build/articles/index.js:1
@@ -3112,6 +3170,9 @@ msgstr ""
 msgid "Excerpt will be hidden"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:107
 #: build/knowledgebase/includes/blocks/src/products/edit.js:133
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:50
@@ -3124,6 +3185,9 @@ msgstr ""
 msgid "Max Depth"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:112
 #: build/knowledgebase/includes/blocks/src/products/edit.js:138
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:55
@@ -3136,42 +3200,50 @@ msgstr ""
 msgid "-1 for unlimited depth, 0 for current section only"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:122
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:122
 msgid "Show product heading"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:123
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:123
 msgid "Show section heading"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:132
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:132
 msgid "Product heading will be shown"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:136
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:136
 msgid "Section heading will be shown"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:141
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:141
 msgid "Product heading will be hidden"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:145
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:145
 msgid "Section heading will be hidden"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:155
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:229
 #: includes/blocks/build/articles/index.js:1
@@ -3181,6 +3253,8 @@ msgstr ""
 msgid "Link heading to selection"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:165
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:234
 #: includes/blocks/build/articles/index.js:1
@@ -3190,6 +3264,8 @@ msgstr ""
 msgid "Heading will link to the selected product or section."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:169
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:238
 #: includes/blocks/build/articles/index.js:1
@@ -3199,6 +3275,9 @@ msgstr ""
 msgid "Heading will remain plain text."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:180
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:249
 #: build/knowledgebase/includes/blocks/src/related/edit.js:64
@@ -3211,99 +3290,92 @@ msgstr ""
 msgid "Heading Level"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:194
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:194
 msgid "Select the heading level or paragraph for the section title."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:214
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:214
 msgid "Select a product or section to display its articles."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:222
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:222
 msgid "Filter by product"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/index.js:1
 #: build/knowledgebase/includes/blocks/src/articles/edit.js:231
 #: includes/blocks/build/articles/index.js:1
 #: includes/blocks/src/articles/edit.js:231
 msgid "Filter by section"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/index.js:1
 #: build/knowledgebase/includes/blocks/src/breadcrumb/edit.js:22
 #: includes/blocks/build/breadcrumb/index.js:1
 #: includes/blocks/src/breadcrumb/edit.js:22
 msgid "Breadcrumb Settings"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/index.js:1
 #: build/knowledgebase/includes/blocks/src/breadcrumb/edit.js:32
 #: includes/blocks/build/breadcrumb/index.js:1
 #: includes/blocks/src/breadcrumb/edit.js:32
 msgid "Enter the separator character or Unicode (e.g. »)"
 msgstr ""
 
-#: build/knowledgebase/includes/blocks/src/components/section-selector.js:82
-#: includes/blocks/build/articles/index.js:1
-#: includes/blocks/build/kb/index.js:1
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/build/sections/index.js:1
-#: includes/blocks/src/components/section-selector.js:82
-msgid "Error loading categories. Please try again."
-msgstr ""
-
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:155
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:155
 msgid "-1 for unlimited articles. After this limit is reached, the footer is displayed with the more link to view the category."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:190
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:190
 msgid "Section title links to the section page"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:194
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:194
 msgid "Section title is plain text"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:221
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:221
 msgid "Show heading"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:269
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:269
 msgid "Other attributes"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/index.js:1
 #: build/knowledgebase/includes/blocks/src/kb/edit.js:274
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:274
 msgid "Enter other attributes in a URL-style string-query."
 msgstr ""
 
-#: build/knowledgebase/includes/blocks/src/products/edit.js:83
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/src/products/edit.js:83
-msgid "Knowledge Base Products"
-msgstr ""
-
-#: build/knowledgebase/includes/blocks/src/products/edit.js:84
-#: includes/blocks/build/products/index.js:1
-#: includes/blocks/src/products/edit.js:84
-msgid "Select a product to display its sections."
-msgstr ""
-
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:149
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:68
 #: includes/blocks/build/products/index.js:1
@@ -3313,6 +3385,8 @@ msgstr ""
 msgid "HTML/text to add before each list item"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/products/edit.js:160
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:81
 #: includes/blocks/build/products/index.js:1
@@ -3322,114 +3396,147 @@ msgstr ""
 msgid "HTML/text to add after each list item"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/src/products/edit.js:83
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:83
+msgid "Knowledge Base Products"
+msgstr ""
+
+#: build/knowledgebase/includes/blocks/build/products/index.js:1
+#: build/knowledgebase/includes/blocks/src/products/edit.js:84
+#: includes/blocks/build/products/index.js:1
+#: includes/blocks/src/products/edit.js:84
+msgid "Select a product to display its sections."
+msgstr ""
+
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:40
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:40
 msgid "Related Articles Settings"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:44
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:44
 msgid "This block only displays on single article pages."
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:56
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:56
 msgid "Section title for related articles"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:76
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:76
 msgid "Choose the HTML heading level for the title"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:84
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:84
 msgid "Number of Articles"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:91
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:91
 msgid "Maximum number of related articles to display"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:119
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:119
 msgid "Show Thumbnail"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:126
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:126
 msgid "Thumbnail will be shown"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:130
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:130
 msgid "Thumbnail will be hidden"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:139
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:139
 msgid "Show Date"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:146
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:146
 msgid "Date will be shown"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/index.js:1
 #: build/knowledgebase/includes/blocks/src/related/edit.js:147
 #: includes/blocks/build/related/index.js:1
 #: includes/blocks/src/related/edit.js:147
 msgid "Date will be hidden"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/index.js:1
 #: build/knowledgebase/includes/blocks/src/search/edit.js:35
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:35
 msgid "Search Settings"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/index.js:1
 #: build/knowledgebase/includes/blocks/src/search/edit.js:40
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:40
 msgid "Placeholder Text"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/index.js:1
 #: build/knowledgebase/includes/blocks/src/search/edit.js:45
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:45
 msgid "Text shown in the search input field"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/index.js:1
 #: build/knowledgebase/includes/blocks/src/search/edit.js:58
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:58
 msgid "Text shown on the search button"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:24
 #: includes/blocks/build/sections/index.js:1
 #: includes/blocks/src/sections/edit.js:24
 msgid "Knowledge Base Sections Settings"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/sections/index.js:1
 #: build/knowledgebase/includes/blocks/src/sections/edit.js:36
 #: includes/blocks/build/sections/index.js:1
 #: includes/blocks/src/sections/edit.js:36
 msgid "Select Knowledge Base Section"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3437,6 +3544,10 @@ msgctxt "block title"
 msgid "Knowledge Base Alerts"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
+#: build/knowledgebase/includes/blocks/build/articles/block.json
+#: build/knowledgebase/includes/blocks/build/kb/block.json
+#: build/knowledgebase/includes/blocks/build/sections/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/articles/block.json
 #: build/knowledgebase/includes/blocks/src/kb/block.json
@@ -3453,6 +3564,7 @@ msgctxt "block keyword"
 msgid "knowledgbase"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3460,6 +3572,14 @@ msgctxt "block keyword"
 msgid "alerts"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
+#: build/knowledgebase/includes/blocks/build/articles/block.json
+#: build/knowledgebase/includes/blocks/build/breadcrumb/block.json
+#: build/knowledgebase/includes/blocks/build/kb/block.json
+#: build/knowledgebase/includes/blocks/build/products/block.json
+#: build/knowledgebase/includes/blocks/build/related/block.json
+#: build/knowledgebase/includes/blocks/build/search/block.json
+#: build/knowledgebase/includes/blocks/build/sections/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/articles/block.json
 #: build/knowledgebase/includes/blocks/src/breadcrumb/block.json
@@ -3488,6 +3608,7 @@ msgctxt "block keyword"
 msgid "kb"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3495,6 +3616,7 @@ msgctxt "block description"
 msgid "Display alerts for WZ Knowledge Base"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3502,6 +3624,7 @@ msgctxt "block style label"
 msgid "Primary"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3509,6 +3632,7 @@ msgctxt "block style label"
 msgid "Secondary"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3516,6 +3640,7 @@ msgctxt "block style label"
 msgid "Success"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3523,6 +3648,7 @@ msgctxt "block style label"
 msgid "Info"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3530,6 +3656,7 @@ msgctxt "block style label"
 msgid "Warning"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3537,6 +3664,7 @@ msgctxt "block style label"
 msgid "Danger"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3544,6 +3672,7 @@ msgctxt "block style label"
 msgid "Light"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/alerts/block.json
 #: build/knowledgebase/includes/blocks/src/alerts/block.json
 #: includes/blocks/build/alerts/block.json
 #: includes/blocks/src/alerts/block.json
@@ -3551,6 +3680,7 @@ msgctxt "block style label"
 msgid "Dark"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/block.json
 #: build/knowledgebase/includes/blocks/src/articles/block.json
 #: includes/blocks/build/articles/block.json
 #: includes/blocks/src/articles/block.json
@@ -3558,6 +3688,8 @@ msgctxt "block title"
 msgid "Knowledge Base Articles"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/block.json
+#: build/knowledgebase/includes/blocks/build/related/block.json
 #: build/knowledgebase/includes/blocks/src/articles/block.json
 #: build/knowledgebase/includes/blocks/src/related/block.json
 #: includes/blocks/build/articles/block.json
@@ -3568,6 +3700,7 @@ msgctxt "block keyword"
 msgid "articles"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/articles/block.json
 #: build/knowledgebase/includes/blocks/src/articles/block.json
 #: includes/blocks/build/articles/block.json
 #: includes/blocks/src/articles/block.json
@@ -3575,6 +3708,7 @@ msgctxt "block description"
 msgid "Display the Knowledge Base Articles by Product or Section"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/block.json
 #: build/knowledgebase/includes/blocks/src/breadcrumb/block.json
 #: includes/blocks/build/breadcrumb/block.json
 #: includes/blocks/src/breadcrumb/block.json
@@ -3582,6 +3716,10 @@ msgctxt "block title"
 msgid "Knowledge Base Breadcrumb"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/block.json
+#: build/knowledgebase/includes/blocks/build/products/block.json
+#: build/knowledgebase/includes/blocks/build/related/block.json
+#: build/knowledgebase/includes/blocks/build/search/block.json
 #: build/knowledgebase/includes/blocks/src/breadcrumb/block.json
 #: build/knowledgebase/includes/blocks/src/products/block.json
 #: build/knowledgebase/includes/blocks/src/related/block.json
@@ -3598,6 +3736,7 @@ msgctxt "block keyword"
 msgid "knowledgebase"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/block.json
 #: build/knowledgebase/includes/blocks/src/breadcrumb/block.json
 #: includes/blocks/build/breadcrumb/block.json
 #: includes/blocks/src/breadcrumb/block.json
@@ -3605,6 +3744,7 @@ msgctxt "block keyword"
 msgid "breadcrumb"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/block.json
 #: build/knowledgebase/includes/blocks/src/breadcrumb/block.json
 #: includes/blocks/build/breadcrumb/block.json
 #: includes/blocks/src/breadcrumb/block.json
@@ -3612,6 +3752,7 @@ msgctxt "block keyword"
 msgid "navigation"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/breadcrumb/block.json
 #: build/knowledgebase/includes/blocks/src/breadcrumb/block.json
 #: includes/blocks/build/breadcrumb/block.json
 #: includes/blocks/src/breadcrumb/block.json
@@ -3619,6 +3760,7 @@ msgctxt "block description"
 msgid "Display the Knowledge Base Breadcrumb navigation"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/block.json
 #: build/knowledgebase/includes/blocks/src/kb/block.json
 #: includes/blocks/build/kb/block.json
 #: includes/blocks/src/kb/block.json
@@ -3626,6 +3768,7 @@ msgctxt "block title"
 msgid "Knowledge Base"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/block.json
 #: build/knowledgebase/includes/blocks/src/kb/block.json
 #: includes/blocks/build/kb/block.json
 #: includes/blocks/src/kb/block.json
@@ -3633,6 +3776,7 @@ msgctxt "block keyword"
 msgid "faq"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/kb/block.json
 #: build/knowledgebase/includes/blocks/src/kb/block.json
 #: includes/blocks/build/kb/block.json
 #: includes/blocks/src/kb/block.json
@@ -3640,6 +3784,7 @@ msgctxt "block description"
 msgid "Display the Knowledge Base"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/products/block.json
 #: build/knowledgebase/includes/blocks/src/products/block.json
 #: includes/blocks/build/products/block.json
 #: includes/blocks/src/products/block.json
@@ -3647,6 +3792,7 @@ msgctxt "block title"
 msgid "Knowledge Base Products"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/products/block.json
 #: build/knowledgebase/includes/blocks/src/products/block.json
 #: includes/blocks/build/products/block.json
 #: includes/blocks/src/products/block.json
@@ -3654,6 +3800,7 @@ msgctxt "block keyword"
 msgid "products"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/products/block.json
 #: build/knowledgebase/includes/blocks/src/products/block.json
 #: includes/blocks/build/products/block.json
 #: includes/blocks/src/products/block.json
@@ -3661,6 +3808,7 @@ msgctxt "block description"
 msgid "Display sections under a selected product or the full knowledge base products/sections tree if none selected"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/block.json
 #: build/knowledgebase/includes/blocks/src/related/block.json
 #: includes/blocks/build/related/block.json
 #: includes/blocks/src/related/block.json
@@ -3668,6 +3816,7 @@ msgctxt "block title"
 msgid "Knowledge Base Related Articles"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/block.json
 #: build/knowledgebase/includes/blocks/src/related/block.json
 #: includes/blocks/build/related/block.json
 #: includes/blocks/src/related/block.json
@@ -3675,6 +3824,7 @@ msgctxt "block keyword"
 msgid "related"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/related/block.json
 #: build/knowledgebase/includes/blocks/src/related/block.json
 #: includes/blocks/build/related/block.json
 #: includes/blocks/src/related/block.json
@@ -3682,6 +3832,7 @@ msgctxt "block description"
 msgid "Display related articles for the current knowledge base article"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/block.json
 #: build/knowledgebase/includes/blocks/src/search/block.json
 #: includes/blocks/build/search/block.json
 #: includes/blocks/src/search/block.json
@@ -3689,6 +3840,7 @@ msgctxt "block title"
 msgid "Knowledge Base Search"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/block.json
 #: build/knowledgebase/includes/blocks/src/search/block.json
 #: includes/blocks/build/search/block.json
 #: includes/blocks/src/search/block.json
@@ -3696,6 +3848,7 @@ msgctxt "block keyword"
 msgid "search"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/search/block.json
 #: build/knowledgebase/includes/blocks/src/search/block.json
 #: includes/blocks/build/search/block.json
 #: includes/blocks/src/search/block.json
@@ -3703,6 +3856,7 @@ msgctxt "block description"
 msgid "Display a search form for the Knowledge Base"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/sections/block.json
 #: build/knowledgebase/includes/blocks/src/sections/block.json
 #: includes/blocks/build/sections/block.json
 #: includes/blocks/src/sections/block.json
@@ -3710,6 +3864,7 @@ msgctxt "block title"
 msgid "Knowledge Base Sections"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/sections/block.json
 #: build/knowledgebase/includes/blocks/src/sections/block.json
 #: includes/blocks/build/sections/block.json
 #: includes/blocks/src/sections/block.json
@@ -3717,6 +3872,7 @@ msgctxt "block keyword"
 msgid "sections"
 msgstr ""
 
+#: build/knowledgebase/includes/blocks/build/sections/block.json
 #: build/knowledgebase/includes/blocks/src/sections/block.json
 #: includes/blocks/build/sections/block.json
 #: includes/blocks/src/sections/block.json
