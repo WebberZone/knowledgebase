@@ -4,6 +4,7 @@
 
 # Tooling
 /phpcompat-tools/
+/dev-tools/
 /node_modules/
 /build/
 

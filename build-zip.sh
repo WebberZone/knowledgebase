@@ -26,11 +26,13 @@ phpunit/
 build/
 vendor/
 dev-helpers/
+dev-tools/
 wporg-assets/
 test-tools/
 docs/
 includes/frontend/blocks/src/
 includes/pro/blocks/src/
+build-assets.js
 *.dist
 *.yml
 *.neon
