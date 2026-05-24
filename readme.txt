@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,11 +171,20 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
+= 3.0.1 =
+Bug fix release: fixes TOC links not scrolling to headings when inline TOC is disabled, and fixes unstyled TOC block output.
+
 = 3.0.0 =
 Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 
 == Changelog ==
+
+= 3.0.1 =
+
+* Bug fixes:
+	* Fixed TOC links not scrolling to headings when the inline TOC is disabled — heading anchor IDs are now injected for the floating TOC, sidebar widget, and TOC block. Existing IDs set by third-party TOC blocks (e.g. Kadence, Stackable) are preserved.
+	* Fixed the TOC block rendering without container styling in all themes.
 
 = 3.0.0 =
 
