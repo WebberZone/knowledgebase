@@ -905,7 +905,8 @@ nav.pagination {
 }
 
 /* Table of Contents */
-.wzkb-toc--inline {
+.wzkb-toc--inline,
+.wzkb-toc--block {
 	margin-bottom: 1rem;
 	background: var(--wzkb-bg-light);
 	border: 1px solid var(--wzkb-border-light);

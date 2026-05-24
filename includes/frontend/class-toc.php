@@ -21,6 +21,14 @@ if ( ! defined( 'WPINC' ) ) {
 class TOC {
 
 	/**
+	 * Whether heading anchors have been injected on this page load.
+	 *
+	 * @since 3.0.1
+	 * @var bool
+	 */
+	private static bool $anchors_injected = false;
+
+	/**
 	 * Whether the TOC has been injected on this page load.
 	 *
 	 * @since 3.0.0
@@ -34,9 +42,70 @@ class TOC {
 	 * @since 3.0.0
 	 */
 	public function __construct() {
+		Hook_Registry::add_filter( 'the_content', array( $this, 'inject_anchors' ) );
+
 		if ( \wzkb_get_option( 'show_toc', false ) ) {
 			Hook_Registry::add_filter( 'the_content', array( $this, 'inject_toc' ) );
 		}
+	}
+
+	/**
+	 * Filter callback: add anchor IDs to headings in article content.
+	 *
+	 * Only runs when a non-inline TOC consumer is active (floating TOC option, sidebar widget,
+	 * or block in the post content). The inline TOC manages its own anchor injection via
+	 * inject_toc(). Preserves any existing heading id attributes added by third-party TOC
+	 * blocks (e.g. Kadence, Stackable) so no duplicate anchors are introduced.
+	 *
+	 * @since 3.0.1
+	 *
+	 * @param string $content Post content.
+	 * @return string Content with anchor IDs added to headings, or original content unchanged.
+	 */
+	public function inject_anchors( string $content ): string {
+		if ( self::$anchors_injected || ! is_singular( 'wz_knowledgebase' ) || ! in_the_loop() || ! is_main_query() ) {
+			return $content;
+		}
+
+		if ( ! self::needs_anchor_injection() ) {
+			return $content;
+		}
+
+		$result = self::process_content( $content, array( 'min_headings' => 1 ) );
+
+		if ( empty( $result['toc'] ) ) {
+			return $content;
+		}
+
+		self::$anchors_injected = true;
+
+		return $result['content'];
+	}
+
+	/**
+	 * Whether any non-inline TOC consumer is active on the current page.
+	 *
+	 * Checks for: floating TOC option, the TOC sidebar widget, and the TOC block embedded in
+	 * the post content. The inline TOC is excluded because inject_toc() handles anchors itself.
+	 *
+	 * @since 3.0.1
+	 *
+	 * @return bool
+	 */
+	private static function needs_anchor_injection(): bool {
+		if ( \wzkb_get_option( 'show_floating_toc' ) ) {
+			return true;
+		}
+
+		if ( is_active_widget( false, false, 'widget_wzkb_toc', true ) ) {
+			return true;
+		}
+
+		if ( has_block( 'knowledgebase/toc' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
