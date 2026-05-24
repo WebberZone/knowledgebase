@@ -26,6 +26,7 @@ phpunit/
 /build/
 vendor/
 dev-helpers/
+dev-tools/
 wporg-assets/
 test-tools/
 docs/
