@@ -1,7 +1,7 @@
 {
     "name": "webberzone/knowledgebase",
     "description": "Fastest way to create a highly-flexible multi-product knowledge base.",
-    "version": "3.0.0",
+    "version": "3.0.2",
     "type": "wordpress-plugin",
     "keywords": [
         "knowledge base",

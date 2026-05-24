@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
+= 3.0.2 =
+Bug fix release: restores missing block build files omitted from the 3.0.1 zip.
+
 = 3.0.1 =
 Bug fix release: fixes TOC links not scrolling to headings when inline TOC is disabled, and fixes unstyled TOC block output.
 
@@ -179,6 +182,11 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 
 == Changelog ==
+
+= 3.0.2 =
+
+* Bug fixes:
+	* Fixed build zip to include compiled block assets (includes/blocks/build/) missing in 3.0.1.
 
 = 3.0.1 =
 
