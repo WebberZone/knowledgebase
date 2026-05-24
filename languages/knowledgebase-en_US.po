@@ -2866,8 +2866,8 @@ msgstr ""
 
 #: includes/admin/class-settings.php:708
 #: includes/admin/class-settings.php:744
-#: includes/frontend/class-toc.php:89
-#: includes/frontend/class-toc.php:165
+#: includes/frontend/class-toc.php:158
+#: includes/frontend/class-toc.php:234
 msgid "Table of Contents"
 msgstr ""
 
