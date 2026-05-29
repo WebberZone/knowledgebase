@@ -30,6 +30,8 @@ dev-tools/
 wporg-assets/
 test-tools/
 docs/
+includes/frontend/blocks/src/
+includes/pro/blocks/src/
 build-assets.js
 *.dist
 *.yml
@@ -48,13 +50,26 @@ CLAUDE.md
 AGENTS.md
 EOF
 
-# Copy vendor/freemius (manually bundled SDK)
+# Copy required vendor dependencies (everything in vendor/ is excluded above,
+# so production runtime deps must be copied back in explicitly). Dev-only files
+# such as .github workflow folders are stripped from the copies.
 echo "Copying vendor dependencies..."
+mkdir -p "$TEMP_DIR/vendor"
+
+# Freemius SDK (manually bundled).
 if [ -d "vendor/freemius" ]; then
-    mkdir -p "$TEMP_DIR/vendor"
-    cp -r vendor/freemius "$TEMP_DIR/vendor/"
+    rsync -a --exclude='.github' --exclude='.git*' vendor/freemius "$TEMP_DIR/vendor/"
 else
     echo "Warning: vendor/freemius directory not found. Freemius SDK will be missing."
+fi
+
+# Parsedown (Markdown parser used by the GitHub content importer; loaded via a
+# direct require_once, not the Composer autoloader).
+if [ -d "vendor/erusev/parsedown" ]; then
+    mkdir -p "$TEMP_DIR/vendor/erusev"
+    rsync -a --exclude='.github' --exclude='.git*' vendor/erusev/parsedown "$TEMP_DIR/vendor/erusev/"
+else
+    echo "Warning: vendor/erusev/parsedown directory not found. Markdown import will fail."
 fi
 
 # Create zip

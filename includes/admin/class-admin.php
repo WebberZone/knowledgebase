@@ -9,6 +9,7 @@
 
 namespace WebberZone\Knowledge_Base\Admin;
 
+use WebberZone\Knowledge_Base\Admin\Settings\Settings_API;
 use WebberZone\Knowledge_Base\Util\Cache;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
@@ -339,6 +340,7 @@ class Admin {
 		Hook_Registry::add_action( 'admin_init', array( $this, 'register_notices' ) );
 		Hook_Registry::add_filter( 'dashboard_glance_items', array( $this, 'dashboard_glance_items' ), 10, 1 );
 		Hook_Registry::add_filter( 'admin_head', array( $this, 'admin_head' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_verify_github_pat', array( $this, 'ajax_verify_github_pat' ) );
 	}
 
 	/**
@@ -425,6 +427,15 @@ class Admin {
 					'success_message'       => esc_html__( 'Cache cleared successfully!', 'knowledgebase' ),
 					'fail_message'          => esc_html__( 'Failed to clear cache. Please try again.', 'knowledgebase' ),
 					'request_fail_message'  => esc_html__( 'Request failed: ', 'knowledgebase' ),
+					'pat_verify_error'      => esc_html__( 'Unable to verify token.', 'knowledgebase' ),
+					'flush_permalinks_text' => esc_html__( 'Flush Permalinks', 'knowledgebase' ),
+					'pat_required'          => esc_html__( 'Please enter a Personal Access Token first.', 'knowledgebase' ),
+					'repos_refreshed'       => esc_html__( 'Repository list refreshed.', 'knowledgebase' ),
+					'repos_refresh_failed'  => esc_html__( 'Unable to refresh.', 'knowledgebase' ),
+					'token_valid'           => esc_html__( 'Token valid.', 'knowledgebase' ),
+					'contents_read_label'   => esc_html__( 'contents:read', 'knowledgebase' ),
+					'contents_write_label'  => esc_html__( 'contents:write', 'knowledgebase' ),
+					'no_repo_to_test'       => esc_html__( 'no accessible repository found to test', 'knowledgebase' ),
 				),
 			)
 		);
@@ -513,6 +524,243 @@ class Admin {
 	 */
 	public static function display_admin_sidebar() {
 		require_once __DIR__ . '/settings/sidebar.php';
+	}
+
+	/**
+	 * AJAX handler to verify a GitHub Personal Access Token.
+	 *
+	 * Accepts the current field value (fresh or masked) and an optional
+	 * mapping row ID. Mirrors freemkit's connection-validate pattern:
+	 * fresh token → use directly; masked → decrypt from saved settings.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return void
+	 */
+	public function ajax_verify_github_pat(): void {
+		check_ajax_referer( 'wzkb-admin', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'knowledgebase' ) ) );
+		}
+
+		$pat_param   = isset( $_POST['pat'] ) ? trim( (string) wp_unslash( $_POST['pat'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$mapping_row = isset( $_POST['mapping_row'] ) ? sanitize_text_field( wp_unslash( $_POST['mapping_row'] ) ) : '';
+
+		// Resolve PAT: fresh value > saved per-mapping value > saved global value.
+		if ( '' !== $pat_param && false === strpos( $pat_param, '**' ) ) {
+			// Unmasked token passed directly from the field.
+			$pat = $pat_param;
+		} elseif ( '' !== $mapping_row ) {
+			// Masked or empty per-mapping token — decrypt from saved settings row.
+			$pat = $this->resolve_mapping_pat( $mapping_row );
+		} else {
+			// Global PAT — decrypt from settings.
+			$pat = Settings_API::decrypt_api_key( (string) wzkb_get_option( 'github_pat' ) );
+		}
+
+		if ( empty( $pat ) ) {
+			wp_send_json_error(
+				array( 'message' => esc_html__( 'No GitHub Personal Access Token configured. Save a token first.', 'knowledgebase' ) )
+			);
+		}
+
+		$api          = new \WebberZone\Knowledge_Base\Pro\GitHub\API();
+		$api_with_pat = $api->with_pat( $pat );
+		$result       = $api_with_pat->validate_token();
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+		}
+
+		$user_data = $result['user'] ?? array();
+		$scopes    = $result['scopes'] ?? '';
+		$login     = isset( $user_data['login'] ) ? (string) $user_data['login'] : '';
+		$message   = $login
+			? sprintf(
+				/* translators: %s: GitHub username. */
+				esc_html__( 'Token valid — connected as %s', 'knowledgebase' ),
+				$login
+			)
+			: esc_html__( 'Token valid.', 'knowledgebase' );
+
+		// Determine contents permissions.
+		// Classic tokens expose scopes via X-OAuth-Scopes; fine-grained tokens do not,
+		// so we probe an accessible repo and read its `permissions` block (pull/push)
+		// which GitHub returns for authenticated requests on GET /repos/{owner}/{repo}.
+		if ( '' === $scopes ) {
+			$probed      = $this->probe_fine_grained_contents_perms( $api_with_pat );
+			$permissions = array(
+				'token_type'     => 'fine_grained',
+				'contents_read'  => $probed['read'],
+				'contents_write' => $probed['write'],
+			);
+		} else {
+			$scope_list      = array_map( 'trim', explode( ',', $scopes ) );
+			$has_repo        = in_array( 'repo', $scope_list, true );
+			$has_public_repo = in_array( 'public_repo', $scope_list, true );
+			$permissions     = array(
+				'token_type'     => 'classic',
+				'scopes'         => $scopes,
+				'contents_read'  => $has_repo || $has_public_repo,
+				'contents_write' => $has_repo || $has_public_repo,
+			);
+		}
+
+		wp_send_json_success(
+			array(
+				'message'     => $message,
+				'user'        => $login,
+				'permissions' => $permissions,
+			)
+		);
+	}
+
+	/**
+	 * Probe contents:read / contents:write for a fine-grained PAT.
+	 *
+	 * GitHub does not expose a fine-grained token's permission set directly, and
+	 * the `permissions` object on `GET /repos/{owner}/{repo}` reflects the
+	 * authenticated *user's* role on the repo, not the token's effective scopes
+	 * — so a repo owner with a read-only PAT still sees `push: true` there.
+	 *
+	 * Reliable approach:
+	 *  - contents:read  → call the Contents API and check it succeeds.
+	 *  - contents:write → make a PUT to a non-existent path with no body. GitHub
+	 *    enforces token permissions before validating the body, so the response
+	 *    is 403 when the token lacks contents:write, or 4xx (validation) when
+	 *    it has it. No write occurs because the body is empty.
+	 *
+	 * Returns array with keys 'read' and 'write', each true|false|null
+	 * (null = could not be determined — no accessible repository found).
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param \WebberZone\Knowledge_Base\Pro\GitHub\API $api Configured API instance.
+	 * @return array{read: bool|null, write: bool|null}
+	 */
+	private function probe_fine_grained_contents_perms( \WebberZone\Knowledge_Base\Pro\GitHub\API $api ): array {
+		$result = array(
+			'read'  => null,
+			'write' => null,
+		);
+
+		$repos_body = $api->request(
+			add_query_arg(
+				array(
+					'per_page'    => 1,
+					'affiliation' => 'owner,organization_member,collaborator',
+					'sort'        => 'updated',
+				),
+				'https://api.github.com/user/repos'
+			)
+		);
+		if ( is_wp_error( $repos_body ) ) {
+			return $result;
+		}
+		$repos = json_decode( $repos_body, true );
+		if ( ! is_array( $repos ) || empty( $repos ) ) {
+			return $result;
+		}
+		$parts = explode( '/', (string) ( $repos[0]['full_name'] ?? '' ), 2 );
+		if ( count( $parts ) < 2 || '' === $parts[1] ) {
+			return $result;
+		}
+		$owner = $parts[0];
+		$repo  = $parts[1];
+
+		// contents:read — listing the repo root via Contents API requires
+		// contents:read. A successful response (any 2xx) means read is granted.
+		$contents_body  = $api->request(
+			sprintf(
+				'https://api.github.com/repos/%s/%s/contents/',
+				rawurlencode( $owner ),
+				rawurlencode( $repo )
+			)
+		);
+		$result['read'] = ! is_wp_error( $contents_body );
+
+		// contents:write — non-destructive probe: PUT to Contents with empty body.
+		// 403 = no write; any other 4xx = write granted (failed validation only).
+		$result['write'] = $this->probe_contents_write( $api, $owner, $repo );
+
+		return $result;
+	}
+
+	/**
+	 * Non-destructive probe to determine if a PAT has contents:write on a repo.
+	 *
+	 * Issues `PUT /repos/{owner}/{repo}/contents/{probe-path}` with an empty body.
+	 * GitHub validates token permissions before the body, so:
+	 *  - 403 → token lacks contents:write
+	 *  - 4xx other (typically 422) → token has contents:write; only the body
+	 *    failed validation. No write occurs.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param \WebberZone\Knowledge_Base\Pro\GitHub\API $api   Configured API instance.
+	 * @param string                                    $owner Repository owner.
+	 * @param string                                    $repo  Repository name.
+	 * @return bool|null True/false on conclusive result, null on transport error.
+	 */
+	private function probe_contents_write( \WebberZone\Knowledge_Base\Pro\GitHub\API $api, string $owner, string $repo ) {
+		$url = sprintf(
+			'https://api.github.com/repos/%s/%s/contents/.wzkb-permission-probe',
+			rawurlencode( $owner ),
+			rawurlencode( $repo )
+		);
+
+		$response = $api->request_raw(
+			$url,
+			'PUT',
+			array(
+				'headers' => array( 'Content-Type' => 'application/json' ),
+				'body'    => '{}',
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			return null;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		if ( 403 === $code ) {
+			return false;
+		}
+		if ( $code >= 400 && $code < 500 ) {
+			// 422/404/etc. — body rejected, but the permission check passed.
+			return true;
+		}
+		// 2xx (shouldn't happen with empty body) or 5xx — treat as inconclusive.
+		return null;
+	}
+
+	/**
+	 * Resolve the decrypted PAT for a saved repository mapping by its row ID.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $row_id Repeater row identifier.
+	 * @return string Decrypted PAT, or empty string if not found.
+	 */
+	private function resolve_mapping_pat( string $row_id ): string {
+		$repositories = wzkb_get_option( 'github_repositories', array() );
+
+		if ( ! is_array( $repositories ) ) {
+			return '';
+		}
+
+		foreach ( $repositories as $repo ) {
+			if ( ! is_array( $repo ) ) {
+				continue;
+			}
+			if ( (string) ( $repo['row_id'] ?? '' ) !== $row_id ) {
+				continue;
+			}
+			$flat = \WebberZone\Knowledge_Base\Pro\GitHub\GitHub::normalize_mapping( $repo );
+			return Settings_API::decrypt_api_key( (string) ( $flat['pat'] ?? '' ) );
+		}
+
+		return '';
 	}
 
 	/**
