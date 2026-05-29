@@ -11,10 +11,6 @@
 	<exclude-pattern>*/index.asset.php</exclude-pattern>
 	<exclude-pattern>*/freemius/*</exclude-pattern>
 	<exclude-pattern>*/.playground/*</exclude-pattern>
-	<exclude-pattern>*/tests/*</exclude-pattern>
-	<exclude-pattern>*/index.php</exclude-pattern>
-	<exclude-pattern>*/index.asset.php</exclude-pattern>
-	<exclude-pattern>*/freemius/*</exclude-pattern>
 	<exclude-pattern>phpstan-bootstrap.php</exclude-pattern>
 	<exclude-pattern>*/dev-tools/*</exclude-pattern>
 
