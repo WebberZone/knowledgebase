@@ -29,6 +29,7 @@ class Shortcodes {
 		add_shortcode( 'kbbreadcrumb', array( $this, 'breadcrumb' ) );
 		add_shortcode( 'kbalert', array( $this, 'alert' ) );
 		add_shortcode( 'kb_related_articles', array( $this, 'related_articles' ) );
+		add_shortcode( 'kbtoc', array( $this, 'toc' ) );
 	}
 
 	/**
@@ -231,5 +232,41 @@ class Shortcodes {
 		 * @param  string $content Content to wrap in the Shortcode
 		 */
 		return apply_filters( 'wzkb_shortcode_related_articles', $output, $atts, $content );
+	}
+
+	/**
+	 * Render the [toc] shortcode.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @return string TOC HTML or empty string.
+	 */
+	public static function toc( $atts ): string {
+		$atts = shortcode_atts(
+			array(
+				'heading_depth' => wzkb_get_option( 'toc_heading_depth', 4 ),
+				'min_headings'  => wzkb_get_option( 'toc_min_headings', 3 ),
+				'title'         => wzkb_get_option( 'toc_title', __( 'Table of Contents', 'knowledgebase' ) ),
+			),
+			$atts,
+			'kbtoc'
+		);
+
+		$post = get_post();
+		if ( ! $post ) {
+			return '';
+		}
+
+		$result = TOC::process_content(
+			$post->post_content,
+			array(
+				'heading_depth' => (int) $atts['heading_depth'],
+				'min_headings'  => (int) $atts['min_headings'],
+				'title'         => (string) $atts['title'],
+			)
+		);
+
+		return isset( $result['toc'] ) ? (string) $result['toc'] : '';
 	}
 }

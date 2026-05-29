@@ -56,6 +56,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - 📑 __Enhanced Table of Contents__ — Three Pro TOC delivery surfaces: a sidebar widget that renders the TOC for the current article, a Gutenberg block for inline insertion, and a floating/sticky panel that follows the reader down the page.
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
+- 🤖 __GitHub Integration__ — Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 
 ### Key Concepts
 

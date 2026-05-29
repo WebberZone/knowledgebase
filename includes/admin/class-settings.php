@@ -9,6 +9,8 @@
 
 namespace WebberZone\Knowledge_Base\Admin;
 
+use WebberZone\Knowledge_Base\Admin\Settings\Settings_API;
+use WebberZone\Knowledge_Base\Pro\GitHub\API;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 // If this file is called directly, abort.
@@ -150,6 +152,9 @@ class Settings {
 
 		Hook_Registry::add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
 		Hook_Registry::add_action( self::$prefix . '_settings_form_buttons', array( $this, 'render_wizard_button' ), 20 );
+		Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'add_github_pat_verify_button' ), 10, 2 );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_github_repo_search', array( $this, 'handle_github_repo_search' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_clear_github_repos_cache', array( $this, 'handle_clear_github_repos_cache' ) );
 	}
 
 	/**
@@ -404,6 +409,7 @@ class Settings {
 			'output'  => __( 'Output', 'knowledgebase' ),
 			'styles'  => __( 'Styles', 'knowledgebase' ),
 			'pro'     => __( 'Pro', 'knowledgebase' ),
+			'github'  => __( 'GitHub', 'knowledgebase' ),
 		);
 
 		/**
@@ -842,6 +848,225 @@ class Settings {
 	}
 
 	/**
+	 * Retrieve the array of GitHub integration settings.
+	 *
+	 * Settings are registered via the wzkb_settings_github filter in the Pro GitHub module.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return array GitHub settings array.
+	 */
+	public static function settings_github() {
+		$product_options = array();
+		$products        = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_product',
+				'hide_empty' => false,
+			)
+		);
+		if ( ! is_wp_error( $products ) && ! empty( $products ) ) {
+			foreach ( $products as $product ) {
+				$product_options[ (string) $product->term_id ] = $product->name;
+			}
+		}
+
+		$settings = array(
+			'github_header'         => array(
+				'id'   => 'github_header',
+				'name' => '<h3>' . esc_html__( 'GitHub Integration', 'knowledgebase' ) . '</h3>',
+				'desc' => sprintf(
+					/* translators: %s: Webhook URL. */
+					esc_html__( 'Configure GitHub webhooks to automatically sync markdown docs to your knowledge base. Your webhook endpoint: %s', 'knowledgebase' ),
+					'<code>' . esc_url( rest_url( 'wzkb/v1/github/webhook' ) ) . '</code>'
+				),
+				'type' => 'header',
+				'pro'  => true,
+			),
+			'github_webhook_secret' => array(
+				'id'      => 'github_webhook_secret',
+				'name'    => esc_html__( 'Webhook Secret', 'knowledgebase' ),
+				'desc'    => sprintf(
+					/* translators: %1$s: opening link tag, %2$s: closing link tag. */
+					wp_kses_post( __( 'An arbitrary secret string you choose and enter in both this field and the "Secret" field when %1$sadding a webhook on GitHub%2$s. GitHub signs every payload with this secret via HMAC-SHA256; the plugin rejects any request whose signature does not match.', 'knowledgebase' ) ),
+					'<a href="https://docs.github.com/en/webhooks/using-webhooks/creating-webhooks#creating-a-repository-webhook" target="_blank" rel="noopener noreferrer">',
+					'</a>'
+				),
+				'type'    => 'sensitive',
+				'size'    => 'large',
+				'default' => '',
+				'pro'     => true,
+			),
+			'github_pat'            => array(
+				'id'      => 'github_pat',
+				'name'    => esc_html__( 'GitHub Personal Access Token', 'knowledgebase' ),
+				'desc'    => sprintf(
+					/* translators: %1$s: opening strong tag, %2$s: closing strong tag, %3$s: opening link tag, %4$s: closing link tag. */
+					wp_kses_post( __( 'Used to read files from GitHub. On the %3$sNew fine-grained token%4$s page: set %1$sResource owner%2$s to the account or org that owns your repositories, then under %1$sRepository permissions%2$s set %1$sContents%2$s to %1$sRead-only%2$s for imports, or %1$sRead and write%2$s if push-back is enabled. For organisation repositories, the org must also allow fine-grained tokens under Organisation Settings → Personal access tokens. Can be overridden per repository mapping below.', 'knowledgebase' ) ),
+					'<strong>',
+					'</strong>',
+					'<a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">',
+					'</a>'
+				),
+				'type'    => 'sensitive',
+				'size'    => 'large',
+				'default' => '',
+				'pro'     => true,
+			),
+			'github_media_import'   => array(
+				'id'      => 'github_media_import',
+				'name'    => esc_html__( 'Import external media', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Download external images found in imported Markdown files into the WordPress Media Library and rewrite the URLs to point locally. Already-sideloaded images are reused automatically on re-import.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => 1,
+				'pro'     => true,
+			),
+			'github_auto_push'      => array(
+				'id'      => 'github_auto_push',
+				'name'    => esc_html__( 'Auto-push on save', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Automatically push a linked article to GitHub whenever it is saved. Skipped during autosaves, revisions, and webhook-triggered imports to prevent loops.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => 0,
+				'pro'     => true,
+			),
+			'github_repositories'   => array(
+				'id'                        => 'github_repositories',
+				'name'                      => esc_html__( 'Repository Mappings', 'knowledgebase' ),
+				'desc'                      => esc_html__( 'Map GitHub repository folders to Knowledge Base products.', 'knowledgebase' ),
+				'type'                      => 'repeater',
+				'default'                   => array(),
+				'new_item_text'             => esc_html__( 'Repository', 'knowledgebase' ),
+				'add_button_text'           => esc_html__( 'Add Repository', 'knowledgebase' ),
+				'live_update_field'         => 'product_id',
+				'live_update_field_options' => $product_options,
+				'pro'                       => true,
+				'fields'                    => array(
+					'product_id'         => array(
+						'name'     => esc_html__( 'Product', 'knowledgebase' ),
+						'desc'     => esc_html__( 'The Knowledge Base product to associate articles with.', 'knowledgebase' ),
+						'id'       => 'product_id',
+						'type'     => 'select',
+						'required' => true,
+						'default'  => '',
+						'options'  => array( '' => esc_html__( '-- Select --', 'knowledgebase' ) ) + $product_options,
+					),
+					'pat'                => array(
+						'name'    => esc_html__( 'Personal Access Token', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Overrides the global Personal Access Token for this repository only. Useful when repositories belong to different owners or organisations. Leave empty to use the global token. Needs contents: read for import; contents: write is also required when push-back is enabled.', 'knowledgebase' ),
+						'id'      => 'pat',
+						'type'    => 'sensitive',
+						'default' => '',
+					),
+					'repo_name'          => array(
+						'name'             => esc_html__( 'Repository', 'knowledgebase' ),
+						'desc'             => esc_html__( 'Begin typing to search repositories accessible with the configured Personal Access Token.', 'knowledgebase' ),
+						'id'               => 'repo_name',
+						'type'             => 'text',
+						'required'         => true,
+						'default'          => '',
+						'size'             => 'large',
+						'field_class'      => 'ts_autocomplete',
+						'field_attributes' => self::get_github_repo_search_attributes(),
+					),
+					'folder_path'        => array(
+						'name'    => esc_html__( 'Folder Path', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Directory within the repository, e.g. docs/. Leave blank to import all Markdown files from the repository root.', 'knowledgebase' ),
+						'id'      => 'folder_path',
+						'type'    => 'text',
+						'default' => '',
+						'size'    => 'large',
+					),
+					'branch'             => array(
+						'name'    => esc_html__( 'Branch', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Branch, tag, or SHA to import from. Leave blank to use the repository default branch.', 'knowledgebase' ),
+						'id'      => 'branch',
+						'type'    => 'text',
+						'default' => '',
+						'size'    => 'large',
+					),
+					'default_status'     => array(
+						'name'    => esc_html__( 'Default Status', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Override the frontmatter status when set. Leave on "No override" to respect frontmatter.', 'knowledgebase' ),
+						'id'      => 'default_status',
+						'type'    => 'select',
+						'default' => '',
+						'options' => array(
+							''        => esc_html__( 'No override', 'knowledgebase' ),
+							'publish' => esc_html__( 'Published', 'knowledgebase' ),
+							'draft'   => esc_html__( 'Draft', 'knowledgebase' ),
+						),
+					),
+					'duplicate_handling' => array(
+						'name'    => esc_html__( 'Duplicate Handling', 'knowledgebase' ),
+						'desc'    => esc_html__( 'What to do when an imported slug already exists in a non-GitHub article.', 'knowledgebase' ),
+						'id'      => 'duplicate_handling',
+						'type'    => 'select',
+						'default' => 'overwrite',
+						'options' => array(
+							'overwrite'  => esc_html__( 'Overwrite existing', 'knowledgebase' ),
+							'skip'       => esc_html__( 'Skip', 'knowledgebase' ),
+							'create_new' => esc_html__( 'Create new with suffixed slug', 'knowledgebase' ),
+						),
+					),
+					'delete_removed'     => array(
+						'name'    => esc_html__( 'Deleted File Handling', 'knowledgebase' ),
+						'desc'    => esc_html__( 'What to do when a tracked file is removed from the repository.', 'knowledgebase' ),
+						'id'      => 'delete_removed',
+						'type'    => 'select',
+						'default' => 'draft',
+						'options' => array(
+							'draft'  => esc_html__( 'Set to draft', 'knowledgebase' ),
+							'delete' => esc_html__( 'Permanently delete', 'knowledgebase' ),
+						),
+					),
+					'enable_push'        => array(
+						'name'    => esc_html__( 'Push-back', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Push article changes back to GitHub when an article is saved or via the meta box button. Requires the PAT to have contents: write permission.', 'knowledgebase' ),
+						'id'      => 'enable_push',
+						'type'    => 'checkbox',
+						'default' => false,
+					),
+					'push_author_name'   => array(
+						'name'    => esc_html__( 'Commit author name', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Optional. Name to attribute the commit to. Leave blank to let GitHub use the PAT owner\'s profile name.', 'knowledgebase' ),
+						'id'      => 'push_author_name',
+						'type'    => 'text',
+						'default' => '',
+						'size'    => 'large',
+					),
+					'push_author_email'  => array(
+						'name'    => esc_html__( 'Commit author email', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Optional. Email to attribute the commit to. Leave blank to let GitHub use the PAT owner\'s public (or noreply) email.', 'knowledgebase' ),
+						'id'      => 'push_author_email',
+						'type'    => 'text',
+						'default' => '',
+						'size'    => 'large',
+					),
+					'status'             => array(
+						'name'    => esc_html__( 'Status', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Enable or disable this mapping. When disabled, the mapping is completely ignored — no imports, no webhook processing, and no push-back.', 'knowledgebase' ),
+						'id'      => 'status',
+						'type'    => 'select',
+						'default' => 'enabled',
+						'options' => array(
+							'enabled'  => esc_html__( 'Enabled', 'knowledgebase' ),
+							'disabled' => esc_html__( 'Disabled', 'knowledgebase' ),
+						),
+					),
+				),
+			),
+		);
+
+		/**
+		 * Filter the GitHub settings array.
+		 *
+		 * @since 3.1.0
+		 *
+		 * @param array $settings GitHub settings array.
+		 */
+		return apply_filters( self::$prefix . '_settings_github', $settings );
+	}
+
+	/**
 	 * Retrieve the array of Pro settings
 	 *
 	 * @since 3.0.0
@@ -1204,6 +1429,22 @@ class Settings {
 						'</a>'
 					) . '</p>',
 			),
+			array(
+				'id'      => 'wzkb-settings-github',
+				'title'   => __( 'GitHub Integration', 'knowledgebase' ),
+				'content' =>
+					'<p>' . __( 'Automatically sync Markdown files from a GitHub repository into your Knowledge Base. Push events trigger the webhook and import or update articles in real time.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>Webhook Secret</strong> — a shared secret between GitHub and this site. Set the same value in your GitHub repository webhook settings under "Secret". All incoming payloads are verified via HMAC-SHA256.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>Personal Access Token</strong> — required for private repositories. Create a fine-grained PAT on GitHub with <em>Contents: Read-only</em> permission (add <em>Metadata: Read-only</em> for private repos). Leave empty for public repos.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( '<strong>Repository Mappings</strong> — each row maps a GitHub repository (or a subfolder within one) to a Knowledge Base product. Required fields are marked with an asterisk (*). The folder path is relative to the repo root, e.g. <code>docs/</code>. Leave the branch field empty to use the repository\'s default branch.', 'knowledgebase' ) . '</p>' .
+					'<p>' . __( 'Your webhook endpoint URL is shown in the GitHub section header. Enter this URL in your GitHub repository under Settings → Webhooks, set the content type to <code>application/json</code>, and choose the <em>Push</em> event.', 'knowledgebase' ) . '</p>' .
+					'<p>' . sprintf(
+						/* translators: 1: Opening link tag, 2: Closing link tag. */
+						__( '%1$sRead the GitHub integration guide%2$s', 'knowledgebase' ),
+						'<a href="' . esc_url( 'https://webberzone.com/support/knowledgebase/github-integration/' ) . '" target="_blank" rel="noopener noreferrer" class="button">',
+						'</a>'
+					) . '</p>',
+			),
 		);
 
 		/**
@@ -1291,6 +1532,263 @@ class Settings {
 		flush_rewrite_rules( true );
 
 		return $settings;
+	}
+
+	/**
+	 * Add a "Verify Token" button after the GitHub PAT field.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $html Field output HTML.
+	 * @param array  $args Field arguments.
+	 * @return string
+	 */
+	public function add_github_pat_verify_button( string $html, array $args ): string {
+		if ( ! isset( $args['id'] ) ) {
+			return $html;
+		}
+
+		if ( 'github_pat' === $args['id'] ) {
+			$html .= '<p>';
+			$html .= '<button type="button" class="button button-secondary wzkb-verify-github-pat">' . esc_html__( 'Verify Token', 'knowledgebase' ) . '</button>';
+			$html .= '&nbsp;';
+			$html .= '<button type="button" class="button button-secondary wzkb-clear-github-repos-cache">' . esc_html__( 'Refresh Repository List', 'knowledgebase' ) . '</button>';
+			$html .= '<span class="wzkb-github-pat-status" style="margin-left:10px;"></span>';
+			$html .= '<span class="wzkb-clear-repos-cache-status" style="margin-left:10px;"></span>';
+			$html .= '</p>';
+		} elseif ( 'pat' === $args['id'] && ! empty( $args['_repeater_id'] ) ) {
+			$html .= '<p>';
+			$html .= '<button type="button" class="button button-secondary wzkb-verify-github-pat wzkb-verify-mapping-pat">' . esc_html__( 'Verify Token', 'knowledgebase' ) . '</button>';
+			$html .= '&nbsp;';
+			$html .= '<button type="button" class="button button-secondary wzkb-clear-github-repos-cache">' . esc_html__( 'Refresh Repository List', 'knowledgebase' ) . '</button>';
+			$html .= '<span class="wzkb-github-pat-status" style="margin-left:10px;"></span>';
+			$html .= '<span class="wzkb-clear-repos-cache-status" style="margin-left:10px;"></span>';
+			$html .= '</p>';
+		}
+
+		return $html;
+	}
+
+	/**
+	 * Get field attributes for a GitHub repository name autocomplete field.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return array Field attributes array.
+	 */
+	public static function get_github_repo_search_attributes(): array {
+		return array(
+			'data-wp-prefix'       => self::$prefix,
+			'data-wp-action'       => 'wzkb_github_repo_search',
+			'data-wp-nonce'        => wp_create_nonce( 'wzkb_github_repo_search' ),
+			'data-wp-endpoint'     => 'repos',
+			'data-ts-config'       => wp_json_encode( array( 'maxItems' => 1 ) ),
+			// Pull these sibling fields from the same repeater row and send them
+			// with the AJAX request so the row's own PAT (if any) is used.
+			'data-wp-extra-fields' => wp_json_encode(
+				array(
+					'row_pat' => 'pat',
+					'row_id'  => 'row_id',
+				)
+			),
+		);
+	}
+
+	/**
+	 * Resolve the effective GitHub PAT for a repository search request.
+	 *
+	 * Precedence:
+	 *  1. The PAT typed into the current repeater row (if it looks like a real
+	 *     token — i.e. doesn't contain the masking character `*`).
+	 *  2. The PAT saved against the row identified by `row_id` in the
+	 *     `github_repositories` setting.
+	 *  3. The global `github_pat` setting.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $row_pat Raw value from the row's PAT input (may be masked).
+	 * @param string $row_id  Persistent row identifier from the repeater.
+	 * @return string Decrypted/plaintext PAT, or empty string if none.
+	 */
+	public static function resolve_github_pat( string $row_pat, string $row_id ): string {
+		// 1. User-typed PAT in the current row (skip masked values like `****abcd`).
+		if ( '' !== $row_pat && false === strpos( $row_pat, '*' ) ) {
+			return $row_pat;
+		}
+
+		// 2. Saved row PAT, looked up by top-level row_id and stored under `fields`.
+		if ( '' !== $row_id ) {
+			$rows = wzkb_get_option( 'github_repositories' );
+			if ( is_array( $rows ) ) {
+				foreach ( $rows as $row ) {
+					if ( ! is_array( $row ) || empty( $row['row_id'] ) || (string) $row['row_id'] !== $row_id ) {
+						continue;
+					}
+					$fields = isset( $row['fields'] ) && is_array( $row['fields'] ) ? $row['fields'] : array();
+					if ( ! empty( $fields['pat'] ) ) {
+						$plain = Settings_API::decrypt_api_key( (string) $fields['pat'] );
+						if ( '' !== $plain ) {
+							return $plain;
+						}
+					}
+					break;
+				}
+			}
+		}
+
+		// 3. Global PAT (decrypt directly so we can bail out when no PAT is configured anywhere).
+		$global = Settings_API::decrypt_api_key( (string) wzkb_get_option( 'github_pat' ) );
+		return '' !== $global ? $global : '';
+	}
+
+	/**
+	 * AJAX handler for GitHub repository name autocomplete (TomSelect).
+	 *
+	 * Fetches /user/repos (repos the PAT has access to) and returns those whose
+	 * name contains the query string, in the { id, name } format expected by TomSelect.
+	 * Results are cached in a transient for 24 hours; use the Refresh button to bust the cache.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return void
+	 */
+	public function handle_github_repo_search(): void {
+		if ( ! isset( $_REQUEST['nonce'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_send_json_error(
+				array(
+					'message' => 'Missing nonce.',
+					'items'   => array(),
+				)
+			);
+		}
+
+		if ( ! wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'wzkb_github_repo_search' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_send_json_error(
+				array(
+					'message' => 'Invalid nonce.',
+					'items'   => array(),
+				)
+			);
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'message' => 'Insufficient permissions.',
+					'items'   => array(),
+				)
+			);
+		}
+
+		$query = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( '' === $query ) {
+			wp_send_json_success( array( 'items' => array() ) );
+		}
+
+		// Resolve which PAT to use: row PAT (typed or saved) > global.
+		$row_pat_raw = isset( $_REQUEST['row_pat'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['row_pat'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$row_id      = isset( $_REQUEST['row_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['row_id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$row_pat     = self::resolve_github_pat( $row_pat_raw, $row_id );
+
+		// Bail early when no PAT is available — the GitHub call would fail anyway and we
+		// must never cache (or even attempt) an unauthenticated /user/repos request.
+		if ( '' === $row_pat ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'No GitHub Personal Access Token configured. Add a token to this row or the global setting.', 'knowledgebase' ),
+					'items'   => array(),
+				)
+			);
+		}
+
+		// Cache per effective PAT so different rows don't share each other's repo lists.
+		$cache_key = 'wzkb_github_repos_cache_' . md5( $row_pat );
+		$all_repos = get_transient( $cache_key );
+
+		if ( false === $all_repos ) {
+			$api  = ( new API() )->with_pat( $row_pat );
+			$url  = add_query_arg(
+				array(
+					'affiliation' => 'owner,organization_member,collaborator',
+					'per_page'    => 100,
+					'sort'        => 'updated',
+				),
+				'https://api.github.com/user/repos'
+			);
+			$body = $api->request( $url );
+
+			if ( is_wp_error( $body ) ) {
+				wp_send_json_error(
+					array(
+						'message' => $body->get_error_message(),
+						'items'   => array(),
+					)
+				);
+			}
+
+			$all_repos = json_decode( $body, true );
+			if ( ! is_array( $all_repos ) ) {
+				$all_repos = array();
+			}
+
+			set_transient( $cache_key, $all_repos, DAY_IN_SECONDS );
+
+			// Track this cache key so the Refresh button can clear every per-PAT cache
+			// regardless of the active object-cache backend.
+			$tracked = get_option( 'wzkb_github_repos_cache_keys', array() );
+			if ( ! is_array( $tracked ) ) {
+				$tracked = array();
+			}
+			if ( ! in_array( $cache_key, $tracked, true ) ) {
+				$tracked[] = $cache_key;
+				update_option( 'wzkb_github_repos_cache_keys', $tracked, false );
+			}
+		}
+
+		$query_lower = strtolower( $query );
+		$items       = array();
+		foreach ( $all_repos as $repo ) {
+			if ( ! is_array( $repo ) || empty( $repo['name'] ) ) {
+				continue;
+			}
+			if ( false === strpos( strtolower( (string) $repo['full_name'] ), $query_lower ) ) {
+				continue;
+			}
+			$items[] = array(
+				'id'   => (string) ( $repo['full_name'] ?? $repo['name'] ),
+				'name' => (string) ( $repo['full_name'] ?? $repo['name'] ),
+			);
+		}
+
+		wp_send_json_success( array( 'items' => $items ) );
+	}
+
+	/**
+	 * AJAX handler to clear the GitHub repository list cache.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return void
+	 */
+	public function handle_clear_github_repos_cache(): void {
+		check_ajax_referer( 'wzkb-admin', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Insufficient permissions.', 'knowledgebase' ) ) );
+		}
+
+		// Delete every tracked per-PAT cache transient.
+		// Using the tracked-keys option ensures this works regardless of which cache
+		// backend (DB, Redis, Memcached, etc.) is storing the transients.
+		$tracked = get_option( 'wzkb_github_repos_cache_keys', array() );
+		if ( is_array( $tracked ) ) {
+			foreach ( $tracked as $cache_key ) {
+				delete_transient( (string) $cache_key );
+			}
+		}
+		delete_option( 'wzkb_github_repos_cache_keys' );
+
+		wp_send_json_success( array( 'message' => esc_html__( 'Repository list refreshed.', 'knowledgebase' ) ) );
 	}
 
 	/**

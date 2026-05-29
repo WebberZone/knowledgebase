@@ -1,7 +1,7 @@
 {
     "name": "webberzone/knowledgebase",
     "description": "Fastest way to create a highly-flexible multi-product knowledge base.",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "type": "wordpress-plugin",
     "keywords": [
         "knowledge base",
@@ -20,7 +20,8 @@
         }
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "erusev/parsedown": "^1.7"
     },
     "require-dev": {
         "szepeviktor/phpstan-wordpress": "^2",

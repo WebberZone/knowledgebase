@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.2
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,7 @@ Perfect for:
 - __Premium Layout Pack__: Unlock seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - __Enhanced Table of Contents__: Three Pro TOC delivery surfaces — a sidebar widget that renders the TOC for the current article, a Gutenberg block to insert the TOC inline, and a floating/sticky panel that follows the reader down the page.
 - __Advanced Admin Tools__: Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
+- __GitHub Integration__: Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 
 ### Key Concepts
 
@@ -171,8 +172,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
-= 3.0.2 =
-Bug fix release: restores missing block build files omitted from the 3.0.1 zip.
+= 3.1.0 =
+Pro: GitHub Integration for syncing markdown docs via webhooks. Set repository mappings in Settings → GitHub or directly on product terms.
 
 = 3.0.1 =
 Bug fix release: fixes TOC links not scrolling to headings when inline TOC is disabled, and fixes unstyled TOC block output.
@@ -183,10 +184,10 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 == Changelog ==
 
-= 3.0.2 =
+= 3.1.0 =
 
-* Bug fixes:
-	* Fixed build zip to include compiled block assets (includes/blocks/build/) missing in 3.0.1.
+* Features:
+	* [Pro] GitHub Integration: Automatically sync markdown documentation from GitHub repositories. Configure webhooks in Settings → GitHub or set repository mappings directly on product terms. Features include YAML frontmatter support for metadata control, markdown-to-Gutenberg conversion, classic editor fallback, and HMAC-SHA256 signature verification. Test connections via `wzkb/v1/github/validate`.
 
 = 3.0.1 =
 

@@ -4,10 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Plugin Overview
 
-WebberZone Knowledge Base (v3.0.2) is a WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. It uses a freemium model via Freemius integration — free core features with premium features in `/includes/pro/`.
-
-WordPress.org: https://wordpress.org/plugins/knowledgebase/
-webberzone.com: https://webberzone.com/plugins/knowledgebase/
+WebberZone Knowledge Base Pro (v3.1.0 in development) is a WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. It uses a freemium model via Freemius integration — free core features with premium features in `/includes/pro/`.
 
 - **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius via `load-freemius.php`, registers autoloader, and directly requires `includes/options-api.php` and `includes/functions.php`)
 - **PHP**: 7.4+ | **WordPress**: 6.7+
@@ -81,7 +78,7 @@ npm run zip                              # Create full plugin zip
 
 **Caching** (`includes/util/class-cache.php`): Term meta-based caching (not transients) with expiry timestamps. AJAX endpoint for admin cache clearing. Use atomic operations when modifying cached data.
 
-**Free vs Pro**: Pro features conditionally instantiated in `Main::init()`. The `/includes/pro/` directory is marked `@fs_premium_only` in the plugin header. Do not add premium-only logic outside `/includes/pro/`.
+**Free vs Pro**: The pro plugin (`knowledgebase-pro/`) is a **standalone, complete replacement** for the free plugin (`knowledgebase/`). It contains its own full copy of all free files (e.g. `includes/frontend/class-shortcodes.php`) **plus** the premium-only code in `includes/pro/`. Activating either version auto-deactivates the other. When adding or editing free-tier features, always edit the file inside `knowledgebase-pro/` — never the sibling `knowledgebase/` directory. Pro-only features are conditionally instantiated in `Main::init()` and live exclusively in `includes/pro/`.
 
 ### Component Map
 
@@ -90,10 +87,47 @@ npm run zip                              # Create full plugin zip
 | `includes/admin/` | Settings UI, columns, wizard, notices, activation |
 | `includes/frontend/` | Templates, display, shortcodes, styles, search, breadcrumbs, related articles, feeds |
 | `includes/blocks/` | 8 free Gutenberg blocks (React in `src/`, compiled to `build/`) |
-| `includes/pro/` | Premium features: custom permalinks, rating system, help widget, KB homepage mode |
+| `includes/pro/` | Premium features: custom permalinks, rating system, help widget, KB homepage mode, GitHub import |
+| `includes/pro/github/` | GitHub Markdown import: API wrapper, content converter, import processor, webhook handler, import wizard, link rewriter |
 | `includes/rest/` | REST API under `/wzkb/v1/` namespace |
 | `includes/widgets/` | 4 classic WordPress widgets |
 | `includes/util/` | Hook registry, caching utilities |
+
+### Shortcodes
+
+All shortcodes live in `includes/frontend/class-shortcodes.php` (free-tier, present in both free and pro builds):
+
+| Shortcode | Description |
+| --- | --- |
+| `[knowledgebase]` | Render the full KB |
+| `[kbsearch]` | Search form |
+| `[kbbreadcrumb]` | Breadcrumb trail |
+| `[kbalert]` | Alert box |
+| `[kb_related_articles]` | Related articles list |
+| `[kbtoc]` | Table of contents (calls `TOC::process_content()`) |
+
+### GitHub Integration (Pro)
+
+Imports Markdown docs from GitHub repositories into KB articles. All classes are in `includes/pro/github/`.
+
+- **`class-api.php`** — GitHub REST API wrapper (PAT auth, Git Trees, Contents, token validation). Filter: `wzkb_github_api_args`.
+- **`class-content-importer.php`** — Converts Markdown → Gutenberg blocks (or classic HTML). Handles frontmatter parsing, `[toc]` → `knowledgebase/toc` block or `[kbtoc]` shortcode, image URL resolution. Image blocks always hand-build their `<figure>/<img/>` HTML — never use `outer_html()` (DOMDocument) for image output, as it introduces whitespace and non-self-closing tags that fail Gutenberg block validation.
+- **`class-import-processor.php`** — Core importer: SHA change detection, taxonomy assignment (`sections`→`wzkb_category`, `tags`→`wzkb_tag`, `products`→`wzkb_product`), image sideloading, rename/delete handlers. All three taxonomy types auto-create missing terms by slug. `_wzkb_github_source_url` is populated from a constructed `github.com` blob URL (Git Trees API does not return `html_url`). Developer hooks: `wzkb_github_skip_file`, `wzkb_github_pre_import`, `wzkb_github_post_import`, `wzkb_github_markdown_html`. `fix_image_block_attrs()` runs after sideloading to rebuild `<!-- wp:image -->` comments — only non-sourced attrs (`id`, `sizeSlug`, `linkDestination`) go in the comment; `url`/`alt` are sourced and must be omitted or Gutenberg triggers "Attempt to recover".
+- **`class-link-rewriter.php`** — Rewrites relative `.md` hrefs to WP post permalinks using a path-map transient (`wzkb_github_path_map`, 24 hr TTL).
+- **`class-webhook-handler.php`** — REST endpoint `POST /wzkb/v1/github/webhook` (HMAC-SHA256 validated). Handles push events: added/modified/removed/renamed files. Passes `mapping['branch']` as `$ref` to `process_file()` — do not hardcode `''` here. Accepts both `.md` and `.markdown` extensions. Admin validate endpoint: `GET /wzkb/v1/github/validate`.
+- **`class-import-wizard.php`** — Admin UI page (`wzkb-github-import`) for manual one-off imports. AJAX-driven: `wzkb_github_import_list_files` builds the task list (with SHA pre-skip detection), `wzkb_github_import_process_one` processes a single file and returns result data including permalink and taxonomy terms. Script: `includes/admin/js/github-import-wizard.js`, localised as `WZKBImportWizard`.
+
+**`Import_Processor` public surface**: `get_file_list( $owner, $repo, $mapping, $ref )` wraps `list_markdown_files`; `get_pre_skip_info( $owner, $repo, $path, $tree_sha )` returns existing post data if SHA unchanged, `null` otherwise. `find_github_post()` is `protected` (not private) — subclasses can override.
+
+**Repeater `live_update_field_options`**: pass an `id → label` map in the repeater field args as `'live_update_field_options' => [ id => name ]`; `class-settings-form.php` emits it as `data-live-update-field-options` JSON on the wrapper div; JS reads it to resolve raw values (e.g. term IDs) to human-readable titles in the repeater row header.
+
+**Post meta keys** stored per imported article: `_wzkb_github_repo`, `_wzkb_github_path`, `_wzkb_github_sha`, `_wzkb_github_last_sync`, `_wzkb_github_source_url`, `_wzkb_github_doc_id`.
+
+**Frontmatter fields** (YAML at top of `.md` file): `title`, `sections`/`categories`/`category`/`section` (→ `wzkb_category`), `tags`/`tag` (→ `wzkb_tag`), `products`/`product` (→ `wzkb_product`), `order`/`menu_order`, `status`, `toc` (bool). `sections` supports path notation for hierarchy: `"Parent/Child"` finds or creates `Child` as a term under `Parent`; plain slugs without `/` remain top-level.
+
+**Repository mappings** are configured in Settings → GitHub tab as a repeater (`github_repositories`). Each mapping has: `repo_owner`, `repo_name`, `folder_path`, `product_id`, `branch`, `pat`, `default_status`, `duplicate_handling`, `delete_removed`, `status`. The per-mapping `pat` field (sensitive, encrypted) overrides the global `github_pat` for that mapping — use this when repositories belong to different owners or organisations (fine-grained PATs are scoped per owner). The global `github_pat` and `github_webhook_secret` are also `sensitive` type (encrypted at rest). `API::with_pat( $pat )` returns a cloned API instance with the override applied; `Import_Processor::api_for_mapping( $mapping )` selects the right instance automatically.
+
+The `repo_name` field uses TomSelect autocomplete (`field_class: 'ts_autocomplete'` + `field_attributes` from `Settings::get_github_repo_search_attributes()`). The backend is `wp_ajax_wzkb_github_repo_search` (registered in `Settings::__construct()`), which queries `GET /search/repositories?q=…` via the global PAT and returns `{ id: repo-name, name: owner/repo-name }` items. The `ts_autocomplete` class is picked up automatically by `includes/admin/settings/js/tom-select-init.js`, already enqueued by `Settings_API` on settings pages — do not re-enqueue or re-implement TomSelect.
 
 ### Block Development
 

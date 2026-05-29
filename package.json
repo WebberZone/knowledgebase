@@ -1,6 +1,6 @@
 {
     "name": "@webberzone/knowledgebase",
-    "version": "3.0.2",
+    "version": "3.0.1",
     "description": "Fastest way to create a highly-flexible multi-product knowledge base.",
     "author": "WebberZone",
     "license": "GPL-2.0-or-later",
@@ -51,14 +51,13 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.46.0",
+        "@wordpress/prettier-config": "^4.47.0",
         "@wordpress/scripts": "^32",
         "clean-css-cli": "^5.6.3",
         "rtlcss": "^4.3.0",
         "terser": "^5.48.0"
     },
     "dependencies": {
-        "@wordpress/icons": "^13.1.0",
         "clsx": "^2.1.1",
         "uuid": "^14.0.0"
     }
