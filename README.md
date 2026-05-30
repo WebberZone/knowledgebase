@@ -44,6 +44,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - 🔎 __Live Search Suggestions__ — Show accessible AJAX search suggestions as visitors type in the Knowledge Base search form.
 - 🔗 __Related Articles__ — Display related articles at the bottom of KB articles based on categories and tags.
 - ⚠️ __Alerts__ — Add attention-grabbing alert boxes with the [kbalert] shortcode or Alerts block.
+- 💾 __Settings Export & Import__ — Back up and restore all plugin settings as a JSON file. Sensitive values (API keys, webhook secrets) are stripped on export and never overwritten on import.
 
 ### Pro features
 
@@ -57,6 +58,7 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - 📑 __Enhanced Table of Contents__ — Three Pro TOC delivery surfaces: a sidebar widget that renders the TOC for the current article, a Gutenberg block for inline insertion, and a floating/sticky panel that follows the reader down the page.
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 - 🤖 __GitHub Integration__ — Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
+- 📦 __Article Export & Import__ — Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
 
 ### Key Concepts
 

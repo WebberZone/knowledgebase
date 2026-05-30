@@ -107,6 +107,15 @@ class Admin {
 	public Tools_Page $tools_page;
 
 	/**
+	 * Import Export class.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @var Import_Export Import Export class.
+	 */
+	public Import_Export $import_export;
+
+	/**
 	 * Admin banner helper instance.
 	 *
 	 * @since 3.0.0
@@ -133,6 +142,7 @@ class Admin {
 		$this->admin_notices_api    = new Admin_Notices_API();
 		$this->settings_wizard      = new Settings_Wizard();
 		$this->tools_page           = new Tools_Page();
+		$this->import_export        = new Import_Export();
 		$this->admin_banner         = new Admin_Banner( $this->get_admin_banner_config() );
 	}
 

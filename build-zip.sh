@@ -63,14 +63,25 @@ else
     echo "Warning: vendor/freemius directory not found. Freemius SDK will be missing."
 fi
 
-# Parsedown (Markdown parser used by the GitHub content importer; loaded via a
-# direct require_once, not the Composer autoloader). Only needed in pro builds.
+# Pro-only runtime dependencies (GitHub importer, XLSX exporter). Skipped in
+# free builds where includes/pro/ does not exist.
 if [ -d "includes/pro" ]; then
+    # Parsedown (Markdown parser used by the GitHub content importer; loaded via a
+    # direct require_once, not the Composer autoloader).
     if [ -d "vendor/erusev/parsedown" ]; then
         mkdir -p "$TEMP_DIR/vendor/erusev"
         rsync -a --exclude='.github' --exclude='.git*' vendor/erusev/parsedown "$TEMP_DIR/vendor/erusev/"
     else
         echo "Warning: vendor/erusev/parsedown directory not found. Markdown import will fail."
+    fi
+
+    # SimpleXLSXGen (XLSX export used by the importer; loaded via a direct
+    # require_once, not the Composer autoloader).
+    if [ -d "vendor/shuchkin/simplexlsxgen" ]; then
+        mkdir -p "$TEMP_DIR/vendor/shuchkin"
+        rsync -a --exclude='.github' --exclude='.git*' --exclude='examples/' --exclude='*.md' --exclude='*.png' --exclude='composer.*' vendor/shuchkin/simplexlsxgen "$TEMP_DIR/vendor/shuchkin/"
+    else
+        echo "Warning: vendor/shuchkin/simplexlsxgen directory not found. XLSX export will fail."
     fi
 fi
 

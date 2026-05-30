@@ -21,7 +21,8 @@
     ],
     "require": {
         "php": ">=7.4",
-        "erusev/parsedown": "^1.7"
+        "erusev/parsedown": "^1.7",
+        "shuchkin/simplexlsxgen": "^1.5"
     },
     "require-dev": {
         "szepeviktor/phpstan-wordpress": "^2",
