@@ -37,7 +37,7 @@ if ( ! defined( 'WZKB_VERSION' ) ) {
 	 *
 	 * @var string $wzkb_version Plugin version
 	 */
-	define( 'WZKB_VERSION', '3.1.0-beta1' );
+	define( 'WZKB_VERSION', '3.1.0' );
 }
 
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
@@ -89,7 +89,7 @@ if ( ! function_exists( __NAMESPACE__ . '\wzkb_deactivate_other_instances' ) ) {
 	/**
 	 * Deactivate other instances of WZKB when this plugin is activated.
 	 *
-	 * @param string $plugin       The plugin being activated.
+	 * @param string $plugin The plugin being activated.
 	 * @param bool   $network_wide Whether the plugin is being activated network-wide.
 	 */
 	function wzkb_deactivate_other_instances( $plugin, $network_wide = false ) {
@@ -139,7 +139,7 @@ if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\wzkb_show_deactivation_not
 				$message = sprintf( __( "WebberZone Knowledge Base and WebberZone Knowledge Base Pro should not be active at the same time. We've automatically deactivated %s.", 'knowledgebase' ), $deactivated_plugin );
 				?>
 			<div class="updated" style="border-left: 4px solid #ffba00;">
-					<p><?php echo esc_html( $message ); ?></p>
+				<p><?php echo esc_html( $message ); ?></p>
 			</div>
 				<?php
 				delete_transient( 'wzkb_deactivated_notice' );
@@ -150,7 +150,7 @@ if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\wzkb_show_deactivation_not
 
 if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
 	// Finally load Freemius integration.
-	include_once plugin_dir_path( __FILE__ ) . 'load-freemius.php';
+	require_once plugin_dir_path( __FILE__ ) . 'load-freemius.php';
 }
 
 // Load the autoloader.
@@ -172,7 +172,7 @@ if ( ! function_exists( 'wzkb' ) ) {
 	/**
 	 * Get the main WebberZone Knowledge Base instance.
 	 *
-	 * @since  3.0.0
+	 * @since 3.0.0
 	 * @return Main Main instance.
 	 */
 	function wzkb() {

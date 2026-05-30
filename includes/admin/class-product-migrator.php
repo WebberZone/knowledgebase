@@ -72,6 +72,7 @@ class Product_Migrator {
 			'wzkb-product-migration',
 			array( $this, 'render_migration_wizard' ),
 		);
+		remove_submenu_page( 'edit.php?post_type=wz_knowledgebase', 'wzkb-product-migration' );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 

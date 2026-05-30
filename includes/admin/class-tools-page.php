@@ -43,6 +43,7 @@ class Tools_Page {
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'process_cache_tools' ) );
 		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_cache_tools' ) );
+		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_product_migration_card' ) );
 	}
 
 	/**
@@ -239,5 +240,32 @@ class Tools_Page {
 		 * @param \WP_Screen $screen Current screen object.
 		 */
 		do_action( 'wzkb_tools_help_tabs', $screen );
+	}
+
+	/**
+	 * Render the Product Migration card on the tools page, only if migration is pending.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return void
+	 */
+	public function render_product_migration_card() {
+		if ( get_option( 'wzkb_product_migration_complete', false ) ) {
+			return;
+		}
+		$migration_url = admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-product-migration' );
+		?>
+		<div class="postbox">
+			<h2 class="hndle"><span><?php esc_html_e( 'Product Migration', 'knowledgebase' ); ?></span></h2>
+			<div class="inside">
+				<p><?php esc_html_e( 'Migrate your existing top-level sections into Products and reassign articles accordingly.', 'knowledgebase' ); ?></p>
+				<p>
+					<a href="<?php echo esc_url( $migration_url ); ?>" class="button button-secondary">
+						<?php esc_html_e( 'Run Migration Wizard', 'knowledgebase' ); ?>
+					</a>
+				</p>
+			</div><!-- /.inside -->
+		</div><!-- /.postbox -->
+		<?php
 	}
 }

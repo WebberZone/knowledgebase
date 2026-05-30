@@ -51,6 +51,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'steps'               => $this->get_wizard_steps(),
 			'translation_strings' => $this->get_translation_strings(),
 			'page_slug'           => 'wzkb_wizard',
+			'show_in_menu'        => false,
 			'menu_args'           => array(
 				'parent'     => 'edit.php?post_type=wz_knowledgebase',
 				'capability' => 'manage_options',

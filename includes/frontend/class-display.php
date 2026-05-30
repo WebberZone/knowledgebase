@@ -1052,6 +1052,17 @@ class Display {
 
 			$output .= '<article class="wzkb-product-card ' . esc_attr( $term_class ) . '" role="listitem">';
 			$output .= '<a class="wzkb-product-link" href="' . esc_url( $term_link ) . '">';
+
+			/**
+			 * Filter the image HTML inserted before the product card title.
+			 *
+			 * @since 3.1.0
+			 *
+			 * @param string   $html         Image HTML. Empty by default.
+			 * @param \WP_Term $product_term Product term object.
+			 */
+			$output .= apply_filters( 'wzkb_product_card_image', '', $product_term );
+
 			$output .= '<h2 class="wzkb-product-title">' . esc_html( $product_term->name ) . '</h2>';
 
 			if ( $description ) {

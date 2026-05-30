@@ -186,8 +186,18 @@ Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
 
 = 3.1.0 =
 
+* Modifications:
+	* [Pro] Floating TOC now slides in and out horizontally from the viewport edge instead of collapsing vertically. A narrow tab peeks from the edge when minimised; clicking it slides the full panel into view. Mobile bottom-bar behaviour is unchanged.
+	* [Pro] TOC block now defaults the title field to "Table of Contents" instead of blank, so newly inserted blocks display a heading out of the box.
+
 * Features:
 	* [Pro] GitHub Integration: Automatically sync markdown documentation from GitHub repositories. Configure webhooks in Settings → GitHub or set repository mappings directly on product terms. Features include YAML frontmatter support for metadata control, markdown-to-Gutenberg conversion, classic editor fallback, and HMAC-SHA256 signature verification. Test connections via `wzkb/v1/github/validate`.
+	* [Pro] Merged GitHub Import and Export into a single "GitHub Importer/Exporter" admin page with link-based tab navigation (Import tab loads by default).
+	* Admin banner now appears on all Knowledge Base admin pages, including GitHub, Ratings, Product Migration, and Setup Wizard screens.
+	* Added a Settings button to the admin banner for quick access from any KB admin page.
+	* Ratings Feedback and Product Migration are now surfaced as cards on the Tools page instead of standalone nav items; nav entries are hidden but pages remain directly accessible.
+	* Setup Wizard is hidden from the admin nav menu once dismissed.
+	* Upgrade/donation banner is suppressed for paying customers.
 
 = 3.0.1 =
 

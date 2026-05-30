@@ -32,6 +32,12 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 					<?php if ( ! empty( $wzkb_current_taxonomy->description ) ) : ?>
 						<div class="taxonomy-description"><?php echo wp_kses_post( $wzkb_current_taxonomy->description ); ?></div>
 					<?php endif; ?>
+					<?php
+					$wzkb_term_header_image = apply_filters( 'wzkb_term_archive_header_image', '', $wzkb_current_taxonomy );
+					if ( $wzkb_term_header_image ) :
+						?>
+						<?php echo $wzkb_term_header_image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php endif; ?>
 				</header><!-- .page-header -->
 
 				<?php
