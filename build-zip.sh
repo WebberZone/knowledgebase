@@ -64,12 +64,14 @@ else
 fi
 
 # Parsedown (Markdown parser used by the GitHub content importer; loaded via a
-# direct require_once, not the Composer autoloader).
-if [ -d "vendor/erusev/parsedown" ]; then
-    mkdir -p "$TEMP_DIR/vendor/erusev"
-    rsync -a --exclude='.github' --exclude='.git*' vendor/erusev/parsedown "$TEMP_DIR/vendor/erusev/"
-else
-    echo "Warning: vendor/erusev/parsedown directory not found. Markdown import will fail."
+# direct require_once, not the Composer autoloader). Only needed in pro builds.
+if [ -d "includes/pro" ]; then
+    if [ -d "vendor/erusev/parsedown" ]; then
+        mkdir -p "$TEMP_DIR/vendor/erusev"
+        rsync -a --exclude='.github' --exclude='.git*' vendor/erusev/parsedown "$TEMP_DIR/vendor/erusev/"
+    else
+        echo "Warning: vendor/erusev/parsedown directory not found. Markdown import will fail."
+    fi
 fi
 
 # Create zip
