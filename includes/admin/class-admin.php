@@ -145,6 +145,7 @@ class Admin {
 	 */
 	private function get_admin_banner_config(): array {
 		$kb_url       = wzkb_get_kb_url();
+		$settings_url = admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-settings' );
 		$products_url = admin_url( 'edit-tags.php?taxonomy=wzkb_product&post_type=wz_knowledgebase' );
 		$sections_url = admin_url( 'edit-tags.php?taxonomy=wzkb_category&post_type=wz_knowledgebase' );
 		$tags_url     = admin_url( 'edit-tags.php?taxonomy=wzkb_tag&post_type=wz_knowledgebase' );
@@ -160,6 +161,14 @@ class Admin {
 				'knowledgebase_page_wzkb-settings',
 				'wz_knowledgebase_page_wzkb_tools_page',
 				'knowledgebase_page_wzkb_tools_page',
+				'wz_knowledgebase_page_wzkb-github',
+				'knowledgebase_page_wzkb-github',
+				'wz_knowledgebase_page_wzkb-ratings',
+				'knowledgebase_page_wzkb-ratings',
+				'wz_knowledgebase_page_wzkb-product-migration',
+				'knowledgebase_page_wzkb-product-migration',
+				'wz_knowledgebase_page_wzkb_wizard',
+				'knowledgebase_page_wzkb_wizard',
 				'edit-wzkb_category',
 				'term-wzkb_category',
 				'edit-wzkb_product',
@@ -170,6 +179,10 @@ class Admin {
 			'page_slugs' => array(
 				'wzkb-settings',
 				'wzkb_tools_page',
+				'wzkb-github',
+				'wzkb-ratings',
+				'wzkb-product-migration',
+				'wzkb_wizard',
 			),
 			'strings'    => array(
 				'region_label' => esc_html__( 'Knowledge Base quick links', 'knowledgebase' ),
@@ -185,6 +198,12 @@ class Admin {
 					'type'   => 'primary',
 					'target' => '_blank',
 					'rel'    => 'noopener noreferrer',
+				),
+				'settings' => array(
+					'label'      => esc_html__( 'Settings', 'knowledgebase' ),
+					'url'        => $settings_url,
+					'screen_ids' => array( 'wz_knowledgebase_page_wzkb-settings', 'knowledgebase_page_wzkb-settings' ),
+					'page_slugs' => array( 'wzkb-settings' ),
 				),
 				'products' => array(
 					'label'      => esc_html__( 'Products', 'knowledgebase' ),
@@ -249,7 +268,11 @@ class Admin {
 			return true;
 		}
 
-		if ( '' !== $page_param && in_array( $page_param, array( 'wzkb-settings', 'wzkb_tools_page' ), true ) ) {
+		if ( '' !== $page_param && in_array(
+			$page_param,
+			array( 'wzkb-settings', 'wzkb_tools_page', 'wzkb-github', 'wzkb-ratings', 'wzkb-product-migration', 'wzkb_wizard' ),
+			true
+		) ) {
 			return true;
 		}
 
@@ -772,18 +795,20 @@ class Admin {
 	 * @param string $custom_text Custom text to show in the banner.
 	 */
 	public static function pro_upgrade_banner( $donate = true, $custom_text = '' ) {
-		?>
-			<div id="pro-upgrade-banner">
-				<div class="inside">
-					<?php if ( ! empty( $custom_text ) ) : ?>
-						<p><?php echo wp_kses_post( $custom_text ); ?></p>
-					<?php endif; ?>
+		if ( function_exists( '\WebberZone\Knowledge_Base\wzkb_freemius' ) && ! \WebberZone\Knowledge_Base\wzkb_freemius()->is_paying() ) {
+			?>
+				<div id="pro-upgrade-banner">
+					<div class="inside">
+						<?php if ( ! empty( $custom_text ) ) : ?>
+							<p><?php echo wp_kses_post( $custom_text ); ?></p>
+						<?php endif; ?>
 
-					<?php if ( $donate ) : ?>
-						<p><a href="https://wzn.io/donate-wz" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
-					<?php endif; ?>
+						<?php if ( $donate ) : ?>
+							<p><a href="https://wzn.io/donate-wz" target="_blank"><img src="<?php echo esc_url( plugins_url( 'images/support.webp', __FILE__ ) ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'knowledgebase' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
+						<?php endif; ?>
+					</div>
 				</div>
-			</div>
-		<?php
+			<?php
+		}
 	}
 }

@@ -243,6 +243,18 @@ class Shortcodes {
 	 * @return string TOC HTML or empty string.
 	 */
 	public static function toc( $atts ): string {
+		// Accept headingdepth/minheadings aliases used by the GitHub import/export format.
+		if ( is_array( $atts ) ) {
+			foreach ( array(
+				'headingdepth' => 'heading_depth',
+				'minheadings'  => 'min_headings',
+			) as $alias => $key ) {
+				if ( ! isset( $atts[ $key ] ) && isset( $atts[ $alias ] ) ) {
+					$atts[ $key ] = $atts[ $alias ];
+				}
+			}
+		}
+
 		$atts = shortcode_atts(
 			array(
 				'heading_depth' => wzkb_get_option( 'toc_heading_depth', 4 ),

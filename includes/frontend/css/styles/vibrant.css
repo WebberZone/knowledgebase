@@ -808,7 +808,7 @@ nav.pagination {
 
 .wzkb-product-card:hover,
 .wzkb-product-card:focus-within {
-    transform: translateY(-6px);
+    transform: translateY(-2px);
     box-shadow: var(--wzkb-shadow-xl);
     border-color: rgba(37, 99, 235, 0.2);
 }
@@ -845,6 +845,36 @@ nav.pagination {
     line-height: 1.6;
     margin-bottom: 20px;
     flex-grow: 1;
+}
+
+.wzkb-product-card-image {
+	margin-bottom: 20px;
+	overflow: hidden;
+	border-radius: 6px;
+	aspect-ratio: 16 / 9;
+}
+
+.wzkb-product-card-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+}
+
+.wzkb-section-thumbnail {
+	margin: 16px 0;
+	overflow: hidden;
+	border-radius: 8px;
+	aspect-ratio: 16 / 9;
+}
+
+.wzkb-section-thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
 }
 
 .wzkb-product-card-cta {

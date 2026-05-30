@@ -802,6 +802,14 @@ class Settings {
 				),
 				'default' => 'sections',
 			),
+			'show_term_thumbnail'    => array(
+				'id'      => 'show_term_thumbnail',
+				'name'    => esc_html__( 'Show featured image on archive pages', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display the term featured image in the header of product and section archive pages.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
 			'include_styles'         => array(
 				'id'      => 'include_styles',
 				'name'    => esc_html__( 'Include inbuilt styles', 'knowledgebase' ),

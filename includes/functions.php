@@ -18,7 +18,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
 /**
  * The main function to generate the output.
  *
@@ -306,6 +305,25 @@ function wzkb_get_section_product( $section ) {
 	}
 
 	return $product;
+}
+
+/**
+ * Get the featured image for a KB taxonomy term.
+ *
+ * @since 3.1.0
+ *
+ * @param int|\WP_Term $term Term ID or object.
+ * @param string       $size Image size slug.
+ * @param array        $attr HTML attributes for the img tag.
+ * @return string img tag HTML, or empty string if no image is set.
+ */
+function wzkb_get_term_thumbnail( $term, $size = 'thumbnail', $attr = array() ) {
+	$term_id  = ( $term instanceof \WP_Term ) ? $term->term_id : absint( $term );
+	$image_id = (int) get_term_meta( $term_id, 'wzkb_term_image_id', true );
+	if ( ! $image_id ) {
+		return '';
+	}
+	return wp_get_attachment_image( $image_id, $size, false, $attr );
 }
 
 /**
