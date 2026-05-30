@@ -92,6 +92,17 @@ class Tools_Page {
 
 		<?php settings_errors(); ?>
 
+		<?php
+		/**
+		 * Action hook to add content above the Tools page columns.
+		 *
+		 * Used by exporters to render a quick-action bar.
+		 *
+		 * @since 3.1.0
+		 */
+		do_action( 'wzkb_tools_page_header' );
+		?>
+
 		<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 		<div id="post-body-content">

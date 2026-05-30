@@ -41,6 +41,7 @@ Perfect for:
 - __Live Search Suggestions__: Show accessible AJAX search suggestions as visitors type in the Knowledge Base search form.
 - __Related Articles__: Display related articles at the bottom of KB articles based on categories and tags.
 - __Alerts__: Add attention-grabbing alert boxes with the [kbalert] shortcode or Alerts block.
+- __Settings Export & Import__: Back up and restore all plugin settings as a JSON file. Sensitive values (API keys, webhook secrets) are automatically stripped on export and never overwritten on import.
 
 ### Pro features
 
@@ -54,6 +55,7 @@ Perfect for:
 - __Enhanced Table of Contents__: Three Pro TOC delivery surfaces — a sidebar widget that renders the TOC for the current article, a Gutenberg block to insert the TOC inline, and a floating/sticky panel that follows the reader down the page.
 - __Advanced Admin Tools__: Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
 - __GitHub Integration__: Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
+- __Article Export & Import__: Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
 
 ### Key Concepts
 
@@ -175,29 +177,23 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 3.1.0 =
 Pro: GitHub Integration for syncing markdown docs via webhooks. Set repository mappings in Settings → GitHub or directly on product terms.
 
-= 3.0.1 =
-Bug fix release: fixes TOC links not scrolling to headings when inline TOC is disabled, and fixes unstyled TOC block output.
-
-= 3.0.0 =
-Major update: Multi-product mode, new Setup Wizard. Introduced Pro.
-
-
 == Changelog ==
 
 = 3.1.0 =
 
-* Modifications:
-	* [Pro] Floating TOC now slides in and out horizontally from the viewport edge instead of collapsing vertically. A narrow tab peeks from the edge when minimised; clicking it slides the full panel into view. Mobile bottom-bar behaviour is unchanged.
-	* [Pro] TOC block now defaults the title field to "Table of Contents" instead of blank, so newly inserted blocks display a heading out of the box.
+Release post: [https://webberzone.com/announcements/knowledge-base-v3-1-0/](https://webberzone.com/announcements/knowledge-base-v3-1-0/)
 
 * Features:
 	* [Pro] GitHub Integration: Automatically sync markdown documentation from GitHub repositories. Configure webhooks in Settings → GitHub or set repository mappings directly on product terms. Features include YAML frontmatter support for metadata control, markdown-to-Gutenberg conversion, classic editor fallback, and HMAC-SHA256 signature verification. Test connections via `wzkb/v1/github/validate`.
 	* [Pro] Merged GitHub Import and Export into a single "GitHub Importer/Exporter" admin page with link-based tab navigation (Import tab loads by default).
-	* Admin banner now appears on all Knowledge Base admin pages, including GitHub, Ratings, Product Migration, and Setup Wizard screens.
+	* Settings Export & Import: export all plugin settings as a stripped JSON file and re-import from a backup. Sensitive keys (API tokens, webhook secrets) are preserved on the existing site and never overwritten by an import.
+	* [Pro] Article Export & Import: export all Knowledge Base articles as a Markdown ZIP with YAML frontmatter, a SQL INSERT dump ZIP, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles — articles are matched by slug with overwrite/skip control.
+
+* Modifications:
 	* Added a Settings button to the admin banner for quick access from any KB admin page.
-	* Ratings Feedback and Product Migration are now surfaced as cards on the Tools page instead of standalone nav items; nav entries are hidden but pages remain directly accessible.
-	* Setup Wizard is hidden from the admin nav menu once dismissed.
-	* Upgrade/donation banner is suppressed for paying customers.
+	* Reorganised the Tools page and sub-menu items to group related features together and improve navigation.
+	* [Pro] Floating TOC now slides in and out horizontally from the viewport edge instead of collapsing vertically. A narrow tab peeks from the edge when minimised; clicking it slides the full panel into view. Mobile bottom-bar behaviour is unchanged.
+	* [Pro] TOC block now defaults the title field to "Table of Contents" instead of blank, so newly inserted blocks display a heading out of the box.
 
 = 3.0.1 =
 
