@@ -27,8 +27,18 @@ class CPT {
 	 * @since 2.3.0
 	 */
 	public function __construct() {
-		Hook_Registry::add_action( 'init', array( $this, 'register_post_type' ) );
-		Hook_Registry::add_action( 'init', array( $this, 'register_taxonomies' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'register_kb_types' ) );
+	}
+
+	/**
+	 * Register taxonomies before the post type so taxonomy rewrite rules
+	 * are generated first and take precedence over CPT attachment rules.
+	 *
+	 * @since 3.1.0
+	 */
+	public static function register_kb_types() {
+		self::register_taxonomies();
+		self::register_post_type();
 	}
 
 	/**

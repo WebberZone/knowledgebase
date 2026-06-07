@@ -58,6 +58,18 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 						)
 					);
 
+					$wzkb_tags = get_the_terms( get_the_ID(), 'wzkb_tag' );
+					if ( $wzkb_tags && ! is_wp_error( $wzkb_tags ) ) {
+						?>
+						<div class="wzkb-tags">
+							<span class="wzkb-tags-label"><?php esc_html_e( 'Tagged', 'knowledgebase' ); ?>:</span>
+							<?php foreach ( $wzkb_tags as $wzkb_tag ) : ?>
+								<a href="<?php echo esc_url( get_term_link( $wzkb_tag ) ); ?>" rel="tag"><?php echo esc_html( $wzkb_tag->name ); ?></a>
+							<?php endforeach; ?>
+						</div>
+						<?php
+					}
+
 					if ( wzkb_get_option( 'show_related_articles' ) ) {
 						/**
 						 * Filters the arguments array before being sent to wzkb_related_articles().

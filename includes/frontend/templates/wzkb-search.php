@@ -58,9 +58,10 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 					$wzkb_query->the_post();
 					$wzkb_thumb = wzkb_get_the_post_thumbnail(
 						array(
-							'post'  => get_post(),
-							'size'  => 'medium',
-							'class' => 'wzkb-search-result-thumb',
+							'post'          => get_post(),
+							'size'          => 'medium',
+							'class'         => 'wzkb-search-result-thumb',
+							'thumb_default' => '',
 						)
 					);
 					?>
@@ -71,11 +72,9 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 							<?php echo $wzkb_thumb; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</a>
 						<?php endif; ?>
-						<div class="wzkb-search-result-body">
-							<?php the_title( sprintf( '<h2 class="wzkb-search-result-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-							<div class="wzkb-article-excerpt post-<?php the_ID(); ?>">
-							<?php echo wp_kses_post( get_the_excerpt() ); ?>
-						</div>
+						<?php the_title( sprintf( '<h2 class="wzkb-search-result-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+						<div class="wzkb-article-excerpt post-<?php the_ID(); ?>">
+						<?php echo wp_kses_post( get_the_excerpt() ); ?>
 						</div>
 					</article>
 

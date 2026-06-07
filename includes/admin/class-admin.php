@@ -116,6 +116,15 @@ class Admin {
 	public Import_Export $import_export;
 
 	/**
+	 * Plugin Importers class.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @var Plugin_Importers Plugin Importers class.
+	 */
+	public Plugin_Importers $plugin_importers;
+
+	/**
 	 * Admin banner helper instance.
 	 *
 	 * @since 3.0.0
@@ -143,6 +152,7 @@ class Admin {
 		$this->settings_wizard      = new Settings_Wizard();
 		$this->tools_page           = new Tools_Page();
 		$this->import_export        = new Import_Export();
+		$this->plugin_importers     = new Plugin_Importers();
 		$this->admin_banner         = new Admin_Banner( $this->get_admin_banner_config() );
 	}
 
@@ -177,6 +187,8 @@ class Admin {
 				'knowledgebase_page_wzkb-ratings',
 				'wz_knowledgebase_page_wzkb-product-migration',
 				'knowledgebase_page_wzkb-product-migration',
+				'wz_knowledgebase_page_wzkb-plugin-importers',
+				'knowledgebase_page_wzkb-plugin-importers',
 				'wz_knowledgebase_page_wzkb_wizard',
 				'knowledgebase_page_wzkb_wizard',
 				'edit-wzkb_category',
@@ -192,6 +204,7 @@ class Admin {
 				'wzkb-github',
 				'wzkb-ratings',
 				'wzkb-product-migration',
+				'wzkb-plugin-importers',
 				'wzkb_wizard',
 			),
 			'strings'    => array(
@@ -280,7 +293,7 @@ class Admin {
 
 		if ( '' !== $page_param && in_array(
 			$page_param,
-			array( 'wzkb-settings', 'wzkb_tools_page', 'wzkb-github', 'wzkb-ratings', 'wzkb-product-migration', 'wzkb_wizard' ),
+			array( 'wzkb-settings', 'wzkb_tools_page', 'wzkb-github', 'wzkb-ratings', 'wzkb-product-migration', 'wzkb-plugin-importers', 'wzkb_wizard' ),
 			true
 		) ) {
 			return true;

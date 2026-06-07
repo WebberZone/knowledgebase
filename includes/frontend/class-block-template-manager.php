@@ -146,6 +146,10 @@ class Block_Template_Manager {
 				'title'       => __( 'Knowledge Base Product', 'knowledgebase' ),
 				'description' => __( 'Knowledge Base Product (taxonomy) block template.', 'knowledgebase' ),
 			),
+			'taxonomy-wzkb_tag'        => array(
+				'title'       => __( 'Knowledge Base Tag', 'knowledgebase' ),
+				'description' => __( 'Knowledge Base Tag (taxonomy) block template.', 'knowledgebase' ),
+			),
 		);
 	}
 
@@ -292,6 +296,10 @@ class Block_Template_Manager {
 
 		if ( is_tax( 'wzkb_product' ) ) {
 			return 'taxonomy-wzkb_product';
+		}
+
+		if ( is_tax( 'wzkb_tag' ) ) {
+			return 'taxonomy-wzkb_tag';
 		}
 
 		return null;

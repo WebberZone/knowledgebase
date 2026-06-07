@@ -44,6 +44,7 @@ class Tools_Page {
 		Hook_Registry::add_action( 'admin_init', array( $this, 'process_cache_tools' ) );
 		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_cache_tools' ) );
 		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_product_migration_card' ) );
+		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_importers_card' ) );
 	}
 
 	/**
@@ -273,6 +274,55 @@ class Tools_Page {
 				<p>
 					<a href="<?php echo esc_url( $migration_url ); ?>" class="button button-secondary">
 						<?php esc_html_e( 'Run Migration Wizard', 'knowledgebase' ); ?>
+					</a>
+				</p>
+			</div><!-- /.inside -->
+		</div><!-- /.postbox -->
+		<?php
+	}
+
+	/**
+	 * Render the Import from Another Plugin card on the tools page.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @return void
+	 */
+	public function render_importers_card(): void {
+		$importers_url = admin_url( 'edit.php?post_type=wz_knowledgebase&page=wzkb-plugin-importers' );
+
+		$adapters = array(
+			new Importers\BasePress_Importer(),
+			new Importers\BetterDocs_Importer(),
+			new Importers\Echo_KB_Importer(),
+		);
+
+		$detected_labels = array();
+		foreach ( $adapters as $importer ) {
+			if ( $importer->detect() ) {
+				$detected_labels[] = $importer->get_label();
+			}
+		}
+		?>
+		<div class="postbox">
+			<h2 class="hndle"><span><?php esc_html_e( 'Import from Another Plugin', 'knowledgebase' ); ?></span></h2>
+			<div class="inside">
+				<?php if ( ! empty( $detected_labels ) ) : ?>
+					<p>
+						<?php
+						printf(
+							/* translators: %s: comma-separated plugin names */
+							esc_html__( 'Content detected from: %s. Import it into Knowledge Base without losing your original data.', 'knowledgebase' ),
+							esc_html( implode( ', ', $detected_labels ) )
+						);
+						?>
+					</p>
+				<?php else : ?>
+					<p><?php esc_html_e( 'Migrate content from BasePress, BetterDocs, or Echo Knowledge Base into this plugin.', 'knowledgebase' ); ?></p>
+				<?php endif; ?>
+				<p>
+					<a href="<?php echo esc_url( $importers_url ); ?>" class="button button-secondary">
+						<?php esc_html_e( 'Go to Importers', 'knowledgebase' ); ?>
 					</a>
 				</p>
 			</div><!-- /.inside -->

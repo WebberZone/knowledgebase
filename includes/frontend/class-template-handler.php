@@ -80,6 +80,8 @@ class Template_Handler {
 			$template_name = 'taxonomy-wzkb_category.php';
 		} elseif ( is_tax( 'wzkb_product' ) && ! is_search() ) {
 			$template_name = 'taxonomy-wzkb_product.php';
+		} elseif ( is_tax( 'wzkb_tag' ) && ! is_search() ) {
+			$template_name = 'taxonomy-wzkb_tag.php';
 		}
 
 		if ( $template_name ) {
@@ -100,86 +102,6 @@ class Template_Handler {
 
 		return $template;
 	}
-
-	/**
-	 * Add custom template for the wz_knowledgebase custom post type and wzkb_category taxonomy.
-	 *
-	 * @param array  $templates Array of found templates.
-	 * @param string $type Type of template (archive, single, taxonomy).
-	 * @param string $post_type Post type or taxonomy name.
-	 * @param string $template_name Template name to add.
-	 * @return array Updated array of found templates.
-	 */
-	private function add_custom_template( $templates, $type, $post_type, $template_name ) {
-		if ( ( in_array( $type, array( 'archive', 'index', 'search' ), true ) ) ||
-			( 'single' === $type && is_singular( $post_type ) ) ) {
-			array_unshift( $templates, $template_name );
-		}
-		return $templates;
-	}
-
-	/**
-	 * Add custom archive template for the wz_knowledgebase custom post type.
-	 *
-	 * @param array $templates Array of found templates.
-	 * @return array Updated array of found templates.
-	 */
-	public function add_custom_archive_template( $templates ) {
-		if ( is_tax( 'wzkb_category' ) ) {
-			return $this->add_custom_template( $templates, 'archive', 'wzkb_category', 'taxonomy-wzkb_category' );
-		}
-		if ( is_tax( 'wzkb_product' ) ) {
-			return $this->add_custom_template( $templates, 'archive', 'wzkb_product', 'taxonomy-wzkb_product' );
-		}
-		if ( is_singular( self::POST_TYPE ) ) {
-			return $this->add_custom_template( $templates, 'single', self::POST_TYPE, 'single-wz_knowledgebase' );
-		}
-		if ( is_search() ) {
-			return $this->add_custom_template( $templates, 'search', self::POST_TYPE, 'wzkb-search' );
-		}
-		return $this->add_custom_template( $templates, 'archive', self::POST_TYPE, 'archive-wz_knowledgebase' );
-	}
-
-	/**
-	 * Add custom archive template for the wz_knowledgebase custom post type.
-	 *
-	 * @param array $templates Array of found templates.
-	 * @return array Updated array of found templates.
-	 */
-	public function add_custom_index_template( $templates ) {
-		return $this->add_custom_archive_template( $templates );
-	}
-
-	/**
-	 * Add custom single template for the wz_knowledgebase custom post type.
-	 *
-	 * @param array $templates Array of found templates.
-	 * @return array Updated array of found templates.
-	 */
-	public function add_custom_single_template( $templates ) {
-		return $this->add_custom_template( $templates, 'single', self::POST_TYPE, 'single-wz_knowledgebase' );
-	}
-
-	/**
-	 * Add custom taxonomy template for the wzkb_category taxonomy.
-	 *
-	 * @param array $templates Array of found templates.
-	 * @return array Updated array of found templates.
-	 */
-	public function add_custom_taxonomy_template( $templates ) {
-		return $this->add_custom_template( $templates, 'archive', 'wzkb_category', 'taxonomy-wzkb_category' );
-	}
-
-	/**
-	 * Add custom search template for the wz_knowledgebase custom post type.
-	 *
-	 * @param array $templates Array of found templates.
-	 * @return array Updated array of found templates.
-	 */
-	public function add_custom_search_template( $templates ) {
-		return $this->add_custom_template( $templates, 'search', self::POST_TYPE, 'wzkb-search' );
-	}
-
 
 	/**
 	 * For knowledge base search results, set posts_per_page 10.
