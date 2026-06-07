@@ -652,6 +652,47 @@ nav.pagination {
     text-align: center;
 }
 
+.wzkb-tags {
+	margin: 40px 0 0;
+	padding: 24px 0 0;
+	border-top: 2px solid var(--wzkb-border-light);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.wzkb-tags-label {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--wzkb-color-text-medium);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-right: 4px;
+}
+
+.wzkb-tags a {
+	display: inline-flex;
+	align-items: center;
+	padding: 8px 16px;
+	background: var(--wzkb-bg-lighter);
+	border: 1px solid var(--wzkb-border-light);
+	border-radius: 24px;
+	color: var(--wzkb-color-text);
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1;
+	transition: all var(--wzkb-transition-base) ease;
+}
+
+.wzkb-tags a:hover {
+	background: var(--wzkb-color-primary);
+	color: var(--wzkb-color-white);
+	border-color: var(--wzkb-color-primary);
+	transform: translateY(-1px);
+}
+
 /* Related articles */
 .wzkb-related-articles {
     clear: both;
@@ -899,112 +940,159 @@ nav.pagination {
     transform: translateX(6px);
 }
 
+/* Heading spacing in block templates */
+.wp-block-term-title,
+.wp-block-query-title {
+	padding-bottom: 1.5rem !important;
+}
+
 /* Search results grid */
 .wzkb-search-results-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 24px;
-    row-gap: 28px;
-    margin: 28px 0;
-    align-items: stretch;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+	margin: 24px 0;
+	padding: 0;
+	list-style: none;
 }
 
-.wzkb-search-results-grid>* {
-    height: 100%;
-    margin: 0;
+@media (max-width: 1024px) {
+	.wzkb-search-results-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
-@media (max-width: 1200px) {
-    .wzkb-search-results-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+@media (max-width: 600px) {
+	.wzkb-search-results-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
-@media (max-width: 768px) {
-    .wzkb-search-results-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.wzkb-search-results-grid>li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
+/* Card */
 .wzkb-search-result-card {
-    display: grid;
-    grid-template-columns: 80px minmax(0, 1fr);
-    grid-template-areas:
-        "thumb title"
-        "excerpt excerpt";
-    align-items: flex-start;
-    gap: 14px;
-    background: var(--wzkb-bg-white);
-    border: 1px solid var(--wzkb-border-light);
-    border-radius: var(--wzkb-border-radius-md);
-    overflow: hidden;
-    padding: 18px;
-    height: 100%;
-    align-content: start;
-    transition: box-shadow var(--wzkb-transition-base) ease, transform var(--wzkb-transition-base) ease;
+	background: var(--wzkb-bg-white);
+	border: 1px solid var(--wzkb-border-light);
+	border-radius: 12px;
+	padding: 24px !important;
+	height: 100%;
+	box-shadow: 0 1px 3px var(--wzkb-shadow-color);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .wzkb-search-result-card:hover {
-    box-shadow: var(--wzkb-shadow-lg);
-    transform: translateY(-3px);
+	border-color: color-mix(in srgb, var(--wzkb-color-primary) 40%, transparent);
+	box-shadow: 0 4px 12px var(--wzkb-shadow-hover);
 }
 
+/* Classic template cards */
+.wzkb-search-result-card:not(.wp-block-group) {
+	display: block;
+}
+
+/* Card with thumbnail: image left of title, excerpt below both */
+.wzkb-search-result-card:has(.wzkb-search-result-thumb-link) {
+	display: grid;
+	grid-template-columns: 80px 1fr;
+	grid-template-rows: auto auto;
+	gap: 12px 16px;
+	align-items: start;
+}
+
+/* Reset margins inside grid cards */
+.wzkb-search-result-card:has(.wzkb-search-result-thumb-link) > * {
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+/* Gutenberg block children */
+.wzkb-search-result-card.wp-block-group > * {
+	max-width: 100% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+/* Image: left column, row 1 */
+.wzkb-search-result-card .wzkb-search-result-thumb-link {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+/* Title: right of image, row 1 */
+.wzkb-search-result-card:has(.wzkb-search-result-thumb-link) .wzkb-search-result-title {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+/* Excerpt: full width below image and title */
+.wzkb-search-result-card:has(.wzkb-search-result-thumb-link) .wzkb-article-excerpt {
+	grid-column: 1 / -1;
+	grid-row: 2;
+}
+
+/* Thumbnail */
 .wzkb-search-result-thumb-link {
-    display: block;
-    grid-area: thumb;
-    width: 80px;
-    height: 80px;
-    border-radius: var(--wzkb-border-radius-sm);
-    overflow: hidden;
+	display: block;
+	flex-shrink: 0;
+	width: 80px;
+	height: 80px;
+	border-radius: 8px;
+	overflow: hidden;
+	margin: 0 !important;
+}
+
+figure.wzkb-search-result-thumb-link {
+	display: block;
+}
+
+.wzkb-search-result-thumb-link a {
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 .wzkb-search-result-thumb-link img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    display: block;
-    transition: transform var(--wzkb-transition-base) ease;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.3s ease;
 }
 
 .wzkb-search-result-card:hover .wzkb-search-result-thumb-link img {
-    transform: scale(1.04);
+	transform: scale(1.05);
 }
 
+/* Card body (classic template) */
 .wzkb-search-result-body {
-    display: contents;
+	flex: 1;
+	min-width: 0;
 }
 
+/* Title */
 .wzkb-search-result-title {
-    grid-area: title;
-    font-size: 17px;
-    font-weight: 700;
-    margin: 0 0 10px;
-    line-height: 1.3;
-    min-width: 0;
+	font-size: 18px;
+	font-weight: 600;
+	margin: 0 0 6px;
+	line-height: 1.4;
 }
 
 .wzkb-search-result-title a {
-    color: var(--wzkb-color-text);
-    text-decoration: none;
-    transition: color var(--wzkb-transition-base) ease;
+	color: var(--wzkb-color-text);
+	text-decoration: none;
+	transition: color 0.2s ease;
 }
 
 .wzkb-search-result-title a:hover {
-    color: var(--wzkb-color-primary);
+	color: var(--wzkb-color-primary);
 }
 
+/* Excerpt */
+.wzkb-search-result-excerpt,
 .wzkb-search-result-card .wzkb-article-excerpt {
-    grid-area: excerpt;
-    margin: 0;
-    line-height: 1.55;
-    font-size: 14px;
-    color: var(--wzkb-color-text-medium);
+	font-size: 14px;
+	color: var(--wzkb-color-text-medium);
+	line-height: 1.6;
+	margin: 0;
 }
 
 /* Table of Contents */

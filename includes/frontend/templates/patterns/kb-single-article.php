@@ -21,6 +21,8 @@
 
 	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
 
+	<!-- wp:post-terms {"term":"wzkb_tag","separator":"  "} /-->
+
 	<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
 	<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
 	<!-- /wp:spacer -->

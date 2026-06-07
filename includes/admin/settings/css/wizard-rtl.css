@@ -310,7 +310,7 @@
 }
 
 .wizard-setup-next-actions-horizontal .button {
-	display: flex;
+	display: flex !important;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
@@ -396,7 +396,7 @@
 }
 
 .wizard-setup-pro-actions .button {
-	display: flex;
+	display: flex !important;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
@@ -454,7 +454,7 @@
 }
 
 .wizard-setup-resource-links .button {
-	display: flex;
+	display: flex !important;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
@@ -484,6 +484,11 @@
 	font-size: 18px;
 	width: 18px;
 	height: 18px;
+}
+
+.wizard-wrap .button .dashicons {
+	vertical-align: middle;
+	line-height: 1;
 }
 
 .wizard-completion-header h1 {

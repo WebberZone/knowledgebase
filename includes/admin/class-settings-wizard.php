@@ -73,6 +73,9 @@ class Settings_Wizard extends Settings_Wizard_API {
 		Hook_Registry::add_action( 'admin_init', array( $this, 'register_wizard_notice' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_custom_scripts' ) );
 		Hook_Registry::add_action( 'wp_ajax_wzkb_flush_permalinks', array( $this, 'flush_permalinks' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_import_sample_content', array( $this, 'ajax_import_sample_content' ) );
+		Hook_Registry::add_action( 'wp_ajax_wzkb_delete_sample_content', array( $this, 'ajax_delete_sample_content' ) );
+		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_sample_content_tools_card' ) );
 
 		// Register Tom Select AJAX handlers for wizard taxonomy fields.
 		Hook_Registry::add_action( 'wp_ajax_' . $this->prefix . '_taxonomy_search_tom_select', array( Settings::class, 'taxonomy_search_tom_select' ) );
@@ -103,33 +106,22 @@ class Settings_Wizard extends Settings_Wizard_API {
 			$all_settings = array_merge( $all_settings, $section_settings );
 		}
 
-		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
-
 		$mode_keys             = array(
 			'multi_product',
 			'category_level',
 		);
 		$permalink_keys        = array(
-			'permalink_header',
 			'kb_slug',
 			'product_slug',
 			'category_slug',
 			'tag_slug',
-			'article_permalink',
-		);
-		$performance_keys      = array(
-			'cache',
-			'cache_expiry',
 		);
 		$display_settings_keys = array(
 			'kb_title',
 			'show_article_count',
 			'show_excerpt',
 			'clickable_section',
-			'show_empty_sections',
 			'limit',
-			'show_related_articles',
-			'show_sidebar',
 			'enable_live_search',
 			'show_toc',
 		);
@@ -138,7 +130,6 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'product_archive_layout',
 			'kb_style',
 			'columns',
-			'custom_css',
 		);
 		$pro_features_keys     = array(
 			'show_floating_toc',
@@ -154,48 +145,37 @@ class Settings_Wizard extends Settings_Wizard_API {
 		);
 
 		$steps = array(
-			'welcome'               => array(
+			'mode_settings'     => array(
 				'title'       => __( 'Knowledge Base Setup', 'knowledgebase' ),
-				'description' => __( 'Thank you for installing Knowledge Base! This wizard will help you configure the essential settings to get your knowledge base working perfectly.', 'knowledgebase' ),
-				'settings'    => array(),
-			),
-			'mode_settings'         => array(
-				'title'       => __( 'Mode Settings', 'knowledgebase' ),
-				'description' => __( 'Enable multi-product mode and determine which section level is displayed first.', 'knowledgebase' ),
+				'description' => __( 'Welcome to Knowledge Base! Choose your structure and section display before configuring the rest of the wizard.', 'knowledgebase' ),
 				'settings'    => $this->build_step_settings( $mode_keys, $all_settings ),
 			),
-			'permalink_performance' => array(
-				'title'       => __( 'Permalinks & Performance', 'knowledgebase' ),
-				'description' => __( 'Define slugs, permalink structure, and caching settings for the knowledge base.', 'knowledgebase' ),
-				'settings'    => $this->build_step_settings( array_merge( $permalink_keys, $performance_keys ), $all_settings ),
+			'permalinks'        => array(
+				'title'       => __( 'Permalinks', 'knowledgebase' ),
+				'description' => __( 'Set the URL slugs for your knowledge base. Flush permalinks after saving if you see 404 errors.', 'knowledgebase' ),
+				'settings'    => $this->build_step_settings( $permalink_keys, $all_settings ),
 			),
-			'display_options'       => array(
+			'display_options'   => array(
 				'title'       => __( 'Display Options', 'knowledgebase' ),
-				'description' => __( 'Customize how the knowledge base archive looks and which metadata is visible.', 'knowledgebase' ),
+				'description' => __( 'Customize how the knowledge base looks and which metadata is visible.', 'knowledgebase' ),
 				'settings'    => $this->build_step_settings( array_merge( $display_settings_keys, $style_settings_keys ), $all_settings ),
 			),
-			'pro_features'          => array(
+			'pro_features'      => array(
 				'title'       => __( 'Pro Features', 'knowledgebase' ),
 				'description' => __( 'Unlock premium features like ratings and the help widget. Configure the essentials here before diving deeper.', 'knowledgebase' ),
 				'settings'    => $this->build_step_settings( $pro_features_keys, $all_settings ),
 			),
-			'products_setup'        => array(
-				'title'       => __( 'Create Products', 'knowledgebase' ),
-				'description' => __( 'Add one or more products to organize your knowledge base content.', 'knowledgebase' ),
+			'content_structure' => array(
+				'title'       => __( 'Content Structure', 'knowledgebase' ),
+				'description' => __( 'Create the products and sections that will organise your articles. You can add more and create subsections from the admin after setup.', 'knowledgebase' ),
 				'settings'    => array(),
-				'custom_step' => 'products',
+				'custom_step' => 'content_structure',
 			),
-			'sections_setup'        => array(
-				'title'       => __( 'Create Sections', 'knowledgebase' ),
-				'description' => __( 'Add sections to organize your articles. You can add more later.', 'knowledgebase' ),
+			'sample_content'    => array(
+				'title'       => __( 'Sample Content', 'knowledgebase' ),
+				'description' => __( 'Import sample sections and articles so you can explore the knowledge base straight away. You can delete this content at any time.', 'knowledgebase' ),
 				'settings'    => array(),
-				'custom_step' => 'sections',
-			),
-			'subsections_setup'     => array(
-				'title'       => __( 'Create Subsections', 'knowledgebase' ),
-				'description' => __( 'Add subsections and assign them to a parent section. You can add more later.', 'knowledgebase' ),
-				'settings'    => array(),
-				'custom_step' => 'subsections',
+				'custom_step' => 'sample_content',
 			),
 		);
 
@@ -328,7 +308,10 @@ class Settings_Wizard extends Settings_Wizard_API {
 	 * @param string $hook Current admin page hook.
 	 */
 	public function enqueue_custom_scripts( $hook ) {
-		if ( false === strpos( $hook, $this->page_slug ) ) {
+		$on_wizard_page = false !== strpos( $hook, $this->page_slug );
+		$on_tools_page  = false !== strpos( $hook, 'wzkb_tools_page' );
+
+		if ( ! $on_wizard_page && ! $on_tools_page ) {
 			return;
 		}
 
@@ -336,7 +319,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 		$custom_step = $step_config['custom_step'] ?? '';
 		$minimize    = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
+		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections', 'content_structure' ), true ) ) {
 			wp_enqueue_style(
 				'wzkb-wizard-content',
 				plugins_url( 'css/wizard-content' . $minimize . '.css', __FILE__ ),
@@ -351,6 +334,34 @@ class Settings_Wizard extends Settings_Wizard_API {
 				true
 			);
 		}
+
+		if ( 'sample_content' === $custom_step || $on_tools_page ) {
+			wp_enqueue_script(
+				'wzkb-wizard-sample-content',
+				plugins_url( 'js/wizard-sample-content' . $minimize . '.js', __FILE__ ),
+				array( 'jquery' ),
+				WZKB_VERSION,
+				true
+			);
+			wp_localize_script(
+				'wzkb-wizard-sample-content',
+				'WZKBSampleContent',
+				array(
+					'nonce'         => wp_create_nonce( 'wzkb_import_sample_content' ),
+					'deleteNonce'   => wp_create_nonce( 'wzkb_delete_sample_content' ),
+					'multiProduct'  => (string) (int) \wzkb_get_option( 'multi_product', 0 ),
+					'importing'     => __( 'Importing…', 'knowledgebase' ),
+					'imported'      => __( 'Imported', 'knowledgebase' ),
+					'importFailed'  => __( 'Import failed.', 'knowledgebase' ),
+					'deleting'      => __( 'Deleting…', 'knowledgebase' ),
+					'deleted'       => __( 'Deleted', 'knowledgebase' ),
+					'deleteFailed'  => __( 'Delete failed.', 'knowledgebase' ),
+					'deleteLabel'   => __( 'Delete Sample Content', 'knowledgebase' ),
+					'confirmDelete' => __( 'Are you sure you want to delete all sample content? This cannot be undone.', 'knowledgebase' ),
+					'noContent'     => __( 'Import sample articles and sections via the setup wizard to explore the knowledge base. Use this button to remove them at any time.', 'knowledgebase' ),
+				)
+			);
+		}
 	}
 
 	/**
@@ -363,16 +374,13 @@ class Settings_Wizard extends Settings_Wizard_API {
 		$current_step_config = $this->get_current_step_config();
 		$custom_step         = $current_step_config['custom_step'] ?? '';
 
-		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
+		if ( in_array( $custom_step, array( 'content_structure', 'sample_content' ), true ) ) {
 			switch ( $custom_step ) {
-				case 'products':
-					$this->process_products_submission();
+				case 'content_structure':
+					$this->process_content_structure_submission();
 					break;
-				case 'sections':
-					$this->process_sections_submission();
-					break;
-				case 'subsections':
-					$this->process_subsections_submission();
+				case 'sample_content':
+					// Import is triggered via the dedicated AJAX button; nothing to process on form submit.
 					break;
 			}
 
@@ -398,7 +406,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 		}
 
 		$custom_step = $step_config['custom_step'] ?? '';
-		if ( in_array( $custom_step, array( 'products', 'sections', 'subsections' ), true ) ) {
+		if ( in_array( $custom_step, array( 'content_structure', 'sample_content' ), true ) ) {
 			$this->render_taxonomy_setup_step( $custom_step, $step_config );
 			return;
 		}
@@ -454,14 +462,11 @@ class Settings_Wizard extends Settings_Wizard_API {
 						<div class="wizard-fields">
 							<?php
 							switch ( $custom_step ) {
-								case 'products':
-									$this->render_products_fields();
+								case 'content_structure':
+									$this->render_content_structure_fields();
 									break;
-								case 'sections':
-									$this->render_sections_fields( $multi_product );
-									break;
-								case 'subsections':
-									$this->render_subsections_fields();
+								case 'sample_content':
+									$this->render_sample_content_fields();
 									break;
 							}
 							?>
@@ -641,6 +646,126 @@ class Settings_Wizard extends Settings_Wizard_API {
 			</table>
 			<p>
 				<button type="button" class="button wzkb-wizard-add-row" data-target="wzkb_wizard_subsections"><?php esc_html_e( 'Add another subsection', 'knowledgebase' ); ?></button>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the combined content structure step.
+	 *
+	 * In multi-product mode, renders the products table above the sections table.
+	 * Sections are never shown with a product selector here — section-to-product
+	 * assignments can be made from KB → Sections after the wizard, once both sets
+	 * of terms exist.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function render_content_structure_fields(): void {
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+
+		if ( 1 === $multi_product ) {
+			echo '<h3>' . esc_html__( 'Products', 'knowledgebase' ) . '</h3>';
+			$this->render_products_fields();
+			echo '<h3 style="margin-top:1.5em;">' . esc_html__( 'Sections', 'knowledgebase' ) . '</h3>';
+			echo '<p class="description">' . esc_html__( 'Assign sections to products from Knowledge Base → Sections after the wizard.', 'knowledgebase' ) . '</p>';
+		}
+
+		$this->render_sections_fields( 0 );
+	}
+
+	/**
+	 * Render the sample content import option.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function render_sample_content_fields(): void {
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+		$data          = Sample_Content::get_data( 1 === $multi_product );
+
+		$n_products = count( $data['products'] );
+		$n_sections = count( $data['sections'] );
+		$n_articles = count( $data['articles'] );
+		?>
+		<div class="wzkb-sample-content-option">
+			<p class="description">
+				<?php
+				if ( 1 === $multi_product ) {
+					printf(
+						/* translators: 1: product count 2: section count 3: article count */
+						esc_html__( 'Creates %1$d products, %2$d sections (2 per product), and %3$d articles (2 per section).', 'knowledgebase' ),
+						(int) $n_products,
+						(int) $n_sections,
+						(int) $n_articles
+					);
+				} else {
+					printf(
+						/* translators: 1: section count 2: article count */
+						esc_html__( 'Creates %1$d sections and %2$d articles (2 per section).', 'knowledgebase' ),
+						(int) $n_sections,
+						(int) $n_articles
+					);
+				}
+				?>
+			</p>
+
+			<details style="margin-bottom: 1em;">
+				<summary style="cursor: pointer;"><?php esc_html_e( 'Preview content', 'knowledgebase' ); ?></summary>
+				<ul style="margin: 0.5em 0 0 1.5em; list-style: disc;">
+					<?php if ( 1 === $multi_product ) : ?>
+						<?php foreach ( $data['products'] as $product ) : ?>
+							<li>
+								<strong><?php echo esc_html( $product['name'] ); ?></strong>
+								<ul style="margin: 0.25em 0 0.25em 1.5em; list-style: disc;">
+									<?php foreach ( $data['sections'] as $section ) : ?>
+										<?php if ( $section['product_slug'] === $product['slug'] ) : ?>
+											<li>
+												<?php echo esc_html( $section['name'] ); ?>
+												<ul style="margin: 0.25em 0 0.25em 1.5em; list-style: circle;">
+													<?php foreach ( $data['articles'] as $article ) : ?>
+														<?php if ( $article['section_slug'] === $section['slug'] ) : ?>
+															<li><?php echo esc_html( $article['title'] ); ?></li>
+														<?php endif; ?>
+													<?php endforeach; ?>
+												</ul>
+											</li>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</ul>
+							</li>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<?php foreach ( $data['sections'] as $section ) : ?>
+							<li>
+								<?php echo esc_html( $section['name'] ); ?>
+								<ul style="margin: 0.25em 0 0.25em 1.5em; list-style: circle;">
+									<?php foreach ( $data['articles'] as $article ) : ?>
+										<?php if ( $article['section_slug'] === $section['slug'] ) : ?>
+											<li><?php echo esc_html( $article['title'] ); ?></li>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</ul>
+							</li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</ul>
+			</details>
+
+			<p>
+				<button type="button" id="wzkb-import-sample-btn" class="button button-primary">
+					<?php esc_html_e( 'Import Sample Content', 'knowledgebase' ); ?>
+				</button>
+				<?php if ( self::has_sample_content() ) : ?>
+					<button type="button" id="wzkb-delete-sample-btn" class="button button-secondary" style="margin-left: 0.5em;">
+						<?php esc_html_e( 'Delete Sample Content', 'knowledgebase' ); ?>
+					</button>
+				<?php endif; ?>
+				<span id="wzkb-import-sample-status" style="margin-left: 0.75em;"></span>
+				<span id="wzkb-delete-sample-status" style="margin-left: 0.75em;"></span>
 			</p>
 		</div>
 		<?php
@@ -829,6 +954,148 @@ class Settings_Wizard extends Settings_Wizard_API {
 	}
 
 	/**
+	 * Process the combined content structure step.
+	 *
+	 * Creates products first (multi-product mode only) then sections.
+	 * Section-to-product assignments are left to the admin post-wizard
+	 * because the combined form does not expose a product selector for sections.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function process_content_structure_submission(): void {
+		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
+
+		if ( 1 === $multi_product ) {
+			$this->process_products_submission();
+		}
+
+		$this->process_sections_submission();
+	}
+
+	/**
+	 * Import sample content submitted from the sample content wizard step.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	protected function process_sample_content_submission(): void {
+		$import = (bool) filter_input( INPUT_POST, 'wzkb_import_sample_content', FILTER_VALIDATE_BOOLEAN );
+		if ( ! $import ) {
+			return;
+		}
+
+		// Read the multi_product value that was snapshotted at render time to avoid TOCTOU
+		// mismatch if the setting is changed in another tab between render and submit.
+		$multi_product_post = filter_input( INPUT_POST, 'wzkb_sample_multi_product', FILTER_VALIDATE_INT );
+		$multi_product      = ( false !== $multi_product_post && null !== $multi_product_post )
+			? (int) $multi_product_post
+			: (int) \wzkb_get_option( 'multi_product', 0 );
+		$data               = Sample_Content::get_data( 1 === $multi_product );
+
+		// 1. Products (multi-product mode only).
+		$product_slug_to_id = array();
+		foreach ( $data['products'] as $product ) {
+			$term_id = $this->insert_or_update_term_id_from_row(
+				array(
+					'existing_id' => 0,
+					'name'        => $product['name'],
+					'slug'        => $product['slug'],
+					'description' => $product['description'],
+				),
+				'wzkb_product'
+			);
+			if ( $term_id > 0 ) {
+				$product_slug_to_id[ $product['slug'] ] = $term_id;
+				update_term_meta( $term_id, '_wzkb_sample_term', '1' );
+			}
+		}
+
+		// 2. Sections.
+		$section_slug_to_id = array();
+		foreach ( $data['sections'] as $section ) {
+			$term_id = $this->insert_or_update_term_id_from_row(
+				array(
+					'existing_id' => 0,
+					'name'        => $section['name'],
+					'slug'        => $section['slug'],
+					'description' => $section['description'],
+				),
+				'wzkb_category'
+			);
+			if ( $term_id <= 0 ) {
+				continue;
+			}
+			$section_slug_to_id[ $section['slug'] ] = $term_id;
+			update_term_meta( $term_id, '_wzkb_sample_term', '1' );
+			if ( 1 === $multi_product && ! empty( $section['product_slug'] ) ) {
+				$product_id = $product_slug_to_id[ $section['product_slug'] ] ?? 0;
+				if ( $product_id > 0 ) {
+					update_term_meta( $term_id, 'product_id', $product_id );
+				}
+			}
+		}
+
+		// 3. Articles.
+		foreach ( $data['articles'] as $article ) {
+			// Identify already-imported sample articles by a stable meta key so that
+			// slug collisions with unrelated posts and locale changes don't cause duplicates.
+			$existing = new \WP_Query(
+				array(
+					'post_type'      => 'wz_knowledgebase',
+					'post_status'    => 'any',
+					'posts_per_page' => 1,
+					'fields'         => 'ids',
+					'no_found_rows'  => true,
+					'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						array(
+							'key'   => '_wzkb_sample_article',
+							'value' => $article['meta_slug'],
+						),
+					),
+				)
+			);
+			if ( $existing->have_posts() ) {
+				continue;
+			}
+
+			$post_id = wp_insert_post(
+				array(
+					'post_title'   => $article['title'],
+					'post_content' => $article['content'],
+					'post_status'  => 'publish',
+					'post_type'    => 'wz_knowledgebase',
+				)
+			);
+
+			if ( is_wp_error( $post_id ) || 0 === $post_id ) {
+				continue;
+			}
+
+			update_post_meta( $post_id, '_wzkb_sample_article', $article['meta_slug'] );
+
+			$section_id = $section_slug_to_id[ $article['section_slug'] ] ?? 0;
+			if ( $section_id > 0 ) {
+				wp_set_object_terms( $post_id, array( $section_id ), 'wzkb_category' );
+			}
+
+			if ( 1 === $multi_product ) {
+				foreach ( $data['sections'] as $section ) {
+					if ( $section['slug'] === $article['section_slug'] && ! empty( $section['product_slug'] ) ) {
+						$product_id = $product_slug_to_id[ $section['product_slug'] ] ?? 0;
+						if ( $product_id > 0 ) {
+							wp_set_object_terms( $post_id, array( $product_id ), 'wzkb_product' );
+						}
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	/**
 	 * Insert a term from a repeater row, or return existing term ID when it exists.
 	 *
 	 * @since 3.0.0
@@ -899,6 +1166,150 @@ class Settings_Wizard extends Settings_Wizard_API {
 			return 0;
 		}
 		return isset( $inserted['term_id'] ) ? (int) $inserted['term_id'] : 0;
+	}
+
+	/**
+	 * Check whether any sample content exists in the database.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return bool
+	 */
+	public static function has_sample_content(): bool {
+		$query = new \WP_Query(
+			array(
+				'post_type'      => 'wz_knowledgebase',
+				'post_status'    => 'any',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => '_wzkb_sample_article',
+						'compare' => 'EXISTS',
+					),
+				),
+			)
+		);
+		return $query->have_posts();
+	}
+
+	/**
+	 * Handle AJAX request to delete all sample content.
+	 *
+	 * @since 3.0.0
+	 */
+	public function ajax_delete_sample_content() {
+		check_ajax_referer( 'wzkb_delete_sample_content', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Insufficient permissions.', 'knowledgebase' ) ) );
+		}
+
+		// Delete sample articles.
+		$article_query = new \WP_Query(
+			array(
+				'post_type'      => 'wz_knowledgebase',
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'     => '_wzkb_sample_article',
+						'compare' => 'EXISTS',
+					),
+				),
+			)
+		);
+		$deleted_posts = 0;
+		foreach ( $article_query->posts as $post_id ) {
+			if ( wp_delete_post( (int) $post_id, true ) ) {
+				++$deleted_posts;
+			}
+		}
+
+		// Delete sample terms.
+		$deleted_terms = 0;
+		foreach ( array( 'wzkb_category', 'wzkb_product' ) as $taxonomy ) {
+			$terms = get_terms(
+				array(
+					'taxonomy'   => $taxonomy,
+					'hide_empty' => false,
+					'meta_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						array(
+							'key'     => '_wzkb_sample_term',
+							'compare' => 'EXISTS',
+						),
+					),
+				)
+			);
+			if ( is_wp_error( $terms ) ) {
+				continue;
+			}
+			foreach ( $terms as $term ) {
+				if ( wp_delete_term( (int) $term->term_id, $taxonomy ) ) {
+					++$deleted_terms;
+				}
+			}
+		}
+
+		wp_send_json_success(
+			array(
+				'message' => sprintf(
+					/* translators: 1: number of articles deleted 2: number of terms deleted */
+					esc_html__( 'Deleted %1$d articles and %2$d sections/products.', 'knowledgebase' ),
+					$deleted_posts,
+					$deleted_terms
+				),
+			)
+		);
+	}
+
+	/**
+	 * Render the sample content card on the Tools page.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return void
+	 */
+	public function render_sample_content_tools_card(): void {
+		$has_content = self::has_sample_content();
+		?>
+		<div class="postbox">
+			<h2 class="hndle"><span><?php esc_html_e( 'Sample Content', 'knowledgebase' ); ?></span></h2>
+			<div class="inside">
+				<?php if ( $has_content ) : ?>
+					<p><?php esc_html_e( 'Sample articles, sections, and products created by the setup wizard are present on this site.', 'knowledgebase' ); ?></p>
+				<?php else : ?>
+					<p><?php esc_html_e( 'Import sample articles and sections via the setup wizard to explore the knowledge base. Use this button to remove them at any time.', 'knowledgebase' ); ?></p>
+				<?php endif; ?>
+				<p>
+					<button type="button" id="wzkb-delete-sample-btn" class="button button-secondary"<?php echo $has_content ? '' : ' disabled'; ?>>
+						<?php esc_html_e( 'Delete Sample Content', 'knowledgebase' ); ?>
+					</button>
+					<span id="wzkb-delete-sample-status" style="margin-left: 0.75em;"></span>
+				</p>
+			</div><!-- /.inside -->
+		</div><!-- /.postbox -->
+		<?php
+	}
+
+	/**
+	 * Handle AJAX request to import sample content.
+	 *
+	 * @since 3.0.0
+	 */
+	public function ajax_import_sample_content() {
+		check_ajax_referer( 'wzkb_import_sample_content', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Insufficient permissions.', 'knowledgebase' ) ) );
+		}
+
+		$this->process_sample_content_submission();
+
+		wp_send_json_success( array( 'message' => esc_html__( 'Sample content imported successfully.', 'knowledgebase' ) ) );
 	}
 
 	/**

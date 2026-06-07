@@ -223,6 +223,18 @@ class Display {
 			$args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 
+		/**
+		 * Filter the arguments for fetching terms.
+		 *
+		 * @since 3.1.0
+		 *
+		 * @param array  $args       Arguments for get_terms().
+		 * @param string $taxonomy   Taxonomy to query.
+		 * @param array  $query_args Base arguments for get_terms().
+		 * @param array  $meta_query Optional meta query array.
+		 */
+		$args = apply_filters( 'wzkb_fetch_terms_args', $args, $taxonomy, $query_args, $meta_query );
+
 		// Only cache if caching is enabled.
 		$cache_enabled = ! empty( self::get_cached_option( 'cache' ) );
 

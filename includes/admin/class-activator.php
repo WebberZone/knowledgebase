@@ -91,8 +91,7 @@ class Activator {
 	 */
 	public static function single_activate() {
 		// Register types to register the rewrite rules.
-		CPT::register_post_type();
-		CPT::register_taxonomies();
+		CPT::register_kb_types();
 
 		// Then flush them.
 		global $wp_rewrite;

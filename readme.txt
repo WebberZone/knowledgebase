@@ -189,9 +189,16 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-1-0/](http
 	* Settings Export & Import: export all plugin settings as a stripped JSON file and re-import from a backup. Sensitive keys (API tokens, webhook secrets) are preserved on the existing site and never overwritten by an import.
 	* [Pro] Article Export & Import: export all Knowledge Base articles as a Markdown ZIP with YAML frontmatter, a SQL INSERT dump ZIP, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles — articles are matched by slug with overwrite/skip control.
 
+* Bug fixes:
+	* [Pro] Fixed product and section taxonomy archive pages redirecting to the homepage when a custom article permalink structure (e.g. `%section_name%/%postname%`) was active. The term link filter was incorrectly prepending the KB slug to taxonomy URLs that already contained their full path.
+	* [Pro] Fixed article single pages not resolving when a custom article permalink structure was active. The rewrite rule was generated without the KB slug prefix, but the generated article URLs included it, causing a mismatch.
+
 * Modifications:
 	* Added a Settings button to the admin banner for quick access from any KB admin page.
 	* Reorganised the Tools page and sub-menu items to group related features together and improve navigation.
+	* Added `wzkb_tag` taxonomy template support across frontend handlers: block template, classic PHP template, and style enqueueing. Tag archives now render with the same layout consistency as product and section archives.
+	* Single article templates now display linked `wzkb_tag` terms as styled pill badges after the article content and before related articles. Both classic and block-based patterns were updated.
+	* Tag archive and search result cards now use a CSS Grid layout: thumbnail and title sit side-by-side on the top row, with the excerpt spanning the full width below. This matches the block template layout and improves visual consistency across classic and block themes.
 	* [Pro] Floating TOC now slides in and out horizontally from the viewport edge instead of collapsing vertically. A narrow tab peeks from the edge when minimised; clicking it slides the full panel into view. Mobile bottom-bar behaviour is unchanged.
 	* [Pro] TOC block now defaults the title field to "Table of Contents" instead of blank, so newly inserted blocks display a heading out of the box.
 
