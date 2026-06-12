@@ -425,7 +425,7 @@ class Plugin_Importers {
 								</li>
 								<li>
 									<?php $archive_link = get_post_type_archive_link( 'wz_knowledgebase' ); ?>
-										<a class="button button-large" href="<?php echo esc_url( $archive_link ? (string) $archive_link : admin_url() ); ?>" target="_blank">
+									<a class="button button-large" href="<?php echo esc_url( $archive_link ? (string) $archive_link : admin_url() ); ?>" target="_blank">
 										<span class="dashicons dashicons-visibility"></span>
 										<?php esc_html_e( 'Visit Knowledge Base', 'knowledgebase' ); ?>
 									</a>
