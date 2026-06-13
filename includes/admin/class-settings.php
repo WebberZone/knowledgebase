@@ -946,6 +946,7 @@ class Settings {
 				'add_button_text'           => esc_html__( 'Add Repository', 'knowledgebase' ),
 				'live_update_field'         => 'product_id',
 				'live_update_field_options' => $product_options,
+				'unique_field'              => 'product_id',
 				'pro'                       => true,
 				'fields'                    => array(
 					'product_id'         => array(
@@ -992,38 +993,38 @@ class Settings {
 						'size'    => 'large',
 					),
 					'default_status'     => array(
-						'name'    => esc_html__( 'Default Status', 'knowledgebase' ),
-						'desc'    => esc_html__( 'Override the frontmatter status when set. Leave on "No override" to respect frontmatter.', 'knowledgebase' ),
+						'name'    => esc_html__( 'Article Status', 'knowledgebase' ),
+						'desc'    => esc_html__( 'Force all imported articles to this status, overriding any status set in frontmatter. Leave on "Use frontmatter" to let each article control its own status.', 'knowledgebase' ),
 						'id'      => 'default_status',
 						'type'    => 'select',
 						'default' => '',
 						'options' => array(
-							''        => esc_html__( 'No override', 'knowledgebase' ),
+							''        => esc_html__( 'Use frontmatter', 'knowledgebase' ),
 							'publish' => esc_html__( 'Published', 'knowledgebase' ),
 							'draft'   => esc_html__( 'Draft', 'knowledgebase' ),
 						),
 					),
 					'duplicate_handling' => array(
-						'name'    => esc_html__( 'Duplicate Handling', 'knowledgebase' ),
-						'desc'    => esc_html__( 'What to do when an imported slug already exists in a non-GitHub article.', 'knowledgebase' ),
+						'name'    => esc_html__( 'Slug Conflict Handling', 'knowledgebase' ),
+						'desc'    => esc_html__( 'What to do when a GitHub file\'s slug matches an article that was not imported from GitHub.', 'knowledgebase' ),
 						'id'      => 'duplicate_handling',
 						'type'    => 'select',
 						'default' => 'overwrite',
 						'options' => array(
-							'overwrite'  => esc_html__( 'Overwrite existing', 'knowledgebase' ),
-							'skip'       => esc_html__( 'Skip', 'knowledgebase' ),
-							'create_new' => esc_html__( 'Create new with suffixed slug', 'knowledgebase' ),
+							'overwrite'  => esc_html__( 'Overwrite the existing article', 'knowledgebase' ),
+							'skip'       => esc_html__( 'Skip — leave the existing article unchanged', 'knowledgebase' ),
+							'create_new' => esc_html__( 'Create a new article with a suffixed slug', 'knowledgebase' ),
 						),
 					),
 					'delete_removed'     => array(
-						'name'    => esc_html__( 'Deleted File Handling', 'knowledgebase' ),
-						'desc'    => esc_html__( 'What to do when a tracked file is removed from the repository.', 'knowledgebase' ),
+						'name'    => esc_html__( 'When a File is Deleted', 'knowledgebase' ),
+						'desc'    => esc_html__( 'What to do with the linked article when its source file is removed from the repository.', 'knowledgebase' ),
 						'id'      => 'delete_removed',
 						'type'    => 'select',
 						'default' => 'draft',
 						'options' => array(
-							'draft'  => esc_html__( 'Set to draft', 'knowledgebase' ),
-							'delete' => esc_html__( 'Permanently delete', 'knowledgebase' ),
+							'draft'  => esc_html__( 'Switch to draft', 'knowledgebase' ),
+							'delete' => esc_html__( 'Delete permanently', 'knowledgebase' ),
 						),
 					),
 					'enable_push'        => array(

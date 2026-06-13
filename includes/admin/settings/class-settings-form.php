@@ -1016,6 +1016,9 @@ class Settings_Form {
 			<?php if ( ! empty( $live_update_options ) ) : ?>
 			data-live-update-field-options="<?php echo esc_attr( wp_json_encode( $live_update_options ) ); ?>"
 			<?php endif; ?>
+			<?php if ( ! empty( $args['unique_field'] ) ) : ?>
+			data-unique-field="<?php echo esc_attr( $args['unique_field'] ); ?>"
+			<?php endif; ?>
 			<?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
 			<div class="<?php echo esc_attr( $args['id'] ); ?>-items wz-repeater-items">
