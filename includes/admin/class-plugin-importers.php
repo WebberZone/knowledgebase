@@ -96,6 +96,8 @@ class Plugin_Importers {
 			$this->page_slug,
 			array( $this, 'render_page' )
 		);
+
+		remove_submenu_page( 'edit.php?post_type=wz_knowledgebase', $this->page_slug );
 	}
 
 	/**
