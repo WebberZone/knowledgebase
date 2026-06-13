@@ -5,7 +5,7 @@
  * A reusable API class for creating multi-step settings wizards.
  * This class provides the framework for creating guided setup experiences.
  *
- * @package    WebberZone\Knowledge_Base
+ * @package WebberZone\Knowledge_Base
  */
 
 namespace WebberZone\Knowledge_Base\Admin\Settings;
