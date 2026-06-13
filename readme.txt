@@ -175,7 +175,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Upgrade Notice ==
 
 = 3.1.0 =
-Pro: GitHub Integration for syncing markdown docs via webhooks. Set repository mappings in Settings → GitHub or directly on product terms.
+Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: GitHub Integration for syncing markdown docs via webhooks, featured image support in importer/exporter, and post-import next-actions panel.
 
 == Changelog ==
 
@@ -184,23 +184,18 @@ Pro: GitHub Integration for syncing markdown docs via webhooks. Set repository m
 Release post: [https://webberzone.com/announcements/knowledge-base-v3-1-0/](https://webberzone.com/announcements/knowledge-base-v3-1-0/)
 
 * Features:
-	* [Pro] GitHub Integration: Automatically sync markdown documentation from GitHub repositories. Configure webhooks in Settings → GitHub or set repository mappings directly on product terms. Features include YAML frontmatter support for metadata control, markdown-to-Gutenberg conversion, classic editor fallback, and HMAC-SHA256 signature verification. Test connections via `wzkb/v1/github/validate`.
-	* [Pro] Merged GitHub Import and Export into a single "GitHub Importer/Exporter" admin page with link-based tab navigation (Import tab loads by default).
-	* Settings Export & Import: export all plugin settings as a stripped JSON file and re-import from a backup. Sensitive keys (API tokens, webhook secrets) are preserved on the existing site and never overwritten by an import.
-	* [Pro] Article Export & Import: export all Knowledge Base articles as a Markdown ZIP with YAML frontmatter, a SQL INSERT dump ZIP, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles — articles are matched by slug with overwrite/skip control.
-
-* Bug fixes:
-	* [Pro] Fixed product and section taxonomy archive pages redirecting to the homepage when a custom article permalink structure (e.g. `%section_name%/%postname%`) was active. The term link filter was incorrectly prepending the KB slug to taxonomy URLs that already contained their full path.
-	* [Pro] Fixed article single pages not resolving when a custom article permalink structure was active. The rewrite rule was generated without the KB slug prefix, but the generated article URLs included it, causing a mismatch.
+	* [Pro] GitHub Integration: sync markdown documentation between GitHub repositories and the Knowledge Base via webhooks, with YAML frontmatter, markdown-to-Gutenberg conversion, and HMAC signature verification. Import and export are combined into a single Importer/Exporter page, with featured image support and a post-import next-actions panel.
+	* [Pro] Article Export & Import: export articles as a Markdown ZIP, SQL dump, or XLSX spreadsheet, and re-import Markdown ZIPs (matched by slug) to restore or migrate.
+	* [Pro] Term featured image support for product and section archives.
+	* Plugin Importer: migrate articles, sections, products, and tags from BasePress, BetterDocs, and Echo KB.
+	* Settings Export & Import: back up and restore plugin settings as JSON, with sensitive keys preserved on the existing site.
+	* Sample content: import demo articles, sections, and products from the Setup Wizard or Tools page, removable in one click.
+	* Added `wzkb_tag` taxonomy templates, displaying tag terms on single articles and tag archives.
 
 * Modifications:
-	* Added a Settings button to the admin banner for quick access from any KB admin page.
-	* Reorganised the Tools page and sub-menu items to group related features together and improve navigation.
-	* Added `wzkb_tag` taxonomy template support across frontend handlers: block template, classic PHP template, and style enqueueing. Tag archives now render with the same layout consistency as product and section archives.
-	* Single article templates now display linked `wzkb_tag` terms as styled pill badges after the article content and before related articles. Both classic and block-based patterns were updated.
-	* Tag archive and search result cards now use a CSS Grid layout: thumbnail and title sit side-by-side on the top row, with the excerpt spanning the full width below. This matches the block template layout and improves visual consistency across classic and block themes.
-	* [Pro] Floating TOC now slides in and out horizontally from the viewport edge instead of collapsing vertically. A narrow tab peeks from the edge when minimised; clicking it slides the full panel into view. Mobile bottom-bar behaviour is unchanged.
-	* [Pro] TOC block now defaults the title field to "Table of Contents" instead of blank, so newly inserted blocks display a heading out of the box.
+	* [Pro] Floating TOC now slides in horizontally from the viewport edge instead of collapsing vertically.
+	* Reorganised admin navigation, unified the GitHub pages, and added a Settings button to the admin banner.
+	* Upgraded Tom Select to v2.6.1.
 
 = 3.0.1 =
 
