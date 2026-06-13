@@ -5,7 +5,7 @@
  * Functions to register, read, write and update settings.
  * Portions of this code have been inspired by Easy Digital Downloads, WordPress Settings Sandbox, WordPress Settings API class, etc.
  *
- * @package    WebberZone\Knowledge_Base
+ * @package WebberZone\Knowledge_Base
  */
 
 namespace WebberZone\Knowledge_Base\Admin\Settings;
