@@ -470,12 +470,15 @@ body.wzkb-sidebar-enabled #wzkb-sidebar-primary {
 }
 
 /* Navigation */
-.nav-previous {
-	float: left;
+body.single-wz_knowledgebase .nav-links {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
 }
 
-.nav-next {
-	float: right;
+body.single-wz_knowledgebase .nav-next {
+	text-align: right;
+	margin-left: auto;
 }
 
 /* Search form */

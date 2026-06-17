@@ -18,6 +18,7 @@
         "build:products": "wp-scripts build --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
         "build:rating": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/rating/ --output-path=includes/pro/blocks/build/rating/",
         "build:toc": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/toc/ --output-path=includes/pro/blocks/build/toc/",
+        "build:section-tree": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/section-tree/ --output-path=includes/pro/blocks/build/section-tree/",
         "build:free": "wp-scripts build --webpack-src-dir=includes/blocks/src/ --output-path=includes/blocks/build/",
         "build:pro": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/ --output-path=includes/pro/blocks/build/",
         "format": "wp-scripts format ./includes/blocks/src/ ./includes/pro/blocks/src/",
@@ -37,6 +38,7 @@
         "start:products": "wp-scripts start --webpack-src-dir=includes/blocks/src/products/ --output-path=includes/blocks/build/products/",
         "start:rating": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/rating/ --output-path=includes/pro/blocks/build/rating/",
         "start:toc": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/toc/ --output-path=includes/pro/blocks/build/toc/",
+        "start:section-tree": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/section-tree/ --output-path=includes/pro/blocks/build/section-tree/",
         "zip": "wp-scripts plugin-zip"
     },
     "files": [
@@ -51,7 +53,7 @@
         "readme.txt"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.47.0",
+        "@wordpress/prettier-config": "^4.48.0",
         "@wordpress/scripts": "^32",
         "clean-css-cli": "^5.6.3",
         "rtlcss": "^4.3.0",
