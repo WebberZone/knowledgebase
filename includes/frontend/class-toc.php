@@ -85,15 +85,16 @@ class TOC {
 	/**
 	 * Whether any non-inline TOC consumer is active on the current page.
 	 *
-	 * Checks for: floating TOC option, the TOC sidebar widget, and the TOC block embedded in
-	 * the post content. The inline TOC is excluded because inject_toc() handles anchors itself.
+	 * Checks for: documentation layout, floating TOC option, the TOC sidebar widget, and the TOC
+	 * block embedded in the post content. The inline TOC is excluded because inject_toc() handles
+	 * anchors itself.
 	 *
 	 * @since 3.0.1
 	 *
 	 * @return bool
 	 */
 	private static function needs_anchor_injection(): bool {
-		if ( \wzkb_get_option( 'show_floating_toc' ) ) {
+		if ( \wzkb_get_option( 'docs_mode' ) || \wzkb_get_option( 'show_floating_toc' ) ) {
 			return true;
 		}
 

@@ -132,6 +132,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'columns',
 		);
 		$pro_features_keys     = array(
+			'docs_mode',
 			'show_floating_toc',
 			'rating_system',
 			'rating_tracking_method',

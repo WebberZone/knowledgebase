@@ -57,6 +57,8 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - 🎨 __Premium Layout Pack__ — Unlock seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - 📑 __Enhanced Table of Contents__ — Three Pro TOC delivery surfaces: a sidebar widget that renders the TOC for the current article, a Gutenberg block for inline insertion, and a floating/sticky panel that follows the reader down the page.
 - 🛠️ __Advanced Admin Tools__ — Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
+- 📄 __Documentation Layout Mode__ — Transform any KB page into a three-column docs site with a sticky section-tree sidebar on the left, article content in the centre, and an "On this page" TOC rail on the right. Collapsible accordion navigation adapts to the current product, section, or article automatically.
+- 🌳 __Section Tree Block & Widget__ — Display a context-aware hierarchical navigation tree of your KB products, sections, and articles anywhere — as a Gutenberg block or a classic sidebar widget. The tree collapses and expands sections with an accessible accordion, and highlights the current page automatically.
 - 🤖 __GitHub Integration__ — Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 - 📦 __Article Export & Import__ — Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
 

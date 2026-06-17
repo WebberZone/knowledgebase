@@ -281,6 +281,36 @@ function wzkb_the_product_sections_list( $product_id, $args = array() ) {
 }
 
 /**
+ * Get the context-aware knowledge base section tree (Pro).
+ *
+ * Renders the full products/sections tree on the KB home, or the relevant
+ * product's section tree on a product archive, section archive or article.
+ * Returns an empty string when the Pro feature is unavailable.
+ *
+ * @since 3.1.0
+ *
+ * @param array $args Display arguments. See Pro\Frontend\Section_Tree::get_tree().
+ * @return string HTML output.
+ */
+function wzkb_get_section_tree( $args = array() ) {
+	if ( ! class_exists( '\WebberZone\Knowledge_Base\Pro\Frontend\Section_Tree' ) ) {
+		return '';
+	}
+	return \WebberZone\Knowledge_Base\Pro\Frontend\Section_Tree::get_tree( (array) $args );
+}
+
+/**
+ * Echo the context-aware knowledge base section tree (Pro).
+ *
+ * @since 3.1.0
+ *
+ * @param array $args Display arguments. See Pro\Frontend\Section_Tree::get_tree().
+ */
+function wzkb_the_section_tree( $args = array() ) {
+	echo wzkb_get_section_tree( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
  * Get the product term associated with a section.
  *
  * @since 3.0.0

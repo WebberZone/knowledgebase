@@ -825,6 +825,14 @@ class Settings {
 				'options' => self::get_kb_styles(),
 				'default' => 'classic',
 			),
+			'docs_mode'              => array(
+				'id'      => 'docs_mode',
+				'name'    => esc_html__( 'Documentation layout', 'knowledgebase' ),
+				'desc'    => esc_html__( 'Display the entire knowledge base as a three-column documentation site: a categorized navigation sidebar, the article content, and an "On this page" outline. Works alongside your chosen style.', 'knowledgebase' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
 			'columns'                => array(
 				'id'      => 'columns',
 				'name'    => esc_html__( 'Number of columns', 'knowledgebase' ),

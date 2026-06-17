@@ -54,6 +54,8 @@ Perfect for:
 - __Premium Layout Pack__: Unlock seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - __Enhanced Table of Contents__: Three Pro TOC delivery surfaces — a sidebar widget that renders the TOC for the current article, a Gutenberg block to insert the TOC inline, and a floating/sticky panel that follows the reader down the page.
 - __Advanced Admin Tools__: Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
+- __Documentation Layout Mode__: Transform any KB page into a three-column docs site with a sticky section-tree sidebar on the left, article content in the centre, and an "On this page" TOC rail on the right. Collapsible accordion navigation adapts to the current product, section, or article automatically.
+- __Section Tree Block & Widget__: Display a context-aware hierarchical navigation tree of your KB products, sections, and articles anywhere — as a Gutenberg block or a classic sidebar widget. The tree collapses and expands sections with an accessible accordion, and highlights the current page automatically.
 - __GitHub Integration__: Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 - __Article Export & Import__: Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
 
@@ -175,7 +177,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Upgrade Notice ==
 
 = 3.1.0 =
-Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: GitHub Integration for syncing markdown docs via webhooks, featured image support in importer/exporter, and post-import next-actions panel.
+Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documentation Layout Mode (three-column docs site view), Section Tree block and widget, GitHub Integration for syncing markdown docs via webhooks, featured image support in importer/exporter, and post-import next-actions panel.
 
 == Changelog ==
 
@@ -184,6 +186,8 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: GitHub 
 Release post: [https://webberzone.com/announcements/knowledge-base-v3-1-0/](https://webberzone.com/announcements/knowledge-base-v3-1-0/)
 
 * Features:
+	* [Pro] Documentation Layout Mode: three-column docs site layout with a sticky, collapsible section-tree sidebar, article content area, and on-this-page TOC rail. Enable via Settings → Pro. Works on all KB page types (home, product, section, single article, search).
+	* [Pro] Section Tree block (`knowledgebase/section-tree`) and sidebar widget: context-aware hierarchical navigation tree displaying products, sections, and articles with collapsible accordion and active-item highlighting. Adapts automatically to the current product, section, or article page.
 	* [Pro] GitHub Integration: sync markdown documentation between GitHub repositories and the Knowledge Base via webhooks, with YAML frontmatter, markdown-to-Gutenberg conversion, and HMAC signature verification. Import and export are combined into a single Importer/Exporter page, with featured image support and a post-import next-actions panel.
 	* [Pro] Article Export & Import: export articles as a Markdown ZIP, SQL dump, or XLSX spreadsheet, and re-import Markdown ZIPs (matched by slug) to restore or migrate.
 	* [Pro] Term featured image support for product and section archives.
