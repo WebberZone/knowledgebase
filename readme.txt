@@ -21,7 +21,7 @@ Perfect for:
 
 - Multi-product companies managing multiple help centers
 - SaaS platforms with self-service documentation portals
-- Ecommerce support centres reducing ticket volume
+- Ecommerce support centers reducing ticket volume
 - Documentation hubs and internal company wikis
 - Developers building customer-facing knowledge portals
 
@@ -54,7 +54,7 @@ Perfect for:
 - __Premium Layout Pack__: Unlock seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 - __Enhanced Table of Contents__: Three Pro TOC delivery surfaces — a sidebar widget that renders the TOC for the current article, a Gutenberg block to insert the TOC inline, and a floating/sticky panel that follows the reader down the page.
 - __Advanced Admin Tools__: Control knowledge base caching with expiry settings, on-demand cache clearing, and other productivity enhancements.
-- __Documentation Layout Mode__: Transform any KB page into a three-column docs site with a sticky section-tree sidebar on the left, article content in the centre, and an "On this page" TOC rail on the right. Collapsible accordion navigation adapts to the current product, section, or article automatically.
+- __Documentation Layout Mode__: Transform any KB page into a three-column docs site with a sticky section-tree sidebar on the left, article content in the center, and an "On this page" TOC rail on the right. Collapsible accordion navigation adapts to the current product, section, or article automatically.
 - __Section Tree Block & Widget__: Display a context-aware hierarchical navigation tree of your KB products, sections, and articles anywhere — as a Gutenberg block or a classic sidebar widget. The tree collapses and expands sections with an accessible accordion, and highlights the current page automatically.
 - __GitHub Integration__: Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 - __Article Export & Import__: Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
@@ -132,11 +132,11 @@ Use a plugin like [Intuitive Custom Post Order](https://wordpress.org/plugins/in
 
 = Can I use this as a help center or wiki? =
 
-Yes! Knowledge Base works equally well as a help center, wiki, FAQ site, or documentation portal. Use sections to organise topics and products to separate different areas of your documentation.
+Yes! Knowledge Base works equally well as a help center, wiki, FAQ site, or documentation portal. Use sections to organize topics and products to separate different areas of your documentation.
 
 = Does it support multiple products or projects? =
 
-Yes. Enable Multi-Product mode via the Setup Wizard to organise articles under separate Products, each with their own sections and sub-sections.
+Yes. Enable Multi-Product mode via the Setup Wizard to organize articles under separate Products, each with their own sections and sub-sections.
 
 = Is it compatible with page builders like Elementor or Divi? =
 
@@ -198,7 +198,7 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-1-0/](http
 
 * Modifications:
 	* [Pro] Floating TOC now slides in horizontally from the viewport edge instead of collapsing vertically.
-	* Reorganised admin navigation, unified the GitHub pages, and added a Settings button to the admin banner.
+	* Reorganized admin navigation, unified the GitHub pages, and added a Settings button to the admin banner.
 	* Upgraded Tom Select to v2.6.1.
 
 = 3.0.1 =
@@ -226,7 +226,7 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](http
 	* Auto-generated Table of Contents for Knowledge Base articles: parses headings (H2–H6), injects anchor IDs, and renders a nested linked TOC above article content.
 		* Configurable heading depth (H2–H6), minimum heading count threshold, and custom title text.
 		* WPML and Polylang support for TOC title translation.
-		* Filter `wzkb_toc` to customise the generated HTML.
+		* Filter `wzkb_toc` to customize the generated HTML.
 		* Public helper functions `wzkb_get_toc()` and `wzkb_toc()` for template use.
 		* [Pro] TOC widget, block and floating widget.
 	* Live search suggestions for the Knowledge Base search form, with AJAX results, keyboard navigation, and accessible screen reader support.
@@ -238,12 +238,12 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](http
 		* Binary or 5-star voting, optional follow-up feedback, shortcode support, and Tools page controls.
 		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
 		* Email alerts, per-article reset tools, feedback storage, privacy exporter/eraser, and Bayesian average sorting in admin lists.
-	* [Pro] Floating Help Widget providing a branded assistant with live search, suggested articles, configurable labels/colours, and a contact form with HTML email notifications.
+	* [Pro] Floating Help Widget providing a branded assistant with live search, suggested articles, configurable labels/colors, and a contact form with HTML email notifications.
 	* [Pro] Premium layout pack with seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
 
 * Modifications:
-	* Standardised CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
-	* Added `Hooks_Registry` class to organise hooks and prevent accidental duplicates.
+	* Standardized CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
+	* Added `Hooks_Registry` class to organize hooks and prevent accidental duplicates.
 	* Upgraded the WebberZone Settings API.
 	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
 	* Knowledge Base Block will dynamically load the global settings when first inserted.
