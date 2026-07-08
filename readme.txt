@@ -198,7 +198,7 @@ Release post: [https://webberzone.com/announcements/knowledge-base-v3-1-0/](http
 
 * Modifications:
 	* [Pro] Floating TOC now slides in horizontally from the viewport edge instead of collapsing vertically.
-	* Reorganized admin navigation, unified the GitHub pages, and added a Settings button to the admin banner.
+	* Reorganized admin navigation and added a Settings button to the admin banner.
 	* Upgraded Tom Select to v2.6.1.
 
 = 3.0.1 =
