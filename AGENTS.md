@@ -39,7 +39,7 @@ npm run lint:css                         # Lint CSS
 npm run format                           # Auto-format JS and CSS
 ```
 
-Individual block builds: `npm run build:[kb|articles|sections|products|search|breadcrumb|related|alerts|rating]`
+Individual block builds: `npm run build:[kb|articles|sections|products|search|breadcrumb|related|alerts|rating|toc|section-tree]`
 
 > **After editing any non-block JS or CSS** (files in `includes/admin/js/`, `includes/admin/css/`, `includes/admin/settings/js/`, `includes/frontend/css/`, `includes/pro/frontend/css/`, etc.) always run `node build-assets.js` to regenerate the `.min.js`, `.min.css`, and `-rtl` variants. Never hand-edit the minified or RTL files directly.
 >
@@ -147,7 +147,7 @@ Settings are stored as a single serialized array under option key `wzkb_settings
 
 ### REST API
 
-Endpoints under `/wzkb/v1/`: `/sections` (product sections), `/knowledgebase` (list), `/knowledgebase/{id}` (single). Responses are object-cached under group `wzkb_rest` (300 s TTL); cache is invalidated on post save/delete and term changes.
+Endpoints under `/wzkb/v1/`: `/sections` (product sections), `/knowledgebase` (list), `/knowledgebase/{id}` (single), `/products` (product list), `/search` (live search), `/related` (related articles). Responses are object-cached under group `wzkb_rest` (300 s TTL); cache is invalidated on post save/delete and term changes.
 
 ## Code Quality Configuration
 
