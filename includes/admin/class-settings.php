@@ -152,9 +152,11 @@ class Settings {
 
 		Hook_Registry::add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
 		Hook_Registry::add_action( self::$prefix . '_settings_form_buttons', array( $this, 'render_wizard_button' ), 20 );
-		Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'add_github_pat_verify_button' ), 10, 2 );
-		Hook_Registry::add_action( 'wp_ajax_wzkb_github_repo_search', array( $this, 'handle_github_repo_search' ) );
-		Hook_Registry::add_action( 'wp_ajax_wzkb_clear_github_repos_cache', array( $this, 'handle_clear_github_repos_cache' ) );
+		if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\GitHub\\API' ) ) {
+			Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'add_github_pat_verify_button' ), 10, 2 );
+			Hook_Registry::add_action( 'wp_ajax_wzkb_github_repo_search', array( $this, 'handle_github_repo_search' ) );
+			Hook_Registry::add_action( 'wp_ajax_wzkb_clear_github_repos_cache', array( $this, 'handle_clear_github_repos_cache' ) );
+		}
 	}
 
 	/**
@@ -360,7 +362,10 @@ class Settings {
 			'save_changes'         => esc_html__( 'Save Changes', 'knowledgebase' ),
 			'reset_settings'       => esc_html__( 'Reset all settings', 'knowledgebase' ),
 			'reset_button_confirm' => esc_html__( 'Do you really want to reset all these settings to their default values?', 'knowledgebase' ),
-			'checkbox_modified'    => esc_html__( 'Modified from default setting', 'knowledgebase' ),
+			'modified_field'       => esc_html__( 'Modified from default setting', 'knowledgebase' ),
+			'modified_legend'      => esc_html__( 'Setting modified from its default value', 'knowledgebase' ),
+			'default_label'        => esc_html__( 'Default', 'knowledgebase' ),
+			'default_none'         => esc_html__( 'None', 'knowledgebase' ),
 			'button_label'         => esc_html__( 'Choose File', 'knowledgebase' ),
 			'previous_saved'       => esc_html__( 'Previously saved', 'knowledgebase' ),
 		);

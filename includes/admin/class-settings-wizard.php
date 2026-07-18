@@ -1455,4 +1455,15 @@ class Settings_Wizard extends Settings_Wizard_API {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Get the version for cache busting.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @return string Version number.
+	 */
+	protected function get_version() {
+		return WZKB_VERSION;
+	}
 }
