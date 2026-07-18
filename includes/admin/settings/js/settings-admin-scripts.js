@@ -49,40 +49,13 @@ jQuery(document).ready(function ($) {
 		var thumbDefault = (typeof window[WZSettingsAdmin.prefix + '_admin'] !== 'undefined')
 			? window[WZSettingsAdmin.prefix + '_admin'].thumb_default
 			: '';
-		$('#' + settingsKey + '\\[thumb_default\\]').val(thumbDefault);
+		$('#' + settingsKey + '-thumb_default').val(thumbDefault);
 	});
 
 	// Reset formmodified on submit.
 	$('#' + prefix + '-settings-form').on('submit', function () {
 		formmodified = 0;
 	});
-
-	// Shared helper: enforce unique selection within a repeater wrapper.
-	function syncUniqueSelectsForWrapper(wrapper) {
-		var uniqueField = wrapper.data('unique-field') || '';
-		if (!uniqueField) {
-			return;
-		}
-		var $selects = wrapper.find('.wz-repeater-item select[name$="[fields][' + uniqueField + ']"]');
-		var usedValues = {};
-		$selects.each(function () {
-			var val = $(this).val();
-			if (val) {
-				usedValues[val] = true;
-			}
-		});
-		$selects.each(function () {
-			var $sel = $(this);
-			var ownVal = $sel.val();
-			$sel.find('option').each(function () {
-				var optVal = $(this).val();
-				if (!optVal) {
-					return;
-				}
-				$(this).prop('disabled', optVal !== ownVal && usedValues[optVal]);
-			});
-		});
-	}
 
 	// Initialize Repeater Fields.
 	$('.wz-repeater-wrapper').each(function () {
@@ -168,15 +141,44 @@ jQuery(document).ready(function ($) {
 
 		// Enforce unique selection across rows for the field named in data-unique-field.
 		var uniqueField = wrapper.data('unique-field') || '';
+		function syncUniqueSelects() {
+			if (!uniqueField) {
+				return;
+			}
+			var $selects = itemsContainer.find('.wz-repeater-item select[name$="[fields][' + uniqueField + ']"]');
+			var usedValues = {};
+			$selects.each(function () {
+				var val = $(this).val();
+				if (val) {
+					usedValues[val] = true;
+				}
+			});
+			$selects.each(function () {
+				var $sel = $(this);
+				var ownVal = $sel.val();
+				$sel.find('option').each(function () {
+					var optVal = $(this).val();
+					if (!optVal) {
+						return;
+					}
+					$(this).prop('disabled', optVal !== ownVal && usedValues[optVal]);
+				});
+			});
+		}
 
 		if (uniqueField) {
-			syncUniqueSelectsForWrapper(wrapper);
+			syncUniqueSelects();
 			wrapper.on('change', '.wz-repeater-item select[name$="[fields][' + uniqueField + ']"]', function () {
-				syncUniqueSelectsForWrapper(wrapper);
+				syncUniqueSelects();
 			});
 			wrapper.on('click', '.remove-item', function () {
 				// Sync after DOM removal; removal handler fires before remove, so defer.
-				setTimeout(function () { syncUniqueSelectsForWrapper(wrapper); }, 0);
+				setTimeout(syncUniqueSelects, 0);
+			});
+			document.addEventListener('wz:repeater-item-added', function (e) {
+				if (wrapper.get(0).contains(e.detail.container)) {
+					syncUniqueSelects();
+				}
 			});
 		}
 
@@ -198,16 +200,6 @@ jQuery(document).ready(function ($) {
 		wrapper.on('input change', '.wz-repeater-item :input[name$="[fields][' + liveUpdateField + ']"]', function () {
 			updateRepeaterTitle($(this));
 		});
-	});
-
-	// Single self-scoping listener: re-enforce unique selection for the wrapper
-	// that owns the newly added item, regardless of how many repeaters exist.
-	document.addEventListener('wz:repeater-item-added', function (e) {
-		var wrapper = $(e.detail.container).closest('.wz-repeater-wrapper');
-		if (!wrapper.length) {
-			return;
-		}
-		syncUniqueSelectsForWrapper(wrapper);
 	});
 
 });
