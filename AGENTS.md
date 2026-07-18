@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Plugin Overview
 
-WebberZone Knowledge Base Pro (v3.1.0 is currently in development) is a WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. It uses a freemium model via Freemius integration — free core features with premium features in `/includes/pro/`.
+WebberZone Knowledge Base Pro (v3.1.0) is a WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. It uses a freemium model via Freemius integration — free core features with premium features in `/includes/pro/`.
 
 - **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius via `load-freemius.php`, registers autoloader, and directly requires `includes/options-api.php` and `includes/functions.php`)
 - **PHP**: 7.4+ | **WordPress**: 6.7+
@@ -84,11 +84,13 @@ npm run zip                              # Create full plugin zip
 
 | Directory | Responsibility |
 | --- | --- |
-| `includes/admin/` | Settings UI, columns, wizard, notices, activation |
-| `includes/frontend/` | Templates, display, shortcodes, styles, search, breadcrumbs, related articles, feeds |
+| `includes/admin/` | Settings UI, columns, wizard, notices, activation, importers, tools page, sample content |
+| `includes/frontend/` | Templates, display, shortcodes, styles, search, live search, breadcrumbs, related articles, feeds, TOC, patterns, block templates |
 | `includes/blocks/` | 8 free Gutenberg blocks (React in `src/`, compiled to `build/`) |
-| `includes/pro/` | Premium features: custom permalinks, rating system, help widget, KB homepage mode, GitHub import |
+| `includes/pro/` | Premium features: custom permalinks, rating system, help widget, KB homepage mode, floating TOC, docs layout, term featured images, export/import (Markdown/SQL/XLSX), GitHub import |
+| `includes/pro/blocks/` | 3 pro Gutenberg blocks: rating, toc, section-tree (React in `src/`, compiled to `build/`) |
 | `includes/pro/github/` | GitHub Markdown import: API wrapper, content converter, import processor, webhook handler, import wizard, link rewriter |
+| `includes/pro/widgets/` | 2 pro classic widgets: TOC, Section Tree |
 | `includes/rest/` | REST API under `/wzkb/v1/` namespace |
 | `includes/widgets/` | 4 classic WordPress widgets |
 | `includes/util/` | Hook registry, caching utilities |
@@ -131,7 +133,7 @@ The `repo_name` field uses TomSelect autocomplete (`field_class: 'ts_autocomplet
 
 ### Block Development
 
-Blocks are in `includes/blocks/src/[block-name]/`. Each block has its own `block.json`, React `edit.js`, and server-side render via PHP. After editing block source, run `npm run build:[block-name]` — never edit files in `build/` directly.
+Blocks are in `includes/blocks/src/[block-name]/` (free) and `includes/pro/blocks/src/[block-name]/` (pro). Each block has its own `block.json`, React `edit.js`, and server-side render via PHP. After editing block source, run `npm run build:[block-name]` — never edit files in `build/` directly.
 
 ### Public Helper Functions
 
@@ -147,7 +149,7 @@ Settings are stored as a single serialized array under option key `wzkb_settings
 
 ### REST API
 
-Endpoints under `/wzkb/v1/`: `/sections` (product sections), `/knowledgebase` (list), `/knowledgebase/{id}` (single), `/products` (product list), `/search` (live search), `/related` (related articles). Responses are object-cached under group `wzkb_rest` (300 s TTL); cache is invalidated on post save/delete and term changes.
+Endpoints under `/wzkb/v1/`: `/sections` (product sections), `/knowledgebase` (list), `/knowledgebase/{id}` (single), `/products` (products list), `/search` (search), `/related` (related articles). Responses are object-cached under group `wzkb_rest` (300 s TTL); cache is invalidated on post save/delete and term changes.
 
 ## Code Quality Configuration
 

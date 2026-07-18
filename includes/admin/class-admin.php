@@ -174,6 +174,9 @@ class Admin {
 		return array(
 			'capability' => 'edit_posts',
 			'prefix'     => 'wzkb',
+			'style'      => array(
+				'version' => WZKB_VERSION,
+			),
 			'screen_ids' => array(
 				'edit-wz_knowledgebase',
 				'wz_knowledgebase',
@@ -386,7 +389,9 @@ class Admin {
 		Hook_Registry::add_action( 'admin_init', array( $this, 'register_notices' ) );
 		Hook_Registry::add_filter( 'dashboard_glance_items', array( $this, 'dashboard_glance_items' ), 10, 1 );
 		Hook_Registry::add_filter( 'admin_head', array( $this, 'admin_head' ) );
-		Hook_Registry::add_action( 'wp_ajax_wzkb_verify_github_pat', array( $this, 'ajax_verify_github_pat' ) );
+		if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\GitHub\\API' ) ) {
+			Hook_Registry::add_action( 'wp_ajax_wzkb_verify_github_pat', array( $this, 'ajax_verify_github_pat' ) );
+		}
 	}
 
 	/**
