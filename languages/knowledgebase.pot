@@ -2,21 +2,21 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WebberZone Knowledge Base 3.1.0\n"
+"Project-Id-Version: WebberZone Knowledge Base 3.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/knowledgebase\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-08T18:42:47+00:00\n"
+"POT-Creation-Date: 2026-07-21T18:26:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
 
 #. Plugin Name of the plugin
 #: knowledgebase.php
-#: includes/admin/class-admin.php:213
+#: includes/admin/class-admin.php:216
 msgid "WebberZone Knowledge Base"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgstr ""
 #: includes/admin/class-section-product-meta.php:83
 #: includes/admin/class-section-product-meta.php:133
 #: includes/admin/class-settings-wizard.php:576
-#: includes/admin/class-settings.php:961
+#: includes/admin/class-settings.php:966
 #: includes/blocks/build/products/index.js:1
 #: includes/blocks/src/products/edit.js:49
 #: includes/blocks/src/products/edit.js:91
@@ -69,162 +69,162 @@ msgstr ""
 msgid "Search sections..."
 msgstr ""
 
-#: includes/admin/class-admin.php:211
+#: includes/admin/class-admin.php:214
 msgid "Knowledge Base quick links"
 msgstr ""
 
-#: includes/admin/class-admin.php:212
+#: includes/admin/class-admin.php:215
 msgid "Knowledge Base admin shortcuts"
 msgstr ""
 
-#: includes/admin/class-admin.php:214
+#: includes/admin/class-admin.php:217
 msgid "Shape a helpful support hub your users will love."
 msgstr ""
 
-#: includes/admin/class-admin.php:215
+#: includes/admin/class-admin.php:218
 msgid "Jump to your most-used Knowledge Base tools, manage content faster, and explore more WebberZone plugins."
 msgstr ""
 
-#: includes/admin/class-admin.php:219
+#: includes/admin/class-admin.php:222
 msgid "View Knowledge Base"
 msgstr ""
 
-#: includes/admin/class-admin.php:226
-#: includes/admin/class-settings.php:356
-#: includes/admin/class-settings.php:392
-#: includes/admin/class-settings.php:1369
+#: includes/admin/class-admin.php:229
+#: includes/admin/class-settings.php:358
+#: includes/admin/class-settings.php:397
+#: includes/admin/class-settings.php:1374
 #: includes/blocks/build/products/index.js:1
 #: includes/blocks/src/products/edit.js:60
 #: includes/blocks/src/products/edit.js:117
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:232
+#: includes/admin/class-admin.php:235
 #: includes/admin/class-settings-wizard.php:671
 msgid "Products"
 msgstr ""
 
-#: includes/admin/class-admin.php:238
+#: includes/admin/class-admin.php:241
 #: includes/admin/class-settings-wizard.php:673
 msgid "Sections"
 msgstr ""
 
-#: includes/admin/class-admin.php:243
+#: includes/admin/class-admin.php:246
 msgid "Tags"
 msgstr ""
 
-#: includes/admin/class-admin.php:248
+#: includes/admin/class-admin.php:251
 #: includes/admin/class-tools-page.php:59
 msgid "Tools"
 msgstr ""
 
-#: includes/admin/class-admin.php:254
+#: includes/admin/class-admin.php:257
 msgid "WebberZone Plugins"
 msgstr ""
 
 #. translators: 1. Link to admin page.
-#: includes/admin/class-admin.php:420
+#: includes/admin/class-admin.php:425
 #, php-format
 msgid "Knowledge Base settings for the slug have not been registered. Please visit the %s to update and save the options."
 msgstr ""
 
-#: includes/admin/class-admin.php:421
+#: includes/admin/class-admin.php:426
 msgid "admin page"
 msgstr ""
 
 #. translators: %s: HTML link to the plugin settings page.
-#: includes/admin/class-admin.php:441
+#: includes/admin/class-admin.php:446
 #, php-format
 msgid "The Products taxonomy is only available in multi-product mode. Please enable multi-product mode in the %s."
 msgstr ""
 
-#: includes/admin/class-admin.php:442
+#: includes/admin/class-admin.php:447
 msgid "plugin settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:471
+#: includes/admin/class-admin.php:476
 msgid "Are you sure you want to clear the cache?"
 msgstr ""
 
-#: includes/admin/class-admin.php:472
+#: includes/admin/class-admin.php:477
 msgid "Are you sure you want to flush the permalinks?"
 msgstr ""
 
-#: includes/admin/class-admin.php:473
+#: includes/admin/class-admin.php:478
 msgid "Cache cleared successfully!"
 msgstr ""
 
-#: includes/admin/class-admin.php:474
+#: includes/admin/class-admin.php:479
 msgid "Failed to clear cache. Please try again."
 msgstr ""
 
-#: includes/admin/class-admin.php:475
+#: includes/admin/class-admin.php:480
 msgid "Request failed: "
 msgstr ""
 
-#: includes/admin/class-admin.php:476
+#: includes/admin/class-admin.php:481
 msgid "Unable to verify token."
 msgstr ""
 
-#: includes/admin/class-admin.php:477
+#: includes/admin/class-admin.php:482
 #: includes/admin/class-plugin-importers.php:396
 #: includes/admin/class-settings-wizard.php:1354
 msgid "Flush Permalinks"
 msgstr ""
 
-#: includes/admin/class-admin.php:478
+#: includes/admin/class-admin.php:483
 msgid "Please enter a Personal Access Token first."
 msgstr ""
 
-#: includes/admin/class-admin.php:479
-#: includes/admin/class-settings.php:1808
+#: includes/admin/class-admin.php:484
+#: includes/admin/class-settings.php:1813
 msgid "Repository list refreshed."
 msgstr ""
 
-#: includes/admin/class-admin.php:480
+#: includes/admin/class-admin.php:485
 msgid "Unable to refresh."
 msgstr ""
 
-#: includes/admin/class-admin.php:481
-#: includes/admin/class-admin.php:631
+#: includes/admin/class-admin.php:486
+#: includes/admin/class-admin.php:636
 msgid "Token valid."
 msgstr ""
 
-#: includes/admin/class-admin.php:482
+#: includes/admin/class-admin.php:487
 msgid "contents:read"
 msgstr ""
 
-#: includes/admin/class-admin.php:483
+#: includes/admin/class-admin.php:488
 msgid "contents:write"
 msgstr ""
 
-#: includes/admin/class-admin.php:484
+#: includes/admin/class-admin.php:489
 msgid "no accessible repository found to test"
 msgstr ""
 
 #. translators: 1. Number of articles
-#: includes/admin/class-admin.php:530
+#: includes/admin/class-admin.php:535
 #, php-format
 msgid "%s KB article"
 msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:590
+#: includes/admin/class-admin.php:595
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: includes/admin/class-admin.php:610
+#: includes/admin/class-admin.php:615
 msgid "No GitHub Personal Access Token configured. Save a token first."
 msgstr ""
 
 #. translators: %s: GitHub username.
-#: includes/admin/class-admin.php:628
+#: includes/admin/class-admin.php:633
 #, php-format
 msgid "Token valid — connected as %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:830
+#: includes/admin/class-admin.php:835
 msgid "Support the development - Send us a donation today."
 msgstr ""
 
@@ -315,7 +315,7 @@ msgid "Plugin"
 msgstr ""
 
 #: includes/admin/class-plugin-importers.php:193
-#: includes/admin/class-settings.php:1062
+#: includes/admin/class-settings.php:1067
 msgid "Status"
 msgstr ""
 
@@ -574,7 +574,7 @@ msgstr ""
 #: includes/admin/class-settings-wizard.php:1207
 #: includes/admin/class-settings-wizard.php:1308
 #: includes/admin/class-settings-wizard.php:1325
-#: includes/admin/class-settings.php:1794
+#: includes/admin/class-settings.php:1799
 msgid "Insufficient permissions."
 msgstr ""
 
@@ -958,7 +958,7 @@ msgid "Welcome to Knowledge Base! Choose your structure and section display befo
 msgstr ""
 
 #: includes/admin/class-settings-wizard.php:155
-#: includes/admin/class-settings.php:483
+#: includes/admin/class-settings.php:488
 msgid "Permalinks"
 msgstr ""
 
@@ -1282,1025 +1282,1037 @@ msgstr ""
 msgid "Get help from the community"
 msgstr ""
 
-#: includes/admin/class-settings.php:187
+#: includes/admin/class-settings.php:189
 msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/admin/class-settings.php:355
 #: includes/admin/class-settings.php:357
-#: includes/admin/class-settings.php:391
-#: includes/admin/class-settings.php:1435
+#: includes/admin/class-settings.php:359
+#: includes/admin/class-settings.php:396
+#: includes/admin/class-settings.php:1440
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:134
 msgid "Knowledge Base Settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:358
+#: includes/admin/class-settings.php:360
 msgid "Settings have been reset to their default values. Reload this page to view the updated settings."
 msgstr ""
 
-#: includes/admin/class-settings.php:359
+#: includes/admin/class-settings.php:361
 msgid "Settings updated."
 msgstr ""
 
-#: includes/admin/class-settings.php:360
+#: includes/admin/class-settings.php:362
 msgid "Save Changes"
 msgstr ""
 
-#: includes/admin/class-settings.php:361
+#: includes/admin/class-settings.php:363
 msgid "Reset all settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:362
+#: includes/admin/class-settings.php:364
 msgid "Do you really want to reset all these settings to their default values?"
 msgstr ""
 
-#: includes/admin/class-settings.php:363
+#: includes/admin/class-settings.php:365
 msgid "Modified from default setting"
 msgstr ""
 
-#: includes/admin/class-settings.php:364
+#: includes/admin/class-settings.php:366
+msgid "Setting modified from its default value"
+msgstr ""
+
+#: includes/admin/class-settings.php:367
+msgid "Default"
+msgstr ""
+
+#: includes/admin/class-settings.php:368
+msgid "None"
+msgstr ""
+
+#: includes/admin/class-settings.php:369
 msgid "Choose File"
 msgstr ""
 
-#: includes/admin/class-settings.php:365
+#: includes/admin/class-settings.php:370
 msgid "Previously saved"
 msgstr ""
 
-#: includes/admin/class-settings.php:408
+#: includes/admin/class-settings.php:413
 #: includes/admin/class-tools-page.php:240
 msgid "General"
 msgstr ""
 
-#: includes/admin/class-settings.php:409
+#: includes/admin/class-settings.php:414
 msgid "Output"
 msgstr ""
 
-#: includes/admin/class-settings.php:410
+#: includes/admin/class-settings.php:415
 msgid "Styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:411
+#: includes/admin/class-settings.php:416
 msgid "Pro"
 msgstr ""
 
-#: includes/admin/class-settings.php:412
+#: includes/admin/class-settings.php:417
 msgid "GitHub"
 msgstr ""
 
-#: includes/admin/class-settings.php:465
+#: includes/admin/class-settings.php:470
 msgid "Enable Multi-Product Mode"
 msgstr ""
 
-#: includes/admin/class-settings.php:466
+#: includes/admin/class-settings.php:471
 msgid "Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled."
 msgstr ""
 
-#: includes/admin/class-settings.php:475
+#: includes/admin/class-settings.php:480
 msgid "Use Knowledge Base as Homepage"
 msgstr ""
 
-#: includes/admin/class-settings.php:476
+#: includes/admin/class-settings.php:481
 msgid "Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it."
 msgstr ""
 
-#: includes/admin/class-settings.php:484
+#: includes/admin/class-settings.php:489
 msgid "The following settings affect the permalinks of the knowledge base. These are set when registering the custom post type and taxonomy. Please visit the Permalinks page in the Settings menu to refresh permalinks if you get 404 errors."
 msgstr ""
 
-#: includes/admin/class-settings.php:489
+#: includes/admin/class-settings.php:494
 msgid "Knowledge Base slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:490
+#: includes/admin/class-settings.php:495
 msgid "This will set the opening path of the URL of the knowledge base and is set when registering the custom post type"
 msgstr ""
 
-#: includes/admin/class-settings.php:497
+#: includes/admin/class-settings.php:502
 msgid "Product slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:498
+#: includes/admin/class-settings.php:503
 msgid "This slug forms part of the URL for product pages when Multi-Product Mode is enabled. The value is used when registering the custom taxonomy."
 msgstr ""
 
-#: includes/admin/class-settings.php:505
+#: includes/admin/class-settings.php:510
 msgid "Section slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:506
+#: includes/admin/class-settings.php:511
 msgid "Each section is a section of the knowledge base. This setting is used when registering the custom section and forms a part of the URL when browsing section archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:513
+#: includes/admin/class-settings.php:518
 msgid "Tags slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:514
+#: includes/admin/class-settings.php:519
 msgid "Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:521
+#: includes/admin/class-settings.php:526
 msgid "Article Permalink Structure"
 msgstr ""
 
-#: includes/admin/class-settings.php:522
+#: includes/admin/class-settings.php:527
 msgid "Structure for article URLs. Leave empty to use default which is the \"Knowledge Base slug/%postname%\"."
 msgstr ""
 
-#: includes/admin/class-settings.php:530
+#: includes/admin/class-settings.php:535
 msgid "Performance"
 msgstr ""
 
-#: includes/admin/class-settings.php:536
+#: includes/admin/class-settings.php:541
 msgid "Enable cache"
 msgstr ""
 
-#: includes/admin/class-settings.php:537
+#: includes/admin/class-settings.php:542
 msgid "Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases"
 msgstr ""
 
-#: includes/admin/class-settings.php:543
+#: includes/admin/class-settings.php:548
 msgid "Cache Time"
 msgstr ""
 
-#: includes/admin/class-settings.php:544
+#: includes/admin/class-settings.php:549
 msgid "How long should the knowledge base be cached for. Default is 1 day."
 msgstr ""
 
-#: includes/admin/class-settings.php:548
+#: includes/admin/class-settings.php:553
 msgid "No expiry"
 msgstr ""
 
-#: includes/admin/class-settings.php:549
+#: includes/admin/class-settings.php:554
 msgid "1 Hour"
 msgstr ""
 
-#: includes/admin/class-settings.php:550
+#: includes/admin/class-settings.php:555
 msgid "6 Hours"
 msgstr ""
 
-#: includes/admin/class-settings.php:551
+#: includes/admin/class-settings.php:556
 msgid "12 Hours"
 msgstr ""
 
-#: includes/admin/class-settings.php:552
+#: includes/admin/class-settings.php:557
 msgid "1 Day"
 msgstr ""
 
-#: includes/admin/class-settings.php:553
+#: includes/admin/class-settings.php:558
 msgid "3 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:554
+#: includes/admin/class-settings.php:559
 msgid "1 Week"
 msgstr ""
 
-#: includes/admin/class-settings.php:555
+#: includes/admin/class-settings.php:560
 msgid "2 Weeks"
 msgstr ""
 
-#: includes/admin/class-settings.php:556
+#: includes/admin/class-settings.php:561
 msgid "30 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:557
+#: includes/admin/class-settings.php:562
 msgid "60 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:558
+#: includes/admin/class-settings.php:563
 msgid "90 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:559
+#: includes/admin/class-settings.php:564
 msgid "1 Year"
 msgstr ""
 
-#: includes/admin/class-settings.php:565
+#: includes/admin/class-settings.php:570
 msgid "Uninstall options"
 msgstr ""
 
-#: includes/admin/class-settings.php:572
+#: includes/admin/class-settings.php:577
 msgid "Delete options on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:573
+#: includes/admin/class-settings.php:578
 msgid "Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin"
 msgstr ""
 
-#: includes/admin/class-settings.php:579
+#: includes/admin/class-settings.php:584
 msgid "Delete all content on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:580
+#: includes/admin/class-settings.php:585
 msgid "Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option"
 msgstr ""
 
-#: includes/admin/class-settings.php:586
+#: includes/admin/class-settings.php:591
 msgid "Feed options"
 msgstr ""
 
-#: includes/admin/class-settings.php:593
+#: includes/admin/class-settings.php:598
 msgid "Include in feed"
 msgstr ""
 
-#: includes/admin/class-settings.php:594
+#: includes/admin/class-settings.php:599
 msgid "Adds the knowledge base articles to the main RSS feed for your site"
 msgstr ""
 
-#: includes/admin/class-settings.php:600
+#: includes/admin/class-settings.php:605
 msgid "Disable KB feed"
 msgstr ""
 
 #. translators: 1: Opening link tag, 2: Closing link tag.
-#: includes/admin/class-settings.php:602
+#: includes/admin/class-settings.php:607
 #, php-format
 msgid "The knowledge base articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option."
 msgstr ""
 
-#: includes/admin/class-settings.php:631
+#: includes/admin/class-settings.php:636
 msgid "Knowledge base title"
 msgstr ""
 
-#: includes/admin/class-settings.php:632
+#: includes/admin/class-settings.php:637
 msgid "This will be displayed as the archive title and in other relevant places."
 msgstr ""
 
-#: includes/admin/class-settings.php:639
+#: includes/admin/class-settings.php:644
 msgid "First section level"
 msgstr ""
 
-#: includes/admin/class-settings.php:640
+#: includes/admin/class-settings.php:645
 msgid "Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (with sections as the first level for each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0."
 msgstr ""
 
-#: includes/admin/class-settings.php:649
+#: includes/admin/class-settings.php:654
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:164
 msgid "Show article count"
 msgstr ""
 
-#: includes/admin/class-settings.php:650
+#: includes/admin/class-settings.php:655
 msgid "If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count"
 msgstr ""
 
-#: includes/admin/class-settings.php:656
+#: includes/admin/class-settings.php:661
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:177
 msgid "Show excerpt"
 msgstr ""
 
-#: includes/admin/class-settings.php:657
+#: includes/admin/class-settings.php:662
 msgid "Select to include the post excerpt after the article link"
 msgstr ""
 
-#: includes/admin/class-settings.php:663
+#: includes/admin/class-settings.php:668
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:187
 msgid "Link section title"
 msgstr ""
 
-#: includes/admin/class-settings.php:664
+#: includes/admin/class-settings.php:669
 msgid "If selected, the title of each knowledge base section will link to its own page."
 msgstr ""
 
-#: includes/admin/class-settings.php:670
+#: includes/admin/class-settings.php:675
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:208
 msgid "Show empty sections"
 msgstr ""
 
-#: includes/admin/class-settings.php:671
+#: includes/admin/class-settings.php:676
 msgid "If selected, sections with no articles will also be displayed"
 msgstr ""
 
-#: includes/admin/class-settings.php:677
+#: includes/admin/class-settings.php:682
 #: includes/blocks/build/kb/index.js:1
 #: includes/blocks/src/kb/edit.js:150
 msgid "Max articles per section"
 msgstr ""
 
-#: includes/admin/class-settings.php:678
+#: includes/admin/class-settings.php:683
 msgid "Enter the number of articles that should be displayed in each section when viewing the knowledge base. Use -1 to display all articles (no limit). Once this limit is reached, the footer displays a \"more link\" to view the category."
 msgstr ""
 
-#: includes/admin/class-settings.php:687
+#: includes/admin/class-settings.php:692
 msgid "Show sidebar"
 msgstr ""
 
-#: includes/admin/class-settings.php:688
+#: includes/admin/class-settings.php:693
 msgid "Add the sidebar of your theme to the built-in templates for archives, sections, and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme."
 msgstr ""
 
-#: includes/admin/class-settings.php:694
+#: includes/admin/class-settings.php:699
 msgid "Show related articles"
 msgstr ""
 
-#: includes/admin/class-settings.php:695
+#: includes/admin/class-settings.php:700
 msgid "Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template."
 msgstr ""
 
-#: includes/admin/class-settings.php:701
+#: includes/admin/class-settings.php:706
 #: includes/blocks/class-blocks.php:669
 msgid "Search"
 msgstr ""
 
-#: includes/admin/class-settings.php:707
+#: includes/admin/class-settings.php:712
 msgid "Enable live search"
 msgstr ""
 
-#: includes/admin/class-settings.php:708
+#: includes/admin/class-settings.php:713
 msgid "Show real-time search suggestions as the visitor types in the knowledge base search form."
 msgstr ""
 
-#: includes/admin/class-settings.php:714
-#: includes/admin/class-settings.php:750
+#: includes/admin/class-settings.php:719
+#: includes/admin/class-settings.php:755
 #: includes/frontend/class-shortcodes.php:262
 #: includes/frontend/class-toc.php:159
 #: includes/frontend/class-toc.php:235
 msgid "Table of Contents"
 msgstr ""
 
-#: includes/admin/class-settings.php:720
+#: includes/admin/class-settings.php:725
 msgid "Show table of contents"
 msgstr ""
 
-#: includes/admin/class-settings.php:721
+#: includes/admin/class-settings.php:726
 msgid "Auto-generate a table of contents from headings in article content. Only displays when there are sufficient headings."
 msgstr ""
 
-#: includes/admin/class-settings.php:727
+#: includes/admin/class-settings.php:732
 msgid "TOC heading depth"
 msgstr ""
 
-#: includes/admin/class-settings.php:728
+#: includes/admin/class-settings.php:733
 msgid "Maximum heading level to include in the table of contents. 2 includes only H2; 3 includes H2 and H3, and so on."
 msgstr ""
 
-#: includes/admin/class-settings.php:737
+#: includes/admin/class-settings.php:742
 msgid "Minimum headings for TOC"
 msgstr ""
 
-#: includes/admin/class-settings.php:738
+#: includes/admin/class-settings.php:743
 msgid "Minimum number of headings required before the table of contents is displayed."
 msgstr ""
 
-#: includes/admin/class-settings.php:747
+#: includes/admin/class-settings.php:752
 msgid "TOC title"
 msgstr ""
 
-#: includes/admin/class-settings.php:748
+#: includes/admin/class-settings.php:753
 msgid "Title displayed above the table of contents. Leave empty to hide the title."
 msgstr ""
 
-#: includes/admin/class-settings.php:754
+#: includes/admin/class-settings.php:759
 msgid "Show floating table of contents"
 msgstr ""
 
-#: includes/admin/class-settings.php:755
+#: includes/admin/class-settings.php:760
 msgid "Display a sticky/floating TOC panel that follows the reader as they scroll through a KB article. Highlights the active section automatically."
 msgstr ""
 
-#: includes/admin/class-settings.php:762
+#: includes/admin/class-settings.php:767
 msgid "Floating TOC position"
 msgstr ""
 
-#: includes/admin/class-settings.php:763
+#: includes/admin/class-settings.php:768
 msgid "Side of the viewport where the floating TOC panel is anchored."
 msgstr ""
 
-#: includes/admin/class-settings.php:767
+#: includes/admin/class-settings.php:772
 msgid "Right"
 msgstr ""
 
-#: includes/admin/class-settings.php:768
+#: includes/admin/class-settings.php:773
 msgid "Left"
 msgstr ""
 
-#: includes/admin/class-settings.php:796
+#: includes/admin/class-settings.php:801
 msgid "Product archive layout"
 msgstr ""
 
-#: includes/admin/class-settings.php:797
+#: includes/admin/class-settings.php:802
 msgid "Choose how products are displayed on the main Knowledge Base archive when Multi-Product Mode is enabled. “Sections list” shows each product with its sections listed below. The “Product cards grid” displays products as a grid of cards, allowing visitors to click through to a product page."
 msgstr ""
 
-#: includes/admin/class-settings.php:800
+#: includes/admin/class-settings.php:805
 msgid "Sections list (current behavior)"
 msgstr ""
 
-#: includes/admin/class-settings.php:801
+#: includes/admin/class-settings.php:806
 msgid "Product cards grid"
 msgstr ""
 
-#: includes/admin/class-settings.php:807
+#: includes/admin/class-settings.php:812
 msgid "Show featured image on archive pages"
 msgstr ""
 
-#: includes/admin/class-settings.php:808
+#: includes/admin/class-settings.php:813
 msgid "Display the term featured image in the header of product and section archive pages."
 msgstr ""
 
-#: includes/admin/class-settings.php:815
+#: includes/admin/class-settings.php:820
 msgid "Include inbuilt styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:816
+#: includes/admin/class-settings.php:821
 msgid "Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option"
 msgstr ""
 
-#: includes/admin/class-settings.php:822
+#: includes/admin/class-settings.php:827
 msgid "Knowledge Base Style"
 msgstr ""
 
-#: includes/admin/class-settings.php:823
+#: includes/admin/class-settings.php:828
 msgid "Select a visual style for your knowledge base display. Premium styles are available in the Pro version."
 msgstr ""
 
-#: includes/admin/class-settings.php:830
+#: includes/admin/class-settings.php:835
 msgid "Documentation layout"
 msgstr ""
 
-#: includes/admin/class-settings.php:831
+#: includes/admin/class-settings.php:836
 msgid "Display the entire knowledge base as a three-column documentation site: a categorized navigation sidebar, the article content, and an \"On this page\" outline. Works alongside your chosen style."
 msgstr ""
 
-#: includes/admin/class-settings.php:838
+#: includes/admin/class-settings.php:843
 msgid "Number of columns"
 msgstr ""
 
-#: includes/admin/class-settings.php:839
+#: includes/admin/class-settings.php:844
 msgid "Set the number of columns to display the knowledge base archives. This will be overridden on smaller screens to optimize display."
 msgstr ""
 
-#: includes/admin/class-settings.php:848
+#: includes/admin/class-settings.php:853
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/class-settings.php:849
+#: includes/admin/class-settings.php:854
 msgid "Enter any custom valid CSS without any wrapping &lt;style&gt; tags"
 msgstr ""
 
-#: includes/admin/class-settings.php:892
-#: includes/admin/class-settings.php:1451
+#: includes/admin/class-settings.php:897
+#: includes/admin/class-settings.php:1456
 msgid "GitHub Integration"
 msgstr ""
 
 #. translators: %s: Webhook URL.
-#: includes/admin/class-settings.php:895
+#: includes/admin/class-settings.php:900
 #, php-format
 msgid "Configure GitHub webhooks to automatically sync markdown docs to your knowledge base. Your webhook endpoint: %s"
 msgstr ""
 
-#: includes/admin/class-settings.php:903
+#: includes/admin/class-settings.php:908
 msgid "Webhook Secret"
 msgstr ""
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag.
-#: includes/admin/class-settings.php:906
+#: includes/admin/class-settings.php:911
 #, php-format
 msgid "An arbitrary secret string you choose and enter in both this field and the \"Secret\" field when %1$sadding a webhook on GitHub%2$s. GitHub signs every payload with this secret via HMAC-SHA256; the plugin rejects any request whose signature does not match."
 msgstr ""
 
-#: includes/admin/class-settings.php:917
+#: includes/admin/class-settings.php:922
 msgid "GitHub Personal Access Token"
 msgstr ""
 
 #. translators: %1$s: opening strong tag, %2$s: closing strong tag, %3$s: opening link tag, %4$s: closing link tag.
-#: includes/admin/class-settings.php:920
+#: includes/admin/class-settings.php:925
 #, php-format
 msgid "Used to read files from GitHub. On the %3$sNew fine-grained token%4$s page: set %1$sResource owner%2$s to the account or org that owns your repositories, then under %1$sRepository permissions%2$s set %1$sContents%2$s to %1$sRead-only%2$s for imports, or %1$sRead and write%2$s if push-back is enabled. For organisation repositories, the org must also allow fine-grained tokens under Organisation Settings → Personal access tokens. Can be overridden per repository mapping below."
 msgstr ""
 
-#: includes/admin/class-settings.php:933
+#: includes/admin/class-settings.php:938
 msgid "Import external media"
 msgstr ""
 
-#: includes/admin/class-settings.php:934
+#: includes/admin/class-settings.php:939
 msgid "Download external images found in imported Markdown files into the WordPress Media Library and rewrite the URLs to point locally. Already-sideloaded images are reused automatically on re-import."
 msgstr ""
 
-#: includes/admin/class-settings.php:941
+#: includes/admin/class-settings.php:946
 msgid "Auto-push on save"
 msgstr ""
 
-#: includes/admin/class-settings.php:942
+#: includes/admin/class-settings.php:947
 msgid "Automatically push a linked article to GitHub whenever it is saved. Skipped during autosaves, revisions, and webhook-triggered imports to prevent loops."
 msgstr ""
 
-#: includes/admin/class-settings.php:949
+#: includes/admin/class-settings.php:954
 msgid "Repository Mappings"
 msgstr ""
 
-#: includes/admin/class-settings.php:950
+#: includes/admin/class-settings.php:955
 msgid "Map GitHub repository folders to Knowledge Base products."
 msgstr ""
 
-#: includes/admin/class-settings.php:953
-#: includes/admin/class-settings.php:977
+#: includes/admin/class-settings.php:958
+#: includes/admin/class-settings.php:982
 msgid "Repository"
 msgstr ""
 
-#: includes/admin/class-settings.php:954
+#: includes/admin/class-settings.php:959
 msgid "Add Repository"
 msgstr ""
 
-#: includes/admin/class-settings.php:962
+#: includes/admin/class-settings.php:967
 msgid "The Knowledge Base product to associate articles with."
 msgstr ""
 
-#: includes/admin/class-settings.php:967
+#: includes/admin/class-settings.php:972
 msgid "-- Select --"
 msgstr ""
 
-#: includes/admin/class-settings.php:970
+#: includes/admin/class-settings.php:975
 msgid "Personal Access Token"
 msgstr ""
 
-#: includes/admin/class-settings.php:971
+#: includes/admin/class-settings.php:976
 msgid "Overrides the global Personal Access Token for this repository only. Useful when repositories belong to different owners or organisations. Leave empty to use the global token. Needs contents: read for import; contents: write is also required when push-back is enabled."
 msgstr ""
 
-#: includes/admin/class-settings.php:978
+#: includes/admin/class-settings.php:983
 msgid "Begin typing to search repositories accessible with the configured Personal Access Token."
 msgstr ""
 
-#: includes/admin/class-settings.php:988
+#: includes/admin/class-settings.php:993
 msgid "Folder Path"
 msgstr ""
 
-#: includes/admin/class-settings.php:989
+#: includes/admin/class-settings.php:994
 msgid "Directory within the repository, e.g. docs/. Leave blank to import all Markdown files from the repository root."
 msgstr ""
 
-#: includes/admin/class-settings.php:996
+#: includes/admin/class-settings.php:1001
 msgid "Branch"
 msgstr ""
 
-#: includes/admin/class-settings.php:997
+#: includes/admin/class-settings.php:1002
 msgid "Branch, tag, or SHA to import from. Leave blank to use the repository default branch."
 msgstr ""
 
-#: includes/admin/class-settings.php:1004
+#: includes/admin/class-settings.php:1009
 msgid "Article Status"
 msgstr ""
 
-#: includes/admin/class-settings.php:1005
+#: includes/admin/class-settings.php:1010
 msgid "Force all imported articles to this status, overriding any status set in frontmatter. Leave on \"Use frontmatter\" to let each article control its own status."
 msgstr ""
 
-#: includes/admin/class-settings.php:1010
+#: includes/admin/class-settings.php:1015
 msgid "Use frontmatter"
 msgstr ""
 
-#: includes/admin/class-settings.php:1011
+#: includes/admin/class-settings.php:1016
 msgid "Published"
 msgstr ""
 
-#: includes/admin/class-settings.php:1012
+#: includes/admin/class-settings.php:1017
 msgid "Draft"
 msgstr ""
 
-#: includes/admin/class-settings.php:1016
+#: includes/admin/class-settings.php:1021
 msgid "Slug Conflict Handling"
 msgstr ""
 
-#: includes/admin/class-settings.php:1017
+#: includes/admin/class-settings.php:1022
 msgid "What to do when a GitHub file's slug matches an article that was not imported from GitHub."
 msgstr ""
 
-#: includes/admin/class-settings.php:1022
+#: includes/admin/class-settings.php:1027
 msgid "Overwrite the existing article"
 msgstr ""
 
-#: includes/admin/class-settings.php:1023
+#: includes/admin/class-settings.php:1028
 msgid "Skip — leave the existing article unchanged"
 msgstr ""
 
-#: includes/admin/class-settings.php:1024
+#: includes/admin/class-settings.php:1029
 msgid "Create a new article with a suffixed slug"
 msgstr ""
 
-#: includes/admin/class-settings.php:1028
+#: includes/admin/class-settings.php:1033
 msgid "When a File is Deleted"
 msgstr ""
 
-#: includes/admin/class-settings.php:1029
+#: includes/admin/class-settings.php:1034
 msgid "What to do with the linked article when its source file is removed from the repository."
 msgstr ""
 
-#: includes/admin/class-settings.php:1034
+#: includes/admin/class-settings.php:1039
 msgid "Switch to draft"
 msgstr ""
 
-#: includes/admin/class-settings.php:1035
+#: includes/admin/class-settings.php:1040
 msgid "Delete permanently"
 msgstr ""
 
-#: includes/admin/class-settings.php:1039
+#: includes/admin/class-settings.php:1044
 msgid "Push-back"
 msgstr ""
 
-#: includes/admin/class-settings.php:1040
+#: includes/admin/class-settings.php:1045
 msgid "Push article changes back to GitHub when an article is saved or via the meta box button. Requires the PAT to have contents: write permission."
 msgstr ""
 
-#: includes/admin/class-settings.php:1046
+#: includes/admin/class-settings.php:1051
 msgid "Commit author name"
 msgstr ""
 
-#: includes/admin/class-settings.php:1047
+#: includes/admin/class-settings.php:1052
 msgid "Optional. Name to attribute the commit to. Leave blank to let GitHub use the PAT owner's profile name."
 msgstr ""
 
-#: includes/admin/class-settings.php:1054
+#: includes/admin/class-settings.php:1059
 msgid "Commit author email"
 msgstr ""
 
-#: includes/admin/class-settings.php:1055
+#: includes/admin/class-settings.php:1060
 msgid "Optional. Email to attribute the commit to. Leave blank to let GitHub use the PAT owner's public (or noreply) email."
 msgstr ""
 
-#: includes/admin/class-settings.php:1063
+#: includes/admin/class-settings.php:1068
 msgid "Enable or disable this mapping. When disabled, the mapping is completely ignored — no imports, no webhook processing, and no push-back."
 msgstr ""
 
-#: includes/admin/class-settings.php:1068
+#: includes/admin/class-settings.php:1073
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/class-settings.php:1069
-#: includes/admin/class-settings.php:1108
+#: includes/admin/class-settings.php:1074
+#: includes/admin/class-settings.php:1113
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin/class-settings.php:1097
+#: includes/admin/class-settings.php:1102
 msgid "Article Rating"
 msgstr ""
 
-#: includes/admin/class-settings.php:1103
+#: includes/admin/class-settings.php:1108
 msgid "Enable Rating System"
 msgstr ""
 
-#: includes/admin/class-settings.php:1104
+#: includes/admin/class-settings.php:1109
 msgid "Allow visitors to rate the quality of knowledge base articles."
 msgstr ""
 
-#: includes/admin/class-settings.php:1109
+#: includes/admin/class-settings.php:1114
 msgid "Useful / Not Useful"
 msgstr ""
 
-#: includes/admin/class-settings.php:1110
+#: includes/admin/class-settings.php:1115
 msgid "1-5 Star Rating"
 msgstr ""
 
-#: includes/admin/class-settings.php:1116
+#: includes/admin/class-settings.php:1121
 msgid "Vote Tracking Method"
 msgstr ""
 
 #. translators: %1$s: Opening link tag, %2$s: Closing link tag.
-#: includes/admin/class-settings.php:1120
+#: includes/admin/class-settings.php:1125
 #, php-format
 msgid "Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s."
 msgstr ""
 
-#: includes/admin/class-settings.php:1127
+#: includes/admin/class-settings.php:1132
 msgid "No Tracking (allows multiple votes)"
 msgstr ""
 
-#: includes/admin/class-settings.php:1128
+#: includes/admin/class-settings.php:1133
 msgid "Cookie Only (requires consent)"
 msgstr ""
 
-#: includes/admin/class-settings.php:1129
+#: includes/admin/class-settings.php:1134
 msgid "IP Address Only (stores personal data)"
 msgstr ""
 
-#: includes/admin/class-settings.php:1130
+#: includes/admin/class-settings.php:1135
 msgid "Cookie + IP Address (either blocks voting)"
 msgstr ""
 
-#: includes/admin/class-settings.php:1131
+#: includes/admin/class-settings.php:1136
 msgid "Logged-in Users Only (best for authenticated sites)"
 msgstr ""
 
-#: includes/admin/class-settings.php:1137
+#: includes/admin/class-settings.php:1142
 msgid "Show Rating Statistics"
 msgstr ""
 
-#: includes/admin/class-settings.php:1138
+#: includes/admin/class-settings.php:1143
 msgid "Display the average rating and vote count below the rating buttons."
 msgstr ""
 
-#: includes/admin/class-settings.php:1145
+#: includes/admin/class-settings.php:1150
 msgid "Help Widget"
 msgstr ""
 
-#: includes/admin/class-settings.php:1146
+#: includes/admin/class-settings.php:1151
 msgid "A floating help widget that provides self-service support with search, suggested articles, and contact form."
 msgstr ""
 
-#: includes/admin/class-settings.php:1151
+#: includes/admin/class-settings.php:1156
 msgid "Enable Help Widget"
 msgstr ""
 
-#: includes/admin/class-settings.php:1152
+#: includes/admin/class-settings.php:1157
 msgid "Display a floating help widget on your site for self-service support."
 msgstr ""
 
-#: includes/admin/class-settings.php:1159
+#: includes/admin/class-settings.php:1164
 msgid "Display Location"
 msgstr ""
 
-#: includes/admin/class-settings.php:1160
+#: includes/admin/class-settings.php:1165
 msgid "Choose where the help widget appears on your site."
 msgstr ""
 
-#: includes/admin/class-settings.php:1164
+#: includes/admin/class-settings.php:1169
 msgid "Knowledge Base Only"
 msgstr ""
 
-#: includes/admin/class-settings.php:1165
+#: includes/admin/class-settings.php:1170
 msgid "Entire Site"
 msgstr ""
 
-#: includes/admin/class-settings.php:1171
+#: includes/admin/class-settings.php:1176
 msgid "Button Position"
 msgstr ""
 
-#: includes/admin/class-settings.php:1172
+#: includes/admin/class-settings.php:1177
 msgid "Choose where the help widget button appears on the screen."
 msgstr ""
 
-#: includes/admin/class-settings.php:1176
+#: includes/admin/class-settings.php:1181
 msgid "Bottom Right"
 msgstr ""
 
-#: includes/admin/class-settings.php:1177
+#: includes/admin/class-settings.php:1182
 msgid "Bottom Left"
 msgstr ""
 
-#: includes/admin/class-settings.php:1183
+#: includes/admin/class-settings.php:1188
 msgid "Button Style"
 msgstr ""
 
-#: includes/admin/class-settings.php:1184
+#: includes/admin/class-settings.php:1189
 msgid "Choose how the help widget button is displayed."
 msgstr ""
 
-#: includes/admin/class-settings.php:1188
+#: includes/admin/class-settings.php:1193
 msgid "Icon Only"
 msgstr ""
 
-#: includes/admin/class-settings.php:1189
+#: includes/admin/class-settings.php:1194
 msgid "Text Only"
 msgstr ""
 
-#: includes/admin/class-settings.php:1190
+#: includes/admin/class-settings.php:1195
 msgid "Icon and Text"
 msgstr ""
 
-#: includes/admin/class-settings.php:1196
+#: includes/admin/class-settings.php:1201
 #: includes/blocks/build/search/index.js:1
 #: includes/blocks/src/search/edit.js:53
 msgid "Button Text"
 msgstr ""
 
-#: includes/admin/class-settings.php:1197
+#: includes/admin/class-settings.php:1202
 msgid "Text to display on the help widget button (when text style is selected)."
 msgstr ""
 
-#: includes/admin/class-settings.php:1199
+#: includes/admin/class-settings.php:1204
 msgid "Help"
 msgstr ""
 
-#: includes/admin/class-settings.php:1205
+#: includes/admin/class-settings.php:1210
 msgid "Help Widget Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:1206
+#: includes/admin/class-settings.php:1211
 msgid "Primary color for the help widget button and interface elements."
 msgstr ""
 
-#: includes/admin/class-settings.php:1214
+#: includes/admin/class-settings.php:1219
 msgid "Help Widget Hover Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:1215
+#: includes/admin/class-settings.php:1220
 msgid "Hover color for buttons and interactive elements."
 msgstr ""
 
-#: includes/admin/class-settings.php:1223
+#: includes/admin/class-settings.php:1228
 msgid "Help Widget Text Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:1224
+#: includes/admin/class-settings.php:1229
 msgid "Text color for the help widget button and interface elements."
 msgstr ""
 
-#: includes/admin/class-settings.php:1232
+#: includes/admin/class-settings.php:1237
 msgid "Help Widget Hover Text Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:1233
+#: includes/admin/class-settings.php:1238
 msgid "Text color for the help widget button on hover."
 msgstr ""
 
-#: includes/admin/class-settings.php:1241
+#: includes/admin/class-settings.php:1246
 msgid "Panel Background Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:1242
+#: includes/admin/class-settings.php:1247
 msgid "Background color for the help widget panel."
 msgstr ""
 
-#: includes/admin/class-settings.php:1250
+#: includes/admin/class-settings.php:1255
 msgid "Panel Text Color"
 msgstr ""
 
-#: includes/admin/class-settings.php:1251
+#: includes/admin/class-settings.php:1256
 msgid "Default text color within the help widget panel."
 msgstr ""
 
-#: includes/admin/class-settings.php:1259
+#: includes/admin/class-settings.php:1264
 msgid "Link Hover Background"
 msgstr ""
 
-#: includes/admin/class-settings.php:1260
+#: includes/admin/class-settings.php:1265
 msgid "Background color when hovering over help widget links and list items."
 msgstr ""
 
-#: includes/admin/class-settings.php:1268
+#: includes/admin/class-settings.php:1273
 msgid "Greeting Message"
 msgstr ""
 
-#: includes/admin/class-settings.php:1269
+#: includes/admin/class-settings.php:1274
 msgid "Welcome message shown when the help widget opens."
 msgstr ""
 
-#: includes/admin/class-settings.php:1271
+#: includes/admin/class-settings.php:1276
 msgid "Hi! How can we help you?"
 msgstr ""
 
-#: includes/admin/class-settings.php:1277
+#: includes/admin/class-settings.php:1282
 msgid "Search Placeholder"
 msgstr ""
 
-#: includes/admin/class-settings.php:1278
+#: includes/admin/class-settings.php:1283
 msgid "Placeholder text for the search input field."
 msgstr ""
 
-#: includes/admin/class-settings.php:1280
+#: includes/admin/class-settings.php:1285
 msgid "Search for answers..."
 msgstr ""
 
-#: includes/admin/class-settings.php:1286
+#: includes/admin/class-settings.php:1291
 msgid "Enable Contact Form"
 msgstr ""
 
-#: includes/admin/class-settings.php:1287
+#: includes/admin/class-settings.php:1292
 msgid "Allow visitors to send messages through the help widget."
 msgstr ""
 
-#: includes/admin/class-settings.php:1294
+#: includes/admin/class-settings.php:1299
 msgid "Contact Email"
 msgstr ""
 
-#: includes/admin/class-settings.php:1295
+#: includes/admin/class-settings.php:1300
 msgid "Email address where help widget contact form submissions will be sent."
 msgstr ""
 
-#: includes/admin/class-settings.php:1303
+#: includes/admin/class-settings.php:1308
 msgid "Show on Mobile"
 msgstr ""
 
-#: includes/admin/class-settings.php:1304
+#: includes/admin/class-settings.php:1309
 msgid "Display the help widget on mobile devices."
 msgstr ""
 
-#: includes/admin/class-settings.php:1311
+#: includes/admin/class-settings.php:1316
 msgid "Enable button pulse"
 msgstr ""
 
-#: includes/admin/class-settings.php:1312
+#: includes/admin/class-settings.php:1317
 msgid "Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static."
 msgstr ""
 
-#: includes/admin/class-settings.php:1341
+#: includes/admin/class-settings.php:1346
 msgid "Classic"
 msgstr ""
 
-#: includes/admin/class-settings.php:1342
+#: includes/admin/class-settings.php:1347
 msgid "Vibrant"
 msgstr ""
 
-#: includes/admin/class-settings.php:1388
+#: includes/admin/class-settings.php:1393
 #: includes/admin/sidebar.php:34
 msgid "Support"
 msgstr ""
 
-#: includes/admin/class-settings.php:1389
+#: includes/admin/class-settings.php:1394
 msgid "Donate"
 msgstr ""
 
-#: includes/admin/class-settings.php:1390
+#: includes/admin/class-settings.php:1395
 msgid "Contribute"
 msgstr ""
 
 #. translators: 1: Plugin support site link.
-#: includes/admin/class-settings.php:1406
+#: includes/admin/class-settings.php:1411
 #, php-format
 msgid "For more information or how to get support visit the <a href=\"%s\">support site</a>."
 msgstr ""
 
 #. translators: 1: WordPress.org support forums link.
-#: includes/admin/class-settings.php:1408
+#: includes/admin/class-settings.php:1413
 #, php-format
 msgid "Please report bugs, contribute or request features on <a href=\"%s\">GitHub</a>."
 msgstr ""
 
 #. translators: 1: Github issues link, 2: Github plugin page link.
-#: includes/admin/class-settings.php:1411
+#: includes/admin/class-settings.php:1416
 #, php-format
 msgid "<a href=\"%1$s\">Post an issue</a> on <a href=\"%2$s\">GitHub</a> (bug reports only)."
 msgstr ""
 
-#: includes/admin/class-settings.php:1437
+#: includes/admin/class-settings.php:1442
 msgid "Configure every part of your docs experience from this screen. Use the sections on the left to move between General, Output, Styles, and Pro options."
 msgstr ""
 
-#: includes/admin/class-settings.php:1438
+#: includes/admin/class-settings.php:1443
 msgid "<strong>General</strong> covers Multi-Product Mode, URL slugs, caching, uninstall cleanup, and feed behaviour so links stay consistent and data is removed safely when required."
 msgstr ""
 
-#: includes/admin/class-settings.php:1439
+#: includes/admin/class-settings.php:1444
 msgid "<strong>Output</strong> controls how archives render—titles, hierarchy depth, article counts, excerpts, limits per section, sidebars, and related articles."
 msgstr ""
 
-#: includes/admin/class-settings.php:1440
+#: includes/admin/class-settings.php:1445
 msgid "<strong>Styles</strong> lets you switch layouts, set columns, and add custom CSS. Disable inbuilt styles if your theme already provides the styling you need."
 msgstr ""
 
-#: includes/admin/class-settings.php:1441
+#: includes/admin/class-settings.php:1446
 msgid "<strong>Pro features</strong> unlock article ratings, the floating help widget, and advanced layouts."
 msgstr ""
 
 #. translators: 1: Opening link tag, 2: Closing link tag.
-#: includes/admin/class-settings.php:1444
+#: includes/admin/class-settings.php:1449
 #, php-format
 msgid "%1$sRead the full settings guide%2$s"
 msgstr ""
 
-#: includes/admin/class-settings.php:1453
+#: includes/admin/class-settings.php:1458
 msgid "Automatically sync Markdown files from a GitHub repository into your Knowledge Base. Push events trigger the webhook and import or update articles in real time."
 msgstr ""
 
-#: includes/admin/class-settings.php:1454
+#: includes/admin/class-settings.php:1459
 msgid "<strong>Webhook Secret</strong> — a shared secret between GitHub and this site. Set the same value in your GitHub repository webhook settings under \"Secret\". All incoming payloads are verified via HMAC-SHA256."
 msgstr ""
 
-#: includes/admin/class-settings.php:1455
+#: includes/admin/class-settings.php:1460
 msgid "<strong>Personal Access Token</strong> — required for private repositories. Create a fine-grained PAT on GitHub with <em>Contents: Read-only</em> permission (add <em>Metadata: Read-only</em> for private repos). Leave empty for public repos."
 msgstr ""
 
-#: includes/admin/class-settings.php:1456
+#: includes/admin/class-settings.php:1461
 msgid "<strong>Repository Mappings</strong> — each row maps a GitHub repository (or a subfolder within one) to a Knowledge Base product. Required fields are marked with an asterisk (*). The folder path is relative to the repo root, e.g. <code>docs/</code>. Leave the branch field empty to use the repository's default branch."
 msgstr ""
 
-#: includes/admin/class-settings.php:1457
+#: includes/admin/class-settings.php:1462
 msgid "Your webhook endpoint URL is shown in the GitHub section header. Enter this URL in your GitHub repository under Settings → Webhooks, set the content type to <code>application/json</code>, and choose the <em>Push</em> event."
 msgstr ""
 
 #. translators: 1: Opening link tag, 2: Closing link tag.
-#: includes/admin/class-settings.php:1460
+#: includes/admin/class-settings.php:1465
 #, php-format
 msgid "%1$sRead the GitHub integration guide%2$s"
 msgstr ""
 
 #. translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link.
-#: includes/admin/class-settings.php:1513
+#: includes/admin/class-settings.php:1518
 #, php-format
 msgid "Thank you for using %1$sWebberZone Knowledge_Base%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s"
 msgstr ""
 
-#: includes/admin/class-settings.php:1570
-#: includes/admin/class-settings.php:1578
+#: includes/admin/class-settings.php:1575
+#: includes/admin/class-settings.php:1583
 msgid "Verify Token"
 msgstr ""
 
-#: includes/admin/class-settings.php:1572
-#: includes/admin/class-settings.php:1580
+#: includes/admin/class-settings.php:1577
+#: includes/admin/class-settings.php:1585
 msgid "Refresh Repository List"
 msgstr ""
 
-#: includes/admin/class-settings.php:1715
+#: includes/admin/class-settings.php:1720
 msgid "No GitHub Personal Access Token configured. Add a token to this row or the global setting."
 msgstr ""
 
-#: includes/admin/class-settings.php:1821
-#: includes/admin/class-settings.php:1831
-#: includes/admin/class-settings.php:1832
+#: includes/admin/class-settings.php:1826
+#: includes/admin/class-settings.php:1836
+#: includes/admin/class-settings.php:1837
 msgid "Start Settings Wizard"
 msgstr ""
 
