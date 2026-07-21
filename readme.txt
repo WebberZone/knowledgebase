@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,10 +176,30 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
+= 3.1.1 =
+Settings search, exporter round-trip fixes for GitHub/Markdown, and updated Settings API/Freemius SDK.
+
 = 3.1.0 =
 Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documentation Layout Mode (three-column docs site view), Section Tree block and widget, GitHub Integration for syncing markdown docs via webhooks, featured image support in importer/exporter, and post-import next-actions panel.
 
 == Changelog ==
+
+= 3.1.1 =
+
+* Enhancements:
+	* Added search to the Settings page to quickly find options across tabs.
+	* Smooth scroll-to-top when switching Settings tabs.
+
+* Bug fixes:
+	* Fixed default-value label lookup for select/radio fields that use an empty string as a real option key (e.g. "Do not display").
+	* GitHub/Markdown exporter: unknown block types without inner blocks now export raw innerHTML instead of a block comment, so they round-trip correctly on re-import.
+	* GitHub/Markdown exporter: pass `<mark>`, `<u>`, `<sub>`, `<sup>` through as raw HTML during inline conversion, and allow `future` as a valid frontmatter/mapping post status.
+	* GitHub/Markdown exporter: emit the `toc: true` frontmatter flag when an article contains a TOC block, for full importer/exporter parity.
+
+* Other:
+	* Updated Settings API to 2.10.1 and refreshed the admin banner.
+	* Updated Freemius SDK to 2.13.4.
+	* Updated WordPress.org banner images.
 
 = 3.1.0 =
 
