@@ -20,7 +20,7 @@ This document describes all available settings for the [Knowledge Base](https://
 
 Enable this option to use a dedicated “Products” menu to organize your knowledge base articles and sections by product. This system allows you to assign each article or section to one or more products, making it easier to manage documentation for different software, hardware, or service lines. If your knowledge base does not need this level of organization, you can leave this option disabled.
 
-#### Use Knowledge Base as Homepage
+#### Use Knowledge Base as Homepage *(Pro only)*
 
 Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it.
 

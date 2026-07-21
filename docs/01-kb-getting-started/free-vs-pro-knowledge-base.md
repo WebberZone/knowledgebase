@@ -35,6 +35,7 @@ Knowledge Base is free to use and packed with features right out of the box. The
 | Section Tree navigation block and widget | ❌ | ✅ |
 | Custom permalink structures with dynamic placeholders | ❌ | ✅ |
 | Knowledge Base homepage mode | ❌ | ✅ |
+| Featured image on product/section archive pages | ❌ | ✅ |
 | **Table of Contents** | | |
 | Auto-generated inline TOC | ✅ | ✅ |
 | TOC sidebar widget | ❌ | ✅ |
@@ -59,6 +60,7 @@ Knowledge Base is free to use and packed with features right out of the box. The
 | Article export (Markdown ZIP, SQL dump, XLSX spreadsheet) | ❌ | ✅ |
 | Article import from Markdown ZIP with taxonomy mapping | ❌ | ✅ |
 | GitHub integration (sync Markdown docs via webhook) | ❌ | ✅ |
+| Push/export articles back to a GitHub repository | ❌ | ✅ |
 | **Support** | | |
 | Community forum | ✅ | ✅ |
 | Priority email support | ❌ | ✅ |
