@@ -20,6 +20,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Settings Wizard API class
+ *
+ * @since 3.0.0
  */
 class Settings_Wizard_API {
 
