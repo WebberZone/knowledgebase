@@ -89,5 +89,5 @@ The shortcode takes three optional attributes, e.g.:
 ```
 
 - *type*: alert type as per the screenshot above. Default is ‘primary’
-- *class: additional classes to include in the wrapping div as a space- or comma-separated list.* Default is ‘alert’
+- *class*: additional classes to include in the wrapping div as a space- or comma-separated list. Default is ‘alert’
 - *text*: any additional text you want to include before the wrapped content. In the above example, the wrapped content is “A secondary alert”
