@@ -9,6 +9,13 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 - No suggestions outside the scope of what was asked
 - Skip preamble and trailing summaries
 
+## Links
+
+- GitHub: <https://github.com/WebberZone/knowledgebase>
+- WordPress.org: <https://wordpress.org/plugins/knowledgebase/>
+- Documentation: <https://webberzone.com/support/product/knowledgebase/>
+- webberzone.com: <https://webberzone.com/plugins/knowledgebase/>
+
 ## Plugin Overview
 
 WebberZone Knowledge Base Pro (v3.1.0) is a WordPress plugin (namespace `WebberZone\Knowledge_Base`) that creates a multi-product knowledge base system. It uses a freemium model via Freemius integration — free core features with premium features in `/includes/pro/`.
