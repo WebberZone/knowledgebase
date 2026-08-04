@@ -201,6 +201,14 @@ class Breadcrumbs {
 			);
 		}
 
+		/**
+		 * Filters the breadcrumb items before they are rendered.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $items Array of breadcrumb items, each with url, label, position and current keys.
+		 * @param array $args  Parameters array.
+		 */
 		$items = apply_filters( 'wzkb_breadcrumb_items', $items, $args );
 
 		$output  = '<nav class="wzkb_breadcrumb" aria-label="' . esc_attr__( 'Breadcrumb', 'knowledgebase' ) . '">';
@@ -217,6 +225,14 @@ class Breadcrumbs {
 		$output .= '</ol>';
 		$output .= '</nav>';
 
+		/**
+		 * Filters the rendered breadcrumb HTML.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @param string $output Breadcrumb HTML.
+		 * @param array  $args   Parameters array.
+		 */
 		return apply_filters( 'wzkb_get_breadcrumb', $output, $args );
 	}
 
