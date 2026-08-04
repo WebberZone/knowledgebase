@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Admin Columns Class.
+ * Registers and enqueues the Knowledgebase front-end and block styles.
  *
  * @since 2.3.0
  */

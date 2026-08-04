@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Admin Columns Class.
+ * Registers the Knowledgebase shortcodes.
  *
  * @since 2.3.0
  */

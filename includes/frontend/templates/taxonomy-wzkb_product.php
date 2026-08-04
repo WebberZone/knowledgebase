@@ -33,6 +33,14 @@ if ( wzkb_get_option( 'include_styles' ) ) {
 						<div class="taxonomy-description"><?php echo wp_kses_post( $wzkb_current_taxonomy->description ); ?></div>
 					<?php endif; ?>
 					<?php
+					/**
+					 * Filters the header image shown on a Knowledgebase term archive.
+					 *
+					 * @since 3.1.0
+					 *
+					 * @param string   $wzkb_term_header_image Header image markup. Empty by default.
+					 * @param \WP_Term $wzkb_current_taxonomy  Current taxonomy term object.
+					 */
 					$wzkb_term_header_image = apply_filters( 'wzkb_term_archive_header_image', '', $wzkb_current_taxonomy );
 					if ( $wzkb_term_header_image ) :
 						?>
