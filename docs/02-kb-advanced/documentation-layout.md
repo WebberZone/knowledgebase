@@ -95,7 +95,7 @@ echo wzkb_get_section_tree( array(
 
 ### Filters
 
-**`wzkb_section_tree_article_limit`** — Override the default article limit per section.
+**[`wzkb_section_tree_article_limit`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_article_limit/)** — Override the default article limit per section.
 
 ```php
 add_filter( 'wzkb_section_tree_article_limit', function( int $limit ): int {
@@ -103,7 +103,7 @@ add_filter( 'wzkb_section_tree_article_limit', function( int $limit ): int {
 } );
 ```
 
-**`wzkb_section_tree_html`** — Filter the final section tree HTML before output.
+**[`wzkb_section_tree_html`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_html/)** — Filter the final section tree HTML before output.
 
 ```php
 add_filter( 'wzkb_section_tree_html', function( string $html, array $args ): string {
@@ -142,3 +142,5 @@ On mobile the three columns collapse to a single-column stacked layout automatic
 - [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/)
 - [Table of Contents](https://webberzone.com/support/knowledgebase/table-of-contents/)
 - [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/)
+- [`wzkb_section_tree_article_limit`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_article_limit/)
+- [`wzkb_section_tree_html`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_html/)

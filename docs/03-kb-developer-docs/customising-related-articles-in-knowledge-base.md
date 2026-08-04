@@ -202,7 +202,7 @@ The engine builds a `WP_Query` scoped to the `wz_knowledgebase` post type, exclu
     - Each matching tag contributes `tag_weight` points (default **1**).
     - A **recency boost** (0–1) favors articles published within the last year.
     - Tie‑breakers: category matches → tag matches → publish timestamp → original order.
-3. If no taxonomy context exists (e.g., uncategorized article), the query falls back to the latest knowledge base posts. Use the `wzkb_related_articles_fallback_args` filter to override this behavior.
+3. If no taxonomy context exists (e.g., uncategorized article), the query falls back to the latest knowledge base posts. Use the [`wzkb_related_articles_fallback_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_fallback_args/) filter to override this behavior.
 
 All scoring operations occur in PHP, so the SQL statement you see via Query Monitor will still show `ORDER BY post_date DESC`. The post array is reordered after the query returns.
 
@@ -262,12 +262,19 @@ add_filter( 'wzkb_related_recency_boost', function( $boost, $post ) {
 
 - Related queries are cached in the `wzkb_related_articles` object cache group using the query args, plus the `posts` cache `last_changed` value.
 - Flushing the posts cache (`wp cache flush`, editing content, or publishing new articles) automatically invalidates the related cache.
-- For deterministic debugging, temporarily disable the cache by filtering `wzkb_related_articles_cache_ttl` to `0`.
+- For deterministic debugging, temporarily disable the cache by filtering [`wzkb_related_articles_cache_ttl`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_cache_ttl/) to `0`.
 
 ### 7. Advanced Usage & Troubleshooting
 
 1. **Custom templates** – If you override the single template, call `wzkb_related_articles()` manually, where you want the block to appear.
 2. **Block themes** – The Gutenberg block is the recommended approach for block theme templates because it handles layout, settings, and tie‑ins with the Related class.
 3. **No results** – Ensure the origin article shares sections or tags with other posts. Otherwise, configure `wzkb_related_articles_fallback_args` to show the latest articles or preferred taxonomy.
-4. **Multi‑product sites** – Use `wzkb_related_articles_query_args` to inject a `wzkb_product` tax query, so each product shows its own ecosystem of articles. (Native support is on the roadmap.)
-5. **Debugging** – Temporarily hook into `wzkb_related_post_score` and log `$score` to inspect how each article ranked. Remember to remove logging after troubleshooting.
+4. **Multi‑product sites** – Use [`wzkb_related_articles_query_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_query_args/) to inject a `wzkb_product` tax query, so each product shows its own ecosystem of articles. (Native support is on the roadmap.)
+5. **Debugging** – Temporarily hook into [`wzkb_related_post_score`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_post_score/) and log `$score` to inspect how each article ranked. Remember to remove logging after troubleshooting.
+
+## See also
+
+- [`wzkb_related_articles_fallback_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_fallback_args/)
+- [`wzkb_related_articles_cache_ttl`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_cache_ttl/)
+- [`wzkb_related_articles_query_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_query_args/)
+- [`wzkb_related_post_score`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_post_score/)

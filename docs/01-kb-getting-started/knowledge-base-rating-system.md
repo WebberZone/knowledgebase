@@ -535,7 +535,7 @@ The rating system works with page caching because:
 
 The rating system includes automatic optimizations:
 
-- **Automatic array size limits:** Max 10,000 entries per tracking array (ratings, IP hashes, user IDs); configurable via `wzkb_rating_max_log_size`
+- **Automatic array size limits:** Max 10,000 entries per tracking array (ratings, IP hashes, user IDs); configurable via [`wzkb_rating_max_log_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_max_log_size/)
 - **Auto-cleanup:** Removes the oldest 10 % of entries when the limit is reached
 - **Efficient storage:** SHA-256 hashes are 64 characters (vs up to 39 for IPv6)
 - **Rate limiting:** 10 requests per 60 seconds per user/IP
@@ -579,7 +579,7 @@ add_filter( 'wzkb_rating_rate_limits', function( $limits ) {
 2. **Rate Limiting**
     - Default: 10 requests per 60 seconds per user/IP
     - Prevents abuse and stats manipulation
-    - Configurable via `wzkb_rating_rate_limits` filter
+    - Configurable via [`wzkb_rating_rate_limits`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_rate_limits/) filter
 3. **Input Validation**
     - All inputs sanitized and validated
     - Post status verification (only published posts)
@@ -595,7 +595,7 @@ add_filter( 'wzkb_rating_rate_limits', function( $limits ) {
 6. **IP Spoofing Prevention**
     - Prioritizes `REMOTE_ADDR` (cannot be spoofed)
     - Proxy headers are disabled by default
-    - Optional proxy support via `wzkb_rating_use_proxy_headers` filter
+    - Optional proxy support via [`wzkb_rating_use_proxy_headers`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_use_proxy_headers/) filter
 7. **Cookie Security**
     - `SameSite=Lax` for CSRF protection
     - `Secure` flag on HTTPS sites
@@ -616,3 +616,9 @@ add_filter( 'wzkb_rating_use_proxy_headers', '__return_true' );
 ```
 
 **Warning:** Only enable this if you trust your proxy/CDN configuration. Improper use can allow IP spoofing.
+
+## See also
+
+- [`wzkb_rating_max_log_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_max_log_size/)
+- [`wzkb_rating_rate_limits`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_rate_limits/)
+- [`wzkb_rating_use_proxy_headers`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_use_proxy_headers/)
