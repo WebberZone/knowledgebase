@@ -24,7 +24,7 @@ https://example.com/wp-json/wzkb/v1/
 - All REST responses follow standard WordPress structures with `code`, `message`, and `data`.
 - Cache lifetime is 300 seconds. Cache busts automatically on KB content or taxonomy changes.
 - When used in a headless context, ensure Gutenberg meta `_wzkb_product_ids` and `_wzkb_section_ids` are synced.
-- Permissions can be customized per route via the `wzkb_rest_route_permission` filter.
+- Permissions can be customized per route via the [`wzkb_rest_route_permission`](https://webberzone.dev/knowledgebase/hooks/wzkb_rest_route_permission/) filter.
 - By default, all read-only routes are public. Use the permission filter below to restrict access.
 
 ## Permission overrides
@@ -324,3 +324,7 @@ The custom Gutenberg panel (`includes/admin/js/editor-sections-panel.js`) consum
 ## Support
 
 The above REST API is a preliminary implementation. If you notice any issue, have any usage questions or to suggest additional endpoints, please <a href="https://webberzone.com/request-support/" data-type="page" data-id="7861">open a ticket</a>.
+
+## See also
+
+- [`wzkb_rest_route_permission`](https://webberzone.dev/knowledgebase/hooks/wzkb_rest_route_permission/)

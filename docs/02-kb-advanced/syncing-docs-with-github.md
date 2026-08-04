@@ -255,7 +255,7 @@ POST https://example.com/wp-json/wzkb/v1/github/webhook
 
 Receives GitHub push events. Validates the `X-Hub-Signature-256` HMAC header against the configured Webhook Secret before processing. Accepts both `.md` and `.markdown` files.
 
-On large pushes, the endpoint returns **HTTP 202** immediately and processes the files in the background via WP-Cron. Work is split into chunks (default 10 files per tick; see `wzkb_github_webhook_chunk_size` filter below), and each chunk reschedules the next one automatically. Progress and errors survive across ticks — files that fail due to a transient lock or a network hiccup are retried up to 3 times before being recorded as a permanent failure in the webhook log. GitHub, therefore, never times out waiting for a response, even when a push touches hundreds of files.
+On large pushes, the endpoint returns **HTTP 202** immediately and processes the files in the background via WP-Cron. Work is split into chunks (default 10 files per tick; see [`wzkb_github_webhook_chunk_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_webhook_chunk_size/) filter below), and each chunk reschedules the next one automatically. Progress and errors survive across ticks — files that fail due to a transient lock or a network hiccup are retried up to 3 times before being recorded as a permanent failure in the webhook log. GitHub, therefore, never times out waiting for a response, even when a push touches hundreds of files.
 
 ### Validate
 
@@ -269,7 +269,7 @@ Returns the authenticated user's GitHub login for the configured PAT. Useful for
 
 ### Filters
 
-#### `wzkb_github_skip_file`
+#### [`wzkb_github_skip_file`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_skip_file/)
 
 Skip a file before it is fetched from GitHub.
 
@@ -291,7 +291,7 @@ add_filter(
 | `$file_path` | string | Repo-relative path to the `.md` file. |
 | `$mapping` | array | Full repository mapping array. |
 
-#### `wzkb_github_pre_import`
+#### [`wzkb_github_pre_import`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_pre_import/)
 
 Modify or cancel an import just before the post is inserted or updated. Return the array with `'skip' => true` to abort.
 
@@ -309,7 +309,7 @@ add_filter(
 
 The `$file_data` array contains: `repo_owner`, `repo_name`, `file_path`, `ref`, `title`, `slug`, `status`, `post_content`, `frontmatter`, `mapping`, `skip`.
 
-#### `wzkb_github_markdown_html`
+#### [`wzkb_github_markdown_html`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_markdown_html/)
 
 Filter the HTML produced by Parsedown before block conversion.
 
@@ -324,7 +324,7 @@ add_filter(
 );
 ```
 
-#### `wzkb_github_pre_push`
+#### [`wzkb_github_pre_push`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_pre_push/)
 
 Modify or cancel a push just before the article is committed to GitHub. Return the array with `'skip' => true` to abort the push for that article.
 
@@ -343,7 +343,7 @@ add_filter(
 
 The `$push_data` array contains: `post_id`, `owner`, `repo`, `path`, `branch`, `sha`, `author`, `skip`.
 
-#### `wzkb_github_api_args`
+#### [`wzkb_github_api_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_api_args/)
 
 Filter the `wp_remote_request()` arguments for every GitHub API call (headers, timeout, etc.).
 
@@ -367,7 +367,7 @@ Number of files processed per WP-Cron tick during webhook background processing.
 add_filter( 'wzkb_github_webhook_chunk_size', fn() => 5 );
 ```
 
-#### `wzkb_github_max_images_per_file`
+#### [`wzkb_github_max_images_per_file`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_max_images_per_file/)
 
 Maximum number of images sideloaded from a single Markdown file. Default: `25`. Images beyond this limit are left with their original URLs.
 
@@ -375,7 +375,7 @@ Maximum number of images sideloaded from a single Markdown file. Default: `25`. 
 add_filter( 'wzkb_github_max_images_per_file', fn() => 10 );
 ```
 
-#### `wzkb_github_max_image_bytes`
+#### [`wzkb_github_max_image_bytes`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_max_image_bytes/)
 
 Maximum file size (in bytes) for a sideloaded image. Default: `10 * MB_IN_BYTES` (10 MB). Images larger than this are skipped and keep their original URL.
 
@@ -384,7 +384,7 @@ Maximum file size (in bytes) for a sideloaded image. Default: `10 * MB_IN_BYTES`
 add_filter( 'wzkb_github_max_image_bytes', fn() => 5 * MB_IN_BYTES );
 ```
 
-#### `wzkb_github_export_batch_size`
+#### [`wzkb_github_export_batch_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_export_batch_size/)
 
 Number of linked posts fetched per database query during the export wizard's list phase. Default: `200`. Lower this on memory-constrained sites with large KB article counts.
 
@@ -394,7 +394,7 @@ add_filter( 'wzkb_github_export_batch_size', fn() => 100 );
 
 ### Actions
 
-#### `wzkb_github_post_import`
+#### [`wzkb_github_post_import`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_post_import/)
 
 Fires after a KB article has been successfully inserted or updated.
 
@@ -409,7 +409,7 @@ add_action(
 );
 ```
 
-#### `wzkb_github_post_push`
+#### [`wzkb_github_post_push`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_post_push/)
 
 Fires after a KB article has been successfully pushed to GitHub. The second argument is the raw GitHub API response array (single push via Push_Handler/Contents API) or the GitHub commit URL string (export wizard).
 
@@ -494,3 +494,17 @@ Set its **Status** field to **Disabled** in the repository mapping settings.
 ## Support
 
 For questions about the GitHub integration, [open a support ticket](https://webberzone.com/request-support/).
+
+## See also
+
+- [`wzkb_github_webhook_chunk_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_webhook_chunk_size/)
+- [`wzkb_github_skip_file`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_skip_file/)
+- [`wzkb_github_pre_import`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_pre_import/)
+- [`wzkb_github_markdown_html`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_markdown_html/)
+- [`wzkb_github_pre_push`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_pre_push/)
+- [`wzkb_github_api_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_api_args/)
+- [`wzkb_github_max_images_per_file`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_max_images_per_file/)
+- [`wzkb_github_max_image_bytes`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_max_image_bytes/)
+- [`wzkb_github_export_batch_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_export_batch_size/)
+- [`wzkb_github_post_import`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_post_import/)
+- [`wzkb_github_post_push`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_post_push/)

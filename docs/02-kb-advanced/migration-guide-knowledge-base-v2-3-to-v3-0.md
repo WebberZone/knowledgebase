@@ -549,3 +549,7 @@ When reporting migration issues, include:
 - wzkb_product_migration_complete – Timestamp of completion
 - wzkb_product_notice_dismissed – User meta for notice dismissal (90 days)
 
+## See also
+
+- [`wzkb_migration_max_sections_per_batch`](https://webberzone.dev/knowledgebase/hooks/wzkb_migration_max_sections_per_batch/)
+- [`wzkb_migration_max_articles_per_batch`](https://webberzone.dev/knowledgebase/hooks/wzkb_migration_max_articles_per_batch/)

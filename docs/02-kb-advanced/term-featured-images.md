@@ -64,7 +64,7 @@ Both wrappers constrain the image to a 16:9 aspect ratio with `object-fit: cover
 
 ## Developer hooks
 
-### `wzkb_product_card_image`
+### [`wzkb_product_card_image`](https://webberzone.dev/knowledgebase/hooks/wzkb_product_card_image/)
 
 Filters the image HTML rendered inside a product grid card. Return an empty string to suppress the image for a specific product.
 
@@ -93,7 +93,7 @@ add_filter(
 | `$html` | string | Image HTML to render. Empty by default; populated by the Pro feature when an image is set. |
 | `$product_term` | `\WP_Term` | The product term being rendered. |
 
-### `wzkb_term_archive_header_image`
+### [`wzkb_term_archive_header_image`](https://webberzone.dev/knowledgebase/hooks/wzkb_term_archive_header_image/)
 
 Filters the image HTML rendered in the header of product and section archive pages (classic templates only). Return an empty string to suppress the image.
 
@@ -135,3 +135,8 @@ if ( $image ) {
 ```
 
 Returns an empty string if no image has been set for the term.
+
+## See also
+
+- [`wzkb_product_card_image`](https://webberzone.dev/knowledgebase/hooks/wzkb_product_card_image/)
+- [`wzkb_term_archive_header_image`](https://webberzone.dev/knowledgebase/hooks/wzkb_term_archive_header_image/)

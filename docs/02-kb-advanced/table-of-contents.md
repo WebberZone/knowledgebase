@@ -69,7 +69,7 @@ The panel slides in and out horizontally from the viewport edge. When minimized,
 
 ## WPML and Polylang
 
-The TOC title string is translatable. In WPML or Polylang setups, you can register `wzkb_settings` in the translation manager, or use the `wzkb_toc` filter (see below) to return a language-specific title.
+The TOC title string is translatable. In WPML or Polylang setups, you can register `wzkb_settings` in the translation manager, or use the [`wzkb_toc`](https://webberzone.dev/knowledgebase/hooks/wzkb_toc/) filter (see below) to return a language-specific title.
 
 ## Developer hooks
 
@@ -112,3 +112,4 @@ Both functions respect the global TOC settings and return an empty string when t
 
 - [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — full Output settings reference
 - [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/) — using `[toc]` in Markdown imports
+- [`wzkb_toc`](https://webberzone.dev/knowledgebase/hooks/wzkb_toc/)

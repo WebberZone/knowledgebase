@@ -158,7 +158,7 @@ Both use the same CSS Grid layout, ensuring the search box is always accessible 
 
 ### Customizing Labels and Strings
 
-All help widget labels can be customized using the `wzkb_help_widget_labels` filter:
+All help widget labels can be customized using the [`wzkb_help_widget_labels`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_labels/) filter:
 
 ```php
 add_filter( 'wzkb_help_widget_labels', function( $labels ) {
@@ -214,7 +214,7 @@ The help widget intelligently suggests articles based on context:
 
 #### Custom Suggested Articles
 
-Control which articles are suggested using the `wzkb_help_widget_suggested_articles` filter:
+Control which articles are suggested using the [`wzkb_help_widget_suggested_articles`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_suggested_articles/) filter:
 
 ```php
 add_filter( 'wzkb_help_widget_suggested_articles', function( $article_ids, $current_post_id ) {
@@ -252,7 +252,7 @@ add_filter( 'wzkb_related_articles_query_args', function( $args, $post ) {
 
 ### Help Widget Visibility
 
-Control where the help widget appears using the `wzkb_help_widget_show` filter:
+Control where the help widget appears using the [`wzkb_help_widget_show`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_show/) filter:
 
 ```php
 add_filter( 'wzkb_help_widget_show', function( $show ) {
@@ -513,3 +513,9 @@ Enhanced search results experience:
 - The contact button is also at the bottom of the results
 - Search box fixed at the bottom for easy refinement
 - Scrollable results with locked search box
+
+## See also
+
+- [`wzkb_help_widget_labels`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_labels/)
+- [`wzkb_help_widget_suggested_articles`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_suggested_articles/)
+- [`wzkb_help_widget_show`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_show/)
