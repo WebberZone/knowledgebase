@@ -43,17 +43,18 @@ WP_MULTISITE=1 vendor/bin/phpunit       # Run multisite unit tests
 ### JavaScript / Blocks
 
 ```bash
-npm run build                            # Build all blocks (free + pro)
-npm run build:free                       # Build all free blocks
-npm run build:pro                        # Build all pro blocks
-npm run build:assets                     # Minify CSS/JS and generate RTL (= node build-assets.js)
-npm run start                            # Watch mode for all blocks
-npm run lint:js                          # Lint JavaScript
-npm run lint:css                         # Lint CSS
-npm run format                           # Auto-format JS and CSS
+pnpm run build                            # Build all blocks (free + pro)
+pnpm run build:free                       # Build all free blocks
+pnpm run build:pro                        # Build all pro blocks
+pnpm run build:assets                     # Minify CSS/JS and generate RTL (= node build-assets.js)
+pnpm run start                            # Watch mode for all blocks
+pnpm run lint:js                          # Lint JavaScript
+pnpm run lint:css                         # Lint CSS
+pnpm run format                           # Auto-format JS and CSS
+ncu -u && pnpm install   # Update dependencies to latest and reinstall
 ```
 
-Individual block builds: `npm run build:[kb|articles|sections|products|search|breadcrumb|related|alerts|rating|toc|section-tree]`
+Individual block builds: `pnpm run build:[kb|articles|sections|products|search|breadcrumb|related|alerts|rating|toc|section-tree]`
 
 > **After editing any non-block JS or CSS** (files in `includes/admin/js/`, `includes/admin/css/`, `includes/admin/settings/js/`, `includes/frontend/css/`, `includes/pro/frontend/css/`, etc.) always run `node build-assets.js` to regenerate the `.min.js`, `.min.css`, and `-rtl` variants. Never hand-edit the minified or RTL files directly.
 >
@@ -71,7 +72,7 @@ Individual block builds: `npm run build:[kb|articles|sections|products|search|br
 
 ```bash
 composer zip                             # Create PHP distribution zip
-npm run zip                              # Create full plugin zip
+pnpm run zip                              # Create full plugin zip
 ```
 
 ## Architecture
@@ -147,7 +148,7 @@ The `repo_name` field uses TomSelect autocomplete (`field_class: 'ts_autocomplet
 
 ### Block Development
 
-Blocks are in `includes/blocks/src/[block-name]/` (free) and `includes/pro/blocks/src/[block-name]/` (pro). Each block has its own `block.json`, React `edit.js`, and server-side render via PHP. After editing block source, run `npm run build:[block-name]` — never edit files in `build/` directly.
+Blocks are in `includes/blocks/src/[block-name]/` (free) and `includes/pro/blocks/src/[block-name]/` (pro). Each block has its own `block.json`, React `edit.js`, and server-side render via PHP. After editing block source, run `pnpm run build:[block-name]` — never edit files in `build/` directly.
 
 ### Public Helper Functions
 
