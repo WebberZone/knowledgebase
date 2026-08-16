@@ -13,7 +13,7 @@
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://github.com/WebberZone/knowledgebase
  * Description: Create a multi-product knowledge base on your WordPress site.
- * Version: 3.1.1
+ * Version: 3.1.2
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WZKB_VERSION' ) ) {
 	 *
 	 * @var string $wzkb_version Plugin version
 	 */
-	define( 'WZKB_VERSION', '3.1.1' );
+	define( 'WZKB_VERSION', '3.1.2' );
 }
 
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {
@@ -153,8 +153,10 @@ if ( ! function_exists( __NAMESPACE__ . '\wzkb_freemius' ) ) {
 	include_once plugin_dir_path( __FILE__ ) . 'load-freemius.php';
 }
 
-// Load the autoloader.
-require_once WZKB_PLUGIN_DIR . 'includes/autoloader.php';
+// Load custom autoloader.
+if ( ! function_exists( __NAMESPACE__ . '\autoload' ) ) {
+	require_once WZKB_PLUGIN_DIR . 'includes/autoloader.php';
+}
 
 if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
 	/**
@@ -168,7 +170,7 @@ if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
 }
 
-if ( ! function_exists( 'wzkb' ) ) {
+if ( ! function_exists( __NAMESPACE__ . '\wzkb' ) ) {
 	/**
 	 * Get the main WebberZone Knowledge Base instance.
 	 *
@@ -191,8 +193,10 @@ register_deactivation_hook( __FILE__, __NAMESPACE__ . '\Admin\Activator::deactiv
  * Include files
  *----------------------------------------------------------------------------
  */
-require_once WZKB_PLUGIN_DIR . 'includes/options-api.php';
-require_once WZKB_PLUGIN_DIR . 'includes/functions.php';
+if ( ! function_exists( 'wzkb_get_settings' ) ) {
+	require_once WZKB_PLUGIN_DIR . 'includes/options-api.php';
+	require_once WZKB_PLUGIN_DIR . 'includes/functions.php';
+}
 
 /**
  * WZKB Settings

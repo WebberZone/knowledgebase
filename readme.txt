@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
+= 3.1.2 =
+Bug fix release: prevents fatal errors when Pro features activate on sites with older settings, and when free and Pro are active together.
+
 = 3.1.1 =
 Settings search, exporter round-trip fixes for GitHub/Markdown, and updated Settings API/Freemius SDK.
 
@@ -183,6 +186,17 @@ Settings search, exporter round-trip fixes for GitHub/Markdown, and updated Sett
 Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documentation Layout Mode (three-column docs site view), Section Tree block and widget, GitHub Integration for syncing markdown docs via webhooks, featured image support in importer/exporter, and post-import next-actions panel.
 
 == Changelog ==
+
+= 3.1.2 =
+
+* Bug fixes:
+	* Fixed a fatal error ("There has been a critical error on this website") that could occur when Pro features were activated — e.g. on starting a free trial or activating a licence — on sites whose saved settings predate the floating table of contents option.
+	* Fixed a fatal error when Knowledge Base and Knowledge Base Pro were activated together by namespacing the function-existence guard for the main instance and guarding the autoloader and settings includes.
+	* Fixed the Settings page sidebar overlapping the tab content by switching the post body layout to flexbox.
+	* Fixed disabled and Pro-gated settings losing their stored values on save when their field was not submitted.
+
+* Other:
+	* Updated the Settings API framework.
 
 = 3.1.1 =
 

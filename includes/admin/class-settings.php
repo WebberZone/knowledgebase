@@ -276,6 +276,94 @@ class Settings {
 	}
 
 	/**
+	 * Raw default values for every setting, keyed by option ID.
+	 *
+	 * Single source of truth for field defaults. Deliberately contains no
+	 * translation calls so it is safe to invoke before `init` (e.g. from
+	 * `wzkb_get_option()` on the frontend) without triggering a
+	 * "translation loading triggered too early" notice. Field definition
+	 * methods below reference this array instead of duplicating literals.
+	 *
+	 * @since 3.1.2
+	 *
+	 * @return array Raw default values keyed by option ID.
+	 */
+	public static function get_defaults() {
+		return array(
+			// General.
+			'multi_product'                  => false,
+			'kb_homepage_mode'               => false,
+			'kb_slug'                        => 'knowledgebase',
+			'product_slug'                   => 'kb/product',
+			'category_slug'                  => 'kb/section',
+			'tag_slug'                       => 'kb/tags',
+			'article_permalink'              => '',
+			'cache'                          => false,
+			'cache_expiry'                   => DAY_IN_SECONDS,
+			'uninstall_options'              => true,
+			'uninstall_data'                 => false,
+			'include_in_feed'                => true,
+			'disable_kb_feed'                => false,
+
+			// Output.
+			'kb_title'                       => 'Knowledge Base',
+			'category_level'                 => '2',
+			'show_article_count'             => true,
+			'show_excerpt'                   => false,
+			'clickable_section'              => true,
+			'show_empty_sections'            => false,
+			'limit'                          => 5,
+			'show_sidebar'                   => false,
+			'show_related_articles'          => true,
+			'enable_live_search'             => true,
+			'show_toc'                       => false,
+			'toc_heading_depth'              => 4,
+			'toc_min_headings'               => 3,
+			'toc_title'                      => 'Table of Contents',
+			'show_floating_toc'              => false,
+			'floating_toc_position'          => 'right',
+
+			// Styles.
+			'product_archive_layout'         => 'sections',
+			'show_term_thumbnail'            => true,
+			'include_styles'                 => true,
+			'kb_style'                       => 'classic',
+			'docs_mode'                      => false,
+			'columns'                        => '2',
+
+			// GitHub.
+			'github_webhook_secret'          => '',
+			'github_pat'                     => '',
+			'github_media_import'            => 1,
+			'github_auto_push'               => 0,
+			'github_repositories'            => array(),
+
+			// Pro.
+			'rating_system'                  => 'disabled',
+			'rating_tracking_method'         => 'cookie',
+			'show_rating_stats'              => true,
+			'help_widget_enabled'            => false,
+			'help_widget_display_location'   => 'kb_only',
+			'help_widget_position'           => 'right',
+			'help_widget_button_style'       => 'icon',
+			'help_widget_button_text'        => 'Help',
+			'help_widget_color'              => '#617DEC',
+			'help_widget_hover_color'        => '#4c63d2',
+			'help_widget_text_color'         => '#ffffff',
+			'help_widget_hover_text_color'   => '#ffffff',
+			'help_widget_panel_bg_color'     => '#ffffff',
+			'help_widget_panel_text_color'   => '#1a1a1a',
+			'help_widget_link_hover_color'   => '#f3f4f6',
+			'help_widget_greeting'           => 'Hi! How can we help you?',
+			'help_widget_search_placeholder' => 'Search for answers...',
+			'help_widget_contact_enabled'    => true,
+			'help_widget_contact_email'      => get_option( 'admin_email' ),
+			'help_widget_show_on_mobile'     => true,
+			'help_widget_enable_animation'   => true,
+		);
+	}
+
+	/**
 	 * Get settings defaults.
 	 *
 	 * @since 3.0.0
@@ -464,6 +552,7 @@ class Settings {
 	 * @return array General settings array
 	 */
 	public static function settings_general() {
+		$defaults = self::get_defaults();
 		$settings = array(
 			'multi_product'      => array(
 				'id'      => 'multi_product',
@@ -473,14 +562,14 @@ class Settings {
 					'knowledgebase'
 				),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['multi_product'],
 			),
 			'kb_homepage_mode'   => array(
 				'id'      => 'kb_homepage_mode',
 				'name'    => esc_html__( 'Use Knowledge Base as Homepage', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['kb_homepage_mode'],
 				'pro'     => true,
 			),
 			'permalink_header'   => array(
@@ -494,7 +583,7 @@ class Settings {
 				'name'        => esc_html__( 'Knowledge Base slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'This will set the opening path of the URL of the knowledge base and is set when registering the custom post type', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => 'knowledgebase',
+				'default'     => $defaults['kb_slug'],
 				'field_class' => 'large-text',
 			),
 			'product_slug'       => array(
@@ -502,7 +591,7 @@ class Settings {
 				'name'        => esc_html__( 'Product slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'This slug forms part of the URL for product pages when Multi-Product Mode is enabled. The value is used when registering the custom taxonomy.', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => 'kb/product',
+				'default'     => $defaults['product_slug'],
 				'field_class' => 'large-text',
 			),
 			'category_slug'      => array(
@@ -510,7 +599,7 @@ class Settings {
 				'name'        => esc_html__( 'Section slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Each section is a section of the knowledge base. This setting is used when registering the custom section and forms a part of the URL when browsing section archives', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => 'kb/section',
+				'default'     => $defaults['category_slug'],
 				'field_class' => 'large-text',
 			),
 			'tag_slug'           => array(
@@ -518,7 +607,7 @@ class Settings {
 				'name'        => esc_html__( 'Tags slug', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => 'kb/tags',
+				'default'     => $defaults['tag_slug'],
 				'field_class' => 'large-text',
 			),
 			'article_permalink'  => array(
@@ -526,7 +615,7 @@ class Settings {
 				'name'        => esc_html__( 'Article Permalink Structure', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Structure for article URLs. Leave empty to use default which is the "Knowledge Base slug/%postname%".', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => '',
+				'default'     => $defaults['article_permalink'],
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
@@ -541,14 +630,14 @@ class Settings {
 				'name'    => esc_html__( 'Enable cache', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Cache the output of the queries to speed up retrieval of the knowledgebase. Recommended for large knowledge bases', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['cache'],
 			),
 			'cache_expiry'       => array(
 				'id'      => 'cache_expiry',
 				'name'    => esc_html__( 'Cache Time', 'knowledgebase' ),
 				'desc'    => esc_html__( 'How long should the knowledge base be cached for. Default is 1 day.', 'knowledgebase' ),
 				'type'    => 'select',
-				'default' => DAY_IN_SECONDS,
+				'default' => $defaults['cache_expiry'],
 				'options' => array(
 					0                    => esc_html__( 'No expiry', 'knowledgebase' ),
 					HOUR_IN_SECONDS      => esc_html__( '1 Hour', 'knowledgebase' ),
@@ -577,14 +666,14 @@ class Settings {
 				'name'    => esc_html__( 'Delete options on uninstall', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Check this box to delete the settings on this page when the plugin is deleted via the Plugins page in your WordPress Admin', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['uninstall_options'],
 			),
 			'uninstall_data'     => array(
 				'id'      => 'uninstall_data',
 				'name'    => esc_html__( 'Delete all content on uninstall', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Check this box to delete all the posts, categories and tags created by the plugin. There is no way to restore the data if you choose this option', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['uninstall_data'],
 			),
 			'feed_header'        => array(
 				'id'      => 'feed_header',
@@ -598,7 +687,7 @@ class Settings {
 				'name'    => esc_html__( 'Include in feed', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Adds the knowledge base articles to the main RSS feed for your site', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['include_in_feed'],
 			),
 			'disable_kb_feed'    => array(
 				'id'      => 'disable_kb_feed',
@@ -606,7 +695,7 @@ class Settings {
 				/* translators: 1: Opening link tag, 2: Closing link tag. */
 				'desc'    => sprintf( esc_html__( 'The knowledge base articles have a default feed. This option will disable the feed. You might need to %1$srefresh your permalinks%2$s when changing this option.', 'knowledgebase' ), '<a href="' . admin_url( 'options-permalink.php' ) . '" target="_blank">', '</a>' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['disable_kb_feed'],
 			),
 		);
 
@@ -630,13 +719,14 @@ class Settings {
 	 */
 	public static function settings_output() {
 
+		$defaults = self::get_defaults();
 		$settings = array(
 			'kb_title'              => array(
 				'id'          => 'kb_title',
 				'name'        => esc_html__( 'Knowledge base title', 'knowledgebase' ),
 				'desc'        => esc_html__( 'This will be displayed as the archive title and in other relevant places.', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => 'Knowledge Base',
+				'default'     => $defaults['kb_title'],
 				'field_class' => 'large-text',
 			),
 			'category_level'        => array(
@@ -644,7 +734,7 @@ class Settings {
 				'name'    => esc_html__( 'First section level', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Knowledge Base supports an unlimited hierarchy of sections. Set to 1 if using multi-product mode (with sections as the first level for each product). Set to 2 for traditional mode (top-level sections as product categories). This determines which section level is displayed in the grid layout. The default is 2, which was the behavior before version 3.0.', 'knowledgebase' ),
 				'type'    => 'number',
-				'default' => '2',
+				'default' => $defaults['category_level'],
 				'size'    => 'small',
 				'min'     => '1',
 				'max'     => '5',
@@ -654,35 +744,35 @@ class Settings {
 				'name'    => esc_html__( 'Show article count', 'knowledgebase' ),
 				'desc'    => esc_html__( 'If selected, the number of articles will be displayed in an orange circle next to the header. You can override the color by styling wzkb_section_count', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['show_article_count'],
 			),
 			'show_excerpt'          => array(
 				'id'      => 'show_excerpt',
 				'name'    => esc_html__( 'Show excerpt', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Select to include the post excerpt after the article link', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['show_excerpt'],
 			),
 			'clickable_section'     => array(
 				'id'      => 'clickable_section',
 				'name'    => esc_html__( 'Link section title', 'knowledgebase' ),
 				'desc'    => esc_html__( 'If selected, the title of each knowledge base section will link to its own page.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['clickable_section'],
 			),
 			'show_empty_sections'   => array(
 				'id'      => 'show_empty_sections',
 				'name'    => esc_html__( 'Show empty sections', 'knowledgebase' ),
 				'desc'    => esc_html__( 'If selected, sections with no articles will also be displayed', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['show_empty_sections'],
 			),
 			'limit'                 => array(
 				'id'      => 'limit',
 				'name'    => esc_html__( 'Max articles per section', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Enter the number of articles that should be displayed in each section when viewing the knowledge base. Use -1 to display all articles (no limit). Once this limit is reached, the footer displays a "more link" to view the category.', 'knowledgebase' ),
 				'type'    => 'number',
-				'default' => 5,
+				'default' => $defaults['limit'],
 				'size'    => 'small',
 				'min'     => -1,
 				'max'     => 500,
@@ -692,14 +782,14 @@ class Settings {
 				'name'    => esc_html__( 'Show sidebar', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Add the sidebar of your theme to the built-in templates for archives, sections, and search. This will not work with Block Themes. You will need to select an appropriate block template if you are using a block theme.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['show_sidebar'],
 			),
 			'show_related_articles' => array(
 				'id'      => 'show_related_articles',
 				'name'    => esc_html__( 'Show related articles', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Add related articles at the bottom of the knowledge base article. Only works when using the inbuilt template.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['show_related_articles'],
 			),
 			'search_header'         => array(
 				'id'   => 'search_header',
@@ -712,7 +802,7 @@ class Settings {
 				'name'    => esc_html__( 'Enable live search', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Show real-time search suggestions as the visitor types in the knowledge base search form.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['enable_live_search'],
 			),
 			'toc_header'            => array(
 				'id'   => 'toc_header',
@@ -725,14 +815,14 @@ class Settings {
 				'name'    => esc_html__( 'Show table of contents', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Auto-generate a table of contents from headings in article content. Only displays when there are sufficient headings.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['show_toc'],
 			),
 			'toc_heading_depth'     => array(
 				'id'      => 'toc_heading_depth',
 				'name'    => esc_html__( 'TOC heading depth', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Maximum heading level to include in the table of contents. 2 includes only H2; 3 includes H2 and H3, and so on.', 'knowledgebase' ),
 				'type'    => 'number',
-				'default' => 4,
+				'default' => $defaults['toc_heading_depth'],
 				'size'    => 'small',
 				'min'     => 2,
 				'max'     => 6,
@@ -742,7 +832,7 @@ class Settings {
 				'name'    => esc_html__( 'Minimum headings for TOC', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Minimum number of headings required before the table of contents is displayed.', 'knowledgebase' ),
 				'type'    => 'number',
-				'default' => 3,
+				'default' => $defaults['toc_min_headings'],
 				'size'    => 'small',
 				'min'     => 1,
 				'max'     => 20,
@@ -752,14 +842,14 @@ class Settings {
 				'name'    => esc_html__( 'TOC title', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Title displayed above the table of contents. Leave empty to hide the title.', 'knowledgebase' ),
 				'type'    => 'text',
-				'default' => __( 'Table of Contents', 'knowledgebase' ),
+				'default' => $defaults['toc_title'],
 			),
 			'show_floating_toc'     => array(
 				'id'      => 'show_floating_toc',
 				'name'    => esc_html__( 'Show floating table of contents', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display a sticky/floating TOC panel that follows the reader as they scroll through a KB article. Highlights the active section automatically.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['show_floating_toc'],
 				'pro'     => true,
 			),
 			'floating_toc_position' => array(
@@ -767,7 +857,7 @@ class Settings {
 				'name'    => esc_html__( 'Floating TOC position', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Side of the viewport where the floating TOC panel is anchored.', 'knowledgebase' ),
 				'type'    => 'radio',
-				'default' => 'right',
+				'default' => $defaults['floating_toc_position'],
 				'options' => array(
 					'right' => esc_html__( 'Right', 'knowledgebase' ),
 					'left'  => esc_html__( 'Left', 'knowledgebase' ),
@@ -795,6 +885,7 @@ class Settings {
 	 * @return array Styles settings array
 	 */
 	public static function settings_styles() {
+		$defaults = self::get_defaults();
 		$settings = array(
 			'product_archive_layout' => array(
 				'id'      => 'product_archive_layout',
@@ -805,14 +896,14 @@ class Settings {
 					'sections' => esc_html__( 'Sections list (current behavior)', 'knowledgebase' ),
 					'grid'     => esc_html__( 'Product cards grid', 'knowledgebase' ),
 				),
-				'default' => 'sections',
+				'default' => $defaults['product_archive_layout'],
 			),
 			'show_term_thumbnail'    => array(
 				'id'      => 'show_term_thumbnail',
 				'name'    => esc_html__( 'Show featured image on archive pages', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the term featured image in the header of product and section archive pages.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['show_term_thumbnail'],
 				'pro'     => true,
 			),
 			'include_styles'         => array(
@@ -820,7 +911,7 @@ class Settings {
 				'name'    => esc_html__( 'Include inbuilt styles', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Uncheck this to disable this plugin from adding the inbuilt styles. You will need to add your own CSS styles if you disable this option', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['include_styles'],
 			),
 			'kb_style'               => array(
 				'id'      => 'kb_style',
@@ -828,14 +919,14 @@ class Settings {
 				'desc'    => esc_html__( 'Select a visual style for your knowledge base display. Premium styles are available in the Pro version.', 'knowledgebase' ),
 				'type'    => 'select',
 				'options' => self::get_kb_styles(),
-				'default' => 'classic',
+				'default' => $defaults['kb_style'],
 			),
 			'docs_mode'              => array(
 				'id'      => 'docs_mode',
 				'name'    => esc_html__( 'Documentation layout', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the entire knowledge base as a three-column documentation site: a categorized navigation sidebar, the article content, and an "On this page" outline. Works alongside your chosen style.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['docs_mode'],
 				'pro'     => true,
 			),
 			'columns'                => array(
@@ -843,7 +934,7 @@ class Settings {
 				'name'    => esc_html__( 'Number of columns', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Set the number of columns to display the knowledge base archives. This will be overridden on smaller screens to optimize display.', 'knowledgebase' ),
 				'type'    => 'number',
-				'default' => '2',
+				'default' => $defaults['columns'],
 				'size'    => 'small',
 				'min'     => '1',
 				'max'     => '5',
@@ -878,6 +969,7 @@ class Settings {
 	 * @return array GitHub settings array.
 	 */
 	public static function settings_github() {
+		$defaults        = self::get_defaults();
 		$product_options = array();
 		$products        = get_terms(
 			array(
@@ -914,7 +1006,7 @@ class Settings {
 				),
 				'type'    => 'sensitive',
 				'size'    => 'large',
-				'default' => '',
+				'default' => $defaults['github_webhook_secret'],
 				'pro'     => true,
 			),
 			'github_pat'            => array(
@@ -930,7 +1022,7 @@ class Settings {
 				),
 				'type'    => 'sensitive',
 				'size'    => 'large',
-				'default' => '',
+				'default' => $defaults['github_pat'],
 				'pro'     => true,
 			),
 			'github_media_import'   => array(
@@ -938,7 +1030,7 @@ class Settings {
 				'name'    => esc_html__( 'Import external media', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Download external images found in imported Markdown files into the WordPress Media Library and rewrite the URLs to point locally. Already-sideloaded images are reused automatically on re-import.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => 1,
+				'default' => $defaults['github_media_import'],
 				'pro'     => true,
 			),
 			'github_auto_push'      => array(
@@ -946,7 +1038,7 @@ class Settings {
 				'name'    => esc_html__( 'Auto-push on save', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Automatically push a linked article to GitHub whenever it is saved. Skipped during autosaves, revisions, and webhook-triggered imports to prevent loops.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => 0,
+				'default' => $defaults['github_auto_push'],
 				'pro'     => true,
 			),
 			'github_repositories'   => array(
@@ -954,7 +1046,7 @@ class Settings {
 				'name'                      => esc_html__( 'Repository Mappings', 'knowledgebase' ),
 				'desc'                      => esc_html__( 'Map GitHub repository folders to Knowledge Base products.', 'knowledgebase' ),
 				'type'                      => 'repeater',
-				'default'                   => array(),
+				'default'                   => $defaults['github_repositories'],
 				'new_item_text'             => esc_html__( 'Repository', 'knowledgebase' ),
 				'add_button_text'           => esc_html__( 'Add Repository', 'knowledgebase' ),
 				'live_update_field'         => 'product_id',
@@ -1096,6 +1188,7 @@ class Settings {
 	 * @return array Pro settings array
 	 */
 	public static function settings_pro() {
+		$defaults = self::get_defaults();
 		$settings = array(
 			'rating_header'                  => array(
 				'id'   => 'rating_header',
@@ -1108,7 +1201,7 @@ class Settings {
 				'name'    => esc_html__( 'Enable Rating System', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Allow visitors to rate the quality of knowledge base articles.', 'knowledgebase' ),
 				'type'    => 'select',
-				'default' => 'disabled',
+				'default' => $defaults['rating_system'],
 				'options' => array(
 					'disabled' => esc_html__( 'Disabled', 'knowledgebase' ),
 					'binary'   => esc_html__( 'Useful / Not Useful', 'knowledgebase' ),
@@ -1127,7 +1220,7 @@ class Settings {
 					'</a>'
 				),
 				'type'    => 'select',
-				'default' => 'cookie',
+				'default' => $defaults['rating_tracking_method'],
 				'options' => array(
 					'none'           => esc_html__( 'No Tracking (allows multiple votes)', 'knowledgebase' ),
 					'cookie'         => esc_html__( 'Cookie Only (requires consent)', 'knowledgebase' ),
@@ -1142,7 +1235,7 @@ class Settings {
 				'name'    => esc_html__( 'Show Rating Statistics', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the average rating and vote count below the rating buttons.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['show_rating_stats'],
 				'pro'     => true,
 			),
 			'help_widget_header'             => array(
@@ -1156,7 +1249,7 @@ class Settings {
 				'name'    => esc_html__( 'Enable Help Widget', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display a floating help widget on your site for self-service support.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => false,
+				'default' => $defaults['help_widget_enabled'],
 				'pro'     => true,
 			),
 			'help_widget_display_location'   => array(
@@ -1164,7 +1257,7 @@ class Settings {
 				'name'    => esc_html__( 'Display Location', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Choose where the help widget appears on your site.', 'knowledgebase' ),
 				'type'    => 'select',
-				'default' => 'kb_only',
+				'default' => $defaults['help_widget_display_location'],
 				'options' => array(
 					'kb_only'  => esc_html__( 'Knowledge Base Only', 'knowledgebase' ),
 					'sitewide' => esc_html__( 'Entire Site', 'knowledgebase' ),
@@ -1176,7 +1269,7 @@ class Settings {
 				'name'    => esc_html__( 'Button Position', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Choose where the help widget button appears on the screen.', 'knowledgebase' ),
 				'type'    => 'select',
-				'default' => 'right',
+				'default' => $defaults['help_widget_position'],
 				'options' => array(
 					'right' => esc_html__( 'Bottom Right', 'knowledgebase' ),
 					'left'  => esc_html__( 'Bottom Left', 'knowledgebase' ),
@@ -1188,7 +1281,7 @@ class Settings {
 				'name'    => esc_html__( 'Button Style', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Choose how the help widget button is displayed.', 'knowledgebase' ),
 				'type'    => 'select',
-				'default' => 'icon',
+				'default' => $defaults['help_widget_button_style'],
 				'options' => array(
 					'icon'          => esc_html__( 'Icon Only', 'knowledgebase' ),
 					'text'          => esc_html__( 'Text Only', 'knowledgebase' ),
@@ -1201,7 +1294,7 @@ class Settings {
 				'name'        => esc_html__( 'Button Text', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Text to display on the help widget button (when text style is selected).', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => __( 'Help', 'knowledgebase' ),
+				'default'     => $defaults['help_widget_button_text'],
 				'field_class' => 'regular-text',
 				'pro'         => true,
 			),
@@ -1210,7 +1303,7 @@ class Settings {
 				'name'        => esc_html__( 'Help Widget Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Primary color for the help widget button and interface elements.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#617DEC',
+				'default'     => $defaults['help_widget_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1219,7 +1312,7 @@ class Settings {
 				'name'        => esc_html__( 'Help Widget Hover Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Hover color for buttons and interactive elements.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#4c63d2',
+				'default'     => $defaults['help_widget_hover_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1228,7 +1321,7 @@ class Settings {
 				'name'        => esc_html__( 'Help Widget Text Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Text color for the help widget button and interface elements.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#ffffff',
+				'default'     => $defaults['help_widget_text_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1237,7 +1330,7 @@ class Settings {
 				'name'        => esc_html__( 'Help Widget Hover Text Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Text color for the help widget button on hover.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#ffffff',
+				'default'     => $defaults['help_widget_hover_text_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1246,7 +1339,7 @@ class Settings {
 				'name'        => esc_html__( 'Panel Background Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Background color for the help widget panel.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#ffffff',
+				'default'     => $defaults['help_widget_panel_bg_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1255,7 +1348,7 @@ class Settings {
 				'name'        => esc_html__( 'Panel Text Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Default text color within the help widget panel.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#1a1a1a',
+				'default'     => $defaults['help_widget_panel_text_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1264,7 +1357,7 @@ class Settings {
 				'name'        => esc_html__( 'Link Hover Background', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Background color when hovering over help widget links and list items.', 'knowledgebase' ),
 				'type'        => 'color',
-				'default'     => '#f3f4f6',
+				'default'     => $defaults['help_widget_link_hover_color'],
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
@@ -1273,7 +1366,7 @@ class Settings {
 				'name'        => esc_html__( 'Greeting Message', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Welcome message shown when the help widget opens.', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => __( 'Hi! How can we help you?', 'knowledgebase' ),
+				'default'     => $defaults['help_widget_greeting'],
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
@@ -1282,7 +1375,7 @@ class Settings {
 				'name'        => esc_html__( 'Search Placeholder', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Placeholder text for the search input field.', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => __( 'Search for answers...', 'knowledgebase' ),
+				'default'     => $defaults['help_widget_search_placeholder'],
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
@@ -1291,7 +1384,7 @@ class Settings {
 				'name'    => esc_html__( 'Enable Contact Form', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Allow visitors to send messages through the help widget.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['help_widget_contact_enabled'],
 				'pro'     => true,
 			),
 			'help_widget_contact_email'      => array(
@@ -1299,7 +1392,7 @@ class Settings {
 				'name'        => esc_html__( 'Contact Email', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Email address where help widget contact form submissions will be sent.', 'knowledgebase' ),
 				'type'        => 'text',
-				'default'     => get_option( 'admin_email' ),
+				'default'     => $defaults['help_widget_contact_email'],
 				'field_class' => 'regular-text',
 				'pro'         => true,
 			),
@@ -1308,7 +1401,7 @@ class Settings {
 				'name'    => esc_html__( 'Show on Mobile', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the help widget on mobile devices.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['help_widget_show_on_mobile'],
 				'pro'     => true,
 			),
 			'help_widget_enable_animation'   => array(
@@ -1316,7 +1409,7 @@ class Settings {
 				'name'    => esc_html__( 'Enable button pulse', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static.', 'knowledgebase' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => $defaults['help_widget_enable_animation'],
 				'pro'     => true,
 			),
 		);
