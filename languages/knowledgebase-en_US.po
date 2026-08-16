@@ -1825,7 +1825,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: includes/frontend/class-breadcrumbs.php:206
+#: includes/frontend/class-breadcrumbs.php:214
 msgid "Breadcrumb"
 msgstr ""
 
@@ -1943,7 +1943,7 @@ msgstr ""
 msgid "Previous post:"
 msgstr ""
 
-#: includes/frontend/templates/taxonomy-wzkb_product.php:53
+#: includes/frontend/templates/taxonomy-wzkb_product.php:61
 msgid "No product found"
 msgstr ""
 
