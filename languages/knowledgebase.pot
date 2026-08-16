@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-21T18:26:17+00:00\n"
+"POT-Creation-Date: 2026-08-16T18:01:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
@@ -2925,7 +2925,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: includes/frontend/class-breadcrumbs.php:206
+#: includes/frontend/class-breadcrumbs.php:214
 msgid "Breadcrumb"
 msgstr ""
 
@@ -3097,7 +3097,7 @@ msgstr ""
 msgid "Previous post:"
 msgstr ""
 
-#: includes/frontend/templates/taxonomy-wzkb_product.php:53
+#: includes/frontend/templates/taxonomy-wzkb_product.php:61
 msgid "No product found"
 msgstr ""
 
