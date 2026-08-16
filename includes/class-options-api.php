@@ -228,7 +228,7 @@ class Options_API {
 	 * @return mixed
 	 */
 	public static function get_default_option( $key = '' ) {
-		$default_settings = self::get_settings_defaults();
+		$default_settings = Admin\Settings::get_defaults();
 
 		if ( array_key_exists( $key, $default_settings ) ) {
 			return $default_settings[ $key ];
