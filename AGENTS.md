@@ -11,10 +11,11 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Links
 
-- GitHub: <https://github.com/WebberZone/knowledgebase>
-- WordPress.org: <https://wordpress.org/plugins/knowledgebase/>
+- GitHub (pro): <https://github.com/WebberZone/knowledgebase-pro>
+- GitHub (free): <https://github.com/WebberZone/knowledgebase>
 - Documentation: <https://webberzone.com/support/product/knowledgebase/>
-- webberzone.com: <https://webberzone.com/plugins/knowledgebase/>
+- webberzone.com (free): <https://webberzone.com/plugins/knowledgebase/>
+- webberzone.com (pro): <https://webberzone.com/plugins/knowledgebase/#pro>
 
 ## Plugin Overview
 
