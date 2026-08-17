@@ -228,7 +228,17 @@ class Options_API {
 	 * @return mixed
 	 */
 	public static function get_default_option( $key = '' ) {
-		$default_settings = Admin\Settings::get_defaults();
+		/**
+		 * Filter the default settings array.
+		 *
+		 * Mirrors the filter applied in `Admin\Settings::settings_defaults()` so that
+		 * the fast, translation-free path used before `init` honours the same hook.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $defaults Default settings.
+		 */
+		$default_settings = apply_filters( self::FILTER_PREFIX . '_settings_defaults', Admin\Settings::get_defaults() );
 
 		if ( array_key_exists( $key, $default_settings ) ) {
 			return $default_settings[ $key ];

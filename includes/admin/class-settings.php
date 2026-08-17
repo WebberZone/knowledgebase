@@ -110,11 +110,16 @@ class Settings {
 	/**
 	 * Prefix which is used for creating the unique filters and actions.
 	 *
+	 * Initialised at declaration rather than only in the constructor: the static
+	 * methods on this class (e.g. `settings_defaults()`) are reachable on the
+	 * frontend where the Settings object is never instantiated, and a null prefix
+	 * there would fire `_settings_defaults` instead of `wzkb_settings_defaults`.
+	 *
 	 * @since 2.3.0
 	 *
 	 * @var string Prefix.
 	 */
-	public static $prefix;
+	public static $prefix = 'wzkb';
 
 	/**
 	 * Settings Key.
@@ -284,6 +289,13 @@ class Settings {
 	 * "translation loading triggered too early" notice. Field definition
 	 * methods below reference this array instead of duplicating literals.
 	 *
+	 * Values are stored pre-normalised: checkbox defaults use 1/0 rather than
+	 * true/false so that they match what `settings_defaults()` produces after
+	 * its `(int) (bool)` cast. This array is deliberately unfiltered — the
+	 * `wzkb_settings_defaults` filter is applied by the consumers
+	 * (`settings_defaults()` and `Options_API::get_default_option()`) so that
+	 * it runs exactly once on each path.
+	 *
 	 * @since 3.1.2
 	 *
 	 * @return array Raw default values keyed by option ID.
@@ -291,45 +303,46 @@ class Settings {
 	public static function get_defaults() {
 		return array(
 			// General.
-			'multi_product'                  => false,
-			'kb_homepage_mode'               => false,
+			'multi_product'                  => 0,
+			'kb_homepage_mode'               => 0,
 			'kb_slug'                        => 'knowledgebase',
 			'product_slug'                   => 'kb/product',
 			'category_slug'                  => 'kb/section',
 			'tag_slug'                       => 'kb/tags',
 			'article_permalink'              => '',
-			'cache'                          => false,
+			'cache'                          => 0,
 			'cache_expiry'                   => DAY_IN_SECONDS,
-			'uninstall_options'              => true,
-			'uninstall_data'                 => false,
-			'include_in_feed'                => true,
-			'disable_kb_feed'                => false,
+			'uninstall_options'              => 1,
+			'uninstall_data'                 => 0,
+			'include_in_feed'                => 1,
+			'disable_kb_feed'                => 0,
 
 			// Output.
 			'kb_title'                       => 'Knowledge Base',
 			'category_level'                 => '2',
-			'show_article_count'             => true,
-			'show_excerpt'                   => false,
-			'clickable_section'              => true,
-			'show_empty_sections'            => false,
+			'show_article_count'             => 1,
+			'show_excerpt'                   => 0,
+			'clickable_section'              => 1,
+			'show_empty_sections'            => 0,
 			'limit'                          => 5,
-			'show_sidebar'                   => false,
-			'show_related_articles'          => true,
-			'enable_live_search'             => true,
-			'show_toc'                       => false,
+			'show_sidebar'                   => 0,
+			'show_related_articles'          => 1,
+			'enable_live_search'             => 1,
+			'show_toc'                       => 0,
 			'toc_heading_depth'              => 4,
 			'toc_min_headings'               => 3,
 			'toc_title'                      => 'Table of Contents',
-			'show_floating_toc'              => false,
+			'show_floating_toc'              => 0,
 			'floating_toc_position'          => 'right',
 
 			// Styles.
 			'product_archive_layout'         => 'sections',
-			'show_term_thumbnail'            => true,
-			'include_styles'                 => true,
+			'show_term_thumbnail'            => 1,
+			'include_styles'                 => 1,
 			'kb_style'                       => 'classic',
-			'docs_mode'                      => false,
+			'docs_mode'                      => 0,
 			'columns'                        => '2',
+			'custom_css'                     => '',
 
 			// GitHub.
 			'github_webhook_secret'          => '',
@@ -341,8 +354,8 @@ class Settings {
 			// Pro.
 			'rating_system'                  => 'disabled',
 			'rating_tracking_method'         => 'cookie',
-			'show_rating_stats'              => true,
-			'help_widget_enabled'            => false,
+			'show_rating_stats'              => 1,
+			'help_widget_enabled'            => 0,
 			'help_widget_display_location'   => 'kb_only',
 			'help_widget_position'           => 'right',
 			'help_widget_button_style'       => 'icon',
@@ -356,10 +369,10 @@ class Settings {
 			'help_widget_link_hover_color'   => '#f3f4f6',
 			'help_widget_greeting'           => 'Hi! How can we help you?',
 			'help_widget_search_placeholder' => 'Search for answers...',
-			'help_widget_contact_enabled'    => true,
+			'help_widget_contact_enabled'    => 1,
 			'help_widget_contact_email'      => get_option( 'admin_email' ),
-			'help_widget_show_on_mobile'     => true,
-			'help_widget_enable_animation'   => true,
+			'help_widget_show_on_mobile'     => 1,
+			'help_widget_enable_animation'   => 1,
 		);
 	}
 
