@@ -15,8 +15,17 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Imports content from the BetterDocs plugin.
  *
- * CPT docs; doc_category/doc_tag map to wzkb_category/wzkb_tag; Pro knowledge_base maps
- * to wzkb_product via a doc_category_knowledge_base term meta.
+ * CPT: docs | Taxonomies: doc_category → wzkb_category, doc_tag → wzkb_tag
+ * Multiple Knowledge Base (Pro): knowledge_base → wzkb_product. Docs are assigned
+ * directly to knowledge_base terms; categories carry a doc_category_knowledge_base
+ * term meta listing the KB slugs they belong to.
+ *
+ * Base slug: betterdocs_settings['docs_slug'] or docs_page slug when BetterDocs
+ * uses a custom docs page.
+ * Article URL: controlled by betterdocs_settings['permalink_structure'] (the
+ * parent path), enable_category_hierarchy_slugs, and the article slug.
+ * Reactions (happy/sad) and impressions live in the {prefix}betterdocs_analytics
+ * table and are mapped to WZ KB binary rating + view-count meta.
  *
  * @since 3.1.0
  */

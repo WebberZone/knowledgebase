@@ -1716,8 +1716,12 @@ class Settings {
 	/**
 	 * Resolve the effective GitHub PAT for a repository search request.
 	 *
-	 * Precedence: unmasked row input, then the saved row PAT by row_id, then the global
-	 * github_pat setting.
+	 * Precedence:
+	 *  1. The PAT typed into the current repeater row (if it looks like a real
+	 *     token — i.e. doesn't contain the masking character `*`).
+	 *  2. The PAT saved against the row identified by `row_id` in the
+	 *     `github_repositories` setting.
+	 *  3. The global `github_pat` setting.
 	 *
 	 * @since 3.1.0
 	 *
