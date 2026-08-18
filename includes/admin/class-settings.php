@@ -283,18 +283,9 @@ class Settings {
 	/**
 	 * Raw default values for every setting, keyed by option ID.
 	 *
-	 * Single source of truth for field defaults. Deliberately contains no
-	 * translation calls so it is safe to invoke before `init` (e.g. from
-	 * `wzkb_get_option()` on the frontend) without triggering a
-	 * "translation loading triggered too early" notice. Field definition
-	 * methods below reference this array instead of duplicating literals.
-	 *
-	 * Values are stored pre-normalised: checkbox defaults use 1/0 rather than
-	 * true/false so that they match what `settings_defaults()` produces after
-	 * its `(int) (bool)` cast. This array is deliberately unfiltered — the
-	 * `wzkb_settings_defaults` filter is applied by the consumers
-	 * (`settings_defaults()` and `Options_API::get_default_option()`) so that
-	 * it runs exactly once on each path.
+	 * Deliberately contains no translation calls, so it is safe to invoke before `init`.
+	 * Values are pre-normalised (checkboxes as 1/0) and this array is intentionally
+	 * unfiltered — the `wzkb_settings_defaults` filter is applied by the consumers instead.
 	 *
 	 * @since 3.1.2
 	 *
@@ -1725,12 +1716,8 @@ class Settings {
 	/**
 	 * Resolve the effective GitHub PAT for a repository search request.
 	 *
-	 * Precedence:
-	 *  1. The PAT typed into the current repeater row (if it looks like a real
-	 *     token — i.e. doesn't contain the masking character `*`).
-	 *  2. The PAT saved against the row identified by `row_id` in the
-	 *     `github_repositories` setting.
-	 *  3. The global `github_pat` setting.
+	 * Precedence: unmasked row input, then the saved row PAT by row_id, then the global
+	 * github_pat setting.
 	 *
 	 * @since 3.1.0
 	 *
