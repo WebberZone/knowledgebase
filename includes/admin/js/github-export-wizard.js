@@ -1,14 +1,6 @@
 /**
- * GitHub Export Wizard — two-phase bulk push.
- *
- * Phase 1 (List): submit the form → AJAX fetches linked articles → show table.
- * Phase 2 (Commit): click "Push to GitHub" → single AJAX call creates one
- *                   commit per repo containing only the changed files.
- *
- * Localised as WZKBExportWizard = {
- *   ajax_url, nonce, edit_url_base,
- *   strings: { fetching, committing, done, no_articles, nothing, commit_btn, view_commit }
- * }.
+ * GitHub Export Wizard — two-phase bulk push (list linked articles, then commit only
+ * the changed files per repo).
  *
  * @package WebberZone\Knowledge_Base\Pro\GitHub
  */

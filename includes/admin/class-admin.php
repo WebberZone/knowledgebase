@@ -670,20 +670,9 @@ class Admin {
 	/**
 	 * Probe contents:read / contents:write for a fine-grained PAT.
 	 *
-	 * GitHub does not expose a fine-grained token's permission set directly, and
-	 * the `permissions` object on `GET /repos/{owner}/{repo}` reflects the
-	 * authenticated *user's* role on the repo, not the token's effective scopes
-	 * — so a repo owner with a read-only PAT still sees `push: true` there.
-	 *
-	 * Reliable approach:
-	 *  - contents:read  → call the Contents API and check it succeeds.
-	 *  - contents:write → make a PUT to a non-existent path with no body. GitHub
-	 *    enforces token permissions before validating the body, so the response
-	 *    is 403 when the token lacks contents:write, or 4xx (validation) when
-	 *    it has it. No write occurs because the body is empty.
-	 *
-	 * Returns array with keys 'read' and 'write', each true|false|null
-	 * (null = could not be determined — no accessible repository found).
+	 * GitHub's repo `permissions` object reflects the user's role, not the token's scopes,
+	 * so it can't be trusted; write is probed via an empty-body PUT to a non-existent path
+	 * (403 = no write scope, 4xx validation = has it, no actual write occurs).
 	 *
 	 * @since 3.1.0
 	 *

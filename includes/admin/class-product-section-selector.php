@@ -535,13 +535,8 @@ class Product_Section_Selector {
 	/**
 	 * Backfill product_id term meta on sections that have none.
 	 *
-	 * When exactly one product is assigned to the article, any section that
-	 * lacks a product_id term meta is updated to match. This ensures sections
-	 * linked via the article editor are discoverable by the frontend, which
-	 * queries sections by product_id term meta.
-	 *
-	 * Skips sections that already carry a product_id so that explicit
-	 * assignments made via the Sections admin are never overwritten.
+	 * Only when exactly one product is assigned; skips sections that already carry a
+	 * product_id so explicit Sections-admin assignments are never overwritten.
 	 *
 	 * @param int $post_id Post ID.
 	 */

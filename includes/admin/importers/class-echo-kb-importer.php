@@ -15,13 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Imports content from the Echo Knowledge Base plugin.
  *
- * CPT: epkb_post_type_{id} (dynamic per KB instance)
- * Taxonomies: epkb_post_type_{id}_category → wzkb_category
- *             epkb_post_type_{id}_tag      → wzkb_tag
- * Each KB instance → one wzkb_product term
- * Article views: epkb-article-views → _wzkb_views
- * Article order: epkb_articles_sequence_{id} option → menu_order
- * Category order: epkb_categories_sequence_{id} option → wzkb_position
+ * CPT epkb_post_type_{id} (dynamic per KB instance); category/tag taxonomies map to
+ * wzkb_category/wzkb_tag, each KB instance maps to one wzkb_product term.
  *
  * @since 3.1.0
  */
