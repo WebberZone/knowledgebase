@@ -193,6 +193,7 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 	* Fixed checkbox settings resolving to `true`/`false` instead of `1`/`0` when read before their saved value existed, which could break blocks and REST responses that expect a numeric value.
 	* Fixed `Custom CSS` returning `false` instead of an empty string when no value had been saved.
 	* Fixed the `wzkb_settings_defaults` filter being ignored when a default was read outside the admin area.
+	* Fixed settings on a multisite network reading another site's values in the same request after a `switch_to_blog()` call, such as during network activation.
 
 = 3.1.2 =
 
