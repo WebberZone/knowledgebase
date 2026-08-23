@@ -35,7 +35,7 @@ composer test                            # Run phpcs + phpcompat + phpstan
 composer phpcs                           # WordPress coding standards check
 composer phpcbf                          # Auto-fix coding standards
 composer phpstan                         # Static analysis (Level 5)
-composer phpcompat                       # PHP 7.4–8.5 compatibility check
+composer phpcompat                       # PHP 7.4–8.6 compatibility check
 vendor/bin/phpunit                       # Run unit tests
 vendor/bin/phpunit --filter TestName    # Run a single test by name
 WP_MULTISITE=1 vendor/bin/phpunit       # Run multisite unit tests
