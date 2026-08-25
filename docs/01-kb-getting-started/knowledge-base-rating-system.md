@@ -2,13 +2,13 @@
 slug: knowledge-base-rating-system
 title: "Knowledge Base Pro Rating System"
 products: [knowledgebase]
-sections: [01-kb-getting-started]
-tags: [knowledgebase,pro]
+sections: ["01-kb-getting-started"]
+tags: [knowledgebase, pro]
 status: publish
-order: 0
+toc: true
 ---
 
-[kbtoc]
+[toc]
 
 The [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) plugin includes a comprehensive rating system that allows visitors to rate the quality of articles. This document explains how the system works, configuration options, and GDPR compliance considerations.
 
@@ -78,7 +78,7 @@ There are five tracking options to choose from, each with different implications
 
 - **Post Meta Key:** `_wzkb_rating_ips`
 - **Data Type:** Array of SHA-256 hashed IP addresses
-- **Example:** `['a3f5b...', 'c7d2e...']` (64-character hashes)
+- **Example:** `[['a3f5b...', 'c7d2e...']]` (64-character hashes)
 - **Hash Method:** `hash('sha256', $ip . wp_salt('nonce'))`
 
 **GDPR Considerations:**
@@ -117,7 +117,7 @@ There are five tracking options to choose from, each with different implications
 
 - **Post Meta Key:** `_wzkb_rating_user_ids`
 - **Data Type:** Array of WordPress user IDs
-- **Example:** `[1, 5, 12]`
+- **Example:** `[[1, 5, 12]]`
 
 **GDPR Considerations:**
 
@@ -133,69 +133,18 @@ There are five tracking options to choose from, each with different implications
 
 The rating system stores the following data in post meta:
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Meta Key</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>_wzkb_rating_total</code></td>
-<td>Integer</td>
-<td>Total number of votes</td>
-</tr>
-<tr>
-<td><code>_wzkb_rating_sum</code></td>
-<td>Integer</td>
-<td>Sum of all rating values</td>
-</tr>
-<tr>
-<td><code>_wzkb_rating_positive</code></td>
-<td>Integer</td>
-<td>Number of positive votes (binary mode)</td>
-</tr>
-<tr>
-<td><code>_wzkb_ratings</code></td>
-<td>Array</td>
-<td>Individual rating entries with timestamps</td>
-</tr>
-<tr>
-<td><code>_wzkb_rating_ips</code></td>
-<td>Array</td>
-<td>Hashed IP addresses (if IP tracking enabled)</td>
-</tr>
-<tr>
-<td><code>_wzkb_rating_user_ids</code></td>
-<td>Array</td>
-<td>User IDs (if logged-in only mode)</td>
-</tr>
-<tr>
-<td><code>_wzkb_rating_feedback</code></td>
-<td>Array</td>
-<td>User feedback entries (PRO feature)</td>
-</tr>
-<tr>
-<td><code>_wzkb_average_rating</code></td>
-<td>Float</td>
-<td>Cached average rating (binary: 0-1, scale: 1-5)</td>
-</tr>
-<tr>
-<td><code>_wzkb_positive_ratio</code></td>
-<td>Float</td>
-<td>Cached positive ratio normalized to 0-1</td>
-</tr>
-<tr>
-<td><code>_wzkb_bayesian_rating</code></td>
-<td>Float</td>
-<td>Cached Bayesian score for intelligent scoring</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Meta Key | Type | Description |
+| --- | --- | --- |
+| `_wzkb_rating_total` | Integer | Total number of votes |
+| `_wzkb_rating_sum` | Integer | Sum of all rating values |
+| `_wzkb_rating_positive` | Integer | Number of positive votes (binary mode) |
+| `_wzkb_ratings` | Array | Individual rating entries with timestamps |
+| `_wzkb_rating_ips` | Array | Hashed IP addresses (if IP tracking enabled) |
+| `_wzkb_rating_user_ids` | Array | User IDs (if logged-in only mode) |
+| `_wzkb_rating_feedback` | Array | User feedback entries (PRO feature) |
+| `_wzkb_average_rating` | Float | Cached average rating (binary: 0-1, scale: 1-5) |
+| `_wzkb_positive_ratio` | Float | Cached positive ratio normalized to 0-1 |
+| `_wzkb_bayesian_rating` | Float | Cached Bayesian score for intelligent scoring |
 
 ## Frontend Display
 
@@ -229,8 +178,8 @@ add_filter( 'wzkb_rating_position', function( $position, $post_id ) {
 
 ## AJAX Endpoint
 
-**Action:** `wzkb_submit_rating`\
-**Method:** POST\
+**Action:** `wzkb_submit_rating`
+**Method:** POST
 **Nonce:** `wzkb_rating_nonce`
 
 **Parameters:**
@@ -273,7 +222,7 @@ The rating column uses **Bayesian average** (weighted rating) for intelligent so
 
 **How it works:**
 
-*Weighted Score = (v / (v + m)) × R + (m / (v + m)) × C*\
+*Weighted Score = (v / (v + m)) × R + (m / (v + m)) × C*
 
 Where:
 
@@ -284,26 +233,10 @@ Where:
 
 **Why this matters:**
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Without Bayesian</th>
-<th>With Bayesian</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Article A: 5.0 (2 votes) ranks #1</td>
-<td>Article B: 4.5 (500 votes) ranks #1</td>
-</tr>
-<tr>
-<td>Article B: 4.5 (500 votes) ranks #2</td>
-<td>Article A: 5.0 (2 votes) ranks lower</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Without Bayesian | With Bayesian |
+| --- | --- |
+| Article A: 5.0 (2 votes) ranks #1 | Article B: 4.5 (500 votes) ranks #1 |
+| Article B: 4.5 (500 votes) ranks #2 | Article A: 5.0 (2 votes) ranks lower |
 
 **Benefits:**
 
@@ -314,7 +247,7 @@ Where:
 
 **Performance:**
 
-The Bayesian score is pre-calculated and stored in \`\_wzkb_bayesian_rating\` post meta when ratings are submitted. This eliminates the need for complex sorting calculations. Additionally, the global mean rating is cached for 1 hour to optimize the Bayesian calculation itself. The cache is automatically invalidated when any rating is submitted.
+The Bayesian score is pre-calculated and stored in `_wzkb_bayesian_rating` post meta when ratings are submitted. This eliminates the need for complex sorting calculations. Additionally, the global mean rating is cached for 1 hour to optimize the Bayesian calculation itself. The cache is automatically invalidated when any rating is submitted.
 
 **Customization:**
 
@@ -331,42 +264,11 @@ add_filter( 'wzkb_rating_bayesian_prior_weight', function( $prior_weight, $mode 
 
 With `m = 10` and the global mean of `70%`:
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Article</th>
-<th>Votes</th>
-<th>Raw Rating</th>
-<th>Bayesian Score</th>
-<th>Rank</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>New Article</td>
-<td>2</td>
-<td>100%</td>
-<td>78%</td>
-<td>#3</td>
-</tr>
-<tr>
-<td>Popular Article</td>
-<td>500</td>
-<td>85%</td>
-<td>85%</td>
-<td>#1</td>
-</tr>
-<tr>
-<td>Established Article</td>
-<td>50</td>
-<td>80%</td>
-<td>80%</td>
-<td>#2</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Article | Votes | Raw Rating | Bayesian Score | Rank |
+| --- | --- | --- | --- | --- |
+| New Article | 2 | 100% | 78% | #3 |
+| Popular Article | 500 | 85% | 85% | #1 |
+| Established Article | 50 | 80% | 80% | #2 |
 
 ### Hooks for Developers
 
@@ -405,7 +307,7 @@ Add this to your privacy policy when using the rating system:
 
 #### For Cookie-Only Mode
 
-**Article Ratings:** When you rate a knowledge base article, we store a cookie on your device (wzkb_rated\_\[article_id\]) to prevent duplicate votes. This cookie expires after 365 days. No personal information is collected or stored on our servers.
+**Article Ratings:** When you rate a knowledge base article, we store a cookie on your device (wzkb*rated*[article_id]) to prevent duplicate votes. This cookie expires after 365 days. No personal information is collected or stored on our servers.
 
 #### For IP Address Mode
 
@@ -441,15 +343,15 @@ To delete rating data for a specific IP address:
 function wzkb_delete_ratings_by_ip( $ip_address ) {
     // Generate the same hash that would be stored.
     $ip_hash = hash( 'sha256', $ip_address . wp_salt( 'nonce' ) );
-    
+
     $args = array(
         'post_type'      => 'wz_knowledgebase',
         'posts_per_page' => -1,
         'meta_key'       => '_wzkb_rating_ips',
     );
-    
+
     $posts = get_posts( $args );
-    
+
     foreach ( $posts as $post ) {
         $ip_hashes = get_post_meta( $post->ID, '_wzkb_rating_ips', true );
         if ( is_array( $ip_hashes ) ) {

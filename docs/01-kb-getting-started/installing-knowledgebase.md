@@ -2,10 +2,9 @@
 slug: installing-knowledgebase
 title: "Installing Knowledge Base"
 products: [knowledgebase]
-sections: [01-kb-getting-started]
-tags: [installation,knowledgebase]
+sections: ["01-kb-getting-started"]
+tags: [installation, knowledgebase]
 status: publish
-order: 0
 ---
 
 The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) core plugin is [hosted on WordPress.org](https://wordpress.org/plugins/knowledgebase/). This makes installing it on your site extremely easy and just like any other plugin.
@@ -17,9 +16,7 @@ The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) core plugin 
 3. Find the plugin in the list and click “Install Now”
 4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
-<figure class="wp-block-image size-full">
-<img src="https://webberzone.com/wp-content/uploads/2015/12/Knowledge-Base-plugin-listing_1.webp" class="wp-image-9241" loading="lazy" decoding="async" srcset="https://webberzone.com/wp-content/uploads/2015/12/Knowledge-Base-plugin-listing_1.webp 559w, https://webberzone.com/wp-content/uploads/2015/12/Knowledge-Base-plugin-listing_1-300x101.webp 300w" sizes="auto, (max-width: 559px) 100vw, 559px" width="559" height="189" alt="Knowledge Base plugin listing" />
-</figure>
+![Knowledge Base plugin listing](https://webberzone.com/wp-content/uploads/2015/12/Knowledge-Base-plugin-listing_1.webp)
 
 ## Manual install
 

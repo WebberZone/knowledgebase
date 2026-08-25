@@ -2,10 +2,10 @@
 slug: customising-related-articles-in-knowledge-base
 title: "Knowledge Base Related Articles"
 products: [knowledgebase]
-sections: [03-kb-developer-docs]
-tags: [developer,filters,knowledgebase,related-posts]
+sections: ["03-kb-developer-docs"]
+tags: [developer, filters, knowledgebase, related-posts]
 status: publish
-order: 0
+featured_image: "https://webberzone.com/wp-content/uploads/2022/01/Related-Articles-in-Knowledge-Base-v2.1.0-1.png"
 ---
 
 The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin ships with a first-party Related Articles engine that can surface contextual links below each article, power the Related Articles block, and feed the Help Widget. This document now starts with a non-technical explainer before diving into the developer reference.
@@ -27,7 +27,7 @@ The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin ships
 ### Choosing Where Related Articles Show Up
 
 - **Automatic placement:** When enabled, related articles appear below knowledge base articles that use the plugin’s templates.
-- **Shortcode:** Ask your developer (or add to a custom template) to place `[kb_related_articles]` wherever you want the list to appear.
+- **Shortcode:** Ask your developer (or add to a custom template) to place `[[kb_related_articles]]` wherever you want the list to appear.
 - **Gutenberg Block:** In the block editor, add the **Knowledge Base → Related Articles** block to any template part or single post layout.
 - **Help Widget:** If you use the Help Widget (Beacon), visitors will see suggested articles pulled from the same related articles engine.
 
@@ -38,30 +38,11 @@ The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin ships
 
 ### Troubleshooting for Non‑Developers
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Issue</th>
-<th>Quick Fix</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>No related articles appear</td>
-<td>Make sure the article shares at least one section or tag with another article.</td>
-</tr>
-<tr>
-<td>Wrong articles show up</td>
-<td>Confirm the articles are in the right sections/tags. Related posts currently do not filter by product out of the box.</td>
-</tr>
-<tr>
-<td>Want a different layout</td>
-<td>Use the block editor and place the Related Articles block where you prefer, then adjust its toggles.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Issue | Quick Fix |
+| --- | --- |
+| No related articles appear | Make sure the article shares at least one section or tag with another article. |
+| Wrong articles show up | Confirm the articles are in the right sections/tags. Related posts currently do not filter by product out of the box. |
+| Want a different layout | Use the block editor and place the Related Articles block where you prefer, then adjust its toggles. |
 
 Ready for more detail? Continue to the developer reference below.
 
@@ -69,116 +50,32 @@ Ready for more detail? Continue to the developer reference below.
 
 ### 1. Enabling & Display Locations
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Location</th>
-<th>How it renders</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Default single template</strong></td>
-<td>Automatic, controlled by <strong>Settings → Knowledge Base → Output → Show related articles</strong></td>
-<td>Applies to classic templates provided by the plugin.</td>
-</tr>
-<tr>
-<td><strong>Shortcode</strong></td>
-<td><code>wzkb_related_articles()</code> helper</td>
-<td>Useful inside custom templates or theme files.</td>
-</tr>
-<tr>
-<td><strong>Gutenberg Block</strong></td>
-<td><code>Knowledge Base → Related Articles</code> block</td>
-<td>Works in both classic and block themes (requires v3.0+).</td>
-</tr>
-<tr>
-<td><strong>Help Widget</strong></td>
-<td>Reuses the Related Articles query for contextual suggestions</td>
-<td><a href="https://webberzone.com/support/knowledgebase/knowledge-base-help-widget/" data-type="wz_knowledgebase" data-id="9319">Learn about the Help Widget</a>.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Location | How it renders | Notes |
+| --- | --- | --- |
+| **Default single template** | Automatic, controlled by **Settings → Knowledge Base → Output → Show related articles** | Applies to classic templates provided by the plugin. |
+| **Shortcode** | `wzkb_related_articles()` helper | Useful inside custom templates or theme files. |
+| **Gutenberg Block** | `Knowledge Base → Related Articles` block | Works in both classic and block themes (requires v3.0+). |
+| **Help Widget** | Reuses the Related Articles query for contextual suggestions | [Learn about the Help Widget](https://webberzone.com/support/knowledgebase/knowledge-base-help-widget/). |
 
 Disable the feature globally by unchecking **Show related articles** in the settings page, or omit the shortcode/block on specific templates.
 
 ### 2. Template Function & Parameters
 
-``` php
+```php
 wzkb_related_articles( array $args = array() );
 ```
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Argument</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>numberposts</code></td>
-<td><code>int</code></td>
-<td><code>5</code></td>
-<td>Maximum related posts to display.</td>
-</tr>
-<tr>
-<td><code>post</code></td>
-<td><code>int|WP_Post</code></td>
-<td>Current post</td>
-<td>Force a different origin article.</td>
-</tr>
-<tr>
-<td><code>exclude</code></td>
-<td><code>array|string</code></td>
-<td><code>array()</code></td>
-<td>IDs to skip (array or CSV).</td>
-</tr>
-<tr>
-<td><code>show_thumb</code></td>
-<td><code>bool</code></td>
-<td><code>true</code></td>
-<td>Display thumbnails using <code>wzkb_get_the_post_thumbnail()</code>.</td>
-</tr>
-<tr>
-<td><code>show_excerpt</code></td>
-<td><code>bool</code></td>
-<td><code>false</code></td>
-<td>Show excerpts (falls back to first 55 words of content).</td>
-</tr>
-<tr>
-<td><code>show_date</code></td>
-<td><code>bool</code></td>
-<td><code>true</code></td>
-<td>Append the publish date (respects site date format).</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td><code>string</code></td>
-<td><code>&lt;h3&gt;Related Articles&lt;/h3&gt;</code></td>
-<td>Section heading; accepts HTML for legacy compatibility.</td>
-</tr>
-<tr>
-<td><code>heading_tag</code></td>
-<td><code>string</code></td>
-<td><code>''</code></td>
-<td>When defined (<code>h2</code>–<code>h6</code>), <code>title</code> is treated as plain text and wrapped automatically.</td>
-</tr>
-<tr>
-<td><code>thumb_size</code></td>
-<td><code>string</code></td>
-<td><code>thumbnail</code></td>
-<td>Registered image size passed to the Media Handler.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Argument | Type | Default | Description |
+| --- | --- | --- | --- |
+| `numberposts` | `int` | `5` | Maximum related posts to display. |
+| `post` | `int\|WP_Post` | Current post | Force a different origin article. |
+| `exclude` | `array\|string` | `array()` | IDs to skip (array or CSV). |
+| `show_thumb` | `bool` | `true` | Display thumbnails using `wzkb_get_the_post_thumbnail()`. |
+| `show_excerpt` | `bool` | `false` | Show excerpts (falls back to first 55 words of content). |
+| `show_date` | `bool` | `true` | Append the publish date (respects site date format). |
+| `title` | `string` | `<h3>Related Articles</h3>` | Section heading; accepts HTML for legacy compatibility. |
+| `heading_tag` | `string` | `''` | When defined (`h2`–`h6`), `title` is treated as plain text and wrapped automatically. |
+| `thumb_size` | `string` | `thumbnail` | Registered image size passed to the Media Handler. |
 
 Set `echo` to `false` when using the helper inside PHP logic where you need to capture the HTML instead of printing it directly.
 
@@ -208,46 +105,15 @@ All scoring operations occur in PHP, so the SQL statement you see via Query Moni
 
 ### 5. Key Filters & Actions
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Hook</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>wzkb_related_articles_query_args</code></td>
-<td>Last chance to adjust the <code>WP_Query</code> args (e.g., add meta queries).</td>
-</tr>
-<tr>
-<td><code>wzkb_related_articles_fallback_args</code></td>
-<td>Modify the arguments used when no categories/tags are available.</td>
-</tr>
-<tr>
-<td><code>wzkb_related_articles_cache_ttl</code></td>
-<td>Control the object cache lifetime (defaults to <code>HOUR_IN_SECONDS</code>).</td>
-</tr>
-<tr>
-<td><code>wzkb_related_category_weight</code> / <code>wzkb_related_tag_weight</code></td>
-<td>Override default weights (ints).</td>
-</tr>
-<tr>
-<td><code>wzkb_related_recency_boost</code></td>
-<td>Customize the recency multiplier (0–1).</td>
-</tr>
-<tr>
-<td><code>wzkb_related_post_score</code></td>
-<td>Final opportunity to tweak each post’s score.</td>
-</tr>
-<tr>
-<td><code>wzkb_related_block_output</code></td>
-<td>Filter the Gutenberg block markup.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Hook | Description |
+| --- | --- |
+| `wzkb_related_articles_query_args` | Last chance to adjust the `WP_Query` args (e.g., add meta queries). |
+| `wzkb_related_articles_fallback_args` | Modify the arguments used when no categories/tags are available. |
+| `wzkb_related_articles_cache_ttl` | Control the object cache lifetime (defaults to `HOUR_IN_SECONDS`). |
+| `wzkb_related_category_weight` / `wzkb_related_tag_weight` | Override default weights (ints). |
+| `wzkb_related_recency_boost` | Customize the recency multiplier (0–1). |
+| `wzkb_related_post_score` | Final opportunity to tweak each post’s score. |
+| `wzkb_related_block_output` | Filter the Gutenberg block markup. |
 
 Example: increase category weight and reduce recency influence.
 

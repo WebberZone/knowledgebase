@@ -2,13 +2,13 @@
 slug: exporting-importing-articles
 title: "Exporting and Importing Articles"
 products: [knowledgebase]
-sections: [02-kb-advanced]
-tags: [knowledgebase,export,import,markdown,migration,pro]
+sections: ["02-kb-advanced"]
+tags: [export, import, knowledgebase, markdown, migration, pro]
 status: publish
-order: 0
+toc: true
 ---
 
-[kbtoc]
+[toc]
 
 [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) lets you export all articles in three formats and re-import them from a Markdown ZIP. All export and import actions are available under **Knowledge Base → Tools**.
 
@@ -45,7 +45,7 @@ Requires the **ZipArchive** PHP extension.
 Downloads article metadata as an Excel spreadsheet (`.xlsx`). No article content is included. Columns:
 
 | Column | Description |
-|--------|-------------|
+| --- | --- |
 | Title | Post title |
 | Slug | Post slug |
 | Status | Post status (`publish`, `draft`, `private`) |
@@ -71,7 +71,7 @@ The **Overwrite existing articles** checkbox is checked by default. With it chec
 ### Supported frontmatter fields
 
 | Field | Description |
-|-------|-------------|
+| --- | --- |
 | `title` | Article title. Falls back to the slug if not set. |
 | `slug` | Post slug used for matching and creating the post. |
 | `status` | `publish`, `draft`, `pending`, or `private`. Defaults to `publish`. |

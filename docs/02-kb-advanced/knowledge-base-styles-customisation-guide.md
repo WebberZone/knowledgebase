@@ -2,15 +2,12 @@
 slug: knowledge-base-styles-customization-guide
 title: "Knowledge Base Styles Customization Guide"
 products: [knowledgebase]
-sections: [02-kb-advanced]
-tags: [css,knowledgebase,styles]
+sections: ["02-kb-advanced"]
+tags: [css, knowledgebase, styles]
 status: publish
-order: 0
 ---
 
-<div class="wp-block-kadence-tableofcontents">
-
-</div>
+<!-- wp:kadence/tableofcontents /-->
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) styles control how your knowledge base articles and sections look on your website. Think of them as pre-designed themes that determine colors, layouts, spacing, and visual effects.
 
@@ -553,10 +550,10 @@ Most styles have hover states you can customize:
 :root {
     /* Normal state */
     --wzkb-color-primary: #2563eb;
-    
+
     /* Hover state */
     --wzkb-color-hover: #1d4ed8;
-    
+
     /* Shadow on hover */
     --wzkb-shadow-hover: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
@@ -652,76 +649,3 @@ Make it pop with bold colors:
 **Solution 1:** Clear your browser cache
 
 - Press `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
-
-**Solution 2:** Check CSS syntax
-
-```css
-/* ✅ Correct */
-:root {
-    --wzkb-color-primary: #2563eb;
-}
-
-/* ❌ Wrong - missing semicolon */
-:root {
-    --wzkb-color-primary: #2563eb
-}
-
-/* ❌ Wrong - wrong selector */
-.root {
-    --wzkb-color-primary: #2563eb;
-}
-```
-
-**Solution 3:** Use `!important` if the theme overrides variables
-
-```css
-:root {
-    --wzkb-color-primary: #2563eb !important;
-}
-```
-
-### Colors Look Different on Mobile
-
-**Solution:** Some CSS may be cached. Add this to force reload:
-
-```css
-/* Force fresh styles */
-:root {
-    --wzkb-color-primary: #2563eb !important;
-}
-```
-
-### Specific Elements Not Changing
-
-**Solution:** Target elements directly:
-
-```css
-/* Override section headings specifically */
-.wzkb h3.wzkb-section-name {
-    background: #your-color !important;
-    color: #fff !important;
-}
-```
-
-### Color Contrast Issues
-
-**Tool:** Check contrast at <https://webaim.org/resources/contrastchecker/>
-
-**WCAG AA Standard:** Minimum 4.5:1 ratio for normal text
-
-```css
-/* Good contrast example */
-:root {
-    --wzkb-color-text: #1f2937;          /* Dark text */
-    --wzkb-bg-white: #ffffff;             /* White background */
-    /* Ratio: 15.8:1 ✅ */
-}
-```
-
-## Color Palette Generators
-
-Need help choosing colors? Try these tools:
-
-- **[Coolors.co](https://coolors.co/)** – Generate color palettes
-- **[Adobe Color](https://color.adobe.com/)** – Color wheel and harmony rules
-- **[Contrast Checker](https://webaim.org/resources/contrastchecker/)** – Ensure accessibility

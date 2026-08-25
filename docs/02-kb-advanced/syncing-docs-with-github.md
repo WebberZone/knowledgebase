@@ -3,9 +3,10 @@ slug: syncing-docs-with-github
 title: "Syncing Docs with GitHub"
 products: [knowledgebase]
 sections: ["02-kb-advanced"]
-tags: [github,knowledgebase,pro,sync]
+tags: [github, knowledgebase, pro, sync]
 status: publish
 order: 5
+toc: true
 ---
 
 If you write your documentation in Markdown and store it on GitHub, [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) can keep it in sync with your knowledge base in both directions — pull `.md` files in as KB articles, and push article edits back out as commits. No copy-pasting required.
@@ -28,19 +29,19 @@ External images referenced in Markdown are optionally sideloaded into the WordPr
 Five types of alerts are available:
 
 ```markdown
-> [!NOTE]
+> [[!NOTE]]
 > ⓘ Useful information that users should know, even when skimming content.
 
-> [!TIP]
+> [[!TIP]]
 > ✅ Helpful advice for doing things better or more easily.
 
-> [!IMPORTANT]
+> [[!IMPORTANT]]
 > ❗ Key information users need to know to achieve their goal.
 
-> [!WARNING]
+> [[!WARNING]]
 > ⚠️ Urgent info that needs immediate user attention to avoid problems.
 
-> [!CAUTION]
+> [[!CAUTION]]
 > ⚠️ Advises about risks or negative outcomes of certain actions.
 ```
 
@@ -57,7 +58,7 @@ Each Markdown file becomes a KB article. Add a short block of settings at the ve
 ```yaml
 ---
 title: "Getting Started"
-sections: [Installation]
+sections: [[Installation]]
 status: publish
 ---
 
@@ -81,20 +82,20 @@ The only thing frontmatter does is give the plugin a few hints. Everything else 
 | `featured_image` | `thumbnail`, `cover`, `image` | string | Sets the article's featured image. Accepts an absolute URL or a path relative to the Markdown file (e.g. `images/hero.png`). Requires **Import external media** to be enabled. See [Featured images](#featured-images) below. |
 | `id` | — | integer | Optional stable document ID. Stored as `_wzkb_github_doc_id`. |
 
-`sections`, `tags`, and `products` take a comma-separated list wrapped in square brackets, e.g. `tags: [setup, beginner]`. A single value still uses the brackets: `tags: [setup]`.
+`sections`, `tags`, and `products` take a comma-separated list wrapped in square brackets, e.g. `tags: [[setup, beginner]]`. A single value still uses the brackets: `tags: [[setup]]`.
 
 ### How terms and capitalization are handled
 
 Each value is matched to an existing term by its **slug**, which is always lower-cased (spaces and punctuation become hyphens). So `Installation`, `installation`, and `INSTALLATION` all resolve to the same `installation` term — capitalization never creates duplicates. The exact text you type is used as the term's **display name** only when the term does not yet exist and has to be created. In practice:
 
-- To reference an **existing** term, use its slug (lower-case), e.g. `sections: [getting-started]`.
-- To create a **new** term, type the name as you want it displayed, e.g. `sections: [Getting Started]` creates a term named "Getting Started" with slug `getting-started`.
+- To reference an **existing** term, use its slug (lower-case), e.g. `sections: [[getting-started]]`.
+- To create a **new** term, type the name as you want it displayed, e.g. `sections: [[Getting Started]]` creates a term named "Getting Started" with slug `getting-started`.
 
 This means the following two lines are **equivalent** — both target the same `installation` → `advanced` and `troubleshooting` terms:
 
 ```yaml
-sections: [Installation/Advanced, Troubleshooting]
-sections: [installation/advanced, troubleshooting]
+sections: [[Installation/Advanced, Troubleshooting]]
+sections: [[installation/advanced, troubleshooting]]
 ```
 
 The only difference is when a term is first created: the capitalized form produces display names like "Installation", while the lowercase form produces "installation". If the terms already exist, the casing you use is ignored.
@@ -105,9 +106,9 @@ The only difference is when a term is first created: the capitalized form produc
 ---
 slug: advanced-configuration
 title: "Advanced Configuration"
-products: [knowledgebase, my-plugin]
-sections: [Installation/Advanced, Troubleshooting]
-tags: [configuration, advanced, beginner]
+products: [[knowledgebase, my-plugin]]
+sections: [[Installation/Advanced, Troubleshooting]]
+tags: [[configuration, advanced, beginner]]
 status: publish
 order: 5
 toc: true
@@ -122,13 +123,13 @@ Your article content starts here...
 Use a forward slash (`/`) in a section name to place an article inside a child section:
 
 ```yaml
-sections: [Installation/Windows]
+sections: [[Installation/Windows]]
 ```
 
 The sync engine walks each path segment in order, finding or creating each term as a child of the previous. This creates a top-level **Installation** section with a **Windows** child and files the article there — you can nest as deeply as you like. Plain values without `/` are assigned at the top level, and multiple sections are supported:
 
 ```yaml
-sections: [Installation/Windows, Troubleshooting]
+sections: [[Installation/Windows, Troubleshooting]]
 ```
 
 ### Featured images
@@ -235,8 +236,8 @@ There are three ways to push:
 Images in your Markdown are imported too. When **Import external media** is enabled, the plugin downloads each image to your Media Library and rewrites the article to reference the local copy, so your images are self-hosted. Both relative and absolute image sources are handled:
 
 ```markdown
-![Screenshot](../images/screenshot.png)
-![Logo](https://example.com/assets/logo.png)
+![[Screenshot]](../images/screenshot.png)
+![[Logo]](https://example.com/assets/logo.png)
 ```
 
 - **Relative paths** are resolved against the Markdown file's location in the repository and fetched from the corresponding `raw.githubusercontent.com` URL.
@@ -300,7 +301,7 @@ add_filter(
     'wzkb_github_pre_import',
     function ( array $file_data ): array {
         if ( get_option( 'my_import_freeze' ) ) {
-            $file_data['skip'] = true;
+            $file_data[['skip']] = true;
         }
         return $file_data;
     }
@@ -333,8 +334,8 @@ add_filter(
     'wzkb_github_pre_push',
     function ( array $push_data ): array {
         // Never push articles in a particular category.
-        if ( has_term( 'internal', 'wzkb_category', $push_data['post_id'] ) ) {
-            $push_data['skip'] = true;
+        if ( has_term( 'internal', 'wzkb_category', $push_data[['post_id']] ) ) {
+            $push_data[['skip']] = true;
         }
         return $push_data;
     }
@@ -351,7 +352,7 @@ Filter the `wp_remote_request()` arguments for every GitHub API call (headers, t
 add_filter(
     'wzkb_github_api_args',
     function ( array $args, string $url ): array {
-        $args['timeout'] = 30;
+        $args[['timeout']] = 30;
         return $args;
     },
     10,
@@ -447,7 +448,7 @@ Sideloaded attachments carry `_wzkb_github_media_source` to prevent duplicate up
 `build_post_map( $owner, $repo )` is `public` — call it once before a batch and pass the result into `process_file()` so the batch shares a single DB query instead of doing one per file.
 
 ```php
-use WebberZone\Knowledge_Base\Pro\GitHub\Import_Processor;
+use WebberZoneKnowledge_BaseProGitHubImport_Processor;
 
 class My_Importer extends Import_Processor {
 

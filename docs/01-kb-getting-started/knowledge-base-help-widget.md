@@ -2,13 +2,13 @@
 slug: knowledge-base-help-widget
 title: "Knowledge Base Pro Help Widget"
 products: [knowledgebase]
-sections: [01-kb-getting-started]
-tags: [installation,knowledgebase]
+sections: ["01-kb-getting-started"]
+tags: [installation, knowledgebase]
 status: publish
-order: 0
+toc: true
 ---
 
-[kbtoc]
+[toc]
 
 The **Help Widget** is a floating widget that provides self-service support directly on your website. Visitors can search your knowledge base, view suggested articles, and contact you without leaving the page.
 
@@ -163,15 +163,15 @@ All help widget labels can be customized using the [`wzkb_help_widget_labels`](h
 ```php
 add_filter( 'wzkb_help_widget_labels', function( $labels ) {
     // Customize any label
-    $labels['greeting'] = 'Welcome! How may we assist you?';
-    $labels['searchPlaceholder'] = 'Type your question...';
-    $labels['contactButton'] = 'Contact Support';
-    $labels['noResultsMessage'] = 'Can\'t find what you need? Get in touch!';
-    $labels['suggestedArticles'] = 'Recommended Reading';
-    $labels['searchResults'] = 'Results';
-    $labels['contactFormTitle'] = 'Get Help';
-    $labels['submitButton'] = 'Submit';
-    $labels['successMessage'] = 'Thanks! We\'ll respond soon.';
+    $labels[['greeting']] = 'Welcome! How may we assist you?';
+    $labels[['searchPlaceholder']] = 'Type your question...';
+    $labels[['contactButton']] = 'Contact Support';
+    $labels[['noResultsMessage']] = 'Can't find what you need? Get in touch!';
+    $labels[['suggestedArticles']] = 'Recommended Reading';
+    $labels[['searchResults']] = 'Results';
+    $labels[['contactFormTitle']] = 'Get Help';
+    $labels[['submitButton']] = 'Submit';
+    $labels[['successMessage']] = 'Thanks! We'll respond soon.';
 
     return $labels;
 } );
@@ -240,11 +240,11 @@ For KB articles, customize the related articles query:
 ```php
 add_filter( 'wzkb_related_articles_query_args', function( $args, $post ) {
     // Show more related articles in help widget
-    $args['posts_per_page'] = 10;
+    $args[['posts_per_page']] = 10;
 
     // Order by popularity instead of random
-    $args['orderby'] = 'meta_value_num';
-    $args['meta_key'] = 'views_count';
+    $args[['orderby']] = 'meta_value_num';
+    $args[['meta_key']] = 'views_count';
 
     return $args;
 }, 10, 2 );
@@ -479,7 +479,7 @@ For questions or issues with the Help Widget:
 
 Contact form submissions use a beautiful HTML email template:
 
-- Modern gradient header (#667eea to \#764ba2)
+- Modern gradient header (#667eea to #764ba2)
 - Organized sections with left accent borders
 - Mobile-responsive design (max-width: 600px)
 - Professional typography and spacing

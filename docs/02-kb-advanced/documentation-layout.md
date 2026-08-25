@@ -2,13 +2,13 @@
 slug: documentation-layout
 title: "Documentation Layout"
 products: [knowledgebase]
-sections: [02-kb-advanced]
-tags: [knowledgebase, docs mode, section tree, layout, pro]
+sections: ["02-kb-advanced"]
+tags: [docs-mode, knowledgebase, layout, pro, section-tree]
 status: publish
-order: 0
+toc: true
 ---
 
-[kbtoc]
+[toc]
 
 The Documentation Layout is a pro feature that transforms your knowledge base into a three-column documentation site. When enabled, every KB page — the archive, product pages, section pages, and single articles — renders with a full-width docs-style template:
 
@@ -49,7 +49,7 @@ Sections are collapsible. The current term and article are highlighted automatic
 Insert the **Knowledge Base Section Tree** block from the block inserter. Block settings:
 
 | Attribute | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `title` | string | Optional heading above the tree. Default empty. |
 | `mode` | string | `auto` (default), `full`, `product`, or `section`. |
 | `productId` | number | Product term ID when `mode` is `product`. Default `0`. |
@@ -116,7 +116,7 @@ add_filter( 'wzkb_section_tree_html', function( string $html, array $args ): str
 The docs layout wrapper carries the body class `wzkb-docs-layout`. Target it in your theme CSS to adjust spacing, colors, or column widths.
 
 | Class | Description |
-|---|---|
+| --- | --- |
 | `.wzkb-docs-layout` | Body class when docs mode is active. |
 | `.wzkb-docs` | Outer wrapper div for the three-column layout. Also receives `.wzkb-docs--no-toc` when the current page has no headings to outline. |
 | `.wzkb-docs-sidebar-region` | Container div for the left sidebar (holds the toggle and the `<aside>`). |

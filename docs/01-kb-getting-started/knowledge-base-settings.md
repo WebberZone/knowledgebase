@@ -2,13 +2,13 @@
 slug: knowledge-base-settings
 title: "Knowledge Base Settings"
 products: [knowledgebase]
-sections: [01-kb-getting-started]
-tags: [knowledgebase,settings]
+sections: ["01-kb-getting-started"]
+tags: [knowledgebase, settings]
 status: publish
-order: 0
+toc: true
 ---
 
-[kbtoc]
+[toc]
 
 This document describes all available settings for the [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin. Access settings via **Knowledge Base → Settings** in your WordPress admin.
 
@@ -26,7 +26,7 @@ Enable this option to display the Knowledge Base on the site homepage. The Knowl
 
 ### Permalinks
 
-The following settings affect the knowledge base’s permalinks. These are set when registering the custom post type and taxonomy. Please visit the **Permalinks** page in the Settings menu to refresh permalinks if you get 404 errors. Learn <a href="https://webberzone.com/support/knowledgebase/knowledge-base-permalinks-tutorial/" data-type="wz_knowledgebase" data-id="9261">how Permalinks work in Free and Pro</a>.
+The following settings affect the knowledge base’s permalinks. These are set when registering the custom post type and taxonomy. Please visit the **Permalinks** page in the Settings menu to refresh permalinks if you get 404 errors. Learn [how Permalinks work in Free and Pro](https://webberzone.com/support/knowledgebase/knowledge-base-permalinks-tutorial/).
 
 #### Knowledge Base slug
 
@@ -273,7 +273,7 @@ Enter any custom valid CSS without any wrapping `<style>` tags.
 
 ### Article Rating
 
-<a href="https://webberzone.com/support/knowledgebase/knowledge-base-rating-system/" data-type="wz_knowledgebase" data-id="9272">Learn how the Article Rating system works in Knowledge Base.</a>
+[Learn how the Article Rating system works in Knowledge Base.](https://webberzone.com/support/knowledgebase/knowledge-base-rating-system/)
 
 #### Enable Rating System
 

@@ -2,8 +2,8 @@
 slug: table-of-contents
 title: "Table of Contents"
 products: [knowledgebase]
-sections: [02-kb-advanced]
-tags: [knowledgebase,toc]
+sections: ["02-kb-advanced"]
+tags: [knowledgebase, toc]
 status: publish
 order: 7
 ---
@@ -32,10 +32,10 @@ Go to **Knowledge Base → Settings → Output** and scroll to the **Table of Co
 
 ## Placing the TOC manually
 
-By default the TOC is inserted automatically above the article body. If you want to place it at a specific spot in the content instead, use the `[kbtoc]` shortcode or the **Knowledge Base TOC** block anywhere in the article. The automatic insertion is skipped when a manual placement is detected.
+By default the TOC is inserted automatically above the article body. If you want to place it at a specific spot in the content instead, use the `[[kbtoc]]` shortcode or the **Knowledge Base TOC** block anywhere in the article. The automatic insertion is skipped when a manual placement is detected.
 
 ```text
-[kbtoc]
+[[kbtoc]]
 ```
 
 The shortcode accepts optional attributes to override the global settings for that placement:
@@ -49,13 +49,13 @@ The shortcode accepts optional attributes to override the global settings for th
 Example:
 
 ```text
-[kbtoc heading_depth="3" title="Contents"]
+[[kbtoc heading_depth="3" title="Contents"]]
 ```
 
 You can also insert a TOC using the `[toc]` marker in Markdown when importing articles from GitHub — see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/).
 
 > [!NOTE]
-> ⓘ When writing Markdown for GitHub import, `[[toc]]` (double brackets) is treated as escaped and renders as the literal text `[toc]` — only `[toc]` (single brackets) triggers TOC insertion.
+> ⓘ When writing Markdown for GitHub import, `[toc]` (double brackets) is treated as escaped and renders as the literal text `[toc]` — only `[toc]` (single brackets) triggers TOC insertion.
 
 ## Floating TOC *(Pro only)*
 

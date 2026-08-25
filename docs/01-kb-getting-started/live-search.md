@@ -2,10 +2,9 @@
 slug: live-search
 title: "Live Search"
 products: [knowledgebase]
-sections: [01-kb-getting-started]
-tags: [knowledgebase,search]
+sections: ["01-kb-getting-started"]
+tags: [knowledgebase, search]
 status: publish
-order: 0
 ---
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) includes a live search feature that shows article suggestions in a dropdown as visitors type in the search form — no page reload needed. Results update in real time, support keyboard navigation, and include screen reader announcements for accessibility.
@@ -26,10 +25,10 @@ As soon as the visitor types in the KB search box, an AJAX request fetches match
 
 ## Using the search form
 
-The search form can be placed anywhere using the `[kbsearch]` shortcode or the **Knowledge Base Search** block. Live search works with both.
+The search form can be placed anywhere using the `[[kbsearch]]` shortcode or the **Knowledge Base Search** block. Live search works with both.
 
 ```text
-[kbsearch]
+[[kbsearch]]
 ```
 
 See [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/) for full shortcode options.
@@ -37,4 +36,4 @@ See [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/kno
 ## See also
 
 - [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — Output settings reference
-- [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/) — `[kbsearch]` shortcode
+- [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/) — `[[kbsearch]]` shortcode

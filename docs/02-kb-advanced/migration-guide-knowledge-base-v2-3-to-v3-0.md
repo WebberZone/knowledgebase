@@ -5,7 +5,7 @@ products: [knowledgebase]
 sections: ["02-kb-advanced"]
 tags: [knowledgebase]
 status: publish
-order: 0
+toc: true
 ---
 
 [toc]
@@ -270,7 +270,7 @@ Creating products from top-level sections...
 Created product "WordPress Plugin" (ID: 123) for section "WordPress Plugin" (ID: 45).
 ```
 
-### Step 2: Map Sections &amp; Articles (Progress: 20-80%)
+### Step 2: Map Sections & Articles (Progress: 20-80%)
 
 **What Happens:**
 

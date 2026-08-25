@@ -5,7 +5,6 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [knowledgebase, pro, upgrade]
 status: publish
-order: 0
 ---
 
 Knowledge Base is free to use and packed with features right out of the box. The Pro upgrade adds article ratings and feedback, a floating help widget, a three-column documentation layout, a custom permalinks engine, premium layouts, and GitHub-based content sync for larger documentation sites.
@@ -13,21 +12,21 @@ Knowledge Base is free to use and packed with features right out of the box. The
 ## Free vs Pro
 
 | Feature | Free | Pro |
-|---------|:----:|:---:|
-| **Core** | | |
+| --- | --- | --- |
+| **Core** |  |  |
 | Unlimited articles, sections, sub-sections, and products | ✅ | ✅ |
 | Multi-product knowledge base mode | ✅ | ✅ |
-| Shortcodes (`[knowledgebase]`, `[kbsearch]`, `[kbbreadcrumb]`, `[kbalert]`) | ✅ | ✅ |
+| Shortcodes (`[[knowledgebase]]`, `[[kbsearch]]`, `[[kbbreadcrumb]]`, `[[kbalert]]`) | ✅ | ✅ |
 | Gutenberg blocks (KB, Articles, Sections, Products, Search, Breadcrumb, Related, Alerts) | ✅ | ✅ |
 | Block templates and patterns | ✅ | ✅ |
 | Classic widgets (Articles, Sections, Products, Breadcrumbs) | ✅ | ✅ |
 | Built-in breadcrumb navigation | ✅ | ✅ |
 | Related articles | ✅ | ✅ |
-| Alert boxes (`[kbalert]` shortcode and Alerts block) | ✅ | ✅ |
+| Alert boxes (`[[kbalert]]` shortcode and Alerts block) | ✅ | ✅ |
 | REST API | ✅ | ✅ |
 | Multilingual support (WPML and Polylang) | ✅ | ✅ |
 | Settings export and import | ✅ | ✅ |
-| **Display & Customization** | | |
+| **Display & Customization** |  |  |
 | Built-in frontend layout styles | ✅ | ✅ |
 | Base slug customization (articles, sections, products, tags) | ✅ | ✅ |
 | Premium layout pack (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional) | ❌ | ✅ |
@@ -36,32 +35,32 @@ Knowledge Base is free to use and packed with features right out of the box. The
 | Custom permalink structures with dynamic placeholders | ❌ | ✅ |
 | Knowledge Base homepage mode | ❌ | ✅ |
 | Featured image on product/section archive pages | ❌ | ✅ |
-| **Table of Contents** | | |
+| **Table of Contents** |  |  |
 | Auto-generated inline TOC | ✅ | ✅ |
 | TOC sidebar widget | ❌ | ✅ |
 | TOC Gutenberg block | ❌ | ✅ |
 | Floating / sticky TOC panel | ❌ | ✅ |
-| **Search** | | |
+| **Search** |  |  |
 | AJAX live search suggestions | ✅ | ✅ |
 | Floating help widget with live search and suggested articles | ❌ | ✅ |
 | Help widget contact form with email notifications | ❌ | ✅ |
-| **Reader Engagement** | | |
+| **Reader Engagement** |  |  |
 | Binary or 5-star article rating | ❌ | ✅ |
 | Follow-up feedback questions | ❌ | ✅ |
 | GDPR-friendly rating tracking modes | ❌ | ✅ |
 | Admin email alerts for new ratings | ❌ | ✅ |
 | Bayesian average sorting in admin lists | ❌ | ✅ |
-| **Performance** | | |
+| **Performance** |  |  |
 | Built-in output caching | ✅ | ✅ |
 | Configurable cache expiry | ❌ | ✅ |
 | On-demand cache clearing | ❌ | ✅ |
 | Flush permalinks button in Settings | ❌ | ✅ |
-| **Content Management** | | |
+| **Content Management** |  |  |
 | Article export (Markdown ZIP, SQL dump, XLSX spreadsheet) | ❌ | ✅ |
 | Article import from Markdown ZIP with taxonomy mapping | ❌ | ✅ |
 | GitHub integration (sync Markdown docs via webhook) | ❌ | ✅ |
 | Push/export articles back to a GitHub repository | ❌ | ✅ |
-| **Support** | | |
+| **Support** |  |  |
 | Community forum | ✅ | ✅ |
 | Priority email support | ❌ | ✅ |
 
@@ -71,8 +70,8 @@ Knowledge Base is free to use and packed with features right out of the box. The
 
 All paid plans include the same Pro features. The difference is the number of sites and who you can use them on.
 
-| | Pro | Pro Multi | Agency |
-|--|:---:|:---------:|:------:|
+|  | Pro | Pro Multi | Agency |
+| --- | --- | --- | --- |
 | All Pro features | ✅ | ✅ | ✅ |
 | Number of sites | 1 site | 5 to unlimited | Unlimited |
 | Use on client sites | ❌ | ❌ | ✅ |

@@ -2,10 +2,9 @@
 slug: importing-from-other-knowledge-base-plugins
 title: "Importing from BasePress, BetterDocs and Echo Knowledge Base"
 products: [knowledgebase]
-sections: [01-kb-getting-started]
-tags: [knowledgebase, import, migration]
+sections: ["01-kb-getting-started"]
+tags: [import, knowledgebase, migration]
 status: publish
-order: 0
 ---
 
 Switching to Knowledge Base from another documentation plugin? The built-in plugin importer copies your articles, categories, and tags from BasePress, BetterDocs, or Echo Knowledge Base into Knowledge Base — without deleting anything from the original plugin.
@@ -34,7 +33,7 @@ Before anything runs, the importer shows a preview of exactly what will be copie
 If the importer detects the source plugin's base URL slug, it offers a checkbox to:
 
 - Set the Knowledge Base URL slug to match the source plugin's URLs, and
-- Update the matching entry page with the `[knowledgebase]` shortcode.
+- Update the matching entry page with the `[[knowledgebase]]` shortcode.
 
 Check this box if you want your existing knowledge base URLs to keep working after the migration. This changes your Knowledge Base URLs, so skip it if you have already set up Knowledge Base at a different address.
 
