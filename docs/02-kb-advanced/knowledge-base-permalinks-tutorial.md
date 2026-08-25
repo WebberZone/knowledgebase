@@ -2,13 +2,12 @@
 slug: knowledge-base-permalinks-tutorial
 title: "Knowledge Base Permalinks Tutorial"
 products: [knowledgebase]
-sections: [02-kb-advanced]
-tags: [installation,knowledgebase,permalinks]
+sections: ["02-kb-advanced"]
+tags: [installation, knowledgebase, permalinks]
 status: publish
-order: 0
 ---
 
-This guide explains how <a href="https://webberzone.com/plugins/knowledgebase/" data-type="page" data-id="34">Knowledge Base</a> handles URLs and how to configure custom permalink structures in Pro.
+This guide explains how [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) handles URLs and how to configure custom permalink structures in Pro.
 
 ## Quick start
 
@@ -88,4 +87,3 @@ Some SEO plugins modify rewrite rules. If you experience conflicts:
 - Test with other plugins disabled
 - Check your rewrite rules using a plugin like <a href="https://wordpress.org/plugins/rewrite-rules-inspector/" target="_blank" rel="noreferrer noopener">Rewrite Rules Inspector</a>
 - Priority is given to articles over taxonomy archives to prevent conflicts
-

@@ -2,8 +2,8 @@
 slug: term-featured-images
 title: "Term Featured Images"
 products: [knowledgebase]
-sections: [02-kb-advanced]
-tags: [pro,images,products,sections]
+sections: ["02-kb-advanced"]
+tags: [images, pro, products, sections]
 status: publish
 order: 6
 ---
@@ -71,7 +71,7 @@ Filters the image HTML rendered inside a product grid card. Return an empty stri
 ```php
 add_filter(
     'wzkb_product_card_image',
-    function ( string $html, \WP_Term $product_term ): string {
+    function ( string $html, WP_Term $product_term ): string {
         // Use a different image size for a specific product.
         if ( 'my-product' === $product_term->slug ) {
             $image_id = (int) get_term_meta( $product_term->term_id, 'wzkb_term_image_id', true );
@@ -91,7 +91,7 @@ add_filter(
 | Parameter | Type | Description |
 | --- | --- | --- |
 | `$html` | string | Image HTML to render. Empty by default; populated by the Pro feature when an image is set. |
-| `$product_term` | `\WP_Term` | The product term being rendered. |
+| `$product_term` | `WP_Term` | The product term being rendered. |
 
 ### [`wzkb_term_archive_header_image`](https://webberzone.dev/knowledgebase/hooks/wzkb_term_archive_header_image/)
 
@@ -100,7 +100,7 @@ Filters the image HTML rendered in the header of product and section archive pag
 ```php
 add_filter(
     'wzkb_term_archive_header_image',
-    function ( string $html, \WP_Term $term ): string {
+    function ( string $html, WP_Term $term ): string {
         // Suppress the header image on tag archive pages.
         if ( 'wzkb_tag' === $term->taxonomy ) {
             return '';
@@ -115,14 +115,14 @@ add_filter(
 | Parameter | Type | Description |
 | --- | --- | --- |
 | `$html` | string | Image HTML to render. Empty by default; populated by the Pro feature when an image is set and the setting is enabled. |
-| `$term` | `\WP_Term` | The term whose archive page is being displayed. |
+| `$term` | `WP_Term` | The term whose archive page is being displayed. |
 
 ### `wzkb_get_term_thumbnail()`
 
 A public helper function to retrieve the featured image `<img>` tag for any KB term. Useful in custom templates.
 
 ```php
-wzkb_get_term_thumbnail( int|\WP_Term $term, string $size = 'thumbnail', array $attr = array() ): string
+wzkb_get_term_thumbnail( int|WP_Term $term, string $size = 'thumbnail', array $attr = array() ): string
 ```
 
 ```php

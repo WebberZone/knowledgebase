@@ -2,13 +2,12 @@
 slug: knowledge-base-rest-api
 title: "Knowledge Base REST API"
 products: [knowledgebase]
-sections: [03-kb-developer-docs]
-tags: [knowledgebase,rest-api]
+sections: ["03-kb-developer-docs"]
+tags: [knowledgebase, rest-api]
 status: publish
-order: 0
 ---
 
-The <a href="https://webberzone.com/plugins/knowledgebase/" data-type="page" data-id="34">WebberZone Knowledge Base</a> plugin exposes selected functionality via the WordPress REST API.
+The [WebberZone Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin exposes selected functionality via the WordPress REST API.
 
 All endpoints live under the namespace `wzkb/v1` and therefore share the base path:
 
@@ -71,26 +70,9 @@ Several endpoints (starting with Sections) are only available when **multi-produ
 
 Fetches Knowledge Base sections (`wzkb_category` terms) filtered by one or more product IDs, preserving parent/child relationships for hierarchical rendering.
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>products</code></td>
-<td>string</td>
-<td>yes</td>
-<td>Comma-separated list of <code>wzkb_product</code> term IDs. Example: <code>173,178</code></td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `products` | string | yes | Comma-separated list of `wzkb_product` term IDs. Example: `173,178` |
 
 #### Request example
 
@@ -101,7 +83,7 @@ GET https://example.com/wp-json/wzkb/v1/sections?products=173,178
 #### Successful response
 
 ```text
-[
+[[
   {
     "id": 201,
     "name": "Advanced",
@@ -120,7 +102,7 @@ GET https://example.com/wp-json/wzkb/v1/sections?products=173,178
     "parent": 0,
     "product": 178
   }
-]
+]]
 ```
 
 - `id`: Section term ID.
@@ -130,78 +112,22 @@ GET https://example.com/wp-json/wzkb/v1/sections?products=173,178
 
 #### Error responses
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>HTTP Code</th>
-<th>Error code</th>
-<th>Reason</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>400</td>
-<td><code>wzkb_rest_sections_disabled</code></td>
-<td>Multi-product mode is disabled.</td>
-</tr>
-<tr>
-<td>401 / 403</td>
-<td><code>rest_forbidden</code></td>
-<td>User lacks the capability granted via the <code>wzkb_rest_route_permission</code> filter.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| HTTP Code | Error code | Reason |
+| --- | --- | --- |
+| 400 | `wzkb_rest_sections_disabled` | Multi-product mode is disabled. |
+| 401 / 403 | `rest_forbidden` | User lacks the capability granted via the `wzkb_rest_route_permission` filter. |
 
 ### GET `/wzkb/v1/knowledgebase`
 
 List published Knowledge Base posts with optional filtering.
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>per_page</code></td>
-<td>int</td>
-<td>no</td>
-<td>Results per page (1–50). Default: 10.</td>
-</tr>
-<tr>
-<td><code>page</code></td>
-<td>int</td>
-<td>no</td>
-<td>Page number. Default: 1.</td>
-</tr>
-<tr>
-<td><code>search</code></td>
-<td>string</td>
-<td>no</td>
-<td>Free-text search term.</td>
-</tr>
-<tr>
-<td><code>product</code></td>
-<td>int</td>
-<td>no</td>
-<td>Filter by <code>wzkb_product</code> term ID.</td>
-</tr>
-<tr>
-<td><code>section</code></td>
-<td>int</td>
-<td>no</td>
-<td>Filter by <code>wzkb_category</code> term ID.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `per_page` | int | no | Results per page (1–50). Default: 10. |
+| `page` | int | no | Page number. Default: 1. |
+| `search` | string | no | Free-text search term. |
+| `product` | int | no | Filter by `wzkb_product` term ID. |
+| `section` | int | no | Filter by `wzkb_category` term ID. |
 
 #### Response
 
@@ -213,8 +139,8 @@ List published Knowledge Base posts with optional filtering.
     "slug": "configure-caching",
     "excerpt": "Configure caching in three easy steps…",
     "permalink": "https://example.com/kb/configure-caching/",
-    "products": [{ "id": 5, "name": "Pro", "slug": "pro" }],
-    "sections": [{ "id": 18, "name": "Setup", "slug": "setup" }],
+    "products": [[{ "id": 5, "name": "Pro", "slug": "pro" }]],
+    "sections": [[{ "id": 18, "name": "Setup", "slug": "setup" }]],
     "date": "2025-10-21T09:30:00",
     "modified": "2025-10-23T14:05:00"
   }
@@ -232,7 +158,7 @@ Return a single Knowledge Base post including full content when published.
 List all Knowledge Base products.
 
 ```text
-[
+[[
   {
     "id": 5,
     "name": "Contextual Related Posts",
@@ -240,82 +166,28 @@ List all Knowledge Base products.
     "description": "CRP-specific documentation.",
     "count": 34
   }
-]
+]]
 ```
 
 ### GET `/wzkb/v1/search`
 
 Lightweight search endpoint wrapping Knowledge Base queries.
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>query</code></td>
-<td>string</td>
-<td>yes</td>
-<td>Search keywords (min 2 characters).</td>
-</tr>
-<tr>
-<td><code>product</code></td>
-<td>int</td>
-<td>no</td>
-<td>Filter by product term ID.</td>
-</tr>
-<tr>
-<td><code>section</code></td>
-<td>int</td>
-<td>no</td>
-<td>Filter by section term ID.</td>
-</tr>
-<tr>
-<td><code>limit</code></td>
-<td>int</td>
-<td>no</td>
-<td>Results to return (1–50). Default: 10.</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `query` | string | yes | Search keywords (min 2 characters). |
+| `product` | int | no | Filter by product term ID. |
+| `section` | int | no | Filter by section term ID. |
+| `limit` | int | no | Results to return (1–50). Default: 10. |
 
 ### GET `/wzkb/v1/related`
 
 Fetch related articles for a given Knowledge Base post.
 
-<figure class="wp-block-table">
-<table class="has-fixed-layout">
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>post_id</code></td>
-<td>int</td>
-<td>yes</td>
-<td>Base Knowledge Base post ID.</td>
-</tr>
-<tr>
-<td><code>limit</code></td>
-<td>int</td>
-<td>no</td>
-<td>Number of related items (1–20).</td>
-</tr>
-</tbody>
-</table>
-</figure>
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `post_id` | int | yes | Base Knowledge Base post ID. |
+| `limit` | int | no | Number of related items (1–20). |
 
 ## Using the API in Gutenberg
 
@@ -323,7 +195,7 @@ The custom Gutenberg panel (`includes/admin/js/editor-sections-panel.js`) consum
 
 ## Support
 
-The above REST API is a preliminary implementation. If you notice any issue, have any usage questions or to suggest additional endpoints, please <a href="https://webberzone.com/request-support/" data-type="page" data-id="7861">open a ticket</a>.
+The above REST API is a preliminary implementation. If you notice any issue, have any usage questions or to suggest additional endpoints, please [open a ticket](https://webberzone.com/request-support/).
 
 ## See also
 
