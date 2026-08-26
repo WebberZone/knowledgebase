@@ -52,10 +52,10 @@ Example:
 [[kbtoc heading_depth="3" title="Contents"]]
 ```
 
-You can also insert a TOC using the `[toc]` marker in Markdown when importing articles from GitHub — see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/).
+You can also insert a TOC using the `[[toc]]` marker in Markdown when importing articles from GitHub — see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/).
 
 > [!NOTE]
-> ⓘ When writing Markdown for GitHub import, `[toc]` (double brackets) is treated as escaped and renders as the literal text `[toc]` — only `[toc]` (single brackets) triggers TOC insertion.
+> ⓘ When writing Markdown for GitHub import, `[[toc]]` (double brackets) is treated as escaped and renders as the literal text `[toc]` — only `[toc]` (single brackets) triggers TOC insertion.
 
 ## Floating TOC *(Pro only)*
 
@@ -111,5 +111,5 @@ Both functions respect the global TOC settings and return an empty string when t
 ## See also
 
 - [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — full Output settings reference
-- [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/) — using `[toc]` in Markdown imports
+- [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/) — using `[[toc]]` in Markdown imports
 - [`wzkb_toc`](https://webberzone.dev/knowledgebase/hooks/wzkb_toc/)
