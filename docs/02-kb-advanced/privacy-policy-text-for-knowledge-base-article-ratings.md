@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["02-kb-advanced"]
 tags: [cookie, knowledgebase, pro, settings, trackers]
 status: publish
+order: 0
 ---
 
 > [!WARNING]

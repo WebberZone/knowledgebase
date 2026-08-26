@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [installation, knowledgebase]
 status: publish
+order: 0
 ---
 
 The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) core plugin is [hosted on WordPress.org](https://wordpress.org/plugins/knowledgebase/). This makes installing it on your site extremely easy and just like any other plugin.

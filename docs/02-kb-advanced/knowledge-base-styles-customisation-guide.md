@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["02-kb-advanced"]
 tags: [css, knowledgebase, styles]
 status: publish
+order: 0
 ---
 
 <!-- wp:kadence/tableofcontents /-->
