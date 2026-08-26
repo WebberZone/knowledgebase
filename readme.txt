@@ -192,12 +192,14 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 
 = 3.1.3 =
 
+*Release Date - 26 August 2026*
+
 * Enhancements:
-	* GitHub commit messages generated when pushing articles are now prefixed with `docs: ` so they follow conventional commit style in the target repository.
-	* The GitHub importer now skips Markdown files that have no frontmatter, and files whose frontmatter sets `kb_exclude: true`. An article that was imported earlier and is later marked `kb_exclude` is drafted or deleted according to the mapping's "When a File is Deleted" setting. Excluded files are reported in the import wizard results and counted separately.
-	* GitHub bulk exports now use Git Trees content uploads, prepare bounded chunks with progressive table updates, create one commit per repository and branch, and resume safely after an interruption.
-	* A GitHub export now resumes automatically when the wizard page is reloaded while an export is still running.
-	* The GitHub import and export results tables now show a Product column, so you can see which product each article belongs to.
+	* [Pro] GitHub commit messages generated when pushing articles are now prefixed with `docs: ` so they follow conventional commit style in the target repository.
+	* [Pro] The GitHub importer now skips Markdown files that have no frontmatter, and files whose frontmatter sets `kb_exclude: true`. An article that was imported earlier and is later marked `kb_exclude` is drafted or deleted according to the mapping's "When a File is Deleted" setting. Excluded files are reported in the import wizard results and counted separately.
+	* [Pro] GitHub bulk exports now use Git Trees content uploads, prepare bounded chunks with progressive table updates, create one commit per repository and branch, and resume safely after an interruption.
+	* [Pro] A GitHub export now resumes automatically when the wizard page is reloaded while an export is still running.
+	* [Pro] The GitHub import and export results tables now show a Product column, so you can see which product each article belongs to.
 
 * Bug fixes:
 	* Fixed checkbox settings resolving to `true`/`false` instead of `1`/`0` when read before their saved value existed, which could break blocks and REST responses that expect a numeric value.
@@ -205,11 +207,11 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 	* Fixed the `wzkb_settings_defaults` filter being ignored when a default was read outside the admin area.
 	* Fixed settings on a multisite network reading another site's values in the same request after a `switch_to_blog()` call, such as during network activation.
 	* Fixed the settings wizard silently dropping repeater field rows on save.
-	* Fixed the GitHub export wizard preview using post timestamps instead of generated Markdown, which could omit articles that were later pushed.
-	* Fixed empty article exports from being hashed or sent to GitHub.
-	* Fixed the GitHub exporter attempting to push articles whose post no longer exists; such articles are now reported in the results table and the rest of the export continues.
-	* Fixed the GitHub exporter writing documented shortcodes as literal text, so re-importing an article executed them — a heading reading `[bsearch_form]` came back as a working search form. Literal shortcodes are now written in the `[[shortcode]]` form, which WordPress renders as text and which survives the round trip. Only registered shortcode tags are escaped, so WP-CLI notation such as `[--force]` and placeholders such as `wzkb_rated_[article_id]` are left untouched.
-	* Fixed the GitHub exporter dropping `order: 0` from the frontmatter, which made push-back non-idempotent and produced a diff against the repository even when nothing about the article had changed.
+	* [Pro] Fixed the GitHub export wizard preview using post timestamps instead of generated Markdown, which could omit articles that were later pushed.
+	* [Pro] Fixed empty article exports from being hashed or sent to GitHub.
+	* [Pro] Fixed the GitHub exporter attempting to push articles whose post no longer exists; such articles are now reported in the results table and the rest of the export continues.
+	* [Pro] Fixed the GitHub exporter writing documented shortcodes as literal text, so re-importing an article executed them — a heading reading `[bsearch_form]` came back as a working search form. Literal shortcodes are now written in the `[[shortcode]]` form, which WordPress renders as text and which survives the round trip. Only registered shortcode tags are escaped, so WP-CLI notation such as `[--force]` and placeholders such as `wzkb_rated_[article_id]` are left untouched.
+	* [Pro] Fixed the GitHub exporter dropping `order: 0` from the frontmatter, which made push-back non-idempotent and produced a diff against the repository even when nothing about the article had changed.
 
 * Other:
 	* Updated the Settings API framework, Options API and admin notices API to their latest versions.
@@ -217,6 +219,8 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 	* Updated npm dependencies.
 
 = 3.1.2 =
+
+*Release Date - 16 August 2026*
 
 * Bug fixes:
 	* Fixed a fatal error ("There has been a critical error on this website") that could occur when Pro features were activated — e.g. on starting a free trial or activating a licence — on sites whose saved settings predate the floating table of contents option.
@@ -229,15 +233,17 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 
 = 3.1.1 =
 
+*Release Date - 21 July 2026*
+
 * Enhancements:
 	* Added search to the Settings page to quickly find options across tabs.
 	* Smooth scroll-to-top when switching Settings tabs.
 
 * Bug fixes:
 	* Fixed default-value label lookup for select/radio fields that use an empty string as a real option key (e.g. "Do not display").
-	* GitHub/Markdown exporter: unknown block types without inner blocks now export raw innerHTML instead of a block comment, so they round-trip correctly on re-import.
-	* GitHub/Markdown exporter: pass `<mark>`, `<u>`, `<sub>`, `<sup>` through as raw HTML during inline conversion, and allow `future` as a valid frontmatter/mapping post status.
-	* GitHub/Markdown exporter: emit the `toc: true` frontmatter flag when an article contains a TOC block, for full importer/exporter parity.
+	* [Pro] GitHub/Markdown exporter: unknown block types without inner blocks now export raw innerHTML instead of a block comment, so they round-trip correctly on re-import.
+	* [Pro] GitHub/Markdown exporter: pass `<mark>`, `<u>`, `<sub>`, `<sup>` through as raw HTML during inline conversion, and allow `future` as a valid frontmatter/mapping post status.
+	* [Pro] GitHub/Markdown exporter: emit the `toc: true` frontmatter flag when an article contains a TOC block, for full importer/exporter parity.
 
 * Other:
 	* Updated Settings API to 2.10.1 and refreshed the admin banner.
