@@ -332,6 +332,7 @@ jQuery(document).ready(function ($) {
 				tasksByKey[result.task_key].status = result.status;
 				tasksByKey[result.task_key].commit_url = result.commit_url || '';
 				tasksByKey[result.task_key].error = result.error || '';
+				result.product = result.product || tasksByKey[result.task_key].product || '';
 			}
 			var $row = $tbody.find('tr').filter(function () {
 				return String($(this).attr('data-task-key') || '') === String(result.task_key || '');
@@ -494,6 +495,7 @@ jQuery(document).ready(function ($) {
 			.attr('data-task-key', task.task_key || '')
 			.append($('<td>').html('<span style="color:#757575;">&#8212; pending</span>'))
 			.append($('<td>').html(titleCell))
+			.append($('<td>').text(task.product || '—'))
 			.append($('<td>').html('<code>' + escHtml(task.path || '') + '</code>'))
 			.append($('<td>').text('—'))
 			.append($('<td>').text('—'));
@@ -527,6 +529,7 @@ jQuery(document).ready(function ($) {
 		}
 		$row.append($('<td>').html(statusCell));
 		$row.append($('<td>').html(titleCell));
+		$row.append($('<td>').text(article.product || '—'));
 		$row.append($('<td>').html('<code>' + escHtml(article.path || '') + '</code>'));
 		$row.append($('<td>').html(commitCell));
 		$row.append($('<td>').html(notesCell));

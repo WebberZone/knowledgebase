@@ -49,7 +49,7 @@ jQuery(document).ready(function ($) {
 					showError(data.strings.no_files || 'No files found to import.');
 					return;
 				}
-				processFiles(tasks, 0, { processed: 0, created: 0, updated: 0, skipped: 0, errors: 0 });
+				processFiles(tasks, 0, { processed: 0, created: 0, updated: 0, skipped: 0, excluded: 0, errors: 0 });
 			},
 			error: function () {
 				showError('Request failed. Check your connection and try again.');
@@ -67,6 +67,7 @@ jQuery(document).ready(function ($) {
 				' • Created: ' + counts.created +
 				' • Updated: ' + counts.updated +
 				' • Skipped: ' + counts.skipped +
+				' • Excluded: ' + counts.excluded +
 				' • Errors: ' + counts.errors
 			);
 			return;
@@ -116,6 +117,7 @@ jQuery(document).ready(function ($) {
 					if ('created' === result.action) { counts.created++; }
 					else if ('updated' === result.action) { counts.updated++; }
 					else if ('skipped' === result.action) { counts.skipped++; }
+					else if ('excluded' === result.action) { counts.excluded++; }
 					else if ('error' === result.action) { counts.errors++; }
 				} else {
 					appendErrorRow(task.file_path, (response && response.data && response.data.message) || 'Error processing file.');
@@ -149,7 +151,7 @@ jQuery(document).ready(function ($) {
 			titleCell = escHtml(result.title || '');
 		}
 
-		var notes = result.error || result.warning || '';
+		var notes = result.error || result.warning || result.note || '';
 		var notesCell;
 		if (notes) {
 			notesCell = escHtml(notes);
@@ -159,6 +161,8 @@ jQuery(document).ready(function ($) {
 		var $row = $('<tr></tr>');
 		if ('error' === result.action) {
 			$row.css('background-color', '#fce8e8');
+		} else if ('excluded' === result.action) {
+			$row.css('background-color', '#f6f7f7');
 		}
 		$row.append('<td>' + escHtml(result.action || '') + '</td>');
 		$row.append('<td>' + titleCell + '</td>');
