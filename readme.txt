@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
+= 3.1.3 =
+Bug fix and performance release: improves settings handling and makes GitHub bulk exports resumable with progressive table updates.
+
 = 3.1.2 =
 Bug fix release: prevents fatal errors when Pro features activate on sites with older settings, and when free and Pro are active together.
 
@@ -189,12 +192,19 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 
 = 3.1.3 =
 
+* Enhancements:
+	* GitHub bulk exports now use Git Trees content uploads, prepare bounded chunks with progressive table updates, create one commit per repository and branch, and resume safely after an interruption.
+	* A GitHub export now resumes automatically when the wizard page is reloaded while an export is still running.
+
 * Bug fixes:
 	* Fixed checkbox settings resolving to `true`/`false` instead of `1`/`0` when read before their saved value existed, which could break blocks and REST responses that expect a numeric value.
 	* Fixed `Custom CSS` returning `false` instead of an empty string when no value had been saved.
 	* Fixed the `wzkb_settings_defaults` filter being ignored when a default was read outside the admin area.
 	* Fixed settings on a multisite network reading another site's values in the same request after a `switch_to_blog()` call, such as during network activation.
 	* Fixed the settings wizard silently dropping repeater field rows on save.
+	* Fixed the GitHub export wizard preview using post timestamps instead of generated Markdown, which could omit articles that were later pushed.
+	* Fixed empty article exports from being hashed or sent to GitHub.
+	* Fixed the GitHub exporter attempting to push articles whose post no longer exists; such articles are now reported in the results table and the rest of the export continues.
 
 = 3.1.2 =
 
