@@ -78,7 +78,7 @@ The only thing frontmatter does is give the plugin a few hints. Everything else 
 | `products` | `product` | comma-separated list | `wzkb_product` terms. Falls back to the mapping's configured product. |
 | `order` | `menu_order` | integer | Sort order within a section (`menu_order`). |
 | `status` | — | string | `publish`, `draft`, `pending`, or `private`. Overridden by the mapping's **Article Status** setting when that is set. |
-| `toc` | — | boolean | Insert a table-of-contents block before the first heading when no `[[toc]]` marker is present in the body. |
+| `toc` | — | boolean | Insert a table-of-contents block before the first heading when no `[toc]` marker is present in the body. |
 | `featured_image` | `thumbnail`, `cover`, `image` | string | Sets the article's featured image. Accepts an absolute URL or a path relative to the Markdown file (e.g. `images/hero.png`). Requires **Import external media** to be enabled. See [Featured images](#featured-images) below. |
 | `id` | — | integer | Optional stable document ID. Stored as `_wzkb_github_doc_id`. |
 
