@@ -193,8 +193,11 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 = 3.1.3 =
 
 * Enhancements:
+	* GitHub commit messages generated when pushing articles are now prefixed with `docs: ` so they follow conventional commit style in the target repository.
+	* The GitHub importer now skips Markdown files that have no frontmatter, and files whose frontmatter sets `kb_exclude: true`. An article that was imported earlier and is later marked `kb_exclude` is drafted or deleted according to the mapping's "When a File is Deleted" setting. Excluded files are reported in the import wizard results and counted separately.
 	* GitHub bulk exports now use Git Trees content uploads, prepare bounded chunks with progressive table updates, create one commit per repository and branch, and resume safely after an interruption.
 	* A GitHub export now resumes automatically when the wizard page is reloaded while an export is still running.
+	* The GitHub import and export results tables now show a Product column, so you can see which product each article belongs to.
 
 * Bug fixes:
 	* Fixed checkbox settings resolving to `true`/`false` instead of `1`/`0` when read before their saved value existed, which could break blocks and REST responses that expect a numeric value.
@@ -205,6 +208,13 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 	* Fixed the GitHub export wizard preview using post timestamps instead of generated Markdown, which could omit articles that were later pushed.
 	* Fixed empty article exports from being hashed or sent to GitHub.
 	* Fixed the GitHub exporter attempting to push articles whose post no longer exists; such articles are now reported in the results table and the rest of the export continues.
+	* Fixed the GitHub exporter writing documented shortcodes as literal text, so re-importing an article executed them — a heading reading `[bsearch_form]` came back as a working search form. Literal shortcodes are now written in the `[[shortcode]]` form, which WordPress renders as text and which survives the round trip. Only registered shortcode tags are escaped, so WP-CLI notation such as `[--force]` and placeholders such as `wzkb_rated_[article_id]` are left untouched.
+	* Fixed the GitHub exporter dropping `order: 0` from the frontmatter, which made push-back non-idempotent and produced a diff against the repository even when nothing about the article had changed.
+
+* Other:
+	* Updated the Settings API framework, Options API and admin notices API to their latest versions.
+	* PHP compatibility checks now cover PHP 7.4 to 8.6.
+	* Updated npm dependencies.
 
 = 3.1.2 =
 
