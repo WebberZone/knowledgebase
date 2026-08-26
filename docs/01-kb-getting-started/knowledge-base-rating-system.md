@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [knowledgebase, pro]
 status: publish
+order: 0
 toc: true
 ---
 

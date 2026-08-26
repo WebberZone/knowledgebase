@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["03-kb-developer-docs"]
 tags: [knowledgebase, rest-api]
 status: publish
+order: 0
 ---
 
 The [WebberZone Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin exposes selected functionality via the WordPress REST API.

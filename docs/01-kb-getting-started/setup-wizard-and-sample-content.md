@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [knowledgebase, sample-content, setup, wizard]
 status: publish
+order: 0
 ---
 
 The setup wizard walks you through configuring Knowledge Base in a few guided steps — from choosing your structure to importing sample content so you can see a working knowledge base immediately.

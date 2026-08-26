@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [export, import, knowledgebase, settings]
 status: publish
+order: 0
 ---
 
 The Knowledge Base plugin lets you back up all plugin settings as a JSON file and restore them on the same site or a different one. Both actions are available under **Knowledge Base → Tools**.

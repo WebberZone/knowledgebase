@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [knowledgebase, search]
 status: publish
+order: 0
 ---
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) includes a live search feature that shows article suggestions in a dropdown as visitors type in the search form — no page reload needed. Results update in real time, support keyboard navigation, and include screen reader announcements for accessibility.

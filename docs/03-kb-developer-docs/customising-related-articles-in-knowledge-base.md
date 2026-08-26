@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["03-kb-developer-docs"]
 tags: [developer, filters, knowledgebase, related-posts]
 status: publish
+order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2022/01/Related-Articles-in-Knowledge-Base-v2.1.0-1.png"
 ---
 

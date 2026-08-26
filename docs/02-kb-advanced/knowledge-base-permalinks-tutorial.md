@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["02-kb-advanced"]
 tags: [installation, knowledgebase, permalinks]
 status: publish
+order: 0
 ---
 
 This guide explains how [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) handles URLs and how to configure custom permalink structures in Pro.

@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [import, knowledgebase, migration]
 status: publish
+order: 0
 ---
 
 Switching to Knowledge Base from another documentation plugin? The built-in plugin importer copies your articles, categories, and tags from BasePress, BetterDocs, or Echo Knowledge Base into Knowledge Base — without deleting anything from the original plugin.

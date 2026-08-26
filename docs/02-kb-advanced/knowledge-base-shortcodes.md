@@ -5,6 +5,7 @@ products: [knowledgebase]
 sections: ["02-kb-advanced"]
 tags: [knowledgebase, shortcode]
 status: publish
+order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2020/06/Knowledge-Base-Alerts.png"
 ---
 
