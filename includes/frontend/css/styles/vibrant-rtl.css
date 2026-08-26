@@ -34,12 +34,11 @@
 
 	/* Shadows */
 	--wzkb-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-	--wzkb-shadow-md:
-		0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-	--wzkb-shadow-lg:
-		0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-	--wzkb-shadow-xl:
-		0 20px 25px -5px rgba(0, 0, 0, 0.1),
+	--wzkb-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--wzkb-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	--wzkb-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
 		0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
 	/* Breadcrumb colours */
@@ -602,8 +601,8 @@ body.single-wz_knowledgebase .nav-next {
 input[type="search"].wzkb-search-field {
 	border: none;
 	color: var(--wzkb-color-text);
-	font-family:
-		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		sans-serif;
 	font-size: 1em;
 	font-weight: 500;
 	padding: 14px 48px 14px 20px;
@@ -634,8 +633,8 @@ input[type="submit"].wzkb-search-submit {
 	cursor: pointer;
 	transition: all var(--wzkb-transition-base) ease;
 	min-width: 80px;
-	font-family:
-		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		sans-serif;
 }
 
 input[type="submit"].wzkb-search-submit:hover {
