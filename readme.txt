@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Upgrade Notice ==
 
+= 3.1.4 =
+Bug fix release: prevents plugin data from being deleted when one version is uninstalled while its paired free or Pro counterpart is active.
+
 = 3.1.3 =
 Bug fix and performance release: improves settings handling and makes GitHub bulk exports resumable with progressive table updates.
 
@@ -189,6 +192,11 @@ Settings search, exporter round-trip fixes for GitHub/Markdown, and updated Sett
 Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documentation Layout Mode (three-column docs site view), Section Tree block and widget, GitHub Integration for syncing markdown docs via webhooks, featured image support in importer/exporter, and post-import next-actions panel.
 
 == Changelog ==
+
+= 3.1.4 =
+
+* Bug fixes:
+	* Fixed plugin data being deleted when uninstalling one version while its paired free or Pro counterpart was active.
 
 = 3.1.3 =
 
