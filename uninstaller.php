@@ -39,6 +39,10 @@ if ( is_multisite() ) {
  */
 function wzkb_delete_data() {
 
+	if ( is_plugin_active( 'knowledgebase-pro/knowledgebase.php' ) ) {
+		return;
+	}
+
 	$settings = get_option( 'wzkb_settings' );
 
 	if ( ! empty( $settings['uninstall_options'] ) ) {
