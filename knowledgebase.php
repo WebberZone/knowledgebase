@@ -128,6 +128,12 @@ if ( ! function_exists( __NAMESPACE__ . '\wzkb_deactivate_other_instances' ) ) {
 	add_action( 'activated_plugin', __NAMESPACE__ . '\wzkb_deactivate_other_instances', 10, 2 );
 }
 
+// Load the Composer autoloader (includes the Freemius SDK).
+$composer_autoload = plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+if ( file_exists( $composer_autoload ) ) {
+	require_once $composer_autoload;
+}
+
 // Show admin notice about automatic deactivation.
 if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\wzkb_show_deactivation_notice' ) ) {
 	add_action(

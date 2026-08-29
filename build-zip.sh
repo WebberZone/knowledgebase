@@ -10,11 +10,15 @@ TEMP_DIR="$BUILD_DIR/$PLUGIN_SLUG"
 
 echo "Creating distribution zip for $PLUGIN_SLUG..."
 
+# Install production-only vendor dependencies.
+echo "Installing Composer production dependencies..."
+composer install --no-dev --optimize-autoloader --classmap-authoritative --quiet
+
 # Clean build directory
 rm -rf "$BUILD_DIR"
 mkdir -p "$TEMP_DIR"
 
-# Copy plugin files (excluding dev/build artifacts and all of vendor)
+# Copy plugin files (excluding dev/build artifacts).
 echo "Copying plugin files..."
 rsync -av --exclude-from=- . "$TEMP_DIR/" <<EOF
 .*
@@ -24,7 +28,6 @@ node_modules/
 phpcompat-tools/
 phpunit/
 /build/
-vendor/
 dev-helpers/
 dev-tools/
 wporg-assets/
@@ -52,41 +55,6 @@ CLAUDE.md
 AGENTS.md
 EOF
 
-# Copy required vendor dependencies (everything in vendor/ is excluded above,
-# so production runtime deps must be copied back in explicitly). Dev-only files
-# such as .github workflow folders are stripped from the copies.
-echo "Copying vendor dependencies..."
-mkdir -p "$TEMP_DIR/vendor"
-
-# Freemius SDK (manually bundled).
-if [ -d "vendor/freemius" ]; then
-    rsync -a --exclude='.github' --exclude='.git*' vendor/freemius "$TEMP_DIR/vendor/"
-else
-    echo "Warning: vendor/freemius directory not found. Freemius SDK will be missing."
-fi
-
-# Pro-only runtime dependencies (GitHub importer, XLSX exporter). Skipped in
-# free builds where includes/pro/ does not exist.
-if [ -d "includes/pro" ]; then
-    # Parsedown (Markdown parser used by the GitHub content importer; loaded via a
-    # direct require_once, not the Composer autoloader).
-    if [ -d "vendor/erusev/parsedown" ]; then
-        mkdir -p "$TEMP_DIR/vendor/erusev"
-        rsync -a --exclude='.github' --exclude='.git*' vendor/erusev/parsedown "$TEMP_DIR/vendor/erusev/"
-    else
-        echo "Warning: vendor/erusev/parsedown directory not found. Markdown import will fail."
-    fi
-
-    # SimpleXLSXGen (XLSX export used by the importer; loaded via a direct
-    # require_once, not the Composer autoloader).
-    if [ -d "vendor/shuchkin/simplexlsxgen" ]; then
-        mkdir -p "$TEMP_DIR/vendor/shuchkin"
-        rsync -a --exclude='.github' --exclude='.git*' --exclude='examples/' --exclude='*.md' --exclude='*.png' --exclude='composer.*' vendor/shuchkin/simplexlsxgen "$TEMP_DIR/vendor/shuchkin/"
-    else
-        echo "Warning: vendor/shuchkin/simplexlsxgen directory not found. XLSX export will fail."
-    fi
-fi
-
 # Create zip
 echo "Creating zip file..."
 cd "$BUILD_DIR"
@@ -99,3 +67,7 @@ cd ..
 echo ""
 echo "Zip contents summary:"
 unzip -l "$BUILD_DIR/$PLUGIN_SLUG.zip" | tail -1
+
+# Restore Composer development dependencies for local development.
+echo "Restoring Composer dev dependencies..."
+composer install --quiet
