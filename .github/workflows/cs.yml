@@ -34,6 +34,12 @@ jobs:
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: --ignore-platform-reqs
+
+      - name: 'Run Composer Update'
+        run: |
+          composer update -W --ignore-platform-req=php
 
       # Check the code-style consistency of the PHP files.
       - name: Check PHP code style
