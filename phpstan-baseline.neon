@@ -1,6 +1,1 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Function fs_dynamic_init not found\\.$#"
-			count: 1
-			path: load-freemius.php
+parameters: {}

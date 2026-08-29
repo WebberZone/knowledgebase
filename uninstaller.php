@@ -39,7 +39,7 @@ if ( is_multisite() ) {
  */
 function wzkb_delete_data() {
 
-	if ( is_plugin_active( 'knowledgebase-pro/knowledgebase.php' ) ) {
+	if ( is_plugin_active( 'knowledgebase/knowledgebase.php' ) ) {
 		return;
 	}
 

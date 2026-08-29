@@ -21,8 +21,6 @@ if ( ! function_exists( __NAMESPACE__ . '\\wzkb_freemius' ) ) {
 			if ( ! defined( 'WP_FS__PRODUCT_21392_MULTISITE' ) ) {
 				define( 'WP_FS__PRODUCT_21392_MULTISITE', true );
 			}
-			// Include Freemius SDK.
-			require_once __DIR__ . '/vendor/freemius/start.php';
 			$wzkb_freemius = \fs_dynamic_init(
 				array(
 					'id'               => '21392',
