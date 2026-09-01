@@ -37,6 +37,7 @@
         "phpunit/phpunit": "^9 || ^10 || ^11 || ^12"
     },
     "config": {
+        "autoloader-suffix": "WebberZoneKnowledgeBase",
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
