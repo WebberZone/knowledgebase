@@ -21,9 +21,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "freemius/wordpress-sdk": "^2",
-        "erusev/parsedown": "^1.7",
-        "shuchkin/simplexlsxgen": "^1.5"
+        "freemius/wordpress-sdk": "^2"
     },
     "require-dev": {
         "szepeviktor/phpstan-wordpress": "^2",
