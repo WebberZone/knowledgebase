@@ -11,7 +11,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: WebberZone Knowledge Base
- * Plugin URI: https://github.com/WebberZone/knowledgebase
+ * Plugin URI: https://webberzone.com/plugins/knowledgebase/
  * Description: Create a multi-product knowledge base on your WordPress site.
  * Version: 3.1.4
  * Author: WebberZone
