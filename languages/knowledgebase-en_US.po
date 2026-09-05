@@ -27,7 +27,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: knowledgebase.php
-msgid "https://github.com/WebberZone/knowledgebase"
+msgid "https://webberzone.com/plugins/knowledgebase/"
 msgstr ""
 
 #. Description of the plugin

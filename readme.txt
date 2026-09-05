@@ -195,8 +195,18 @@ Plugin Importer to migrate from BasePress, BetterDocs, and Echo KB. Pro: Documen
 
 = 3.1.4 =
 
+*Release Date - 05 September 2026*
+
+* Enhancements:
+	* [Pro] Added the `%product_id%` placeholder for product, section, and article permalink structures. Product and section IDs resolve to their corresponding taxonomy terms, including hierarchical sections.
+
 * Bug fixes:
 	* Fixed plugin data being deleted when uninstalling one version while its paired free or Pro counterpart was active.
+	* [Pro] Fixed the `%section_id%` placeholder generating the wrong query variable, which caused section URLs to load the wrong archive or return a 404.
+	* [Pro] Fixed custom permalink settings using stale rewrite rules immediately after they were saved. Rewrite rules now flush after the new settings have been registered.
+
+* Other:
+	* [Pro] Invalid product and section IDs now return a 404 response instead of falling back to another Knowledge Base archive.
 
 = 3.1.3 =
 

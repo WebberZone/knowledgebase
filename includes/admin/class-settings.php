@@ -156,6 +156,7 @@ class Settings {
 		Hook_Registry::add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
 
 		Hook_Registry::add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
+		Hook_Registry::add_action( 'init', array( $this, 'flush_rewrite_rules_if_pending' ), 999 );
 		Hook_Registry::add_action( self::$prefix . '_settings_form_buttons', array( $this, 'render_wizard_button' ), 20 );
 		if ( class_exists( 'WebberZone\\Knowledge_Base\\Pro\\GitHub\\API' ) ) {
 			Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'add_github_pat_verify_button' ), 10, 2 );
@@ -1648,9 +1649,27 @@ class Settings {
 		// Delete the cache.
 		\WebberZone\Knowledge_Base\Util\Cache::delete();
 
-		flush_rewrite_rules( true );
+		// Settings are filtered before WordPress updates the option. Defer the flush
+		// until the next request, when the new permalink structures are registered.
+		update_option( self::$prefix . '_rewrite_flush_pending', 1, false );
 
 		return $settings;
+	}
+
+	/**
+	 * Flush rewrite rules after settings have been persisted and registered.
+	 *
+	 * @since 3.1.4
+	 */
+	public function flush_rewrite_rules_if_pending(): void {
+		$pending_option = self::$prefix . '_rewrite_flush_pending';
+
+		if ( ! get_option( $pending_option, false ) ) {
+			return;
+		}
+
+		flush_rewrite_rules( true );
+		delete_option( $pending_option );
 	}
 
 	/**
