@@ -615,7 +615,7 @@ class BetterDocs_Importer extends Base_Importer {
 	 * @return string Normalized parent permalink structure.
 	 */
 	private function normalize_source_permalink_structure( string $structure ): string {
-		$structure = trim( $structure );
+		$structure = trim( $structure, '' );
 		if ( '' === $structure ) {
 			$structure = 'docs/';
 		}

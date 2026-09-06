@@ -40,7 +40,8 @@ class Walker_Category_Dropdown extends \Walker_CategoryDropdown {
 				'%1$s (ID: %2$d)',
 				$path,
 				$category->term_id
-			)
+			),
+			''
 		);
 
 		$output .= "\t<option class=\"level-$depth\" value=\"" . esc_attr( $category->term_id ) . '"';
