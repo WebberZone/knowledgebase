@@ -98,6 +98,8 @@ Check this box to delete all the posts, categories and tags created by the plugi
 
 **Default:** Disabled
 
+Neither option runs while the paired version of the plugin is still active. From 3.1.4, deleting the free plugin leaves your data alone if Knowledge Base Pro is active, and deleting Pro leaves it alone if the free plugin is active. This means switching between the free and Pro versions never destroys your articles or settings.
+
 ### Feed options
 
 #### Include in feed
