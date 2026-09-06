@@ -350,8 +350,24 @@ class Related {
 			return;
 		}
 
+		/**
+		 * Filters the weight given to a shared section when scoring related articles.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param int   $category_weight Weight per matching section. Default 2.
+		 * @param array $args            Arguments used to build the related articles query.
+		 */
 		$category_weight = (int) apply_filters( 'wzkb_related_category_weight', 2, $args );
-		$tag_weight      = (int) apply_filters( 'wzkb_related_tag_weight', 1, $args );
+		/**
+		 * Filters the weight given to a shared tag when scoring related articles.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param int   $tag_weight Weight per matching tag. Default 1.
+		 * @param array $args       Arguments used to build the related articles query.
+		 */
+		$tag_weight = (int) apply_filters( 'wzkb_related_tag_weight', 1, $args );
 
 		$origin_cats_lookup = array_fill_keys( $category_ids, true );
 		$origin_tags_lookup = array_fill_keys( $tag_ids, true );
@@ -385,11 +401,31 @@ class Related {
 			if ( $post_timestamp ) {
 				$age           = max( 0, $current_time - $post_timestamp );
 				$recency_boost = max( 0, ( YEAR_IN_SECONDS - min( $age, YEAR_IN_SECONDS ) ) / YEAR_IN_SECONDS );
-				$score        += apply_filters( 'wzkb_related_recency_boost', $recency_boost, $post, $args );
+				/**
+				 * Filters the recency boost added to a related article's score.
+				 *
+				 * The boost runs from 1 for an article published now to 0 for one a year or older.
+				 *
+				 * @since 3.0.0
+				 *
+				 * @param float    $recency_boost Boost added to the score.
+				 * @param \WP_Post $post          The related article being scored.
+				 * @param array    $args          Arguments used to build the related articles query.
+				 */
+				$score += apply_filters( 'wzkb_related_recency_boost', $recency_boost, $post, $args );
 			}
 
 			$scored_posts[] = array(
 				'post'             => $post,
+				/**
+				 * Filters the relevance score calculated for a related article.
+				 *
+				 * @since 3.0.0
+				 *
+				 * @param float    $score Relevance score from shared terms and recency.
+				 * @param \WP_Post $post  The related article being scored.
+				 * @param array    $args  Arguments used to build the related articles query.
+				 */
 				'score'            => apply_filters( 'wzkb_related_post_score', $score, $post, $args ),
 				'category_matches' => $category_matches,
 				'tag_matches'      => $tag_matches,

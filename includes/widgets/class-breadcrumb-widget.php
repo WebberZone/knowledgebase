@@ -58,15 +58,7 @@ class Breadcrumb_Widget extends \WP_Widget {
 		</p>
 
 		<?php
-			/**
-			 * Fires after WZKB Knowledge Base widget options.
-			 *
-			 * @since 1.9.0
-			 *
-			 * @param array $instance Widget options array.
-			 * @param mixed $id_base  The widget ID.
-			 * @param mixed $number   Unique widget number.
-			 */
+			/** This action is documented in includes/widgets/class-articles-widget.php */
 			do_action( 'wzkb_widget_options_after', $instance, $this->id_base, $this->number );
 		?>
 
@@ -88,17 +80,7 @@ class Breadcrumb_Widget extends \WP_Widget {
 		$instance['title']     = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 		$instance['separator'] = ( ! empty( $new_instance['separator'] ) ) ? $new_instance['separator'] : '';
 
-		/**
-		 * Filters Update widget options array.
-		 *
-		 * @since 1.9.0
-		 *
-		 * @param array $instance     Widget options array
-		 * @param array $new_instance Values just sent to be saved.
-		 * @param array $old_instance Previously saved values from database.
-		 * @param mixed $id_base      The widget ID.
-		 * @param mixed $number       Unique widget number.
-		 */
+		/** This filter is documented in includes/widgets/class-articles-widget.php */
 		return apply_filters( 'wzkb_widget_options_update', $instance, $new_instance, $old_instance, $this->id_base, $this->number );
 	}
 
@@ -133,17 +115,7 @@ class Breadcrumb_Widget extends \WP_Widget {
 			'separator'   => $separator,
 		);
 
-		/**
-		 * Filters arguments passed to wzkb_get_breadcrumb for the widget.
-		 *
-		 * @since 1.9.0
-		 *
-		 * @param array $arguments WZ Knowledge Base widget options array.
-		 * @param array $args      Widget arguments.
-		 * @param array $instance  Saved values from database.
-		 * @param mixed $id_base   The widget ID.
-		 * @param mixed $number    Unique widget number.
-		 */
+		/** This filter is documented in includes/widgets/class-sections-widget.php */
 		$arguments = apply_filters( 'wzkb_widget_options', $arguments, $args, $instance, $this->id_base, $this->number );
 
 		$output  = $args['before_widget'];

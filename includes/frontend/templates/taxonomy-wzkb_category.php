@@ -39,6 +39,7 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $wzkb_inline_css );
 					<div class="taxonomy-description"><?php echo wp_kses_post( $wzkb_current_taxonomy->description ); ?></div>
 				<?php endif; ?>
 				<?php
+				/** This filter is documented in includes/frontend/templates/taxonomy-wzkb_product.php */
 				$wzkb_term_header_image = apply_filters( 'wzkb_term_archive_header_image', '', $wzkb_current_taxonomy );
 				if ( $wzkb_term_header_image ) :
 					?>

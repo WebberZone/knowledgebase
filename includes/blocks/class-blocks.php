@@ -125,7 +125,16 @@ class Blocks {
 			 * @param object   $instance   This Blocks instance.
 			 */
 			$default_callback = is_string( $render_callback ) ? array( $this, $render_callback ) : $render_callback;
-			$callback         = apply_filters( 'wzkb_block_render_callback', $default_callback, $block_name, $this );
+			/**
+			 * Filters the render callback used when registering a Knowledge Base block.
+			 *
+			 * @since 3.0.0
+			 *
+			 * @param callable $default_callback The default render callback.
+			 * @param string   $block_name       Block slug.
+			 * @param object   $instance         The Blocks instance.
+			 */
+			$callback = apply_filters( 'wzkb_block_render_callback', $default_callback, $block_name, $this );
 
 			register_block_type_from_metadata(
 				$metadata_path,
@@ -176,6 +185,13 @@ class Blocks {
 	 */
 	public function enqueue_editor_settings() {
 		$settings = \wzkb_get_settings();
+		/**
+		 * Filters the plugin settings passed to the block editor.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $settings Knowledge Base settings exposed to the editor.
+		 */
 		$settings = apply_filters( 'wzkb_block_editor_settings', $settings );
 
 		$handle = 'wzkb-editor-settings';
