@@ -73,6 +73,6 @@ class Search {
 			$result = $form;
 		}
 
-		return trim( $result );
+		return trim( $result, '' );
 	}
 }
