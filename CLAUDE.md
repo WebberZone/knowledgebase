@@ -23,11 +23,14 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 ## Plugin Overview
 
-WebberZone Knowledge Base Pro (v3.1.0), namespace `WebberZone\Knowledge_Base`, is a WordPress multi-product knowledge base plugin. Freemium via Freemius: free core features, premium in `/includes/pro/`.
+**This file is identical in `knowledgebase` (free) and `knowledgebase-pro` (pro).** To tell which repo you are in: `includes/pro/` exists in the pro repo only, and the git remote is `WebberZone/knowledgebase-pro` rather than `WebberZone/knowledgebase`. The pro repo is the source of truth for both — make every change there, including free-tier code, then regenerate the free repo with `dev-tools/sync-pro-to-free.sh`. Never edit the free repo directly.
+
+WebberZone Knowledge Base, namespace `WebberZone\Knowledge_Base`, is a WordPress multi-product knowledge base plugin. Freemium via Freemius: free core features, premium in `includes/pro/`. Activating either plugin auto-deactivates the other.
 
 - **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius via `load-freemius.php`, registers autoloader, and directly requires `includes/options-api.php` and `includes/functions.php`)
 - **PHP**: 7.4+ | **WordPress**: 6.7+
 - **Custom post type**: `wz_knowledgebase` | **Taxonomies**: `wzkb_category`, `wzkb_product`, `wzkb_tag`
+- **Versions**: `readme.txt`'s `Stable tag` is the released version; `WZKB_VERSION` in `knowledgebase.php` is the working version — use it for new `@since` tags. Do not bump either unless asked.
 
 ## Build & Development Commands
 
