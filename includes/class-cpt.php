@@ -258,7 +258,7 @@ class CPT {
 		// Use custom sanitization that preserves slashes and removes placeholders.
 		// When custom article structure is set, use the base slug without placeholders.
 		$article_structure            = \wzkb_get_option( 'article_permalink', '' );
-		$has_custom_article_structure = ! empty( $article_structure ) && '%postname%' !== trim( $article_structure, '' );
+		$has_custom_article_structure = ! empty( $article_structure ) && '%postname%' !== trim( $article_structure, " \t\n\r\0\x0B" );
 
 		// Only disable permastruct if Pro is enabled to handle custom structures.
 		// If Pro isn't enabled, keep permastruct so URLs work with standard rewrite rules.

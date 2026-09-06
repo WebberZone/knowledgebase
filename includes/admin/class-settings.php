@@ -200,7 +200,7 @@ class Settings {
 			$term_parts = explode( ',', $term );
 			$term       = $term_parts[ count( $term_parts ) - 1 ];
 		}
-		$term = trim( $term, '' );
+		$term = trim( $term, " \t\n\r\0\x0B" );
 
 		$allowed_endpoints = array(
 			'category' => 'wzkb_category',
