@@ -952,9 +952,9 @@ class Display {
 
 		// Force single column for single sections via class and ensure extra_class is set.
 		if ( 0 !== $args['product'] ) {
-			$args['extra_class'] = trim( $args['extra_class'] . ' wzkb-product-archive', '' );
+			$args['extra_class'] = trim( $args['extra_class'] . ' wzkb-product-archive', " \t\n\r\0\x0B" );
 		} elseif ( 0 !== $args['category'] ) {
-			$args['extra_class'] = trim( $args['extra_class'] . ' wzkb-category-archive', '' );
+			$args['extra_class'] = trim( $args['extra_class'] . ' wzkb-category-archive', " \t\n\r\0\x0B" );
 			$args['columns']     = 1;
 		}
 

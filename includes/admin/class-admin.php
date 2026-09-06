@@ -595,7 +595,7 @@ class Admin {
 			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'knowledgebase' ) ) );
 		}
 
-		$pat_param   = isset( $_POST['pat'] ) ? trim( (string) wp_unslash( $_POST['pat'] ), '' ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$pat_param   = isset( $_POST['pat'] ) ? trim( (string) wp_unslash( $_POST['pat'] ), " \t\n\r\0\x0B" ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$mapping_row = isset( $_POST['mapping_row'] ) ? sanitize_text_field( wp_unslash( $_POST['mapping_row'] ) ) : '';
 
 		// Resolve PAT: fresh value > saved per-mapping value > saved global value.
