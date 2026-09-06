@@ -13,7 +13,7 @@ This guide explains how [Knowledge Base](https://webberzone.com/plugins/knowledg
 ## Quick start
 
 - **Free version**: Set your slugs in **Knowledge Base** → **Settings** → **Permalinks**.
-- **Pro version**: Enable custom permalinks and use placeholders like `%product_name%` or `%section_name%` in your article structure.
+- **Pro version**: Enable custom permalinks and use placeholders like `%product_name%`, `%section_name%`, or `%product_id%` in your article structure.
 
 ## Permalink settings
 
@@ -38,11 +38,16 @@ Pro adds a custom permalinks engine that lets you control your URL structure usi
 
 **Supported placeholders:**
 
-- `%product_name%` — The product slug (from your Products taxonomy)
-- `%section_name%` — The top-level section slug for articles
-- `%postname%` — The article slug
-- `%post_id%` — The article ID
-- `%author%` — The author username
+| Placeholder | Resolves to |
+| --- | --- |
+| `%product_name%` | The product slug, from your Products taxonomy |
+| `%product_id%` | The product term ID *(added in 3.1.4)* |
+| `%section_name%` | The top-level section slug for articles |
+| `%section_id%` | The section term ID |
+| `%tag_name%` | The tag slug |
+| `%postname%` | The article slug |
+| `%post_id%` | The article ID |
+| `%author%` | The author username |
 
 **How custom permalinks work:**
 
@@ -57,7 +62,16 @@ Set `kb_slug` to `help` and `article_permalink` to: `%product_name%/%section_nam
 
 Result: `https://example.com/help/wordpress/getting-started/`
 
-**Note:** `%section_name%` for articles always returns the top-level parent slug, not the full hierarchy.
+`%section_name%` for articles always returns the top-level parent slug, not the full hierarchy.
+
+### ID placeholders
+
+`%product_id%` and `%section_id%` produce URLs built from term IDs rather than slugs, which keeps the URL stable when you rename a term. On the way back in, the plugin resolves the ID to its term before WordPress parses the request, so the archive loads exactly as a slug-based URL would. A section ID resolves to its full hierarchical path, so nested sections work.
+
+An ID that is not a number, or that does not match a term in the matching taxonomy, returns a 404. Earlier versions fell through to another Knowledge Base archive or article instead.
+
+> [!NOTE]
+> ⓘ `%section_id%` was fixed in 3.1.4. In earlier versions it generated the wrong query variable, so section URLs loaded the wrong archive or returned a 404.
 
 ## Configuration workflow
 
@@ -66,14 +80,17 @@ Result: `https://example.com/help/wordpress/getting-started/`
 3. Pro users: set your custom article permalink structure
 4. Save changes
 
-> [!IMPORTANT]
-> ❗ After changing permalink settings, visit **Settings → Permalinks** in WordPress to flush your rewrite rules. This prevents 404 errors.
+From 3.1.4 the plugin flushes the rewrite rules for you on the request after you save, once the new structures have been registered. On earlier versions, and if URLs still 404 after a save, visit **Settings → Permalinks** in WordPress to flush the rules manually.
 
 ## Troubleshooting
 
 ### 404 errors after changing settings
 
-Visit **Settings → Permalinks** in WordPress to flush your rewrite rules.
+Load any page on the site once to let the deferred rewrite flush run. If the URLs still 404, visit **Settings → Permalinks** in WordPress to flush the rules manually.
+
+### A product or section ID URL returns 404
+
+Confirm the ID belongs to a term in the taxonomy the placeholder refers to — `%product_id%` resolves against Products and `%section_id%` against Sections. An ID from the wrong taxonomy, or one whose term has been deleted, returns a 404 by design.
 
 ### URLs not matching your structure
 
