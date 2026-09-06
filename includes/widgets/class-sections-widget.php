@@ -96,15 +96,7 @@ class Sections_Widget extends \WP_Widget {
 		</p>
 
 		<?php
-			/**
-			 * Fires after WZKB Knowledge Base widget options.
-			 *
-			 * @since 1.9.0
-			 *
-			 * @param array $instance Widget options array.
-			 * @param mixed $id_base  The widget ID.
-			 * @param mixed $number   Unique widget number.
-			 */
+			/** This action is documented in includes/widgets/class-articles-widget.php */
 			do_action( 'wzkb_widget_options_after', $instance, $this->id_base, $this->number );
 		?>
 
@@ -130,17 +122,7 @@ class Sections_Widget extends \WP_Widget {
 		$instance['before_li_item'] = ( ! empty( $new_instance['before_li_item'] ) ) ? $new_instance['before_li_item'] : '';
 		$instance['after_li_item']  = ( ! empty( $new_instance['after_li_item'] ) ) ? $new_instance['after_li_item'] : '';
 
-		/**
-		 * Filters Update widget options array.
-		 *
-		 * @since 1.9.0
-		 *
-		 * @param array $instance     Widget options array
-		 * @param array $new_instance Values just sent to be saved.
-		 * @param array $old_instance Previously saved values from database.
-		 * @param mixed $id_base      The widget ID.
-		 * @param mixed $number       Unique widget number.
-		 */
+		/** This filter is documented in includes/widgets/class-articles-widget.php */
 		return apply_filters( 'wzkb_widget_options_update', $instance, $new_instance, $old_instance, $this->id_base, $this->number );
 	}
 
@@ -179,7 +161,11 @@ class Sections_Widget extends \WP_Widget {
 		);
 
 		/**
-		 * Filters arguments passed to wzkb_categories_list for the widget.
+		 * Filters the arguments passed to the list function backing a Knowledge Base widget.
+		 *
+		 * Each widget passes the arguments for its own list function, so the shape of
+		 * `$arguments` depends on the widget firing the filter. Inspect `$id_base` to
+		 * tell them apart.
 		 *
 		 * @since 1.9.0
 		 *
