@@ -2,6 +2,64 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 3.0.1 =
+
+* Bug fixes:
+	* Fixed TOC links not scrolling to headings when the inline TOC is disabled — heading anchor IDs are now injected for the floating TOC, sidebar widget, and TOC block. Existing IDs set by third-party TOC blocks (e.g. Kadence, Stackable) are preserved.
+	* Fixed the TOC block rendering without container styling in all themes.
+
+= 3.0.0 =
+
+Release post: [https://webberzone.com/announcements/knowledge-base-v3-0-0/](https://webberzone.com/announcements/knowledge-base-v3-0-0/)
+
+* Features:
+	* Introduced a hierarchical Products taxonomy (`wzkb_product`) for multi-product knowledge bases.
+		* Migration wizard with dry-run and batch processing to map existing sections and articles to products.
+		* Product-based frontend templates that preserve section hierarchy.
+		* Admin UI enhancements for managing products, sections, and migration.
+	* Setup Wizard to guide users through the initial configuration.
+	* New Product widget to display sections for a specific product.
+	* Block Templates and Patterns:
+		* Full Site Editor (FSE) support with custom block templates for Knowledge Base layouts.
+		* Pre-designed block patterns including single article, archives, sections, products, and sidebar layouts.
+		* Sidebar pattern with search, sections, products, and recent articles for easy navigation.
+		* Templates work with both classic and block themes.
+	* Auto-generated Table of Contents for Knowledge Base articles: parses headings (H2–H6), injects anchor IDs, and renders a nested linked TOC above article content.
+		* Configurable heading depth (H2–H6), minimum heading count threshold, and custom title text.
+		* WPML and Polylang support for TOC title translation.
+		* Filter `wzkb_toc` to customize the generated HTML.
+		* Public helper functions `wzkb_get_toc()` and `wzkb_toc()` for template use.
+		* [Pro] TOC widget, block and floating widget.
+	* Live search suggestions for the Knowledge Base search form, with AJAX results, keyboard navigation, and accessible screen reader support.
+	* [Pro] Custom permalinks for Products, Sections, Tags, and Articles.
+	* [Pro] Cache tools: Clear cache button and cache expiry option in the Settings page.
+	* [Pro] Flush permalinks button in the Settings page.
+	* [Pro] Knowledge Base Homepage Mode: Display the Knowledge Base on your site homepage, and redirect the Knowledge Base archive URL to the homepage.
+	* [Pro] Article Rating System:
+		* Binary or 5-star voting, optional follow-up feedback, shortcode support, and Tools page controls.
+		* Multiple tracking methods (none, cookie, IP, cookie + IP, logged-in users) with hashed IP storage for GDPR compliance.
+		* Email alerts, per-article reset tools, feedback storage, privacy exporter/eraser, and Bayesian average sorting in admin lists.
+	* [Pro] Floating Help Widget providing a branded assistant with live search, suggested articles, configurable labels/colors, and a contact form with HTML email notifications.
+	* [Pro] Premium layout pack with seven additional frontend styles (Modern, Minimal, Boxed, Gradient, Compact, Magazine, Professional).
+
+* Modifications:
+	* Standardized CSS class names to use consistent hyphenation (e.g. `wzkb_section` → `wzkb-section`). If you have custom CSS targeting the old class names, you'll need to update your stylesheets.
+	* Added `Hooks_Registry` class to organize hooks and prevent accidental duplicates.
+	* Upgraded the WebberZone Settings API.
+	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
+	* Knowledge Base Block will dynamically load the global settings when first inserted.
+
+* Breaking Changes:
+	* CSS classes have been renamed for consistency, for example:
+		* `wzkb_section` → `wzkb-section`
+		* `wzkb_section_wrapper` → `wzkb-section-wrapper`
+		* `wzkb_section_name` → `wzkb-section-name`
+		* `wzkb_section_count` → `wzkb-section-count`
+		* `wzkb_shortcode` → `wzkb-shortcode`
+		* `wzkb_block` → `wzkb-block`
+		* and other similar class name changes.
+	* If you have custom CSS targeting these classes, please update your selectors.
+
 = 2.3.2 =
 
 * Bug fixes:

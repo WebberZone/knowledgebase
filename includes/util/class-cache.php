@@ -9,6 +9,8 @@
 
 namespace WebberZone\Knowledge_Base\Util;
 
+use WebberZone\Knowledge_Base\Frontend\Language_Handler;
+
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -129,7 +131,7 @@ class Cache {
 	 */
 	public static function get_key( $attr ) {
 
-		$meta_key = '_wzkb_cache_' . md5( wp_json_encode( $attr ) );
+		$meta_key = '_wzkb_cache_' . md5( Language_Handler::get_cache_language() . '|' . wp_json_encode( $attr ) );
 
 		return $meta_key;
 	}
