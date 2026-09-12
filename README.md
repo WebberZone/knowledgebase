@@ -69,6 +69,12 @@ Effortlessly create a powerful, multi-product knowledge base. Boost your support
 - __Sections:__ Custom taxonomy `wzkb_category` — organize content neatly into categories.
 - __Tags:__ Optional `wzkb_tag` taxonomy — make finding content even easier.
 
+### Multilingual sites
+
+Knowledge Base works with WPML, Polylang and TranslatePress. TranslatePress translates the knowledge base with the rest of the page, including search results and related articles delivered through the REST API. No additional Knowledge Base configuration is needed for TranslatePress.
+
+Rendered output and REST caches are separated by language, preventing cached content and links from being reused across languages.
+
 ### Contribute
 
 If you have an idea, I'd love to hear it. WebberZone Knowledge Base is also available on [Github](https://github.com/WebberZone/knowledgebase). You can [create an issue on the Github page](https://github.com/WebberZone/knowledgebase/issues) or, better yet, fork the plugin, add a new feature and send me a pull request.

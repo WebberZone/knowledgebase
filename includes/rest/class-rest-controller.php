@@ -818,10 +818,14 @@ class REST_Controller {
 			ksort( $context );
 		}
 
+		// Responses carry translated titles, excerpts and links, so they cannot be shared between languages.
+		$language = \WebberZone\Knowledge_Base\Frontend\Language_Handler::get_cache_language();
+
 		return sprintf(
-			'%s_%d_%s',
+			'%s_%d_%s_%s',
 			$prefix,
 			$this->get_cache_version(),
+			'' === $language ? 'all' : md5( $language ),
 			empty( $context ) ? 'static' : md5( wp_json_encode( $context ) )
 		);
 	}
