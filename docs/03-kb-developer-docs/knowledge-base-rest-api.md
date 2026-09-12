@@ -140,8 +140,8 @@ List published Knowledge Base posts with optional filtering.
     "slug": "configure-caching",
     "excerpt": "Configure caching in three easy steps…",
     "permalink": "https://example.com/kb/configure-caching/",
-    "products": [[{ "id": 5, "name": "Pro", "slug": "pro" }]],
-    "sections": [[{ "id": 18, "name": "Setup", "slug": "setup" }]],
+    "products": [{ "id": 5, "name": "Pro", "slug": "pro" }],
+    "sections": [{ "id": 18, "name": "Setup", "slug": "setup" }],
     "date": "2025-10-21T09:30:00",
     "modified": "2025-10-23T14:05:00"
   }

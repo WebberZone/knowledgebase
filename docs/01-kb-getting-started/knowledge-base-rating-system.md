@@ -79,7 +79,7 @@ There are five tracking options to choose from, each with different implications
 
 - **Post Meta Key:** `_wzkb_rating_ips`
 - **Data Type:** Array of SHA-256 hashed IP addresses
-- **Example:** `[['a3f5b...', 'c7d2e...']]` (64-character hashes)
+- **Example:** `['a3f5b...', 'c7d2e...']` (64-character hashes)
 - **Hash Method:** `hash('sha256', $ip . wp_salt('nonce'))`
 
 **GDPR Considerations:**
@@ -118,7 +118,7 @@ There are five tracking options to choose from, each with different implications
 
 - **Post Meta Key:** `_wzkb_rating_user_ids`
 - **Data Type:** Array of WordPress user IDs
-- **Example:** `[[1, 5, 12]]`
+- **Example:** `[1, 5, 12]`
 
 **GDPR Considerations:**
 

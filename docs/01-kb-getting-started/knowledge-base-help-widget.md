@@ -164,15 +164,15 @@ All help widget labels can be customized using the [`wzkb_help_widget_labels`](h
 ```php
 add_filter( 'wzkb_help_widget_labels', function( $labels ) {
     // Customize any label
-    $labels[['greeting']] = 'Welcome! How may we assist you?';
-    $labels[['searchPlaceholder']] = 'Type your question...';
-    $labels[['contactButton']] = 'Contact Support';
-    $labels[['noResultsMessage']] = 'Can't find what you need? Get in touch!';
-    $labels[['suggestedArticles']] = 'Recommended Reading';
-    $labels[['searchResults']] = 'Results';
-    $labels[['contactFormTitle']] = 'Get Help';
-    $labels[['submitButton']] = 'Submit';
-    $labels[['successMessage']] = 'Thanks! We'll respond soon.';
+    $labels['greeting'] = 'Welcome! How may we assist you?';
+    $labels['searchPlaceholder'] = 'Type your question...';
+    $labels['contactButton'] = 'Contact Support';
+    $labels['noResultsMessage'] = 'Can't find what you need? Get in touch!';
+    $labels['suggestedArticles'] = 'Recommended Reading';
+    $labels['searchResults'] = 'Results';
+    $labels['contactFormTitle'] = 'Get Help';
+    $labels['submitButton'] = 'Submit';
+    $labels['successMessage'] = 'Thanks! We'll respond soon.';
 
     return $labels;
 } );
@@ -241,11 +241,11 @@ For KB articles, customize the related articles query:
 ```php
 add_filter( 'wzkb_related_articles_query_args', function( $args, $post ) {
     // Show more related articles in help widget
-    $args[['posts_per_page']] = 10;
+    $args['posts_per_page'] = 10;
 
     // Order by popularity instead of random
-    $args[['orderby']] = 'meta_value_num';
-    $args[['meta_key']] = 'views_count';
+    $args['orderby'] = 'meta_value_num';
+    $args['meta_key'] = 'views_count';
 
     return $args;
 }, 10, 2 );
