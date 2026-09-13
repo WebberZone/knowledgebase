@@ -10,7 +10,9 @@
 
 __Requires:__ 6.7
 
-__Tested up to:__ 7.0
+__Tested up to:__ 7.1
+
+__Requires PHP:__ 7.4
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
