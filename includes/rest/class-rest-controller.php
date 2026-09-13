@@ -73,6 +73,7 @@ class REST_Controller {
 						'required'    => true,
 						'type'        => 'string',
 					),
+					'lang'     => $this->get_lang_arg(),
 				),
 			)
 		);
@@ -96,11 +97,12 @@ class REST_Controller {
 				'callback'            => array( $this, 'get_single_knowledgebase_post' ),
 				'permission_callback' => $this->get_permission_callback( 'knowledgebase_single', true ),
 				'args'                => array(
-					'id' => array(
+					'id'   => array(
 						'description' => __( 'Knowledge Base post ID.', 'knowledgebase' ),
 						'type'        => 'integer',
 						'required'    => true,
 					),
+					'lang' => $this->get_lang_arg(),
 				),
 			)
 		);
@@ -112,6 +114,9 @@ class REST_Controller {
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_products' ),
 				'permission_callback' => $this->get_permission_callback( 'products', true ),
+				'args'                => array(
+					'lang' => $this->get_lang_arg(),
+				),
 			)
 		);
 
@@ -144,6 +149,7 @@ class REST_Controller {
 						'minimum'     => 1,
 						'maximum'     => 50,
 					),
+					'lang'    => $this->get_lang_arg(),
 				),
 			)
 		);
@@ -169,6 +175,7 @@ class REST_Controller {
 						'minimum'     => 1,
 						'maximum'     => 20,
 					),
+					'lang'    => $this->get_lang_arg(),
 				),
 			)
 		);
@@ -695,6 +702,24 @@ class REST_Controller {
 	}
 
 	/**
+	 * Shared argument schema for the TranslatePress language parameter.
+	 *
+	 * @since 3.1.5
+	 *
+	 * @return array Argument schema.
+	 */
+	private function get_lang_arg() {
+		return array(
+			'description'       => __( 'TranslatePress language code to render the response in.', 'knowledgebase' ),
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'validate_callback' => static function ( $value ) {
+				return is_string( $value ) && strlen( $value ) <= 20;
+			},
+		);
+	}
+
+	/**
 	 * Arguments for knowledgebase list endpoint.
 	 *
 	 * @return array
@@ -726,6 +751,7 @@ class REST_Controller {
 				'description' => __( 'Filter by section term ID.', 'knowledgebase' ),
 				'type'        => 'integer',
 			),
+			'lang'     => $this->get_lang_arg(),
 		);
 	}
 

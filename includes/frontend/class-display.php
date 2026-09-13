@@ -588,12 +588,10 @@ class Display {
 		$cache_enabled = ! empty( self::get_cached_option( 'cache' ) );
 		$meta_key      = null;
 
-		// Support caching to speed up retrieval.
+		// Support caching to speed up retrieval. Cache::get_key() includes the current language.
 		if ( $cache_enabled ) {
-			$lang           = Language_Handler::get_current_language();
-			$cache_key_args = $lang ? array_merge( $args, array( 'lang' => $lang ) ) : $args;
-			$meta_key       = Cache::get_key( $cache_key_args );
-			$query          = Cache::get( $term->term_id, $meta_key );
+			$meta_key = Cache::get_key( $args );
+			$query    = Cache::get( $term->term_id, $meta_key );
 		}
 
 		if ( empty( $query ) ) {

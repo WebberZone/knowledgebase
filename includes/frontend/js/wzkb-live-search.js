@@ -651,9 +651,12 @@ class WZKBSearchAutocomplete {
 			controller = new AbortController();
 			this.abortController = controller;
 
-			const formData = new FormData();
-			formData.append('action', 'wzkb_live_search');
-			formData.append('s', searchTerm);
+				const formData = new FormData();
+				formData.append('action', 'wzkb_live_search');
+				formData.append('s', searchTerm);
+				if (wzkb_live_search.language) {
+					formData.append('lang', wzkb_live_search.language);
+				}
 
 			// Pass product_id if available as a data attribute on the form.
 			const productId = this.form.dataset.productId;

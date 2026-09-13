@@ -79,8 +79,8 @@ namespace WebberZone\Knowledge_Base\Pro {
 	}
 }
 
-// TranslatePress has no official PHPStan stub package, so declare the minimal surface CRP's
-// language handler touches.
+// TranslatePress has no official PHPStan stub package, so declare the minimal surface the
+// Knowledge Base language handler touches.
 namespace {
 	if ( ! class_exists( 'TRP_Translate_Press' ) ) {
 		class TRP_Translate_Press {
