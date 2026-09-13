@@ -25,7 +25,7 @@ Knowledge Base is free to use and packed with features right out of the box. The
 | Related articles | ✅ | ✅ |
 | Alert boxes (`[[kbalert]]` shortcode and Alerts block) | ✅ | ✅ |
 | REST API | ✅ | ✅ |
-| Multilingual support (WPML and Polylang) | ✅ | ✅ |
+| Multilingual support (WPML, Polylang and TranslatePress) | ✅ | ✅ |
 | Settings export and import | ✅ | ✅ |
 | **Display & Customization** |  |  |
 | Built-in frontend layout styles | ✅ | ✅ |

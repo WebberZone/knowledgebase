@@ -58,6 +58,39 @@ Return values:
 
 Several endpoints (starting with Sections) are only available when **multi-product mode** is enabled inside Knowledge Base Pro (`Knowledge Base ▸ Settings ▸ General ▸ Enable multi-product`). If disabled, the endpoint will return a `wzkb_rest_sections_disabled` error.
 
+## TranslatePress translation
+
+Since Knowledge Base 3.1.5, REST responses under `wzkb/v1` are translated when TranslatePress is active. TranslatePress never runs its page output buffer for REST requests, so the plugin translates each response directly before it is sent.
+
+Request a language with the `lang` parameter. It accepts a TranslatePress locale (for example `fr_FR`) or its URL slug (for example `fr`):
+
+```text
+GET https://example.com/wp-json/wzkb/v1/knowledgebase?lang=fr
+```
+
+When `lang` is omitted, the language is resolved from the referring front-end URL. Only published languages are accepted.
+
+Override the resolved language with the `wzkb_trp_rest_language` filter:
+
+```php
+add_filter(
+    'wzkb_trp_rest_language',
+    static function ( string $language, $request ): string {
+        // Force all Knowledge Base REST responses to render in Spanish.
+        return 'es_ES';
+    },
+    10,
+    2
+);
+```
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `$language` | string | Language code resolved from the request. |
+| `$request` | `\WP_REST_Request`\|null | REST request that produced the response. |
+
+Return the target language code, or an empty string to keep the default language. Content fields such as `title`, `excerpt`, `content`, `name`, and `description` are translated, and `link` and `permalink` URLs are rewritten to the target language.
+
 ## Endpoints
 
 - [GET `/wzkb/v1/sections`](#get-wzkbv1sections)
@@ -84,7 +117,7 @@ GET https://example.com/wp-json/wzkb/v1/sections?products=173,178
 #### Successful response
 
 ```text
-[[
+[
   {
     "id": 201,
     "name": "Advanced",
@@ -103,7 +136,7 @@ GET https://example.com/wp-json/wzkb/v1/sections?products=173,178
     "parent": 0,
     "product": 178
   }
-]]
+]
 ```
 
 - `id`: Section term ID.
@@ -159,7 +192,7 @@ Return a single Knowledge Base post including full content when published.
 List all Knowledge Base products.
 
 ```text
-[[
+[
   {
     "id": 5,
     "name": "Contextual Related Posts",
@@ -167,7 +200,7 @@ List all Knowledge Base products.
     "description": "CRP-specific documentation.",
     "count": 34
   }
-]]
+]
 ```
 
 ### GET `/wzkb/v1/search`

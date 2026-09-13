@@ -67,6 +67,8 @@ Your article content starts here...
 
 The only thing frontmatter does is give the plugin a few hints. Everything else — headings, lists, images, code blocks — is pulled in from your Markdown as-is. All fields are optional; if you skip the title, the filename is used, and if you skip sections, the article is imported without a section.
 
+A file with no frontmatter at all is skipped by the importer and never becomes a KB article. Use `kb_exclude: true` to opt out a file that does have frontmatter but is not an article.
+
 ### Frontmatter field reference
 
 | Field | Aliases | Type | What it does |
@@ -77,7 +79,8 @@ The only thing frontmatter does is give the plugin a few hints. Everything else 
 | `tags` | `tag` | comma-separated list | `wzkb_tag` terms. Missing terms are created automatically. |
 | `products` | `product` | comma-separated list | `wzkb_product` terms. Falls back to the mapping's configured product. |
 | `order` | `menu_order` | integer | Sort order within a section (`menu_order`). |
-| `status` | — | string | `publish`, `draft`, `pending`, or `private`. Overridden by the mapping's **Article Status** setting when that is set. |
+| `status` | — | string | `publish`, `draft`, `pending`, `private`, or `future`. Overridden by the mapping's **Article Status** setting when that is set. |
+| `kb_exclude` | — | boolean | Skips the import for this file. When `true`, the linked article is set to draft, or permanently deleted when the mapping's **When a File is Deleted** setting is set to **Delete permanently**. |
 | `toc` | — | boolean | Insert a table-of-contents block before the first heading when no `[[toc]]` marker is present in the body. |
 | `featured_image` | `thumbnail`, `cover`, `image` | string | Sets the article's featured image. Accepts an absolute URL or a path relative to the Markdown file (e.g. `images/hero.png`). Requires **Import external media** to be enabled. See [Featured images](#featured-images) below. |
 | `id` | — | integer | Optional stable document ID. Stored as `_wzkb_github_doc_id`. |
@@ -204,6 +207,8 @@ Go to **Knowledge Base → GitHub** and select the **Import** tab. Select your m
 
 Once an article is imported, the plugin remembers which file it came from. On future imports, only files that have actually changed are re-processed, so large doc sets import quickly.
 
+Both the import and export results tables include a **Product** column showing the `wzkb_product` term each article is assigned to.
+
 Only files ending in `.md` or `.markdown` are imported — any other files in the folder (images, `LICENSE`, `.json`, etc.) are ignored. The whole repository (or the configured folder) is scanned recursively, so you can organize your docs into nested subfolders however you like.
 
 ## Step 5 — Set up automatic sync (optional)
@@ -223,13 +228,13 @@ Files added or modified in the push are imported. Renamed files update the store
 
 ## Pushing changes back to GitHub
 
-If a mapping has **Push-back** enabled (and its PAT has write access), you can send WordPress-side edits back to the source `.md` file. The exporter converts the article's Gutenberg blocks back to Markdown, rebuilds the YAML front matter, and then commits it to GitHub.
+If a mapping has **Push-back** enabled (and its PAT has write access), you can send WordPress-side edits back to the source `.md` file. The exporter converts the article's Gutenberg blocks back to Markdown, rebuilds the YAML front matter, and then commits it to GitHub. Push and export commit messages are prefixed `docs: `.
 
 There are three ways to push:
 
 - **From the article editor** — linked articles show a **GitHub** meta box with the source file, last-synced time, last-push commit link, and **Push to GitHub** / **Pull from GitHub** buttons. *Push* commits the current article to GitHub; *Pull* re-imports the live file from GitHub, overwriting the post content. A push is skipped automatically when the generated Markdown is byte-for-byte identical to what GitHub already has.
 - **Automatically on save** — turn on **Auto-push on save** to commit every time a linked article is saved (autosaves, revisions, and webhook imports are skipped to avoid loops). The GitHub round-trip is deferred to WP-Cron via the `wzkb_github_auto_push_post` event, so the editor's save request never blocks on GitHub latency.
-- **In bulk via the export wizard** — go to **Knowledge Base → GitHub**, select the Export tab, choose a push-enabled mapping, click List Articles to see what has changed since the last sync, then click Push to GitHub. The wizard bundles all changed files into a single commit per mapping (using the Git Data API) to keep your history clean and automatically skips unchanged files.
+- **In bulk via the export wizard** — go to **Knowledge Base → GitHub**, select the Export tab, choose a push-enabled mapping, click List Articles to see what has changed since the last sync, then click Push to GitHub. The wizard builds Git tree objects in bounded chunks using the Git Trees API, commits once per repository and branch, skips unchanged files automatically, and resumes an interrupted job from where it left off.
 
 ## Working with images
 
@@ -391,6 +396,28 @@ Number of linked posts fetched per database query during the export wizard's lis
 
 ```php
 add_filter( 'wzkb_github_export_batch_size', fn() => 100 );
+```
+
+#### `wzkb_github_escapable_shortcode_tags`
+
+Shortcode tags that are escaped as literal text on import and export. Default: every registered shortcode tag plus `toc`. Return a modified array to add or remove tags.
+
+```php
+add_filter(
+    'wzkb_github_escapable_shortcode_tags',
+    static function ( array $tags ): array {
+        return array_merge( $tags, array( 'my_shortcode' ) );
+    }
+);
+```
+
+#### `wzkb_github_export_tree_payload_bytes`
+
+Maximum serialized size (in bytes) of a single Git tree request during the export wizard. Default: `5242880` (5 MB). Lower it when GitHub rejects an oversized tree payload; raise it to fit more files per chunk.
+
+```php
+// Cap tree payloads at 10 MB.
+add_filter( 'wzkb_github_export_tree_payload_bytes', fn() => 10 * MB_IN_BYTES );
 ```
 
 ### Actions
