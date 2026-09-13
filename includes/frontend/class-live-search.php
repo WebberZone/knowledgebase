@@ -57,6 +57,7 @@ class Live_Search {
 			'wzkb_live_search',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'language' => Language_Handler::get_trp_current_language(),
 				'strings'  => array(
 					'no_results'         => __( 'No results found', 'knowledgebase' ),
 					'searching'          => __( 'Searching…', 'knowledgebase' ),
@@ -94,6 +95,7 @@ class Live_Search {
 	 * @since 3.1.0
 	 */
 	public function live_search() {
+		$language     = Language_Handler::get_trp_ajax_language();
 		$search_query = isset( $_POST['s'] ) ? sanitize_text_field( wp_unslash( $_POST['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $search_query ) ) {
@@ -145,9 +147,15 @@ class Live_Search {
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
+				$title = html_entity_decode( (string) get_the_title(), ENT_QUOTES, 'UTF-8' );
+				$link  = (string) get_permalink();
+				if ( '' !== $language ) {
+					$title = Language_Handler::trp_translate_content( $title, $language );
+					$link  = Language_Handler::trp_translate_url( $link, $language );
+				}
 				$results[] = array(
-					'title' => html_entity_decode( (string) get_the_title(), ENT_QUOTES, 'UTF-8' ),
-					'link'  => get_permalink(),
+					'title' => $title,
+					'link'  => $link,
 				);
 			}
 		}

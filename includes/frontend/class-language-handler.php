@@ -77,22 +77,14 @@ class Language_Handler {
 	}
 
 	/**
-	 * Return the current language slug, or an empty string when no multilingual plugin is active.
+	 * Return the current language code, or an empty string when no multilingual plugin is active.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @return string Language slug (e.g. 'en', 'fr') or '' if not multilingual.
+	 * @return string Language code or locale (e.g. 'en_US', 'fr_FR') or '' if not multilingual.
 	 */
 	public static function get_current_language(): string {
-		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-			return (string) apply_filters( 'wpml_current_language', '' );
-		}
-
-		if ( defined( 'POLYLANG_VERSION' ) ) {
-			return (string) pll_current_language();
-		}
-
-		return self::get_trp_current_language();
+		return self::get_cache_language();
 	}
 
 	/**
@@ -249,11 +241,22 @@ class Language_Handler {
 		if ( current_user_can( (string) apply_filters( 'trp_translating_capability', 'manage_options' ) ) ) {
 			$available = array_merge( $available, isset( $settings['translation-languages'] ) ? (array) $settings['translation-languages'] : array() );
 		}
+		$available = array_values( array_unique( array_map( 'strval', $available ) ) );
 
 		$language = '';
 
 		if ( $request instanceof \WP_REST_Request ) {
-			$language = (string) $request->get_param( 'lang' );
+			$raw_language = $request->get_param( 'lang' );
+			$language     = is_string( $raw_language ) ? sanitize_text_field( $raw_language ) : '';
+		}
+
+		// Accept either a TranslatePress locale (fr_FR) or its URL slug (fr).
+		$url_slugs = isset( $settings['url-slugs'] ) && is_array( $settings['url-slugs'] ) ? $settings['url-slugs'] : array();
+		foreach ( $url_slugs as $locale => $slug ) {
+			if ( is_string( $slug ) && $slug === $language ) {
+				$language = (string) $locale;
+				break;
+			}
 		}
 
 		if ( '' === $language ) {
@@ -290,6 +293,21 @@ class Language_Handler {
 		}
 
 		return $language;
+	}
+
+	/**
+	 * Resolve the TranslatePress language for an admin-ajax request.
+	 *
+	 * @since 3.1.5
+	 *
+	 * @return string Language code, or an empty string when no translation is needed.
+	 */
+	public static function get_trp_ajax_language(): string {
+		$request = new \WP_REST_Request( 'GET' );
+		$raw     = isset( $_POST['lang'] ) && is_string( $_POST['lang'] ) ? sanitize_text_field( wp_unslash( $_POST['lang'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Language is a read-only transport value.
+		$request->set_param( 'lang', $raw );
+
+		return self::get_trp_rest_language( $request );
 	}
 
 	/**
@@ -358,7 +376,9 @@ class Language_Handler {
 			return $result;
 		}
 
-		if ( false === strpos( (string) $request->get_route(), self::get_rest_namespace() ) ) {
+		$route     = (string) $request->get_route();
+		$namespace = '/' . self::get_rest_namespace();
+		if ( $route !== $namespace && 0 !== strpos( $route, $namespace . '/' ) ) {
 			return $result;
 		}
 
@@ -373,7 +393,28 @@ class Language_Handler {
 			return self::trp_translate_content( $result, $language );
 		}
 
-		return self::translate_rest_data( $result, $language );
+		/**
+		 * Filters the response keys Knowledge Base translates with TranslatePress.
+		 *
+		 * @since 3.1.5
+		 *
+		 * @param array $keys Associative array of `content` and `url` key names.
+		 */
+		$keys = apply_filters(
+			'wzkb_trp_rest_translatable_keys',
+			array(
+				'content' => array( 'html', 'title', 'excerpt', 'content', 'name', 'description' ),
+				// `guid` is deliberately absent: it is an immutable identifier, not a navigable URL.
+				'url'     => array( 'link', 'permalink' ),
+			)
+		);
+		$keys = is_array( $keys ) ? $keys : array();
+		$keys = array(
+			'content' => isset( $keys['content'] ) && is_array( $keys['content'] ) ? array_values( array_map( 'strval', array_filter( $keys['content'], 'is_scalar' ) ) ) : array(),
+			'url'     => isset( $keys['url'] ) && is_array( $keys['url'] ) ? array_values( array_map( 'strval', array_filter( $keys['url'], 'is_scalar' ) ) ) : array(),
+		);
+
+		return self::translate_rest_data( $result, $language, $keys );
 	}
 
 	/**
@@ -394,29 +435,14 @@ class Language_Handler {
 	 *
 	 * @param  array  $data     Response data.
 	 * @param  string $language Target language code.
+	 * @param  array  $keys     Translatable `content` and `url` key names.
 	 * @param  int    $depth    Current recursion depth.
 	 * @return array Translated response data.
 	 */
-	protected static function translate_rest_data( array $data, string $language, int $depth = 0 ): array {
+	protected static function translate_rest_data( array $data, string $language, array $keys, int $depth = 0 ): array {
 		if ( $depth > 5 ) {
 			return $data;
 		}
-
-		/**
-		 * Filters the response keys Knowledge Base translates with TranslatePress.
-		 *
-		 * @since 3.1.5
-		 *
-		 * @param array $keys Associative array of `content` and `url` key names.
-		 */
-		$keys = apply_filters(
-			'wzkb_trp_rest_translatable_keys',
-			array(
-				'content' => array( 'html', 'title', 'excerpt', 'content', 'name', 'description' ),
-				// `guid` is deliberately absent: it is an immutable identifier, not a navigable URL.
-				'url'     => array( 'link', 'permalink' ),
-			)
-		);
 
 		foreach ( $data as $key => $value ) {
 			if ( is_array( $value ) ) {
@@ -431,7 +457,7 @@ class Language_Handler {
 					}
 				}
 
-				$data[ $key ] = self::translate_rest_data( $value, $language, $depth + 1 );
+				$data[ $key ] = self::translate_rest_data( $value, $language, $keys, $depth + 1 );
 				continue;
 			}
 

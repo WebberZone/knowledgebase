@@ -68,7 +68,7 @@ Perfect for:
 
 ### Multilingual sites
 
-Knowledge Base works with WPML, Polylang and TranslatePress. TranslatePress translates the knowledge base with the rest of the page, including search results and related articles delivered through the REST API. No additional Knowledge Base configuration is needed for TranslatePress.
+Knowledge Base works with WPML, Polylang and TranslatePress. TranslatePress translates the knowledge base with the rest of the page, including REST responses, related articles, and live-search suggestions. No additional Knowledge Base configuration is needed for TranslatePress.
 
 Rendered output and REST caches are separated by language, preventing cached content and links from being reused across languages.
 
