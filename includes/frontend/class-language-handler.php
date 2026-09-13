@@ -77,14 +77,22 @@ class Language_Handler {
 	}
 
 	/**
-	 * Return the current language code, or an empty string when no multilingual plugin is active.
+	 * Return the current language slug, or an empty string when no multilingual plugin is active.
 	 *
 	 * @since 3.0.0
 	 *
-	 * @return string Language code or locale (e.g. 'en_US', 'fr_FR') or '' if not multilingual.
+	 * @return string Language slug (e.g. 'en', 'fr') or '' if not multilingual.
 	 */
 	public static function get_current_language(): string {
-		return self::get_cache_language();
+		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+			return (string) apply_filters( 'wpml_current_language', '' );
+		}
+
+		if ( defined( 'POLYLANG_VERSION' ) ) {
+			return (string) pll_current_language();
+		}
+
+		return self::get_trp_current_language();
 	}
 
 	/**
