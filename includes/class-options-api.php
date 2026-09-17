@@ -225,6 +225,7 @@ class Options_API {
 		}
 
 		$options = get_option( self::SETTINGS_OPTION, array() );
+		$options = is_array( $options ) ? $options : array();
 
 		/**
 		 * Filters the value before it is saved.
@@ -284,6 +285,7 @@ class Options_API {
 		}
 
 		$options = get_option( self::SETTINGS_OPTION, array() );
+		$options = is_array( $options ) ? $options : array();
 
 		if ( isset( $options[ $key ] ) ) {
 			unset( $options[ $key ] );
