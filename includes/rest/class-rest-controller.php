@@ -29,7 +29,7 @@ class REST_Controller {
 	/**
 	 * REST namespace.
 	 */
-	private const NAMESPACE = 'wzkb/v1';
+	private const REST_NAMESPACE = 'wzkb/v1';
 
 	/**
 	 * Object cache group name.
@@ -61,7 +61,7 @@ class REST_Controller {
 	 */
 	public function register_routes() {
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			'/sections',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -79,7 +79,7 @@ class REST_Controller {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			'/knowledgebase',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -90,7 +90,7 @@ class REST_Controller {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			'/knowledgebase/(?P<id>\d+)',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -108,7 +108,7 @@ class REST_Controller {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			'/products',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -121,7 +121,7 @@ class REST_Controller {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			'/search',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -155,7 +155,7 @@ class REST_Controller {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			'/related',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
