@@ -35,13 +35,18 @@ class Feed {
 	 * @return object Filtered Query
 	 */
 	public function in_feed( $query ) {
-		if ( isset( $query['feed'] ) && wzkb_get_option( 'include_in_feed', false ) ) {
+		// Comment feeds of a single post or page must keep their own post type.
+		$is_singular = ! empty( $query['name'] ) || ! empty( $query['p'] ) || ! empty( $query['pagename'] ) || ! empty( $query['page_id'] ) || ! empty( $query['attachment'] );
+
+		if ( ! $is_singular && isset( $query['feed'] ) && wzkb_get_option( 'include_in_feed', false ) ) {
 			if ( isset( $query['post_type'] ) ) {
 
-				if ( isset( $_SERVER['REQUEST_URI'] ) && false !== strpos( esc_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), wzkb_get_option( 'kb_slug' ) ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$kb_slug = (string) wzkb_get_option( 'kb_slug' );
+
+				if ( '' !== $kb_slug && isset( $_SERVER['REQUEST_URI'] ) && false !== strpos( esc_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ), $kb_slug ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 					$query['post_type'] = array( 'wz_knowledgebase' );
 				} else {
-					$query['post_type'] = array_merge( (array) $query['post_type'], array( 'wz_knowledgebase' ) );
+					$query['post_type'] = array_unique( array_merge( (array) $query['post_type'], array( 'wz_knowledgebase' ) ) );
 				}
 			} else {
 				$query['post_type'] = array( 'post', 'wz_knowledgebase' );

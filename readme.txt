@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.4
+Stable tag: 3.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,15 +182,34 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= Unreleased =
+= 3.1.5 =
+
+Release date: 23 September 2026
 
 **Added**
 
 * Added TranslatePress translation for Knowledge Base REST responses, including search results and related articles.
+* [Pro] The GitHub importer now accepts the `heading_depth` and `min_headings` spellings in `[toc]` markers, matching the `[kbtoc]` shortcode and TOC block.
+
+**Changed**
+
+* Improved accessibility of the settings screens.
+* [Pro] GitHub exports now keep tables with merged cells, block-level cell content or a caption as HTML instead of flattening them to Markdown.
+* A blank Knowledge Base slug with a blank article permalink structure now places articles at the site root, and blank product, section or tag slugs fall back to their defaults.
+
+**Security**
+
+* Hardened the escaping of thumbnail width and height attributes.
 
 **Fixed**
 
+* [Pro] Custom article permalink structures made regular posts show the blog index and could capture page, tag and pagination URLs.
+* [Pro] Custom permalinks returned a 404 when the Knowledge Base slug was blank, for articles without the product, section or tag used in the structure, and for product, section and tag feeds and pagination.
+* [Pro] Article permalink structures without a product, section or tag placeholder, such as `docs/%postname%`, were ignored.
+* Article comment feeds, and other post type feeds with Include in feed enabled, showed the wrong content when the Knowledge Base slug was blank.
 * Cached Knowledge Base output and REST responses could serve content or links from another language on multilingual sites.
+* A settings option holding a non-array value caused a fatal error on the next settings save.
+* Fixed PHP 8.6 deprecation notices.
 
 = 3.1.4 =
 
@@ -304,5 +323,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 3.1.4 =
-Bug fix release: prevents plugin data from being deleted when one version is uninstalled while its paired free or Pro counterpart is active.
+= 3.1.5 =
+Security release. Hardens thumbnail attribute escaping, fixes Knowledge Base permalinks with blank or custom slugs, including custom structures capturing post and page URLs, and fixes multilingual caching. Update recommended.

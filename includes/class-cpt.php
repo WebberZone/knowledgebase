@@ -53,7 +53,9 @@ class CPT {
 
 		// If article permalink is set to just %postname%, don't use a slug prefix.
 		// This allows KB articles to use the same permalink structure as regular posts.
-		$use_slug_prefix = ! ( '%postname%' === $article_structure );
+		// A blank KB slug with a blank article structure means the same: no prefix.
+		$article_structure = trim( (string) $article_structure, " /\t\n\r\0\x0B" );
+		$use_slug_prefix   = ! ( '%postname%' === $article_structure || ( '' === $slug && '' === $article_structure ) );
 
 		$archives = defined( 'WZKB_DISABLE_ARCHIVE' ) && WZKB_DISABLE_ARCHIVE ? false : $slug;
 
@@ -131,7 +133,19 @@ class CPT {
 		 */
 		$ptargs = apply_filters( 'wzkb_post_type_args', $ptargs );
 
-		register_post_type( 'wz_knowledgebase', $ptargs );
+		$post_type_object = register_post_type( 'wz_knowledgebase', $ptargs );
+
+		// WordPress drops a post type's feed rules when it has no archive (e.g. a blank KB slug), so keep article comment feeds.
+		if ( ! is_wp_error( $post_type_object ) && is_array( $post_type_object->rewrite ) && ! empty( $ptargs['rewrite']['feeds'] ) && empty( $ptargs['has_archive'] ) ) {
+			global $wp_rewrite;
+
+			$feeds = implode( '|', array_map( 'preg_quote', (array) $wp_rewrite->feeds ) );
+			add_rewrite_rule(
+				'^' . preg_quote( (string) $post_type_object->rewrite['slug'], '#' ) . '/([^/]+)/(?:feed/)?(' . $feeds . ')/?$',
+				'index.php?wz_knowledgebase=$matches[1]&feed=$matches[2]',
+				'top'
+			);
+		}
 	}
 
 	/**
@@ -155,6 +169,28 @@ class CPT {
 		$parts = array_filter( $parts ); // Remove empty parts.
 
 		return implode( '/', $parts );
+	}
+
+	/**
+	 * Get a taxonomy's rewrite slug, falling back to the setting's default when it is blank.
+	 *
+	 * Without the fallback WordPress would use the taxonomy name (e.g. /wzkb_product/).
+	 *
+	 * @since 3.1.5
+	 *
+	 * @param string $key Setting key: product_slug, category_slug or tag_slug.
+	 * @return string Sanitized slug.
+	 */
+	public static function get_taxonomy_slug( string $key ): string {
+		$raw  = (string) \wzkb_get_option( $key, '' );
+		$slug = self::sanitize_slug( $raw );
+
+		// Without Pro, placeholders cannot be resolved, and stripping them can leave several taxonomies on one base.
+		if ( '' === $slug || ( false !== strpos( $raw, '%' ) && ! wzkb()->is_pro_enabled ) ) {
+			$slug = self::sanitize_slug( (string) \wzkb_get_default_option( $key ) );
+		}
+
+		return $slug;
 	}
 
 	/**
@@ -265,9 +301,17 @@ class CPT {
 		$is_pro_enabled      = wzkb()->is_pro_enabled;
 		$disable_permastruct = $has_custom_article_structure && $is_pro_enabled;
 
-		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
-		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
-		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/product' ) );
+		$catslug     = self::get_taxonomy_slug( 'category_slug' );
+		$tagslug     = self::get_taxonomy_slug( 'tag_slug' );
+		$productslug = self::get_taxonomy_slug( 'product_slug' );
+
+		// Taxonomies sharing a rewrite base would shadow each other's archives, so later ones revert to their default.
+		if ( $catslug === $productslug ) {
+			$catslug = self::sanitize_slug( (string) \wzkb_get_default_option( 'category_slug' ) );
+		}
+		if ( $tagslug === $productslug || $tagslug === $catslug ) {
+			$tagslug = self::sanitize_slug( (string) \wzkb_get_default_option( 'tag_slug' ) );
+		}
 
 		// Register products taxonomy first.
 		// Disable permastruct rewrite only if Pro is enabled and custom article structure is used, to avoid conflicts.
@@ -425,6 +469,34 @@ class CPT {
 		// will handle the URL matching. We just need to hook into the query to check for KB articles
 		// when a regular post isn't found. Use parse_query which runs before WordPress sets p=0.
 		add_action( 'parse_query', array( __CLASS__, 'maybe_query_kb_article' ), 1 );
+		add_filter( 'request', array( __CLASS__, 'maybe_route_root_level_page_request' ) );
+	}
+
+	/**
+	 * Route a root-level URL parsed as a page to a KB article when no such page exists.
+	 *
+	 * On sites whose permalink structure is not /%postname%/, a single-segment URL only
+	 * matches the page rules, so maybe_query_kb_article() never sees a post name.
+	 *
+	 * @since 3.1.5
+	 *
+	 * @param array $query_vars Parsed query vars.
+	 * @return array Filtered query vars.
+	 */
+	public static function maybe_route_root_level_page_request( $query_vars ) {
+		if ( is_admin() || empty( $query_vars['pagename'] ) || false !== strpos( $query_vars['pagename'], '/' ) ) {
+			return $query_vars;
+		}
+
+		if ( get_page_by_path( $query_vars['pagename'] ) || ! get_page_by_path( $query_vars['pagename'], OBJECT, 'wz_knowledgebase' ) ) {
+			return $query_vars;
+		}
+
+		$query_vars['post_type'] = 'wz_knowledgebase';
+		$query_vars['name']      = $query_vars['pagename'];
+		unset( $query_vars['pagename'] );
+
+		return $query_vars;
 	}
 
 	/**
@@ -435,29 +507,36 @@ class CPT {
 	 * @since 3.0.0
 	 */
 	public static function add_taxonomy_rewrite_rules() {
-		$productslug = self::sanitize_slug( \wzkb_get_option( 'product_slug', 'kb/product' ) );
-		$catslug     = self::sanitize_slug( \wzkb_get_option( 'category_slug', 'kb/section' ) );
-		$tagslug     = self::sanitize_slug( \wzkb_get_option( 'tag_slug', 'kb/tags' ) );
+		$productslug = self::get_taxonomy_slug( 'product_slug' );
+		$catslug     = self::get_taxonomy_slug( 'category_slug' );
+		$tagslug     = self::get_taxonomy_slug( 'tag_slug' );
 
+		// An empty slug would produce a ^/... rule that can never match.
 		// Add product taxonomy rules.
-		add_rewrite_rule(
-			'^' . preg_quote( $productslug, '/' ) . '/([^/]+)/?$',
-			'index.php?wzkb_product=$matches[1]',
-			'top'
-		);
+		if ( '' !== $productslug ) {
+			add_rewrite_rule(
+				'^' . preg_quote( $productslug, '/' ) . '/([^/]+)/?$',
+				'index.php?wzkb_product=$matches[1]',
+				'top'
+			);
+		}
 
 		// Add section taxonomy rules (hierarchical).
-		add_rewrite_rule(
-			'^' . preg_quote( $catslug, '/' ) . '/(.+?)/?$',
-			'index.php?wzkb_category=$matches[1]',
-			'top'
-		);
+		if ( '' !== $catslug ) {
+			add_rewrite_rule(
+				'^' . preg_quote( $catslug, '/' ) . '/(.+?)/?$',
+				'index.php?wzkb_category=$matches[1]',
+				'top'
+			);
+		}
 
 		// Add tag taxonomy rules.
-		add_rewrite_rule(
-			'^' . preg_quote( $tagslug, '/' ) . '/([^/]+)/?$',
-			'index.php?wzkb_tag=$matches[1]',
-			'top'
-		);
+		if ( '' !== $tagslug ) {
+			add_rewrite_rule(
+				'^' . preg_quote( $tagslug, '/' ) . '/([^/]+)/?$',
+				'index.php?wzkb_tag=$matches[1]',
+				'top'
+			);
+		}
 	}
 }
