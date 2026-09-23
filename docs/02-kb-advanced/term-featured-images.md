@@ -3,16 +3,17 @@ slug: term-featured-images
 title: "Term Featured Images"
 products: [knowledgebase]
 sections: ["02-kb-advanced"]
-tags: [images, pro, products, sections]
+tags: [images, knowledgebase, pro, products, sections]
 status: publish
 order: 6
+toc: true
 ---
 
-> **This is a Pro feature.** Term Featured Images require [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/).
+[toc]
 
-Term Featured Images let you assign a featured image to any Knowledge Base product, section, or tag. Once set, the image appears in the product grid cards and in the header of archive pages, giving your knowledge base a more visual and polished appearance.
+[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) lets you assign a featured image to any Knowledge Base product, section, or tag. Once set, the image appears in the product grid cards and in the header of archive pages.
 
-## Setting a featured image on a term
+## Setting a featured image on a term *(Pro only)*
 
 1. Go to **Knowledge Base → Products** (or **Sections**, or **Tags**) in your WordPress admin.
 2. Click the term you want to edit, or hover and click **Edit**.

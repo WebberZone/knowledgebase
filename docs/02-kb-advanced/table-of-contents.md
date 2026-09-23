@@ -6,7 +6,10 @@ sections: ["02-kb-advanced"]
 tags: [knowledgebase, toc]
 status: publish
 order: 7
+toc: true
 ---
+
+[toc]
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) can automatically generate a table of contents for each article by scanning its headings, injecting anchor IDs, and rendering a nested linked list above the content. Readers can jump straight to any section without scrolling.
 
@@ -54,8 +57,9 @@ Example:
 
 You can also insert a TOC using the `[[toc]]` marker in Markdown when importing articles from GitHub — see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/).
 
-> [!NOTE]
-> ⓘ When writing Markdown for GitHub import, `[[toc]]` (double brackets) is treated as escaped and renders as the literal text `[[toc]]` — only `[[toc]]` (single brackets) triggers TOC insertion.
+For a live insertion marker in your Markdown source, use one opening bracket, `toc`, and one closing bracket on its own line. The escaped form shown in documentation uses two pairs of brackets and does not insert a TOC.
+
+From 3.1.5, the importer accepts both `heading_depth` / `min_headings` and `headingdepth` / `minheadings` on live markers. Prefer the underscored spellings. If both forms are present, the compact spelling takes precedence.
 
 ## Floating TOC *(Pro only)*
 

@@ -363,7 +363,7 @@ function wzkb_delete_ratings_by_ip( $ip_address ) {
 }
 ```
 
-**Note:** Since IPs are hashed, you need the original IP address to generate the matching hash for deletion.
+Since IPs are hashed, you need the original IP address to generate the matching hash for deletion.
 
 ## Styling & Customization
 
@@ -518,7 +518,7 @@ If your site is behind a trusted proxy or CDN (Cloudflare, AWS CloudFront, etc.)
 add_filter( 'wzkb_rating_use_proxy_headers', '__return_true' );
 ```
 
-**Warning:** Only enable this if you trust your proxy/CDN configuration. Improper use can allow IP spoofing.
+Only enable this if you trust your proxy/CDN configuration. Improper use can allow IP spoofing.
 
 ## See also
 

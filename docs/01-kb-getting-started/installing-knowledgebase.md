@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) core plugin is [hosted on WordPress.org](https://wordpress.org/plugins/knowledgebase/). This makes installing it on your site extremely easy and just like any other plugin.
+The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) core plugin is [hosted on WordPress.org](https://wordpress.org/plugins/knowledgebase/).
 
 ## WordPress install (The easy way)
 

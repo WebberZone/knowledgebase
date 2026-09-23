@@ -77,7 +77,7 @@ A file with no frontmatter at all is skipped by the importer and never becomes a
 | `slug` | — | string | The URL slug. Defaults to the filename stem. |
 | `sections` | `categories`, `category`, `section` | comma-separated list | `wzkb_category` terms. Supports path notation for hierarchy (see below). Missing terms are created automatically. |
 | `tags` | `tag` | comma-separated list | `wzkb_tag` terms. Missing terms are created automatically. |
-| `products` | `product` | comma-separated list | `wzkb_product` terms. Falls back to the mapping's configured product. |
+| `products` | `product` | comma-separated list | `wzkb_product` terms. Used only when the mapping has no configured product; a configured mapping product takes precedence. |
 | `order` | `menu_order` | integer | Sort order within a section (`menu_order`). |
 | `status` | — | string | `publish`, `draft`, `pending`, `private`, or `future`. Overridden by the mapping's **Article Status** setting when that is set. |
 | `kb_exclude` | — | boolean | Skips the import for this file. When `true`, the linked article is set to draft, or permanently deleted when the mapping's **When a File is Deleted** setting is set to **Delete permanently**. |
@@ -153,6 +153,14 @@ How it behaves:
 - **Images are never downloaded twice.** If the same image is used in the article body or by another article, the existing Media Library copy is reused.
 - **Removing the field clears the thumbnail.** If a later sync finds no `featured_image` in the frontmatter, a featured image that was set by the importer is removed. A featured image you set manually in the WordPress editor is left untouched.
 
+### Table of contents markers and tables
+
+Place a live TOC marker on its own line where the table of contents should appear. In your Markdown source, use one opening bracket, `toc`, and one closing bracket. The escaped form `[[toc]]` documents the marker without inserting a TOC.
+
+From 3.1.5, imported TOC markers accept `heading_depth` and `min_headings` as well as the compact aliases `headingdepth` and `minheadings`. If both spellings are supplied, the compact alias takes precedence. The `title` attribute sets the heading above the TOC.
+
+On export, ordinary tables become Markdown pipe tables. Tables with merged cells, captions, or block-level content inside cells remain HTML because pipe tables cannot represent that structure. The same conversion applies to Markdown ZIP exports.
+
 ## Step 2 — Create a GitHub Personal Access Token
 
 The plugin needs permission to read your repository (and to write, if you enable push-back). Skip this step only if your repo is **public** and you do not need push-back.
@@ -187,7 +195,7 @@ Each mapping configures one import/export source. Click **Add Repository** in th
 
 | Field | Description |
 | --- | --- |
-| **Product** | The Knowledge Base product (`wzkb_product` term) to assign articles to when frontmatter does not specify one. |
+| **Product** | The Knowledge Base product (`wzkb_product` term) assigned to imported articles. A configured product overrides frontmatter products. Leave unset to use the frontmatter. |
 | **Personal Access Token** | Per-mapping PAT. Overrides the global PAT for this repository — useful when repos belong to different owners. Leave blank to use the global token. |
 | **Repository** | Begin typing to search repositories accessible with the configured token, then select `owner/repo-name` from the dropdown. |
 | **Folder Path** | Subdirectory to restrict imports to, e.g. `docs/`. Leave blank to import the entire repo. The folder is scanned **recursively**, so all `.md` files in its subfolders are included too. |
@@ -392,7 +400,7 @@ add_filter( 'wzkb_github_max_image_bytes', fn() => 5 * MB_IN_BYTES );
 
 #### [`wzkb_github_export_batch_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_github_export_batch_size/)
 
-Number of linked posts fetched per database query during the export wizard's list phase. Default: `200`. Lower this on memory-constrained sites with large KB article counts.
+Number of linked posts inspected per export preview request. Default: `50`. Lower this on memory-constrained sites with large KB article counts.
 
 ```php
 add_filter( 'wzkb_github_export_batch_size', fn() => 100 );
@@ -491,7 +499,7 @@ class My_Importer extends Import_Processor {
 }
 ```
 
-`Webhook_Handler::NAMESPACE` is `protected`, so subclasses can override the REST namespace if needed.
+`Webhook_Handler::REST_NAMESPACE` is a protected constant containing `wzkb/v1`. Route registration uses `self::REST_NAMESPACE`; redefining it in a subclass does not change the inherited registration method.
 
 ## Troubleshooting
 

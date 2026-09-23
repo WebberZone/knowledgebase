@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-The Knowledge Base plugin lets you back up all plugin settings as a JSON file and restore them on the same site or a different one. Both actions are available under **Knowledge Base → Tools**.
+The [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin lets you back up all plugin settings as a JSON file and restore them on the same site or a different one. Both actions are available under **Knowledge Base → Tools**.
 
 ## Exporting settings
 
@@ -30,7 +30,7 @@ The importer merges the file into the current settings: values from the file ove
 
 For repeater rows (such as GitHub repository mappings), the importer matches rows by their `row_id`. Sensitive subfields in matched rows are restored from the site's existing data. For any new rows introduced by the import, sensitive subfields are left blank and must be filled in manually after the import.
 
-> **Note:** On a fresh site with no existing settings, sensitive values will be blank after import because there is nothing to restore. You will need to enter API keys and webhook secrets manually.
+> On a fresh site with no existing settings, sensitive values will be blank after import because there is nothing to restore. You will need to enter API keys and webhook secrets manually.
 
 ## Who can export or import
 

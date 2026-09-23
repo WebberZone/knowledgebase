@@ -387,7 +387,7 @@ Migration complete!
 4. Recreate top-level sections manually
 5. Disable Multi-Product Mode in settings
 
-**Note:** Manual reversion is complex and error-prone. Database restoration is strongly recommended.
+Manual reversion is complex and error-prone. Database restoration is strongly recommended.
 
 ## Post Migration
 

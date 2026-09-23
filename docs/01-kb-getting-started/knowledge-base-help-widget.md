@@ -25,10 +25,10 @@ Think of it as a mini help desk that’s always available on your site.
 
 ## Key Features
 
-- **Self-Service Search** – Visitors find answers instantly without leaving your site.
+- **Self-Service Search** – Visitors search for answers without leaving your site.
 - **Smart Suggestions** – Shows relevant articles based on what page they’re viewing.
 - **Contact Form** – Built-in form sends you emails when visitors need help.
-- **Mobile Friendly** – Works perfectly on phones, tablets, and desktops.
+- **Mobile Friendly** – Adapts to phones, tablets, and desktops.
 - **Customizable Colors** – Match your brand with 7 color settings.
 - **Spam Protection** – Built-in honeypot and rate limiting.
 - **Dark Mode** – Automatically adapts to the user’s system preference.
@@ -478,7 +478,7 @@ For questions or issues with the Help Widget:
 
 ### HTML Email Template
 
-Contact form submissions use a beautiful HTML email template:
+Contact form submissions use an HTML email template:
 
 - Modern gradient header (#667eea to #764ba2)
 - Organized sections with left accent borders
