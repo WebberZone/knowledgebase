@@ -6,9 +6,10 @@ sections: ["02-kb-advanced"]
 tags: [css, knowledgebase, styles]
 status: publish
 order: 0
+toc: true
 ---
 
-<!-- wp:kadence/tableofcontents /-->
+[toc]
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) styles control how your knowledge base articles and sections look on your website. Think of them as pre-designed themes that determine colors, layouts, spacing, and visual effects.
 
@@ -21,7 +22,7 @@ Each style is a complete visual design for your knowledge base:
 - **Typography** – Font sizes and spacing
 - **Effects** – Hover states, shadows, and transitions
 
-The plugin includes 9 professionally designed styles (2 free, 7 pro) that you can switch between instantly.
+The plugin includes nine styles: two free and seven Pro.
 
 ### Why Customize?
 
@@ -51,7 +52,7 @@ All styles use **CSS Custom Properties (CSS Variables)**, which means:
 
 ## Available Styles
 
-Knowledge Base includes nine professionally designed styles to match your site’s design.
+Knowledge Base includes nine styles.
 
 ### Free Styles (2)
 
@@ -75,7 +76,7 @@ All styles include:
 - ✅ **4 Variants** – Main, minified, RTL, and minified RTL versions
 - ✅ **RTL Support** – Full right-to-left language support (Arabic, Hebrew, etc.)
 - ✅ **Optimized Performance** – Minified CSS files for faster loading
-- ✅ **Mobile Responsive** – Works perfectly on all devices
+- ✅ **Mobile Responsive** – Adapts to different screen sizes
 - ✅ **Automatic Fallback** – Graceful degradation if Pro is deactivated
 
 ### How Styles Work
@@ -181,7 +182,7 @@ Add to your child theme’s `style.css`:
 
 ### Legacy Style
 
-**Important Note:** The Legacy style uses hardcoded CSS values and **does not support CSS variables**. This is the original style maintained for backward compatibility.
+The Legacy style uses hardcoded CSS values and **does not support CSS variables**. This is the original style maintained for backward compatibility.
 
 If you need to customize the Legacy style, you’ll need to override the CSS rules directly:
 

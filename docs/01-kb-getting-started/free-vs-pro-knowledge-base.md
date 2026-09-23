@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Knowledge Base is free to use and packed with features right out of the box. The Pro upgrade adds article ratings and feedback, a floating help widget, a three-column documentation layout, a custom permalinks engine, premium layouts, and GitHub-based content sync for larger documentation sites.
+Knowledge Base is free to use. The Pro upgrade adds article ratings and feedback, a floating help widget, a three-column documentation layout, a custom permalinks engine, premium layouts, and GitHub-based content sync for larger documentation sites.
 
 ## Free vs Pro
 

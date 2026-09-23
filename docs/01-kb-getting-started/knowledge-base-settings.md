@@ -35,11 +35,15 @@ This sets the default path for the knowledge base URL and is set when registerin
 
 **Default:** `knowledgebase`
 
+From 3.1.5, leaving this blank with an empty Article Permalink Structure gives articles root-level URLs such as `https://example.com/getting-started/`. A blank slug disables the dedicated Knowledge Base archive; it does not enable homepage mode.
+
 #### Product slug
 
 This slug forms part of the URL for product pages when Multi-Product Mode is enabled. The value is used when registering the custom taxonomy.
 
 **Default:** `kb/product`
+
+A blank value falls back to this default. Placeholder-based structures require Pro; the free version falls back to the default when the saved value contains placeholders.
 
 #### Section slug
 
@@ -47,21 +51,27 @@ Each section is a section of the knowledge base. This setting is used when regis
 
 **Default:** `kb/section`
 
+A blank value falls back to this default. Placeholder-based structures require Pro; the free version falls back to the default when the saved value contains placeholders.
+
 #### Tags slug
 
 Each article can have multiple tags. This setting is used when registering the custom tag and forms a part of the URL when browsing tag archives.
 
 **Default:** `kb/tags`
 
+A blank value falls back to this default. Placeholder-based structures require Pro; the free version falls back to the default when the saved value contains placeholders.
+
 #### Article Permalink Structure *(Pro only)*
 
-Structure for article URLs.
+Structure for article URLs. Leave empty to use the Knowledge Base slug followed by the article slug. Set `%postname%` for root-level article URLs. Other custom article structures must include `%postname%` or `%post_id%` to identify the article.
+
+**Default:** Empty
 
 ### Performance
 
 #### Enable cache
 
-Cache query results to speed up knowledge base retrieval. Recommended for large knowledge bases.
+Cache query results to speed up knowledge base retrieval. From 3.1.5, these cache keys include the current language for WPML, Polylang, and TranslatePress so cached results are kept separate between languages.
 
 **Default:** Disabled
 
@@ -104,7 +114,7 @@ Neither option runs while the paired version of the plugin is still active. From
 
 #### Include in feed
 
-Adds the knowledge base articles to the main RSS feed for your site.
+Adds the knowledge base articles to the main RSS feed for your site. Individual post and page comment feeds keep their own post type. Leaving the Knowledge Base slug blank does not turn the main feed into a Knowledge Base-only feed.
 
 **Default:** Enabled
 

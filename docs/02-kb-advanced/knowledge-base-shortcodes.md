@@ -7,7 +7,10 @@ tags: [knowledgebase, shortcode]
 status: publish
 order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2020/06/Knowledge-Base-Alerts.png"
+toc: true
 ---
+
+[toc]
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) includes multiple shortcodes for embedding the knowledge base, search form, breadcrumbs, alerts, and related articles anywhere in your content.
 
@@ -77,7 +80,7 @@ Optional attributes:
 | `title` | `<h3>Related Articles</h3>` | Section heading; accepts HTML. |
 | `thumb_size` | `thumbnail` | Registered image size for thumbnails. |
 
-See [Knowledge Base Related Articles](https://webberzone.com/support/knowledgebase/customizing-related-articles-in-knowledge-base/) for developer hooks and advanced usage.
+See [Knowledge Base Related Articles](https://webberzone.com/support/knowledgebase/customising-related-articles-in-knowledge-base/) for developer hooks and advanced usage.
 
 ## [[kbalert]]
 

@@ -11,7 +11,7 @@ toc: true
 
 [toc]
 
-The Documentation Layout is a pro feature that transforms your knowledge base into a three-column documentation site. When enabled, every KB page — the archive, product pages, section pages, and single articles — renders with a full-width docs-style template:
+The Documentation Layout in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) displays your knowledge base as a three-column documentation site. When enabled, every KB page — the archive, product pages, section pages, and single articles — renders with a full-width docs-style template:
 
 - **Left column** — collapsible section tree navigation, scoped to the current product
 - **Center column** — article or archive content

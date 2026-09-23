@@ -6,7 +6,10 @@ sections: ["03-kb-developer-docs"]
 tags: [knowledgebase, rest-api]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 The [WebberZone Knowledge Base](https://webberzone.com/plugins/knowledgebase/) plugin exposes selected functionality via the WordPress REST API.
 
@@ -56,7 +59,7 @@ Return values:
 
 ## Multi-product prerequisite
 
-Several endpoints (starting with Sections) are only available when **multi-product mode** is enabled inside Knowledge Base Pro (`Knowledge Base ▸ Settings ▸ General ▸ Enable multi-product`). If disabled, the endpoint will return a `wzkb_rest_sections_disabled` error.
+The Sections endpoint requires **multi-product mode** in Knowledge Base. Enable **Knowledge Base → Settings → General → Enable Multi-Product Mode**. If disabled, the Sections endpoint returns a `wzkb_rest_sections_disabled` error.
 
 ## TranslatePress translation
 
@@ -68,7 +71,9 @@ Request a language with the `lang` parameter. It accepts a TranslatePress locale
 GET https://example.com/wp-json/wzkb/v1/knowledgebase?lang=fr
 ```
 
-When `lang` is omitted, the language is resolved from the referring front-end URL. Only published languages are accepted.
+When `lang` is omitted, the plugin checks the current request URL and then a referring URL on the same host. Public requests can use published languages. Users with the TranslatePress translating capability can also request configured unpublished languages. An invalid language or the default language leaves the response untranslated.
+
+The optional `lang` argument is available on all six endpoints below. It must be a string no longer than 20 characters. This response-translation parameter is specific to TranslatePress; WPML and Polylang use their own WordPress translation integrations.
 
 Override the resolved language with the `wzkb_trp_rest_language` filter:
 
@@ -90,6 +95,8 @@ add_filter(
 | `$request` | `\WP_REST_Request`\|null | REST request that produced the response. |
 
 Return the target language code, or an empty string to keep the default language. Content fields such as `title`, `excerpt`, `content`, `name`, and `description` are translated, and `link` and `permalink` URLs are rewritten to the target language.
+
+Use `wzkb_trp_rest_translatable_keys` to change which response fields are translated. The filter receives an array with `content` and `url` lists. The defaults are `html`, `title`, `excerpt`, `content`, `name`, and `description` for content, and `link` and `permalink` for URLs. The plugin leaves `guid` unchanged because it is an identifier.
 
 ## Endpoints
 

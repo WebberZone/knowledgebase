@@ -6,7 +6,10 @@ sections: ["02-kb-advanced"]
 tags: [cookie, knowledgebase, pro, settings, trackers]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 > [!WARNING]
 > ⚠️ **Legal Disclaimer:** This document provides suggested text for your privacy policy based on the technical implementation of the [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) rating system. It is not legal advice. You should review and customize this text to ensure compliance with your jurisdiction’s privacy laws (GDPR, CCPA, etc.) and your specific use case. Consult with a privacy lawyer if you are unsure.
@@ -15,7 +18,7 @@ Copy and paste the section below that matches your configured **Vote Tracking M
 
 ## 1. No Tracking (allows multiple votes)
 
-```php
+```text
 **Article Ratings**
 
 Our knowledge base allows users to rate articles for usefulness. We do not store identifiers, such as cookies, IP addresses, or user IDs, to tie a rating to a specific visitor when this mode is enabled. Rating totals may still be processed and stored for article statistics. You may submit multiple ratings on the same article, and no identifying information is collected for duplicate-vote prevention. To prevent accidental duplicate submissions during the same browsing session, a temporary marker is stored in your browser's localStorage; it expires after 1 hour and contains no personally identifiable information. If you choose to submit optional written feedback, a hashed version of your IP address is stored alongside your feedback text.
@@ -23,7 +26,7 @@ Our knowledge base allows users to rate articles for usefulness. We do not store
 
 ## 2. Cookie Only (requires consent)
 
-```php
+```text
 **Article Ratings**
 
 When you rate a knowledge base article, we store a cookie in your browser to prevent duplicate votes. This cookie stores a simple marker indicating that you have already rated a specific article. The cookie expires after 365 days (1 year). You may clear this cookie at any time in your browser settings, allowing you to submit a new rating. A temporary marker is also stored in your browser's localStorage to prevent accidental duplicate submissions during the same session; it expires after 1 hour. If you choose to submit optional written feedback, a hashed version of your IP address is stored alongside your feedback text.
@@ -31,7 +34,7 @@ When you rate a knowledge base article, we store a cookie in your browser to pre
 
 ## 3. IP Address Only (stores personal data)
 
-```php
+```text
 **Article Ratings**
 
 When you rate a knowledge base article, we store a pseudonymized hash derived from your IP address to prevent duplicate votes. This hash is generated using SHA-256 with a site-specific WordPress salt and does not directly reveal your original IP address. The hashed identifier is stored in a rolling per-article log with a default maximum of 10,000 entries and is used solely for duplicate vote prevention. Under many privacy laws, including GDPR, this may constitute processing of personal data. You may contact us to request access to or erasure of data associated with your rating activity, where applicable. A temporary marker is also stored in your browser's localStorage to prevent accidental duplicate submissions during the same session; it expires after 1 hour. If you choose to submit optional written feedback, a hashed version of your IP address is stored alongside your feedback text.
@@ -39,7 +42,7 @@ When you rate a knowledge base article, we store a pseudonymized hash derived fr
 
 ## 4. Cookie + IP Address (either method blocks voting)
 
-```php
+```text
 **Article Ratings**
 
 When you rate a knowledge base article, we use both a browser cookie and a pseudonymized hash derived from your IP address to prevent duplicate votes. The cookie stores a simple marker indicating that you have already rated a specific article and expires after 365 days (1 year). The IP-based hash is generated using SHA-256 with a site-specific WordPress salt and does not directly reveal your original IP address. The hashed identifier is stored in a rolling per-article log with a default maximum of 10,000 entries and is used solely for duplicate vote prevention. You will be prevented from voting again if either the cookie is present or your IP-based identifier matches. A temporary marker is also stored in your browser's localStorage to prevent accidental duplicate submissions during the same session; it expires after 1 hour. If you choose to submit optional written feedback, a hashed version of your IP address is stored alongside your feedback text.
@@ -47,7 +50,7 @@ When you rate a knowledge base article, we use both a browser cookie and a pseud
 
 ## 5. Logged-in Users Only (best for authenticated sites)
 
-```php
+```text
 **Article Ratings**
 
 Only registered and logged-in users may rate knowledge base articles. When you submit a rating, we store your WordPress user ID to prevent duplicate votes. No cookie or IP-based identifier is used to prevent duplicate votes in this mode. Your rating data is associated with your user account and stored in a rolling per-article log with a default maximum of 10,000 entries; older entries are pruned over time. You may contact us to request access to or erasure of this data, where applicable. A temporary marker is also stored in your browser's localStorage to prevent accidental duplicate submissions during the same session; it expires after 1 hour. If you choose to submit optional written feedback, a hashed version of your IP address is stored alongside your feedback text.
@@ -57,7 +60,7 @@ Only registered and logged-in users may rate knowledge base articles. When you s
 
 Use this if you want to cover all possibilities:
 
-```php
+```text
 **Article Ratings**
 
 Our knowledge base allows users to rate articles for usefulness. Depending on our configuration, we may use one or more of the following methods to prevent duplicate votes:
