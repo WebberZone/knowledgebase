@@ -188,14 +188,13 @@ Release date: 23 September 2026
 
 **Added**
 
-* Added TranslatePress translation for Knowledge Base REST responses, including search results and related articles.
-* [Pro] The GitHub importer now accepts the `heading_depth` and `min_headings` spellings in `[toc]` markers, matching the `[kbtoc]` shortcode and TOC block.
+* Added TranslatePress support for Knowledge Base REST responses, search results and related articles.
 
 **Changed**
 
 * Improved accessibility of the settings screens.
-* [Pro] GitHub exports now keep tables with merged cells, block-level cell content or a caption as HTML instead of flattening them to Markdown.
-* A blank Knowledge Base slug with a blank article permalink structure now places articles at the site root, and blank product, section or tag slugs fall back to their defaults.
+* [Pro] The GitHub importer now accepts `heading_depth` and `min_headings` in `[toc]` markers, and exports keep complex tables as HTML.
+* Blank product, section and tag slugs now fall back to their defaults, and a blank Knowledge Base slug with a blank article permalink structure places articles at the site root.
 
 **Security**
 
@@ -204,12 +203,10 @@ Release date: 23 September 2026
 **Fixed**
 
 * [Pro] Custom article permalink structures made regular posts show the blog index and could capture page, tag and pagination URLs.
-* [Pro] Custom permalinks returned a 404 when the Knowledge Base slug was blank, for articles without the product, section or tag used in the structure, and for product, section and tag feeds and pagination.
-* [Pro] Article permalink structures without a product, section or tag placeholder, such as `docs/%postname%`, were ignored.
-* Article comment feeds, and other post type feeds with Include in feed enabled, showed the wrong content when the Knowledge Base slug was blank.
-* Cached Knowledge Base output and REST responses could serve content or links from another language on multilingual sites.
-* A settings option holding a non-array value caused a fatal error on the next settings save.
-* Fixed PHP 8.6 deprecation notices.
+* [Pro] Custom permalinks returned 404s or were ignored for blank Knowledge Base slugs, articles missing a term, term feeds and pagination, and structures such as `docs/%postname%`.
+* Feeds showed the wrong content when the Knowledge Base slug was blank.
+* Cached Knowledge Base output and REST responses could serve content from another language on multilingual sites.
+* Fixed PHP 8.6 deprecation notices and a fatal error when the stored settings were not an array.
 
 = 3.1.4 =
 
