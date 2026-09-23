@@ -206,7 +206,7 @@ Release date: 23 September 2026
 * [Pro] Custom permalinks returned 404s or were ignored for blank Knowledge Base slugs, articles missing a term, term feeds and pagination, and structures such as `docs/%postname%`.
 * Feeds showed the wrong content when the Knowledge Base slug was blank.
 * Cached Knowledge Base output and REST responses could serve content from another language on multilingual sites.
-* Fixed PHP 8.6 deprecation notices and a fatal error when the stored settings were not an array.
+* Fixed PHP 8.6 deprecation notices.
 
 = 3.1.4 =
 
