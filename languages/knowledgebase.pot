@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WebberZone Knowledge Base 3.1.4\n"
+"Project-Id-Version: WebberZone Knowledge Base 3.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/knowledgebase\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-05T11:51:16+00:00\n"
+"POT-Creation-Date: 2026-09-24T02:33:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: knowledgebase\n"
@@ -354,7 +354,7 @@ msgstr ""
 #. translators: %d: number of articles
 #. translators: %d: Number of articles within a section.
 #: includes/admin/class-plugin-importers.php:277
-#: includes/frontend/class-display.php:657
+#: includes/frontend/class-display.php:655
 #, php-format
 msgid "%d article"
 msgid_plural "%d articles"
@@ -1614,7 +1614,7 @@ msgid "Add related articles at the bottom of the knowledge base article. Only wo
 msgstr ""
 
 #: includes/admin/class-settings.php:801
-#: includes/blocks/class-blocks.php:669
+#: includes/blocks/class-blocks.php:685
 msgid "Search"
 msgstr ""
 
@@ -2558,9 +2558,9 @@ msgid "Knowledge Base plugin homepage"
 msgstr ""
 
 #: includes/admin/sidebar.php:28
-#: includes/blocks/class-blocks.php:162
-#: includes/class-cpt.php:75
-#: includes/class-cpt.php:110
+#: includes/blocks/class-blocks.php:171
+#: includes/class-cpt.php:77
+#: includes/class-cpt.php:112
 #: includes/frontend/class-patterns.php:38
 msgid "Knowledge Base"
 msgstr ""
@@ -2629,233 +2629,233 @@ msgstr ""
 msgid "Follow WebberZone on Facebook"
 msgstr ""
 
-#: includes/blocks/class-blocks.php:290
+#: includes/blocks/class-blocks.php:306
 msgid "Invalid section or product selected."
 msgstr ""
 
-#: includes/blocks/class-blocks.php:536
+#: includes/blocks/class-blocks.php:552
 msgid "No sections found. This message is only displayed in the editor and not on the frontend."
 msgstr ""
 
-#: includes/blocks/class-blocks.php:611
+#: includes/blocks/class-blocks.php:627
 #: includes/frontend/class-related.php:254
 #: includes/frontend/class-shortcodes.php:216
 msgid "Related Articles"
 msgstr ""
 
-#: includes/blocks/class-blocks.php:634
+#: includes/blocks/class-blocks.php:650
 msgid "No related articles found. This block displays related articles for the current knowledge base article."
 msgstr ""
 
-#: includes/blocks/class-blocks.php:668
+#: includes/blocks/class-blocks.php:684
 msgid "Search the knowledgebase…"
 msgstr ""
 
-#: includes/class-cpt.php:73
+#: includes/class-cpt.php:75
 msgctxt "Post Type General Name"
 msgid "Knowledge Base"
 msgstr ""
 
-#: includes/class-cpt.php:74
+#: includes/class-cpt.php:76
 msgctxt "Post Type Singular Name"
 msgid "Knowledge Base"
 msgstr ""
 
-#: includes/class-cpt.php:76
+#: includes/class-cpt.php:78
 msgid "KB Article"
 msgstr ""
 
-#: includes/class-cpt.php:77
+#: includes/class-cpt.php:79
 msgid "Parent Article:"
 msgstr ""
 
-#: includes/class-cpt.php:78
+#: includes/class-cpt.php:80
 msgid "All Articles"
 msgstr ""
 
-#: includes/class-cpt.php:79
-#: includes/class-cpt.php:80
+#: includes/class-cpt.php:81
+#: includes/class-cpt.php:82
 msgid "Add New Article"
 msgstr ""
 
-#: includes/class-cpt.php:81
+#: includes/class-cpt.php:83
 msgid "New Article"
 msgstr ""
 
-#: includes/class-cpt.php:82
+#: includes/class-cpt.php:84
 msgid "Edit Article"
 msgstr ""
 
-#: includes/class-cpt.php:83
+#: includes/class-cpt.php:85
 msgid "Update Article"
 msgstr ""
 
-#: includes/class-cpt.php:84
+#: includes/class-cpt.php:86
 msgid "View Article"
 msgstr ""
 
-#: includes/class-cpt.php:85
+#: includes/class-cpt.php:87
 msgid "Search Articles"
 msgstr ""
 
-#: includes/class-cpt.php:86
+#: includes/class-cpt.php:88
 msgid "Not found"
 msgstr ""
 
-#: includes/class-cpt.php:87
+#: includes/class-cpt.php:89
 msgid "Not found in Trash"
 msgstr ""
 
-#: includes/class-cpt.php:88
+#: includes/class-cpt.php:90
 msgid "Article Featured Image"
 msgstr ""
 
-#: includes/class-cpt.php:89
+#: includes/class-cpt.php:91
 msgid "Set Article featured image"
 msgstr ""
 
-#: includes/class-cpt.php:90
+#: includes/class-cpt.php:92
 msgid "Remove Article featured image"
 msgstr ""
 
-#: includes/class-cpt.php:91
+#: includes/class-cpt.php:93
 msgid "Use as Article featured image"
 msgstr ""
 
-#: includes/class-cpt.php:92
+#: includes/class-cpt.php:94
 msgid "Insert into Article"
 msgstr ""
 
-#: includes/class-cpt.php:93
+#: includes/class-cpt.php:95
 msgid "Uploaded to this Article"
 msgstr ""
 
-#: includes/class-cpt.php:94
+#: includes/class-cpt.php:96
 msgid "Articles list"
 msgstr ""
 
-#: includes/class-cpt.php:95
+#: includes/class-cpt.php:97
 msgid "Articles list navigation"
 msgstr ""
 
-#: includes/class-cpt.php:96
+#: includes/class-cpt.php:98
 msgid "Filter Articles list"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:207
+#: includes/class-cpt.php:243
 #, php-format
 msgctxt "Taxonomy General Name"
 msgid "Knowledge Base %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:209
+#: includes/class-cpt.php:245
 #, php-format
 msgctxt "Taxonomy Singular Name"
 msgid "Knowledge Base %1$s"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:213
+#: includes/class-cpt.php:249
 #, php-format
 msgid "All %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:215
+#: includes/class-cpt.php:251
 #, php-format
 msgid "Parent %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:217
+#: includes/class-cpt.php:253
 #, php-format
 msgid "Parent %1$s:"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:219
+#: includes/class-cpt.php:255
 #, php-format
 msgid "New %1$s Name"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:221
+#: includes/class-cpt.php:257
 #, php-format
 msgid "Add New %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:223
+#: includes/class-cpt.php:259
 #, php-format
 msgid "Edit %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:225
+#: includes/class-cpt.php:261
 #, php-format
 msgid "Update %1$s"
 msgstr ""
 
 #. translators: 1: Singular taxonomy name.
-#: includes/class-cpt.php:227
+#: includes/class-cpt.php:263
 #, php-format
 msgid "View %1$s"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:229
+#: includes/class-cpt.php:265
 #, php-format
 msgid "Separate %1$s with commas"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:231
+#: includes/class-cpt.php:267
 #, php-format
 msgid "Add or remove %1$s"
 msgstr ""
 
-#: includes/class-cpt.php:232
+#: includes/class-cpt.php:268
 msgid "Choose from the most used"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:234
+#: includes/class-cpt.php:270
 #, php-format
 msgid "Popular %1$s"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:236
+#: includes/class-cpt.php:272
 #, php-format
 msgid "Search %1$s"
 msgstr ""
 
-#: includes/class-cpt.php:237
+#: includes/class-cpt.php:273
 msgid "Not Found"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:239
+#: includes/class-cpt.php:275
 #, php-format
 msgid "No %1$s found"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:241
+#: includes/class-cpt.php:277
 #, php-format
 msgid "%1$s list"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:243
+#: includes/class-cpt.php:279
 #, php-format
 msgid "%1$s list navigation"
 msgstr ""
 
 #. translators: 1: Plural taxonomy name.
-#: includes/class-cpt.php:245
+#: includes/class-cpt.php:281
 #, php-format
 msgid "Back to %1$s"
 msgstr ""
@@ -2934,77 +2934,77 @@ msgstr ""
 msgid "%s is not a valid section ID"
 msgstr ""
 
-#: includes/frontend/class-display.php:722
+#: includes/frontend/class-display.php:720
 msgid "Read more articles in "
 msgstr ""
 
-#: includes/frontend/class-display.php:1084
+#: includes/frontend/class-display.php:1082
 msgid "View articles"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:61
+#: includes/frontend/class-live-search.php:62
 #: includes/frontend/templates/archive-wz_knowledgebase.php:37
 #: includes/frontend/templates/wzkb-search.php:102
 msgid "No results found"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:62
+#: includes/frontend/class-live-search.php:63
 msgid "Searching…"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:63
+#: includes/frontend/class-live-search.php:64
 msgid "Please enter at least 3 characters to search"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:64
+#: includes/frontend/class-live-search.php:65
 msgid "Search suggestions closed"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:65
+#: includes/frontend/class-live-search.php:66
 msgid "Back to search"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:66
+#: includes/frontend/class-live-search.php:67
 msgid "Back to search input"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:67
+#: includes/frontend/class-live-search.php:68
 msgid "Error loading search results"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:68
+#: includes/frontend/class-live-search.php:69
 msgid "No search suggestions found"
 msgstr ""
 
 #. translators: %d: Number of suggestions found.
-#: includes/frontend/class-live-search.php:70
+#: includes/frontend/class-live-search.php:71
 #, php-format
 msgid "%d search suggestions found. Use up and down arrow keys to navigate."
 msgstr ""
 
 #. translators: %s: Destination being navigated to.
-#: includes/frontend/class-live-search.php:72
+#: includes/frontend/class-live-search.php:73
 #, php-format
 msgid "Navigating to %s"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:73
+#: includes/frontend/class-live-search.php:74
 msgid "Submitting search"
 msgstr ""
 
 #. translators: 1: Current result position. 2: Total results.
-#: includes/frontend/class-live-search.php:75
+#: includes/frontend/class-live-search.php:76
 #, php-format
 msgid "Result %1$d of %2$d"
 msgstr ""
 
 #. translators: %s: Post title.
-#: includes/frontend/class-live-search.php:77
+#: includes/frontend/class-live-search.php:78
 #, php-format
 msgid "View article: %s"
 msgstr ""
 
-#: includes/frontend/class-live-search.php:78
+#: includes/frontend/class-live-search.php:79
 msgid "Search suggestions"
 msgstr ""
 
@@ -3088,7 +3088,7 @@ msgstr ""
 msgid "No product found"
 msgstr ""
 
-#: includes/frontend/templates/taxonomy-wzkb_tag.php:94
+#: includes/frontend/templates/taxonomy-wzkb_tag.php:95
 msgid "No tag found"
 msgstr ""
 
@@ -3102,83 +3102,87 @@ msgstr ""
 msgid "Comma-separated list of product term IDs."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:100
+#: includes/rest/class-rest-controller.php:101
 msgid "Knowledge Base post ID."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:127
+#: includes/rest/class-rest-controller.php:132
 msgid "Search keywords."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:133
-#: includes/rest/class-rest-controller.php:722
+#: includes/rest/class-rest-controller.php:138
+#: includes/rest/class-rest-controller.php:747
 msgid "Filter by product term ID."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:137
-#: includes/rest/class-rest-controller.php:726
+#: includes/rest/class-rest-controller.php:142
+#: includes/rest/class-rest-controller.php:751
 msgid "Filter by section term ID."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:141
+#: includes/rest/class-rest-controller.php:146
 msgid "Maximum number of results to return."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:160
+#: includes/rest/class-rest-controller.php:166
 msgid "Knowledge Base post ID used to fetch related articles."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:166
+#: includes/rest/class-rest-controller.php:172
 msgid "Maximum number of related articles to return."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:183
+#: includes/rest/class-rest-controller.php:190
 msgid "Associated product for the section."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:189
+#: includes/rest/class-rest-controller.php:196
 msgid "Product term ID."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:193
+#: includes/rest/class-rest-controller.php:200
 msgid "Product term name."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:197
+#: includes/rest/class-rest-controller.php:204
 msgid "Product term slug."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:287
+#: includes/rest/class-rest-controller.php:294
 msgid "Section filtering is only available when multi-product mode is enabled."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:456
-#: includes/rest/class-rest-controller.php:549
+#: includes/rest/class-rest-controller.php:463
+#: includes/rest/class-rest-controller.php:556
 msgid "Knowledge Base post not found."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:464
+#: includes/rest/class-rest-controller.php:471
 msgid "Knowledge Base post is not published."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:595
+#: includes/rest/class-rest-controller.php:602
 msgid "Search query must be at least two characters long."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:705
+#: includes/rest/class-rest-controller.php:713
+msgid "TranslatePress language code to render the response in."
+msgstr ""
+
+#: includes/rest/class-rest-controller.php:730
 msgid "Number of posts to return per page."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:712
+#: includes/rest/class-rest-controller.php:737
 msgid "Current page of the collection."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:718
+#: includes/rest/class-rest-controller.php:743
 msgid "Search term."
 msgstr ""
 
 #. translators: This placeholder represents the number of entries cleared from the cache.
-#: includes/util/class-cache.php:51
+#: includes/util/class-cache.php:53
 #, php-format
 msgid "%s entry cleared"
 msgid_plural "%s entries cleared"
