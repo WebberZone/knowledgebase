@@ -18,6 +18,7 @@ The **Help Widget** is a floating widget that provides self-service support dire
 The Help Widget adds a floating button (usually the bottom-right corner) that opens a help panel when clicked. Inside the panel, visitors can:
 
 - **Search** your knowledge base articles
+- **Ask** a question and get a short AI answer from your articles, with [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) turned on
 - **Browse** suggested articles relevant to the current page
 - **Contact** you via a built-in form if they can’t find answers
 
@@ -54,6 +55,19 @@ Navigate to **[Knowledge Base](https://webberzone.com/plugins/knowledgebase/) �
 1. **Verify articles exist** – Make sure you have published knowledge base articles.
 2. **Check article titles** – Search looks in article titles and content.
 3. **Clear cache** – Try clearing your site’s cache if using a caching plugin.
+
+The Help widget finds the same articles as the knowledge base search. With [Better Search](https://wordpress.org/plugins/better-search/) active, both use Better Search’s results.
+
+## Ask the docs in the Help Widget
+
+With [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) enabled and **Use in the Help widget** turned on under **Knowledge Base → Settings → AI (Beta)**, the Help widget answers questions as well as listing articles:
+
+- Typing shows matching articles, as before.
+- Pressing Enter or the search button also shows a short answer above the articles, with links to the articles it came from and related articles.
+- When there is no answer, the **Fallback message** appears above the articles instead.
+- Once a visitor reaches their hourly limit, or the site reaches its daily cap, only the articles are shown.
+
+The answer uses the Help widget’s colors. **Use in the Help widget** is on by default, but has no effect until Ask the docs is enabled.
 
 ### Contact Form Not Sending
 
@@ -285,6 +299,7 @@ add_action( 'wzkb_help_widget_contact_submitted', function( $name, $email, $subj
 - **PHP Class**: `includes/pro/help-widget/class-help-widget.php`
 - **JavaScript**: `includes/pro/help-widget/js/help-widget.js` (and `help-widget.min.js`)
 - **CSS**: `includes/pro/help-widget/css/help-widget.css` (and `help-widget.min.css`)
+- **Ask the docs**: `includes/pro/ai/js/ask.js` and `includes/pro/ai/css/ask.css`, loaded only when Ask the docs answers in the Help widget
 - **Settings**: `includes/admin/class-settings.php`
 - **Related Integration**: `includes/frontend/class-related.php`
 
@@ -517,6 +532,7 @@ Enhanced search results experience:
 
 ## See also
 
+- [Ask the docs: AI answers from your knowledge base](https://webberzone.com/support/knowledgebase/ask-the-docs/)
 - [`wzkb_help_widget_labels`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_labels/)
 - [`wzkb_help_widget_suggested_articles`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_suggested_articles/)
 - [`wzkb_help_widget_show`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_show/)

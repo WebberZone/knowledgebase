@@ -27,6 +27,14 @@ As soon as the visitor types in the KB search box, an AJAX request fetches match
 - **Accessible** — results are announced to screen readers via an ARIA live region.
 - **Debounced** — requests fire after a short pause while typing, not on every keystroke.
 
+With [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) *(Pro)* turned on, suggestions still appear while typing. Pressing Enter with no suggestion highlighted asks the question instead of opening the search results.
+
+## Better Search
+
+When live search is enabled, Knowledge Base search forms tell [Better Search](https://wordpress.org/plugins/better-search/) not to add its own live search, so visitors see a single list of suggestions. Other search forms on your site keep Better Search's live search.
+
+This needs Better Search 4.5.0 or later. With older versions, both lists can appear under Knowledge Base search forms.
+
 ## Using the search form
 
 The search form can be placed anywhere using the `[[kbsearch]]` shortcode or the **Knowledge Base Search** block. Live search works with both.
@@ -48,5 +56,6 @@ If suggestions use the wrong language, check your translation plugin’s configu
 
 ## See also
 
+- [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) — AI answers in the search box *(Pro)*
 - [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — Output settings reference
 - [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/) — `[[kbsearch]]` shortcode

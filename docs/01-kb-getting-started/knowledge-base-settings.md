@@ -94,6 +94,10 @@ How long should the knowledge base be cached for? Default is 1 day.
 - 90 Days
 - 1 Year
 
+#### Clearing the cache
+
+To clear the cache, go to **Knowledge Base → Tools** and click **Clear Cache**, or click **Clear cache** next to **Save Changes** on the settings page (Pro only). Both clear the knowledge base output cache and cached REST API responses. In Pro, they also clear cached [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) answers.
+
 ### Uninstall options
 
 #### Delete options on uninstall
@@ -437,3 +441,25 @@ Display the help widget on mobile devices.
 Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static.
 
 **Default:** Enabled
+
+## AI (Beta) *(Pro only)*
+
+Settings for [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/), which answers visitors' questions from your knowledge base using the AI provider connected under **Settings → Connectors**. This tab appears on WordPress 7.0 or later.
+
+| Setting | Default | Description |
+| --- | --- | --- |
+| **Enable Ask the docs** | Off | Turns the feature on. |
+| **AI provider** | Automatic | Which connected provider answers questions. |
+| **Articles sent as context** | 4 | Matching articles sent with each question (1–8). |
+| **Maximum characters per article** | 3,000 | Each article is trimmed to this length before it is sent (500–10,000). |
+| **Answer length** | Short | Short (two or three sentences) or Medium (one or two paragraphs). |
+| **Show sources** | On | List links to the articles the answer is based on. |
+| **Fallback message** | Empty | Shown when there is no answer. Leave blank to use the default. |
+| **Use in knowledge base search boxes** | On | Let knowledge base search boxes answer questions. |
+| **Use in the Help widget** | On | Show an answer above the Help widget's article results. |
+| **Daily request cap** | 200 | Maximum provider requests per day across the site (1–100,000). |
+| **Questions per visitor per hour** | 10 | Per-visitor limit (1–1,000). |
+| **Record questions for Content gaps** | Off | Store question text for the Content gaps report. |
+| **Log retention (days)** | 90 | How long recorded questions are kept (1–3,650). |
+
+See [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/#settings) for details on each setting.
