@@ -461,6 +461,9 @@ class Settings {
 			'default_none'         => esc_html__( 'None', 'knowledgebase' ),
 			'button_label'         => esc_html__( 'Choose File', 'knowledgebase' ),
 			'previous_saved'       => esc_html__( 'Previously saved', 'knowledgebase' ),
+			'repeater_move_up'     => esc_html__( 'Move item up', 'knowledgebase' ),
+			'repeater_move_down'   => esc_html__( 'Move item down', 'knowledgebase' ),
+			'repeater_remove_item' => esc_html__( 'Remove item', 'knowledgebase' ),
 		);
 
 		/**
