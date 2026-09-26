@@ -115,6 +115,8 @@ Each row links to a new article with the question as its title, and to the knowl
 
 Questions are deleted automatically after the **Log retention** period.
 
+To delete the log immediately, click **Empty log** on the Content gaps page and confirm. This deletes every recorded question, answered and unanswered, across all dates. The button appears only when the log contains questions. This cannot be undone.
+
 ## Troubleshooting
 
 **The AI tab says no provider is configured.** Check **Settings → Connectors**. The provider must support text generation with structured JSON output. A working provider is remembered for a week, and a failed check for 10 minutes. A failed provider request, or activating or deactivating a plugin, makes Knowledge Base Pro check again. Click **Check again** in the notice to recheck straight away.
