@@ -25,7 +25,7 @@ https://example.com/wp-json/wzkb/v1/
 
 - The API piggybacks on WordPress capabilities. Standard WordPress authentication mechanisms (cookies for logged-in sessions, app passwords, basic auth plugins, etc.) all work.
 - All REST responses follow standard WordPress structures with `code`, `message`, and `data`.
-- Cache lifetime is 300 seconds. Cache busts automatically on KB content or taxonomy changes.
+- Cache lifetime is 300 seconds. Cache busts automatically on KB content or taxonomy changes, and when the cache is cleared from **Knowledge Base → Tools** or the settings page.
 - When used in a headless context, ensure Gutenberg meta `_wzkb_product_ids` and `_wzkb_section_ids` are synced.
 - Permissions can be customized per route via the [`wzkb_rest_route_permission`](https://webberzone.dev/knowledgebase/hooks/wzkb_rest_route_permission/) filter.
 - By default, all read-only routes are public. Use the permission filter below to restrict access.
@@ -43,7 +43,7 @@ add_filter(
             return 'read_private_kb';
         }
 
-        // Fall back to default behaviour.
+        // Fall back to default behavior.
         return $permission;
     },
     10,
@@ -106,6 +106,7 @@ Use `wzkb_trp_rest_translatable_keys` to change which response fields are transl
 - [GET `/wzkb/v1/products`](#get-wzkbv1products)
 - [GET `/wzkb/v1/search`](#get-wzkbv1search)
 - [GET `/wzkb/v1/related`](#get-wzkbv1related)
+- [POST `/wzkb/v1/ask`](#post-wzkbv1ask) *(Pro)*
 
 ### GET `/wzkb/v1/sections`
 
@@ -230,6 +231,16 @@ Fetch related articles for a given Knowledge Base post.
 | `post_id` | int | yes | Base Knowledge Base post ID. |
 | `limit` | int | no | Number of related items (1–20). |
 
+### POST `/wzkb/v1/ask`
+
+*Knowledge Base Pro 3.2.0 or later, on WordPress 7.0 or later, with Ask the docs enabled.* Answer a visitor's question from the knowledge base using the connected AI provider.
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `question` | string | yes | The question (3–300 characters). |
+
+This route is meant for your site's own pages. It refuses requests from other origins and from bots. See the [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for the response fields, errors and filters.
+
 ## Using the API in Gutenberg
 
 The custom Gutenberg panel (`includes/admin/js/editor-sections-panel.js`) consumes `/sections` to show product-aware section lists. Other clients (mobile apps, headless front ends, internal tools) can consume the same endpoint, provided they authenticate and the site is running in multi-product mode.
@@ -240,4 +251,5 @@ The above REST API is a preliminary implementation. If you notice any issue, hav
 
 ## See also
 
+- [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
 - [`wzkb_rest_route_permission`](https://webberzone.dev/knowledgebase/hooks/wzkb_rest_route_permission/)
