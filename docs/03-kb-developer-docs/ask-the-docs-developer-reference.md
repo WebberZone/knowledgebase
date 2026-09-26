@@ -149,7 +149,7 @@ add_action(
 
 - **Answers**: transients prefixed `wzkb_ai_answer_`, kept for a day. The key includes the normalized question, the knowledge base content version, **Answer length**, **Articles sent as context**, **Maximum characters per article**, the provider and the locale.
 - **Content version**: the `wzkb_rest_cache_version` option. It changes when a knowledge base article is saved, changes status or is deleted, when a section or product is created, edited or deleted, and when the cache is cleared from the Tools page. A new version changes every answer key, so stale answers are never served.
-- **Provider status**: cached for an hour when a provider is available and for 10 minutes when it isn't.
+- **Provider status**: the `wzkb_ai_provider_available` transient, kept for a week when a provider is available and for 10 minutes when it isn't. It is deleted when a provider request fails, when any plugin is activated or deactivated, when the AI provider setting changes, and when the cache is cleared. The AI settings tab checks again in the background when it is missing.
 
 ## See also
 

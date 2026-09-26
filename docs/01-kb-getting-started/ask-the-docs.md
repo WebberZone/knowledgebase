@@ -30,7 +30,7 @@ Knowledge Base Pro never sees or stores API keys. It asks WordPress for a text a
 ## Set up Ask the docs
 
 1. Connect a provider under **Settings → Connectors**.
-2. Go to **Knowledge Base → Settings → AI (Beta)** and turn on **Enable Ask the docs**. If the tab shows a notice that no AI provider is configured, the provider you connected does not support the structured answers Ask the docs needs, or isn't set up yet. If it says the provider has not been checked recently, click **Check now**.
+2. Go to **Knowledge Base → Settings → AI (Beta)** and turn on **Enable Ask the docs**. If the tab shows a notice that no AI provider is configured, the provider you connected does not support the structured answers Ask the docs needs, or isn't set up yet. The tab checks the provider in the background when it hasn't been checked recently.
 3. Ask the docs now answers questions in these places. Each is on by default; turn off any you don't want on the same tab:
     - **Use in knowledge base search boxes**: every knowledge base search box answers questions: the Knowledge Base Search block, the `[[kbsearch]]` shortcode and the knowledge base templates. Live search suggestions still appear while typing, so visitors can jump straight to an article. Pressing Enter asks the question.
     - **Use in the Help widget**: the floating [Help widget](https://webberzone.com/support/knowledgebase/knowledge-base-help-widget/) answers questions on every page it appears on. Typing still shows matching articles. Pressing Enter or the search button also shows an answer above them. The Help widget must be enabled.
@@ -117,7 +117,7 @@ Questions are deleted automatically after the **Log retention** period.
 
 ## Troubleshooting
 
-**The AI tab says no provider is configured.** Check **Settings → Connectors**. The provider must support text generation with structured JSON output. The status is cached for an hour when a provider is available and for 10 minutes when it isn't. The settings page only shows the cached status, so it never waits on your provider. When nothing is cached, it says the provider has not been checked recently. Click **Check now** or **Check again** in the notice to recheck straight away.
+**The AI tab says no provider is configured.** Check **Settings → Connectors**. The provider must support text generation with structured JSON output. A working provider is remembered for a week, and a failed check for 10 minutes. A failed provider request, or activating or deactivating a plugin, makes Knowledge Base Pro check again. Click **Check again** in the notice to recheck straight away.
 
 **Search boxes don't answer questions.** Ask the docs is enabled but no provider is available, so search boxes work as plain search forms.
 
