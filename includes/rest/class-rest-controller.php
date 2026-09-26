@@ -48,6 +48,7 @@ class REST_Controller {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 
 		Hook_Registry::add_action( 'save_post_wz_knowledgebase', array( $this, 'bump_cache_version' ) );
+		Hook_Registry::add_action( 'wzkb_cache_cleared', array( $this, 'bump_cache_version' ) );
 		Hook_Registry::add_action( 'transition_post_status', array( $this, 'maybe_bump_on_status_change' ), 10, 3 );
 		Hook_Registry::add_action( 'deleted_post', array( $this, 'maybe_bump_on_post_delete' ) );
 		Hook_Registry::add_action( 'created_term', array( $this, 'maybe_bump_on_term_change' ), 10, 3 );

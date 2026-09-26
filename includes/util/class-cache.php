@@ -47,6 +47,9 @@ class Cache {
 
 		$count = self::delete();
 
+		/** This action is documented in includes/admin/class-tools-page.php */
+		do_action( 'wzkb_cache_cleared' );
+
 		wp_send_json_success(
 			array(
 				'message' => sprintf( // translators: This placeholder represents the number of entries cleared from the cache.

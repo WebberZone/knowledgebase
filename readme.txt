@@ -58,6 +58,7 @@ Perfect for:
 - __Section Tree Block & Widget__: Display a context-aware hierarchical navigation tree of your KB products, sections, and articles anywhere — as a Gutenberg block or a classic sidebar widget. The tree collapses and expands sections with an accessible accordion, and highlights the current page automatically.
 - __GitHub Integration__: Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 - __Article Export & Import__: Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
+- __Ask the docs (beta)__: Visitors ask a question in plain language and get a short answer drawn only from your published articles, with links to the sources. Uses the AI provider you connect under Settings > Connectors in WordPress 7.0 or later, with answer caching, per-visitor and daily limits, and a Content gaps report of unanswered questions.
 
 ### Key Concepts
 
@@ -181,6 +182,30 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Knowledge Base widgets
 
 == Changelog ==
+
+= 3.2.0 =
+
+Release date: TBC
+
+**Added**
+
+* [Pro] Added Ask the docs (beta): visitors ask a question and get a short answer drawn only from your knowledge base articles, using the AI provider connected under Settings > Connectors. Requires WordPress 7.0.
+* [Pro] Added options to answer questions in knowledge base search boxes and the Help widget.
+* [Pro] Added a Content gaps report listing the questions your knowledge base could not answer, with CSV export.
+* [Pro] Added the `knowledgebase/ask` ability for the WordPress Abilities API.
+* Added the `wzkb_search_posts_per_page` filter for the search results page size.
+
+**Changed**
+
+* Clear Cache, on the Tools page or the settings page, now also clears cached REST API responses and, in Pro, Ask the docs answers.
+
+**Fixed**
+
+* The knowledge base search results page size overrode the `limit` parameter of the REST search endpoint.
+* The knowledge base search form showed two lists of suggestions when Better Search's live search was also active.
+* Pressing Enter in the knowledge base search form could submit a pending live search instead of the search.
+* [Pro] The Help widget found no articles for most questions when Better Search was active.
+* [Pro] The Help widget search box lost focus after the first search.
 
 = 3.1.5 =
 

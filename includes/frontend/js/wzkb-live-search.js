@@ -164,7 +164,11 @@ class WZKBSearchAutocomplete {
 	 * Binds all event listeners.
 	 */
 	bindEvents() {
-		this.form.addEventListener('submit', () => this.clearCache());
+		this.form.addEventListener('submit', () => {
+			clearTimeout(this.debounceTimer);
+			this.clearCache();
+			this.clearResults();
+		});
 		this.searchInput.addEventListener(
 			'input',
 			this.handleInput.bind(this)
@@ -325,7 +329,13 @@ class WZKBSearchAutocomplete {
 			}
 		} else {
 			this.announce(wzkb_live_search.strings.submitting_search);
-			this.form.submit();
+			// requestSubmit() fires the submit event, so other scripts on the form can handle it.
+			if (this.form.requestSubmit) {
+				event.preventDefault();
+				this.form.requestSubmit();
+			} else {
+				this.form.submit();
+			}
 		}
 	}
 
