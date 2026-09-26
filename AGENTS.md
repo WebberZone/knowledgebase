@@ -129,6 +129,7 @@ Verify a change by building the zip and loading the classes from the extracted t
 | `includes/blocks/` | 8 free Gutenberg blocks (React in `src/`, compiled to `build/`) |
 | `includes/pro/` | Premium features: custom permalinks, rating system, help widget, KB homepage mode, floating TOC, docs layout, term featured images, export/import (Markdown/SQL/XLSX), GitHub import |
 | `includes/pro/blocks/` | 3 pro Gutenberg blocks: rating, toc, section-tree (React in `src/`, compiled to `build/`) |
+| `includes/pro/ai/` | Ask the docs (WordPress 7.0+ AI Client only): settings tab, retriever, prompt service, `POST /wzkb/v1/ask`, usage limits, answer cache, search box and Help widget front end, question log and Content gaps report, `knowledgebase/ask` ability. User docs in the free repo's `docs/` (`ask-the-docs.md`, `ask-the-docs-developer-reference.md`) |
 | `includes/pro/github/` | GitHub Markdown import: API wrapper, content converter, import processor, webhook handler, import wizard, link rewriter |
 | `includes/pro/widgets/` | 2 pro classic widgets: TOC, Section Tree |
 | `includes/rest/` | REST API under `/wzkb/v1/` namespace |

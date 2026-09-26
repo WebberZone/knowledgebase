@@ -39,6 +39,9 @@ if ( is_multisite() ) {
  */
 function wzkb_delete_data() {
 
+	// Ask the docs is Pro-only, so its data goes even when the free plugin keeps the rest.
+	wzkb_delete_ai_data();
+
 	if ( is_plugin_active( 'knowledgebase-pro/knowledgebase.php' ) ) {
 		return;
 	}
@@ -150,4 +153,23 @@ function wzkb_delete_rating_data() {
 	// Delete rating cache.
 	wp_cache_delete( 'wzkb_rating_global_mean_binary', 'wzkb_rating' );
 	wp_cache_delete( 'wzkb_rating_global_mean_scale', 'wzkb_rating' );
+}
+
+
+/**
+ * Delete Ask the docs data. Only present in Knowledge Base Pro.
+ *
+ * @since 3.2.0
+ */
+function wzkb_delete_ai_data() {
+	$class = '\\WebberZone\\Knowledge_Base\\Pro\\AI\\Question_Log';
+	$file  = __DIR__ . '/includes/pro/ai/class-question-log.php';
+
+	if ( ! class_exists( $class ) && file_exists( $file ) ) {
+		require_once $file;
+	}
+
+	if ( class_exists( $class ) ) {
+		$class::uninstall();
+	}
 }

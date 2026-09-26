@@ -104,7 +104,11 @@ class Template_Handler {
 	}
 
 	/**
-	 * For knowledge base search results, set posts_per_page 10.
+	 * Set the number of results on the knowledge base search results page.
+	 *
+	 * Applies to the main query and to secondary queries that don't set their own
+	 * page size, such as the one the search templates build. Queries that set
+	 * posts_per_page, such as the REST search endpoint, keep their own limit.
 	 *
 	 * @since 2.3.0
 	 *
@@ -113,8 +117,19 @@ class Template_Handler {
 	 */
 	public function posts_per_search_page( $query ) {
 
-		if ( ! is_admin() && $query->is_search() && isset( $query->query_vars['post_type'] ) && self::POST_TYPE === $query->query_vars['post_type'] ) {
-			$query->set( 'posts_per_page', 12 );
+		$has_own_size = ! $query->is_main_query() && '' !== (string) $query->get( 'posts_per_page', '' );
+
+		if ( ! is_admin() && ! $has_own_size && $query->is_search() && isset( $query->query_vars['post_type'] ) && self::POST_TYPE === $query->query_vars['post_type'] ) {
+			/**
+			 * Filter the number of results on the knowledge base search results page.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param int $posts_per_page Number of results. Default 12.
+			 */
+			$posts_per_page = (int) apply_filters( 'wzkb_search_posts_per_page', 12 );
+
+			$query->set( 'posts_per_page', $posts_per_page );
 			$query->set( 'post_type', self::POST_TYPE );
 		}
 

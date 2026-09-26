@@ -51,7 +51,10 @@ class Search {
 		// Generate unique ID for label association.
 		$input_id = 'wzkb-search-field-' . uniqid();
 
-		$form = '<form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '">'
+		// Better Search's live search would add a second list of suggestions.
+		$live_search = wzkb_get_option( 'enable_live_search' ) ? ' data-bsearch-live-search="off"' : '';
+
+		$form = '<form role="search" method="get" class="wzkb-search-form" action="' . esc_url( home_url( '/' ) ) . '"' . $live_search . '>'
 			. '<label for="' . esc_attr( $input_id ) . '">'
 			. '<span class="screen-reader-text">' . _x( 'Search for:', 'label', 'knowledgebase' ) . '</span>'
 			. '</label>'

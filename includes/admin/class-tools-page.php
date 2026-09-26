@@ -166,6 +166,13 @@ class Tools_Page {
 
 		if ( isset( $_POST['wzkb_clear_cache'] ) && check_admin_referer( 'wzkb-tools' ) ) {
 			$count = Cache::delete();
+
+			/**
+			 * Fires after an administrator clears the knowledge base cache from the Tools page or the settings page.
+			 *
+			 * @since 3.2.0
+			 */
+			do_action( 'wzkb_cache_cleared' );
 			add_settings_error(
 				'wzkb-notices',
 				'',
@@ -193,7 +200,7 @@ class Tools_Page {
 		<div class="postbox">
 			<h2 class="hndle"><span><?php esc_html_e( 'Cache', 'knowledgebase' ); ?></span></h2>
 			<div class="inside">
-				<p><?php esc_html_e( 'The Knowledge Base caches section output to improve performance. Use the button below to clear all cached data.', 'knowledgebase' ); ?></p>
+				<p><?php esc_html_e( 'The Knowledge Base caches section output and API responses to improve performance. Use the button below to clear all cached data.', 'knowledgebase' ); ?></p>
 				<p>
 					<?php
 					printf(
