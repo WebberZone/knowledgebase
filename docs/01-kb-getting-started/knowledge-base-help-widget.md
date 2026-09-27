@@ -231,6 +231,8 @@ The help widget intelligently suggests articles based on context:
 
 Control which articles are suggested using the [`wzkb_help_widget_suggested_articles`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_suggested_articles/) filter:
 
+For product pages, store comma-separated Knowledge Base article IDs in a site-defined `related_kb_articles` custom field. The filter passes the current page ID as `$current_post_id`.
+
 ```php
 add_filter( 'wzkb_help_widget_suggested_articles', function( $article_ids, $current_post_id ) {
     // Suggest specific articles based on current page
@@ -240,8 +242,8 @@ add_filter( 'wzkb_help_widget_suggested_articles', function( $article_ids, $curr
 
     // For product pages, show product-specific articles
     if ( is_singular( 'product' ) ) {
-        $product_id = get_post_meta( get_the_ID(), '_related_kb_articles', true );
-        return $product_id ? explode( ',', $product_id ) : array();
+        $article_ids = get_post_meta( $current_post_id, 'related_kb_articles', true );
+        return $article_ids ? explode( ',', $article_ids ) : array();
     }
 
     return $article_ids; // Use default behavior
