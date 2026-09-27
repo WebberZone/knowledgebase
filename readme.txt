@@ -189,15 +189,16 @@ Release date: TBC
 
 **Added**
 
-* [Pro] Added Ask the docs (beta): visitors ask a question and get a short answer drawn only from your knowledge base articles, using the AI provider connected under Settings > Connectors. Requires WordPress 7.0.
+* [Pro] Added Ask the docs (beta): visitors ask a question and get a short answer drawn only from knowledge base articles using the AI provider connected under Settings > Connectors. Requires WordPress 7.0.
 * [Pro] Added options to answer questions in knowledge base search boxes and the Help widget.
-* [Pro] Added a Content gaps report listing the questions your knowledge base could not answer, with CSV export.
+* [Pro] Added a Content gaps report with CSV export and an Empty log action.
 * [Pro] Added the `knowledgebase/ask` ability for the WordPress Abilities API.
 * Added the `wzkb_search_posts_per_page` filter for the search results page size.
 
 **Changed**
 
-* Clear Cache, on the Tools page or the settings page, now also clears cached REST API responses and, in Pro, Ask the docs answers.
+* Clear Cache, on the Tools page or settings page, now also cleared cached REST API responses and, in Pro, Ask the docs answers.
+* [Pro] Successful AI provider checks remained valid for one week and were refreshed in the background.
 
 **Fixed**
 
@@ -345,5 +346,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 3.1.5 =
-Security release. Hardens thumbnail attribute escaping, fixes Knowledge Base permalinks with blank or custom slugs, including custom structures capturing post and page URLs, and fixes multilingual caching. Update recommended.
+= 3.2.0 =
+Adds Ask the docs for Pro, with grounded answers in Knowledge Base search and the Help widget, usage limits and a Content gaps report. Requires WordPress 7.0 for this feature.
