@@ -25,6 +25,7 @@ Knowledge Base is free to use. The Pro upgrade adds AI answers from your article
 | Related articles | ✅ | ✅ |
 | Alert boxes (`[[kbalert]]` shortcode and Alerts block) | ✅ | ✅ |
 | REST API | ✅ | ✅ |
+| Abilities API: article search and section discovery | ✅ | ✅ |
 | Multilingual support (WPML, Polylang and TranslatePress) | ✅ | ✅ |
 | Settings export and import | ✅ | ✅ |
 | **Display & Customization** |  |  |
@@ -51,6 +52,7 @@ Knowledge Base is free to use. The Pro upgrade adds AI answers from your article
 | Answer caching, per-visitor limits and a daily request cap | ❌ | ✅ |
 | Content gaps report of unanswered questions, with CSV export | ❌ | ✅ |
 | `knowledgebase/ask` ability for the WordPress Abilities API | ❌ | ✅ |
+| `knowledge-base/create-article` draft ability for the WordPress Abilities API | ❌ | ✅ |
 | **Reader Engagement** |  |  |
 | Binary or 5-star article rating | ❌ | ✅ |
 | Follow-up feedback questions | ❌ | ✅ |

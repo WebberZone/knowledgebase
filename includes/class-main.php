@@ -147,6 +147,15 @@ final class Main {
 	public REST_Controller $rest_controller;
 
 	/**
+	 * Abilities API integration.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var Abilities
+	 */
+	public Abilities $abilities;
+
+	/**
 	 * Related articles.
 	 *
 	 * @since 2.3.0
@@ -231,6 +240,7 @@ final class Main {
 
 		// Ensure REST endpoints are always available.
 		$this->rest_controller = new REST_Controller();
+		$this->abilities       = new Abilities( $this->rest_controller );
 
 		if ( 0 !== (int) wzkb_get_option( 'multi_product', 0 ) ) {
 			new Product_Section_Selector();

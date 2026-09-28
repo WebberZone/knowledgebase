@@ -2,7 +2,7 @@
 Contributors: Ajay, webberzone
 Donate link: https://wzn.io/donate-wz
 Tags: knowledge base, documentation, FAQ, support, wiki
-Requires at least: 6.7
+Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 3.1.5
@@ -193,10 +193,13 @@ Release date: TBC
 * [Pro] Added options to answer questions in knowledge base search boxes and the Help widget.
 * [Pro] Added a Content gaps report with CSV export and an Empty log action.
 * [Pro] Added the `knowledgebase/ask` ability for the WordPress Abilities API.
+* Added the `knowledge-base/search-articles` and `knowledge-base/get-sections` abilities for the WordPress Abilities API.
+* [Pro] Added the `knowledge-base/create-article` ability to create draft Knowledge Base articles.
 * Added the `wzkb_search_posts_per_page` filter for the search results page size.
 
 **Changed**
 
+* The minimum supported WordPress version is now 6.9, which includes the native Abilities API.
 * Clear Cache, on the Tools page or settings page, now also cleared cached REST API responses and, in Pro, Ask the docs answers.
 * [Pro] Successful AI provider checks remained valid for one week and were refreshed in the background.
 

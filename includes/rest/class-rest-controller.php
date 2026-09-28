@@ -283,6 +283,22 @@ class REST_Controller {
 	}
 
 	/**
+	 * Check whether the current user can read a route-backed ability.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string $route_slug Route identifier.
+	 * @return bool Whether the route is readable.
+	 */
+	public function can_read_ability_route( string $route_slug ): bool {
+		if ( ! in_array( $route_slug, array( 'search', 'sections' ), true ) ) {
+			return false;
+		}
+
+		return $this->check_route_permission( $route_slug, true );
+	}
+
+	/**
 	 * REST callback: return hierarchical sections filtered by product IDs.
 	 *
 	 * @param WP_REST_Request $request Request instance.
@@ -361,6 +377,74 @@ class REST_Controller {
 		$this->cache_set( $cache_key, $response );
 
 		return rest_ensure_response( $response );
+	}
+
+	/**
+	 * Get the hierarchical section tree, optionally below a parent section.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param int $parent_id Parent section ID. Zero returns top-level sections.
+	 * @return array|WP_Error Section tree or an error.
+	 */
+	public function get_hierarchical_sections( int $parent_id = 0 ) {
+		if ( $parent_id > 0 ) {
+			$parent_term = get_term( $parent_id, 'wzkb_category' );
+			if ( is_wp_error( $parent_term ) || ! $parent_term instanceof \WP_Term ) {
+				return new WP_Error(
+					'wzkb_rest_section_not_found',
+					__( 'Knowledge Base section not found.', 'knowledgebase' ),
+					array( 'status' => 404 )
+				);
+			}
+		}
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'wzkb_category',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+
+		if ( is_wp_error( $terms ) ) {
+			return $terms;
+		}
+
+		$terms_by_parent = array();
+		foreach ( $terms as $term ) {
+			$terms_by_parent[ (int) $term->parent ][] = $term;
+		}
+
+		return $this->prepare_hierarchical_sections( $terms_by_parent, $parent_id );
+	}
+
+	/**
+	 * Prepare a section subtree for machine-readable responses.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param array $terms_by_parent Terms indexed by parent ID.
+	 * @param int   $parent_id       Parent ID to expand.
+	 * @return array Section tree.
+	 */
+	private function prepare_hierarchical_sections( array $terms_by_parent, int $parent_id ): array {
+		$sections = array();
+
+		foreach ( $terms_by_parent[ $parent_id ] ?? array() as $term ) {
+			$url = get_term_link( $term, 'wzkb_category' );
+
+			$sections[] = array(
+				'id'       => (int) $term->term_id,
+				'name'     => wp_strip_all_tags( $term->name ),
+				'slug'     => (string) $term->slug,
+				'url'      => is_wp_error( $url ) ? '' : (string) $url,
+				'children' => $this->prepare_hierarchical_sections( $terms_by_parent, (int) $term->term_id ),
+			);
+		}
+
+		return $sections;
 	}
 
 	/**
@@ -661,6 +745,176 @@ class REST_Controller {
 		$this->cache_set( $cache_key, $results );
 
 		return rest_ensure_response( $results );
+	}
+
+	/**
+	 * Search Knowledge Base articles and format the Abilities API response.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param mixed $input Ability input.
+	 * @return array|WP_Error Search results or an error.
+	 */
+	public function search_articles_for_ability( $input ) {
+		if ( ! is_array( $input ) || ! isset( $input['query'] ) || ! is_string( $input['query'] ) ) {
+			return new WP_Error(
+				'wzkb_invalid_ability_input',
+				__( 'A search query is required.', 'knowledgebase' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$query        = sanitize_text_field( $input['query'] );
+		$query_length = mb_strlen( $query );
+		if ( mb_strlen( trim( $query, " \t\n\r\0\x0B\f" ) ) < 2 || $query_length > 500 ) {
+			return new WP_Error(
+				'wzkb_invalid_ability_input',
+				__( 'The search query must contain between two and 500 characters.', 'knowledgebase' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$section_id = 0;
+		if ( isset( $input['section'] ) ) {
+			$section_id = $this->resolve_ability_section_id( $input['section'] );
+			if ( is_wp_error( $section_id ) ) {
+				return $section_id;
+			}
+		}
+
+		$limit = 10;
+		if ( isset( $input['limit'] ) ) {
+			if ( ! rest_is_integer( $input['limit'] ) ) {
+				return new WP_Error(
+					'wzkb_invalid_ability_input',
+					__( 'The result limit must be an integer.', 'knowledgebase' ),
+					array( 'status' => 400 )
+				);
+			}
+
+			$limit = (int) $input['limit'];
+		}
+		if ( $limit < 1 || $limit > 50 ) {
+			return new WP_Error(
+				'wzkb_invalid_ability_input',
+				__( 'The result limit must be between one and 50.', 'knowledgebase' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$request = new WP_REST_Request( 'GET', '/wzkb/v1/search' );
+		$request->set_param( 'query', $query );
+		$request->set_param( 'limit', $limit );
+		if ( $section_id > 0 ) {
+			$request->set_param( 'section', $section_id );
+		}
+
+		$response = $this->get_search_results( $request );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$articles = array();
+		foreach ( $response instanceof WP_REST_Response ? (array) $response->get_data() : array() as $result ) {
+			if ( ! is_array( $result ) || empty( $result['id'] ) ) {
+				continue;
+			}
+
+			$post_id = absint( $result['id'] );
+			if ( ! get_post( $post_id ) || ! current_user_can( 'read_post', $post_id ) ) {
+				continue;
+			}
+
+			$sections = array();
+			foreach ( (array) ( $result['sections'] ?? array() ) as $section ) {
+				if ( ! is_array( $section ) || empty( $section['id'] ) ) {
+					continue;
+				}
+
+				$sections[] = array(
+					'id'   => absint( $section['id'] ),
+					'name' => $this->to_plain_text( (string) ( $section['name'] ?? '' ) ),
+					'slug' => sanitize_title( (string) ( $section['slug'] ?? '' ) ),
+				);
+			}
+
+			$articles[] = array(
+				'id'      => $post_id,
+				'title'   => $this->to_plain_text( (string) ( $result['title'] ?? '' ) ),
+				'url'     => (string) ( $result['permalink'] ?? '' ),
+				'excerpt' => $this->to_plain_text( (string) ( $result['excerpt'] ?? '' ) ),
+				'section' => $sections,
+			);
+		}
+
+		return $articles;
+	}
+
+	/**
+	 * Get the hierarchical sections response for the Abilities API.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param mixed $input Ability input.
+	 * @return array|WP_Error Section tree or an error.
+	 */
+	public function get_sections_for_ability( $input ) {
+		if ( ! is_array( $input ) || ( isset( $input['parent'] ) && ( ! rest_is_integer( $input['parent'] ) || (float) $input['parent'] < 0 ) ) ) {
+			return new WP_Error(
+				'wzkb_invalid_ability_input',
+				__( 'Section input must contain a non-negative parent ID.', 'knowledgebase' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		return $this->get_hierarchical_sections( isset( $input['parent'] ) ? absint( $input['parent'] ) : 0 );
+	}
+
+	/**
+	 * Resolve a section term ID or slug provided to an ability.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param mixed $section Section input.
+	 * @return int|WP_Error Section ID or an error.
+	 */
+	private function resolve_ability_section_id( $section ) {
+		if ( is_int( $section ) && $section > 0 ) {
+			$term = get_term( $section, 'wzkb_category' );
+		} elseif ( is_string( $section ) && '' !== trim( $section, " \t\n\r\0\x0B\f" ) ) {
+			$section = trim( $section, " \t\n\r\0\x0B\f" );
+			$term    = get_term_by( 'slug', sanitize_title( $section ), 'wzkb_category' );
+			if ( ! $term && ctype_digit( $section ) ) {
+				$term = get_term( absint( $section ), 'wzkb_category' );
+			}
+		} else {
+			$term = false;
+		}
+
+		if ( is_wp_error( $term ) || ! $term instanceof \WP_Term ) {
+			return new WP_Error(
+				'wzkb_invalid_section',
+				__( 'The supplied section ID or slug does not exist.', 'knowledgebase' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		return (int) $term->term_id;
+	}
+
+	/**
+	 * Convert rendered text to plain text for machine-readable output.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string $text Rendered text.
+	 * @return string Plain text.
+	 */
+	private function to_plain_text( string $text ): string {
+		$text = wp_strip_all_tags( $text );
+		$text = html_entity_decode( $text, ENT_QUOTES | ENT_HTML5, get_bloginfo( 'charset' ) );
+
+		return trim( $text, " \t\n\r\0\x0B" );
 	}
 
 	/**
