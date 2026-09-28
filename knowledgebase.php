@@ -20,6 +20,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: knowledgebase
  * Domain Path: /languages
+ * Requires at least: 6.9
  */
 
 namespace WebberZone\Knowledge_Base;

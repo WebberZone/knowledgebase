@@ -72,7 +72,7 @@ add_filter(
 
 ## Ability
 
-Knowledge Base Pro registers the `knowledgebase/ask` ability with the WordPress Abilities API, in the `knowledgebase` category. It takes `{ "question": "..." }`, returns the same data as the REST endpoint, and runs through the same cache and limits.
+Knowledge Base Pro registers the `knowledgebase/ask` ability with the WordPress Abilities API, in the shared `webberzone` category. It takes `{ "question": "..." }`, returns the same data as the REST endpoint, and runs through the same cache and limits. The Abilities API requires WordPress 6.9 or later.
 
 It is limited to logged-in users by default, because the Abilities API route cannot check that a request comes from your site the way the REST endpoint does. The bot check does not apply to it. Use `wzkb_ai_ability_permission` to change who can run it:
 
@@ -154,4 +154,5 @@ add_action(
 ## See also
 
 - [Ask the docs: AI answers from your knowledge base](https://webberzone.com/support/knowledgebase/ask-the-docs/)
+- [Knowledge Base Abilities API](https://webberzone.com/support/knowledgebase/knowledge-base-abilities-api/)
 - [Knowledge Base REST API](https://webberzone.com/support/knowledgebase/knowledge-base-rest-api/)

@@ -33,7 +33,7 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 WebberZone Knowledge Base, namespace `WebberZone\Knowledge_Base`, is a WordPress multi-product knowledge base plugin. Freemium via Freemius: free core features, premium in `includes/pro/`. Activating either plugin auto-deactivates the other.
 
 - **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius via `load-freemius.php`, registers autoloader, and directly requires `includes/options-api.php` and `includes/functions.php`)
-- **PHP**: 7.4+ | **WordPress**: 6.7+
+- **PHP**: 7.4+ | **WordPress**: 6.9+
 - **Custom post type**: `wz_knowledgebase` | **Taxonomies**: `wzkb_category`, `wzkb_product`, `wzkb_tag`
 - **Versions**: `readme.txt`'s `Stable tag` is the released version; `WZKB_VERSION` in `knowledgebase.php` is the working version — use it for new `@since` tags. Do not bump either unless asked.
 
@@ -214,4 +214,3 @@ The Settings API (`includes/admin/settings/*.php`) and Admin Banner (`includes/a
 | `includes/admin/settings/class-settings-wizard-api.php` | 3.0.0 |
 | `includes/admin/settings/class-metabox-api.php` | 2.3.0 |
 | `includes/admin/class-admin-banner.php` | 3.0.0 |
-

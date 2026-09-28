@@ -252,4 +252,5 @@ The above REST API is a preliminary implementation. If you notice any issue, hav
 ## See also
 
 - [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
+- [Knowledge Base Abilities API](https://webberzone.com/support/knowledgebase/knowledge-base-abilities-api/)
 - [`wzkb_rest_route_permission`](https://webberzone.dev/knowledgebase/hooks/wzkb_rest_route_permission/)
