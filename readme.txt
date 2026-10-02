@@ -189,27 +189,23 @@ Release date: 2 October 2026
 
 **Added**
 
-* [Pro] Added Ask the docs (beta): visitors ask a question and get a short answer drawn only from knowledge base articles using the AI provider connected under Settings > Connectors. Requires WordPress 7.0.
-* [Pro] Added options to answer questions in knowledge base search boxes and the Help widget.
-* [Pro] Added a Content gaps report with CSV export and an Empty log action.
-* [Pro] Added the `knowledgebase/ask` ability for the WordPress Abilities API.
-* Added the `knowledge-base/search-articles` and `knowledge-base/get-sections` abilities for the WordPress Abilities API.
-* [Pro] Added the `knowledge-base/create-article` ability to create draft Knowledge Base articles.
-* Added the `wzkb_search_posts_per_page` filter for the search results page size.
+* [Pro] Ask the docs (beta): AI answers with article sources in Knowledge Base search boxes and the Help widget, with answer caching and daily and per-visitor limits. Requires WordPress 7.0 and a connected AI provider.
+* [Pro] Opt-in Content gaps report for unanswered questions, with CSV export and an Empty log action.
+* Abilities API tools for article search and section discovery: `knowledge-base/search-articles` and `knowledge-base/get-sections`.
+* [Pro] Abilities API tools for draft-only article creation (`knowledge-base/create-article`) and grounded answers (`knowledgebase/ask`).
+* `wzkb_search_posts_per_page` filter for the search results page size.
 
 **Changed**
 
-* Raised the minimum supported WordPress version to 6.9, which includes the native Abilities API.
-* Clear Cache, on the Tools page or settings page, now also cleared cached REST API responses and, in Pro, Ask the docs answers.
-* [Pro] Successful AI provider checks remained valid for one week and were refreshed in the background.
+* Raised the minimum supported WordPress version to 6.9.
+* Extended Clear Cache on the Tools and settings pages to clear cached REST API responses.
 
 **Fixed**
 
-* The knowledge base search results page size overrode the `limit` parameter of the REST search endpoint.
-* The knowledge base search form showed two lists of suggestions when Better Search's live search was also active.
-* Pressing Enter in the knowledge base search form could submit a pending live search instead of the search.
-* [Pro] The Help widget found no articles for most questions when Better Search was active.
-* [Pro] The Help widget search box lost focus after the first search.
+* The Knowledge Base search results page size overrode the REST search endpoint's `limit` parameter.
+* Knowledge Base search forms showed duplicate suggestions when Better Search live search was also active.
+* [Pro] Help widget searches returned no articles with Better Search active, and the search box lost focus while typing.
+* Settings repeater button labels used the wrong translation domain.
 
 = Earlier versions =
 
