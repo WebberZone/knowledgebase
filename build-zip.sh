@@ -37,6 +37,7 @@ docs/
 includes/frontend/blocks/src/
 includes/pro/blocks/src/
 build-assets.js
+eslint.config.*
 *.dist
 *.yml
 *.neon
