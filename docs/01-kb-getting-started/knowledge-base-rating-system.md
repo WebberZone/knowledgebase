@@ -11,517 +11,82 @@ toc: true
 
 [toc]
 
-The [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) plugin includes a comprehensive rating system that allows visitors to rate the quality of articles. This document explains how the system works, configuration options, and GDPR compliance considerations.
+[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) lets visitors rate articles, collects feedback on low ratings, and ranks articles by a weighted score that balances rating with vote count.
 
-## Overview
+## Settings
 
-The rating system provides three modes:
+The settings are under **Knowledge Base → Settings → Pro**, in the **Article Rating** section.
 
-1. **Disabled** – No rating functionality
-2. **Binary Rating** – Useful / Not Useful buttons
-3. **Scale Rating** – 1-5 star rating system
+| Setting | Default | What it does |
+| --- | --- | --- |
+| **Enable Rating System** | Disabled | **Useful / Not Useful** buttons, a **1-5 Star Rating**, or disabled. |
+| **Vote Tracking Method** | Cookie Only | How duplicate votes are prevented. See below. |
+| **Show Rating Statistics** | On | Shows the average rating and vote count below the rating buttons. |
+
+Ratings appear after the content of single knowledge base articles. Use the [`wzkb_rating_position`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_position/) filter to show them before the content instead.
 
 ## Tracking Methods & GDPR Compliance
 
-There are five tracking options to choose from, each with different implications from a GDPR (or equivalent privacy law) perspective. Let’s look at them one-by-one.
+Each method has different privacy implications. Copy-ready privacy policy wording for each one is in [Privacy Policy Text for Knowledge Base Article Ratings](https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/).
 
-### No Tracking (`none`)
-
-**How it works:**
-
-- No cookies set
-- No personal data stored
-- Allows unlimited votes from the same visitor
-- Most privacy-friendly option
-
-**GDPR Considerations:**
-
-- ✅ **No consent required**
-- ✅ Perfect for GDPR compliance without cookie banners
-- ✅ No privacy policy disclosure needed
-- ⚠️ Allows vote manipulation (use for low-stakes feedback)
-
-### Cookie Only (`cookie`)
-
-**How it works:**
-
-- Sets a browser cookie when the user votes
-- No personal data is stored on the server
-- The user can clear cookies (allows re-voting)
-
-**Cookie Details:**
-
-- **Name:** `wzkb_rated_{post_id}` (e.g., `wzkb_rated_123`)
-- **Value:** `1`
-- **Expiry:** 365 days
-- **Path:** `/`
-- **SameSite:** `Lax`
-- **Purpose:** Prevent duplicate votes on knowledge base articles
-
-**GDPR Considerations:**
-
-- ⚠️ **Requires cookie consent** under GDPR/ePrivacy
-- Must be disclosed in the cookie policy
-- Should be added to the cookie consent manager
-- Considered as “Functional” or “Preference” cookie category
-- No personal data is stored server-side
-
-### IP Address Only (`ip`)
-
-**How it works:**
-
-- Stores **hashed** visitor IP address in post meta (SHA-256 with WordPress salt)
-- Checks IP hash against stored list before allowing vote
-- No cookies set
-- **Privacy-friendly:** Original IP cannot be recovered from the hash
-
-**Data Storage:**
-
-- **Post Meta Key:** `_wzkb_rating_ips`
-- **Data Type:** Array of SHA-256 hashed IP addresses
-- **Example:** `['a3f5b...', 'c7d2e...']` (64-character hashes)
-- **Hash Method:** `hash('sha256', $ip . wp_salt('nonce'))`
-
-**GDPR Considerations:**
-
-- ✅ **Pseudonymized data** under GDPR Article 4(5)
-- ✅ **Cannot reverse** hash to obtain original IP
-- ✅ **Reduced GDPR obligations** compared to raw IP storage
-- ✅ **Privacy by design** – admins never see actual IPs
-- Still requires privacy policy disclosure
-- Lighter data protection requirements than raw IPs
-
-### Cookie + IP Address (`cookie_ip`)
-
-**How it works:**
-
-- Combines both cookie and IP checking
-- The user must pass both checks to vote
-- Most reliable duplicate prevention
-
-**GDPR Considerations:**
-
-- Requires both cookie consent AND privacy policy disclosure
-- Highest level of tracking
-- Best for preventing abuse
-- Consider using this setting for high-value content
-
-### Logged-in Users Only (`logged_in_only`)
-
-**How it works:**
-
-- Only authenticated WordPress users can vote
-- Stores WordPress user ID in post meta
-- Shows a login prompt to guests
-
-**Data Storage:**
-
-- **Post Meta Key:** `_wzkb_rating_user_ids`
-- **Data Type:** Array of WordPress user IDs
-- **Example:** `[1, 5, 12]`
-
-**GDPR Considerations:**
-
-- ✅ Most GDPR-friendly for authenticated sites
-- No cookies required for tracking
-- User IDs are already part of WordPress data
-- Clear data controller relationship
-- Prevents anonymous voting
-
-## Data Structure
-
-### Post Meta Keys
-
-The rating system stores the following data in post meta:
-
-| Meta Key | Type | Description |
+| Method | How duplicates are blocked | Privacy considerations |
 | --- | --- | --- |
-| `_wzkb_rating_total` | Integer | Total number of votes |
-| `_wzkb_rating_sum` | Integer | Sum of all rating values |
-| `_wzkb_rating_positive` | Integer | Number of positive votes (binary mode) |
-| `_wzkb_ratings` | Array | Individual rating entries with timestamps |
-| `_wzkb_rating_ips` | Array | Hashed IP addresses (if IP tracking enabled) |
-| `_wzkb_rating_user_ids` | Array | User IDs (if logged-in only mode) |
-| `_wzkb_rating_feedback` | Array | User feedback entries (PRO feature) |
-| `_wzkb_average_rating` | Float | Cached average rating (binary: 0-1, scale: 1-5) |
-| `_wzkb_positive_ratio` | Float | Cached positive ratio normalized to 0-1 |
-| `_wzkb_bayesian_rating` | Float | Cached Bayesian score for intelligent scoring |
+| **No Tracking** | Not blocked; visitors can vote repeatedly. | No cookies or personal data. Fine for low-stakes feedback. |
+| **Cookie Only** | A `wzkb_rated_{post_id}` cookie, kept for 365 days. | Needs cookie consent under GDPR/ePrivacy and a cookie-policy entry. Nothing is stored on the server. |
+| **IP Address Only** | A SHA-256 hash of the IP address with the WordPress salt, stored with the article. | Pseudonymized data: the IP cannot be recovered and admins never see it, but it still needs a privacy policy disclosure. |
+| **Cookie + IP Address** | Either check blocks a repeat vote. | Needs both cookie consent and a privacy policy disclosure. Strongest protection against abuse. |
+| **Logged-in Users Only** | The user ID is stored; guests see a login prompt. | No cookies. Suited to sites where readers sign in. |
 
-## Frontend Display
+If your site is behind a trusted proxy or CDN, IP tracking sees the proxy's address. Enable proxy headers with the [`wzkb_rating_use_proxy_headers`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_use_proxy_headers/) filter only if you trust the proxy, because the headers can otherwise be spoofed.
 
-### Automatic Display
+## Low ratings and feedback
 
-Ratings are automatically displayed at the bottom of single knowledge base articles via the `the_content` filter.
+When a visitor clicks **Not Useful**, or gives one or two stars, the rating box asks **How can we improve this article?** The visitor can leave an optional comment of up to 500 characters, or click **Skip**.
 
-### Asset Loading
+Each low rating emails the site admin address, and a comment submitted afterwards sends a second email with the comment. Change the recipient with [`wzkb_low_rating_notification_email`](https://webberzone.dev/knowledgebase/hooks/wzkb_low_rating_notification_email/), or turn the emails off with [`wzkb_send_low_rating_notification`](https://webberzone.dev/knowledgebase/hooks/wzkb_send_low_rating_notification/).
 
-The plugin automatically loads minified assets (`.min.css` and `.min.js`) in production for optimal performance. To use unminified assets for debugging, add this to your `wp-config.php`:
+Review comments under **Knowledge Base → Ratings Feedback**. Search them, show **Low Ratings Only**, or click **Export to CSV**.
 
-```php
-define( 'SCRIPT_DEBUG', true );
-```
+## Rating column and ranking
 
-**Asset Files:**
+The articles list in the admin has a sortable **Rating** column: the percentage of helpful votes in binary mode, or the average out of 5 in star mode, each with the vote count.
 
-- Production: `rating.min.css` and `rating.min.js` (minified)
-- Development: `rating.css` and `rating.js` (complete source with comments)
+Sorting uses a Bayesian average, so an article with two perfect votes doesn't outrank one with hundreds of good ones:
 
-### Manual Display
+*Weighted score = (v × R + m × C) / (v + m)*
 
-You can control the position using the filter:
+Here **v** is the article's vote count, **R** its average rating, **C** the average across all articles, and **m** the prior weight, `10` by default. With **C** at 70%, two votes at 100% score 75%, while 500 votes at 85% score about 85%. Raise **m** with [`wzkb_rating_bayesian_prior_weight`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_bayesian_prior_weight/) to require more votes before a rating is trusted.
 
-```php
-// Display rating before content.
-add_filter( 'wzkb_rating_position', function( $position, $post_id ) {
-    return 'before';
-}, 10, 2 );
-```
+The score is stored when a vote is submitted, so sorting stays fast.
 
-## AJAX Endpoint
+## Styling
 
-**Action:** `wzkb_submit_rating`
-**Method:** POST
-**Nonce:** `wzkb_rating_nonce`
+Override these classes in your theme or the **Custom CSS** setting:
 
-**Parameters:**
-
-- `post_id` – Post ID to rate
-- `rating` – Rating value (0-1 for binary, 1-5 for scale)
-- `mode` – Rating mode (‘binary’ or ‘scale’)
-
-**Response:**
-
-```text
-{
-    "success": true,
-    "data": {
-        "message": "Thank you for your feedback!",
-        "stats": {
-            "total": 10,
-            "sum": 42,
-            "positive": 8,
-            "average": 4.2
-        },
-        "display": "Average rating: 4.2 / 5 (10 votes)"
-    }
-}
-```
-
-## Admin Features
-
-### Rating Column
-
-The admin posts list includes a “Rating” column showing:
-
-- **Binary mode:** Percentage helpful (e.g., “80% (10)”)
-- **Scale mode:** Average rating (e.g., “4.2 / 5 (10)”)
-- The column is sortable
-
-### Bayesian Average Sorting
-
-The rating column uses **Bayesian average** (weighted rating) for intelligent sorting that balances quality with quantity.
-
-**How it works:**
-
-*Weighted Score = (v / (v + m)) × R + (m / (v + m)) × C*
-
-Where:
-
-- **v** = votes for this article
-- **m** = minimum votes threshold (default: 10)
-- **R** = this article’s rating
-- **C** = global mean rating across all articles
-
-**Why this matters:**
-
-| Without Bayesian | With Bayesian |
+| Class | Element |
 | --- | --- |
-| Article A: 5.0 (2 votes) ranks #1 | Article B: 4.5 (500 votes) ranks #1 |
-| Article B: 4.5 (500 votes) ranks #2 | Article A: 5.0 (2 votes) ranks lower |
-
-**Benefits:**
-
-- ✅ Prevents new articles with few votes from dominating
-- ✅ Rewards consistently good content with many votes
-- ✅ Pulls low-vote articles toward the global average
-- ✅ Same algorithm used by IMDb, Reddit, and Steam
-
-**Performance:**
-
-The Bayesian score is pre-calculated and stored in `_wzkb_bayesian_rating` post meta when ratings are submitted. This eliminates the need for complex sorting calculations. Additionally, the global mean rating is cached for 1 hour to optimize the Bayesian calculation itself. The cache is automatically invalidated when any rating is submitted.
-
-**Customization:**
-
-Adjust the minimum votes threshold (higher = more conservative):
-
-```php
-// Require 25 votes before trusting the rating fully.
-add_filter( 'wzkb_rating_bayesian_prior_weight', function( $prior_weight, $mode ) {
-    return 25;
-}, 10, 2 );
-```
-
-**Examples:**
-
-With `m = 10` and the global mean of `70%`:
-
-| Article | Votes | Raw Rating | Bayesian Score | Rank |
-| --- | --- | --- | --- | --- |
-| New Article | 2 | 100% | 78% | #3 |
-| Popular Article | 500 | 85% | 85% | #1 |
-| Established Article | 50 | 80% | 80% | #2 |
-
-### Hooks for Developers
-
-#### Actions
-
-```php
-// Fires after a rating is stored.
-do_action( 'wzkb_rating_stored', $post_id, $rating, $mode );
-```
-
-#### Filters
-
-```php
-// Change rating position.
-apply_filters( 'wzkb_rating_position', 'after', $post_id );
-
-// Adjust Bayesian prior weight (minimum votes threshold).
-apply_filters( 'wzkb_rating_bayesian_prior_weight', 10, $mode );
-
-// Customize rate limiting.
-apply_filters( 'wzkb_rating_rate_limits', array( 'max_requests' => 10, 'time_window' => 60 ) );
-
-// Enable proxy headers for IP detection (use with caution).
-apply_filters( 'wzkb_rating_use_proxy_headers', false );
-```
-
-## Privacy & Data Retention
-
-### Recommended Privacy Policy Text
-
-Add this to your privacy policy when using the rating system:
-
-#### For No Tracking Mode
-
-**Article Ratings:** When you rate a knowledge base article, no personal information is collected or stored. You may rate articles multiple times.
-
-#### For Cookie-Only Mode
-
-**Article Ratings:** When you rate a knowledge base article, we store a cookie on your device (wzkb*rated*[article_id]) to prevent duplicate votes. This cookie expires after 365 days. No personal information is collected or stored on our servers.
-
-#### For IP Address Mode
-
-**Article Ratings:** When you rate a knowledge base article, we store a pseudonymized identifier (cryptographic hash) derived from your IP address to prevent duplicate votes. This hash cannot be reversed to obtain your original IP address. The data is automatically limited to the most recent 10,000 votes per article for performance reasons.
-
-#### For Logged-in Users Mode
-
-**Article Ratings:** When you rate a knowledge base article, your user ID is stored with your rating to prevent duplicate votes. This data is associated with your WordPress account and will be deleted if you delete your account.
-
-### Data Deletion
-
-To delete all rating data for a specific post:
-
-```php
-// Delete primary rating data.
-delete_post_meta( $post_id, '_wzkb_rating_total' );
-delete_post_meta( $post_id, '_wzkb_rating_sum' );
-delete_post_meta( $post_id, '_wzkb_rating_positive' );
-delete_post_meta( $post_id, '_wzkb_ratings' );
-delete_post_meta( $post_id, '_wzkb_rating_ips' );
-delete_post_meta( $post_id, '_wzkb_rating_user_ids' );
-delete_post_meta( $post_id, '_wzkb_rating_feedback' );
-
-// Delete derived/cached data.
-delete_post_meta( $post_id, '_wzkb_average_rating' );
-delete_post_meta( $post_id, '_wzkb_positive_ratio' );
-delete_post_meta( $post_id, '_wzkb_bayesian_rating' );
-```
-
-To delete rating data for a specific IP address:
-
-```php
-function wzkb_delete_ratings_by_ip( $ip_address ) {
-    // Generate the same hash that would be stored.
-    $ip_hash = hash( 'sha256', $ip_address . wp_salt( 'nonce' ) );
-
-    $args = array(
-        'post_type'      => 'wz_knowledgebase',
-        'posts_per_page' => -1,
-        'meta_key'       => '_wzkb_rating_ips',
-    );
-
-    $posts = get_posts( $args );
-
-    foreach ( $posts as $post ) {
-        $ip_hashes = get_post_meta( $post->ID, '_wzkb_rating_ips', true );
-        if ( is_array( $ip_hashes ) ) {
-            $ip_hashes = array_diff( $ip_hashes, array( $ip_hash ) );
-            update_post_meta( $post->ID, '_wzkb_rating_ips', $ip_hashes );
-        }
-    }
-}
-```
-
-Since IPs are hashed, you need the original IP address to generate the matching hash for deletion.
-
-## Styling & Customization
-
-### CSS Classes
-
-- `.wzkb-rating-container` – Main container
-- `.wzkb-rating-header` – Header section
-- `.wzkb-rating-buttons` – Button container
-- `.wzkb-rating-btn` – Individual button (binary mode)
-- `.wzkb-rating-useful` – Useful button
-- `.wzkb-rating-not-useful` – Not useful button
-- `.wzkb-rating-stars` – Star container (scale mode)
-- `.wzkb-rating-star` – Individual star button
-- `.wzkb-rating-thank-you` – Thank you message
-- `.wzkb-rating-login-required` – Login required message
-- `.wzkb-rating-stats` – Statistics display
-- `.wzkb-rating-message` – AJAX message container
-
-### Custom CSS Example
-
-```css
-/* Change button colors */
-.wzkb-rating-useful {
-    background: #00a32a !important;
-}
-
-.wzkb-rating-not-useful {
-    background: #d63638 !important;
-}
-
-/* Change star color */
-.wzkb-rating-star:hover,
-.wzkb-rating-star.wzkb-star-hover {
-    color: #f39c12 !important;
-}
-```
+| `.wzkb-rating-container` | Main container |
+| `.wzkb-rating-useful`, `.wzkb-rating-not-useful` | Binary buttons |
+| `.wzkb-rating-star` | Each star |
+| `.wzkb-rating-stats` | Statistics |
+| `.wzkb-rating-thank-you` | Thank-you message |
+| `.wzkb-rating-login-required` | Login prompt |
 
 ## Troubleshooting
 
-### Ratings Not Appearing
+- **Ratings don't appear.** Check that **Enable Rating System** isn't Disabled, that you're on a single article, and that JavaScript isn't blocked. A theme that replaces the single article template can also hide them.
+- **Visitors can vote more than once.** Check the tracking method. Cookie tracking can be bypassed by clearing cookies, and IP tracking needs your server to see the real visitor IP.
+- **Page caching.** Ratings work with cached pages, because votes are checked and sent in the browser.
 
-1. Check that the rating system is enabled in settings
-2. Verify you’re on a single KB article page
-3. Check if the theme overrides the single template
-4. Ensure JavaScript is not blocked
+## Developer notes
 
-### Users Can Vote Multiple Times
+Each article stores its totals in `_wzkb_rating_total`, `_wzkb_rating_sum` and `_wzkb_rating_positive`, and cached scores in `_wzkb_average_rating`, `_wzkb_positive_ratio` and `_wzkb_bayesian_rating`. Individual votes, IP hashes, user IDs and feedback are kept in `_wzkb_ratings`, `_wzkb_rating_ips`, `_wzkb_rating_user_ids` and `_wzkb_rating_feedback`. Delete these meta keys to reset an article's ratings. To erase one visitor's votes for a GDPR request, compute `hash( 'sha256', $ip . wp_salt( 'nonce' ) )` from their IP address and remove that hash from `_wzkb_rating_ips` on each article.
 
-1. Check the tracking method setting
-2. Verify cookies are being set (check browser dev tools)
-3. For IP tracking, ensure the server is passing the correct IP headers
-4. Check if users are clearing cookies
+Votes are limited to 10 per 60 seconds per visitor, and each vote log keeps at most 10,000 entries, dropping the oldest 10% when full.
 
-### AJAX Errors
-
-1. Verify nonce is being generated correctly
-2. Check the browser console for JavaScript errors
-3. Ensure jQuery is loaded
-4. Check server error logs for PHP errors
-
-## Performance Considerations
-
-### Caching
-
-The rating system works with page caching because:
-
-- Initial HTML is static
-- Vote checking happens via AJAX
-- Cookie checking happens client-side
-
-### Database Optimization
-
-The rating system includes automatic optimizations:
-
-- **Automatic array size limits:** Max 10,000 entries per tracking array (ratings, IP hashes, user IDs); configurable via [`wzkb_rating_max_log_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_max_log_size/)
-- **Auto-cleanup:** Removes the oldest 10 % of entries when the limit is reached
-- **Efficient storage:** SHA-256 hashes are 64 characters (vs up to 39 for IPv6)
-- **Rate limiting:** 10 requests per 60 seconds per user/IP
-- **Race condition prevention:** Transient-based locking for concurrent votes
-
-For additional optimization, consider:
-
-- Using object caching for rating stats
-- Archiving old rating data for historical articles
-
-### Customizing Array Size Limits
-
-You can adjust the automatic cleanup limit using a filter. The same limit applies to `_wzkb_ratings`, `_wzkb_rating_ips`, and `_wzkb_rating_user_ids`. When the limit is reached, the oldest 10 % of entries are removed automatically.
-
-```php
-// Change the maximum array size (default: 10,000)
-add_filter( 'wzkb_rating_max_log_size', function() {
-    return 5000; // More aggressive cleanup for high-traffic sites
-} );
-```
-
-### Customizing Rate Limits
-
-```php
-// Adjust rate limiting (default: 10 requests per 60 seconds)
-add_filter( 'wzkb_rating_rate_limits', function( $limits ) {
-    return array(
-        'max_requests' => 5,   // Stricter limit
-        'time_window'  => 120, // Longer window
-    );
-} );
-```
-
-## Security Features
-
-### Built-in Security Protections
-
-1. **CSRF Protection**
-    - Nonce verification on all AJAX requests
-    - WordPress nonce system integration
-2. **Rate Limiting**
-    - Default: 10 requests per 60 seconds per user/IP
-    - Prevents abuse and stats manipulation
-    - Configurable via [`wzkb_rating_rate_limits`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_rate_limits/) filter
-3. **Input Validation**
-    - All inputs sanitized and validated
-    - Post status verification (only published posts)
-    - Rating value range checks
-    - Post type verification
-4. **Race Condition Prevention**
-    - Transient-based locking mechanism
-    - Prevents concurrent vote conflicts
-    - 5-second lock timeout with retry logic
-5. **Integer Overflow Protection**
-    - Maximum vote count: 2,147,483,647
-    - Automatic limit enforcement
-6. **IP Spoofing Prevention**
-    - Prioritizes `REMOTE_ADDR` (cannot be spoofed)
-    - Proxy headers are disabled by default
-    - Optional proxy support via [`wzkb_rating_use_proxy_headers`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_use_proxy_headers/) filter
-7. **Cookie Security**
-    - `SameSite=Lax` for CSRF protection
-    - `Secure` flag on HTTPS sites
-    - 365-day expiry
-8. **Privacy by Design**
-    - IP addresses hashed with SHA-256
-    - WordPress salt added for uniqueness
-    - Hashes cannot be reversed
-    - Admins never see actual IPs
-
-### For CDN/Proxy Users
-
-If your site is behind a trusted proxy or CDN (Cloudflare, AWS CloudFront, etc.):
-
-```php
-// Enable proxy header usage (use with caution!)
-add_filter( 'wzkb_rating_use_proxy_headers', '__return_true' );
-```
-
-Only enable this if you trust your proxy/CDN configuration. Improper use can allow IP spoofing.
-
-## See also
-
-- [`wzkb_rating_max_log_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_max_log_size/)
-- [`wzkb_rating_rate_limits`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_rate_limits/)
-- [`wzkb_rating_use_proxy_headers`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_use_proxy_headers/)
+| Hook | Use |
+| --- | --- |
+| [`wzkb_rating_stored`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_stored/) | Action after a vote is saved. |
+| [`wzkb_rating_rate_limits`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_rate_limits/) | Change the vote rate limit. |
+| [`wzkb_rating_max_log_size`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_max_log_size/) | Change the 10,000-entry log limit. |
+| [`wzkb_rating_session_expiry`](https://webberzone.dev/knowledgebase/hooks/wzkb_rating_session_expiry/) | How long a visitor's rating session lasts. Default one hour. |

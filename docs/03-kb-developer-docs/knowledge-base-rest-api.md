@@ -222,6 +222,12 @@ Lightweight search endpoint wrapping Knowledge Base queries.
 | `section` | int | no | Filter by section term ID. |
 | `limit` | int | no | Results to return (1–50). Default: 10. |
 
+`limit` applies only to this endpoint. The number of results on the knowledge base search results page is set separately with the `wzkb_search_posts_per_page` filter (default `12`), which does not override `limit`:
+
+```php
+add_filter( 'wzkb_search_posts_per_page', fn() => 20 );
+```
+
 ### GET `/wzkb/v1/related`
 
 Fetch related articles for a given Knowledge Base post.
