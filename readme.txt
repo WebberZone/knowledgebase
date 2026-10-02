@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.5
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,7 +185,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.2.0 =
 
-Release date: TBC
+Release date: 2 October 2026
 
 **Added**
 
@@ -199,7 +199,7 @@ Release date: TBC
 
 **Changed**
 
-* The minimum supported WordPress version is now 6.9, which includes the native Abilities API.
+* Raised the minimum supported WordPress version to 6.9, which includes the native Abilities API.
 * Clear Cache, on the Tools page or settings page, now also cleared cached REST API responses and, in Pro, Ask the docs answers.
 * [Pro] Successful AI provider checks remained valid for one week and were refreshed in the background.
 
@@ -211,138 +211,6 @@ Release date: TBC
 * [Pro] The Help widget found no articles for most questions when Better Search was active.
 * [Pro] The Help widget search box lost focus after the first search.
 
-= 3.1.5 =
-
-Release date: 24 September 2026
-
-**Added**
-
-* Added TranslatePress support for Knowledge Base REST responses, search results and related articles.
-
-**Changed**
-
-* Improved accessibility of the settings screens.
-* [Pro] The GitHub importer now accepts `heading_depth` and `min_headings` in `[toc]` markers, and exports keep complex tables as HTML.
-* Blank product, section and tag slugs now fall back to their defaults, and a blank Knowledge Base slug with a blank article permalink structure places articles at the site root.
-
-**Security**
-
-* Hardened the escaping of thumbnail width and height attributes.
-
-**Fixed**
-
-* [Pro] Custom article permalink structures made regular posts show the blog index and could capture page, tag and pagination URLs.
-* [Pro] Custom permalinks returned 404s or were ignored for blank Knowledge Base slugs, articles missing a term, term feeds and pagination, and structures such as `docs/%postname%`.
-* Feeds showed the wrong content when the Knowledge Base slug was blank.
-* Cached Knowledge Base output and REST responses could serve content from another language on multilingual sites.
-* Fixed PHP 8.6 deprecation notices.
-
-= 3.1.4 =
-
-Release date: 5 September 2026
-
-**Added**
-
-* [Pro] Added the `%product_id%` placeholder for product, section, and article permalink structures. Product and section IDs resolve to their corresponding taxonomy terms, including hierarchical sections.
-
-**Changed**
-
-* [Pro] Invalid product and section IDs now return a 404 response instead of falling back to another Knowledge Base archive.
-
-**Fixed**
-
-* Fixed plugin data being deleted when uninstalling one version while its paired free or Pro counterpart was active.
-* [Pro] Fixed the `%section_id%` placeholder generating the wrong query variable, which caused section URLs to load the wrong archive or return a 404.
-* [Pro] Fixed custom permalink settings using stale rewrite rules immediately after they were saved. Rewrite rules now flush after the new settings have been registered.
-
-= 3.1.3 =
-
-Release date: 26 August 2026
-
-**Changed**
-
-* [Pro] GitHub commit messages generated when pushing articles are now prefixed with `docs: ` so they follow conventional commit style in the target repository.
-* [Pro] The GitHub importer now skips Markdown files that have no frontmatter, and files whose frontmatter sets `kb_exclude: true`. An article that was imported earlier and is later marked `kb_exclude` is drafted or deleted according to the mapping's "When a File is Deleted" setting. Excluded files are reported in the import wizard results and counted separately.
-* [Pro] GitHub bulk exports now use Git Trees content uploads, prepare bounded chunks with progressive table updates, create one commit per repository and branch, and resume safely after an interruption.
-* [Pro] A GitHub export now resumes automatically when the wizard page is reloaded while an export is still running.
-* [Pro] The GitHub import and export results tables now show a Product column, so you can see which product each article belongs to.
-* Updated the Settings API framework, Options API and admin notices API to their latest versions.
-* PHP compatibility checks now cover PHP 7.4 to 8.6.
-* Updated npm dependencies.
-
-**Fixed**
-
-* Fixed checkbox settings resolving to `true`/`false` instead of `1`/`0` when read before their saved value existed, which could break blocks and REST responses that expect a numeric value.
-* Fixed `Custom CSS` returning `false` instead of an empty string when no value had been saved.
-* Fixed the `wzkb_settings_defaults` filter being ignored when a default was read outside the admin area.
-* Fixed settings on a multisite network reading another site's values in the same request after a `switch_to_blog()` call, such as during network activation.
-* Fixed the settings wizard silently dropping repeater field rows on save.
-* [Pro] Fixed the GitHub export wizard preview using post timestamps instead of generated Markdown, which could omit articles that were later pushed.
-* [Pro] Fixed empty article exports from being hashed or sent to GitHub.
-* [Pro] Fixed the GitHub exporter attempting to push articles whose post no longer exists; such articles are now reported in the results table and the rest of the export continues.
-* [Pro] Fixed the GitHub exporter writing documented shortcodes as literal text, so re-importing an article executed them — a heading reading `[bsearch_form]` came back as a working search form. Literal shortcodes are now written in the `[[shortcode]]` form, which WordPress renders as text and which survives the round trip. Only registered shortcode tags are escaped, so WP-CLI notation such as `[--force]` and placeholders such as `wzkb_rated_[article_id]` are left untouched.
-* [Pro] Fixed the GitHub exporter dropping `order: 0` from the frontmatter, which made push-back non-idempotent and produced a diff against the repository even when nothing about the article had changed.
-
-= 3.1.2 =
-
-Release date: 16 August 2026
-
-**Changed**
-
-* Updated the Settings API framework.
-
-**Fixed**
-
-* Fixed a fatal error ("There has been a critical error on this website") that could occur when Pro features were activated — e.g. on starting a free trial or activating a license — on sites whose saved settings predate the floating table of contents option.
-* Fixed a fatal error when Knowledge Base and Knowledge Base Pro were activated together by namespacing the function-existence guard for the main instance and guarding the autoloader and settings includes.
-* Fixed the Settings page sidebar overlapping the tab content by switching the post body layout to flexbox.
-* Fixed disabled and Pro-gated settings losing their stored values on save when their field was not submitted.
-
-= 3.1.1 =
-
-Release date: 21 July 2026
-
-**Added**
-
-* Added search to the Settings page to quickly find options across tabs.
-
-**Changed**
-
-* Smooth scroll-to-top when switching Settings tabs.
-* Updated Settings API to 2.10.1 and refreshed the admin banner.
-* Updated Freemius SDK to 2.13.4.
-* Updated WordPress.org banner images.
-
-**Fixed**
-
-* Fixed default-value label lookup for select/radio fields that use an empty string as a real option key (e.g. "Do not display").
-* [Pro] GitHub/Markdown exporter: unknown block types without inner blocks now export raw innerHTML instead of a block comment, so they round-trip correctly on re-import.
-* [Pro] GitHub/Markdown exporter: pass `<mark>`, `<u>`, `<sub>`, `<sup>` through as raw HTML during inline conversion, and allow `future` as a valid frontmatter/mapping post status.
-* [Pro] GitHub/Markdown exporter: emit the `toc: true` frontmatter flag when an article contains a TOC block, for full importer/exporter parity.
-
-= 3.1.0 =
-
-Release date: 9 July 2026
-Release post: https://webberzone.com/announcements/knowledge-base-v3-1-0/
-
-**Added**
-
-* [Pro] Documentation Layout Mode: three-column docs site layout with a sticky, collapsible section-tree sidebar, article content area, and on-this-page TOC rail. Enable via Settings → Pro. Works on all KB page types (home, product, section, single article, search).
-* [Pro] Section Tree block (`knowledgebase/section-tree`) and sidebar widget: context-aware hierarchical navigation tree displaying products, sections, and articles with collapsible accordion and active-item highlighting. Adapts automatically to the current product, section, or article page.
-* [Pro] GitHub Integration: sync markdown documentation between GitHub repositories and the Knowledge Base via webhooks, with YAML frontmatter, markdown-to-Gutenberg conversion, and HMAC signature verification. Import and export are combined into a single Importer/Exporter page, with featured image support and a post-import next-actions panel.
-* [Pro] Article Export & Import: export articles as a Markdown ZIP, SQL dump, or XLSX spreadsheet, and re-import Markdown ZIPs (matched by slug) to restore or migrate.
-* [Pro] Term featured image support for product and section archives.
-* Plugin Importer: migrate articles, sections, products, and tags from BasePress, BetterDocs, and Echo KB.
-* Settings Export & Import: back up and restore plugin settings as JSON, with sensitive keys preserved on the existing site.
-* Sample content: import demo articles, sections, and products from the Setup Wizard or Tools page, removable in one click.
-* Added `wzkb_tag` taxonomy templates, displaying tag terms on single articles and tag archives.
-
-**Changed**
-
-* [Pro] Floating TOC now slides in horizontally from the viewport edge instead of collapsing vertically.
-* Reorganized admin navigation and added a Settings button to the admin banner.
-* Upgraded Tom Select to v2.6.1.
-
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the [releases page on GitHub](https://github.com/WebberZone/knowledgebase/releases).
@@ -350,4 +218,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.0 =
-Adds Ask the docs for Pro, with grounded answers in Knowledge Base search and the Help widget, usage limits and a Content gaps report. Requires WordPress 7.0 for this feature.
+Requires WordPress 6.9. Adds Abilities API tools for article search, section discovery and Pro draft creation. Pro also gains Ask the docs (beta), grounded answers and a Content gaps report; this feature requires WordPress 7.0.
