@@ -11,7 +11,7 @@ toc: true
 
 [toc]
 
-This guide explains how [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) handles URLs and how to configure custom permalink structures in Pro.
+Learn how [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) handles URLs and how to configure custom permalink structures in Pro.
 
 ## Quick start
 

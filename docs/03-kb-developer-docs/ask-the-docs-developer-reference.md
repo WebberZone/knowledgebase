@@ -38,7 +38,7 @@ Questions must be 3 to 300 characters after HTML tags are stripped and whitespac
 | `cached` | bool | Whether the answer came from the cache. |
 | `message` | string | The fallback message when not answered. |
 | `search_url` | string | The knowledge base search results URL for the question. |
-| `reason` | string | `daily_cap`, `provider_error` or `invalid_response` when there is no answer for one of those reasons. Empty otherwise. |
+| `reason` | string | `daily_cap`, `provider_error`, `provider_busy` or `invalid_response` when there is no answer for one of those reasons. Empty otherwise. |
 
 ### Errors
 
@@ -51,6 +51,12 @@ Questions must be 3 to 300 characters after HTML tags are stripped and whitespac
 | 429 | `wzkb_ai_rate_limited` | The visitor reached **Questions per visitor per hour**. The `Retry-After` header gives the seconds until the next hour. |
 
 When the daily cap is reached, the endpoint returns 200 with `answered` set to `false` and `reason` set to `daily_cap`.
+
+When several visitors ask the same uncached question at once, only the first request calls the provider. The others wait for its answer and return it from the cache. If the provider is still working when the wait ends, they return 200 with `answered` set to `false` and `reason` set to `provider_busy`, rather than paying for a second provider call.
+
+### Answer validation
+
+The provider replies with whether it answered, the answer text and the IDs of the articles it used. Source IDs that were not sent are discarded, and an answer with no valid sources is treated as unanswered. Source links are built from your articles, never from the model's output, and the answer is returned as plain text. A malformed reply returns `reason` `invalid_response` and is not cached, so the next request gets a fresh attempt.
 
 ### Bot check
 

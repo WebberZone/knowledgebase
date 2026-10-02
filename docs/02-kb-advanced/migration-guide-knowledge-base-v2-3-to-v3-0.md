@@ -11,546 +11,75 @@ toc: true
 
 [toc]
 
-## Overview
+[Knowledge Base](https://webberzone.com/plugins/knowledgebase/) v3.0 added **Multi-Product Mode**, which organizes articles and sections by product. The Product Migration Wizard converts a v2.3-style knowledge base, where top-level sections stood in for products, into the multi-product structure.
 
-[Knowledge Base](https://webberzone.com/plugins/knowledgebase/) v3.0 introduces **Multi-Product Mode**, an organizational feature that allows you to structure your knowledge base by products. This guide explains the migration process from the single-product structure (v2.3 and earlier) to the new multi-product architecture.
+## Should you migrate?
 
-## What’s New in v3.0?
+Migrate if your top-level sections already represent separate products, services or product lines. Stay in single-product mode if you document one product and your current structure works. Multi-Product Mode is optional, and you can also enable it without migrating and create products by hand.
 
-### Multi-Product Mode
+In Multi-Product Mode:
 
-In Knowledge Base v2.3 and earlier, your knowledge base had a flat structure with **Sections** (categories) organize your articles. You could use multiple levels of sections to display products and articles related to those products.
+- **Products** are the top-level units, each with its own archive page.
+- **Sections** belong to a product.
+- **Articles** are assigned to products and sections.
 
-v3.0 introduces a new hierarchical structure to better organize products and articles.
+## What the wizard does
 
-- **Products** are top-level organizational units
-- **Sections** belong to specific products
-- **Articles** are assigned to products and sections
-- Each product can have its own dedicated archive page
+| Item | Result |
+| --- | --- |
+| Top-level sections | Become products with the same name, slug and description. An existing product with the same slug is reused. |
+| Sub-sections | Stay as sections and are linked to their parent's product. |
+| Articles | Assigned to the product of their section. |
+| Original top-level sections | Deleted once their content is mapped. |
 
-### Benefits
+Article content, metadata, permalinks, custom fields, featured images and article–section relationships don't change. Articles that aren't in any section are not assigned a product.
 
-- ✅ **Better Organization** – Separate documentation for different products
-- ✅ **Improved Navigation** – Users find content faster
-- ✅ **Scalability** – Manage multiple product lines
-- ✅ **SEO Friendly** – Dedicated URLs for each product
-- ✅ **Optional** – You can keep using single-product mode if preferred
+The migration cannot be undone except by restoring a backup, and the wizard is removed once a migration completes.
 
-## Should You Migrate?
+## Before you start
 
-### Migrate to Multi-Product Mode If
+1. Back up your database.
+2. Test on a staging site if you can.
+3. List your top-level sections. Each one will become a product.
 
-- You have multiple products/services
-- Your knowledge base covers different product lines
-- You want separate documentation sections for each product
-- Your top-level sections represent different products
+## Run the migration
 
-### Stay in Single-Product Mode If
+1. Go to **Knowledge Base → Settings → General**, turn on **Enable Multi-Product Mode**, and save.
+2. Go to **Knowledge Base → Tools** and click **Run Migration Wizard** in the **Product Migration** box.
+3. Keep **Dry run (show summary only, no changes)** checked, check the backup confirmation, and click **Start Migration**. The dry run logs what would happen without changing anything.
+4. Review the log. When you're satisfied, uncheck **Dry run** and click **Start Migration** again.
+5. Keep the page open until the progress bar reaches 100%. Use **Copy Log** to keep a record.
 
-- You have a single product or service
-- Your current structure works well
-- You prefer a simpler organization
-- You don’t need product-level separation
+The wizard works in batches of 3 top-level sections and 50 articles, saving its progress between batches so large knowledge bases don't time out.
 
-## Before You Start
+## Check the results
 
-### Prerequisites
+- **Knowledge Base → Products** lists the new products.
+- **Knowledge Base → Sections** shows each section's product in the **Product** column.
+- **Knowledge Base → All Articles** shows each article's products.
+- Visit your knowledge base and a product archive page, then clear any page cache.
 
-1. **Backup Your Database** ⚠️
-    - Create a complete database backup
-    - The migration process modifies your content structure
-    - While the wizard includes a dry-run mode, backups are essential
-2. **Review Your Current Structure**
-    - List all your top-level sections
-    - Understand which articles belong to which sections
-    - Identify any sub-sections (child sections)
-3. **Plan Your Products**
-    - Each top-level section will become a product
-    - Sub-sections will remain as sections under their parent product
-    - Articles will be assigned to their corresponding products
-
-## Migration Process
-
-### Step 1: Enable Multi-Product Mode
-
-1. Navigate to **Knowledge Base → Settings**
-2. Go to the **General** tab
-3. Find the **Multi-Product Mode** setting
-4. Check the box to enable it
-5. Click **Save Changes**
-
-### Step 2: Access the Migration Wizard
-
-After enabling Multi-Product Mode, you’ll see a notice in your WordPress admin:
-
-> [!NOTE]
-> ⓘ **New Multi-Products Mode available!** Organize your knowledge base by product with our new Multi-Products mode! You can migrate your existing content using the migration wizard. If you don’t want to use this feature, you can dismiss this notice by saving the settings page.
-
-Click the **Migration Wizard** button to start.
-
-Alternatively, navigate to: **Knowledge Base → Product Migration.**
-
-### Step 3: Understand What the Wizard Does
-
-The Migration Wizard performs the following operations:
-
-1. **Convert Sections to Products**
-    - Each top-level section becomes a product
-    - Product name, slug, and description are preserved
-    - Example: “WordPress Plugin” section → “WordPress Plugin” product
-2. **Map Articles to Products**
-    - Articles are assigned to their corresponding products
-    - Based on existing section relationships
-    - No articles are lost or duplicated
-3. **Handle Sub-Sections**
-    - Sub-sections (child sections) are linked to parent products
-    - Section hierarchy is maintained
-    - Example: “Installation” sub-section under “WordPress Plugin” → linked to “WordPress Plugin” product
-4. **Remove Old Top-Level Sections**
-    - Original top-level sections are deleted after migration
-    - Sub-sections are preserved and linked to products
-    - This streamlines your structure
-
-### Step 4: Run a Dry Run (Recommended)
-
-Before making any changes:
-
-1. **Check the “Dry run” checkbox** (enabled by default)
-2. Click **Start Migration**
-3. Review the migration output
-4. Verify the proposed changes
-5. Check for any errors or warnings
-
-**Dry Run Features:**
-
-- ✅ Simulates the migration process
-- ✅ Shows exactly what will happen
-- ✅ Creates temporary products for preview
-- ✅ Makes NO permanent changes
-- ✅ Deletes simulated products after completion
-
-### Step 5: Confirm and Migrate
-
-Once you’re satisfied with the dry run results:
-
-1. **Uncheck the “Dry run” checkbox**
-2. **Check the backup confirmation checkbox**: “I confirm I have backed up my database and understand this migration cannot be undone.”
-3. Click **Start Migration**
-4. Wait for the process to complete
-5. Review the migration log
-
-**Migration Progress:**
-
-- Real-time progress bar
-- Detailed migration log
-- Error reporting (if any)
-- Copy log button for record-keeping
-
-### Step 6: Verify the Results
-
-After migration:
-
-1. **Check Your Products**
-    - Navigate to **Knowledge Base → Products**
-    - Verify all products were created correctly
-    - Review product names and slugs
-2. **Check Your Sections**
-    - Navigate to **Knowledge Base → Sections**
-    - Verify sub-sections are linked to correct products
-    - Check the “Product” column
-3. **Check Your Articles**
-    - Navigate to **Knowledge Base → All Articles**
-    - Verify articles are assigned to correct products
-    - Review the “Product” column
-4. **Test Frontend Display**
-    - Visit your knowledge base archive page
-    - Check product archive pages
-    - Verify article display and navigation
-
-## Migration Details
-
-### What Gets Migrated?
-
-| Item | Action | Result |
-| --- | --- | --- |
-| Top-level sections | Converted to products | New product taxonomy terms |
-| Sub-sections | Linked to parent products | Remain as sections with product association |
-| Articles | Assigned to products | Product taxonomy term added |
-| Section names | Preserved | Copied to product names |
-| Section slugs | Preserved | Copied to product slugs |
-| Section descriptions | Preserved | Copied to product descriptions |
-
-### What Doesn’t Change?
-
-- ✅ Article content
-- ✅ Article metadata
-- ✅ Article URLs (permalinks)
-- ✅ Section hierarchy (sub-sections)
-- ✅ Article-section relationships
-- ✅ Custom fields
-- ✅ Featured images
-
-### Database Changes
-
-The migration modifies:
-
-- wp_terms – Creates new product terms
-- wp_term_taxonomy – Adds product taxonomy entries
-- wp_term_relationships – Links articles to products
-- wp_termmeta – Links sections to products (product_id meta)
-
-## Batch Processing
-
-The migration wizard uses intelligent batch processing to handle large knowledge bases:
-
-### Performance Features
-
-- **Batch Size Limits**
-    - Default: 3 sections per batch
-    - Default: 50 articles per batch
-    - Prevents server timeouts
-    - Customizable via filters
-- **Progress Tracking**
-    - Real-time progress bar
-    - Detailed step-by-step logging
-    - State persistence between batches
-    - Resume capability if interrupted
-- **Memory Management**
-    - Transient-based state storage
-    - Efficient query optimization
-    - Prevents memory exhaustion
-
-The migration wizard uses intelligent batch processing to handle large knowledge bases:
-
-### Customization Filters
-
-```php
-// Increase sections per batch (for powerful servers).
-add_filter( 'wzkb_migration_max_sections_per_batch', function( $max ) {
-    return 5; // Default: 3
-} );
-
-// Increase articles per batch.
-add_filter( 'wzkb_migration_max_articles_per_batch', function( $max ) {
-    return 100; // Default: 50
-} );
-```
-
-## Migration Steps Explained
-
-### Step 0: Initialization (Progress: 0-20%)
-
-**What Happens:**
-
-- Clears previous migration data
-- Scans all top-level sections
-- Counts articles in each section
-- Calculates total articles and sections
-- Prepares state for batch processing
-
-**Log Output:**
-
-```bash
-Initializing migration...
-Dry run mode: No changes will be made.
-```
-
-### Step 1: Create Products (Progress: 20%)
-
-**What Happens:**
-
-- Converts each top-level section to a product
-- Preserves name, slug, and description
-- Checks for existing products (prevents duplicates)
-- Creates section-to-product mapping
-
-**Log Output:**
-
-```bash
-Creating products from top-level sections...
-Created product "WordPress Plugin" (ID: 123) for section "WordPress Plugin" (ID: 45).
-```
-
-### Step 2: Map Sections & Articles (Progress: 20-80%)
-
-**What Happens:**
-
-- Processes sections in batches
-- Links sub-sections to parent products (via `product_id` term meta)
-- Assigns articles to products
-- Prevents duplicate assignments
-- Tracks progress across batches
-
-**Log Output:**
-
-```bash
-Mapping descendant sections and articles to products...
-Processing section "Installation" (ID: 46)
-Linked section "Installation" (ID: 46) to product ID: 123.
-Assigned articles to product "WordPress Plugin" (ID: 123): Getting Started (ID: 789), Configuration (ID: 790)
-```
-
-### Step 3: Cleanup (Progress: 80-100%)
-
-**What Happens:**
-
-- Deletes the original top-level sections
-- Removes temporary dry-run products (if dry run)
-- Marks the migration as complete
-- Clears transient data
-- Generates final summary
-
-**Log Output:**
-
-```bash
-Deleting old top-level sections...
-Deleting top-level section ID: 45.
-Mapped 12 descendant sections and 3 top-level sections (total 15 sections), processed 87 articles, deleted 3 top-level sections.
-Migration complete!
-```
+To add products later, use **Knowledge Base → Products**. Assign a section to a product with the **Product** dropdown when editing the section, and an article with the **Products** box on the edit screen. An article can belong to more than one product.
 
 ## Troubleshooting
 
-### Migration Wizard Not Appearing
+- **The wizard isn't on the Tools page.** A migration has already completed, or you aren't an administrator.
+- **The migration stops or times out.** Check your server error log, raise PHP `max_execution_time` (300 seconds) and `memory_limit` (256M), or lower the batch sizes with the filters below.
+- **Some articles have no product.** They weren't in a section before the migration. Assign products to them on the edit screen.
+- **A section isn't linked to a product.** Edit the section and choose its product.
+- **Duplicate products.** Merge or delete the duplicates, then reassign their sections and articles.
 
-**Problem:** Can’t find the Migration Wizard link.
+To undo a migration, restore your database backup. Reverting by hand means deleting the products, unlinking sections and articles, recreating the top-level sections and disabling Multi-Product Mode, which is error-prone.
 
-**Solution:**
+When reporting a problem, include your WordPress, PHP and Knowledge Base versions, the number of articles and sections, and the copied migration log.
 
-1. Ensure Multi-Product Mode is NOT yet enabled in settings
-2. Check you’re on a Knowledge Base admin screen
-3. Verify you have administrator permissions
-4. If migration was already completed, the wizard is hidden
+## Developer notes
 
-### Migration Fails or Times Out
+Adjust the batch sizes with [`wzkb_migration_max_sections_per_batch`](https://webberzone.dev/knowledgebase/hooks/wzkb_migration_max_sections_per_batch/) (default `3`) and [`wzkb_migration_max_articles_per_batch`](https://webberzone.dev/knowledgebase/hooks/wzkb_migration_max_articles_per_batch/) (default `50`):
 
-**Problem:** Migration stops or shows errors.
+```php
+add_filter( 'wzkb_migration_max_sections_per_batch', fn() => 5 );
+add_filter( 'wzkb_migration_max_articles_per_batch', fn() => 100 );
+```
 
-**Solution:**
-
-1. Check server error logs
-2. Increase PHP max_execution_time (recommended: 300 seconds)
-3. Increase PHP memory_limit (recommended: 256M)
-4. Reduce batch sizes using filters (see Customization Filters above)
-5. Contact your hosting provider for server resource limits
-
-### Articles Not Assigned to Products
-
-**Problem:** Some articles lack assigned products.
-
-**Solution:**
-
-1. Check if articles were in sections before migration
-2. Verify articles are assigned to sections (not just floating)
-3. Rerun migration if needed (see “Rerunning Migration” below)
-4. Manually assign products via the article edit screen
-
-### Sections Not Linked to Products
-
-**Problem:** Sub-sections don’t show product association.
-
-**Solution:**
-
-1. Check the “Product” column in the Sections list
-2. Verify product_id term meta exists
-3. Edit the section and select the product manually if needed
-
-### Duplicate Products Created
-
-**Problem:** Multiple products with the same name.
-
-**Solution:**
-
-1. The wizard checks for existing products by slug
-2. If duplicates exist, manually merge them
-3. Delete duplicate products
-4. Reassign sections and articles to correct the product
-
-## Rerunning Migration
-
-### Can I rerun the migration?
-
-**No.** Once migration is complete, the wizard is permanently disabled. This prevents accidental re-migration and data corruption.
-
-### What If I Need to Undo?
-
-#### Option 1: Restore from Backup
-
-- Restore your database backup from before the migration
-- This is the safest and most reliable method
-
-#### Option 2: Manual Reversion
-
-1. Delete all products: **Knowledge Base → Products** → Bulk delete
-2. Unlink sections from products: Remove product_id term meta
-3. Remove product assignments from articles
-4. Recreate top-level sections manually
-5. Disable Multi-Product Mode in settings
-
-Manual reversion is complex and error-prone. Database restoration is strongly recommended.
-
-## Post Migration
-
-### Configure Product Settings
-
-**Review Product Permalinks**
-
-- Navigate to **Knowledge Base → Settings → General**
-- Check product slug settings
-- Update if needed
-**Customize Product Archives**
-- Each product has its own archive page
-- URL format: `yoursite.com/knowledgebase/product/product-slug/`
-- Customize via theme templates if needed
-**Update Navigation Menus**
-- Add product links to your navigation
-- Use **Appearance → Menus**
-- Products appear under “Knowledge Base Products”
-
-### Create New Products
-
-After migration, you can create additional products:
-
-1. Navigate to **Knowledge Base → Products**
-2. Click **Add New Product**
-3. Enter name, slug, and description
-4. Click **Add New Product**
-
-### Assign Sections to Products
-
-When creating or editing sections:
-
-1. Find the **Product** dropdown
-2. Select the parent product
-3. Save the section
-
-### Assign Articles to Products
-
-When creating or editing articles:
-
-1. Find the **Products** meta box (right sidebar)
-2. Select one or more products
-3. Publish or update the article
-
-## Best Practices
-
-### Before Migration
-
-- ✅ Create a complete database backup
-- ✅ Run a dry run first
-- ✅ Review the migration log carefully
-- ✅ Test on a staging site if possible
-- ✅ Document your current structure
-
-### During Migration
-
-- ✅ Don’t close the browser window
-- ✅ Don’t navigate away from the page
-- ✅ Wait for the process to complete
-- ✅ Monitor the progress bar and log
-- ✅ Copy the log for your records
-
-### After Migration
-
-- ✅ Verify all products were created
-- ✅ Check section-product associations
-- ✅ Test article display on frontend
-- ✅ Update navigation menus
-- ✅ Clear site caches (if using caching plugins)
-- ✅ Test search functionality
-
-## FAQ
-
-### Is migration reversible?
-
-Not automatically. You must restore from a database backup to revert. This is why **backups are critical**.
-
-### Will my article URLs change?
-
-No. Article permalinks remain unchanged. Only the organizational structure changes.
-
-### Can I skip migration and enable Multi-Product Mode?
-
-Yes. You can enable Multi-Product Mode without migrating. You'll start with an empty product taxonomy and can manually create products and assign content.
-
-### What happens to articles not in any section?
-
-Articles without sections won't be assigned to any product. You'll need to assign them after migration manually.
-
-### Can I have articles in multiple products?
-
-Yes. Articles can be assigned to multiple products. The migration assigns each article to one product based on its section, but you can add more products manually afterwards.
-
-### How long does migration take?
-
-Depends on your knowledge base size and server performance:
-
-- Small (< 100 articles): 1-2 minutes
-- Medium (100-500 articles): 2-5 minutes
-- Large (500+ articles): 5-15 minutes
-
-### Will migration affect my site's performance?
-
-The migration runs in the admin area and uses batch processing to minimize impact. Frontend performance is not affected during migration.
-
-### Can I customize the migration process?
-
-Yes. Use the provided filters to adjust batch sizes and other parameters (see Customization Filters section).
-
-### What if I have thousands of articles?
-
-The batch processing system handles large knowledge bases efficiently. You may want to:
-
-- Increase server resources temporarily
-- Adjust batch sizes via filters
-- Run migration during low-traffic periods
-
-### Reporting Issues
-
-When reporting migration issues, include:
-
-1. WordPress version
-2. PHP version
-3. Knowledge Base version
-4. Number of articles and sections
-5. Complete migration log (use Copy Log button)
-6. Any error messages from the browser console
-7. Server error logs (if available)
-
-## Technical Details
-
-### Database Schema
-
-**Products Taxonomy:**
-
-- Taxonomy: wzkb_product
-- Hierarchical: No
-- Public: Yes
-- Rewrite: Yes
-
-**Section-Product Relationship:**
-
-- Stored in: wp_termmeta
-- Meta key: product_id
-- Meta value: Product term ID
-
-**Article-Product Relationship:**
-
-- Stored in: wp_term_relationships
-- Links articles to product terms
-
-### Transients Used During Migration
-
-- wzkb_migration_log – Migration log entries (24 hours)
-- wzkb_migration_assigned_articles – Tracks assigned articles (24 hours)
-- wzkb_migration_article_counts – Article counts per section (24 hours)
-
-### Options
-
-- wzkb_product_migration_complete – Timestamp of completion
-- wzkb_product_notice_dismissed – User meta for notice dismissal (90 days)
-
-## See also
-
-- [`wzkb_migration_max_sections_per_batch`](https://webberzone.dev/knowledgebase/hooks/wzkb_migration_max_sections_per_batch/)
-- [`wzkb_migration_max_articles_per_batch`](https://webberzone.dev/knowledgebase/hooks/wzkb_migration_max_articles_per_batch/)
+Products use the `wzkb_product` taxonomy. A section's product is stored in the `product_id` term meta. The `wzkb_product_migration_complete` option records when the migration finished.
