@@ -76,6 +76,10 @@ if ( ! function_exists( __NAMESPACE__ . '\\wzkb_freemius' ) ) {
 
 	// Init Freemius.
 	wzkb_freemius();
-	// Signal that SDK was initiated.
+	/**
+	 * Fires after the Freemius SDK has been initialized.
+	 *
+	 * @since 3.0.0
+	 */
 	do_action( 'wzkb_freemius_loaded' );
 }
