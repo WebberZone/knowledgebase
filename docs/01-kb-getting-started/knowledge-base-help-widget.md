@@ -11,7 +11,7 @@ toc: true
 
 [toc]
 
-The **Help Widget** in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) is a floating button that opens a help panel on your site. Visitors can search your knowledge base, browse suggested articles, get an AI answer with [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/), or send you a message, without leaving the page.
+The **Help Widget** in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) is a floating button that opens a help panel on your site. Visitors can search your knowledge base, browse suggested articles, get an AI answer with [Ask the Docs](https://webberzone.com/support/knowledgebase/ask-the-docs/), or send you a message, without leaving the page.
 
 ## Set up the Help Widget
 
@@ -34,9 +34,9 @@ Go to **Knowledge Base → Settings → Pro** and turn on **Enable Help Widget**
 
 The panel follows the visitor's light or dark mode preference, works with the keyboard and screen readers, and supports right-to-left languages.
 
-## Ask the docs in the Help Widget
+## Ask the Docs in the Help Widget
 
-With Ask the docs enabled and **Use in the Help widget** turned on under **Knowledge Base → Settings → AI (Beta)**:
+With Ask the Docs enabled and **Use in the Help widget** turned on under **Knowledge Base → Settings → AI (Beta)**:
 
 - Typing still shows matching articles.
 - Pressing Enter or the search button also shows a short answer above the articles, with its sources and related articles.

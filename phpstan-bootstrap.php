@@ -120,7 +120,7 @@ namespace {
 	}
 }
 
-// WordPress 7.0 AI Client stubs, for the Ask the docs module.
+// WordPress 7.0 AI Client stubs, for the Ask the Docs module.
 namespace {
 	if ( ! class_exists( 'WP_AI_Client_Prompt_Builder' ) ) {
 		class WP_AI_Client_Prompt_Builder {

@@ -39,7 +39,7 @@ if ( is_multisite() ) {
  */
 function wzkb_delete_data() {
 
-	// Ask the docs is Pro-only, so its data goes even when the free plugin keeps the rest.
+	// Ask the Docs is Pro-only, so its data goes even when the free plugin keeps the rest.
 	wzkb_delete_ai_data();
 
 	if ( is_plugin_active( 'knowledgebase-pro/knowledgebase.php' ) ) {
@@ -157,7 +157,7 @@ function wzkb_delete_rating_data() {
 
 
 /**
- * Delete Ask the docs data. Only present in Knowledge Base Pro.
+ * Delete Ask the Docs data. Only present in Knowledge Base Pro.
  *
  * @since 3.2.0
  */

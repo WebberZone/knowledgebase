@@ -58,7 +58,7 @@ Perfect for:
 - __Section Tree Block & Widget__: Display a context-aware hierarchical navigation tree of your KB products, sections, and articles anywhere — as a Gutenberg block or a classic sidebar widget. The tree collapses and expands sections with an accessible accordion, and highlights the current page automatically.
 - __GitHub Integration__: Sync markdown documentation from a GitHub repo. Push changes via webhooks and articles are created or updated automatically. YAML frontmatter controls slug, title, products, and sections.
 - __Article Export & Import__: Export all Knowledge Base articles as a Markdown ZIP (with YAML frontmatter), a SQL INSERT dump, or an XLSX metadata spreadsheet. Re-import Markdown ZIPs to restore or migrate articles, with automatic taxonomy mapping and overwrite/skip control.
-- __Ask the docs (beta)__: Visitors ask a question in plain language and get a short answer drawn only from your published articles, with links to the sources. Uses the AI provider you connect under Settings > Connectors in WordPress 7.0 or later, with answer caching, per-visitor and daily limits, and a Content gaps report of unanswered questions.
+- __Ask the Docs (beta)__: Visitors ask a question in plain language and get a short answer drawn only from your published articles, with links to the sources. Uses the AI provider you connect under Settings > Connectors in WordPress 7.0 or later, with answer caching, per-visitor and daily limits, and a Content gaps report of unanswered questions.
 
 ### Key Concepts
 
@@ -190,7 +190,7 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 **Added**
 
-* [Pro] Ask the docs (beta): AI answers with article sources in Knowledge Base search boxes and the Help widget, with answer caching and daily and per-visitor limits. Requires WordPress 7.0 and a connected AI provider.
+* [Pro] Ask the Docs (beta): AI answers with article sources in Knowledge Base search boxes and the Help widget, with answer caching and daily and per-visitor limits. Requires WordPress 7.0 and a connected AI provider.
 * [Pro] Opt-in Content gaps report for unanswered questions, with CSV export and an Empty log action.
 * Abilities API tools for article search and section discovery: `knowledgebase/search-articles` and `knowledgebase/get-sections`.
 * [Pro] Abilities API tools for draft-only article creation (`knowledgebase/create-article`) and grounded answers (`knowledgebase/ask`).
@@ -200,6 +200,7 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 * Raised the minimum supported WordPress version to 6.9.
 * Extended Clear Cache on the Tools and settings pages to clear cached REST API responses.
+* Updated Freemius SDK to the latest version.
 
 **Fixed**
 
@@ -215,4 +216,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.0 =
-Requires WordPress 6.9. Adds Abilities API tools for article search, section discovery and Pro draft creation. Pro also gains Ask the docs (beta), grounded answers and a Content gaps report; this feature requires WordPress 7.0.
+Requires WordPress 6.9. Adds Abilities API tools for article search, section discovery and Pro draft creation. Pro also gains Ask the Docs (beta), grounded answers and a Content gaps report; this feature requires WordPress 7.0.

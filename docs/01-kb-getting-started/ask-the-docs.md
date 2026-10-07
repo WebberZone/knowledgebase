@@ -1,6 +1,6 @@
 ---
 slug: ask-the-docs
-title: "Ask the docs: AI answers from your knowledge base"
+title: "Ask the Docs: AI answers from your knowledge base"
 products: [knowledgebase]
 sections: ["01-kb-getting-started"]
 tags: [ai, knowledgebase, pro, search]
@@ -11,23 +11,23 @@ toc: true
 
 [toc]
 
-**Ask the docs** in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) answers a visitor's plain-language question from your published articles, with links to the articles it used. When your articles don't cover the question, it says so, points to the search results and, optionally, logs the question so you can see where your documentation falls short. Ask the docs is in beta.
+**Ask the Docs** in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) answers a visitor's plain-language question from your published articles, with links to the articles it used. When your articles don't cover the question, it says so, points to the search results and, optionally, logs the question so you can see where your documentation falls short. Ask the Docs is in beta.
 
 ## Requirements
 
 - Knowledge Base Pro 3.2.0 or later.
-- WordPress 7.0 or later. Ask the docs uses the AI Client built into WordPress 7.0. On older versions the feature does not load and the rest of the plugin works as before.
+- WordPress 7.0 or later. Ask the Docs uses the AI Client built into WordPress 7.0. On older versions the feature does not load and the rest of the plugin works as before.
 - An AI provider connected under **Settings → Connectors**, such as the official Anthropic, OpenAI or Google provider plugins. It must support text generation with structured JSON output.
 
 Knowledge Base Pro never sees or stores API keys. WordPress sends each request through the provider you have connected, which bills you per request.
 
-## Set up Ask the docs
+## Set up Ask the Docs
 
 1. Connect a provider under **Settings → Connectors**.
-2. Go to **Knowledge Base → Settings → AI (Beta)** and turn on **Enable Ask the docs**. If the tab says no AI provider is configured, the provider isn't set up yet or doesn't support structured answers.
+2. Go to **Knowledge Base → Settings → AI (Beta)** and turn on **Enable Ask the Docs**. If the tab says no AI provider is configured, the provider isn't set up yet or doesn't support structured answers.
 3. Set the **Daily request cap** and **Questions per visitor per hour** to fit your provider budget.
 
-Ask the docs then answers in every knowledge base search box (the Knowledge Base Search block, the `[[kbsearch]]` shortcode and the knowledge base templates) and in the [Help widget](https://webberzone.com/support/knowledgebase/knowledge-base-help-widget/). Live search suggestions still appear while typing; pressing Enter or the search button asks the question. Without JavaScript, or when no provider is available, the search box submits to the knowledge base search results as usual.
+Ask the Docs then answers in every knowledge base search box (the Knowledge Base Search block, the `[[kbsearch]]` shortcode and the knowledge base templates) and in the [Help widget](https://webberzone.com/support/knowledgebase/knowledge-base-help-widget/). Live search suggestions still appear while typing; pressing Enter or the search button asks the question. Without JavaScript, or when no provider is available, the search box submits to the knowledge base search results as usual.
 
 ## Settings
 
@@ -35,7 +35,7 @@ All settings are under **Knowledge Base → Settings → AI (Beta)**.
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| **Enable Ask the docs** | Off | Turns the feature on. |
+| **Enable Ask the Docs** | Off | Turns the feature on. |
 | **AI provider** | Automatic | The connected provider that answers. Automatic lets WordPress choose, and is used if the chosen provider's plugin is deactivated. |
 | **Articles sent as context** | `4` | Matching articles sent with each question, from 1 to 8. More articles improve coverage but cost more. |
 | **Maximum characters per article** | `3000` | Each article is trimmed to this length before it is sent, from 500 to 10,000. |
@@ -76,7 +76,7 @@ If no articles match, no request is sent.
 
 **Each visitor gets a fixed number of questions per hour.** Once a visitor reaches it, their questions go to the search results with no error shown.
 
-**The daily cap switches Ask the docs off** until the next day in your site's time zone. Search boxes then work as plain search forms.
+**The daily cap switches Ask the Docs off** until the next day in your site's time zone. Search boxes then work as plain search forms.
 
 **Requests must come from your site and a browser.** Requests from other sites, bots and scripts are refused before any provider request. See [Bot check](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) in the developer reference. A determined script can fake both, so the daily cap remains the limit on cost.
 
@@ -105,6 +105,6 @@ Each row links to a new article with the question as its title, and to the knowl
 
 ## See also
 
-- [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
+- [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
 - [Knowledge Base Pro Help Widget](https://webberzone.com/support/knowledgebase/knowledge-base-help-widget/)
 - [Live Search](https://webberzone.com/support/knowledgebase/live-search/)
