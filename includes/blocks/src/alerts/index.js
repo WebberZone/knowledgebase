@@ -11,15 +11,19 @@ import metadata from './block.json';
 import { bookIcon } from '../components/icons';
 import Edit from './edit';
 import save from './save';
+import deprecated from './deprecated';
+import transforms from './transforms';
 
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	...metadata,
 	icon: bookIcon,
 	edit: Edit,
+	deprecated,
+	transforms,
 	save,
-});
+} );
