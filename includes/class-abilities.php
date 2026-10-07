@@ -83,7 +83,7 @@ class Abilities {
 		}
 
 		wp_register_ability(
-			'knowledge-base/search-articles',
+			'knowledgebase/search-articles',
 			array(
 				'label'               => __( 'Search Knowledge Base Articles', 'knowledgebase' ),
 				'description'         => __( 'Search published Knowledge Base articles using a few keywords. Optionally limit results to a section ID or slug. Returns each matching article ID, plain-text title and excerpt, URL, and section terms.', 'knowledgebase' ),
@@ -168,7 +168,7 @@ class Abilities {
 		);
 
 		wp_register_ability(
-			'knowledge-base/get-sections',
+			'knowledgebase/get-sections',
 			array(
 				'label'               => __( 'Get Knowledge Base Sections', 'knowledgebase' ),
 				'description'         => __( 'Get the hierarchical Knowledge Base section tree. Provide a parent section ID to return its children and descendants; omit it to return top-level sections. Each section includes its ID, name, slug, URL, and children.', 'knowledgebase' ),

@@ -29,7 +29,7 @@ Run a read-only ability with `GET` and pass its input as query parameters. Run a
 curl --get \
   --data-urlencode 'input[query]=reset password' \
   --data-urlencode 'input[limit]=10' \
-  'https://example.com/wp-json/wp-abilities/v1/abilities/knowledge-base/search-articles/run'
+  'https://example.com/wp-json/wp-abilities/v1/abilities/knowledgebase/search-articles/run'
 ```
 
 Create-article uses `POST` with an `input` object in the JSON body:
@@ -38,14 +38,14 @@ Create-article uses `POST` with an `input` object in the JSON body:
 curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{"input":{"title":"Reset a password","content":"<p>Follow these steps…</p>"}}' \
-  'https://example.com/wp-json/wp-abilities/v1/abilities/knowledge-base/create-article/run'
+  'https://example.com/wp-json/wp-abilities/v1/abilities/knowledgebase/create-article/run'
 ```
 
 Requests use WordPress REST authentication. The ability permission callback is enforced for PHP, REST and MCP calls; listing an ability does not grant permission to run it.
 
 ## Free abilities
 
-### `knowledge-base/search-articles`
+### `knowledgebase/search-articles`
 
 Search published Knowledge Base articles. Use a few distinctive keywords and optionally limit results to a section by its term ID or slug.
 
@@ -59,7 +59,7 @@ Each result contains `id`, plain-text `title`, `url`, plain-text `excerpt`, and 
 
 The ability requires the `read` capability and filters each result through WordPress's `read_post` capability. It also respects the `wzkb_rest_route_permission` filter for the `search` route, so visibility rules configured for the REST search endpoint also apply.
 
-### `knowledge-base/get-sections`
+### `knowledgebase/get-sections`
 
 Return the hierarchical `wzkb_category` section tree.
 
@@ -71,7 +71,7 @@ Each section contains `id`, `name`, `slug`, `url`, and `children`. Supplying a p
 
 ## Pro abilities
 
-### `knowledge-base/create-article`
+### `knowledgebase/create-article`
 
 Create an article as a draft for an editor to review. The ability always sets `post_status` to `draft`; publishing remains a manual action in WordPress.
 
@@ -85,7 +85,7 @@ The ability requires the Knowledge Base post type's create capability, which def
 
 ### `knowledgebase/ask`
 
-Knowledge Base Pro also registers the Ask the docs ability. It accepts a `question`, returns the same answer data as the Ask the docs REST endpoint, and is available to logged-in users by default. See the [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for its filters, response and limits.
+Knowledge Base Pro also registers the Ask the docs ability. It accepts a `question`, returns the same answer data as the Ask the docs REST endpoint, and is available to logged-in users by default. It is registered only on WordPress 7.0 or later, where Ask the docs loads. See the [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for its filters, response and limits.
 
 ## WP-CLI mapping
 
