@@ -186,6 +186,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 = 3.2.0 =
 
 Release date: 7 October 2026
+Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 **Added**
 
