@@ -195,6 +195,7 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 * Abilities API tools for article search and section discovery: `knowledgebase/search-articles` and `knowledgebase/get-sections`.
 * [Pro] Abilities API tools for draft-only article creation (`knowledgebase/create-article`) and grounded answers (`knowledgebase/ask`).
 * `wzkb_search_posts_per_page` filter for the search results page size.
+* Knowledge Base Alerts block can be transformed to and from a Paragraph block.
 
 **Changed**
 
@@ -207,6 +208,8 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 * The Knowledge Base search results page size overrode the REST search endpoint's `limit` parameter.
 * Knowledge Base search forms showed duplicate suggestions when Better Search live search was also active.
 * [Pro] Help widget searches returned no articles with Better Search active, and the search box lost focus while typing.
+* Text in the Knowledge Base Alerts block could not be selected reliably in the editor.
+* Knowledge Base Alerts blocks without an alignment saved an invalid `text-align: none` inline style.
 * Settings repeater button labels used the wrong translation domain.
 
 = Earlier versions =
