@@ -52,7 +52,7 @@ Knowledge Base is free to use. The Pro upgrade adds AI answers from your article
 | Answer caching, per-visitor limits and a daily request cap | ❌ | ✅ |
 | Content gaps report of unanswered questions, with CSV export | ❌ | ✅ |
 | `knowledgebase/ask` ability for the WordPress Abilities API | ❌ | ✅ |
-| `knowledge-base/create-article` draft ability for the WordPress Abilities API | ❌ | ✅ |
+| `knowledgebase/create-article` draft ability for the WordPress Abilities API | ❌ | ✅ |
 | **Reader Engagement** |  |  |
 | Binary or 5-star article rating | ❌ | ✅ |
 | Follow-up feedback questions | ❌ | ✅ |

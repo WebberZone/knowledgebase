@@ -185,14 +185,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.2.0 =
 
-Release date: 2 October 2026
+Release date: 7 October 2026
 
 **Added**
 
 * [Pro] Ask the docs (beta): AI answers with article sources in Knowledge Base search boxes and the Help widget, with answer caching and daily and per-visitor limits. Requires WordPress 7.0 and a connected AI provider.
 * [Pro] Opt-in Content gaps report for unanswered questions, with CSV export and an Empty log action.
-* Abilities API tools for article search and section discovery: `knowledge-base/search-articles` and `knowledge-base/get-sections`.
-* [Pro] Abilities API tools for draft-only article creation (`knowledge-base/create-article`) and grounded answers (`knowledgebase/ask`).
+* Abilities API tools for article search and section discovery: `knowledgebase/search-articles` and `knowledgebase/get-sections`.
+* [Pro] Abilities API tools for draft-only article creation (`knowledgebase/create-article`) and grounded answers (`knowledgebase/ask`).
 * `wzkb_search_posts_per_page` filter for the search results page size.
 
 **Changed**
