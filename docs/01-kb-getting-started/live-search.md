@@ -27,7 +27,7 @@ As soon as the visitor types in the KB search box, an AJAX request fetches match
 - **Accessible** — results are announced to screen readers via an ARIA live region.
 - **Debounced** — requests fire after a short pause while typing, not on every keystroke.
 
-With [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) *(Pro)* turned on, suggestions still appear while typing. Pressing Enter with no suggestion highlighted asks the question instead of opening the search results.
+With [Ask the Docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) *(Pro)* turned on, suggestions still appear while typing. Pressing Enter with no suggestion highlighted asks the question instead of opening the search results.
 
 ## Better Search
 
@@ -56,6 +56,6 @@ If suggestions use the wrong language, check your translation plugin’s configu
 
 ## See also
 
-- [Ask the docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) — AI answers in the search box *(Pro)*
+- [Ask the Docs](https://webberzone.com/support/knowledgebase/ask-the-docs/) — AI answers in the search box *(Pro)*
 - [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — Output settings reference
 - [Knowledge Base Shortcodes](https://webberzone.com/support/knowledgebase/knowledge-base-shortcodes/) — `[[kbsearch]]` shortcode

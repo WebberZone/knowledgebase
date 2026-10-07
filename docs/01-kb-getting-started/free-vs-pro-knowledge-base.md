@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Knowledge Base is free to use. The Pro upgrade adds AI answers from your articles (Ask the docs), article ratings and feedback, a floating help widget, a three-column documentation layout, a custom permalinks engine, premium layouts, and GitHub-based content sync for larger documentation sites.
+Knowledge Base is free to use. The Pro upgrade adds AI answers from your articles (Ask the Docs), article ratings and feedback, a floating help widget, a three-column documentation layout, a custom permalinks engine, premium layouts, and GitHub-based content sync for larger documentation sites.
 
 ## Free vs Pro
 
@@ -47,7 +47,7 @@ Knowledge Base is free to use. The Pro upgrade adds AI answers from your article
 | Floating help widget with live search and suggested articles | ❌ | ✅ |
 | Help widget contact form with email notifications | ❌ | ✅ |
 | **AI (Beta, WordPress 7.0+)** |  |  |
-| Ask the docs: AI answers from your articles in search boxes and the Help widget | ❌ | ✅ |
+| Ask the Docs: AI answers from your articles in search boxes and the Help widget | ❌ | ✅ |
 | Source and related article links with each answer | ❌ | ✅ |
 | Answer caching, per-visitor limits and a daily request cap | ❌ | ✅ |
 | Content gaps report of unanswered questions, with CSV export | ❌ | ✅ |

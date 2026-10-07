@@ -11,7 +11,7 @@ toc: true
 
 [toc]
 
-[Knowledge Base](https://wordpress.org/plugins/knowledgebase/) registers WordPress Abilities API tools for AI agents and other integrations. The free plugin provides read-only article search and section discovery. Knowledge Base Pro adds draft article creation and the Ask the docs ability.
+[Knowledge Base](https://wordpress.org/plugins/knowledgebase/) registers WordPress Abilities API tools for AI agents and other integrations. The free plugin provides read-only article search and section discovery. Knowledge Base Pro adds draft article creation and the Ask the Docs ability.
 
 The Abilities API is built into WordPress 6.9 and later. Knowledge Base does not include a polyfill. All Knowledge Base abilities use the shared `webberzone` category.
 
@@ -85,7 +85,7 @@ The ability requires the Knowledge Base post type's create capability, which def
 
 ### `knowledgebase/ask`
 
-Knowledge Base Pro also registers the Ask the docs ability. It accepts a `question`, returns the same answer data as the Ask the docs REST endpoint, and is available to logged-in users by default. It is registered only on WordPress 7.0 or later, where Ask the docs loads. See the [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for its filters, response and limits.
+Knowledge Base Pro also registers the Ask the Docs ability. It accepts a `question`, returns the same answer data as the Ask the Docs REST endpoint, and is available to logged-in users by default. It is registered only on WordPress 7.0 or later, where Ask the Docs loads. See the [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for its filters, response and limits.
 
 ## WP-CLI mapping
 
@@ -94,5 +94,5 @@ Knowledge Base and Knowledge Base Pro currently register no WP-CLI commands, so 
 ## See also
 
 - [Knowledge Base REST API](https://webberzone.com/support/knowledgebase/knowledge-base-rest-api/)
-- [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
+- [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
 - [WordPress Abilities API documentation](https://developer.wordpress.org/apis/abilities-api/)

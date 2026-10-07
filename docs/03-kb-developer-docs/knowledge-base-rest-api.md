@@ -239,13 +239,13 @@ Fetch related articles for a given Knowledge Base post.
 
 ### POST `/wzkb/v1/ask`
 
-*Knowledge Base Pro 3.2.0 or later, on WordPress 7.0 or later, with Ask the docs enabled.* Answer a visitor's question from the knowledge base using the connected AI provider.
+*Knowledge Base Pro 3.2.0 or later, on WordPress 7.0 or later, with Ask the Docs enabled.* Answer a visitor's question from the knowledge base using the connected AI provider.
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
 | `question` | string | yes | The question (3–300 characters). |
 
-This route is meant for your site's own pages. It refuses requests from other origins and from bots. See the [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for the response fields, errors and filters.
+This route is meant for your site's own pages. It refuses requests from other origins and from bots. See the [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for the response fields, errors and filters.
 
 ## Using the API in Gutenberg
 
@@ -257,6 +257,6 @@ The above REST API is a preliminary implementation. If you notice any issue, hav
 
 ## See also
 
-- [Ask the docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
+- [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
 - [Knowledge Base Abilities API](https://webberzone.com/support/knowledgebase/knowledge-base-abilities-api/)
 - [`wzkb_rest_route_permission`](https://webberzone.dev/knowledgebase/hooks/wzkb_rest_route_permission/)

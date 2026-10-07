@@ -1,6 +1,6 @@
 ---
 slug: ask-the-docs-developer-reference
-title: "Ask the docs developer reference"
+title: "Ask the Docs developer reference"
 products: [knowledgebase]
 sections: ["03-kb-developer-docs"]
 tags: [ai, developer, knowledgebase, pro, rest-api]
@@ -11,9 +11,9 @@ toc: true
 
 [toc]
 
-This reference covers the REST endpoint, the Abilities API ability, and the filters and actions behind **Ask the docs** in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/). For setup and settings, see [Ask the docs: AI answers from your knowledge base](https://webberzone.com/support/knowledgebase/ask-the-docs/).
+This reference covers the REST endpoint, the Abilities API ability, and the filters and actions behind **Ask the Docs** in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/). For setup and settings, see [Ask the Docs: AI answers from your knowledge base](https://webberzone.com/support/knowledgebase/ask-the-docs/).
 
-Ask the docs needs WordPress 7.0 or later. On older versions none of these hooks, routes or abilities are registered.
+Ask the Docs needs WordPress 7.0 or later. On older versions none of these hooks, routes or abilities are registered.
 
 ## REST endpoint
 
@@ -47,7 +47,7 @@ Questions must be 3 to 300 characters after HTML tags are stripped and whitespac
 | 400 | `wzkb_ai_invalid_question` | The question is too short or too long. |
 | 403 | `wzkb_ai_forbidden_origin` | The `Origin` (or `Referer`) header doesn't match the site or an allowed origin. |
 | 403 | `wzkb_ai_forbidden_client` | The request has no user agent, or one that looks like a bot, script or HTTP library. |
-| 404 | `wzkb_ai_unavailable` | Ask the docs is disabled or no provider is available. |
+| 404 | `wzkb_ai_unavailable` | Ask the Docs is disabled or no provider is available. |
 | 429 | `wzkb_ai_rate_limited` | The visitor reached **Questions per visitor per hour**. The `Retry-After` header gives the seconds until the next hour. |
 
 When the daily cap is reached, the endpoint returns 200 with `answered` set to `false` and `reason` set to `daily_cap`.
@@ -78,7 +78,7 @@ add_filter(
 
 ## Ability
 
-Knowledge Base Pro registers the `knowledgebase/ask` ability with the WordPress Abilities API, in the shared `webberzone` category. It takes `{ "question": "..." }`, returns the same data as the REST endpoint, and runs through the same cache and limits. It is registered only on WordPress 7.0 or later, where Ask the docs loads.
+Knowledge Base Pro registers the `knowledgebase/ask` ability with the WordPress Abilities API, in the shared `webberzone` category. It takes `{ "question": "..." }`, returns the same data as the REST endpoint, and runs through the same cache and limits. It is registered only on WordPress 7.0 or later, where Ask the Docs loads.
 
 It is limited to logged-in users by default, because the Abilities API route cannot check that a request comes from your site the way the REST endpoint does. The bot check does not apply to it. Use `wzkb_ai_ability_permission` to change who can run it:
 
@@ -140,7 +140,7 @@ add_filter(
 | Action | Arguments | Description |
 | --- | --- | --- |
 | `wzkb_ai_question_asked` | `string $question`, `array $result`, `bool $cached` | Fires after each answered or unanswered question. |
-| `wzkb_cache_cleared` | None | Fires after **Knowledge Base → Tools → Clear Cache** clears the output cache. Knowledge Base uses it to invalidate REST API responses, and Knowledge Base Pro to delete cached Ask the docs answers. |
+| `wzkb_cache_cleared` | None | Fires after **Knowledge Base → Tools → Clear Cache** clears the output cache. Knowledge Base uses it to invalidate REST API responses, and Knowledge Base Pro to delete cached Ask the Docs answers. |
 
 ```php
 add_action(
@@ -159,6 +159,6 @@ add_action(
 
 ## See also
 
-- [Ask the docs: AI answers from your knowledge base](https://webberzone.com/support/knowledgebase/ask-the-docs/)
+- [Ask the Docs: AI answers from your knowledge base](https://webberzone.com/support/knowledgebase/ask-the-docs/)
 - [Knowledge Base Abilities API](https://webberzone.com/support/knowledgebase/knowledge-base-abilities-api/)
 - [Knowledge Base REST API](https://webberzone.com/support/knowledgebase/knowledge-base-rest-api/)
