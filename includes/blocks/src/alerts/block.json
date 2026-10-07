@@ -6,7 +6,7 @@
 	"title": "Knowledge Base Alerts",
 	"category": "knowledgebase",
 	"icon": "book",
-	"keywords": ["knowledgbase", "alerts", "kb"],
+	"keywords": [ "knowledgebase", "alerts", "kb" ],
 	"description": "Display alerts for WZ Knowledge Base",
 	"supports": {
 		"html": false
@@ -53,8 +53,7 @@
 			"selector": "div"
 		},
 		"align": {
-			"type": "string",
-			"default": "none"
+			"type": "string"
 		}
 	},
 	"example": {},

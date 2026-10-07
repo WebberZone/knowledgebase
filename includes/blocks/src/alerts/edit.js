@@ -22,32 +22,36 @@ import './editor.scss';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
-	const blockProps = useBlockProps({
+export default function Edit( { attributes, setAttributes } ) {
+	const blockProps = useBlockProps( {
 		className: 'wzkb-alert',
-	});
+	} );
 	const { content, align } = attributes;
-	const onChangeContent = (newContent) => {
-		setAttributes({ content: newContent });
+	const onChangeContent = ( newContent ) => {
+		setAttributes( { content: newContent } );
 	};
-	const onChangeAlign = (newAlign) => {
-		setAttributes({
-			align: newAlign === undefined ? 'none' : newAlign,
-		});
+	const onChangeAlign = ( newAlign ) => {
+		setAttributes( {
+			align: newAlign,
+		} );
 	};
 
 	return (
 		<>
 			<BlockControls>
-				<AlignmentControl value={align} onChange={onChangeAlign} />
+				<AlignmentControl
+					value={ align === 'none' ? undefined : align }
+					onChange={ onChangeAlign }
+				/>
 			</BlockControls>
 			<RichText
-				{...blockProps}
+				{ ...blockProps }
 				tagName="div"
-				value={content}
-				onChange={onChangeContent}
-				placeholder={__('Enter the alert text...', 'knowledgebase')}
-				style={{ textAlign: align }}
+				identifier="content"
+				value={ content }
+				onChange={ onChangeContent }
+				placeholder={ __( 'Enter the alert text...', 'knowledgebase' ) }
+				style={ { textAlign: align === 'none' ? undefined : align } }
 			/>
 		</>
 	);

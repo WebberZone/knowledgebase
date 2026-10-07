@@ -7,7 +7,7 @@
   "category": "knowledgebase",
   "icon": "book",
   "keywords": [
-    "knowledgbase",
+    "knowledgebase",
     "alerts",
     "kb"
   ],
@@ -57,8 +57,7 @@
       "selector": "div"
     },
     "align": {
-      "type": "string",
-      "default": "none"
+      "type": "string"
     }
   },
   "example": {},
