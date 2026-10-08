@@ -183,6 +183,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.2.1 =
+
+Release date: Unreleased
+
+**Fixed**
+
+* [Pro] GitHub imports and reimports stripped image captions from articles.
+
 = 3.2.0 =
 
 Release date: 7 October 2026
