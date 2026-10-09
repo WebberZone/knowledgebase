@@ -185,7 +185,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.2.1 =
 
-Release date: Unreleased
+Release date: TBD
 
 **Fixed**
 
@@ -226,5 +226,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 3.2.0 =
-Requires WordPress 6.9. Adds Abilities API tools for article search, section discovery and Pro draft creation. Pro also gains Ask the Docs (beta), grounded answers and a Content gaps report; this feature requires WordPress 7.0.
+= 3.2.1 =
+Pro GitHub imports and reimports preserve image captions in articles.
