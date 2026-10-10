@@ -37,6 +37,9 @@ All settings are under **Knowledge Base → Settings → AI (Beta)**.
 | --- | --- | --- |
 | **Enable Ask the Docs** | Off | Turns the feature on. |
 | **AI provider** | Automatic | The connected provider that answers. Automatic lets WordPress choose, and is used if the chosen provider's plugin is deactivated. |
+| **Model** | Provider default | The model used with the chosen provider. Shown when a provider is chosen; save after changing the provider to list its models. Models without reasoning usually answer in a second or two; reasoning models can take ten seconds or more. |
+| **Fallback provider** | No fallback | Tried when the AI provider fails, for example when its usage limit is reached. Shown only when two or more providers are connected. |
+| **Fallback model** | Provider default | The model used with the fallback provider. Shown when a fallback provider is chosen. |
 | **Articles sent as context** | `4` | Matching articles sent with each question, from 1 to 8. More articles improve coverage but cost more. |
 | **Maximum characters per article** | `3000` | Each article is trimmed to this length before it is sent, from 500 to 10,000. |
 | **Answer length** | Short | **Short** gives two or three sentences. **Medium** gives one or two paragraphs. |
@@ -48,6 +51,8 @@ All settings are under **Knowledge Base → Settings → AI (Beta)**.
 | **Questions per visitor per hour** | `10` | Per-visitor limit, from 1 to 1,000. |
 | **Record questions for Content gaps** | Off | Stores question text for the Content gaps report. |
 | **Log retention (days)** | `90` | Recorded questions are deleted after this many days, from 1 to 3,650. |
+
+**Compare models.** The **Compare models** button under **AI provider** opens a window where you ask one question with two models side by side and see each answer, its sources and how long it took. **Use this model** fills in the matching **Model** setting; close the window and save to keep it. Each model costs one provider request, counted towards the daily request cap. These answers are not cached or recorded.
 
 ## What visitors see
 
@@ -72,7 +77,11 @@ If no articles match, no request is sent.
 
 ## Costs and limits
 
-**Answers are cached.** The same question, ignoring case, spacing and trailing punctuation, gets the cached answer for a day. Publishing, updating or deleting an article clears the cache, as does changing the provider, answer length, context articles or maximum characters. Cached answers don't count toward either limit.
+**Answers are cached for a week.** Rephrasings of a question share the cached answer: "How does the cache work?" and "how do caches work please" get the same answer, while question words and negations are kept apart, so "Why does X not work?" is asked separately from "Why does X work?". Cached answers don't count toward either limit.
+
+An answer is retired as soon as an article it was built from is edited, unpublished or deleted, or its sections or tags change. Publishing or updating any article retires only cached "no answer" results, since the new article may answer them. Changing the Ask the Docs settings, or editing a section, product or tag, retires every cached answer.
+
+**Providers that fail are paused.** A network, rate-limit, quota or server error pauses the provider for 5 minutes, growing to an hour on repeated failures, and the fallback provider answers meanwhile. Each provider gets 20 seconds to answer before the fallback is tried; some connectors allow reasoning models longer.
 
 **Each visitor gets a fixed number of questions per hour.** Once a visitor reaches it, their questions go to the search results with no error shown.
 

@@ -38,7 +38,7 @@ Questions must be 3 to 300 characters after HTML tags are stripped and whitespac
 | `cached` | bool | Whether the answer came from the cache. |
 | `message` | string | The fallback message when not answered. |
 | `search_url` | string | The knowledge base search results URL for the question. |
-| `reason` | string | `daily_cap`, `provider_error`, `provider_busy` or `invalid_response` when there is no answer for one of those reasons. Empty otherwise. |
+| `reason` | string | `daily_cap`, `provider_error`, `provider_paused`, `provider_busy` or `invalid_response` when there is no answer for one of those reasons. Empty otherwise. `provider_paused` means every provider is paused after repeated errors. |
 
 ### Errors
 
@@ -93,14 +93,21 @@ add_filter( 'wzkb_ai_ability_permission', '__return_true' );
 | `wzkb_ai_ability_permission` | `bool $allowed`, `mixed $input` | Whether the current user may run the ability. Default: logged in. |
 | `wzkb_ai_allowed_origins` | `string[] $origins` | Extra origins allowed to call the REST endpoint. |
 | `wzkb_ai_answer` | `array $result`, `string $question`, `array $articles` | The validated answer, before it is cached. |
-| `wzkb_ai_answer_cache_ttl` | `int $ttl` | How long answers are cached, in seconds. Default one day. Return 0 to turn off caching. |
+| `wzkb_ai_answer_cache_ttl` | `int $ttl` | How long answers are cached, in seconds. Default one week. Return 0 to turn off caching. |
+| `wzkb_ai_canonical_question` | `string $canonical`, `string $question` | The canonical form of a question. Questions with the same canonical form share a cached answer. |
+| `wzkb_ai_configured_providers` | `array $options` | The providers considered configured, which the **Fallback provider** setting lists. |
 | `wzkb_ai_ask_box` | `string $html`, `array $args` | The HTML of a knowledge base search box that answers questions. `$args['context']` is `search_form`. |
 | `wzkb_ai_content_gaps_capability` | `string $capability` | Capability needed for the Content gaps report. Default `manage_options`. |
 | `wzkb_ai_is_bot` | `bool $is_bot`, `string $user_agent`, `WP_REST_Request $request` | Whether a REST request comes from a bot. |
 | `wzkb_ai_log_question` | `bool $log`, `string $question`, `array $result` | Return `false` to stop logging a question. |
-| `wzkb_ai_pre_prompt` | `null $response`, `string $prompt`, `string $system_instruction`, `string $question`, `array $articles` | Return a string to use as the model's raw output, or a `WP_Error` to simulate a provider failure, and skip the provider request. Useful for testing. |
-| `wzkb_ai_prompt_builder` | `$builder`, `string $question`, `array $articles` | The WordPress AI Client prompt builder before it is sent. Use it to set model preferences with `using_model_preference()`. |
-| `wzkb_ai_provider_options` | `array $options` | The providers offered in the **AI provider** setting. |
+| `wzkb_ai_lock_wait` | `int $seconds` | How long a request waits for a concurrent request to answer the same question. Default the provider request budget. |
+| `wzkb_ai_model` | `string $model`, `string $provider` | The model used for a provider. Empty for the provider default. |
+| `wzkb_ai_model_options` | `array $options`, `string $provider` | The models offered for a provider in the **Model** and **Fallback model** settings. |
+| `wzkb_ai_pre_prompt` | `null $response`, `string $prompt`, `string $system_instruction`, `string $question`, `array $articles`, `string $provider` | Return a string to use as the model's raw output, or a `WP_Error` to simulate a provider failure, and skip the provider request. Useful for testing. |
+| `wzkb_ai_prompt_builder` | `$builder`, `string $question`, `array $articles`, `string $provider` | The WordPress AI Client prompt builder before it is sent, once for each provider tried. |
+| `wzkb_ai_provider_cooldown` | `int $cooldown`, `string $provider`, `int $status`, `int $failures`, `WP_Error $error` | How long a provider is paused after a qualifying error, in seconds. |
+| `wzkb_ai_provider_options` | `array $options` | The providers offered in the **AI provider** and **Fallback provider** settings. |
+| `wzkb_ai_request_timeout` | `int $timeout` | Seconds each provider is given to answer before the next is tried. Default `20`. The answer lock and the browser's timeout follow from it. |
 | `wzkb_ai_response` | `array $response`, `string $question` | The final response sent to the browser or ability. |
 | `wzkb_ai_retrieved_articles` | `array $articles`, `string $question`, `int $limit` | The articles sent as context. |
 | `wzkb_ai_retriever` | `Retriever_Interface $retriever` | Replace the retriever, for example with an embeddings-based search. |
@@ -153,8 +160,11 @@ add_action(
 
 ## Caching
 
-- **Answers**: transients prefixed `wzkb_ai_answer_`, kept for a day. The key includes the normalized question, the knowledge base content version, **Answer length**, **Articles sent as context**, **Maximum characters per article**, the provider and the locale.
-- **Content version**: the `wzkb_rest_cache_version` option. It changes when a knowledge base article is saved, changes status or is deleted, when a section or product is created, edited or deleted, and when the cache is cleared from the Tools page. A new version changes every answer key, so stale answers are never served.
+- **Answers**: transients prefixed `wzkb_ai_answer_`, kept for a week. The key includes the canonical question (`Ask_Handler::canonical_question()`), the content version, **Answer length**, **Articles sent as context**, **Maximum characters per article**, the provider and model, and the locale.
+- **Article fingerprints**: each answer stores a fingerprint of every article sent to the provider, taken before the request: its modified date plus the `_wzkb_ai_rev` post meta, which changes when the article is updated or its terms change. A changed fingerprint, or an article that is no longer published, makes the answer a miss. `Answer_Cache::touch_post()` retires the answers built from an article when it changes in a way the plugin cannot see.
+- **Content version**: the `wzkb_ai_content_version` option. It changes when the settings are saved, when a knowledge base term is edited or deleted, and when the cache is cleared from the Tools page, and retires every answer.
+- **Unanswered version**: the `wzkb_ai_publish_version` option. It changes when an article is published or updated and retires only cached unanswered results.
+- **Provider pauses**: `wzkb_ai_trip_*` and `wzkb_ai_failures_*` transients. A network, rate-limit, quota or server error pauses a provider for 5 minutes, doubling up to an hour, and the next provider in the chain (the AI provider, then the fallback provider) is tried. A successful request clears the pause.
 - **Provider status**: the `wzkb_ai_provider_available` transient, kept for a week when a provider is available and for 10 minutes when it isn't. It is deleted when a provider request fails, when any plugin is activated or deactivated, when the AI provider setting changes, and when the cache is cleared. The AI settings tab checks again in the background when it is missing.
 
 ## See also
