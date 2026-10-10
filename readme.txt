@@ -189,17 +189,16 @@ Release date: TBD
 
 **Added**
 
-* [Pro] Ask the Docs: Fallback provider used when the AI provider fails, with failing providers paused for a growing interval, and Model settings for both. Models without reasoning answer in a few seconds instead of up to a minute.
-* [Pro] Ask the Docs: A Compare models button under the AI provider setting opens a window that asks one question with two models side by side and shows each answer, its sources and how long it took.
+* [Pro] Fallback provider and model settings for Ask the Docs, with a Compare models window.
 
 **Changed**
 
-* [Pro] Ask the Docs shares a cached answer between rephrasings of a question, retires only the answers built from an edited article, and keeps answers for a week. Each provider gets 20 seconds to answer (`wzkb_ai_request_timeout` filter).
+* [Pro] Reused cached Ask the Docs answers for reworded questions until their source articles change.
 
 **Fixed**
 
 * [Pro] GitHub imports and reimports stripped image captions from articles.
-* [Pro] Ask the Docs could answer from an article about a different product or account. Answers cached before this change are retired.
+* [Pro] Ask the Docs could cite another company's article.
 
 = 3.2.0 =
 
@@ -237,4 +236,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.1 =
-Pro Ask the Docs answers faster with a choice of model and a fallback provider, and reuses cached answers for rephrased questions. Pro GitHub imports and reimports preserve image captions in articles.
+Faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.
