@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,7 +185,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.2.1 =
 
-Release date: TBD
+Release date: 12 October 2026
 
 **Added**
 
@@ -193,15 +193,17 @@ Release date: TBD
 
 **Changed**
 
-* [Pro] Reused cached Ask the Docs answers for reworded questions until their source articles change.
+* [Pro] Reused cached Ask the Docs answers for reworded questions, and kept answers for a week until their source articles change.
 
 **Security**
 
 * The `/wzkb/v1/knowledgebase` and `/wzkb/v1/search` REST endpoints returned the content and excerpt of password-protected articles without the password.
 * The `[kbtoc]` shortcode showed the headings of password-protected articles before the password was entered.
 * Thumbnails could use an image from inside, or attached to, a password-protected article.
-* Knowledge base listings and the `/wzkb/v1/knowledgebase` REST endpoint could show private articles to visitors from a cached copy.
+* Knowledge base listings, related articles and the `/wzkb/v1/knowledgebase` REST endpoint could show private articles to visitors from a cached copy.
 * Cached knowledge base listings kept showing an article's excerpt after the article was password-protected.
+* [Pro] The floating table of contents, the documentation layout's "On this page" outline, and the Table of Contents widget and block showed the headings of password-protected articles before the password was entered.
+* [Pro] Help widget suggested articles showed the manual excerpt of password-protected articles.
 
 **Fixed**
 
@@ -231,10 +233,11 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 * The Knowledge Base search results page size overrode the REST search endpoint's `limit` parameter.
 * Knowledge Base search forms showed duplicate suggestions when Better Search live search was also active.
-* [Pro] Help widget searches returned no articles with Better Search active, and the search box lost focus while typing.
 * Text in the Knowledge Base Alerts block could not be selected reliably in the editor.
 * Knowledge Base Alerts blocks without an alignment saved an invalid `text-align: none` inline style.
 * Settings repeater button labels used the wrong translation domain.
+
+= Earlier versions =
 
 = Earlier versions =
 
