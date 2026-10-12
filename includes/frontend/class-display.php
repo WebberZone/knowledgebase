@@ -565,6 +565,7 @@ class Display {
 
 		// Get all the posts for the current term excluding posts located in its child terms.
 		$args = array(
+			'post_status'         => 'publish',
 			'posts_per_page'      => -1,
 			'no_found_rows'       => true,
 			'ignore_sticky_posts' => true,
@@ -587,11 +588,15 @@ class Display {
 		$query         = null;
 		$cache_enabled = ! empty( self::get_cached_option( 'cache' ) );
 		$meta_key      = null;
+		$last_changed  = wp_cache_get_last_changed( 'posts' );
 
 		// Support caching to speed up retrieval. Cache::get_key() includes the current language.
 		if ( $cache_enabled ) {
 			$meta_key = Cache::get_key( $args );
-			$query    = Cache::get( $term->term_id, $meta_key );
+			$cached   = Cache::get( $term->term_id, $meta_key );
+			if ( is_array( $cached ) && ( $cached['last_changed'] ?? '' ) === $last_changed ) {
+				$query = $cached['query'] ?? null;
+			}
 		}
 
 		if ( empty( $query ) ) {
@@ -599,7 +604,14 @@ class Display {
 
 			// Support caching to speed up retrieval.
 			if ( $cache_enabled ) {
-				Cache::set( $term->term_id, $meta_key, $query );
+				Cache::set(
+					$term->term_id,
+					$meta_key,
+					array(
+						'last_changed' => $last_changed,
+						'query'        => $query,
+					)
+				);
 			}
 		}
 
