@@ -195,6 +195,15 @@ Release date: TBD
 
 * [Pro] Reused cached Ask the Docs answers for reworded questions until their source articles change.
 
+**Security**
+
+* The `/wzkb/v1/knowledgebase` and `/wzkb/v1/search` REST endpoints returned the content and excerpt of password-protected articles without the password.
+
+**Fixed**
+
+* [Pro] GitHub imports and reimports stripped image captions from articles.
+* [Pro] Ask the Docs could cite another company's article.
+
 = 3.2.0 =
 
 Release date: 7 October 2026
@@ -219,6 +228,7 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 * The Knowledge Base search results page size overrode the REST search endpoint's `limit` parameter.
 * Knowledge Base search forms showed duplicate suggestions when Better Search live search was also active.
+* [Pro] Help widget searches returned no articles with Better Search active, and the search box lost focus while typing.
 * Text in the Knowledge Base Alerts block could not be selected reliably in the editor.
 * Knowledge Base Alerts blocks without an alignment saved an invalid `text-align: none` inline style.
 * Settings repeater button labels used the wrong translation domain.
@@ -230,4 +240,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.1 =
-Faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.
+Security release. Stops the REST API exposing password-protected articles. Also adds faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.
