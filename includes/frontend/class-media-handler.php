@@ -600,8 +600,9 @@ class Media_Handler {
 			);
 		}
 
-		// Skip content scanning for very large posts to prevent memory exhaustion.
-		if ( strlen( $post->post_content ) > 50000 ) { // 50KB limit.
+		// Skip content scanning for very large posts to prevent memory exhaustion, and for
+		// password-protected posts so their images are not exposed before the password is entered.
+		if ( strlen( $post->post_content ) > 50000 || post_password_required( $post ) ) { // 50KB limit.
 			$post_content = '';
 		} else {
 			/**

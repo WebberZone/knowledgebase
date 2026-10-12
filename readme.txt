@@ -198,6 +198,10 @@ Release date: TBD
 **Security**
 
 * The `/wzkb/v1/knowledgebase` and `/wzkb/v1/search` REST endpoints returned the content and excerpt of password-protected articles without the password.
+* The `[kbtoc]` shortcode showed the headings of password-protected articles before the password was entered.
+* Thumbnails could use an image from inside a password-protected article.
+* [Pro] The floating table of contents, the documentation layout's "On this page" outline, and the Table of Contents widget and block showed the headings of password-protected articles before the password was entered.
+* [Pro] Help widget suggested articles showed the manual excerpt of password-protected articles.
 
 **Fixed**
 
@@ -240,4 +244,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.1 =
-Security release. Stops the REST API exposing password-protected articles. Also adds faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.
+Security release. Stops password-protected articles leaking through the REST API, tables of contents and thumbnails. Also adds faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.

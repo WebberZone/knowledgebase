@@ -42,6 +42,16 @@ class REST_Controller {
 	private const DEFAULT_TTL = 300;
 
 	/**
+	 * Cache key format version.
+	 *
+	 * Changing it orphans entries cached by earlier releases, such as 3.2.0 responses
+	 * that included password-protected content.
+	 *
+	 * @since 3.2.1
+	 */
+	private const CACHE_KEY_VERSION = 'p2';
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -1137,8 +1147,9 @@ class REST_Controller {
 		}
 
 		return sprintf(
-			'%s_%d_%s',
+			'%s_%s_%d_%s',
 			$prefix,
+			self::CACHE_KEY_VERSION,
 			$this->get_cache_version(),
 			empty( $context ) ? 'static' : md5( wp_json_encode( $context ) )
 		);
