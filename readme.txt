@@ -199,14 +199,13 @@ Release date: TBD
 
 * The `/wzkb/v1/knowledgebase` and `/wzkb/v1/search` REST endpoints returned the content and excerpt of password-protected articles without the password.
 * The `[kbtoc]` shortcode showed the headings of password-protected articles before the password was entered.
-* Thumbnails could use an image from inside a password-protected article.
-* [Pro] The floating table of contents, the documentation layout's "On this page" outline, and the Table of Contents widget and block showed the headings of password-protected articles before the password was entered.
-* [Pro] Help widget suggested articles showed the manual excerpt of password-protected articles.
+* Thumbnails could use an image from inside, or attached to, a password-protected article.
+* Knowledge base listings and the `/wzkb/v1/knowledgebase` REST endpoint could show private articles to visitors from a cached copy.
+* Cached knowledge base listings kept showing an article's excerpt after the article was password-protected.
 
 **Fixed**
 
-* [Pro] GitHub imports and reimports stripped image captions from articles.
-* [Pro] Ask the Docs could cite another company's article.
+* The `/wzkb/v1/related` REST endpoint ignored its `post_id` and `limit` parameters.
 
 = 3.2.0 =
 
@@ -244,4 +243,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.1 =
-Security release. Stops password-protected articles leaking through the REST API, tables of contents and thumbnails. Also adds faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.
+Security release. Stops password-protected and private articles leaking through the REST API, listings, tables of contents and thumbnails. Also brings faster Pro Ask the Docs answers with model choice, a fallback provider and better caching, and keeps captions in Pro GitHub imports.

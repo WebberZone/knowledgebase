@@ -588,13 +588,13 @@ class Display {
 		$query         = null;
 		$cache_enabled = ! empty( self::get_cached_option( 'cache' ) );
 		$meta_key      = null;
-		$last_changed  = wp_cache_get_last_changed( 'posts' );
+		$version       = Cache::get_content_version();
 
 		// Support caching to speed up retrieval. Cache::get_key() includes the current language.
 		if ( $cache_enabled ) {
 			$meta_key = Cache::get_key( $args );
 			$cached   = Cache::get( $term->term_id, $meta_key );
-			if ( is_array( $cached ) && ( $cached['last_changed'] ?? '' ) === $last_changed ) {
+			if ( is_array( $cached ) && ( $cached['version'] ?? 0 ) === $version ) {
 				$query = $cached['query'] ?? null;
 			}
 		}
@@ -608,8 +608,8 @@ class Display {
 					$term->term_id,
 					$meta_key,
 					array(
-						'last_changed' => $last_changed,
-						'query'        => $query,
+						'version' => $version,
+						'query'   => $query,
 					)
 				);
 			}

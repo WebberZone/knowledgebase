@@ -196,4 +196,34 @@ class Test_WZKB_REST_Password_Protection extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_section_query_cache_survives_a_new_request_without_an_object_cache() {
+		global $wpdb;
+
+		$section = self::factory()->term->create( array( 'taxonomy' => 'wzkb_category' ) );
+		$id      = self::factory()->post->create( array( 'post_type' => 'wz_knowledgebase', 'post_status' => 'publish' ) );
+		wp_set_object_terms( $id, array( $section ), 'wzkb_category' );
+		$property = new ReflectionProperty( \WebberZone\Knowledge_Base\Frontend\Display::class, 'options_cache' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$property->setAccessible( true );
+		}
+		$previous = $property->getValue();
+		$property->setValue( null, array( 'cache' => true ) );
+		$meta_ids = static function () use ( $wpdb, $section ) {
+			return $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM {$wpdb->termmeta} WHERE term_id = %d AND meta_key LIKE %s ORDER BY meta_id", $section, '\_wzkb\_cache\_%' ) );
+		};
+		try {
+			$term = get_term( $section );
+			\WebberZone\Knowledge_Base\Frontend\Display::get_term_posts( $term );
+			$first = $meta_ids();
+			$this->assertNotEmpty( $first );
+
+			// A new request on a site without a persistent object cache starts with an empty object cache.
+			wp_cache_flush();
+			\WebberZone\Knowledge_Base\Frontend\Display::get_term_posts( $term );
+			$this->assertSame( $first, $meta_ids() );
+		} finally {
+			$property->setValue( null, $previous );
+		}
+	}
+
 }
