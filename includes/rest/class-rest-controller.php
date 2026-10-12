@@ -13,6 +13,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 use WebberZone\Knowledge_Base\Frontend\Related;
+use WebberZone\Knowledge_Base\Util\Cache;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -1147,7 +1148,7 @@ class REST_Controller {
 	 * @return int
 	 */
 	private function get_cache_version() {
-		return (int) get_option( 'wzkb_rest_cache_version', 1 );
+		return Cache::get_content_version();
 	}
 
 	/**
@@ -1156,8 +1157,7 @@ class REST_Controller {
 	 * @return void
 	 */
 	public function bump_cache_version() {
-		$version = $this->get_cache_version();
-		update_option( 'wzkb_rest_cache_version', $version + 1, false );
+		Cache::bump_content_version();
 	}
 
 	/**

@@ -140,6 +140,30 @@ class Cache {
 	}
 
 	/**
+	 * Get the content version used to invalidate cached Knowledge Base output.
+	 *
+	 * Stored as an option so it persists without an object cache. It is bumped
+	 * whenever an article is saved, changes status or is deleted, and when
+	 * sections or products change.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @return int Content version.
+	 */
+	public static function get_content_version(): int {
+		return (int) get_option( 'wzkb_rest_cache_version', 1 );
+	}
+
+	/**
+	 * Increment the content version, invalidating cached Knowledge Base output.
+	 *
+	 * @since 3.2.1
+	 */
+	public static function bump_content_version(): void {
+		update_option( 'wzkb_rest_cache_version', self::get_content_version() + 1, false );
+	}
+
+	/**
 	 * Get the timestamp meta key for a cache entry.
 	 *
 	 * @since 3.0.0
