@@ -189,7 +189,7 @@ Release date: TBD
 
 **Added**
 
-* [Pro] Fallback provider and model settings for Ask the Docs, with a Compare models window.
+* [Pro] Model and fallback provider settings for Ask the Docs, with a Compare models window.
 
 **Changed**
 
