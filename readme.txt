@@ -195,6 +195,18 @@ Release date: TBD
 
 * [Pro] Reused cached Ask the Docs answers for reworded questions until their source articles change.
 
+**Security**
+
+* The `/wzkb/v1/knowledgebase` and `/wzkb/v1/search` REST endpoints returned the content and excerpt of password-protected articles without the password.
+* The `[kbtoc]` shortcode showed the headings of password-protected articles before the password was entered.
+* Thumbnails could use an image from inside, or attached to, a password-protected article.
+* Knowledge base listings and the `/wzkb/v1/knowledgebase` REST endpoint could show private articles to visitors from a cached copy.
+* Cached knowledge base listings kept showing an article's excerpt after the article was password-protected.
+
+**Fixed**
+
+* The `/wzkb/v1/related` REST endpoint ignored its `post_id` and `limit` parameters.
+
 = 3.2.0 =
 
 Release date: 7 October 2026
@@ -219,6 +231,7 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 * The Knowledge Base search results page size overrode the REST search endpoint's `limit` parameter.
 * Knowledge Base search forms showed duplicate suggestions when Better Search live search was also active.
+* [Pro] Help widget searches returned no articles with Better Search active, and the search box lost focus while typing.
 * Text in the Knowledge Base Alerts block could not be selected reliably in the editor.
 * Knowledge Base Alerts blocks without an alignment saved an invalid `text-align: none` inline style.
 * Settings repeater button labels used the wrong translation domain.
@@ -230,4 +243,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.1 =
-Faster Pro Ask the Docs answers with a choice of model and a fallback provider, and better answer caching. Pro GitHub imports preserve image captions.
+Security release. Stops password-protected and private articles leaking through the REST API, listings, tables of contents and thumbnails. Also brings faster Pro Ask the Docs answers with model choice, a fallback provider and better caching, and keeps captions in Pro GitHub imports.

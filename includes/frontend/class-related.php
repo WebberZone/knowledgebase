@@ -112,6 +112,7 @@ class Related {
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => true,
 			'post_type'           => 'wz_knowledgebase',
+			'post_status'         => 'publish',
 			'posts_per_page'      => $args['numberposts'],
 			'post__not_in'        => $exclude,
 			'orderby'             => 'date',
@@ -299,7 +300,7 @@ class Related {
 
 				$output .= '</a>';
 
-				if ( $args['show_excerpt'] ) {
+				if ( $args['show_excerpt'] && ! post_password_required( $post_id ) ) {
 					$excerpt = get_the_excerpt();
 					if ( empty( $excerpt ) ) {
 						$content = get_post_field( 'post_content', $post_id );

@@ -266,7 +266,7 @@ class Shortcodes {
 		);
 
 		$post = get_post();
-		if ( ! $post ) {
+		if ( ! $post || TOC::is_post_locked( $post ) ) {
 			return '';
 		}
 
