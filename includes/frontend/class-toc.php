@@ -52,9 +52,7 @@ class TOC {
 	/**
 	 * Check whether a post's content is locked behind a password for the current visitor.
 	 *
-	 * TOC renderers outside the article body use this so they do not expose the headings
-	 * of a password-protected article before the password is entered. Editors previewing
-	 * the post in the block editor still see the TOC.
+	 * Editors previewing the post in the block editor still see the TOC.
 	 *
 	 * @since 3.2.1
 	 *

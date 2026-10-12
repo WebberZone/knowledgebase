@@ -49,7 +49,7 @@ class REST_Controller {
 	 *
 	 * @since 3.2.1
 	 */
-	private const CACHE_KEY_VERSION = 'p2';
+	private const CACHE_KEY_VERSION = 'p3';
 
 	/**
 	 * Constructor.
@@ -470,6 +470,7 @@ class REST_Controller {
 
 		$query_args = array(
 			'post_type'           => 'wz_knowledgebase',
+			'post_status'         => 'publish',
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => false,
 			'posts_per_page'      => $per_page,
@@ -660,28 +661,13 @@ class REST_Controller {
 			);
 		}
 
-		$cache_key = $this->get_cache_key(
-			'related',
-			array(
-				'post_id' => $post_id,
-				'limit'   => $limit,
-			)
-		);
-
-		$cached = $this->cache_get( $cache_key );
-		if ( false !== $cached ) {
-			return rest_ensure_response( $cached );
-		}
-
+		// Render per visitor because protected thumbnails vary with the password cookie.
 		$related = Related::get_related_articles(
 			array(
-				'post_id' => $post_id,
-				'limit'   => $limit,
-				'echo'    => false,
+				'post'        => $post,
+				'numberposts' => $limit,
 			)
 		);
-
-		$this->cache_set( $cache_key, $related );
 
 		return rest_ensure_response( $related );
 	}
@@ -1033,7 +1019,7 @@ class REST_Controller {
 	 * Prepare KB post data.
 	 *
 	 * Password-protected posts return an empty excerpt and content unless the
-	 * requester has entered the post password, matching core's REST controller.
+	 * requester has entered the post password using WordPress's password form.
 	 *
 	 * @param \WP_Post $post             Post object.
 	 * @param bool     $include_content  Include full content flag.
