@@ -50,6 +50,26 @@ class TOC {
 	}
 
 	/**
+	 * Check whether a post's content is locked behind a password for the current visitor.
+	 *
+	 * Editors previewing the post in the block editor still see the TOC.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @return bool True when the TOC must not be shown.
+	 */
+	public static function is_post_locked( \WP_Post $post ): bool {
+		if ( ! post_password_required( $post ) ) {
+			return false;
+		}
+
+		$is_editor_preview = ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) && current_user_can( 'edit_post', $post->ID );
+
+		return ! $is_editor_preview;
+	}
+
+	/**
 	 * Filter callback: add anchor IDs to headings in article content.
 	 *
 	 * Only runs when a non-inline TOC consumer is active (floating TOC option, sidebar widget,

@@ -600,8 +600,8 @@ class Media_Handler {
 			);
 		}
 
-		// Skip content scanning for very large posts to prevent memory exhaustion.
-		if ( strlen( $post->post_content ) > 50000 ) { // 50KB limit.
+		// Skip oversized or locked content before scanning for images.
+		if ( strlen( $post->post_content ) > 50000 || post_password_required( $post ) ) { // 50KB limit.
 			$post_content = '';
 		} else {
 			/**
@@ -660,7 +660,7 @@ class Media_Handler {
 	 */
 	protected static function get_thumbnail_from_first_child( \WP_Post $post, array $args ): array {
 		$dimensions = self::get_thumb_size( $args['size'] );
-		$postimage  = self::get_first_image( $post->ID, $dimensions[0], $dimensions[1] );
+		$postimage  = post_password_required( $post ) ? '' : self::get_first_image( $post->ID, $dimensions[0], $dimensions[1] );
 
 		if ( ! $postimage ) {
 			return array(

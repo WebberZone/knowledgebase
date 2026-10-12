@@ -13,6 +13,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 use WebberZone\Knowledge_Base\Frontend\Related;
+use WebberZone\Knowledge_Base\Util\Cache;
 use WebberZone\Knowledge_Base\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -40,6 +41,16 @@ class REST_Controller {
 	 * Default cache lifetime (in seconds).
 	 */
 	private const DEFAULT_TTL = 300;
+
+	/**
+	 * Cache key format version.
+	 *
+	 * Changing it orphans entries cached by earlier releases, such as 3.2.0 responses
+	 * that included password-protected content.
+	 *
+	 * @since 3.2.1
+	 */
+	private const CACHE_KEY_VERSION = 'p3';
 
 	/**
 	 * Constructor.
@@ -460,6 +471,7 @@ class REST_Controller {
 
 		$query_args = array(
 			'post_type'           => 'wz_knowledgebase',
+			'post_status'         => 'publish',
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => false,
 			'posts_per_page'      => $per_page,
@@ -520,14 +532,16 @@ class REST_Controller {
 		$response->header( 'X-WP-Total', (string) (int) $query->found_posts );
 		$response->header( 'X-WP-TotalPages', (string) (int) $query->max_num_pages );
 
-		$this->cache_set(
-			$cache_key,
-			array(
-				'body'  => $posts,
-				'total' => (int) $query->found_posts,
-				'pages' => (int) $query->max_num_pages,
-			)
-		);
+		if ( ! $this->has_password_protected_post( $query->posts ) ) {
+			$this->cache_set(
+				$cache_key,
+				array(
+					'body'  => $posts,
+					'total' => (int) $query->found_posts,
+					'pages' => (int) $query->max_num_pages,
+				)
+			);
+		}
 
 		return $response;
 	}
@@ -556,6 +570,11 @@ class REST_Controller {
 				__( 'Knowledge Base post is not published.', 'knowledgebase' ),
 				array( 'status' => 403 )
 			);
+		}
+
+		// Password-protected responses depend on the requester's password cookie, so never cache them.
+		if ( '' !== $post->post_password ) {
+			return rest_ensure_response( $this->prepare_post_for_response( $post, true ) );
 		}
 
 		$cache_key = $this->get_cache_key(
@@ -643,28 +662,13 @@ class REST_Controller {
 			);
 		}
 
-		$cache_key = $this->get_cache_key(
-			'related',
-			array(
-				'post_id' => $post_id,
-				'limit'   => $limit,
-			)
-		);
-
-		$cached = $this->cache_get( $cache_key );
-		if ( false !== $cached ) {
-			return rest_ensure_response( $cached );
-		}
-
+		// Render per visitor because protected thumbnails vary with the password cookie.
 		$related = Related::get_related_articles(
 			array(
-				'post_id' => $post_id,
-				'limit'   => $limit,
-				'echo'    => false,
+				'post'        => $post,
+				'numberposts' => $limit,
 			)
 		);
-
-		$this->cache_set( $cache_key, $related );
 
 		return rest_ensure_response( $related );
 	}
@@ -742,7 +746,9 @@ class REST_Controller {
 			$results[] = $this->prepare_post_for_response( $post );
 		}
 
-		$this->cache_set( $cache_key, $results );
+		if ( ! $this->has_password_protected_post( $wp_query->posts ) ) {
+			$this->cache_set( $cache_key, $results );
+		}
 
 		return rest_ensure_response( $results );
 	}
@@ -1013,6 +1019,9 @@ class REST_Controller {
 	/**
 	 * Prepare KB post data.
 	 *
+	 * Password-protected posts return an empty excerpt and content unless the
+	 * requester has entered the post password using WordPress's password form.
+	 *
 	 * @param \WP_Post $post             Post object.
 	 * @param bool     $include_content  Include full content flag.
 	 * @return array
@@ -1023,23 +1032,48 @@ class REST_Controller {
 			return array();
 		}
 
+		$is_protected = '' !== $post->post_password;
+		$is_locked    = $is_protected && post_password_required( $post );
+
 		$data = array(
 			'id'        => (int) $post->ID,
 			'title'     => get_the_title( $post ),
 			'slug'      => $post->post_name,
-			'excerpt'   => wp_trim_words( wp_strip_all_tags( $post->post_content ), 55 ),
+			'excerpt'   => $is_locked ? '' : wp_trim_words( wp_strip_all_tags( $post->post_content ), 55 ),
 			'permalink' => get_permalink( $post ),
 			'products'  => $this->format_terms( get_the_terms( $post, 'wzkb_product' ) ),
 			'sections'  => $this->format_terms( get_the_terms( $post, 'wzkb_category' ) ),
 			'date'      => mysql2date( DATE_RFC3339, $post->post_date_gmt, false ),
 			'modified'  => mysql2date( DATE_RFC3339, $post->post_modified_gmt, false ),
+			'protected' => $is_protected,
 		);
 
 		if ( $include_content ) {
-			$data['content'] = apply_filters( 'the_content', $post->post_content );
+			$data['content'] = $is_locked ? '' : apply_filters( 'the_content', $post->post_content );
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Check whether any post in a list is password protected.
+	 *
+	 * Responses containing such posts vary with the requester's password cookie
+	 * and must not be cached.
+	 *
+	 * @since 3.2.1
+	 *
+	 * @param array $posts Post objects.
+	 * @return bool
+	 */
+	private function has_password_protected_post( array $posts ): bool {
+		foreach ( $posts as $post ) {
+			if ( $post instanceof \WP_Post && '' !== $post->post_password ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -1100,8 +1134,9 @@ class REST_Controller {
 		}
 
 		return sprintf(
-			'%s_%d_%s',
+			'%s_%s_%d_%s',
 			$prefix,
+			self::CACHE_KEY_VERSION,
 			$this->get_cache_version(),
 			empty( $context ) ? 'static' : md5( wp_json_encode( $context ) )
 		);
@@ -1113,7 +1148,7 @@ class REST_Controller {
 	 * @return int
 	 */
 	private function get_cache_version() {
-		return (int) get_option( 'wzkb_rest_cache_version', 1 );
+		return Cache::get_content_version();
 	}
 
 	/**
@@ -1122,8 +1157,7 @@ class REST_Controller {
 	 * @return void
 	 */
 	public function bump_cache_version() {
-		$version = $this->get_cache_version();
-		update_option( 'wzkb_rest_cache_version', $version + 1, false );
+		Cache::bump_content_version();
 	}
 
 	/**
