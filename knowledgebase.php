@@ -13,7 +13,7 @@
  * Plugin Name: WebberZone Knowledge Base
  * Plugin URI: https://webberzone.com/plugins/knowledgebase/
  * Description: Create a multi-product knowledge base on your WordPress site.
- * Version: 3.2.1
+ * Version: 3.2.2
  * Author: WebberZone
  * Author URI: https://webberzone.com
  * License: GPL-2.0+
@@ -38,7 +38,7 @@ if ( ! defined( 'WZKB_VERSION' ) ) {
 	 *
 	 * @var string $wzkb_version Plugin version
 	 */
-	define( 'WZKB_VERSION', '3.2.1' );
+	define( 'WZKB_VERSION', '3.2.2' );
 }
 
 if ( ! defined( 'WZKB_PLUGIN_DIR' ) ) {

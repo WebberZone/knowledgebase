@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,6 +183,19 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.2.2 =
+
+Release date: 15 October 2026
+
+**Security**
+
+* Hardened thumbnail URLs to reject unsafe protocols.
+* [Pro] Restricted Help widget suggestions to published articles, including articles made private after being selected.
+
+**Fixed**
+
+* Malformed custom thumbnail dimensions caused PHP errors during image-size selection.
+
 = 3.2.1 =
 
 Release date: 12 October 2026
@@ -239,11 +252,9 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
 
 = Earlier versions =
 
-= Earlier versions =
-
 For the changelog of earlier versions, please refer to the [releases page on GitHub](https://github.com/WebberZone/knowledgebase/releases).
 
 == Upgrade Notice ==
 
-= 3.2.1 =
-Security release. Stops password-protected and private articles leaking through the REST API, listings, tables of contents and thumbnails. Also brings faster Pro Ask the Docs answers with model choice, a fallback provider and better caching, and keeps captions in Pro GitHub imports.
+= 3.2.2 =
+Security release. Prevents private articles from appearing in Pro Help widget suggestions and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.

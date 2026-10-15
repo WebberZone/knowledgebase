@@ -851,6 +851,9 @@ class Media_Handler {
 		 * @param string $attachment_url Image URL.
 		 */
 		$attr = apply_filters( self::$prefix . '_get_image_attributes', $attr, $attachment_url );
+		if ( isset( $attr['src'] ) ) {
+			$attr['src'] = esc_url( $attr['src'] );
+		}
 		$attr = array_map( 'esc_attr', $attr );
 
 		// Construct the HTML img tag.
@@ -1153,7 +1156,7 @@ class Media_Handler {
 	public static function get_all_image_sizes( $size = '' ) {
 
 		if ( is_array( $size ) ) {
-			$size = self::get_appropriate_image_size( $size[0], $size[1] );
+			$size = self::get_appropriate_image_size( absint( $size[0] ?? 0 ), absint( $size[1] ?? 0 ) );
 		}
 
 		$sizes = wp_get_registered_image_subsizes();
