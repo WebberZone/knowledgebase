@@ -226,4 +226,21 @@ class Test_WZKB_REST_Password_Protection extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_public_to_private_transition_invalidates_rest_caches() {
+		$id = self::factory()->post->create( array( 'post_type' => 'wz_knowledgebase', 'post_status' => 'publish', 'post_title' => 'Visibility transition', 'post_content' => 'private-transition-secret' ) );
+		wp_set_current_user( 0 );
+		$single = new WP_REST_Request( 'GET', '/wzkb/v1/knowledgebase/' . $id );
+		$list = new WP_REST_Request( 'GET', '/wzkb/v1/knowledgebase' );
+		$search = new WP_REST_Request( 'GET', '/wzkb/v1/search' );
+		$search->set_param( 'query', 'Visibility' );
+		foreach ( array( $single, $list, $search ) as $request ) {
+			$this->assertStringContainsString( 'private-transition-secret', wp_json_encode( rest_get_server()->dispatch( $request )->get_data() ) );
+		}
+		wp_update_post( array( 'ID' => $id, 'post_status' => 'private' ) );
+		foreach ( array( $single, $list, $search ) as $request ) {
+			$this->assertStringNotContainsString( 'private-transition-secret', wp_json_encode( rest_get_server()->dispatch( $request )->get_data() ) );
+		}
+		$this->assertSame( 403, rest_get_server()->dispatch( $single )->get_status() );
+	}
+
 }
