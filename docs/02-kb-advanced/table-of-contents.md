@@ -33,11 +33,19 @@ Go to **Knowledge Base → Settings → Output** and scroll to the **Table of Co
 | **Minimum headings for TOC** | Articles with fewer headings than this threshold won't show a TOC. | 3 |
 | **TOC title** | Label shown above the TOC list. Leave blank to hide the title entirely. | `Table of Contents` |
 
+## Excluding headings from the table of contents
+
+Knowledge Base 3.2.2 does not have a built-in option or CSS class to exclude an individual heading or headline from the table of contents. Adding a custom class to a Heading block will not exclude it.
+
+To include fewer heading levels, go to **Knowledge Base → Settings → Output → Table of Contents** and change **TOC heading depth**. For example, setting it to **2** includes H2 headings and leaves out H3 through H6. This applies to all headings at those levels.
+
+To hide the “Table of Contents” title above the list, leave **TOC title** blank. This keeps the heading links visible.
+
 ## Placing the TOC manually
 
 By default the TOC is inserted automatically above the article body. If you want to place it at a specific spot in the content instead, use the `[[kbtoc]]` shortcode or the **Knowledge Base TOC** block anywhere in the article. The automatic insertion is skipped when a manual placement is detected.
 
-```text
+```
 [[kbtoc]]
 ```
 
@@ -51,7 +59,7 @@ The shortcode accepts optional attributes to override the global settings for th
 
 Example:
 
-```text
+```
 [[kbtoc heading_depth="3" title="Contents"]]
 ```
 
@@ -81,7 +89,7 @@ The TOC title string is translatable. In WPML or Polylang setups, you can regist
 
 Filters the complete TOC HTML before it is inserted into the article.
 
-```php
+```
 add_filter(
     'wzkb_toc',
     function ( string $toc_html, array $headings, array $args ): string {
@@ -99,7 +107,7 @@ Return an empty string to suppress the TOC for a specific post.
 
 Call these in custom templates to output the TOC directly.
 
-```php
+```
 // Return TOC HTML for the current post (uses current post content by default).
 $toc = wzkb_get_toc();
 
