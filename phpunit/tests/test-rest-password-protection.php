@@ -86,6 +86,7 @@ class Test_WZKB_REST_Password_Protection extends WP_UnitTestCase {
 		$this->assertSame( '', rest_get_server()->dispatch( $single )->get_data()['content'] );
 		$this->assertStringNotContainsString( 'wzkbtransitionmarker', wp_json_encode( rest_get_server()->dispatch( $list )->get_data() ) );
 	}
+
 	public function test_public_collection_does_not_cache_private_articles() {
 		$post_id = self::factory()->post->create( array( 'post_type' => 'wz_knowledgebase', 'post_status' => 'private', 'post_content' => 'wzkbprivatemarker' ) );
 		$request = new WP_REST_Request( 'GET', '/wzkb/v1/knowledgebase' );
@@ -150,6 +151,7 @@ class Test_WZKB_REST_Password_Protection extends WP_UnitTestCase {
 			}
 		}
 	}
+
 	public function test_attached_image_fallback_does_not_expose_locked_images() {
 		$post_id = self::factory()->post->create( array( 'post_type' => 'wz_knowledgebase', 'post_status' => 'publish', 'post_password' => 'secret' ) );
 		$attachment = self::factory()->post->create( array( 'post_type' => 'attachment', 'post_status' => 'inherit', 'post_parent' => $post_id, 'post_mime_type' => 'image/jpeg' ) );
@@ -185,6 +187,7 @@ class Test_WZKB_REST_Password_Protection extends WP_UnitTestCase {
 			$property->setValue( null, $previous );
 		}
 	}
+
 	public function test_public_to_private_transition_invalidates_rest_caches() {
 		$id = self::factory()->post->create( array( 'post_type' => 'wz_knowledgebase', 'post_status' => 'publish', 'post_title' => 'Visibility transition', 'post_content' => 'private-transition-secret' ) );
 		wp_set_current_user( 0 );
