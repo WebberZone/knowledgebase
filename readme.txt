@@ -265,7 +265,7 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.2.3 =
-Fixes wrong thumbnails on attachment pages and, in Pro, code and list blocks in GitHub imports and Markdown exports.
+Fixes wrong thumbnails on attachment pages and, in Pro, code blocks, lists and shared article products in GitHub imports and Markdown exports.
 
 = 3.2.2 =
 Security release. Prevents private articles from appearing in Pro Help widget suggestions and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.
