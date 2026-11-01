@@ -49,6 +49,7 @@ class Test_WZKB_Abilities extends WP_UnitTestCase {
 
 		wp_set_object_terms( $this->article_id, $this->child_section, 'wzkb_category' );
 	}
+
 	public function test_search_accepts_section_id_and_slug_and_returns_readable_results() {
 		$section = get_term( $this->child_section, 'wzkb_category' );
 		$ability = wp_get_ability( 'knowledgebase/search-articles' );
@@ -88,6 +89,7 @@ class Test_WZKB_Abilities extends WP_UnitTestCase {
 			$this->assertSame( $this->child_section, $children[0]['id'] );
 		}
 	}
+
 	public function test_abilities_reject_invalid_input_and_deny_anonymous_users() {
 		$search   = wp_get_ability( 'knowledgebase/search-articles' );
 		$sections = wp_get_ability( 'knowledgebase/get-sections' );
@@ -102,6 +104,7 @@ class Test_WZKB_Abilities extends WP_UnitTestCase {
 		$this->assertWPError( $search->execute( array( 'query' => 'Jetpack' ) ) );
 		$this->assertWPError( $sections->execute( array() ) );
 	}
+
 	public function test_search_ability_is_discoverable_and_runs_over_rest() {
 		$list = rest_get_server()->dispatch( new WP_REST_Request( 'GET', '/wp-abilities/v1/abilities' ) );
 		$this->assertSame( 200, $list->get_status() );

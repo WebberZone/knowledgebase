@@ -41,6 +41,7 @@ class Test_WZKB_Search_Page_Size extends WP_UnitTestCase {
 		$this->assertCount( 2, $query->posts );
 		$this->assertSame( 2, (int) $query->get( 'posts_per_page' ) );
 	}
+
 	public function test_main_search_query_uses_twelve_results() {
 		$this->create_articles( 14 );
 		$this->go_to( add_query_arg( array( 's' => 'sprocket', 'post_type' => 'wz_knowledgebase' ), home_url( '/' ) ) );
@@ -49,6 +50,7 @@ class Test_WZKB_Search_Page_Size extends WP_UnitTestCase {
 		$this->assertSame( 12, (int) $GLOBALS['wp_query']->get( 'posts_per_page' ) );
 		$this->assertCount( 12, $GLOBALS['wp_query']->posts );
 	}
+
 	public function test_rest_search_honours_limit() {
 		$this->create_articles( 5 );
 		$request = new WP_REST_Request( 'GET', '/wzkb/v1/search' );
