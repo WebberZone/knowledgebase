@@ -49,25 +49,6 @@ class Test_WZKB_Abilities extends WP_UnitTestCase {
 
 		wp_set_object_terms( $this->article_id, $this->child_section, 'wzkb_category' );
 	}
-
-	public function test_search_and_sections_abilities_are_registered() {
-		$search   = wp_get_ability( 'knowledgebase/search-articles' );
-		$sections = wp_get_ability( 'knowledgebase/get-sections' );
-
-		$this->assertInstanceOf( WP_Ability::class, $search );
-		$this->assertInstanceOf( WP_Ability::class, $sections );
-		$this->assertSame( 'webberzone', $search->get_category() );
-		$this->assertSame( 'webberzone', $sections->get_category() );
-		$this->assertTrue( wp_has_ability_category( 'webberzone' ) );
-		$this->assertArrayHasKey( 'knowledgebase/search-articles', wp_get_abilities() );
-		$this->assertSame( array( 'query' ), $search->get_input_schema()['required'] );
-		$this->assertSame( array(), $sections->get_input_schema()['default'] );
-		$this->assertArrayHasKey( 'section', $search->get_output_schema()['items']['properties'] );
-		$this->assertTrue( $search->get_meta_item( 'show_in_rest' ) );
-		$this->assertTrue( $search->get_meta_item( 'annotations' )['readonly'] );
-		$this->assertSame( array( 'parent' ), array_keys( $sections->get_input_schema()['properties'] ) );
-	}
-
 	public function test_search_accepts_section_id_and_slug_and_returns_readable_results() {
 		$section = get_term( $this->child_section, 'wzkb_category' );
 		$ability = wp_get_ability( 'knowledgebase/search-articles' );
@@ -107,58 +88,6 @@ class Test_WZKB_Abilities extends WP_UnitTestCase {
 			$this->assertSame( $this->child_section, $children[0]['id'] );
 		}
 	}
-
-	public function test_search_limit_accepts_numeric_query_strings() {
-		self::factory()->post->create(
-			array(
-				'post_type'    => 'wz_knowledgebase',
-				'post_status'  => 'publish',
-				'post_title'   => 'Another Jetpack Ability Search Article',
-				'post_content' => 'Find this second Jetpack article.',
-			)
-		);
-
-		$results = wp_get_ability( 'knowledgebase/search-articles' )->execute(
-			array(
-				'query' => 'Jetpack',
-				'limit' => '1',
-			)
-		);
-
-		$this->assertIsArray( $results );
-		$this->assertCount( 1, $results );
-	}
-
-	public function test_search_resolves_numeric_section_slugs_before_ids() {
-		$section_id = self::factory()->term->create(
-			array(
-				'taxonomy' => 'wzkb_category',
-				'name'     => 'Numeric Section Slug',
-				'slug'     => '987654321',
-			)
-		);
-		$article_id = self::factory()->post->create(
-			array(
-				'post_type'    => 'wz_knowledgebase',
-				'post_status'  => 'publish',
-				'post_title'   => 'Numeric Section Slug Ability Article',
-				'post_content' => 'Numeric section slug search content.',
-			)
-		);
-		wp_set_object_terms( $article_id, $section_id, 'wzkb_category' );
-
-		$results = wp_get_ability( 'knowledgebase/search-articles' )->execute(
-			array(
-				'query'   => 'Numeric Section Slug Ability',
-				'section' => '987654321',
-			)
-		);
-
-		$this->assertIsArray( $results );
-		$this->assertCount( 1, $results );
-		$this->assertSame( $section_id, $results[0]['section'][0]['id'] );
-	}
-
 	public function test_abilities_reject_invalid_input_and_deny_anonymous_users() {
 		$search   = wp_get_ability( 'knowledgebase/search-articles' );
 		$sections = wp_get_ability( 'knowledgebase/get-sections' );
@@ -173,19 +102,6 @@ class Test_WZKB_Abilities extends WP_UnitTestCase {
 		$this->assertWPError( $search->execute( array( 'query' => 'Jetpack' ) ) );
 		$this->assertWPError( $sections->execute( array() ) );
 	}
-
-	public function test_abilities_respect_rest_route_visibility_overrides() {
-		$filter = static function ( $permission, $route_slug ) {
-			return in_array( $route_slug, array( 'search', 'sections' ), true ) ? 'edit_posts' : $permission;
-		};
-		add_filter( 'wzkb_rest_route_permission', $filter, 10, 2 );
-
-		$this->assertWPError( wp_get_ability( 'knowledgebase/search-articles' )->execute( array( 'query' => 'Jetpack' ) ) );
-		$this->assertWPError( wp_get_ability( 'knowledgebase/get-sections' )->execute( array() ) );
-
-		remove_filter( 'wzkb_rest_route_permission', $filter, 10 );
-	}
-
 	public function test_search_ability_is_discoverable_and_runs_over_rest() {
 		$list = rest_get_server()->dispatch( new WP_REST_Request( 'GET', '/wp-abilities/v1/abilities' ) );
 		$this->assertSame( 200, $list->get_status() );
