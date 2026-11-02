@@ -654,7 +654,9 @@ class REST_Controller {
 		}
 
 		$post = get_post( $post_id );
-		if ( ! $post || 'wz_knowledgebase' !== $post->post_type ) {
+
+		// Answer as if the article does not exist when the visitor cannot read it.
+		if ( ! $post || 'wz_knowledgebase' !== $post->post_type || ! ( is_post_publicly_viewable( $post ) || current_user_can( 'read_post', $post->ID ) ) ) {
 			return new WP_Error(
 				'wzkb_rest_post_not_found',
 				__( 'Knowledge Base post not found.', 'knowledgebase' ),
