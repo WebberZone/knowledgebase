@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,6 +183,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.2.4 =
+
+Release date: 2 November 2026
+
+**Security**
+
+* Hardened the related articles REST endpoint.
+
 = 3.2.3 =
 
 Release date: 1 November 2026
@@ -264,14 +272,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 3.2.3 =
-Fixes wrong thumbnails on attachment pages and, in Pro, code blocks, lists and shared article products in GitHub imports and Markdown exports.
-
-= 3.2.2 =
-Security release. Prevents private articles from appearing in Pro Help widget suggestions and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.
-
-= 3.2.1 =
-Security release. Stops password-protected and private articles leaking through the REST API, listings, tables of contents and thumbnails. Also brings faster Pro Ask the Docs answers with model choice, a fallback provider and better caching, and keeps captions in Pro GitHub imports.
-
-= 3.2.0 =
-Requires WordPress 6.9. Adds Abilities API tools for article search, section discovery and Pro draft creation. Pro also gains Ask the Docs (beta), grounded answers and a Content gaps report; this feature requires WordPress 7.0.
+= 3.2.4 =
+Security hardening release. Update recommended.
