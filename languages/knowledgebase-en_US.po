@@ -1955,12 +1955,12 @@ msgid "Search keywords."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:150
-#: includes/rest/class-rest-controller.php:1008
+#: includes/rest/class-rest-controller.php:1010
 msgid "Filter by product term ID."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:154
-#: includes/rest/class-rest-controller.php:1012
+#: includes/rest/class-rest-controller.php:1014
 msgid "Filter by section term ID."
 msgstr ""
 
@@ -1997,7 +1997,7 @@ msgid "Section filtering is only available when multi-product mode is enabled."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:562
-#: includes/rest/class-rest-controller.php:660
+#: includes/rest/class-rest-controller.php:662
 msgid "Knowledge Base post not found."
 msgstr ""
 
@@ -2005,19 +2005,19 @@ msgstr ""
 msgid "Knowledge Base post is not published."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:691
+#: includes/rest/class-rest-controller.php:693
 msgid "Search query must be at least two characters long."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:991
+#: includes/rest/class-rest-controller.php:993
 msgid "Number of posts to return per page."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:998
+#: includes/rest/class-rest-controller.php:1000
 msgid "Current page of the collection."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:1004
+#: includes/rest/class-rest-controller.php:1006
 msgid "Search term."
 msgstr ""
 
@@ -3912,7 +3912,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:974
+#: includes/rest/class-rest-controller.php:976
 msgid "TranslatePress language code to render the response in."
 msgstr ""
 
@@ -3980,26 +3980,26 @@ msgstr ""
 msgid "Knowledge Base section not found."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:768
+#: includes/rest/class-rest-controller.php:770
 msgid "A search query is required."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:778
+#: includes/rest/class-rest-controller.php:780
 msgid "The search query must contain between two and 500 characters."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:796
+#: includes/rest/class-rest-controller.php:798
 msgid "The result limit must be an integer."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:806
+#: includes/rest/class-rest-controller.php:808
 msgid "The result limit must be between one and 50."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:871
+#: includes/rest/class-rest-controller.php:873
 msgid "Section input must contain a non-negative parent ID."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:903
+#: includes/rest/class-rest-controller.php:905
 msgid "The supplied section ID or slug does not exist."
 msgstr ""
