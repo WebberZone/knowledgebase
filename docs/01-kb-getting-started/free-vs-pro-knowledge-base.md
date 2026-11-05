@@ -72,19 +72,19 @@ Knowledge Base is free to use. The Pro upgrade adds AI answers from your article
 | Push/export articles back to a GitHub repository | ❌ | ✅ |
 | **Support** |  |  |
 | Community forum | ✅ | ✅ |
-| Priority email support | ❌ | ✅ |
+| Direct email support | ❌ | ✅ |
 
 ---
 
 ## Choosing the Right Plan
 
-All paid plans include the same Pro features. The difference is the number of sites and who you can use them on.
+All paid plans include the same Pro features. The difference is the number of sites, who you can use them on, and support priority.
 
 |  | Pro | Pro Multi | Agency |
 | --- | --- | --- | --- |
 | All Pro features | ✅ | ✅ | ✅ |
 | Number of sites | 1 site | 5 to unlimited | Unlimited |
 | Use on client sites | ❌ | ❌ | ✅ |
-| Priority email support | ✅ | ✅ | ✅ |
+| Email support | Direct | Direct | Priority |
 
 [Upgrade to Knowledge Base Pro →](https://webberzone.com/plugins/knowledgebase/pro/)
