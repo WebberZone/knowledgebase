@@ -87,4 +87,4 @@ All paid plans include the same Pro features. The difference is the number of si
 | Use on client sites | ❌ | ❌ | ✅ |
 | Email support | Direct | Direct | Priority |
 
-[Upgrade to Knowledge Base Pro →](https://webberzone.com/plugins/knowledgebase/pro/)
+[Upgrade to Knowledge Base Pro →](https://webberzone.com/plugins/knowledgebase/#pro)

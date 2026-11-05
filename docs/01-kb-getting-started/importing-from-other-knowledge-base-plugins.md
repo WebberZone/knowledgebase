@@ -11,16 +11,16 @@ toc: true
 
 [toc]
 
-Switching to [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) from another documentation plugin? The built-in plugin importer copies your articles, categories, and tags from BasePress, BetterDocs, or Echo Knowledge Base into Knowledge Base — without deleting anything from the original plugin.
+Switching to [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) from another documentation plugin? The built-in plugin importer copies your articles, categories, and tags from BasePress, BetterDocs, or Echo Knowledge Base into Knowledge Base without deleting anything from the original plugin.
 
 ## Opening the importer
 
 Go to **Knowledge Base → Tools** in your WordPress admin and click **Import** in the Plugin Importer card. You'll see a list of supported source plugins with a detection status next to each:
 
-- **Content found** — the importer detected articles from that plugin in your database. Click **Import** to continue.
-- **Not detected** — no content from that plugin was found. The source plugin must have been installed and have content for the importer to work.
+- **Content found**: the importer detected articles from that plugin in your database. Click **Import** to continue.
+- **Not detected**: no content from that plugin was found. The source plugin must have been installed and have content for the importer to work.
 
-The source plugin does not need to be active — the importer reads its content directly from the database.
+The source plugin does not need to be active: the importer reads its content directly from the database.
 
 ## What gets imported
 
@@ -63,5 +63,5 @@ When the import finishes, a summary shows how many articles were imported and sk
 
 ## See also
 
-- [Exporting and importing articles](https://webberzone.com/support/knowledgebase/exporting-importing-articles/) — move content between Knowledge Base installs.
-- [Knowledge Base permalinks tutorial](https://webberzone.com/support/knowledgebase/knowledge-base-permalinks-tutorial/) — understand how Knowledge Base URLs are built.
+- [Exporting and importing articles](https://webberzone.com/support/knowledgebase/exporting-importing-articles/): move content between Knowledge Base installs.
+- [Knowledge Base permalinks tutorial](https://webberzone.com/support/knowledgebase/knowledge-base-permalinks-tutorial/): understand how Knowledge Base URLs are built.

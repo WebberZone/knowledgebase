@@ -32,7 +32,7 @@ In Multi-Product Mode:
 | Articles | Assigned to the product of their section. |
 | Original top-level sections | Deleted once their content is mapped. |
 
-Article content, metadata, permalinks, custom fields, featured images and article–section relationships don't change. Articles that aren't in any section are not assigned a product.
+Article content, metadata, permalinks, custom fields, featured images and article to section relationships don't change. Articles that aren't in any section are not assigned a product.
 
 The migration cannot be undone except by restoring a backup, and the wizard is removed once a migration completes.
 

@@ -15,21 +15,21 @@ toc: true
 
 ## How it works
 
-When the TOC is enabled, the plugin scans the article's H2–H6 headings, adds a unique `id` attribute to each one (used as the scroll target), and renders a nested `<ul>` above the content. The TOC only appears when the article has at least the configured minimum number of headings, so short articles don't get a TOC they don't need.
+When the TOC is enabled, the plugin scans the article's H2 to H6 headings, adds a unique `id` attribute to each one (used as the scroll target), and renders a nested `<ul>` above the content. The TOC only appears when the article has at least the configured minimum number of headings, so short articles don't get a TOC they don't need.
 
-Existing heading IDs set by third-party TOC blocks (Kadence, Stackable, etc.) are preserved — the plugin will not overwrite them.
+Existing heading IDs set by third-party TOC blocks (Kadence, Stackable, etc.) are preserved: the plugin will not overwrite them.
 
 ## Enabling the TOC
 
 Go to **Knowledge Base → Settings → Output** and scroll to the **Table of Contents** section.
 
-**Show table of contents** — check this box to enable automatic TOC generation for all articles.
+**Show table of contents**: check this box to enable automatic TOC generation for all articles.
 
 ## Settings
 
 | Setting | Description | Default |
 | --- | --- | --- |
-| **TOC heading depth** | Maximum heading level included (2 = H2 only, 3 = H2–H3, …, 6 = H2–H6). | 4 |
+| **TOC heading depth** | Maximum heading level included (2 = H2 only, 3 = H2 to H3, …, 6 = H2 to H6). | 4 |
 | **Minimum headings for TOC** | Articles with fewer headings than this threshold won't show a TOC. | 3 |
 | **TOC title** | Label shown above the TOC list. Leave blank to hide the title entirely. | `Table of Contents` |
 
@@ -45,7 +45,7 @@ To hide the “Table of Contents” title above the list, leave **TOC title** bl
 
 By default the TOC is inserted automatically above the article body. If you want to place it at a specific spot in the content instead, use the `[[kbtoc]]` shortcode or the **Knowledge Base TOC** block anywhere in the article. The automatic insertion is skipped when a manual placement is detected.
 
-```
+```text
 [[kbtoc]]
 ```
 
@@ -53,17 +53,17 @@ The shortcode accepts optional attributes to override the global settings for th
 
 | Attribute | Alias | Default | Description |
 | --- | --- | --- | --- |
-| `heading_depth` | `headingdepth` | From settings | Maximum heading level to include (2–6). |
+| `heading_depth` | `headingdepth` | From settings | Maximum heading level to include (2 to 6). |
 | `min_headings` | `minheadings` | From settings | Minimum heading count required to display the TOC. |
-| `title` | — | From settings | Label shown above the TOC list. Pass an empty string to hide it. |
+| `title` | Not applicable | From settings | Label shown above the TOC list. Pass an empty string to hide it. |
 
 Example:
 
-```
+```text
 [[kbtoc heading_depth="3" title="Contents"]]
 ```
 
-You can also insert a TOC using the `[[toc]]` marker in Markdown when importing articles from GitHub — see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/).
+You can also insert a TOC using the `[[toc]]` marker in Markdown when importing articles from GitHub: see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/).
 
 For a live insertion marker in your Markdown source, use one opening bracket, `toc`, and one closing bracket on its own line. The escaped form shown in documentation uses two pairs of brackets and does not insert a TOC.
 
@@ -75,7 +75,7 @@ The floating TOC is a sticky side-panel that stays visible as the reader scrolls
 
 Enable it under **Knowledge Base → Settings → Output → Show floating table of contents**.
 
-**Floating TOC position** — choose whether the panel is anchored to the **Left** or **Right** side of the viewport (default: Right).
+**Floating TOC position**: choose whether the panel is anchored to the **Left** or **Right** side of the viewport (default: Right).
 
 The panel slides in and out horizontally from the viewport edge. When minimized, a narrow tab peeks from the edge; clicking it slides the full panel into view. On mobile, the panel switches to a bottom-bar accordion instead.
 
@@ -89,7 +89,7 @@ The TOC title string is translatable. In WPML or Polylang setups, you can regist
 
 Filters the complete TOC HTML before it is inserted into the article.
 
-```
+```php
 add_filter(
     'wzkb_toc',
     function ( string $toc_html, array $headings, array $args ): string {
@@ -107,7 +107,7 @@ Return an empty string to suppress the TOC for a specific post.
 
 Call these in custom templates to output the TOC directly.
 
-```
+```php
 // Return TOC HTML for the current post (uses current post content by default).
 $toc = wzkb_get_toc();
 
@@ -122,6 +122,6 @@ Both functions respect the global TOC settings and return an empty string when t
 
 ## See also
 
-- [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — full Output settings reference
-- [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/) — using `[[toc]]` in Markdown imports
+- [Knowledge Base Settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/): full Output settings reference
+- [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/): using `[[toc]]` in Markdown imports
 - [`wzkb_toc`](https://webberzone.dev/knowledgebase/hooks/wzkb_toc/)

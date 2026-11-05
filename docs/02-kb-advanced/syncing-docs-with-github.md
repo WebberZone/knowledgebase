@@ -19,8 +19,8 @@ The plugin fetches Markdown files from your repository, converts them to blocks,
 
 The integration works in both directions:
 
-- **Import (GitHub → WordPress)** — run on demand from the import wizard, or automatically via a push webhook.
-- **Export/push-back (WordPress → GitHub)** — push a single article from its editor, push automatically on save, or bulk-push a whole mapping from the export wizard.
+- **Import (GitHub → WordPress)**: run on demand from the import wizard, or automatically via a push webhook.
+- **Export/push-back (WordPress → GitHub)**: push a single article from its editor, push automatically on save, or bulk-push a whole mapping from the export wizard.
 
 Images can be copied into your Media Library, and relative `.md` links are rewritten to article permalinks. The Markdown converter also understands tables, fenced code blocks with language hints, and all five <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts" target="_blank" rel="noreferrer noopener">GitHub Alerts</a>:
 
@@ -37,7 +37,7 @@ The other alert types are `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]` and `[!CAUTION]
 - Knowledge Base Pro is installed and activated.
 - Administrator access to your WordPress site.
 
-## Step 1 — Prepare your Markdown files
+## Step 1: Prepare your Markdown files
 
 Each Markdown file becomes an article. Add a block of settings, called frontmatter, between `---` lines at the top of each file:
 
@@ -57,17 +57,17 @@ Every field is optional: without a title the filename is used, and without secti
 
 | Field | Aliases | Type | What it does |
 | --- | --- | --- | --- |
-| `title` | — | string | Article title shown in the KB. Defaults to the filename stem. |
-| `slug` | — | string | The URL slug. Defaults to the filename stem. |
+| `title` | Not applicable | string | Article title shown in the KB. Defaults to the filename stem. |
+| `slug` | Not applicable | string | The URL slug. Defaults to the filename stem. |
 | `sections` | `categories`, `category`, `section` | comma-separated list | `wzkb_category` terms. Supports path notation for hierarchy (see below). Missing terms are created automatically. |
 | `tags` | `tag` | comma-separated list | `wzkb_tag` terms. Missing terms are created automatically. |
 | `products` | `product` | comma-separated list | `wzkb_product` terms. Used only when the mapping has no configured product; a configured mapping product takes precedence. |
 | `order` | `menu_order` | integer | Sort order within a section (`menu_order`). |
-| `status` | — | string | `publish`, `draft`, `pending`, `private`, or `future`. Overridden by the mapping's **Article Status** setting when that is set. |
-| `kb_exclude` | — | boolean | Skips the import for this file. When `true`, the linked article is set to draft, or permanently deleted when the mapping's **When a File is Deleted** setting is set to **Delete permanently**. |
-| `toc` | — | boolean | Insert a table-of-contents block before the first heading when no `[[toc]]` marker is present in the body. |
+| `status` | Not applicable | string | `publish`, `draft`, `pending`, `private`, or `future`. Overridden by the mapping's **Article Status** setting when that is set. |
+| `kb_exclude` | Not applicable | boolean | Skips the import for this file. When `true`, the linked article is set to draft, or permanently deleted when the mapping's **When a File is Deleted** setting is set to **Delete permanently**. |
+| `toc` | Not applicable | boolean | Insert a table-of-contents block before the first heading when no `[[toc]]` marker is present in the body. |
 | `featured_image` | `thumbnail`, `cover`, `image` | string | Sets the article's featured image from an absolute URL or a path relative to the Markdown file. Requires **Import external media**. |
-| `id` | — | integer | Optional stable document ID. Stored as `_wzkb_github_doc_id`. |
+| `id` | Not applicable | integer | Optional stable document ID. Stored as `_wzkb_github_doc_id`. |
 
 `sections`, `tags`, and `products` take a comma-separated list wrapped in square brackets, e.g. `tags: [setup, beginner]`. A single value still uses the brackets: `tags: [setup]`.
 
@@ -117,7 +117,7 @@ From 3.1.5, imported TOC markers accept `heading_depth` and `min_headings` as we
 
 On export, ordinary tables become Markdown pipe tables. Tables with merged cells, captions, or block-level content inside cells remain HTML because pipe tables cannot represent that structure. The same conversion applies to Markdown ZIP exports.
 
-## Step 2 — Create a GitHub Personal Access Token
+## Step 2: Create a GitHub Personal Access Token
 
 The plugin needs permission to read your repository (and to write, if you enable push-back). Skip this step only if your repo is **public** and you do not need push-back.
 
@@ -128,11 +128,11 @@ The plugin needs permission to read your repository (and to write, if you enable
 5. Set **Resource owner** to the account or organization that owns your repositories. (For organization repos, the org must also allow fine-grained tokens under **Organization Settings → Personal access tokens**.)
 6. Under **Repository access**, choose **Only select repositories** and pick your docs repo.
 7. Under **Permissions → Repository permissions**, set **Contents** to **Read-only** for import, or **Read and write** if you plan to push articles back to GitHub.
-8. Click **Generate token** and copy it immediately — GitHub won't show it again.
+8. Click **Generate token** and copy it immediately: GitHub won't show it again.
 
 Keep this token safe. You'll paste it into the plugin on the next step. Because fine-grained tokens are scoped per owner, you can set a **per-mapping** token later if different repositories belong to different owners.
 
-## Step 3 — Connect your repository in plugin settings
+## Step 3: Connect your repository in plugin settings
 
 All settings live under **Knowledge Base → Settings → GitHub**.
 
@@ -152,7 +152,7 @@ Each mapping configures one import/export source. Click **Add Repository** in th
 | Field | Description |
 | --- | --- |
 | **Product** | The Knowledge Base product (`wzkb_product` term) assigned to imported articles. A configured product overrides frontmatter products. Leave unset to use the frontmatter. |
-| **Personal Access Token** | Per-mapping PAT. Overrides the global PAT for this repository — useful when repos belong to different owners. Leave blank to use the global token. |
+| **Personal Access Token** | Per-mapping PAT. Overrides the global PAT for this repository: useful when repos belong to different owners. Leave blank to use the global token. |
 | **Repository** | Begin typing to search repositories accessible with the configured token, then select `owner/repo-name` from the dropdown. |
 | **Folder Path** | Subdirectory to restrict imports to, e.g. `docs/`. Leave blank to import the entire repo. The folder is scanned **recursively**, so all `.md` files in its subfolders are included too. |
 | **Branch** | Branch, tag, or SHA to import from. Leave blank to use the repository default branch (wizard) or accept pushes to any branch (webhook). |
@@ -161,17 +161,17 @@ Each mapping configures one import/export source. Click **Add Repository** in th
 | **When a File is Deleted** | What to do with the linked article when its source file is removed from the repository: **Switch to draft** or **Delete permanently**. |
 | **Push-back** | Enable pushing article changes back to GitHub (auto-push and the export wizard). Requires the PAT to have **contents: write**. |
 | **Commit author name / email** | Optional. Attribute push commits to this identity. Leave blank to use the PAT owner's profile. |
-| **Status** | Set to **Disabled** to pause a mapping entirely — no imports, no webhook processing, no push-back — without deleting it. |
+| **Status** | Set to **Disabled** to pause a mapping entirely (no imports, no webhook processing, no push-back) without deleting it. |
 
 Save your settings when done.
 
-## Step 4 — Run your first import
+## Step 4: Run your first import
 
-Go to **Knowledge Base → GitHub** and select the **Import** tab. Select your mapping (or **— All Mappings —**), optionally override the branch/ref, optionally force re-import of files whose SHA has not changed, then click **Import**. The wizard fetches your files one by one and shows a live results table — created, updated, skipped, or any errors.
+Go to **Knowledge Base → GitHub** and select the **Import** tab. Select your mapping (or **— All Mappings —**), optionally override the branch/ref, optionally force re-import of files whose SHA has not changed, then click **Import**. The wizard fetches your files one by one and shows a live results table: created, updated, skipped, or any errors.
 
 Later imports only process files that have changed. Only `.md` and `.markdown` files are imported, from the folder and all its subfolders; other files are ignored.
 
-## Step 5 — Set up automatic sync (optional)
+## Step 5: Set up automatic sync (optional)
 
 To import automatically on every push, add a webhook to your repository:
 

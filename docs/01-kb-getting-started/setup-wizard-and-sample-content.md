@@ -11,13 +11,13 @@ toc: true
 
 [toc]
 
-The setup wizard walks you through configuring [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) in a few guided steps — from choosing your structure to importing sample content so you can see a working knowledge base immediately.
+The setup wizard walks you through configuring [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) in a few guided steps, from choosing your structure to importing sample content so you can see a working knowledge base immediately.
 
 ## Launching the wizard
 
 The wizard opens automatically the first time you activate the plugin. You can also run it again at any time by visiting **admin.php?page=wzkb_wizard** in your WordPress admin (replace the first part with your site's admin URL).
 
-You can skip the wizard at any point — the skip link takes you straight to the Knowledge Base settings page, and every option in the wizard can also be changed later under **Knowledge Base → Settings**.
+You can skip the wizard at any point: the skip link takes you straight to the Knowledge Base settings page, and every option in the wizard can also be changed later under **Knowledge Base → Settings**.
 
 ## The wizard steps
 
@@ -25,8 +25,8 @@ You can skip the wizard at any point — the skip link takes you straight to the
 
 Choose your overall structure:
 
-- **Multi-product mode** — enable this if you document more than one product. Each product gets its own archive and its own set of sections.
-- **Category level** — controls which level of your section hierarchy is treated as the top level for display.
+- **Multi-product mode**: enable this if you document more than one product. Each product gets its own archive and its own set of sections.
+- **Category level**: controls which level of your section hierarchy is treated as the top level for display.
 
 ### 2. Permalinks
 
@@ -52,19 +52,19 @@ Import demo sections and articles so you can explore a populated knowledge base 
 
 The Sample Content step creates a small set of demo content that matches the structure you chose in the first step:
 
-- **Single-product mode** — two sections (*Getting Started* and *User Guide*) with four sample articles.
-- **Multi-product mode** — two products (*Nova* and *Nexus*), four sections, and eight sample articles spread across them.
+- **Single-product mode**: two sections (*Getting Started* and *User Guide*) with four sample articles.
+- **Multi-product mode**: two products (*Nova* and *Nexus*), four sections, and eight sample articles spread across them.
 
 The sample articles are real, published KB articles with headings, lists, and code blocks, so you can immediately see how your theme and settings render a knowledge base.
 
-Importing sample content is safe to repeat — articles that already exist are skipped, so you will not end up with duplicates.
+Importing sample content is safe to repeat: articles that already exist are skipped, so you will not end up with duplicates.
 
 ## Deleting sample content
 
 When you no longer need the demo content, go to **Knowledge Base → Tools**. If sample content exists on the site, a **Sample Content** card appears with a delete button that removes all sample articles, sections, and products created by the wizard.
 
-Deletion only touches content the wizard created — your own articles and sections are never affected. The delete cannot be undone, but you can re-import the sample content from the wizard at any time.
+Deletion only touches content the wizard created: your own articles and sections are never affected. The delete cannot be undone, but you can re-import the sample content from the wizard at any time.
 
 ## See also
 
-- [Knowledge Base settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/) — the full settings reference for everything the wizard configures.
+- [Knowledge Base settings](https://webberzone.com/support/knowledgebase/knowledge-base-settings/): the full settings reference for everything the wizard configures.

@@ -105,7 +105,7 @@ Load any page on the site once to let the deferred rewrite flush run. If the URL
 
 ### A product or section ID URL returns 404
 
-Confirm the ID belongs to a term in the taxonomy the placeholder refers to — `%product_id%` resolves against Products and `%section_id%` against Sections. A missing term prevents the custom route from resolving.
+Confirm the ID belongs to a term in the taxonomy the placeholder refers to: `%product_id%` resolves against Products and `%section_id%` against Sections. A missing term prevents the custom route from resolving.
 
 ### URLs not matching your structure
 

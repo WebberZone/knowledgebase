@@ -206,13 +206,13 @@ Auto-generate a table of contents from headings in article content. The TOC is i
 
 Maximum heading level to include in the table of contents. `2` includes only H2; `3` includes H2 and H3, and so on.
 
-**Default:** `4` **Range:** 2–6
+**Default:** `4` **Range:** 2 to 6
 
 #### Minimum headings for TOC
 
 Minimum number of headings required before the table of contents is displayed. Articles with fewer headings than this threshold will not show a TOC.
 
-**Default:** `3` **Range:** 1–20
+**Default:** `3` **Range:** 1 to 20
 
 #### TOC title
 
@@ -308,11 +308,11 @@ Choose how to prevent duplicate votes. Each method has different privacy implica
 
 **Options:**
 
-- **No Tracking** – Allows multiple votes (most privacy-friendly)
-- **Cookie Only** – Requires consent (default)
-- **IP Address Only** – Stores personal data
-- **Cookie + IP Address** – Requires both
-- **Logged-in Users Only** – Best for authenticated sites
+- **No Tracking**: Allows multiple votes (most privacy-friendly)
+- **Cookie Only**: Requires consent (default)
+- **IP Address Only**: Stores personal data
+- **Cookie + IP Address**: Requires both
+- **Logged-in Users Only**: Best for authenticated sites
 
 #### Show Rating Statistics
 
@@ -450,16 +450,16 @@ Settings for [Ask the Docs](https://webberzone.com/support/knowledgebase/ask-the
 | --- | --- | --- |
 | **Enable Ask the Docs** | Off | Turns the feature on. |
 | **AI provider** | Automatic | Which connected provider answers questions. |
-| **Articles sent as context** | 4 | Matching articles sent with each question (1–8). |
-| **Maximum characters per article** | 3,000 | Each article is trimmed to this length before it is sent (500–10,000). |
+| **Articles sent as context** | 4 | Matching articles sent with each question (1 to 8). |
+| **Maximum characters per article** | 3,000 | Each article is trimmed to this length before it is sent (500 to 10,000). |
 | **Answer length** | Short | Short (two or three sentences) or Medium (one or two paragraphs). |
 | **Show sources** | On | List links to the articles the answer is based on. |
 | **Fallback message** | Empty | Shown when there is no answer. Leave blank to use the default. |
 | **Use in knowledge base search boxes** | On | Let knowledge base search boxes answer questions. |
 | **Use in the Help widget** | On | Show an answer above the Help widget's article results. |
-| **Daily request cap** | 200 | Maximum provider requests per day across the site (1–100,000). |
-| **Questions per visitor per hour** | 10 | Per-visitor limit (1–1,000). |
+| **Daily request cap** | 200 | Maximum provider requests per day across the site (1 to 100,000). |
+| **Questions per visitor per hour** | 10 | Per-visitor limit (1 to 1,000). |
 | **Record questions for Content gaps** | Off | Store question text for the Content gaps report. |
-| **Log retention (days)** | 90 | How long recorded questions are kept (1–3,650). |
+| **Log retention (days)** | 90 | How long recorded questions are kept (1 to 3,650). |
 
 See [Ask the Docs](https://webberzone.com/support/knowledgebase/ask-the-docs/#settings) for details on each setting.

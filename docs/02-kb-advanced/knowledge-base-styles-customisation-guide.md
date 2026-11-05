@@ -17,10 +17,10 @@ toc: true
 
 Each style is a complete visual design for your knowledge base:
 
-- **Layout** – How sections and articles are arranged
-- **Colors** – Background, text, borders, and accent colors
-- **Typography** – Font sizes and spacing
-- **Effects** – Hover states, shadows, and transitions
+- **Layout**: How sections and articles are arranged
+- **Colors**: Background, text, borders, and accent colors
+- **Typography**: Font sizes and spacing
+- **Effects**: Hover states, shadows, and transitions
 
 The plugin includes nine styles: two free and seven Pro.
 
@@ -38,17 +38,17 @@ While each style looks excellent out of the box, you may want to:
 All styles use **CSS Custom Properties (CSS Variables)**, which means:
 
 - ✅ Change colors in one place, update everywhere
-- ✅ No plugin files to edit – add CSS through WordPress
+- ✅ No plugin files to edit: add CSS through WordPress
 - ✅ Changes survive plugin updates
-- ✅ Simple copy-paste – no coding skills required
+- ✅ Simple copy-paste: no coding skills required
 
 ### Benefits of CSS Variables
 
-- ✅ **Easy to customize** – Change colors in one place
-- ✅ **No file editing** – Add custom CSS through WordPress settings
-- ✅ **Update-safe** – Changes persist through plugin updates
-- ✅ **Real-time preview** – See changes immediately
-- ✅ **No coding required** – Simple copy-paste customization
+- ✅ **Easy to customize**: Change colors in one place
+- ✅ **No file editing**: Add custom CSS through WordPress settings
+- ✅ **Update-safe**: Changes persist through plugin updates
+- ✅ **Real-time preview**: See changes immediately
+- ✅ **No coding required**: Simple copy-paste customization
 
 ## Available Styles
 
@@ -56,35 +56,35 @@ Knowledge Base includes nine styles.
 
 ### Free Styles (2)
 
-- **Legacy** – Float-based layout for compatibility with older themes
-- **Classic** – Modern Grid Layout with CSS Grid for contemporary designs
+- **Legacy**: Float-based layout for compatibility with older themes
+- **Classic**: Modern Grid Layout with CSS Grid for contemporary designs
 
 ### Pro Styles (7)
 
-- **Card Layout** – Modern cards with hover effects and shadows
-- **Minimal** – Clean, minimalist design with subtle borders
-- **Boxed** – Strong borders and structured sections
-- **Gradient** – Colorful gradient accents for vibrant designs
-- **Compact** – Dense information layout for maximum content
-- **Magazine** – Editorial two-column design for rich content
-- **Professional** – Corporate business style with formal aesthetics
+- **Card Layout**: Modern cards with hover effects and shadows
+- **Minimal**: Clean, minimalist design with subtle borders
+- **Boxed**: Strong borders and structured sections
+- **Gradient**: Colorful gradient accents for vibrant designs
+- **Compact**: Dense information layout for maximum content
+- **Magazine**: Editorial two-column design for rich content
+- **Professional**: Corporate business style with formal aesthetics
 
 ### Key Features
 
 All styles include:
 
-- ✅ **4 Variants** – Main, minified, RTL, and minified RTL versions
-- ✅ **RTL Support** – Full right-to-left language support (Arabic, Hebrew, etc.)
-- ✅ **Optimized Performance** – Minified CSS files for faster loading
-- ✅ **Mobile Responsive** – Adapts to different screen sizes
-- ✅ **Automatic Fallback** – Graceful degradation if Pro is deactivated
+- ✅ **4 Variants**: Main, minified, RTL, and minified RTL versions
+- ✅ **RTL Support**: Full right-to-left language support (Arabic, Hebrew, etc.)
+- ✅ **Optimized Performance**: Minified CSS files for faster loading
+- ✅ **Mobile Responsive**: Adapts to different screen sizes
+- ✅ **Automatic Fallback**: Graceful degradation if Pro is deactivated
 
 ### How Styles Work
 
 - **The free version** shows only two styles (Classic and Legacy)
 - **Pro version** automatically adds 7 additional premium styles
 - Only the selected style loads on your pages (no bloat)
-- Switching styles is instant – just select from the dropdown
+- Switching styles is instant: just select from the dropdown
 
 ## Quick Start
 

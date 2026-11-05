@@ -51,9 +51,9 @@ Search published Knowledge Base articles. Use a few distinctive keywords and opt
 
 | Input | Type | Required | Description |
 | --- | --- | --- | --- |
-| `query` | string | yes | Search keywords or a short phrase, 2–500 characters. |
+| `query` | string | yes | Search keywords or a short phrase, 2 to 500 characters. |
 | `section` | integer or string | no | `wzkb_category` term ID or slug. String values are matched as slugs first, then numeric strings fall back to a term ID. |
-| `limit` | integer | no | Maximum results, 1–50. Default: 10. |
+| `limit` | integer | no | Maximum results, 1 to 50. Default: 10. |
 
 Each result contains `id`, plain-text `title`, `url`, plain-text `excerpt`, and a `section` array. Each section contains `id`, `name`, and `slug`.
 
@@ -77,8 +77,8 @@ Create an article as a draft for an editor to review. The ability always sets `p
 
 | Input | Type | Required | Description |
 | --- | --- | --- | --- |
-| `title` | string | yes | Article title, 1–200 characters. |
-| `content` | string | yes | Article content, 1–100,000 characters. Safe post HTML is allowed. |
+| `title` | string | yes | Article title, 1 to 200 characters. |
+| `content` | string | yes | Article content, 1 to 100,000 characters. Safe post HTML is allowed. |
 | `section` | integer | no | Existing `wzkb_category` term ID. |
 
 The ability requires the Knowledge Base post type's create capability, which defaults to `edit_posts`. When `section` is supplied, the user must also be able to assign terms. It returns the new article's `id` and `edit_url`.
