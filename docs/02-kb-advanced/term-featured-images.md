@@ -23,13 +23,13 @@ toc: true
 
 To remove a featured image, click **Remove Image** and save the term.
 
-The same **Featured Image** field is also available when creating a new term — fill it in on the Add Term form and it is saved along with the term.
+The same **Featured Image** field is also available when creating a new term: fill it in on the Add Term form and it is saved along with the term.
 
 ## Where the image appears
 
 ### Product grid cards
 
-When a product has a featured image, it is displayed inside its card in the product grid — above the product title. The image is sized to fill the card width with a 16:9 aspect ratio. This works automatically; no setting needs to be changed.
+When a product has a featured image, it is displayed inside its card in the product grid, above the product title. The image is sized to fill the card width with a 16:9 aspect ratio. This works automatically; no setting needs to be changed.
 
 ### Product and section archive page headers
 
@@ -37,8 +37,8 @@ On product and section archive pages, the featured image is displayed below the 
 
 When this setting is enabled, the image is shown on both classic (PHP template) and block-based (FSE) themes:
 
-- **Classic themes** — the image is rendered below the term description in the `.page-header` element of the `taxonomy-wzkb_product.php` and `taxonomy-wzkb_category.php` templates.
-- **Block themes (FSE)** — the image is appended automatically after the `core/term-description` block wherever it appears in the template.
+- **Classic themes**: the image is rendered below the term description in the `.page-header` element of the `taxonomy-wzkb_product.php` and `taxonomy-wzkb_category.php` templates.
+- **Block themes (FSE)**: the image is appended automatically after the `core/term-description` block wherever it appears in the template.
 
 ## CSS classes
 

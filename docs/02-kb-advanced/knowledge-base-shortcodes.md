@@ -50,9 +50,9 @@ Optional attributes override the global settings for that placement:
 
 | Attribute | Alias | Default | Description |
 | --- | --- | --- | --- |
-| `heading_depth` | `headingdepth` | Setting value | Maximum heading level to include (2–6). |
+| `heading_depth` | `headingdepth` | Setting value | Maximum heading level to include (2 to 6). |
 | `min_headings` | `minheadings` | Setting value | Minimum headings required before the TOC is shown. |
-| `title` | — | Setting value | Label above the TOC list. Pass an empty string to hide it. |
+| `title` | Not applicable | Setting value | Label above the TOC list. Pass an empty string to hide it. |
 
 Example:
 

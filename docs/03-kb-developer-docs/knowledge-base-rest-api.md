@@ -53,9 +53,9 @@ add_filter(
 
 Return values:
 
-1. `bool` – grant/deny outright.
-2. `string` – capability checked via `current_user_can()`.
-3. `callable` – custom logic returning boolean.
+1. `bool`: grant/deny outright.
+2. `string`: capability checked via `current_user_can()`.
+3. `callable`: custom logic returning boolean.
 
 ## Multi-product prerequisite
 
@@ -165,7 +165,7 @@ List published Knowledge Base posts with optional filtering.
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| `per_page` | int | no | Results per page (1–50). Default: 10. |
+| `per_page` | int | no | Results per page (1 to 50). Default: 10. |
 | `page` | int | no | Page number. Default: 1. |
 | `search` | string | no | Free-text search term. |
 | `product` | int | no | Filter by `wzkb_product` term ID. |
@@ -220,7 +220,7 @@ Lightweight search endpoint wrapping Knowledge Base queries.
 | `query` | string | yes | Search keywords (min 2 characters). |
 | `product` | int | no | Filter by product term ID. |
 | `section` | int | no | Filter by section term ID. |
-| `limit` | int | no | Results to return (1–50). Default: 10. |
+| `limit` | int | no | Results to return (1 to 50). Default: 10. |
 
 `limit` applies only to this endpoint. The number of results on the knowledge base search results page is set separately with the `wzkb_search_posts_per_page` filter (default `12`), which does not override `limit`:
 
@@ -230,12 +230,12 @@ add_filter( 'wzkb_search_posts_per_page', fn() => 20 );
 
 ### GET `/wzkb/v1/related`
 
-Fetch related articles for a given Knowledge Base post.
+Fetch related articles for a given Knowledge Base post. The source must be publicly viewable or readable by the current user. A missing source, an incorrect post type, or an unreadable article returns HTTP `404` with error code `wzkb_rest_post_not_found`. A public route does not bypass this source check.
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
 | `post_id` | int | yes | Base Knowledge Base post ID. |
-| `limit` | int | no | Number of related items (1–20). |
+| `limit` | int | no | Number of related items (1 to 20). |
 
 ### POST `/wzkb/v1/ask`
 
@@ -243,7 +243,7 @@ Fetch related articles for a given Knowledge Base post.
 
 | Parameter | Type | Required | Description |
 | --- | --- | --- | --- |
-| `question` | string | yes | The question (3–300 characters). |
+| `question` | string | yes | The question (3 to 300 characters). |
 
 This route is meant for your site's own pages. It refuses requests from other origins and from bots. See the [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for the response fields, errors and filters.
 

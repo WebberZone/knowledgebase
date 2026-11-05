@@ -36,7 +36,7 @@ Downloads a `.sql` file inside a ZIP archive containing `INSERT` statements for:
 - Posts (`wp_posts`)
 - Post meta (`wp_postmeta`)
 - Term relationships (`wp_term_relationships`)
-- Term taxonomy (`wp_term_taxonomy`) — restricted to `wzkb_category`, `wzkb_product`, and `wzkb_tag`
+- Term taxonomy (`wp_term_taxonomy`): restricted to `wzkb_category`, `wzkb_product`, and `wzkb_tag`
 - Terms (`wp_terms`)
 
 This format is intended for direct database migration between two WordPress installs that share identical table structures and term IDs. It is not suitable for merging into a site that already has KB content, as it uses `INSERT` rather than `INSERT … ON DUPLICATE KEY UPDATE`.

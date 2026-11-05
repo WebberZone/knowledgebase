@@ -11,11 +11,11 @@ toc: true
 
 [toc]
 
-The Documentation Layout in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) displays your knowledge base as a three-column documentation site. When enabled, every KB page — the archive, product pages, section pages, and single articles — renders with a full-width docs-style template:
+The Documentation Layout in [Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) displays your knowledge base as a three-column documentation site. When enabled, every KB page (the archive, product pages, section pages, and single articles) renders with a full-width docs-style template:
 
-- **Left column** — collapsible section tree navigation, scoped to the current product
-- **Center column** — article or archive content
-- **Right column** — "On this page" outline generated from the article's headings
+- **Left column**: collapsible section tree navigation, scoped to the current product
+- **Center column**: article or archive content
+- **Right column**: "On this page" outline generated from the article's headings
 
 Enable it with a single setting; no theme editing or custom templates required.
 
@@ -28,7 +28,7 @@ Enable it with a single setting; no theme editing or custom templates required.
 
 The three-column layout activates immediately across all KB pages. Your existing **Knowledge Base Style** selection continues to apply within the center column.
 
-When Documentation Layout is active, the floating TOC panel is automatically suppressed — the right-column outline serves the same purpose.
+When Documentation Layout is active, the floating TOC panel is automatically suppressed: the right-column outline serves the same purpose.
 
 ## Section Tree
 
@@ -38,10 +38,10 @@ The section tree is the navigation sidebar rendered in the left column of the Do
 
 The tree is context-aware by default (`auto` mode):
 
-- On the **KB home** — shows the full tree for all products.
-- On a **product archive** — shows sections for that product.
-- On a **section archive** — shows the tree for the parent product, with the current section expanded.
-- On a **single article** — shows the tree for the article's product, with the article's section expanded and the article link highlighted.
+- On the **KB home**: shows the full tree for all products.
+- On a **product archive**: shows sections for that product.
+- On a **section archive**: shows the tree for the parent product, with the current section expanded.
+- On a **single article**: shows the tree for the article's product, with the article's section expanded and the article link highlighted.
 
 Sections are collapsible. The current term and article are highlighted automatically.
 
@@ -96,7 +96,7 @@ echo wzkb_get_section_tree( array(
 
 ### Filters
 
-**[`wzkb_section_tree_article_limit`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_article_limit/)** — Override the default article limit per section.
+**[`wzkb_section_tree_article_limit`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_article_limit/)**: Override the default article limit per section.
 
 ```php
 add_filter( 'wzkb_section_tree_article_limit', function( int $limit ): int {
@@ -104,7 +104,7 @@ add_filter( 'wzkb_section_tree_article_limit', function( int $limit ): int {
 } );
 ```
 
-**[`wzkb_section_tree_html`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_html/)** — Filter the final section tree HTML before output.
+**[`wzkb_section_tree_html`](https://webberzone.dev/knowledgebase/hooks/wzkb_section_tree_html/)**: Filter the final section tree HTML before output.
 
 ```php
 add_filter( 'wzkb_section_tree_html', function( string $html, array $args ): string {
