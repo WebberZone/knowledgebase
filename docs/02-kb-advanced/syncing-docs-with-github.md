@@ -171,6 +171,16 @@ Go to **Knowledge Base → GitHub** and select the **Import** tab. Select your m
 
 Later imports only process files that have changed. Only `.md` and `.markdown` files are imported, from the folder and all its subfolders; other files are ignored.
 
+## Import with WP-CLI *(Pro only)*
+
+Run the import from the command line using your saved GitHub mappings:
+
+```bash
+wp wzkb github import --mapping=all --verbose
+```
+
+For previews, export, and other options, see [Knowledge Base WP-CLI commands](https://webberzone.com/support/knowledgebase/knowledge-base-wp-cli/).
+
 ## Step 5: Set up automatic sync (optional)
 
 To import automatically on every push, add a webhook to your repository:

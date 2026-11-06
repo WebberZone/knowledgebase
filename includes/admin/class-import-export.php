@@ -61,7 +61,7 @@ class Import_Export {
 			$settings = array();
 		}
 
-		$settings = $this->strip_sensitive_fields( $settings );
+		$settings = self::strip_sensitive_fields( $settings );
 
 		ignore_user_abort( true );
 		nocache_headers();
@@ -143,7 +143,7 @@ class Import_Export {
 
 		// Preserve all sensitive values from the existing settings — they are
 		// site-specific encrypted values and are never present in the export file.
-		$sensitive_keys   = $this->get_sensitive_keys();
+		$sensitive_keys   = self::get_sensitive_keys();
 		$existing_secrets = array_intersect_key( $existing, array_flip( $sensitive_keys['top_level'] ) );
 
 		// Merge: imported values win for non-sensitive keys; existing wins for sensitive ones.
@@ -253,8 +253,8 @@ class Import_Export {
 	 * @param array $settings Settings array to sanitize for export.
 	 * @return array
 	 */
-	private function strip_sensitive_fields( array $settings ): array {
-		$sensitive = $this->get_sensitive_keys();
+	public static function strip_sensitive_fields( array $settings ): array {
+		$sensitive = self::get_sensitive_keys();
 
 		foreach ( $sensitive['top_level'] as $key ) {
 			unset( $settings[ $key ] );
@@ -290,7 +290,7 @@ class Import_Export {
 	 *
 	 * @return array{top_level: string[], repeater: array<string, string[]>}
 	 */
-	private function get_sensitive_keys(): array {
+	private static function get_sensitive_keys(): array {
 		$top_level = array();
 		$repeater  = array();
 
