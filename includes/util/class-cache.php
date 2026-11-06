@@ -66,14 +66,15 @@ class Cache {
 	 * @since 2.3.0
 	 *
 	 * @param array $meta_keys Array of meta keys to delete.
+	 * @param bool  $failed Whether a database operation failed, passed by reference.
 	 * @return int Number of meta keys deleted.
 	 */
-	public static function delete( $meta_keys = array() ) {
+	public static function delete( $meta_keys = array(), &$failed = null ) {
 		global $wpdb;
 
 		$rows_deleted = 0;
 
-		$default_meta_keys = self::get_keys();
+		$default_meta_keys = self::get_keys( $failed );
 
 		if ( ! empty( $meta_keys ) ) {
 			$meta_keys = array_intersect( $default_meta_keys, (array) $meta_keys );
@@ -82,7 +83,7 @@ class Cache {
 		}
 
 		foreach ( $meta_keys as $meta_key ) {
-			$rows_deleted += (int) $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$result = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"
 					DELETE FROM {$wpdb->termmeta}
@@ -91,6 +92,11 @@ class Cache {
 					$meta_key
 				)
 			);
+			if ( false === $result ) {
+				$failed = true;
+			} else {
+				$rows_deleted += (int) $result;
+			}
 		}
 
 		return $rows_deleted;
@@ -99,9 +105,10 @@ class Cache {
 	/**
 	 * Get the default meta keys used for the cache
 	 *
-	 * @return  array   Transient meta keys
+	 * @param bool $failed Whether the lookup failed, passed by reference.
+	 * @return array Transient meta keys.
 	 */
-	public static function get_keys() {
+	public static function get_keys( &$failed = null ) {
 		global $wpdb;
 
 		$keys = array();
@@ -113,6 +120,7 @@ class Cache {
 		";
 
 		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$failed  = '' !== $wpdb->last_error;
 
 		$keys = wp_list_pluck( $results, 'meta_key' );
 

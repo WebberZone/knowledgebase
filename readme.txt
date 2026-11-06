@@ -183,6 +183,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.3.0 =
+
+Release date: TBD
+
+**Added**
+
+* [Pro] WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs, and GitHub documentation sync.
+
 = 3.2.4 =
 
 Release date: 3 November 2026
