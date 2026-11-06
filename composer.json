@@ -32,7 +32,8 @@
         "wp-coding-standards/wpcs": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
         "yoast/phpunit-polyfills": "^4",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^9.6",
+        "php-stubs/wp-cli-stubs": "^2.12"
     },
     "config": {
         "autoloader-suffix": "WebberZoneKnowledgeBase",
