@@ -190,6 +190,7 @@ Release date: TBD
 **Added**
 
 * [Pro] WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs, and GitHub documentation sync.
+* [Pro] Abilities API tools to list GitHub import sources, preview selected articles, and import selected mappings or files.
 
 **Deprecated**
 
