@@ -26,6 +26,7 @@ Knowledge Base is free to use. The Pro upgrade adds AI answers from your article
 | Alert boxes (`[[kbalert]]` shortcode and Alerts block) | ✅ | ✅ |
 | REST API | ✅ | ✅ |
 | Abilities API: article search and section discovery | ✅ | ✅ |
+| Abilities API: GitHub import tools (list sources, preview, import) | ❌ | ✅ |
 | Multilingual support (WPML, Polylang and TranslatePress) | ✅ | ✅ |
 | Settings export and import | ✅ | ✅ |
 | **Display & Customization** |  |  |

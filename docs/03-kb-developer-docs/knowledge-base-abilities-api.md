@@ -11,7 +11,7 @@ toc: true
 
 [toc]
 
-[Knowledge Base](https://wordpress.org/plugins/knowledgebase/) registers WordPress Abilities API tools for AI agents and other integrations. The free plugin provides read-only article search and section discovery. Knowledge Base Pro adds draft article creation and the Ask the Docs ability.
+[Knowledge Base](https://wordpress.org/plugins/knowledgebase/) registers WordPress Abilities API tools for AI agents and other integrations. The free plugin provides read-only article search and section discovery. Knowledge Base Pro adds draft article creation, the Ask the Docs ability and GitHub import tools.
 
 The Abilities API is built into WordPress 6.9 and later. Knowledge Base does not include a polyfill. All Knowledge Base abilities use the shared `webberzone` category.
 
@@ -87,12 +87,58 @@ The ability requires the Knowledge Base post type's create capability, which def
 
 Knowledge Base Pro also registers the Ask the Docs ability. It accepts a `question`, returns the same answer data as the Ask the Docs REST endpoint, and is available to logged-in users by default. It is registered only on WordPress 7.0 or later, where Ask the Docs loads. See the [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/) for its filters, response and limits.
 
-## WP-CLI mapping
+## GitHub import abilities *(Pro only)*
 
-Knowledge Base and Knowledge Base Pro currently register no WP-CLI commands, so there are no existing CLI operations to wrap, redesign or leave CLI-only. See the Pro repository's `ABILITIES-CLI-MAPPING.md` for the Phase 2 audit record.
+Knowledge Base Pro 3.3.0 adds three abilities that let an AI agent drive the GitHub documentation sync: list your import sources, preview a planned import and run it. They use the GitHub mappings configured under **Knowledge Base → Settings → GitHub** (see [Syncing Docs with GitHub](https://webberzone.com/support/knowledgebase/syncing-docs-with-github/)). Credentials are never returned.
+
+### `knowledgebase/list-github-mappings`
+
+Lists every enabled GitHub import source.
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | string | Stable source ID. It changes if the mapping's import-related settings change. |
+| `repo` | string | GitHub owner and repository name. |
+| `folder` | string | Imported repository folder, or an empty string for the repository root. |
+| `branch` | string | Configured branch, or an empty string to use the repository default. |
+| `has_credentials` | boolean | Whether a mapping or global GitHub token is configured. This does not verify token access. |
+
+### `knowledgebase/preview-github-import` and `knowledgebase/import-github-articles`
+
+Both abilities take the same input. Preview reports the planned changes without touching articles; import applies them, following each mapping's duplicate handling, exclusions, product and default status.
+
+| Input | Type | Required | Description |
+| --- | --- | --- | --- |
+| `mapping_ids` | array of strings | one of the two selectors | Stable mapping IDs returned by the list ability. |
+| `all` | boolean | one of the two selectors | Set `true` to select every enabled mapping. Cannot be combined with `mapping_ids`. |
+| `file` | string | no | Exact repository-relative Markdown path to limit the run to one file. Omit to process every Markdown file in the selected mappings. |
+
+Each result contains `mapping_id`, `repo`, `path`, `action` (such as `created`, `updated`, `skipped`, `excluded`, `deleted`, `uncertain` or `error`), `post_id`, and a `note`, `warning` and `error` with any details.
+
+Listing and previewing require `manage_options`. Importing also requires the Knowledge Base post type's edit, publish and delete capabilities, and the ability to assign the Knowledge Base section, product and tag terms.
+
+```bash
+curl --get \
+  --data-urlencode 'input[all]=true' \
+  'https://example.com/wp-json/wp-abilities/v1/abilities/knowledgebase/preview-github-import/run'
+```
+
+Import is destructive, so it runs with `POST` and a JSON body:
+
+```bash
+curl --request POST \
+  --header 'Content-Type: application/json' \
+  --data '{"input":{"mapping_ids":["<stable-mapping-id>"],"file":"docs/getting-started.md"}}' \
+  'https://example.com/wp-json/wp-abilities/v1/abilities/knowledgebase/import-github-articles/run'
+```
+
+## WP-CLI
+
+Knowledge Base Pro 3.3.0 adds WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs and GitHub documentation sync. See [Knowledge Base WP-CLI commands](https://webberzone.com/support/knowledgebase/knowledge-base-wp-cli/) for the full reference.
 
 ## See also
 
 - [Knowledge Base REST API](https://webberzone.com/support/knowledgebase/knowledge-base-rest-api/)
 - [Ask the Docs developer reference](https://webberzone.com/support/knowledgebase/ask-the-docs-developer-reference/)
+- [Knowledge Base WP-CLI commands](https://webberzone.com/support/knowledgebase/knowledge-base-wp-cli/)
 - [WordPress Abilities API documentation](https://developer.wordpress.org/apis/abilities-api/)
