@@ -11,7 +11,7 @@ toc: true
 
 [toc]
 
-[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) provides WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs, and GitHub documentation sync. Install WP-CLI and configure your repositories in the GitHub settings before running the commands.
+[Knowledge Base Pro](https://webberzone.com/plugins/knowledgebase/) provides WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs, and GitHub documentation sync. The commands require Knowledge Base Pro 3.3.0 or later. Install WP-CLI and configure your repositories in the GitHub settings before running the commands.
 
 ## Search and status
 

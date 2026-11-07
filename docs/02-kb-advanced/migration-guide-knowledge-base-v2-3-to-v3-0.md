@@ -13,6 +13,8 @@ toc: true
 
 [Knowledge Base](https://webberzone.com/plugins/knowledgebase/) v3.0 added **Multi-Product Mode**, which organizes articles and sections by product. The Product Migration Wizard converts a v2.3-style knowledge base, where top-level sections stood in for products, into the multi-product structure.
 
+> **Deprecated in v3.3.0.** The Product Migration wizard will be removed in Knowledge Base 3.4.0. Complete any pending migration before upgrading, or migrate by hand by creating products and reassigning sections and articles from the taxonomy screens.
+
 ## Should you migrate?
 
 Migrate if your top-level sections already represent separate products, services or product lines. Stay in single-product mode if you document one product and your current structure works. Multi-Product Mode is optional, and you can also enable it without migrating and create products by hand.

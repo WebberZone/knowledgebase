@@ -181,6 +181,10 @@ wp wzkb github import --mapping=all --verbose
 
 For previews, export, and other options, see [Knowledge Base WP-CLI commands](https://webberzone.com/support/knowledgebase/knowledge-base-wp-cli/).
 
+## Import with abilities *(Pro only)*
+
+An AI agent or other integration can run GitHub imports through the WordPress Abilities API. Knowledge Base Pro 3.3.0 registers three abilities: `knowledgebase/list-github-mappings` lists your enabled mappings with stable IDs, `knowledgebase/preview-github-import` reports the planned changes for a selection without touching articles, and `knowledgebase/import-github-articles` runs the import. Credentials are never returned. See [Knowledge Base Abilities API](https://webberzone.com/support/knowledgebase/knowledge-base-abilities-api/) for the inputs, results and permissions.
+
 ## Step 5: Set up automatic sync (optional)
 
 To import automatically on every push, add a webhook to your repository:

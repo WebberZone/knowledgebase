@@ -80,7 +80,7 @@ Override these classes in your theme or the **Custom CSS** setting:
 
 ## Developer notes
 
-Each article stores its totals in `_wzkb_rating_total`, `_wzkb_rating_sum` and `_wzkb_rating_positive`, and cached scores in `_wzkb_average_rating`, `_wzkb_positive_ratio` and `_wzkb_bayesian_rating`. Individual votes, IP hashes, user IDs and feedback are kept in `_wzkb_ratings`, `_wzkb_rating_ips`, `_wzkb_rating_user_ids` and `_wzkb_rating_feedback`. Delete these meta keys to reset an article's ratings. To erase one visitor's votes for a GDPR request, compute `hash( 'sha256', $ip . wp_salt( 'nonce' ) )` from their IP address and remove that hash from `_wzkb_rating_ips` on each article.
+Each article stores its totals in `_wzkb_rating_total`, `_wzkb_rating_sum` and `_wzkb_rating_positive`, and cached scores in `_wzkb_average_rating`, `_wzkb_positive_ratio` and `_wzkb_bayesian_rating`. Individual votes, IP hashes, user IDs and feedback are kept in `_wzkb_ratings`, `_wzkb_rating_ips`, `_wzkb_rating_user_ids` and `_wzkb_rating_feedback`. Delete these meta keys to reset an article's ratings. The plugin's reset actions (**Reset Rating** on the articles list and **Reset All Ratings** on the Tools page) clear all of these keys, including the derived `_wzkb_average_rating`, `_wzkb_positive_ratio` and `_wzkb_bayesian_rating` scores. To erase one visitor's votes for a GDPR request, compute `hash( 'sha256', $ip . wp_salt( 'nonce' ) )` from their IP address and remove that hash from `_wzkb_rating_ips` on each article.
 
 Votes are limited to 10 per 60 seconds per visitor, and each vote log keeps at most 10,000 entries, dropping the oldest 10% when full.
 
