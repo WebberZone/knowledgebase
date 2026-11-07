@@ -49,7 +49,7 @@ msgstr ""
 #: includes/admin/class-admin-columns.php:70
 #: includes/admin/class-section-product-meta.php:83
 #: includes/admin/class-section-product-meta.php:133
-#: includes/admin/class-settings-wizard.php:576
+#: includes/admin/class-settings-wizard.php:565
 #: includes/admin/class-settings.php:1066
 #: includes/blocks/build/products/index.js:1
 #: includes/blocks/src/products/edit.js:49
@@ -96,12 +96,12 @@ msgid "View Knowledge Base"
 msgstr ""
 
 #: includes/admin/class-admin.php:238
-#: includes/admin/class-settings-wizard.php:671
+#: includes/admin/class-settings-wizard.php:597
 msgid "Products"
 msgstr ""
 
 #: includes/admin/class-admin.php:244
-#: includes/admin/class-settings-wizard.php:673
+#: includes/admin/class-settings-wizard.php:599
 msgid "Sections"
 msgstr ""
 
@@ -166,262 +166,262 @@ msgid_plural "%s KB articles"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:827
+#: includes/admin/class-admin.php:818
 msgid "Support the development - Send us a donation today."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:69
-#: includes/admin/class-product-migrator.php:70
+#: includes/admin/class-product-migrator.php:74
+#: includes/admin/class-product-migrator.php:75
 #: includes/admin/class-tools-page.php:278
 msgid "Product Migration"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:103
+#: includes/admin/class-product-migrator.php:108
 msgid "Migration failed"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:104
+#: includes/admin/class-product-migrator.php:109
 msgid "Unknown error"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:105
-#: includes/admin/class-product-migrator.php:862
+#: includes/admin/class-product-migrator.php:110
+#: includes/admin/class-product-migrator.php:868
 msgid "Migration complete!"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:122
+#: includes/admin/class-product-migrator.php:127
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:128
+#: includes/admin/class-product-migrator.php:133
 msgid "Product Migration Wizard"
 msgstr ""
 
 #. translators: %s: Date and time when migration was completed.
-#: includes/admin/class-product-migrator.php:134
+#: includes/admin/class-product-migrator.php:140
 #, php-format
 msgid "Migration already completed on %s."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:141
+#: includes/admin/class-product-migrator.php:147
 msgid "The Migration Wizard simplifies the process of reorganizing your knowledge base by converting your existing sections into products and mapping articles to their corresponding products. This ensures a more structured, user-friendly, and discoverable knowledge base. Below is a step-by-step overview of what the wizard will do. No changes will be applied until you confirm and initiate the migration."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:143
+#: includes/admin/class-product-migrator.php:149
 msgid "Convert Sections to Products: Each top-level section in your knowledge base will be transformed into a distinct product, preserving its identity and purpose."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:144
+#: includes/admin/class-product-migrator.php:150
 msgid "Map Articles to Products: Articles will be intelligently assigned to their respective products based on the existing section hierarchy, ensuring no content is lost or misplaced."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:145
+#: includes/admin/class-product-migrator.php:151
 msgid "Handle Sub-Sections: Any sub-sections (descendant sections) will be processed to correctly associate their articles with the appropriate product, maintaining organizational clarity."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:146
+#: includes/admin/class-product-migrator.php:152
 msgid "Remove Old Sections: Once articles are mapped, the original top-level sections will be removed to streamline your knowledge base structure."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:147
+#: includes/admin/class-product-migrator.php:153
 msgid "Preview with Dry Run: Use the dry-run option to simulate the migration process without making any changes, allowing you to review the outcome before committing."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:148
+#: includes/admin/class-product-migrator.php:154
 msgid "Confirm and Migrate: After reviewing the dry run, you can start the migration with confidence, knowing your knowledge base will be restructured for improved organization and accessibility."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:152
+#: includes/admin/class-product-migrator.php:158
 msgid "Dry run (show summary only, no changes)"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:153
+#: includes/admin/class-product-migrator.php:159
 msgid "I confirm I have backed up my database and understand this migration cannot be undone."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:154
+#: includes/admin/class-product-migrator.php:160
 msgid "Start Migration"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:162
+#: includes/admin/class-product-migrator.php:168
 msgid "Migration Log"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:165
+#: includes/admin/class-product-migrator.php:171
 msgid "Copy Log"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:182
-#: includes/admin/class-settings-wizard.php:1207
-#: includes/admin/class-settings-wizard.php:1308
-#: includes/admin/class-settings-wizard.php:1325
+#: includes/admin/class-product-migrator.php:188
+#: includes/admin/class-settings-wizard.php:1114
+#: includes/admin/class-settings-wizard.php:1215
+#: includes/admin/class-settings-wizard.php:1232
 #: includes/admin/class-settings.php:1918
 msgid "Insufficient permissions."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:206
+#: includes/admin/class-product-migrator.php:212
 msgid "Migration already initialized. Resuming..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:224
+#: includes/admin/class-product-migrator.php:230
 msgid "Initializing migration..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:227
+#: includes/admin/class-product-migrator.php:233
 msgid "Dry run mode: No changes will be made."
 msgstr ""
 
 #. translators: %s: Error message
-#: includes/admin/class-product-migrator.php:243
+#: includes/admin/class-product-migrator.php:249
 #, php-format
 msgid "Error fetching sections: %s"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:339
+#: includes/admin/class-product-migrator.php:345
 msgid "No top-level sections found. Nothing to migrate."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:353
+#: includes/admin/class-product-migrator.php:359
 msgid "Products already created. Skipping product creation step..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:364
+#: includes/admin/class-product-migrator.php:370
 msgid "Creating products from top-level sections..."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:375
+#: includes/admin/class-product-migrator.php:381
 #, php-format
 msgid "Skipped invalid section ID: %d."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Product ID
-#: includes/admin/class-product-migrator.php:386
+#: includes/admin/class-product-migrator.php:392
 #, php-format
 msgid "Used existing product for section \"%1$s\" (ID: %2$d) with product ID: %3$d."
 msgstr ""
 
 #. translators: 1: Product name, 2: Product ID, 3: Section name, 4: Section ID
-#: includes/admin/class-product-migrator.php:425
+#: includes/admin/class-product-migrator.php:431
 #, php-format
 msgid "Created product \"%1$s\" (ID: %2$d) for section \"%3$s\" (ID: %4$d)."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:496
+#: includes/admin/class-product-migrator.php:502
 msgid "No more top-level sections to process. Moving to next step."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Current index, 4: Total count
-#: includes/admin/class-product-migrator.php:511
+#: includes/admin/class-product-migrator.php:517
 #, php-format
 msgid "Starting sub-section mapping for \"%1$s\" (ID: %2$d) (%3$d of %4$d)..."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Current index, 4: Total count
-#: includes/admin/class-product-migrator.php:521
+#: includes/admin/class-product-migrator.php:527
 #, php-format
 msgid "Continuing sub-section mapping for \"%1$s\" (ID: %2$d) (%3$d of %4$d)..."
 msgstr ""
 
 #. translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Top sections count, 6: Articles processed, 7: Total articles
-#: includes/admin/class-product-migrator.php:543
+#: includes/admin/class-product-migrator.php:549
 #, php-format
 msgid "Incoming State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, top_sections_count=%5$d, articles_processed=%6$d/%7$d"
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:555
+#: includes/admin/class-product-migrator.php:561
 #, php-format
 msgid "Skipping section ID: %d (No product mapping found)."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:595
+#: includes/admin/class-product-migrator.php:601
 #, php-format
 msgid "Loading descendants for section ID: %d"
 msgstr ""
 
 #. translators: 1: Section ID, 2: Count
-#: includes/admin/class-product-migrator.php:602
+#: includes/admin/class-product-migrator.php:608
 #, php-format
 msgid "Found %2$d sections (including top-level) for section ID: %1$d."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:619
+#: includes/admin/class-product-migrator.php:625
 #, php-format
 msgid "Completed all sections for top section ID: %d. Moving to next top section."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID
-#: includes/admin/class-product-migrator.php:641
+#: includes/admin/class-product-migrator.php:647
 #, php-format
 msgid "Processing section \"%1$s\" (ID: %2$d)"
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Product ID
-#: includes/admin/class-product-migrator.php:660
+#: includes/admin/class-product-migrator.php:666
 #, php-format
 msgid "Linked section \"%1$s\" (ID: %2$d) to product ID: %3$d."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:673
+#: includes/admin/class-product-migrator.php:679
 #, php-format
 msgid "No articles remaining for section ID: %d."
 msgstr ""
 
 #. translators: 1: Article ID, 2: Product ID
-#: includes/admin/class-product-migrator.php:706
+#: includes/admin/class-product-migrator.php:712
 #, php-format
 msgid "Skipped article ID: %1$d (already assigned to product ID: %2$d)."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:569
-#: includes/admin/class-product-migrator.php:573
+#: includes/admin/class-product-migrator.php:575
+#: includes/admin/class-product-migrator.php:579
 msgid "Unknown Product"
 msgstr ""
 
 #. translators: 1: Product name, 2: Product ID, 3: List of articles
-#: includes/admin/class-product-migrator.php:727
+#: includes/admin/class-product-migrator.php:733
 #, php-format
 msgid "Assigned articles to product \"%1$s\" (ID: %2$d): %3$s"
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:735
+#: includes/admin/class-product-migrator.php:741
 #, php-format
 msgid "No new articles assigned for section ID: %d."
 msgstr ""
 
 #. translators: 1: Section ID, 2: Article count
-#: includes/admin/class-product-migrator.php:747
+#: includes/admin/class-product-migrator.php:753
 #, php-format
 msgid "Finished processing articles for section ID: %1$d (found %2$d articles)."
 msgstr ""
 
 #. translators: 1: Top index, 2: Descendant index, 3: Offset, 4: Descendant count, 5: Sections mapped, 6: Top sections mapped, 7: Articles processed, 8: Total articles
-#: includes/admin/class-product-migrator.php:788
-#: includes/admin/class-product-migrator.php:831
+#: includes/admin/class-product-migrator.php:794
+#: includes/admin/class-product-migrator.php:837
 #, php-format
 msgid "Outgoing State: top_index=%1$d, desc_index=%2$d, offset=%3$d, desc_count=%4$d, sections_mapped=%5$d, top_sections_mapped=%6$d, articles_processed=%7$d/%8$d"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:808
+#: includes/admin/class-product-migrator.php:814
 msgid "Deleting old top-level sections..."
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:823
+#: includes/admin/class-product-migrator.php:829
 #, php-format
 msgid "Deleting top-level section ID: %d."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:862
+#: includes/admin/class-product-migrator.php:868
 msgid "Dry run complete! No changes were made."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:875
+#: includes/admin/class-product-migrator.php:881
 msgid "Unknown migration step."
 msgstr ""
 
@@ -488,7 +488,7 @@ msgstr ""
 
 #: includes/admin/class-section-product-meta.php:85
 #: includes/admin/class-section-product-meta.php:136
-#: includes/admin/class-settings-wizard.php:837
+#: includes/admin/class-settings-wizard.php:763
 msgid "— Select Product —"
 msgstr ""
 
@@ -497,245 +497,232 @@ msgstr ""
 msgid "Select the product this section belongs to."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:150
+#: includes/admin/class-settings-wizard.php:139
 msgid "Knowledge Base Setup"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:160
+#: includes/admin/class-settings-wizard.php:149
 msgid "Display Options"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:165
+#: includes/admin/class-settings-wizard.php:154
 msgid "Pro Features"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:166
+#: includes/admin/class-settings-wizard.php:155
 msgid "Unlock premium features like ratings and the help widget. Configure the essentials here before diving deeper."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:221
+#: includes/admin/class-settings-wizard.php:210
 msgid "Knowledge Base Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:222
+#: includes/admin/class-settings-wizard.php:211
 msgid "Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:223
+#: includes/admin/class-settings-wizard.php:212
 msgid "Next Step"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:224
+#: includes/admin/class-settings-wizard.php:213
 msgid "Previous Step"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:225
+#: includes/admin/class-settings-wizard.php:214
 msgid "Finish Setup"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:226
+#: includes/admin/class-settings-wizard.php:215
 msgid "Skip Wizard"
 msgstr ""
 
 #. translators: %s: Search query.
-#: includes/admin/class-settings-wizard.php:228
+#: includes/admin/class-settings-wizard.php:217
 #, php-format
 msgid "No results found for \"%s\""
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:229
+#: includes/admin/class-settings-wizard.php:218
 msgid "Setup Wizard Steps"
 msgstr ""
 
 #. translators: %1$d: Current step number, %2$d: Total number of steps
-#: includes/admin/class-settings-wizard.php:231
+#: includes/admin/class-settings-wizard.php:220
 #, php-format
 msgid "Step %1$d of %2$d"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:232
+#: includes/admin/class-settings-wizard.php:221
 msgid "Setup Complete!"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:233
+#: includes/admin/class-settings-wizard.php:222
 msgid "Your Knowledge Base has been configured successfully. You can now start organizing your documentation."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:234
+#: includes/admin/class-settings-wizard.php:223
 msgid "Go to Settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:270
+#: includes/admin/class-settings-wizard.php:259
 msgid "Welcome to Knowledge Base! Would you like to run the setup wizard to configure the plugin?"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:272
+#: includes/admin/class-settings-wizard.php:261
 msgid "Run Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:513
-#: includes/admin/class-settings-wizard.php:571
-#: includes/admin/class-settings-wizard.php:636
+#: includes/admin/class-settings-wizard.php:502
+#: includes/admin/class-settings-wizard.php:560
 msgid "Existing"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:514
-#: includes/admin/class-settings-wizard.php:572
-#: includes/admin/class-settings-wizard.php:637
+#: includes/admin/class-settings-wizard.php:503
+#: includes/admin/class-settings-wizard.php:561
 msgid "Name"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:515
-#: includes/admin/class-settings-wizard.php:573
-#: includes/admin/class-settings-wizard.php:638
+#: includes/admin/class-settings-wizard.php:504
+#: includes/admin/class-settings-wizard.php:562
 msgid "Slug"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:516
-#: includes/admin/class-settings-wizard.php:574
-#: includes/admin/class-settings-wizard.php:639
+#: includes/admin/class-settings-wizard.php:505
+#: includes/admin/class-settings-wizard.php:563
 msgid "Description"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:517
-#: includes/admin/class-settings-wizard.php:578
-#: includes/admin/class-settings-wizard.php:641
+#: includes/admin/class-settings-wizard.php:506
+#: includes/admin/class-settings-wizard.php:567
 msgid "Actions"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:525
+#: includes/admin/class-settings-wizard.php:514
 msgid "Add another product"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:586
+#: includes/admin/class-settings-wizard.php:575
 msgid "Add another section"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:640
-msgid "Parent section"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:649
-msgid "Add another subsection"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:804
+#: includes/admin/class-settings-wizard.php:730
 msgid "— New —"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:837
+#: includes/admin/class-settings-wizard.php:763
 msgid "— Select Section —"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:847
+#: includes/admin/class-settings-wizard.php:773
 msgid "Remove"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1330
+#: includes/admin/class-settings-wizard.php:1237
 msgid "Permalinks flushed successfully."
 msgstr ""
 
 #: includes/admin/class-admin.php:485
 #: includes/admin/class-plugin-importers.php:396
-#: includes/admin/class-settings-wizard.php:1354
+#: includes/admin/class-settings-wizard.php:1261
 msgid "Flush Permalinks"
 msgstr ""
 
 #: includes/admin/class-plugin-importers.php:432
-#: includes/admin/class-settings-wizard.php:1358
+#: includes/admin/class-settings-wizard.php:1265
 msgid "Visit Knowledge Base"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1364
+#: includes/admin/class-settings-wizard.php:1271
 msgid "Next Steps:"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1364
+#: includes/admin/class-settings-wizard.php:1271
 msgid "Start by creating products to organize your knowledge base content."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1364
+#: includes/admin/class-settings-wizard.php:1271
 msgid "Create sections to categorize your articles and improve navigation."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1372
+#: includes/admin/class-settings-wizard.php:1279
 msgid "Create your first product"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1374
+#: includes/admin/class-settings-wizard.php:1281
 msgid "Organize content by products"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1380
+#: includes/admin/class-settings-wizard.php:1287
 msgid "Add sections"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1382
+#: includes/admin/class-settings-wizard.php:1289
 msgid "Create categories for articles"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1387
+#: includes/admin/class-settings-wizard.php:1294
 msgid "Create your first article"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1389
+#: includes/admin/class-settings-wizard.php:1296
 msgid "Add helpful content"
 msgstr ""
 
 #: includes/admin/class-plugin-importers.php:403
-#: includes/admin/class-settings-wizard.php:1394
+#: includes/admin/class-settings-wizard.php:1301
 msgid "Configure settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1396
+#: includes/admin/class-settings-wizard.php:1303
 msgid "Customize display and behavior"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1402
+#: includes/admin/class-settings-wizard.php:1309
 msgid "Pro Features Available"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1407
+#: includes/admin/class-settings-wizard.php:1314
 msgid "Customize Permalinks"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1409
+#: includes/admin/class-settings-wizard.php:1316
 msgid "Optimize URL structure"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1418
+#: includes/admin/class-settings-wizard.php:1325
 msgid "Configure Rating System and Help Widget"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1420
+#: includes/admin/class-settings-wizard.php:1327
 msgid "Set up article feedback and help widget"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1428
+#: includes/admin/class-settings-wizard.php:1335
 msgid "Helpful Resources"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1433
+#: includes/admin/class-settings-wizard.php:1340
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1435
+#: includes/admin/class-settings-wizard.php:1342
 msgid "Read the plugin manual"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1440
+#: includes/admin/class-settings-wizard.php:1347
 msgid "Tools Page"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1442
+#: includes/admin/class-settings-wizard.php:1349
 msgid "Maintenance and debugging"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1447
+#: includes/admin/class-settings-wizard.php:1354
 msgid "Support Forum"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1449
+#: includes/admin/class-settings-wizard.php:1356
 msgid "Get help from the community"
 msgstr ""
 
@@ -828,7 +815,7 @@ msgstr ""
 msgid "Enable this option to display the Knowledge Base on the site homepage. The Knowledge Base URL will serve as the homepage, and the Knowledge Base archive URL will redirect to it."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:155
+#: includes/admin/class-settings-wizard.php:144
 #: includes/admin/class-settings.php:585
 msgid "Permalinks"
 msgstr ""
@@ -1955,12 +1942,12 @@ msgid "Search keywords."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:150
-#: includes/rest/class-rest-controller.php:1010
+#: includes/rest/class-rest-controller.php:1046
 msgid "Filter by product term ID."
 msgstr ""
 
 #: includes/rest/class-rest-controller.php:154
-#: includes/rest/class-rest-controller.php:1014
+#: includes/rest/class-rest-controller.php:1050
 msgid "Filter by section term ID."
 msgstr ""
 
@@ -2009,15 +1996,15 @@ msgstr ""
 msgid "Search query must be at least two characters long."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:993
+#: includes/rest/class-rest-controller.php:1029
 msgid "Number of posts to return per page."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:1000
+#: includes/rest/class-rest-controller.php:1036
 msgid "Current page of the collection."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:1006
+#: includes/rest/class-rest-controller.php:1042
 msgid "Search term."
 msgstr ""
 
@@ -2028,12 +2015,6 @@ msgid "%s entry cleared"
 msgid_plural "%s entries cleared"
 msgstr[0] ""
 msgstr[1] ""
-
-#. translators: 1: Opening a tag and Knowledge Base, 2: Closing a tag.
-#: includes/util/class-helpers.php:43
-#, php-format
-msgid "Powered by %1$s plugin%2$s"
-msgstr ""
 
 #: includes/widgets/class-articles-widget.php:31
 #: includes/widgets/class-articles-widget.php:150
@@ -2754,34 +2735,34 @@ msgstr ""
 msgid "Section title is plain text"
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:106
+#: includes/admin/class-product-migrator.php:111
 msgid "Starting migration..."
 msgstr ""
 
-#: includes/admin/class-product-migrator.php:107
+#: includes/admin/class-product-migrator.php:112
 msgid "AJAX error"
 msgstr ""
 
 #. translators: 1: Product name, 2: Section ID
-#: includes/admin/class-product-migrator.php:398
+#: includes/admin/class-product-migrator.php:404
 #, php-format
 msgid "Would create product \"%1$s\" for section ID: %2$d."
 msgstr ""
 
 #. translators: 1: Section name, 2: Section ID, 3: Error message
-#: includes/admin/class-product-migrator.php:414
+#: includes/admin/class-product-migrator.php:420
 #, php-format
 msgid "Failed to create product for section \"%1$s\" (ID: %2$d): %3$s"
 msgstr ""
 
 #. translators: %d: Section ID
-#: includes/admin/class-product-migrator.php:579
+#: includes/admin/class-product-migrator.php:585
 #, php-format
 msgid "Skipping section ID: %d (Invalid product mapping found)."
 msgstr ""
 
 #. translators: 1: Total sections mapped, 2: New products created, 3: Existing products reused, 4: Sub-sections mapped, 5: Articles processed, 6: Sections deleted
-#: includes/admin/class-product-migrator.php:846
+#: includes/admin/class-product-migrator.php:852
 #, php-format
 msgid "Migration Summary: Mapped %1$d top-level sections to products (%2$d new, %3$d existing reused), mapped %4$d sub-sections to products, processed %5$d articles, and deleted %6$d old top-level sections."
 msgstr ""
@@ -2963,7 +2944,7 @@ msgid "Unable to refresh."
 msgstr ""
 
 #: includes/admin/class-admin.php:489
-#: includes/admin/class-admin.php:639
+#: includes/admin/class-admin.php:630
 msgid "Token valid."
 msgstr ""
 
@@ -2979,53 +2960,53 @@ msgstr ""
 msgid "no accessible repository found to test"
 msgstr ""
 
-#: includes/admin/class-admin.php:598
+#: includes/admin/class-admin.php:589
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: includes/admin/class-admin.php:618
+#: includes/admin/class-admin.php:609
 msgid "No GitHub Personal Access Token configured. Save a token first."
 msgstr ""
 
 #. translators: %s: GitHub username.
-#: includes/admin/class-admin.php:636
+#: includes/admin/class-admin.php:627
 #, php-format
 msgid "Token valid — connected as %s"
 msgstr ""
 
-#: includes/admin/class-import-export.php:107
+#: includes/admin/class-import-export.php:135
 msgid "Import failed: please upload a valid .json file."
 msgstr ""
 
-#: includes/admin/class-import-export.php:119
+#: includes/admin/class-import-export.php:148
 msgid "Import failed: no file was uploaded."
 msgstr ""
 
-#: includes/admin/class-import-export.php:132
+#: includes/admin/class-import-export.php:161
 msgid "Import failed: the file does not contain valid JSON settings."
 msgstr ""
 
-#: includes/admin/class-import-export.php:199
+#: includes/admin/class-import-export.php:112
 msgid "Settings imported successfully."
 msgstr ""
 
-#: includes/admin/class-import-export.php:215
+#: includes/admin/class-import-export.php:251
 msgid "Settings Import / Export"
 msgstr ""
 
-#: includes/admin/class-import-export.php:218
+#: includes/admin/class-import-export.php:254
 msgid "Export your Knowledge Base settings as a JSON file, or import a previously exported file to restore them."
 msgstr ""
 
-#: includes/admin/class-import-export.php:219
+#: includes/admin/class-import-export.php:255
 msgid "Note: sensitive values such as API keys and webhook secrets are excluded from the export and must be re-entered after import."
 msgstr ""
 
-#: includes/admin/class-import-export.php:225
+#: includes/admin/class-import-export.php:261
 msgid "Export Settings"
 msgstr ""
 
-#: includes/admin/class-import-export.php:236
+#: includes/admin/class-import-export.php:272
 msgid "Import Settings"
 msgstr ""
 
@@ -3041,7 +3022,7 @@ msgid "Import"
 msgstr ""
 
 #: includes/admin/class-plugin-importers.php:141
-#: includes/admin/class-settings-wizard.php:354
+#: includes/admin/class-settings-wizard.php:343
 msgid "Importing…"
 msgstr ""
 
@@ -3335,105 +3316,105 @@ msgstr ""
 msgid "Webhook Integration"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:151
+#: includes/admin/class-settings-wizard.php:140
 msgid "Welcome to Knowledge Base! Choose your structure and section display before configuring the rest of the wizard."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:156
+#: includes/admin/class-settings-wizard.php:145
 msgid "Set the URL slugs for your knowledge base. Flush permalinks after saving if you see 404 errors."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:161
+#: includes/admin/class-settings-wizard.php:150
 msgid "Customize how the knowledge base looks and which metadata is visible."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:170
+#: includes/admin/class-settings-wizard.php:159
 msgid "Content Structure"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:171
+#: includes/admin/class-settings-wizard.php:160
 msgid "Create the products and sections that will organise your articles. You can add more and create subsections from the admin after setup."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:176
-#: includes/admin/class-settings-wizard.php:1281
+#: includes/admin/class-settings-wizard.php:165
+#: includes/admin/class-settings-wizard.php:1188
 msgid "Sample Content"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:177
+#: includes/admin/class-settings-wizard.php:166
 msgid "Import sample sections and articles so you can explore the knowledge base straight away. You can delete this content at any time."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:355
+#: includes/admin/class-settings-wizard.php:344
 msgid "Imported"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:356
+#: includes/admin/class-settings-wizard.php:345
 msgid "Import failed."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:357
+#: includes/admin/class-settings-wizard.php:346
 msgid "Deleting…"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:358
+#: includes/admin/class-settings-wizard.php:347
 msgid "Deleted"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:359
+#: includes/admin/class-settings-wizard.php:348
 msgid "Delete failed."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:360
-#: includes/admin/class-settings-wizard.php:765
-#: includes/admin/class-settings-wizard.php:1290
+#: includes/admin/class-settings-wizard.php:349
+#: includes/admin/class-settings-wizard.php:691
+#: includes/admin/class-settings-wizard.php:1197
 msgid "Delete Sample Content"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:361
+#: includes/admin/class-settings-wizard.php:350
 msgid "Are you sure you want to delete all sample content? This cannot be undone."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:362
-#: includes/admin/class-settings-wizard.php:1286
+#: includes/admin/class-settings-wizard.php:351
+#: includes/admin/class-settings-wizard.php:1193
 msgid "Import sample articles and sections via the setup wizard to explore the knowledge base. Use this button to remove them at any time."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:674
+#: includes/admin/class-settings-wizard.php:600
 msgid "Assign sections to products from Knowledge Base → Sections after the wizard."
 msgstr ""
 
 #. translators: 1: product count 2: section count 3: article count
-#: includes/admin/class-settings-wizard.php:701
+#: includes/admin/class-settings-wizard.php:627
 #, php-format
 msgid "Creates %1$d products, %2$d sections (2 per product), and %3$d articles (2 per section)."
 msgstr ""
 
 #. translators: 1: section count 2: article count
-#: includes/admin/class-settings-wizard.php:709
+#: includes/admin/class-settings-wizard.php:635
 #, php-format
 msgid "Creates %1$d sections and %2$d articles (2 per section)."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:718
+#: includes/admin/class-settings-wizard.php:644
 msgid "Preview content"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:761
+#: includes/admin/class-settings-wizard.php:687
 msgid "Import Sample Content"
 msgstr ""
 
 #. translators: 1: number of articles deleted 2: number of terms deleted
-#: includes/admin/class-settings-wizard.php:1262
+#: includes/admin/class-settings-wizard.php:1169
 #, php-format
 msgid "Deleted %1$d articles and %2$d sections/products."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1284
+#: includes/admin/class-settings-wizard.php:1191
 msgid "Sample articles, sections, and products created by the setup wizard are present on this site."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:1313
+#: includes/admin/class-settings-wizard.php:1220
 msgid "Sample content imported successfully."
 msgstr ""
 
@@ -3685,10 +3666,6 @@ msgstr ""
 msgid "No GitHub Personal Access Token configured. Add a token to this row or the global setting."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:280
-msgid "Migrate your existing top-level sections into Products and reassign articles accordingly."
-msgstr ""
-
 #: includes/admin/class-tools-page.php:283
 msgid "Run Migration Wizard"
 msgstr ""
@@ -3912,7 +3889,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:976
+#: includes/rest/class-rest-controller.php:1012
 msgid "TranslatePress language code to render the response in."
 msgstr ""
 
@@ -3980,26 +3957,34 @@ msgstr ""
 msgid "Knowledge Base section not found."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:770
+#: includes/rest/class-rest-controller.php:807
 msgid "A search query is required."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:780
+#: includes/rest/class-rest-controller.php:817
 msgid "The search query must contain between two and 500 characters."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:798
+#: includes/rest/class-rest-controller.php:835
 msgid "The result limit must be an integer."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:808
+#: includes/rest/class-rest-controller.php:845
 msgid "The result limit must be between one and 50."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:873
+#: includes/rest/class-rest-controller.php:909
 msgid "Section input must contain a non-negative parent ID."
 msgstr ""
 
-#: includes/rest/class-rest-controller.php:905
+#: includes/rest/class-rest-controller.php:941
 msgid "The supplied section ID or slug does not exist."
+msgstr ""
+
+#: includes/admin/class-product-migrator.php:134
+msgid "The Product Migration Wizard is deprecated and will be removed in Knowledge Base 3.4.0."
+msgstr ""
+
+#: includes/admin/class-tools-page.php:280
+msgid "Migrate your existing top-level sections into Products and reassign articles accordingly. This tool is deprecated and will be removed in 3.4.0."
 msgstr ""
