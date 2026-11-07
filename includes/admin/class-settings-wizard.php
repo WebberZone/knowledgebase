@@ -82,17 +82,6 @@ class Settings_Wizard extends Settings_Wizard_API {
 	}
 
 	/**
-	 * Get the skip wizard link URL.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return string Skip wizard link URL.
-	 */
-	protected function get_skip_link_url() {
-		return $this->settings_page_url;
-	}
-
-	/**
 	 * Get wizard steps configuration.
 	 *
 	 * @since 3.0.0
@@ -590,69 +579,6 @@ class Settings_Wizard extends Settings_Wizard_API {
 	}
 
 	/**
-	 * Render the subsections repeater fields.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return void
-	 */
-	protected function render_subsections_fields() {
-		$sections = get_terms(
-			array(
-				'taxonomy'   => 'wzkb_category',
-				'hide_empty' => false,
-				'parent'     => 0,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-		if ( is_wp_error( $sections ) ) {
-			$sections = array();
-		}
-		$all_sections = get_terms(
-			array(
-				'taxonomy'   => 'wzkb_category',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-		if ( is_wp_error( $all_sections ) ) {
-			$all_sections = array();
-		}
-		$existing_subsections = array_values(
-			array_filter(
-				(array) $all_sections,
-				static function ( $term ) {
-					return is_numeric( $term->parent ) && (int) $term->parent > 0;
-				}
-			)
-		);
-		?>
-		<div class="wzkb-wizard-repeater" data-repeater-type="subsections">
-			<table class="widefat striped wzkb-wizard-repeater-table">
-				<thead>
-					<tr>
-						<th><?php esc_html_e( 'Existing', 'knowledgebase' ); ?></th>
-						<th><?php esc_html_e( 'Name', 'knowledgebase' ); ?></th>
-						<th><?php esc_html_e( 'Slug', 'knowledgebase' ); ?></th>
-						<th><?php esc_html_e( 'Description', 'knowledgebase' ); ?></th>
-						<th><?php esc_html_e( 'Parent section', 'knowledgebase' ); ?></th>
-						<th class="wzkb-wizard-col-actions"><?php esc_html_e( 'Actions', 'knowledgebase' ); ?></th>
-					</tr>
-				</thead>
-				<tbody class="wzkb-wizard-repeater-rows">
-					<?php $this->render_empty_repeater_row( 'wzkb_wizard_subsections', $existing_subsections, $sections, true, true ); ?>
-				</tbody>
-			</table>
-			<p>
-				<button type="button" class="button wzkb-wizard-add-row" data-target="wzkb_wizard_subsections"><?php esc_html_e( 'Add another subsection', 'knowledgebase' ); ?></button>
-			</p>
-		</div>
-		<?php
-	}
-
-	/**
 	 * Render the combined content structure step.
 	 *
 	 * In multi-product mode, renders the products table above the sections table.
@@ -912,49 +838,6 @@ class Settings_Wizard extends Settings_Wizard_API {
 	}
 
 	/**
-	 * Create subsections submitted from the subsections wizard step.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return void
-	 */
-	protected function process_subsections_submission() {
-		$rows = filter_input( INPUT_POST, 'wzkb_wizard_subsections', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
-		if ( empty( $rows ) || ! is_array( $rows ) ) {
-			return;
-		}
-		$multi_product = (int) \wzkb_get_option( 'multi_product', 0 );
-		foreach ( $rows as $row ) {
-			$parent_id   = isset( $row['parent_section_id'] ) ? absint( $row['parent_section_id'] ) : 0;
-			$existing_id = isset( $row['existing_id'] ) ? absint( $row['existing_id'] ) : 0;
-			if ( $parent_id <= 0 && $existing_id <= 0 ) {
-				continue;
-			}
-			if ( $existing_id > 0 && $parent_id <= 0 ) {
-				$existing_term = get_term( $existing_id, 'wzkb_category' );
-				if ( $existing_term && ! is_wp_error( $existing_term ) ) {
-					$parent_id = (int) $existing_term->parent;
-				}
-			}
-
-			$args = array();
-			if ( $parent_id > 0 ) {
-				$args['parent'] = $parent_id;
-			}
-			$term_id = $this->insert_or_update_term_id_from_row( $row, 'wzkb_category', $args );
-			if ( $term_id <= 0 ) {
-				continue;
-			}
-			if ( 1 === $multi_product ) {
-				$inherited_product_id = $parent_id > 0 ? (int) get_term_meta( $parent_id, 'product_id', true ) : 0;
-				if ( $inherited_product_id > 0 ) {
-					update_term_meta( $term_id, 'product_id', $inherited_product_id );
-				}
-			}
-		}
-	}
-
-	/**
 	 * Process the combined content structure step.
 	 *
 	 * Creates products first (multi-product mode only) then sections.
@@ -994,104 +877,128 @@ class Settings_Wizard extends Settings_Wizard_API {
 		$multi_product      = ( false !== $multi_product_post && null !== $multi_product_post )
 			? (int) $multi_product_post
 			: (int) \wzkb_get_option( 'multi_product', 0 );
-		$data               = Sample_Content::get_data( 1 === $multi_product );
 
-		// 1. Products (multi-product mode only).
-		$product_slug_to_id = array();
-		foreach ( $data['products'] as $product ) {
-			$term_id = $this->insert_or_update_term_id_from_row(
-				array(
-					'existing_id' => 0,
-					'name'        => $product['name'],
-					'slug'        => $product['slug'],
-					'description' => $product['description'],
-				),
-				'wzkb_product'
-			);
-			if ( $term_id > 0 ) {
-				$product_slug_to_id[ $product['slug'] ] = $term_id;
-				update_term_meta( $term_id, '_wzkb_sample_term', '1' );
-			}
+		$this->import_sample_content( 1 === $multi_product );
+	}
+
+	/**
+	 * Create the sample products, sections and articles.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param bool $multi_product Whether products are enabled.
+	 */
+	protected function import_sample_content( bool $multi_product ): void {
+		$data = Sample_Content::get_data( $multi_product );
+
+		$product_slug_to_id = $this->import_sample_terms( $data['products'], 'wzkb_product' );
+		$section_slug_to_id = $this->import_sample_terms( $data['sections'], 'wzkb_category', $multi_product ? $product_slug_to_id : null );
+
+		foreach ( $data['articles'] as $article ) {
+			$this->import_sample_article( $article, $data['sections'], $section_slug_to_id, $multi_product ? $product_slug_to_id : null );
 		}
+	}
 
-		// 2. Sections.
-		$section_slug_to_id = array();
-		foreach ( $data['sections'] as $section ) {
+	/**
+	 * Insert sample terms, mark them as sample content and optionally link sections to products.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param array      $rows               Sample term rows.
+	 * @param string     $taxonomy           Taxonomy slug.
+	 * @param array|null $product_slug_to_id Product term IDs by slug when sections should be linked to products.
+	 * @return array<string,int> Term IDs by slug.
+	 */
+	protected function import_sample_terms( array $rows, string $taxonomy, ?array $product_slug_to_id = null ): array {
+		$slug_to_id = array();
+		foreach ( $rows as $row ) {
 			$term_id = $this->insert_or_update_term_id_from_row(
 				array(
 					'existing_id' => 0,
-					'name'        => $section['name'],
-					'slug'        => $section['slug'],
-					'description' => $section['description'],
+					'name'        => $row['name'],
+					'slug'        => $row['slug'],
+					'description' => $row['description'],
 				),
-				'wzkb_category'
+				$taxonomy
 			);
 			if ( $term_id <= 0 ) {
 				continue;
 			}
-			$section_slug_to_id[ $section['slug'] ] = $term_id;
+			$slug_to_id[ $row['slug'] ] = $term_id;
 			update_term_meta( $term_id, '_wzkb_sample_term', '1' );
-			if ( 1 === $multi_product && ! empty( $section['product_slug'] ) ) {
-				$product_id = $product_slug_to_id[ $section['product_slug'] ] ?? 0;
-				if ( $product_id > 0 ) {
-					update_term_meta( $term_id, 'product_id', $product_id );
-				}
+
+			$product_id = null !== $product_slug_to_id && ! empty( $row['product_slug'] ) ? ( $product_slug_to_id[ $row['product_slug'] ] ?? 0 ) : 0;
+			if ( $product_id > 0 ) {
+				update_term_meta( $term_id, 'product_id', $product_id );
 			}
 		}
 
-		// 3. Articles.
-		foreach ( $data['articles'] as $article ) {
-			// Identify already-imported sample articles by a stable meta key so that
-			// slug collisions with unrelated posts and locale changes don't cause duplicates.
-			$existing = new \WP_Query(
-				array(
-					'post_type'      => 'wz_knowledgebase',
-					'post_status'    => 'any',
-					'posts_per_page' => 1,
-					'fields'         => 'ids',
-					'no_found_rows'  => true,
-					'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-						array(
-							'key'   => '_wzkb_sample_article',
-							'value' => $article['meta_slug'],
-						),
+		return $slug_to_id;
+	}
+
+	/**
+	 * Insert one sample article unless it was already imported, and assign its section and product.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param array      $article            Sample article.
+	 * @param array      $sections           Sample section rows.
+	 * @param array      $section_slug_to_id Section term IDs by slug.
+	 * @param array|null $product_slug_to_id Product term IDs by slug, or null when products are off.
+	 */
+	protected function import_sample_article( array $article, array $sections, array $section_slug_to_id, ?array $product_slug_to_id ): void {
+		// Identify already-imported sample articles by a stable meta key so that
+		// slug collisions with unrelated posts and locale changes don't cause duplicates.
+		$existing = new \WP_Query(
+			array(
+				'post_type'      => 'wz_knowledgebase',
+				'post_status'    => 'any',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'   => '_wzkb_sample_article',
+						'value' => $article['meta_slug'],
 					),
-				)
-			);
-			if ( $existing->have_posts() ) {
-				continue;
-			}
+				),
+			)
+		);
+		if ( $existing->have_posts() ) {
+			return;
+		}
 
-			$post_id = wp_insert_post(
-				array(
-					'post_title'   => $article['title'],
-					'post_content' => $article['content'],
-					'post_status'  => 'publish',
-					'post_type'    => 'wz_knowledgebase',
-				)
-			);
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => $article['title'],
+				'post_content' => $article['content'],
+				'post_status'  => 'publish',
+				'post_type'    => 'wz_knowledgebase',
+			)
+		);
 
-			if ( is_wp_error( $post_id ) || 0 === $post_id ) {
-				continue;
-			}
+		if ( is_wp_error( $post_id ) || 0 === $post_id ) {
+			return;
+		}
 
-			update_post_meta( $post_id, '_wzkb_sample_article', $article['meta_slug'] );
+		update_post_meta( $post_id, '_wzkb_sample_article', $article['meta_slug'] );
 
-			$section_id = $section_slug_to_id[ $article['section_slug'] ] ?? 0;
-			if ( $section_id > 0 ) {
-				wp_set_object_terms( $post_id, array( $section_id ), 'wzkb_category' );
-			}
+		$section_id = $section_slug_to_id[ $article['section_slug'] ] ?? 0;
+		if ( $section_id > 0 ) {
+			wp_set_object_terms( $post_id, array( $section_id ), 'wzkb_category' );
+		}
 
-			if ( 1 === $multi_product ) {
-				foreach ( $data['sections'] as $section ) {
-					if ( $section['slug'] === $article['section_slug'] && ! empty( $section['product_slug'] ) ) {
-						$product_id = $product_slug_to_id[ $section['product_slug'] ] ?? 0;
-						if ( $product_id > 0 ) {
-							wp_set_object_terms( $post_id, array( $product_id ), 'wzkb_product' );
-						}
-						break;
-					}
+		if ( null === $product_slug_to_id ) {
+			return;
+		}
+
+		foreach ( $sections as $section ) {
+			if ( $section['slug'] === $article['section_slug'] && ! empty( $section['product_slug'] ) ) {
+				$product_id = $product_slug_to_id[ $section['product_slug'] ] ?? 0;
+				if ( $product_id > 0 ) {
+					wp_set_object_terms( $post_id, array( $product_id ), 'wzkb_product' );
 				}
+				break;
 			}
 		}
 	}

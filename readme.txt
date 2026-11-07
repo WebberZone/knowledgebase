@@ -191,6 +191,10 @@ Release date: TBD
 
 * [Pro] WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs, and GitHub documentation sync.
 
+**Deprecated**
+
+* The Product Migration wizard is deprecated and will be removed in 3.4.0.
+
 = 3.2.4 =
 
 Release date: 3 November 2026

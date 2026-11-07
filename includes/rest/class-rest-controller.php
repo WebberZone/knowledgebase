@@ -764,6 +764,43 @@ class REST_Controller {
 	 * @return array|WP_Error Search results or an error.
 	 */
 	public function search_articles_for_ability( $input ) {
+		$params = $this->validate_ability_search_input( $input );
+		if ( is_wp_error( $params ) ) {
+			return $params;
+		}
+
+		$request = new WP_REST_Request( 'GET', '/wzkb/v1/search' );
+		$request->set_param( 'query', $params['query'] );
+		$request->set_param( 'limit', $params['limit'] );
+		if ( $params['section_id'] > 0 ) {
+			$request->set_param( 'section', $params['section_id'] );
+		}
+
+		$response = $this->get_search_results( $request );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$articles = array();
+		foreach ( $response instanceof WP_REST_Response ? (array) $response->get_data() : array() as $result ) {
+			$article = $this->format_ability_article( $result );
+			if ( null !== $article ) {
+				$articles[] = $article;
+			}
+		}
+
+		return $articles;
+	}
+
+	/**
+	 * Validate the input of the search-articles ability.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param mixed $input Ability input.
+	 * @return array{query: string, section_id: int, limit: int}|WP_Error Sanitized parameters or an error.
+	 */
+	private function validate_ability_search_input( $input ) {
 		if ( ! is_array( $input ) || ! isset( $input['query'] ) || ! is_string( $input['query'] ) ) {
 			return new WP_Error(
 				'wzkb_invalid_ability_input',
@@ -810,52 +847,51 @@ class REST_Controller {
 			);
 		}
 
-		$request = new WP_REST_Request( 'GET', '/wzkb/v1/search' );
-		$request->set_param( 'query', $query );
-		$request->set_param( 'limit', $limit );
-		if ( $section_id > 0 ) {
-			$request->set_param( 'section', $section_id );
+		return array(
+			'query'      => $query,
+			'section_id' => $section_id,
+			'limit'      => $limit,
+		);
+	}
+
+	/**
+	 * Format one search result for the search-articles ability.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param mixed $result Search result from get_search_results().
+	 * @return array|null Article data, or null when the result is malformed or not readable.
+	 */
+	private function format_ability_article( $result ): ?array {
+		if ( ! is_array( $result ) || empty( $result['id'] ) ) {
+			return null;
 		}
 
-		$response = $this->get_search_results( $request );
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		$post_id = absint( $result['id'] );
+		if ( ! get_post( $post_id ) || ! current_user_can( 'read_post', $post_id ) ) {
+			return null;
 		}
 
-		$articles = array();
-		foreach ( $response instanceof WP_REST_Response ? (array) $response->get_data() : array() as $result ) {
-			if ( ! is_array( $result ) || empty( $result['id'] ) ) {
+		$sections = array();
+		foreach ( (array) ( $result['sections'] ?? array() ) as $section ) {
+			if ( ! is_array( $section ) || empty( $section['id'] ) ) {
 				continue;
 			}
 
-			$post_id = absint( $result['id'] );
-			if ( ! get_post( $post_id ) || ! current_user_can( 'read_post', $post_id ) ) {
-				continue;
-			}
-
-			$sections = array();
-			foreach ( (array) ( $result['sections'] ?? array() ) as $section ) {
-				if ( ! is_array( $section ) || empty( $section['id'] ) ) {
-					continue;
-				}
-
-				$sections[] = array(
-					'id'   => absint( $section['id'] ),
-					'name' => $this->to_plain_text( (string) ( $section['name'] ?? '' ) ),
-					'slug' => sanitize_title( (string) ( $section['slug'] ?? '' ) ),
-				);
-			}
-
-			$articles[] = array(
-				'id'      => $post_id,
-				'title'   => $this->to_plain_text( (string) ( $result['title'] ?? '' ) ),
-				'url'     => (string) ( $result['permalink'] ?? '' ),
-				'excerpt' => $this->to_plain_text( (string) ( $result['excerpt'] ?? '' ) ),
-				'section' => $sections,
+			$sections[] = array(
+				'id'   => absint( $section['id'] ),
+				'name' => $this->to_plain_text( (string) ( $section['name'] ?? '' ) ),
+				'slug' => sanitize_title( (string) ( $section['slug'] ?? '' ) ),
 			);
 		}
 
-		return $articles;
+		return array(
+			'id'      => $post_id,
+			'title'   => $this->to_plain_text( (string) ( $result['title'] ?? '' ) ),
+			'url'     => (string) ( $result['permalink'] ?? '' ),
+			'excerpt' => $this->to_plain_text( (string) ( $result['excerpt'] ?? '' ) ),
+			'section' => $sections,
+		);
 	}
 
 	/**

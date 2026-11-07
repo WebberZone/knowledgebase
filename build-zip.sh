@@ -29,7 +29,6 @@ phpcompat-tools/
 phpunit/
 /build/
 vendor/
-dev-helpers/
 dev-tools/
 wporg-assets/
 test-tools/
@@ -55,7 +54,6 @@ ISSUE_TEMPLATE.md
 PULL_REQUEST_TEMPLATE.md
 CLAUDE.md
 AGENTS.md
-ABILITIES-CLI-MAPPING.md
 EOF
 
 # Copy runtime Composer dependencies and generated autoloader.

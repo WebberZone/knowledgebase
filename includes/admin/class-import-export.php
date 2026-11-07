@@ -97,6 +97,34 @@ class Import_Export {
 			return;
 		}
 
+		$imported = $this->read_uploaded_settings();
+		if ( null === $imported ) {
+			return;
+		}
+
+		$existing = get_option( 'wzkb_settings', array() );
+
+		update_option( 'wzkb_settings', self::merge_imported_settings( is_array( $existing ) ? $existing : array(), $imported ) );
+
+		add_settings_error(
+			'wzkb-notices',
+			'wzkb_import_success',
+			esc_html__( 'Settings imported successfully.', 'knowledgebase' ),
+			'success'
+		);
+	}
+
+	/**
+	 * Read and decode the uploaded settings file.
+	 *
+	 * Adds a settings error and returns null when the upload is unusable.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return array|null Decoded settings, or null on failure.
+	 */
+	protected function read_uploaded_settings(): ?array {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce verified by the caller.
 		$file_name = isset( $_FILES['wzkb_import_file']['name'] ) ? sanitize_file_name( wp_unslash( $_FILES['wzkb_import_file']['name'] ) ) : '';
 		$extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
 
@@ -107,10 +135,11 @@ class Import_Export {
 				esc_html__( 'Import failed: please upload a valid .json file.', 'knowledgebase' ),
 				'error'
 			);
-			return;
+			return null;
 		}
 
 		$tmp = isset( $_FILES['wzkb_import_file']['tmp_name'] ) ? wp_unslash( $_FILES['wzkb_import_file']['tmp_name'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		if ( empty( $tmp ) || ! is_readable( $tmp ) ) {
 			add_settings_error(
@@ -119,7 +148,7 @@ class Import_Export {
 				esc_html__( 'Import failed: no file was uploaded.', 'knowledgebase' ),
 				'error'
 			);
-			return;
+			return null;
 		}
 
 		$raw      = file_get_contents( $tmp ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
@@ -132,73 +161,80 @@ class Import_Export {
 				esc_html__( 'Import failed: the file does not contain valid JSON settings.', 'knowledgebase' ),
 				'error'
 			);
-			return;
+			return null;
 		}
 
-		$existing = get_option( 'wzkb_settings', array() );
+		return $imported;
+	}
 
-		if ( ! is_array( $existing ) ) {
-			$existing = array();
-		}
+	/**
+	 * Merge imported settings into the existing ones.
+	 *
+	 * Imported values win for non-sensitive keys. Sensitive values are site-specific
+	 * encrypted values that are never present in an export, so the existing ones are kept.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param array $existing Saved settings.
+	 * @param array $imported Settings from the uploaded file.
+	 * @return array Merged settings.
+	 */
+	protected static function merge_imported_settings( array $existing, array $imported ): array {
+		$sensitive_keys = self::get_sensitive_keys();
+		$merged         = array_merge( $existing, $imported );
 
-		// Preserve all sensitive values from the existing settings — they are
-		// site-specific encrypted values and are never present in the export file.
-		$sensitive_keys   = self::get_sensitive_keys();
-		$existing_secrets = array_intersect_key( $existing, array_flip( $sensitive_keys['top_level'] ) );
-
-		// Merge: imported values win for non-sensitive keys; existing wins for sensitive ones.
-		$merged = array_merge( $existing, $imported );
-
-		// Re-inject sensitive top-level keys from existing.
-		foreach ( $existing_secrets as $key => $value ) {
+		foreach ( array_intersect_key( $existing, array_flip( $sensitive_keys['top_level'] ) ) as $key => $value ) {
 			$merged[ $key ] = $value;
 		}
 
-		// Re-inject sensitive subfields inside repeater rows.
 		foreach ( $sensitive_keys['repeater'] as $repeater_key => $subfield_keys ) {
-			if ( ! isset( $merged[ $repeater_key ] ) || ! is_array( $merged[ $repeater_key ] ) ) {
+			if ( isset( $merged[ $repeater_key ] ) && is_array( $merged[ $repeater_key ] ) ) {
+				$existing_rows           = isset( $existing[ $repeater_key ] ) && is_array( $existing[ $repeater_key ] ) ? $existing[ $repeater_key ] : array();
+				$merged[ $repeater_key ] = self::restore_repeater_secrets( $merged[ $repeater_key ], $existing_rows, $subfield_keys );
+			}
+		}
+
+		return $merged;
+	}
+
+	/**
+	 * Restore sensitive sub-fields of repeater rows from the saved rows, matched by row_id.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @param array    $rows          Imported rows.
+	 * @param array    $existing_rows Saved rows.
+	 * @param string[] $subfield_keys Sensitive sub-field keys.
+	 * @return array Rows with sensitive sub-fields restored; new rows get an empty value.
+	 */
+	protected static function restore_repeater_secrets( array $rows, array $existing_rows, array $subfield_keys ): array {
+		$existing_by_row_id = array();
+		foreach ( $existing_rows as $row ) {
+			if ( isset( $row['row_id'] ) ) {
+				$existing_by_row_id[ (string) $row['row_id'] ] = $row;
+			}
+		}
+
+		foreach ( $rows as $idx => $row ) {
+			if ( ! is_array( $row ) ) {
 				continue;
 			}
 
-			$existing_rows = isset( $existing[ $repeater_key ] ) && is_array( $existing[ $repeater_key ] )
-				? $existing[ $repeater_key ]
-				: array();
+			$row_id       = isset( $row['row_id'] ) ? (string) $row['row_id'] : '';
+			$existing_row = $existing_by_row_id[ $row_id ] ?? array();
 
-			// Build a lookup of existing rows by row_id for fast matching.
-			$existing_by_row_id = array();
-			foreach ( $existing_rows as $row ) {
-				if ( isset( $row['row_id'] ) ) {
-					$existing_by_row_id[ (string) $row['row_id'] ] = $row;
-				}
-			}
-
-			foreach ( $merged[ $repeater_key ] as $idx => $row ) {
-				if ( ! is_array( $row ) ) {
-					continue;
-				}
-
-				$row_id       = isset( $row['row_id'] ) ? (string) $row['row_id'] : '';
-				$existing_row = $existing_by_row_id[ $row_id ] ?? array();
-
-				foreach ( $subfield_keys as $subfield ) {
-					if ( isset( $existing_row[ $subfield ] ) ) {
-						$merged[ $repeater_key ][ $idx ][ $subfield ] = $existing_row[ $subfield ];
-					} else {
-						// Row is new — ensure the sensitive subfield is empty rather than absent.
-						$merged[ $repeater_key ][ $idx ][ $subfield ] = '';
-					}
+			// Rows are stored as { row_id, fields: { ... } }; flat rows are kept for older data.
+			$nested = isset( $row['fields'] ) && is_array( $row['fields'] );
+			foreach ( $subfield_keys as $subfield ) {
+				if ( $nested ) {
+					$rows[ $idx ]['fields'][ $subfield ] = $existing_row['fields'][ $subfield ] ?? '';
+				} else {
+					$rows[ $idx ][ $subfield ] = $existing_row[ $subfield ] ?? '';
 				}
 			}
 		}
 
-		update_option( 'wzkb_settings', $merged );
-
-		add_settings_error(
-			'wzkb-notices',
-			'wzkb_import_success',
-			esc_html__( 'Settings imported successfully.', 'knowledgebase' ),
-			'success'
-		);
+		return $rows;
 	}
 
 	/**
@@ -270,7 +306,11 @@ class Import_Export {
 					continue;
 				}
 				foreach ( $subfield_keys as $subfield ) {
-					$settings[ $repeater_key ][ $idx ][ $subfield ] = '';
+					if ( isset( $row['fields'] ) && is_array( $row['fields'] ) ) {
+						$settings[ $repeater_key ][ $idx ]['fields'][ $subfield ] = '';
+					} else {
+						$settings[ $repeater_key ][ $idx ][ $subfield ] = '';
+					}
 				}
 			}
 		}

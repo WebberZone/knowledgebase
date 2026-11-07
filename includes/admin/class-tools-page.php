@@ -277,7 +277,7 @@ class Tools_Page {
 		<div class="postbox">
 			<h2 class="hndle"><span><?php esc_html_e( 'Product Migration', 'knowledgebase' ); ?></span></h2>
 			<div class="inside">
-				<p><?php esc_html_e( 'Migrate your existing top-level sections into Products and reassign articles accordingly.', 'knowledgebase' ); ?></p>
+				<p><?php esc_html_e( 'Migrate your existing top-level sections into Products and reassign articles accordingly. This tool is deprecated and will be removed in 3.4.0.', 'knowledgebase' ); ?></p>
 				<p>
 					<a href="<?php echo esc_url( $migration_url ); ?>" class="button button-secondary">
 						<?php esc_html_e( 'Run Migration Wizard', 'knowledgebase' ); ?>
