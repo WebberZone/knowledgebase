@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.4
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,99 +185,21 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.3.0 =
 
-Release date: TBD
+Release date: 7 November 2026
+Release post: https://webberzone.com/announcements/knowledge-base-v3-3/
 
 **Added**
 
 * [Pro] WP-CLI commands for search, status, cache, settings, ratings, Ask the Docs, and GitHub documentation sync.
 * [Pro] Abilities API tools to list GitHub import sources, preview selected articles, and import selected mappings or files.
 
+**Security**
+
+* [Pro] Settings exports exposed saved GitHub repository tokens, and imports could overwrite the tokens saved on this site.
+
 **Deprecated**
 
 * The Product Migration wizard is deprecated and will be removed in 3.4.0.
-
-= 3.2.4 =
-
-Release date: 3 November 2026
-
-**Security**
-
-* Hardened the related articles REST endpoint.
-
-= 3.2.3 =
-
-Release date: 1 November 2026
-
-**Fixed**
-
-* On attachment pages, and in search results that included an attachment, articles without a featured image used that attachment as their thumbnail.
-
-= 3.2.2 =
-
-Release date: 15 October 2026
-
-**Security**
-
-* Hardened thumbnail URLs to reject unsafe protocols.
-* [Pro] Restricted Help widget suggestions to published articles, including articles made private after being selected.
-
-**Fixed**
-
-* Malformed custom thumbnail dimensions caused PHP errors during image-size selection.
-
-= 3.2.1 =
-
-Release date: 12 October 2026
-
-**Added**
-
-* [Pro] Model and fallback provider settings for Ask the Docs, with a Compare models window.
-
-**Changed**
-
-* [Pro] Reused cached Ask the Docs answers for reworded questions, and kept answers for a week until their source articles change.
-
-**Security**
-
-* The `/wzkb/v1/knowledgebase` and `/wzkb/v1/search` REST endpoints returned the content and excerpt of password-protected articles without the password.
-* The `[kbtoc]` shortcode showed the headings of password-protected articles before the password was entered.
-* Thumbnails could use an image from inside, or attached to, a password-protected article.
-* Knowledge base listings, related articles and the `/wzkb/v1/knowledgebase` REST endpoint could show private articles to visitors from a cached copy.
-* Cached knowledge base listings kept showing an article's excerpt after the article was password-protected.
-* [Pro] The floating table of contents, the documentation layout's "On this page" outline, and the Table of Contents widget and block showed the headings of password-protected articles before the password was entered.
-* [Pro] Help widget suggested articles showed the manual excerpt of password-protected articles.
-
-**Fixed**
-
-* The `/wzkb/v1/related` REST endpoint ignored its `post_id` and `limit` parameters.
-
-= 3.2.0 =
-
-Release date: 7 October 2026
-Release post: https://webberzone.com/announcements/knowledge-base-v3-2/
-
-**Added**
-
-* [Pro] Ask the Docs (beta): AI answers with article sources in Knowledge Base search boxes and the Help widget, with answer caching and daily and per-visitor limits. Requires WordPress 7.0 and a connected AI provider.
-* [Pro] Opt-in Content gaps report for unanswered questions, with CSV export and an Empty log action.
-* Abilities API tools for article search and section discovery: `knowledgebase/search-articles` and `knowledgebase/get-sections`.
-* [Pro] Abilities API tools for draft-only article creation (`knowledgebase/create-article`) and grounded answers (`knowledgebase/ask`).
-* `wzkb_search_posts_per_page` filter for the search results page size.
-* Knowledge Base Alerts block can be transformed to and from a Paragraph block.
-
-**Changed**
-
-* Raised the minimum supported WordPress version to 6.9.
-* Extended Clear Cache on the Tools and settings pages to clear cached REST API responses.
-* Updated Freemius SDK to the latest version.
-
-**Fixed**
-
-* The Knowledge Base search results page size overrode the REST search endpoint's `limit` parameter.
-* Knowledge Base search forms showed duplicate suggestions when Better Search live search was also active.
-* Text in the Knowledge Base Alerts block could not be selected reliably in the editor.
-* Knowledge Base Alerts blocks without an alignment saved an invalid `text-align: none` inline style.
-* Settings repeater button labels used the wrong translation domain.
 
 = Earlier versions =
 
@@ -285,5 +207,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 3.2.4 =
-Security hardening release. Update recommended.
+= 3.3.0 =
+Manage Knowledge Base content and GitHub imports with new WP-CLI commands and AI agent abilities. No action needed.
