@@ -17,6 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Product Migrator: Migration wizard for Products taxonomy transition.
  *
  * @since 3.0.0
+ * @deprecated 3.3.0 Will be removed in 3.4.0.
  */
 class Product_Migrator {
 	/**
@@ -51,6 +52,10 @@ class Product_Migrator {
 	 * Constructor: Hook admin notices and menu.
 	 */
 	public function __construct() {
+		if ( get_option( 'wzkb_product_migration_complete', false ) ) {
+			return;
+		}
+
 		Hook_Registry::add_action( 'admin_menu', array( $this, 'register_migration_wizard_page' ) );
 		Hook_Registry::add_action( 'wp_ajax_wzkb_dismiss_product_notice', array( $this, 'dismiss_product_notice' ) );
 		Hook_Registry::add_action( 'wp_ajax_wzkb_product_migration_batch', array( $this, 'handle_migration_batch' ) );
@@ -126,6 +131,7 @@ class Product_Migrator {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html__( 'Product Migration Wizard', 'knowledgebase' ); ?></h1>
+			<div class="notice notice-warning inline"><p><?php esc_html_e( 'The Product Migration Wizard is deprecated and will be removed in Knowledge Base 3.4.0.', 'knowledgebase' ); ?></p></div>
 			<?php if ( $migration_complete ) : ?>
 				<div class="notice notice-success"><p>
 					<?php

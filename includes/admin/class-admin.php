@@ -572,15 +572,6 @@ class Admin {
 
 
 	/**
-	 * Display admin sidebar.
-	 *
-	 * @since 2.3.0
-	 */
-	public static function display_admin_sidebar() {
-		require_once __DIR__ . '/settings/sidebar.php';
-	}
-
-	/**
 	 * AJAX handler to verify a GitHub Personal Access Token.
 	 *
 	 * Accepts the current field value (fresh or masked) and an optional
