@@ -35,7 +35,7 @@ WebberZone Knowledge Base, namespace `WebberZone\Knowledge_Base`, is a WordPress
 - **Plugin entry**: `knowledgebase.php` (defines constants, loads Freemius via `load-freemius.php`, registers autoloader, and directly requires `includes/options-api.php` and `includes/functions.php`)
 - **PHP**: 7.4+ | **WordPress**: 6.9+
 - **Custom post type**: `wz_knowledgebase` | **Taxonomies**: `wzkb_category`, `wzkb_product`, `wzkb_tag`
-- **Versions**: `readme.txt`'s `Stable tag` is the released version; `WZKB_VERSION` in `knowledgebase.php` is the working version — use it for new `@since` tags. Do not bump either unless asked.
+- **Versions**: `readme.txt`'s `Stable tag` is the released version; `WZKB_VERSION` in `knowledgebase.php` is the working version — use it for new `@since` tags. If the working version equals `Stable tag`, it is already released — don't use it for new work. Follow the root versioning rule: next `X.Y.(Z+1)` for fixes, `X.(Y+1).0` for features, never `X+1.0.0` ([../CLAUDE.md](../CLAUDE.md#versioning)).
 
 ## Build & Development Commands
 
