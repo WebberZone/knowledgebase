@@ -30,7 +30,7 @@ Go to **Knowledge Base → Settings → Pro** and turn on **Enable Help Widget**
 
 - **Suggested articles.** On a knowledge base article, the panel suggests related articles. Elsewhere, or when there are none, it shows the five most recent articles.
 - **Search.** Typing searches your articles, using the same results as the knowledge base search, including [Better Search](https://wordpress.org/plugins/better-search/) when it is active.
-- **Contact form.** When search doesn't help, visitors can send a message to your contact email. A honeypot field and a limit of five messages per hour per visitor block spam, without storing IP addresses.
+- **Contact form.** When search doesn't help, visitors can send a message to your contact email. A honeypot field and server-side limits (five messages per visitor per hour and thirty per site per hour by default) reduce spam. Anonymous visitors are counted using a salted hash of their IP address for that hour, not a plain-text IP. Logged-in visitors are limited by account. Copy-ready privacy policy wording is in [Privacy Policy Text for Knowledge Base Pro](https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/#help-widget-contact-form).
 
 The panel follows the visitor's light or dark mode preference, works with the keyboard and screen readers, and supports right-to-left languages.
 
@@ -48,6 +48,7 @@ With Ask the Docs enabled and **Use in the Help widget** turned on under **Knowl
 - **The widget doesn't appear.** Check that **Enable Help Widget** is on, that **Display Location** isn't **Knowledge Base Only** on a non-knowledge-base page, and that **Show on Mobile** is on if you're testing on a phone. Then clear your page cache.
 - **Search finds nothing.** Make sure you have published knowledge base articles, and clear your page cache.
 - **Contact messages don't arrive.** Check the **Contact Email** setting and your spam folder. If WordPress can't send email from your server, use an SMTP plugin.
+- **"Too many submissions" on the contact form.** The visitor or the whole site reached its hourly limit. Wait until the next hour, or raise the limits with the `wzkb_help_widget_rate_limits` filter (see below).
 - **Colors don't change.** Save the settings, clear your browser and page caches, and check whether your theme overrides the colors.
 
 ## Developer reference
@@ -61,6 +62,8 @@ With Ask the Docs enabled and **Use in the Help widget** turned on under **Knowl
 | [`wzkb_related_articles_query_args`](https://webberzone.dev/knowledgebase/hooks/wzkb_related_articles_query_args/) | Change the related-articles query used for suggestions on knowledge base articles. |
 | [`wzkb_help_widget_labels`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_labels/) | Change any text in the panel. |
 | [`wzkb_help_widget_message_min_length`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_message_min_length/) | Change the minimum contact message length. |
+| [`wzkb_help_widget_rate_limits`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_rate_limits/) | Change per-visitor and site-wide hourly contact limits (defaults: 5 and 30). |
+| [`wzkb_help_widget_visitor_ip`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_visitor_ip/) | Return the client IP for anonymous rate limiting behind a trusted proxy or CDN. |
 | [`wzkb_help_widget_contact_submitted`](https://webberzone.dev/knowledgebase/hooks/wzkb_help_widget_contact_submitted/) | Action after a contact message is sent, with the name, email, subject and message. |
 
 For example, to suggest specific articles on the pricing page and hide the widget at checkout:

@@ -420,7 +420,7 @@ Placeholder text for the search input field.
 
 #### Enable Contact Form
 
-Allow visitors to send messages through the help widget.
+Allow visitors to send messages through the help widget. Anonymous visitors are rate-limited using a salted hash of their IP address, held only for the hour and never logged. See [Privacy Policy Text for Knowledge Base Pro](https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/#help-widget-contact-form) for copy-ready policy wording.
 
 **Default:** Enabled
 

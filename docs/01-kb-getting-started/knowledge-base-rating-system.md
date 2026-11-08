@@ -27,7 +27,7 @@ Ratings appear after the content of single knowledge base articles. Use the [`wz
 
 ## Tracking Methods & GDPR Compliance
 
-Each method has different privacy implications. Copy-ready privacy policy wording for each one is in [Privacy Policy Text for Knowledge Base Article Ratings](https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/).
+Each method has different privacy implications. Copy-ready privacy policy wording is in [Privacy Policy Text for Knowledge Base Pro](https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/), including the [Help widget contact form](https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/#help-widget-contact-form).
 
 | Method | How duplicates are blocked | Privacy considerations |
 | --- | --- | --- |
