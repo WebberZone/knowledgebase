@@ -1198,13 +1198,13 @@ class Settings {
 	public static function settings_pro() {
 		$defaults = self::get_defaults();
 		$settings = array(
-			'rating_header'                  => array(
+			'rating_header'                    => array(
 				'id'   => 'rating_header',
 				'name' => '<h3>' . esc_html__( 'Article Rating', 'knowledgebase' ) . '</h3>',
 				'desc' => '',
 				'type' => 'header',
 			),
-			'rating_system'                  => array(
+			'rating_system'                    => array(
 				'id'      => 'rating_system',
 				'name'    => esc_html__( 'Enable Rating System', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Allow visitors to rate the quality of knowledge base articles.', 'knowledgebase' ),
@@ -1217,13 +1217,13 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'rating_tracking_method'         => array(
+			'rating_tracking_method'           => array(
 				'id'      => 'rating_tracking_method',
 				'name'    => esc_html__( 'Vote Tracking Method', 'knowledgebase' ),
 				/* translators: %s: URL to rating system documentation */
 				'desc'    => sprintf(
 					/* translators: %1$s: Opening link tag, %2$s: Closing link tag. */
-					esc_html__( 'Choose how to prevent duplicate votes. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s.', 'knowledgebase' ),
+					esc_html__( 'Choose how to prevent duplicate votes only. Optional feedback after a low rating uses separate short-lived server checks—see the note below. Each method has different privacy implications. %1$sLearn more about tracking methods and GDPR compliance%2$s.', 'knowledgebase' ),
 					'<a href="https://webberzone.com/support/knowledgebase/knowledge-base-rating-system/#tracking-methods--gdpr-compliance" target="_blank" rel="noopener noreferrer">',
 					'</a>'
 				),
@@ -1238,7 +1238,14 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'show_rating_stats'              => array(
+			'rating_feedback_eligibility_info' => array(
+				'id'   => 'rating_feedback_eligibility_info',
+				'name' => '',
+				'desc' => esc_html__( 'Vote tracking only controls whether someone can submit another vote (cookie, IP list, logged-in user ID, or none). It does not apply to the optional feedback step after a low rating.', 'knowledgebase' ) . ' ' . esc_html__( 'When a visitor rates an article as not useful (or 1–2 stars) and skips feedback on that first request, the plugin stores a short-lived, one-time server marker so only that visit can add feedback later. Logged-in visitors are keyed by user ID; guests use the same pseudonymised IP hash already used for rate limiting—not the long-term IP lists used when you choose IP vote tracking.', 'knowledgebase' ) . ' ' . esc_html__( 'Cookie-only tracking still does not store visitor IPs in the vote ledger. Saved feedback entries may still include a hashed IP for abuse review, as before.', 'knowledgebase' ) . ' ' . esc_html__( 'Developers can turn the server marker off with the wzkb_rating_feedback_eligibility filter (not recommended on public sites).', 'knowledgebase' ),
+				'type' => 'header',
+				'pro'  => true,
+			),
+			'show_rating_stats'                => array(
 				'id'      => 'show_rating_stats',
 				'name'    => esc_html__( 'Show Rating Statistics', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the average rating and vote count below the rating buttons.', 'knowledgebase' ),
@@ -1246,13 +1253,13 @@ class Settings {
 				'default' => $defaults['show_rating_stats'],
 				'pro'     => true,
 			),
-			'help_widget_header'             => array(
+			'help_widget_header'               => array(
 				'id'   => 'help_widget_header',
 				'name' => '<h3>' . esc_html__( 'Help Widget', 'knowledgebase' ) . '</h3>',
 				'desc' => esc_html__( 'A floating help widget that provides self-service support with search, suggested articles, and contact form.', 'knowledgebase' ),
 				'type' => 'header',
 			),
-			'help_widget_enabled'            => array(
+			'help_widget_enabled'              => array(
 				'id'      => 'help_widget_enabled',
 				'name'    => esc_html__( 'Enable Help Widget', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display a floating help widget on your site for self-service support.', 'knowledgebase' ),
@@ -1260,7 +1267,7 @@ class Settings {
 				'default' => $defaults['help_widget_enabled'],
 				'pro'     => true,
 			),
-			'help_widget_display_location'   => array(
+			'help_widget_display_location'     => array(
 				'id'      => 'help_widget_display_location',
 				'name'    => esc_html__( 'Display Location', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Choose where the help widget appears on your site.', 'knowledgebase' ),
@@ -1272,7 +1279,7 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'help_widget_position'           => array(
+			'help_widget_position'             => array(
 				'id'      => 'help_widget_position',
 				'name'    => esc_html__( 'Button Position', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Choose where the help widget button appears on the screen.', 'knowledgebase' ),
@@ -1284,7 +1291,7 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'help_widget_button_style'       => array(
+			'help_widget_button_style'         => array(
 				'id'      => 'help_widget_button_style',
 				'name'    => esc_html__( 'Button Style', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Choose how the help widget button is displayed.', 'knowledgebase' ),
@@ -1297,7 +1304,7 @@ class Settings {
 				),
 				'pro'     => true,
 			),
-			'help_widget_button_text'        => array(
+			'help_widget_button_text'          => array(
 				'id'          => 'help_widget_button_text',
 				'name'        => esc_html__( 'Button Text', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Text to display on the help widget button (when text style is selected).', 'knowledgebase' ),
@@ -1306,7 +1313,7 @@ class Settings {
 				'field_class' => 'regular-text',
 				'pro'         => true,
 			),
-			'help_widget_color'              => array(
+			'help_widget_color'                => array(
 				'id'          => 'help_widget_color',
 				'name'        => esc_html__( 'Help Widget Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Primary color for the help widget button and interface elements.', 'knowledgebase' ),
@@ -1315,7 +1322,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_hover_color'        => array(
+			'help_widget_hover_color'          => array(
 				'id'          => 'help_widget_hover_color',
 				'name'        => esc_html__( 'Help Widget Hover Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Hover color for buttons and interactive elements.', 'knowledgebase' ),
@@ -1324,7 +1331,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_text_color'         => array(
+			'help_widget_text_color'           => array(
 				'id'          => 'help_widget_text_color',
 				'name'        => esc_html__( 'Help Widget Text Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Text color for the help widget button and interface elements.', 'knowledgebase' ),
@@ -1333,7 +1340,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_hover_text_color'   => array(
+			'help_widget_hover_text_color'     => array(
 				'id'          => 'help_widget_hover_text_color',
 				'name'        => esc_html__( 'Help Widget Hover Text Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Text color for the help widget button on hover.', 'knowledgebase' ),
@@ -1342,7 +1349,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_panel_bg_color'     => array(
+			'help_widget_panel_bg_color'       => array(
 				'id'          => 'help_widget_panel_bg_color',
 				'name'        => esc_html__( 'Panel Background Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Background color for the help widget panel.', 'knowledgebase' ),
@@ -1351,7 +1358,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_panel_text_color'   => array(
+			'help_widget_panel_text_color'     => array(
 				'id'          => 'help_widget_panel_text_color',
 				'name'        => esc_html__( 'Panel Text Color', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Default text color within the help widget panel.', 'knowledgebase' ),
@@ -1360,7 +1367,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_link_hover_color'   => array(
+			'help_widget_link_hover_color'     => array(
 				'id'          => 'help_widget_link_hover_color',
 				'name'        => esc_html__( 'Link Hover Background', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Background color when hovering over help widget links and list items.', 'knowledgebase' ),
@@ -1369,7 +1376,7 @@ class Settings {
 				'field_class' => 'color-field',
 				'pro'         => true,
 			),
-			'help_widget_greeting'           => array(
+			'help_widget_greeting'             => array(
 				'id'          => 'help_widget_greeting',
 				'name'        => esc_html__( 'Greeting Message', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Welcome message shown when the help widget opens.', 'knowledgebase' ),
@@ -1378,7 +1385,7 @@ class Settings {
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
-			'help_widget_search_placeholder' => array(
+			'help_widget_search_placeholder'   => array(
 				'id'          => 'help_widget_search_placeholder',
 				'name'        => esc_html__( 'Search Placeholder', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Placeholder text for the search input field.', 'knowledgebase' ),
@@ -1387,15 +1394,20 @@ class Settings {
 				'field_class' => 'large-text',
 				'pro'         => true,
 			),
-			'help_widget_contact_enabled'    => array(
+			'help_widget_contact_enabled'      => array(
 				'id'      => 'help_widget_contact_enabled',
 				'name'    => esc_html__( 'Enable Contact Form', 'knowledgebase' ),
-				'desc'    => esc_html__( 'Allow visitors to send messages through the help widget.', 'knowledgebase' ),
+				'desc'    => sprintf(
+					/* translators: 1: opening anchor tag, 2: closing anchor tag. */
+					esc_html__( 'Allow visitors to send messages through the help widget. Anonymous visitors are rate-limited using a salted hash of their IP address, held only for the hour and never logged. %1$sSuggested privacy policy text%2$s.', 'knowledgebase' ),
+					'<a href="' . esc_url( 'https://webberzone.com/support/knowledgebase/privacy-policy-text-for-knowledge-base-article-ratings/#help-widget-contact-form' ) . '" target="_blank">',
+					'</a>'
+				),
 				'type'    => 'checkbox',
 				'default' => $defaults['help_widget_contact_enabled'],
 				'pro'     => true,
 			),
-			'help_widget_contact_email'      => array(
+			'help_widget_contact_email'        => array(
 				'id'          => 'help_widget_contact_email',
 				'name'        => esc_html__( 'Contact Email', 'knowledgebase' ),
 				'desc'        => esc_html__( 'Email address where help widget contact form submissions will be sent.', 'knowledgebase' ),
@@ -1404,7 +1416,7 @@ class Settings {
 				'field_class' => 'regular-text',
 				'pro'         => true,
 			),
-			'help_widget_show_on_mobile'     => array(
+			'help_widget_show_on_mobile'       => array(
 				'id'      => 'help_widget_show_on_mobile',
 				'name'    => esc_html__( 'Show on Mobile', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Display the help widget on mobile devices.', 'knowledgebase' ),
@@ -1412,7 +1424,7 @@ class Settings {
 				'default' => $defaults['help_widget_show_on_mobile'],
 				'pro'     => true,
 			),
-			'help_widget_enable_animation'   => array(
+			'help_widget_enable_animation'     => array(
 				'id'      => 'help_widget_enable_animation',
 				'name'    => esc_html__( 'Enable button pulse', 'knowledgebase' ),
 				'desc'    => esc_html__( 'Enable a subtle pulsing animation on the help widget button to draw attention. Disable to keep the button static.', 'knowledgebase' ),

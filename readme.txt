@@ -183,6 +183,19 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.3.1 =
+
+Release date: 8 November 2026
+
+**Security**
+
+* [Pro] Hardened optional low-rating feedback so standalone submissions required a one-time server eligibility marker instead of vote-tracking cookies.
+* [Pro] Hardened the help widget contact form with server-side rate limits.
+
+**Changed**
+
+* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
+
 = 3.3.0 =
 
 Release date: 7 November 2026
@@ -207,5 +220,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 3.3.0 =
-Manage Knowledge Base content and GitHub imports with new WP-CLI commands and AI agent abilities. No action needed.
+= 3.3.1 =
+Security release. Hardens low-rating feedback and help widget contact submissions. Update recommended.
