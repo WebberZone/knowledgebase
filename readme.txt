@@ -192,16 +192,17 @@ Release date: 8 November 2026
 * [Pro] Hardened optional low-rating feedback so standalone submissions required a one-time server eligibility marker instead of vote-tracking cookies.
 * [Pro] Hardened the help widget contact form with server-side rate limits.
 
-**Changed**
-
-* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
-
 **Fixed**
 
 * Archive layouts stayed at the configured column count on phones and tablets because inline CSS overrode the stylesheet responsive column rules.
 * Mobile archive pages had cramped header spacing and section titles overlapping count badges.
 * Desktop KB pages could show a large empty area on the right when a theme styled the standard `content-area` wrapper as a narrow column while the KB wrap stayed full width (for example GeneratePress with an inactive sidebar layout).
 * With the KB sidebar enabled, tablet widths near 820px kept a two-column archive beside the sidebar column, squeezing section titles and counts.
+* Settings import stored values without running them through the settings sanitizer.
+
+**Changed**
+
+* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
 
 = 3.3.0 =
 

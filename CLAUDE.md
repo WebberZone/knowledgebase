@@ -40,6 +40,8 @@ WebberZone Knowledge Base, namespace `WebberZone\Knowledge_Base`, is a WordPress
 
 ## Build & Development Commands
 
+Cross-release plans and agent notes live in `dev-helpers/plans/` (excluded from `build-zip.sh`; not shipped). Product docs for customers stay in `docs/`.
+
 ### PHP
 
 ```bash
