@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,6 +185,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.3.1 =
 
+Release date: 15 November 2026
+
 **Changed**
 
 * [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
@@ -232,4 +234,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.3.1 =
-Security release. Hardens low-rating feedback and help widget contact submissions. Update recommended.
+Security and layout release. Hardens low-rating feedback and help widget submissions, and fixes KB archive layout on mobile, tablet, and desktop. Update recommended.
