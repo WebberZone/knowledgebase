@@ -187,6 +187,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 Release date: 8 November 2026
 
+**Changed**
+
+* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
+
 **Security**
 
 * [Pro] Hardened optional low-rating feedback so standalone submissions required a one-time server eligibility marker instead of vote-tracking cookies.
@@ -198,12 +202,7 @@ Release date: 8 November 2026
 * Mobile archive pages had cramped header spacing and section titles overlapping count badges.
 * Desktop KB pages could show a large empty area on the right when a theme styled the standard `content-area` wrapper as a narrow column while the KB wrap stayed full width (for example GeneratePress with an inactive sidebar layout).
 * With the KB sidebar enabled, tablet widths near 820px kept a two-column archive beside the sidebar column, squeezing section titles and counts.
-* Mobile archive section headers stacked count badges on a second line under the title, including nested categories and bar-style presets, instead of keeping title and badge on one row.
 * Settings import stored values without running them through the settings sanitizer.
-
-**Changed**
-
-* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
 
 = 3.3.0 =
 
@@ -222,6 +221,11 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-3/
 **Deprecated**
 
 * The Product Migration wizard is deprecated and will be removed in 3.4.0.
+
+**Fixed**
+
+* [Pro] A GitHub file rename could leave an article outdated when the first import attempt failed.
+* [Pro] Resetting ratings left derived rating metadata on articles.
 
 = Earlier versions =
 
