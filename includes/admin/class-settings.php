@@ -331,7 +331,7 @@ class Settings {
 			'product_archive_layout'         => 'sections',
 			'show_term_thumbnail'            => 1,
 			'include_styles'                 => 1,
-			'kb_style'                       => 'classic',
+			'kb_style'                       => 'vibrant',
 			'docs_mode'                      => 0,
 			'columns'                        => '2',
 			'custom_css'                     => '',

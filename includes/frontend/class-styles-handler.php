@@ -124,7 +124,7 @@ class Styles_Handler {
 	private function get_style_context() {
 		$rtl_suffix = is_rtl() ? '-rtl' : '';
 		$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$kb_style   = wzkb_get_option( 'kb_style', 'classic' );
+		$kb_style   = wzkb_get_option( 'kb_style', 'vibrant' );
 		$deps       = ( 'classic' === $kb_style ) ? array( 'dashicons' ) : array();
 
 		$style_url = $this->get_style_url( $kb_style, $rtl_suffix, $min_suffix );
@@ -184,7 +184,7 @@ class Styles_Handler {
 	 * @return array Modified array of body classes.
 	 */
 	public function add_style_body_class( $classes ) {
-		$kb_style  = wzkb_get_option( 'kb_style', 'classic' );
+		$kb_style  = wzkb_get_option( 'kb_style', 'vibrant' );
 		$classes[] = 'wzkb-style-' . sanitize_html_class( $kb_style );
 
 		// Add sidebar class if enabled.

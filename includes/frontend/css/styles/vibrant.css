@@ -9,12 +9,17 @@
 
 /* CSS Variables for Vibrant Style */
 :root {
-    /* Primary colours */
-    --wzkb-color-primary: #2563eb;
-    --wzkb-color-primary-dark: #1e40af;
-    --wzkb-color-primary-light: #3b82f6;
+    /* Accent: bright borders; fill uses darker tone for WCAG AAA with white text */
     --wzkb-color-accent: #f59e0b;
     --wzkb-color-accent-dark: #d97706;
+    --wzkb-fill-accent: #9a3412;
+    --wzkb-fill-accent-hover: #7c2d12;
+    --wzkb-color-on-accent: #ffffff;
+
+    /* Primary colours — filled UI and links (contrast-safe on white) */
+    --wzkb-color-primary: var(--wzkb-fill-accent);
+    --wzkb-color-primary-dark: var(--wzkb-fill-accent-hover);
+    --wzkb-color-primary-light: #c2410c;
     --wzkb-color-text: #1f2937;
     --wzkb-color-text-medium: #6b7280;
     --wzkb-color-text-light: #9ca3af;
@@ -44,6 +49,20 @@
     --wzkb-breadcrumb-link: var(--wzkb-color-primary);
     --wzkb-breadcrumb-separator: var(--wzkb-color-text-light);
     --wzkb-breadcrumb-border: var(--wzkb-border-light);
+
+    /* Interactive surfaces */
+    --wzkb-search-submit-bg: var(--wzkb-fill-accent);
+    --wzkb-search-submit-bg-hover: var(--wzkb-fill-accent-hover);
+    --wzkb-search-submit-focus-ring: var(--wzkb-fill-accent);
+    --wzkb-search-submit-color: var(--wzkb-color-on-accent);
+    --wzkb-badge-bg: var(--wzkb-fill-accent);
+    --wzkb-badge-color: var(--wzkb-color-on-accent);
+    --wzkb-product-grid-bg-start: color-mix(in srgb, var(--wzkb-color-accent) 14%, var(--wzkb-bg-white));
+    --wzkb-product-grid-bg-mid: color-mix(in srgb, var(--wzkb-color-accent) 8%, var(--wzkb-bg-lighter));
+    --wzkb-product-grid-bg-end: color-mix(in srgb, var(--wzkb-color-accent) 14%, var(--wzkb-bg-white));
+    --wzkb-primary-alpha-10: color-mix(in srgb, var(--wzkb-color-primary) 10%, transparent);
+    --wzkb-primary-alpha-20: color-mix(in srgb, var(--wzkb-color-primary) 20%, transparent);
+    --wzkb-primary-alpha-08: color-mix(in srgb, var(--wzkb-color-primary) 8%, transparent);
 
     /* Layout variables */
     --wzkb-wrapper-max-width: 1280px;
@@ -388,7 +407,7 @@
     left: 0;
     width: 40px;
     height: 3px;
-    background: var(--wzkb-color-accent);
+    background: var(--wzkb-badge-bg);
     border-radius: 2px;
     transition: width var(--wzkb-transition-base) ease;
 }
@@ -483,15 +502,15 @@
 }
 
 /* Section count badge */
-.wzkb-section-count {
+.wzkb .wzkb-section-count {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     float: right;
     margin: 0;
     padding: 4px 12px;
-    background: var(--wzkb-color-accent);
-    color: var(--wzkb-color-white) !important;
+    background: var(--wzkb-badge-bg);
+    color: var(--wzkb-badge-color);
     border: none;
     border-radius: 12px;
     text-align: center;
@@ -579,7 +598,7 @@ body.single-wz_knowledgebase .nav-next {
 
 .wzkb-search-form:focus-within {
     border-color: var(--wzkb-color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1), var(--wzkb-shadow-lg);
+    box-shadow: 0 0 0 3px var(--wzkb-primary-alpha-10), var(--wzkb-shadow-lg);
 }
 
 .wzkb-search-form label {
@@ -612,8 +631,8 @@ input[type="search"].wzkb-search-field::placeholder {
 
 input[type="submit"].wzkb-search-submit {
     display: block;
-    background: var(--wzkb-color-primary);
-    color: var(--wzkb-color-white);
+    background: var(--wzkb-search-submit-bg);
+    color: var(--wzkb-search-submit-color);
     border: none;
     border-radius: 0 10px 10px 0;
     padding: 14px 24px;
@@ -626,7 +645,7 @@ input[type="submit"].wzkb-search-submit {
 }
 
 input[type="submit"].wzkb-search-submit:hover {
-    background: var(--wzkb-color-primary-dark);
+    background: var(--wzkb-search-submit-bg-hover);
     transform: translateY(-1px);
     box-shadow: var(--wzkb-shadow-md);
 }
@@ -636,7 +655,7 @@ input[type="submit"].wzkb-search-submit:active {
 }
 
 input[type="submit"].wzkb-search-submit:focus {
-    outline: 2px solid var(--wzkb-color-primary);
+    outline: 2px solid var(--wzkb-search-submit-focus-ring);
     outline-offset: 2px;
 }
 
@@ -789,10 +808,10 @@ nav.pagination {
 
 /* Product Grid Layout */
 .wzkb-product-grid-wrapper {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+    background: linear-gradient(135deg, var(--wzkb-product-grid-bg-start) 0%, var(--wzkb-product-grid-bg-mid) 50%, var(--wzkb-product-grid-bg-end) 100%);
     padding: 40px;
     border-radius: var(--wzkb-border-radius-xl);
-    border: 2px solid rgba(37, 99, 235, 0.1);
+    border: 2px solid var(--wzkb-primary-alpha-10);
     box-shadow: var(--wzkb-shadow-xl);
     margin-top: 32px;
     display: block !important;
@@ -809,7 +828,7 @@ nav.pagination {
     right: 0;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--wzkb-primary-alpha-08) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -854,7 +873,7 @@ nav.pagination {
 .wzkb-product-card:focus-within {
     transform: translateY(-2px);
     box-shadow: var(--wzkb-shadow-xl);
-    border-color: rgba(37, 99, 235, 0.2);
+    border-color: var(--wzkb-primary-alpha-20);
 }
 
 .wzkb-product-card:hover::before,

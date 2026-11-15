@@ -9,12 +9,18 @@
 
 /* CSS Variables for Classic Style - Customization */
 :root {
-	/* Primary colors */
+	/* Primary colors (links, pagination); orange for badges + search */
 	--wzkb-color-primary: #4c51bf;
+	--wzkb-color-primary-dark: #3f46a8;
+	/* Orange: bright for accents; darker fill meets WCAG AAA with white text */
+	--wzkb-color-orange: #f97316;
+	--wzkb-color-orange-dark: #c2410c;
+	--wzkb-fill-accent: #9a3412;
+	--wzkb-fill-accent-hover: #7c2d12;
+	--wzkb-color-on-accent: #ffffff;
 	--wzkb-color-text: #333;
 	--wzkb-color-text-medium: #666;
 	--wzkb-color-white: #fff;
-	--wzkb-color-orange: #f97316;
 
 	/* Background colors */
 	--wzkb-bg-white: #fff;
@@ -51,6 +57,14 @@
 	--wzkb-color-text-dark: #202a44;
 	--wzkb-color-accent: #2457ff;
 	--wzkb-color-dark: #1a3a52;
+
+	/* Interactive surfaces (orange matches section count badges) */
+	--wzkb-search-submit-bg: var(--wzkb-fill-accent);
+	--wzkb-search-submit-bg-hover: var(--wzkb-fill-accent-hover);
+	--wzkb-search-submit-focus-ring: var(--wzkb-fill-accent);
+	--wzkb-search-submit-color: var(--wzkb-color-on-accent);
+	--wzkb-badge-bg: var(--wzkb-fill-accent);
+	--wzkb-badge-color: var(--wzkb-color-on-accent);
 }
 
 /* Category archive (single section view) - disable grid, show full width */
@@ -400,13 +414,13 @@
 }
 
 /* Section count badge */
-.wzkb-section-count {
+.wzkb .wzkb-section-count {
 	display: block;
 	float: left;
 	margin: 0;
 	padding: 6px 14px;
-	background: var(--wzkb-color-orange);
-	color: var(--wzkb-color-text) !important;
+	background: var(--wzkb-badge-bg);
+	color: var(--wzkb-badge-color);
 	border: none;
 	border-radius: 20px;
 	text-align: center;
@@ -494,7 +508,7 @@ body.single-wz_knowledgebase .nav-next {
 }
 
 .wzkb-search-form:focus-within {
-	border-color: var(--wzkb-color-primary, #667eea);
+	border-color: var(--wzkb-color-primary);
 	box-shadow: 0 2px 12px rgba(102, 126, 234, 0.2);
 }
 
@@ -506,7 +520,7 @@ body.single-wz_knowledgebase .nav-next {
 
 input[type="search"].wzkb-search-field {
 	border: none;
-	border-left: 1px solid #ddd;
+	border-left: 1px solid var(--wzkb-border-medium);
 	border-radius: 0 50px 50px 0;
 	color: var(--wzkb-color-text);
 	font-family: "Open Sans", sans-serif;
@@ -521,13 +535,13 @@ input[type="search"].wzkb-search-field {
 }
 
 input[type="search"].wzkb-search-field:focus {
-	background-color: var(--wzkb-bg-light, #f8f9fa);
+	background-color: var(--wzkb-bg-light);
 }
 
 input[type="submit"].wzkb-search-submit {
 	display: block;
-	background: var(--wzkb-color-primary, #667eea);
-	color: var(--wzkb-color-white);
+	background: var(--wzkb-search-submit-bg);
+	color: var(--wzkb-search-submit-color);
 	border: none;
 	border-radius: 50px 0 0 50px;
 	padding: 16px 20px;
@@ -542,7 +556,7 @@ input[type="submit"].wzkb-search-submit {
 }
 
 input[type="submit"].wzkb-search-submit:hover {
-	background: var(--wzkb-color-dark, #5567d8);
+	background: var(--wzkb-search-submit-bg-hover);
 	transform: translateY(-1px);
 }
 
@@ -551,7 +565,7 @@ input[type="submit"].wzkb-search-submit:active {
 }
 
 input[type="submit"].wzkb-search-submit:focus {
-	outline: 2px solid var(--wzkb-color-primary, #667eea);
+	outline: 2px solid var(--wzkb-search-submit-focus-ring);
 	outline-offset: -2px;
 }
 
@@ -565,8 +579,8 @@ nav.pagination {
 	width: 100%;
 	margin: 15px 0;
 	padding: 15px 0;
-	border-top: 1px dotted #ccc;
-	border-bottom: 1px dotted #ccc;
+	border-top: 1px dotted var(--wzkb-border-medium);
+	border-bottom: 1px dotted var(--wzkb-border-medium);
 	text-align: center;
 }
 
@@ -703,8 +717,8 @@ nav.pagination {
 .wzkb-product-grid-wrapper {
 	background: linear-gradient(
 		-135deg,
-		var(--wzkb-gradient-begin, #f3f6ff) 0%,
-		var(--wzkb-gradient-end, #fefefe) 65%
+		var(--wzkb-gradient-begin) 0%,
+		var(--wzkb-gradient-end) 65%
 	);
 	padding: 32px;
 	border-radius: 28px;
@@ -728,7 +742,7 @@ nav.pagination {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	background: var(--wzkb-bg-white, #ffffff);
+	background: var(--wzkb-bg-white);
 	border-radius: 20px;
 	padding: 24px 24px 28px;
 	border: 1px solid var(--wzkb-border-subtle, rgba(34, 48, 94, 0.08));
@@ -746,8 +760,9 @@ nav.pagination {
 	border-radius: 20px;
 	background: linear-gradient(
 		-135deg,
-		var(--wzkb-gradient-begin, rgba(80, 110, 255, 0.08)),
-		var(--wzkb-gradient-end, rgba(0, 172, 193, 0.08))
+		color-mix(in srgb, var(--wzkb-color-primary) 8%, var(--wzkb-bg-white))
+			0%,
+		color-mix(in srgb, var(--wzkb-color-dark) 8%, var(--wzkb-bg-white)) 100%
 	);
 	opacity: 0;
 	transition: opacity 180ms ease;
@@ -758,14 +773,14 @@ nav.pagination {
 .wzkb-product-card:focus-within {
 	transform: translateY(-2px);
 	box-shadow: 0 25px 50px var(--wzkb-shadow-hover, rgba(22, 33, 82, 0.16));
-	background: var(--wzkb-color-primary, #506eff);
-	color: var(--wzkb-color-white, #ffffff);
-	border: 1px solid var(--wzkb-color-white, #ffffff);
+	background: var(--wzkb-color-primary);
+	color: var(--wzkb-color-white);
+	border: 1px solid var(--wzkb-color-white);
 }
 
 .wzkb-product-card:hover .wzkb-product-title,
 .wzkb-product-card:focus-within .wzkb-product-title {
-	color: var(--wzkb-color-white, #ffffff);
+	color: var(--wzkb-color-white);
 }
 
 .wzkb-product-card:hover .wzkb-product-description,
@@ -805,7 +820,7 @@ nav.pagination {
 
 .wzkb-product-card:hover .wzkb-product-card-cta,
 .wzkb-product-card:focus-within .wzkb-product-card-cta {
-	color: var(--wzkb-color-white, #ffffff);
+	color: var(--wzkb-color-white);
 }
 
 .wzkb-product-card:hover::before,
@@ -825,12 +840,12 @@ nav.pagination {
 	margin: 0 0 12px;
 	font-size: 1.45rem;
 	font-weight: 700;
-	color: var(--wzkb-color-text-dark, #202a44);
+	color: var(--wzkb-color-text-dark);
 	line-height: 1.2;
 }
 
 .wzkb-product-card .wzkb-product-description {
-	color: var(--wzkb-color-text-medium, #5a6275);
+	color: var(--wzkb-color-text-medium);
 	font-size: 0.97rem;
 	line-height: 1.6;
 	margin-bottom: 24px;
@@ -842,7 +857,7 @@ nav.pagination {
 	gap: 6px;
 	font-weight: 600;
 	font-size: 0.95rem;
-	color: var(--wzkb-color-accent, #2457ff);
+	color: var(--wzkb-color-accent);
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 }
