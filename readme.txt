@@ -185,8 +185,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.3.1 =
 
-Release date: 8 November 2026
-
 **Changed**
 
 * [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
