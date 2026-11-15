@@ -28,7 +28,8 @@ class Import_Export {
 	 */
 	public function __construct() {
 		Hook_Registry::add_action( 'admin_init', array( $this, 'process_export' ) );
-		Hook_Registry::add_action( 'admin_init', array( $this, 'process_import' ), 9 );
+		// After Settings_API::admin_init() (priority 10) registers the sanitize callback that update_option() applies.
+		Hook_Registry::add_action( 'admin_init', array( $this, 'process_import' ), 11 );
 		Hook_Registry::add_action( 'wzkb_tools_page_content', array( $this, 'render_card' ), 5 );
 	}
 
@@ -102,9 +103,21 @@ class Import_Export {
 			return;
 		}
 
-		$existing = get_option( 'wzkb_settings', array() );
+		if ( ! has_filter( 'sanitize_option_wzkb_settings' ) ) {
+			wp_die( esc_html__( 'Settings can only be imported from the Tools page.', 'knowledgebase' ) );
+		}
 
-		update_option( 'wzkb_settings', self::merge_imported_settings( is_array( $existing ) ? $existing : array(), $imported ) );
+		$existing = get_option( 'wzkb_settings', array() );
+		$existing = is_array( $existing ) ? $existing : array();
+
+		// The sanitizer would re-encrypt stored ciphertext, so secrets are restored after it runs.
+		$restore_secrets = static function ( $output ) use ( $existing ) {
+			return is_array( $output ) ? self::merge_imported_settings( $existing, $output ) : $output;
+		};
+
+		add_filter( 'wzkb_settings_sanitize', $restore_secrets, PHP_INT_MAX );
+		update_option( 'wzkb_settings', self::merge_imported_settings( $existing, $imported ) );
+		remove_filter( 'wzkb_settings_sanitize', $restore_secrets, PHP_INT_MAX );
 
 		add_settings_error(
 			'wzkb-notices',
@@ -154,14 +167,8 @@ class Import_Export {
 		$raw      = file_get_contents( $tmp ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$imported = json_decode( $raw, true );
 
-		if ( ! is_array( $imported ) ) {
-			add_settings_error(
-				'wzkb-notices',
-				'wzkb_import_invalid_json',
-				esc_html__( 'Import failed: the file does not contain valid JSON settings.', 'knowledgebase' ),
-				'error'
-			);
-			return null;
+		if ( empty( $imported ) || ! is_array( $imported ) ) {
+			wp_die( esc_html__( 'Import failed: the file does not contain valid JSON settings.', 'knowledgebase' ) );
 		}
 
 		return $imported;
@@ -216,7 +223,8 @@ class Import_Export {
 		}
 
 		foreach ( $rows as $idx => $row ) {
-			if ( ! is_array( $row ) ) {
+			if ( ! is_array( $row ) || ( isset( $row['row_id'] ) && ! is_scalar( $row['row_id'] ) ) ) {
+				unset( $rows[ $idx ] );
 				continue;
 			}
 
@@ -234,7 +242,7 @@ class Import_Export {
 			}
 		}
 
-		return $rows;
+		return array_values( $rows );
 	}
 
 	/**

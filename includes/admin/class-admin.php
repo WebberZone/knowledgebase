@@ -218,7 +218,6 @@ class Admin {
 				'nav_label'    => esc_html__( 'Knowledge Base admin shortcuts', 'knowledgebase' ),
 				'eyebrow'      => esc_html__( 'WebberZone Knowledge Base', 'knowledgebase' ),
 				'title'        => esc_html__( 'Shape a helpful support hub your users will love.', 'knowledgebase' ),
-				'text'         => esc_html__( 'Jump to your most-used Knowledge Base tools, manage content faster, and explore more WebberZone plugins.', 'knowledgebase' ),
 			),
 			'sections'   => array(
 				'archive'  => array(

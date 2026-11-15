@@ -124,7 +124,7 @@ class Styles_Handler {
 	private function get_style_context() {
 		$rtl_suffix = is_rtl() ? '-rtl' : '';
 		$min_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$kb_style   = wzkb_get_option( 'kb_style', 'classic' );
+		$kb_style   = wzkb_get_option( 'kb_style', 'vibrant' );
 		$deps       = ( 'classic' === $kb_style ) ? array( 'dashicons' ) : array();
 
 		$style_url = $this->get_style_url( $kb_style, $rtl_suffix, $min_suffix );
@@ -151,8 +151,27 @@ class Styles_Handler {
 			wp_add_inline_style( $handle, esc_html( $custom_css ) );
 		}
 
-		$columns     = absint( wzkb_get_option( 'columns', 2 ) );
-		$columns_css = '.wzkb { --wzkb-columns: ' . $columns . '; }';
+		$columns = absint( wzkb_get_option( 'columns', 2 ) );
+		if ( $columns < 1 ) {
+			$columns = 1;
+		} elseif ( $columns > 4 ) {
+			$columns = 4;
+		}
+
+		// User column count on :root so preset @media rules can override .wzkb on small screens.
+		// Setting --wzkb-columns directly on .wzkb here previously beat every mobile breakpoint in the stylesheets.
+		$columns_css = sprintf(
+			':root { --wzkb-columns-user: %1$d; }' . PHP_EOL .
+			'.wzkb, .wzkb-product-grid { --wzkb-columns: var(--wzkb-columns-user, %1$d); }' . PHP_EOL .
+			'@media (max-width: 1024px) {' . PHP_EOL .
+			'	body.wzkb-sidebar-enabled .wzkb,' . PHP_EOL .
+			'	body.wzkb-sidebar-enabled .wzkb-product-grid { --wzkb-columns: 1; }' . PHP_EOL .
+			'}' . PHP_EOL .
+			'@media (max-width: 782px) {' . PHP_EOL .
+			'	.wzkb, .wzkb-product-grid { --wzkb-columns: 1; }' . PHP_EOL .
+			'}',
+			$columns
+		);
 		wp_add_inline_style( $handle, $columns_css );
 	}
 
@@ -165,11 +184,11 @@ class Styles_Handler {
 	 * @return array Modified array of body classes.
 	 */
 	public function add_style_body_class( $classes ) {
-		$kb_style  = wzkb_get_option( 'kb_style', 'classic' );
+		$kb_style  = wzkb_get_option( 'kb_style', 'vibrant' );
 		$classes[] = 'wzkb-style-' . sanitize_html_class( $kb_style );
 
 		// Add sidebar class if enabled.
-		if ( wzkb_get_option( 'show_sidebar' ) ) {
+		if ( wzkb_should_show_sidebar() ) {
 			$classes[] = 'wzkb-sidebar-enabled';
 		}
 

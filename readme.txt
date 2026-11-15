@@ -5,7 +5,7 @@ Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,16 +185,32 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.3.1 =
 
-Release date: 8 November 2026
+Release date: 15 November 2026
+
+**Added**
+
+* Save Changes button beneath the settings tabs for quicker access while scrolling.
+
+**Changed**
+
+* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
+* The default style preset for new sites is Vibrant instead of Classic.
 
 **Security**
 
 * [Pro] Hardened optional low-rating feedback so standalone submissions required a one-time server eligibility marker instead of vote-tracking cookies.
 * [Pro] Hardened the help widget contact form with server-side rate limits.
 
-**Changed**
+**Fixed**
 
-* [Pro] Article Rating settings describe how vote tracking relates to optional feedback after a low rating.
+* Backslashes could be removed from settings values when saved or displayed.
+* Archive layouts stayed at the configured column count on phones and tablets because inline CSS overrode the stylesheet responsive column rules.
+* Mobile archive pages had cramped header spacing and section titles overlapping count badges.
+* Desktop KB pages could show a large empty area on the right when a theme styled the standard `content-area` wrapper as a narrow column while the KB wrap stayed full width (for example GeneratePress with an inactive sidebar layout).
+* With the KB sidebar enabled, tablet widths near 820px kept a two-column archive beside the sidebar column, squeezing section titles and counts.
+* Settings import stored values without running them through the settings sanitizer.
+* Several style presets paired accent-colored section-count badges with mismatched search button colors and hard-coded color fallbacks instead of shared CSS variables.
+* Section-count badges and search buttons in Classic, Vibrant, Modern, Compact, and Gradient fell below WCAG AA contrast on bright orange and gradient fills.
 
 = 3.3.0 =
 
@@ -221,4 +237,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 3.3.1 =
-Security release. Hardens low-rating feedback and help widget contact submissions. Update recommended.
+Security and layout release. Hardens low-rating feedback and help widget submissions, fixes KB archive layout on mobile, tablet, and desktop, and improves style preset contrast. Update recommended.

@@ -257,6 +257,28 @@ function wzkb_the_kb_url() {
 }
 
 /**
+ * Whether the KB primary sidebar should be output on plugin templates.
+ *
+ * @since 3.3.1
+ *
+ * @return bool True when the sidebar option is enabled and not filtered off.
+ */
+function wzkb_should_show_sidebar() {
+	if ( ! wzkb_get_option( 'show_sidebar' ) ) {
+		return false;
+	}
+
+	/**
+	 * Filters whether the KB primary sidebar markup is output.
+	 *
+	 * @since 3.3.1
+	 *
+	 * @param bool $show_sidebar Whether to show the sidebar.
+	 */
+	return (bool) apply_filters( 'wzkb_show_sidebar', true );
+}
+
+/**
  * Get a hierarchical list of KB sections for a given product.
  *
  * @param int   $product_id Product term ID.
