@@ -1176,3 +1176,203 @@ figure.wzkb-search-result-thumb-link {
 .wzkb-toc-list a:hover {
 	text-decoration: underline;
 }
+
+/* Archive mobile spacing @since 3.3.1 */
+:root {
+	--wzkb-space-xs: 8px;
+	--wzkb-space-sm: 12px;
+	--wzkb-space-md: 16px;
+	--wzkb-space-lg: 24px;
+	--wzkb-space-xl: 32px;
+	--wzkb-space-header-gap: var(--wzkb-space-md);
+	--wzkb-space-section-gap: var(--wzkb-space-lg);
+}
+
+.wzkb .wzkb-section-name {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	column-gap: var(--wzkb-space-sm);
+	row-gap: var(--wzkb-space-xs);
+	overflow: visible;
+}
+
+.wzkb .wzkb-section-name > a,
+.wzkb .wzkb-section-title-text {
+	grid-column: 1;
+	min-width: 0;
+	word-break: break-word;
+}
+
+.wzkb-section-count {
+	float: none;
+	grid-column: 2;
+	grid-row: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	justify-self: end;
+	line-height: 1;
+	margin: 0;
+}
+
+.wzkb-section {
+	overflow-x: clip;
+}
+
+/* Search row: equal-height field and submit (all presets) */
+.wzkb-search-form {
+	align-items: stretch;
+	flex-wrap: nowrap;
+}
+
+.wzkb-search-form label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+	flex: 0 0 auto;
+}
+
+.wzkb-search-form input[type="search"].wzkb-search-field,
+.wzkb-search-form .wzkb-search-field,
+.wzkb-search-form input[type="submit"].wzkb-search-submit,
+.wzkb-search-form .wzkb-search-submit {
+	box-sizing: border-box;
+	margin: 0;
+	align-self: stretch;
+	height: auto;
+	min-height: 44px;
+	line-height: 1.25;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.wzkb-search-form input[type="search"].wzkb-search-field,
+.wzkb-search-form .wzkb-search-field {
+	flex: 1 1 auto;
+	min-width: 0;
+	width: auto;
+}
+
+.wzkb-search-form input[type="submit"].wzkb-search-submit,
+.wzkb-search-form .wzkb-search-submit {
+	flex: 0 0 auto;
+	min-width: 4.5rem;
+}
+
+@media (max-width: 782px) {
+	:root {
+		--wzkb-space-header-gap: var(--wzkb-space-md);
+		--wzkb-space-section-gap: var(--wzkb-space-md);
+	}
+
+	.wzkb_breadcrumb {
+		margin-block: var(--wzkb-space-md) 0;
+		padding: 10px 14px;
+		font-size: 14px;
+	}
+
+	.wzkb-search-form {
+		margin-block-start: var(--wzkb-space-lg);
+		margin-block-end: var(--wzkb-space-lg);
+		font-size: 1rem;
+	}
+
+	.wzkb-search-form input[type="search"].wzkb-search-field,
+	.wzkb-search-form .wzkb-search-field,
+	.wzkb-search-form input[type="submit"].wzkb-search-submit,
+	.wzkb-search-form .wzkb-search-submit {
+		font-size: 16px;
+		padding-block: 12px;
+	}
+
+	.wzkb-search-form input[type="search"].wzkb-search-field,
+	.wzkb-search-form .wzkb-search-field {
+		padding-inline: 44px 14px;
+		background-size: 20px 20px;
+		background-position: 12px center;
+	}
+
+	.wzkb-search-form input[type="submit"].wzkb-search-submit,
+	.wzkb-search-form .wzkb-search-submit {
+		padding-inline: 14px;
+	}
+
+	.wzkb-wrap .page-header {
+		margin: 0 0 var(--wzkb-space-lg);
+	}
+
+	.wzkb-wrap .page-title {
+		margin: 0;
+		line-height: 1.25;
+	}
+
+	.wzkb {
+		margin-block-start: 0;
+		gap: var(--wzkb-space-section-gap);
+	}
+
+	.wzkb .wzkb-section-name-level-1:first-child {
+		margin-top: 0;
+	}
+
+	.wzkb-section-wrapper > .wzkb-section {
+		margin-block-start: 0;
+	}
+
+	.wzkb .wzkb-section-name {
+		grid-template-columns: 1fr;
+		align-items: start;
+		margin-block-end: var(--wzkb-space-md);
+	}
+
+	.wzkb .wzkb-section-name > a,
+	.wzkb .wzkb-section-title-text {
+		grid-column: 1;
+	}
+
+	.wzkb-section-count {
+		grid-column: 1;
+		grid-row: 2;
+		justify-self: start;
+		margin-block-start: var(--wzkb-space-xs);
+	}
+
+	.wzkb-category-archive .wzkb-section-wrapper .wzkb-section {
+		margin-bottom: 0;
+	}
+}
+/* Desktop wrapper width @since 3.3.1 */
+/* Override theme .content-area widths (e.g. GeneratePress flex/grid sidebar layouts). */
+.wzkb-wrap #wzkb-content-primary,
+.wzkb-wrap #wzkb-content-primary.content-area {
+	width: 100%;
+	max-width: 100%;
+	float: none;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.wzkb-wrap > #wzkb-content-primary > .wzkb,
+.wzkb-wrap #wzkb-content-primary > .wzkb {
+	width: 100%;
+	max-width: 100%;
+	margin-inline: 0;
+}
+
+/* Two-column wrap only when the KB sidebar column exists (block themes may omit it). */
+body.wzkb-sidebar-enabled .wzkb-wrap:not(:has(#wzkb-sidebar-primary)) {
+	display: block;
+}
+
+body.wzkb-sidebar-enabled:has(#wzkb-sidebar-primary) .wzkb-wrap {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+}

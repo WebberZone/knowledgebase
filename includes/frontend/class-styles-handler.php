@@ -151,8 +151,23 @@ class Styles_Handler {
 			wp_add_inline_style( $handle, esc_html( $custom_css ) );
 		}
 
-		$columns     = absint( wzkb_get_option( 'columns', 2 ) );
-		$columns_css = '.wzkb { --wzkb-columns: ' . $columns . '; }';
+		$columns = absint( wzkb_get_option( 'columns', 2 ) );
+		if ( $columns < 1 ) {
+			$columns = 1;
+		} elseif ( $columns > 4 ) {
+			$columns = 4;
+		}
+
+		// User column count on :root so preset @media rules can override .wzkb on small screens.
+		// Setting --wzkb-columns directly on .wzkb here previously beat every mobile breakpoint in the stylesheets.
+		$columns_css = sprintf(
+			':root { --wzkb-columns-user: %1$d; }' . PHP_EOL .
+			'.wzkb, .wzkb-product-grid { --wzkb-columns: var(--wzkb-columns-user, %1$d); }' . PHP_EOL .
+			'@media (max-width: 782px) {' . PHP_EOL .
+			'	.wzkb, .wzkb-product-grid { --wzkb-columns: 1; }' . PHP_EOL .
+			'}',
+			$columns
+		);
 		wp_add_inline_style( $handle, $columns_css );
 	}
 
@@ -169,7 +184,7 @@ class Styles_Handler {
 		$classes[] = 'wzkb-style-' . sanitize_html_class( $kb_style );
 
 		// Add sidebar class if enabled.
-		if ( wzkb_get_option( 'show_sidebar' ) ) {
+		if ( wzkb_should_show_sidebar() ) {
 			$classes[] = 'wzkb-sidebar-enabled';
 		}
 

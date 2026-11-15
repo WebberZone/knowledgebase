@@ -33,6 +33,7 @@ dev-tools/
 wporg-assets/
 test-tools/
 docs/
+dev-helpers/
 includes/frontend/blocks/src/
 includes/pro/blocks/src/
 build-assets.js

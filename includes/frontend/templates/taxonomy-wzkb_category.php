@@ -67,7 +67,7 @@ wp_add_inline_style( 'wz-knowledgebase-styles', $wzkb_inline_css );
 	</div><!-- .content-area -->
 
 	<?php
-	if ( wzkb_get_option( 'show_sidebar' ) ) {
+	if ( wzkb_should_show_sidebar() ) {
 		include_once 'sidebar-primary.php';
 	}
 	?>

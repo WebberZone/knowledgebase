@@ -659,7 +659,7 @@ class Display {
 		if ( ! empty( $args['clickable_section'] ) ) {
 			$output .= '<a href="' . esc_url( get_term_link( $term ) ) . '" title="' . esc_attr( $term->name ) . '">' . esc_html( $term->name ) . '</a>';
 		} else {
-			$output .= esc_html( $term->name );
+			$output .= '<span class="wzkb-section-title-text">' . esc_html( $term->name ) . '</span>';
 		}
 
 		if ( ! empty( $args['show_article_count'] ) ) {
