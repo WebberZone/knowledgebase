@@ -29,7 +29,21 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 ## Plugin Overview
 
-**This file is identical in `knowledgebase` (free) and `knowledgebase-pro` (pro).** To tell which repo you are in: `includes/pro/` exists in the pro repo only, and the git remote is `WebberZone/knowledgebase-pro` rather than `WebberZone/knowledgebase`. The pro repo is the source of truth for both — make every change there, including free-tier code, then regenerate the free repo with `dev-tools/sync-pro-to-free.sh`. Never edit the free repo directly.
+**This file is identical in `knowledgebase` (free) and `knowledgebase-pro` (pro).** To tell which repo you are in: `includes/pro/` exists in the pro repo only, and the git remote is `WebberZone/knowledgebase-pro` rather than `WebberZone/knowledgebase`.
+
+### Agent workflow: pro → free (mandatory)
+
+1. Edit **`knowledgebase-pro/` only** — shared PHP, templates, and free presets under `includes/frontend/` live here alongside `includes/pro/`.
+2. Do **not** hand-edit `knowledgebase/` (`cp`, `rsync`, or cherry-picking single files into the free repo).
+3. From the GitHub workspace root, regenerate free:
+
+```bash
+dev-tools/sync-pro-to-free.sh knowledgebase-pro
+```
+
+4. Commit **pro** and **free** on matching branches when both need to ship (free `readme.txt` is derived by the sync script).
+
+For archive layout/CSS, verify on a local site with screenshots — `dev-helpers/kb-visual-qa.mjs` (see `dev-helpers/plans/`).
 
 WebberZone Knowledge Base, namespace `WebberZone\Knowledge_Base`, is a WordPress multi-product knowledge base plugin. Freemium via Freemius: free core features, premium in `includes/pro/`. Activating either plugin auto-deactivates the other.
 
@@ -132,7 +146,7 @@ Verify a change by building the zip and loading the classes from the extracted t
 
 **Caching** (`includes/util/class-cache.php`): Term meta-based caching (not transients) with expiry timestamps. AJAX endpoint for admin cache clearing. Use atomic operations when modifying cached data.
 
-**Free vs Pro**: The pro plugin (`knowledgebase-pro/`) is a **standalone, complete replacement** for the free plugin (`knowledgebase/`): it has its own full copy of all free files (e.g. `includes/frontend/class-shortcodes.php`) **plus** premium-only code in `includes/pro/`. Activating either auto-deactivates the other. Edit free-tier features inside `knowledgebase-pro/` only — never the sibling `knowledgebase/`. Pro-only features are conditionally instantiated in `Main::init()`, living exclusively in `includes/pro/`.
+**Free vs Pro**: The pro plugin (`knowledgebase-pro/`) is a **standalone, complete replacement** for the free plugin (`knowledgebase/`): it has its own full copy of all free files (e.g. `includes/frontend/class-shortcodes.php`) **plus** premium-only code in `includes/pro/`. Activating either auto-deactivates the other. Pro-only features are conditionally instantiated in `Main::init()`, living exclusively in `includes/pro/`. Push free-tier changes down with **`dev-tools/sync-pro-to-free.sh knowledgebase-pro`** — see **Agent workflow: pro → free** above.
 
 ### Component Map
 
