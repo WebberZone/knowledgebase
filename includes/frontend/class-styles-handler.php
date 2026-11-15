@@ -163,6 +163,10 @@ class Styles_Handler {
 		$columns_css = sprintf(
 			':root { --wzkb-columns-user: %1$d; }' . PHP_EOL .
 			'.wzkb, .wzkb-product-grid { --wzkb-columns: var(--wzkb-columns-user, %1$d); }' . PHP_EOL .
+			'@media (max-width: 1024px) {' . PHP_EOL .
+			'	body.wzkb-sidebar-enabled .wzkb,' . PHP_EOL .
+			'	body.wzkb-sidebar-enabled .wzkb-product-grid { --wzkb-columns: 1; }' . PHP_EOL .
+			'}' . PHP_EOL .
 			'@media (max-width: 782px) {' . PHP_EOL .
 			'	.wzkb, .wzkb-product-grid { --wzkb-columns: 1; }' . PHP_EOL .
 			'}',
