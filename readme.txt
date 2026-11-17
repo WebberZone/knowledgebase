@@ -183,6 +183,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.3.2 =
+
+**Fixed**
+
+* Thumbnails without alt text now output an empty `alt` attribute so screen readers skip decorative images.
+
 = 3.3.1 =
 
 Release date: 15 November 2026
