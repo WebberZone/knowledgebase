@@ -185,6 +185,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 = 3.3.2 =
 
+**Security**
+
+* [Pro] Prevented spreadsheet formula injection in the ratings feedback CSV export.
+
 **Fixed**
 
 * Thumbnails without alt text now output an empty `alt` attribute so screen readers skip decorative images.
