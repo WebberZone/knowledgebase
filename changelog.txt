@@ -209,7 +209,7 @@ Release post: https://webberzone.com/announcements/knowledge-base-v3-1-0/
 
 **Added**
 
-* [Pro] Documentation Layout Mode: three-column docs site layout with a sticky, collapsible section-tree sidebar, article content area, and on-this-page TOC rail. Enable via Settings → Pro. Works on all KB page types (home, product, section, single article, search).
+* [Pro] Documentation Layout Mode: three-column docs site layout with a sticky, collapsible section-tree sidebar, article content area, and on-this-page TOC rail. Enable via Settings → Styles. Works on all KB page types (home, product, section, single article, search).
 * [Pro] Section Tree block (`knowledgebase/section-tree`) and sidebar widget: context-aware hierarchical navigation tree displaying products, sections, and articles with collapsible accordion and active-item highlighting. Adapts automatically to the current product, section, or article page.
 * [Pro] GitHub Integration: sync markdown documentation between GitHub repositories and the Knowledge Base via webhooks, with YAML frontmatter, markdown-to-Gutenberg conversion, and HMAC signature verification. Import and export are combined into a single Importer/Exporter page, with featured image support and a post-import next-actions panel.
 * [Pro] Article Export & Import: export articles as a Markdown ZIP, SQL dump, or XLSX spreadsheet, and re-import Markdown ZIPs (matched by slug) to restore or migrate.

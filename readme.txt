@@ -151,7 +151,7 @@ Yes. You can use the [knowledgebase] shortcode in any page builder. The plugin a
 
 = Can visitors search the knowledge base? =
 
-Yes. The plugin includes a built-in search form (via the [wzkb_search] shortcode and a Search block for Gutenberg) with optional live AJAX suggestions. You can enable or disable live search from the plugin settings. The Pro version also adds a floating Help Widget with live search and suggested articles.
+Yes. The plugin includes a built-in search form (via the [kbsearch] shortcode and a Search block for Gutenberg) with optional live AJAX suggestions. You can enable or disable live search from the plugin settings. The Pro version also adds a floating Help Widget with live search and suggested articles.
 
 = Is it compatible with WPML or Polylang? =
 
