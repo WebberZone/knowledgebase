@@ -3,7 +3,7 @@ Contributors: Ajay, webberzone
 Donate link: https://wzn.io/donate-wz
 Tags: knowledge base, documentation, FAQ, support, wiki
 Requires at least: 6.9
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.4
 Stable tag: 3.3.2
 License: GPLv2 or later
